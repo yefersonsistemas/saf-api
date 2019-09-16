@@ -14,4 +14,19 @@ class Billing extends Model //facturacion
     {
         return $this->belongsTo('App\Employe');
     }
+
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function patients()
+    {
+        return $this->belongsTo('App\Patient');
+    }
+
+    public function payments()
+    {
+        return $this->belongsTo('App\Payment');
+    }
 }

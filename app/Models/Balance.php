@@ -14,4 +14,11 @@ class Balance extends Model
     {
         return $this->belongsTo('App\Employe');
     }
+
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+
 }
