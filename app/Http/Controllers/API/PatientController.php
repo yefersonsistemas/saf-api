@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Allergy;
 use App\Disease;
@@ -20,11 +20,11 @@ class PatientController extends Controller
   * @return \Illuminate\Http\Response
   */
 
- public function index(Request $request)
- {
-  $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
-  return view('dashboard.patients.index', compact('patients'));
- }
+  public function index(Request $request)
+  {
+    $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
+    return view('dashboard.patients.index', compact('patients'));
+  }
 
  /**
   * Show the form for creating a new resource.
