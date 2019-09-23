@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-//use App\Allergy;
-//use App\Disease;
+use App\Http\Controllers\Controller;
+use App\Allergy;
+use App\Disease;
 use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 //use App\Medicine;
