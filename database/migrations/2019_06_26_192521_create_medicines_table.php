@@ -16,10 +16,10 @@ class CreateMedicinesTable extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
                   ->references('id')
                   ->on('branch_oficces')
                   ->onDelete('CASCADE');

@@ -13,11 +13,28 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request){
     return $request->user();
 });
 
+Route::get('/', function () {
+    return redirect()->route('login');
+})->name('home');
 
-Route::get('/test', function() {
-    return response()->json('hola');
-});
+/*
+Auth::routes();
+
+Route::get('/sedes', 'API\HeadquartersController@create');
+
+Route::group(['middleware' => ['auth']], function () { 
+
+    Route::group(['prefix' => 'dashboard'], function () { 
+
+        Route::group(['prefix' => 'patients'], function () {
+            
+            
+          
+        });
+
+    });
+});*/

@@ -20,26 +20,17 @@ class ConfigurationController extends Controller
      */
     public function index(Request $request)
     {
-        $user      = Auth::user();
-        // dd($user->roles()->pluck('name')->first());
-        $doctors   = User::role('doctor')->get();
-        return view('dashboard.configuration.personal', compact('user','doctors'));
+        //
     }
 
     public function dolarPrice()
     {
-        $doctors   = User::role('doctor')->get();
-        $price = Configuration::where('name','price_usd')->first();
-        return view('dashboard.configuration.dolar', compact('price','doctors'));
+       //
     }
 
     public function dolarUpdate(Request $request, Configuration $dolar)
     {
-        $dolar->update([
-            'value' => $request->price,
-        ]);
-
-        return redirect()->route('configuration.dolar');
+      //
     }
 
     /**

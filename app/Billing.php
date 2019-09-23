@@ -7,17 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Billing extends Model //facturacion
 {
     protected $fillable = [ //saldo
-        'process', 'dni', 'name', 'lastname', 'address', 'phone', 'user_id', 'Patient_id', 'Type_Payment_id', 'Type_Currency_id', 'Branchoffice_id'
+        'procedure_employe_id', 'person_id', 'patient_id', 'type_payment_id', 'type_currency_id', 'branchoffice_id'
     ];
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
-    }
-
-    public function users()
-    {
-        return $this->belongsTo('App\User');
+        return $this->hasone('App\Employe');
     }
 
     public function patients()
@@ -29,4 +24,11 @@ class Billing extends Model //facturacion
     {
         return $this->belongsTo('App\Payment');
     }
+
+    public function procedure()
+    {
+        return $this->hasmany('App\Procedure');
+    }
+
+
 }

@@ -7,13 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Surgery extends Model
 {
     protected $fillable = [ //saldo
-        'date', 'user_id', 'Patient_id', 'Area_id', 'Type_Surgery_id', 'Branchoffice_id'
+        'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branchoffice_id'
     ];
-
-    public function users()
-    {
-        return $this->belongsTo('App\User');
-    }
 
     public function employe()
     {

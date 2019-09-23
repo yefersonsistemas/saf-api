@@ -23,7 +23,7 @@ class HeadquartersController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
 
     /**

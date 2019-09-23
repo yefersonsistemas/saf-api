@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     protected $fillable = [
-        'day', 'quantity', 'user_id',
+        'day', 'turn', 'quota', 'employe_id', 'branchoffice_id'
     ];
 
-    public function users()
+    public function employe()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\Employe','employe_id');
     }
 
     public function reservations()

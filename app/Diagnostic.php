@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Diagnostic extends Model
 {
     protected $fillable = [
-        'description', 'reason', 'treatment', 'annex', 'patient_id', 'user_id', 'next_cite'
+        'patient_id', 'description', 'reason', 'treatment', 'annex', 'next_cite', 'employe_id', 'branchoffice_id'
     ];
 
     public function patient()
@@ -20,8 +20,8 @@ class Diagnostic extends Model
         return $this->hasOne('App\Payment');
     }
 
-    public function doctor()
+    public function employe()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\Employe', 'employe_id');
     }
 }

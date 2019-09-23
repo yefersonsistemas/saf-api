@@ -16,19 +16,12 @@ class CreatePositionsTable extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->double('comission');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('Reservation_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
-            ->on('users')
-            ->onDelete('CASCADE');
-
-            $table->foreign('Reservation_id')
-            ->references('id')
-            ->on('reservations')
+            ->on('branch_oficces')
             ->onDelete('CASCADE');
         });
     }

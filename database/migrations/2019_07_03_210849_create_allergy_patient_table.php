@@ -17,12 +17,12 @@ class CreateAllergyPatientTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('allergy_id');
             $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
             $table->foreign('allergy_id')
                 ->references('id')
-                ->on('medicines')
+                ->on('allergies')
                 ->onDelete('CASCADE');
 
             $table->foreign('patient_id')
@@ -30,7 +30,7 @@ class CreateAllergyPatientTable extends Migration
                 ->on('patients')
                 ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
                 ->references('id')
                 ->on('branch_oficces')
                 ->onDelete('CASCADE');

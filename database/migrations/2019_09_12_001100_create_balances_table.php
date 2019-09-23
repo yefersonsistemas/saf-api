@@ -15,17 +15,17 @@ class CreateBalancesTable extends Migration
     {
         Schema::create('balances', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('employe_id');
             $table->double('total');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('employe_id')
             ->references('id')
-            ->on('users')
+            ->on('employes')
             ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');

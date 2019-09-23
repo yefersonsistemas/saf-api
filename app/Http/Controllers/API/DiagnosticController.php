@@ -29,7 +29,7 @@ class DiagnosticController extends Controller
      */
     public function create(Patient $patient)
     {
-        return view('dashboard.diagnostics.create', ['patient' => $patient]);
+        //return view('dashboard.diagnostics.create', ['patient' => $patient]);
     }
 
     /**
@@ -40,19 +40,7 @@ class DiagnosticController extends Controller
      */
     public function store(CreateDiagnosticRequest $request, Patient $patient)
     {
-        $user      = Auth::user();
-        $data      = $request->validated();
-            Diagnostic::create([
-                'description' => $data['description'],
-                'reason' => $data['reason'],
-                'treatment' => $request->treatment,
-                'annex' => $request->annex,
-                'next_cite' => Carbon::parse($request->next_cite),
-                'patient_id' => $patient->id,
-                'user_id' => $user->id,
-            ]);
-            
-        return redirect()->route('patients.show', $patient)->withSuccess('El diagnostico fue guardado correctamente');
+       //
     }
 
     /**
@@ -63,8 +51,7 @@ class DiagnosticController extends Controller
      */
     public function show(Diagnostic $diagnostic)
     {
-       $patient = $diagnostic->patient;
-       return view('dashboard.diagnostics.show', compact('diagnostic','patient'));
+       //
     }
 
     /**

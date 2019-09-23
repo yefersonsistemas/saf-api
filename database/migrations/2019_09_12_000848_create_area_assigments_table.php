@@ -15,22 +15,22 @@ class CreateAreaAssigmentsTable extends Migration
     {
         Schema::create('area_assigments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('Area_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('employe_id');
+            $table->unsignedBigInteger('area_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('employe_id')
             ->references('id')
-            ->on('users')
+            ->on('employes')
             ->onDelete('CASCADE');
 
-            $table->foreign('Area_id')
+            $table->foreign('area_id')
             ->references('id')
             ->on('areas')
             ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');

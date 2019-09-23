@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePersonsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('persons', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->enum('type_dni', ['V', 'E', 'J']);
+            $table->string('dni');
+            $table->string('name');
+            $table->string('lastname');
+            $table->string('address');
+            $table->string('phone')->nullable();
+            $table->string('email')->unique();
+            $table->unsignedBigInteger('branchoffice_id');
+            $table->timestamps();
+
+            $table->foreign('branchoffice_id')
+            ->references('id')
+            ->on('branch_oficces')
+            ->onDelete('CASCADE');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('persons');
+    }
+}

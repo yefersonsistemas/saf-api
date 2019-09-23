@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model; //moneda
 class TypeCurrency extends Model
 {
     protected $fillable = [ //saldo
-        'name', 'Branchoffice_id'
+        'name', 'branchoffice_id'
     ];
+
+    public function payment()
+    {
+        return $this->belongsTo('App\Payment');
+    }
 }

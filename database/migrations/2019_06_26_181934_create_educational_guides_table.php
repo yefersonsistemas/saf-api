@@ -18,10 +18,10 @@ class CreateEducationalGuidesTable extends Migration
             $table->string('name');
             $table->string('path');
             $table->longText('description');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');

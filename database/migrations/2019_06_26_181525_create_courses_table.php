@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->longText('description');
             $table->unsignedBigInteger('specialitie_id');
             $table->unsignedBigInteger('program_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
             $table->foreign('specialitie_id')
@@ -30,7 +30,7 @@ class CreateCoursesTable extends Migration
             ->references('id')
             ->on('programs');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SchedulesM extends Migration
+class CreateTypeEquipmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class SchedulesM extends Migration
      */
     public function up()
     {
-        Schema::table('schedules', function (Blueprint $table) {
-            $table->dropColumn('quantity');
-            $table->enum('turn', ['mañana', 'tarde'])->after('user_id');
-            $table->integer('quota')->after('turn');
-            $table->unsignedBigInteger('Branchoffice_id');
+        Schema::create('type_equipment', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->unsignedBigInteger('branchoffice_id');
+            $table->timestamps();
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');
@@ -33,6 +33,6 @@ class SchedulesM extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('type_equipment');
     }
 }

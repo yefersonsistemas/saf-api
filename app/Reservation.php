@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     protected $fillable = [
-        'user_id', 'consultation_type', 'schedule_id', 'description', 'reserve_date',
+        'date', 'description', 'status', 'schedule_id', 'branchoffice_id'
     ];
 
-    public function user()
+    public function employe()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\Emplopye','employe_id');
     }
 
     public function consultationType()
@@ -24,4 +24,11 @@ class Reservation extends Model
     {
         return $this->belongsTo('App\Schedule','schedule_id');
     }
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Patient');
+    }
+
+
 }

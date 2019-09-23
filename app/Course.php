@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Course extends Model  //curso
 {
     protected $fillable = [
-        'name', 'description', 'specialitie_id', 'program_id',
+        'name', 'description', 'specialitie_id', 'program_id', 'Branchoffice_id'
     ];
     
     public function users()

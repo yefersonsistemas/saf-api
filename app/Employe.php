@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employe extends Model
 {
     protected $fillable = [ //saldo
-        'dni', 'name', 'lastname', 'address', 'email', 'phone', 'user_id', 'Branchoffice_id'
+        'person_id', 'position_id', 'branchoffice_id'
     ];
 
     public function billing()
@@ -17,7 +17,7 @@ class Employe extends Model
 
     public function positions()
     {
-        return $this->belongsTo('App\Position');
+        return $this->hasone('App\Position');
     }
 
     public function payments()
@@ -25,9 +25,14 @@ class Employe extends Model
         return $this->belongsTo('App\Payment');
     }
 
-   /* public function users()
+    public function patients()
     {
-        return $this->belongsTo('App\User');
-    }*/
+        return $this->belongsToMany('App\Patient');
+    }
+
+    public function doctor()
+    {
+        return $this->hasone('App\Doctor');
+    }
 
 }

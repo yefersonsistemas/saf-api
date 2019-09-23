@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Speciality extends Model
 {
     protected $fillable = [
-        'name', 'description',
+        'name', 'description', 'branchoffice_id'
     ];
     
     public function users()

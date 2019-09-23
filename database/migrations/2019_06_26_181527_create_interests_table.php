@@ -15,12 +15,12 @@ class CreateInterestsTable extends Migration
     {
         Schema::create('interests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('employe_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('CASCADE');
@@ -30,7 +30,7 @@ class CreateInterestsTable extends Migration
                 ->on('courses')
                 ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
                 ->references('id')
                 ->on('branch_oficces')
                 ->onDelete('CASCADE');

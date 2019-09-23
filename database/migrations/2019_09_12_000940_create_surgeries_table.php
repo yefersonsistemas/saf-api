@@ -16,34 +16,34 @@ class CreateSurgeriesTable extends Migration
         Schema::create('surgeries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('Patient_id');
-            $table->unsignedBigInteger('Area_id');
-            $table->unsignedBigInteger('Type_Surgery_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('employe_id');
+            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('area_id');
+            $table->unsignedBigInteger('type_surgery_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('employe_id')
             ->references('id')
-            ->on('users')
+            ->on('employes')
             ->onDelete('CASCADE');
 
-            $table->foreign('Patient_id')
+            $table->foreign('patient_id')
             ->references('id')
             ->on('patients')
             ->onDelete('CASCADE');
 
-            $table->foreign('Area_id')
+            $table->foreign('area_id')
             ->references('id')
             ->on('areas')
             ->onDelete('CASCADE');
 
-            $table->foreign('Type_Surgery_id')
+            $table->foreign('type_surgery_id')
             ->references('id')
             ->on('typesurgeries')
             ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');

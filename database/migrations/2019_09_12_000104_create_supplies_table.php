@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProcedureUserTable extends Migration
+class CreateSuppliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,25 @@ class CreateProcedureUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('procedure_user', function (Blueprint $table) {
+        Schema::create('supplies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('procedure_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->string('name');
+            $table->unsignedBigInteger('type_supplie_id');
+            $table->string('presentation');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('type_supplie_id')
             ->references('id')
-            ->on('users');
-            
-            $table->foreign('procedure_id')
-            ->references('id')
-            ->on('procedures');
+            ->on('type_supplies')
+            ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');
+       
+
         });
     }
 
@@ -42,6 +42,6 @@ class CreateProcedureUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('procedure_user');
+        Schema::dropIfExists('supplies');
     }
 }

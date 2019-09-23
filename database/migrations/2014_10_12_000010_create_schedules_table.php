@@ -16,13 +16,20 @@ class CreateSchedulesTable extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('day', ['lunes', 'Martes','Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']);
-            $table->unsignedBigInteger('quantity');
-            $table->unsignedBigInteger('user_id');
+            $table->enum('turn', ['mañana', 'tarde']);
+            $table->integer('quota');
+            $table->unsignedBigInteger('employe_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('employe_id')
                 ->references('id')
-                ->on('users')
+                ->on('employes')
+                ->onDelete('CASCADE');
+
+            $table->foreign('branchoffice_id')
+                ->references('id')
+                ->on('branch_oficces')
                 ->onDelete('CASCADE');
            
         });

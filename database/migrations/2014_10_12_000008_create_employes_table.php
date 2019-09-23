@@ -15,22 +15,22 @@ class CreateEmployesTable extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('dni');
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('address');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('position_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('person_id')
                   ->references('id')
-                  ->on('users')
+                  ->on('persons')
                   ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('position_id')
+                  ->references('id')
+                  ->on('positions')
+                  ->onDelete('CASCADE');
+
+            $table->foreign('branchoffice_id')
                   ->references('id')
                   ->on('branch_oficces')
                   ->onDelete('CASCADE');

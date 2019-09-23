@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBranchOficcesTable extends Migration
+class CreateTypeDoctorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class CreateBranchOficcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('branch_oficces', function (Blueprint $table) {
+        Schema::create('type_doctors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('length');
-            $table->string('latitude');
+            $table->double('comission');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
+
+            $table->foreign('branchoffice_id')
+            ->references('id')
+            ->on('branch_oficces')
+            ->onDelete('CASCADE');
         });
     }
 
@@ -29,6 +34,6 @@ class CreateBranchOficcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branch_oficces');
+        Schema::dropIfExists('type_doctors');
     }
 }

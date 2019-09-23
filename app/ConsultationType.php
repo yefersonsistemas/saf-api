@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ConsultationType extends Model
+class ConsultationType extends Model  //motivo de la reservacion
 {
     protected $fillable = [
-        'name', 'description',
+        'name', 'description', 'reservation_id', 'branchoffice_id'
     ];
 
     public function reservations()

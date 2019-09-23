@@ -7,11 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Typesurgery extends Model //tipos de cirugias
 {
     protected $fillable = [ 
-        'name', 'cost', 'duration_time', 'Branchoffice_id'
+        'name', 'duration', 'cost',  'branchoffice_id'
     ];
 
     public function employe()
     {
         return $this->belongsTo('App\Employe');
+    }
+
+    public function surgery()
+    {
+        return $this->belongsTo('App\Surgery');
     }
 }

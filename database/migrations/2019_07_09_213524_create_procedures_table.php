@@ -18,10 +18,10 @@ class CreateProceduresTable extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->double('price')->nullable();
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
                   ->references('id')
                   ->on('branch_oficces')
                   ->onDelete('CASCADE');

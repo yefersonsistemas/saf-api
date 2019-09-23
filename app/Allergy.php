@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 
 
-class Allergy extends Model
+class Allergy extends Model //alergia
 {
     protected $fillable = [
-        'name', 'Branchoffice_id'
+        'name', 'branchoffice_id'
     ];
     public function patients()
     {

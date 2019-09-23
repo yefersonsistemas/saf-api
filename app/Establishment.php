@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Establishment extends Model
 {
     protected $fillable = [
-        'name', 'coordinate', 'description',
+        'name', 'coordinate', 'description', 'branchoffice_id'
     ];
     public function image()
     {

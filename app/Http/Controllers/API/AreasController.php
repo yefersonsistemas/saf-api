@@ -23,7 +23,7 @@ class AreasController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

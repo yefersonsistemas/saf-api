@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AreaAssigment extends Model
+class AreaAssigment extends Model //area asignada
 {
     protected $fillable = [
-        'user_id', 'Area_id', 'Branchoffice_id'
+        'employe_id', 'area_id', 'branchoffice_id'
     ];
 
-    public function users()
+    public function employe()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Employe');
     }
 
     public function areas()

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSpecialityUserTable extends Migration
+class CreateSpecialityEmployeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateSpecialityUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('speciality_user', function (Blueprint $table) {
+        Schema::create('speciality_employe', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('speciality_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('employe_id')
                 ->references('id')
-                ->on('users')
+                ->on('employes')
                 ->onDelete('CASCADE');
 
             $table->foreign('speciality_id')
@@ -30,7 +30,7 @@ class CreateSpecialityUserTable extends Migration
                 ->on('specialities')
                 ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
                   ->references('id')
                   ->on('branch_oficces')
                   ->onDelete('CASCADE');

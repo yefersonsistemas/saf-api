@@ -16,16 +16,16 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('Type_Area_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('type_area_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('Type_Area_id')
+            $table->foreign('type_area_id')
             ->references('id')
             ->on('type_areas')
             ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');

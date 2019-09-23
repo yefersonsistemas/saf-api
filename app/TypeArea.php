@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TypeArea extends Model
 {
     protected $fillable = [ //saldo
-        'name', 'description', 'Branchoffice_id'
+        'name', 'description', 'branchoffice_id'
     ];
 
     public function areas()

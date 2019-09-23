@@ -15,40 +15,40 @@ class CreateBillingsTable extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('process');
-            $table->string('dni');
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('address');
-            $table->string('phone');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('Patient_id');
-            $table->unsignedBigInteger('Type_Payment_id');
-            $table->unsignedBigInteger('Type_Currency_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('procedure_employe_id');
+            $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('type_payment_id');
+            $table->unsignedBigInteger('type_currency_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('procedure_employe_id')
             ->references('id')
-            ->on('users')
+            ->on('procedure_employe')
             ->onDelete('CASCADE');
 
-            $table->foreign('Patient_id')
+            $table->foreign('person_id')
+            ->references('id')
+            ->on('persons')
+            ->onDelete('CASCADE');
+
+            $table->foreign('patient_id')
             ->references('id')
             ->on('patients')
             ->onDelete('CASCADE');
 
-            $table->foreign('Type_Payment_id')
+            $table->foreign('type_payment_id')
             ->references('id')
             ->on('type_payments')
             ->onDelete('CASCADE');
 
-            $table->foreign('Type_Currency_id')
+            $table->foreign('type_currency_id')
             ->references('id')
             ->on('type_currencies')
             ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
             ->references('id')
             ->on('branch_oficces')
             ->onDelete('CASCADE');

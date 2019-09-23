@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','lastname','gender','birthdate','phone',
+        'password', 'person_id', 'branchoffice_id'
     ];
 
     /**
@@ -43,10 +43,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany('App\Speciality');
     }
 
-    public function courses()
+   /* public function courses()
     {
         return $this->belongsToMany('App\Course');
-    }
+    }*/
 
     public function schedules()
     {
@@ -62,6 +62,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany('App\Procedure');
     }
+
+    public function areasassigment()
+    {
+        return $this->belongsTo('App\AresAssigment');
+    }
+ 
     /**
      * Get the first name of the User
      */

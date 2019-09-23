@@ -17,31 +17,25 @@ class CreatePatientsTable extends Migration
             $table->bigIncrements('id');
             $table->date('date')->nullable();
             $table->string('history_number')->nullable();
-            $table->string('name');
-            $table->string('lastname');
-            $table->unsignedInteger('dni')->unique();
-            $table->enum('type_dni', ['V', 'E', 'J']);
+            $table->unsignedBigInteger('person_id');
             $table->enum('gender', ['Femenino', 'Masculino']);
-            $table->string('phone');
-            $table->string('email');
             $table->string('place');
             $table->date('birthdate');
             $table->unsignedInteger('age');
             $table->unsignedInteger('weight');
             $table->string('occupation');
             $table->string('profession');
-            $table->string('address');
             $table->string('previous_surgery')->nullable();
-            $table->unsignedBigInteger('doctor_id');
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->unsignedBigInteger('employe_id');
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
             
-            $table->foreign('doctor_id')
+            $table->foreign('employe_id')
                 ->references('id')
-                ->on('users')
+                ->on('employes')
                 ->onDelete('CASCADE');
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
                   ->references('id')
                   ->on('branch_oficces')
                   ->onDelete('CASCADE');

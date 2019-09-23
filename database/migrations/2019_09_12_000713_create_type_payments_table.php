@@ -15,11 +15,11 @@ class CreateTypePaymentsTable extends Migration
     {
         Schema::create('type_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('name', ['cash', 'point_of_sale', 'transfer']);
-            $table->unsignedBigInteger('Branchoffice_id');
+            $table->enum('name', ['Efectivo', 'Punto_de_Venta', 'Transferencia', 'Seguro_Social']);
+            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
-            $table->foreign('Branchoffice_id')
+            $table->foreign('branchoffice_id')
                   ->references('id')
                   ->on('branch_oficces')
                   ->onDelete('CASCADE');

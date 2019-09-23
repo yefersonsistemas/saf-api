@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InventoryArea extends Model
 {
     protected $fillable = [ //inventario de c/dpto
-        'quantity_Assigned', 'quantity_Used', 'quantity_Available',  'Type_Area_id', 'Inventory_id', 'Branchoffice_id'
+        'quantity_Assigned', 'quantity_Used', 'quantity_Available',  'type_area_id', 'inventory_id', 'branchoffice_id'
     ];
 
     public function areas()
