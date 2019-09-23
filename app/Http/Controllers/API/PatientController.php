@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Allergy;
 use App\Disease;
 use App\Http\Requests\CreatePatientRequest;
@@ -22,46 +23,51 @@ class PatientController extends Controller
 
   public function index(Request $request)
   {
-    $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
-    return view('dashboard.patients.index', compact('patients'));
+    $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->get();
+    return response()->json($patients);
   }
 
- /**
-  * Show the form for creating a new resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
- public function create(Request $request)
- {
-  $users       = User::all();
-  $diseases    = Disease::all();
-  $medicines   = Medicine::all();
-  $patient    = Patient::all()->last();
-  if ($patient == null ) {
-    $number = 1;
-  }else{
-    $number = $patient->id + 1;
+  /**
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+  public function create(Request $request)
+  {
+    $users       = User::all();
+    $diseases    = Disease::all();
+    $medicines   = Medicine::all();
+    $patient    = Patient::all()->last();
+    if ($patient == null ) {
+      $number = 1;
+    }else{
+      $number = $patient->id + 1;
+    }
+
+    if (strlen($number) == 1) {
+      $history_number = 'P-000'.$number;  
+    }elseif (strlen($number) == 2) {
+      $history_number = 'P-00'.$number;
+    }elseif (strlen($number) == 3) {
+      $history_number = 'P-0'.$number;
+    }else{
+      $history_number = 'P-'.$number;
+    }
+
+    $doctors     = User::role('doctor')->get();
+    $professions = [
+    'Cocinero', 'Secretario', 'Programador', 'Fotógrafo', 'Mecánico/a', 'Abogado/a', 'Periodista', 'Ama de casa', 'Peluquero/a', 'Ingeniero/a', 'Electricista', 'Economista', 'Médico/a', 'Dentista', 'Consultor', 'Albañil', 'Panadero', 'Arquitecto', 'Actor', 'Contable', 'Modelo', 'Monja', 'Enfermero/a', 'Oficinista', 'Conserje', 'Político', 'Vendedor', ' Militar', 'Deportista', 'Cirujano', 'Veterinario', 'Profesor/a', 'Taxista',
+    ];
+
+    return response()->json([
+      'professions' => $professions,
+      'doctors' => $doctors,
+      'medicines' => $medicines,
+      'diseases' => $diseases,
+      'users' => $users,
+      'history_number' => $history_number,
+    ]);
   }
-
-  if (strlen($number) == 1) {
-    $history_number = 'P-000'.$number;  
-  }elseif (strlen($number) == 2) {
-    $history_number = 'P-00'.$number;
-  }elseif (strlen($number) == 3) {
-    $history_number = 'P-0'.$number;
-  }else{
-    $history_number = 'P-'.$number;
-  }
-
-//   dd(($history_number));
-
-  $doctors     = User::role('doctor')->get();
-  $professions = [
-   'Cocinero', 'Secretario', 'Programador', 'Fotógrafo', 'Mecánico/a', 'Abogado/a', 'Periodista', 'Ama de casa', 'Peluquero/a', 'Ingeniero/a', 'Electricista', 'Economista', 'Médico/a', 'Dentista', 'Consultor', 'Albañil', 'Panadero', 'Arquitecto', 'Actor', 'Contable', 'Modelo', 'Monja', 'Enfermero/a', 'Oficinista', 'Conserje', 'Político', 'Vendedor', ' Militar', 'Deportista', 'Cirujano', 'Veterinario', 'Profesor/a', 'Taxista',
-  ];
-
-  return view('dashboard.patients.create', compact('professions', 'doctors', 'medicines', 'diseases', 'users', 'history_number'));
- }
 
  /**
   * Store a newly created resource in storage.
@@ -76,49 +82,49 @@ class PatientController extends Controller
     $date      = Carbon::parse($data['date']);
     $birthdate = date("Y-m-d", strtotime($data['birthdate']));
     $patient   = Patient::create([
-    'date'             => $date,
-    'history_number'   => $data['history_number'],
-    'reason'           => $data['reason'],
-    'name'             => $data['name'],
-    'lastname'         => $data['lastname'],
-    'email'            => $data['email'],
-    'another_email'    => $request->another_email,
-    'type_dni'         => $request->type_dni,
-    'dni'              => $data['dni'],
-    'gender'           => $data['gender'],
-    'phone'            => $data['phone'],
-    'another_phone'    => $request->another_phone,
-    'place'            => $data['place'],
-    'birthdate'        => $birthdate,
-    'age'              => $data['age'],
-    'weight'           => $data['weight'],
-    'occupation'       => $data['occupation'],
-    'address'          => $data['address'],
-    'doctor_id'        => $request->medico,
-    'previous_surgery' => $request->previous_surgery,
-    'profession'       => $data["profession"][0],
+      'date'             => $date,
+      'history_number'   => $data['history_number'],
+      'reason'           => $data['reason'],
+      'name'             => $data['name'],
+      'lastname'         => $data['lastname'],
+      'email'            => $data['email'],
+      'another_email'    => $request->another_email,
+      'type_dni'         => $request->type_dni,
+      'dni'              => $data['dni'],
+      'gender'           => $data['gender'],
+      'phone'            => $data['phone'],
+      'another_phone'    => $request->another_phone,
+      'place'            => $data['place'],
+      'birthdate'        => $birthdate,
+      'age'              => $data['age'],
+      'weight'           => $data['weight'],
+      'occupation'       => $data['occupation'],
+      'address'          => $data['address'],
+      'doctor_id'        => $request->medico,
+      'previous_surgery' => $request->previous_surgery,
+      'profession'       => $data["profession"][0],
     ]);
     if ($request->allergy) {
-    $nuevo = Allergy::create([
-        'name' => $request->allergy,
-    ]);
-    $patient->allergies()->attach($nuevo->id);
+      $nuevo = Allergy::create([
+          'name' => $request->allergy,
+      ]);
+      $patient->allergies()->attach($nuevo->id);
     }
     if ($request->diseases) {
-    foreach ($request->diseases as $disease) {
-        $newDisease = Disease::firstOrCreate([
-        'name' => $disease,
-        ]);
-        $patient->diseases()->attach($newDisease->id);
-    }
+      foreach ($request->diseases as $disease) {
+          $newDisease = Disease::firstOrCreate([
+          'name' => $disease,
+          ]);
+          $patient->diseases()->attach($newDisease->id);
+      }
     }
     if ($request->medicines) {
-    foreach ($request->medicines as $medicine) {
-        $newMedicine = Medicine::firstOrcreate([
-        'name' => $medicine,
-        ]);
-        $patient->medicines()->attach($newMedicine->id);
-    }
+      foreach ($request->medicines as $medicine) {
+          $newMedicine = Medicine::firstOrcreate([
+          'name' => $medicine,
+          ]);
+          $patient->medicines()->attach($newMedicine->id);
+      }
     }
   return redirect()->route('patients.index')->withSuccess('Paciente registrado exitosamente');
  }
