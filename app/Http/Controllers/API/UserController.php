@@ -87,9 +87,9 @@ class UserController extends Controller
 
     public function register(UserRegisterRequest $request)
     {
-        $person = Person::where('email', $request->email)->first();
+        $person = Person::where('email', $request->email)->first();   
         
-        if ($user && $user->password == null) {
+        if ($person && $person->users->password != null) {
             return $this->authForSocial($user); // Login
         } elseif ($request->password == null) {
             

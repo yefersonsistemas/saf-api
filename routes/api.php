@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-/
+
 
  Route::post('login', 'API\UserController@login');
  Route::post('register', 'API\UserController@register');
