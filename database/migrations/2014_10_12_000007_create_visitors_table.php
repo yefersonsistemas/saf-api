@@ -16,8 +16,9 @@ class CreateVisitorsTable extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
-            $table->enum('type_visitor', ['patient', 'visitor']);
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->enum('type_visitor', ['paciente', 'visitante']);
+            $table->enum('status', ['dentro', 'fuera']);
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('person_id')
@@ -25,9 +26,9 @@ class CreateVisitorsTable extends Migration
             ->on('persons')
             ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
             ->references('id')
-            ->on('branch_oficces')
+            ->on('branch')
             ->onDelete('CASCADE');
 
         });

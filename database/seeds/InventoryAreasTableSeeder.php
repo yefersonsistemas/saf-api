@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use InventoryArea;
+use App\InventoryArea;
 
 class InventoryAreasTableSeeder extends Seeder
 {

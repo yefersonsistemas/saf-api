@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('password');
             $table->unsignedBigInteger('person_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->rememberToken();
             $table->timestamps();
 
@@ -26,9 +26,9 @@ class CreateUsersTable extends Migration
             ->on('persons')
             ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                 ->references('id')
-                ->on('branch_oficces')
+                ->on('branch')
                 ->onDelete('CASCADE');
 
         });

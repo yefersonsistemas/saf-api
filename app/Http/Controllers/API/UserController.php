@@ -4,11 +4,17 @@ namespace App\Http\Controllers\API;
 
 use App\User;
 use App\Person;
+Use App\Employe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\API\Controller;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class UserController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-       //
+        //
     }
 
     /**
@@ -37,7 +43,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //
     }
 
     /**
@@ -87,32 +93,30 @@ class UserController extends Controller
 
     public function register(UserRegisterRequest $request)
     {
-        $person = Person::where('email', $request->email)->first();   
+        $person = Person::where('email', $request->email)->first();  //buscamos en person el email correspondiente 
+        $user = User::where('password', $request->password)->first();
         
-        if ($person && $person->users->password != null) {
-            return $this->authForSocial($user); // Login
-        } elseif ($request->password == null) {
-            
-            // En caso de que no exista creamos un nuevo usuario con sus datos.
-            //llamamos y llenamos tabla persona para asociarla con user
-            $person = Person::create([
-                'type_dni'          => $request->type_dni,
-                'dni'               => $request->dni,
-                'name'              => $request->name,
-                'lastname'          => $request->lastname,
-                'address'           => $request->address,
-                'phone'             => $request->phone,
-                'email'             => $request->email,
+        if ($person->email && $user->password != null) { //verificamos si email y password continen algun valor
+            return $this->authForSocial($user); // Login  en caso de si tener un valor verifica el token para accceder
+        } elseif ($request->password == null) { //caso contrario creamos un nuevo usuario con sus datos.
+            $person = Person::create([ //llamamos y llenamos tabla persona para asociarla con user
+                'type_dni'    => $request->type_dni,
+                'dni'         => $request->dni,
+                'name'        => $request->name,
+                'lastname'    => $request->lastname,
+                'address'     => $request->address,
+                'phone'       => $request->phone,
+                'email'       => $request->email,
             ]);
 
-            $user = User::create([
+            $user = User::create([ //llamamos y llenamos tabla user con id_person que trae todo de person
                 'person_id'    => $person->id,
                 'password'     => Hash::make($request->password),
             ]);
           
-            $user->assignRole('User');
+            $user->assignRole('User'); //asignamos role al usuario
 
-            return $this->authForSocial($user); // Login
+            return $this->authForSocial($user); // Login  verifica el token para accceder
         }
 
         return response()->json([
@@ -123,13 +127,14 @@ class UserController extends Controller
     public function login(UserLoginRequest $request)
     {
         try {
-            $user = User::whereEmail($request->email)->firstOrFail();
+            $person = Person::whereEmail($request->email)->firstOrFail(); //obtengo el usuario por el email
+            $user = User::where('password', $request->password)->firstOrFail();
 
-            if ($user->password == null) {
+            if ($user->password == null) { //verifico si el password corrresponde a el email encontrado
                 return response()->json(['message' => 'Usted no puede entrar con email y contraseña']);
             }
             $credentials = request(['email', 'password']);
-            if (!Auth::attempt($credentials)) {
+            if (!Auth::attempt($credentials)) {//si el intento de autenticacion es incorrecto
                 return response()->json([
                     'message' => 'No autorizado'], 401);
             }
@@ -175,4 +180,10 @@ class UserController extends Controller
             'message' => 'Se desconectó con éxito',
         ]);
     }
+
+    public function details() 
+    { 
+        $user = Auth::user(); 
+        return response()->json(['success' => $user], $this-> successStatus); 
+    } 
 }

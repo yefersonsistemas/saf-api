@@ -17,7 +17,7 @@ class CreateIcomeTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('billing_id');
             $table->string('total');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
            
             $table->foreign('billing_id')
@@ -25,9 +25,9 @@ class CreateIcomeTable extends Migration
                 ->on('billings')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                 ->references('id')
-                ->on('branch_oficces')
+                ->on('branch')
                 ->onDelete('CASCADE');
         });
     }

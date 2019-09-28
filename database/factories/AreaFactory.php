@@ -9,10 +9,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Area::class, function (Faker $faker) {
     $typeareas = TypeArea::inRandomOrder()->first();
-    $branchoffice = BranchOffice::inRandomOrder()->first();
+    $branchoffice = Branch::inRandomOrder()->first();
     return [
         'name' => $faker->word,
         'type_area_id' =>$typeareas->id,
-        'branchoffice_id' => $breanchoffice->id,
+        'branch_id' => $branchoffice->id,
     ];
 });

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Icome;
+use App\Icome;
 
 class IcomeTableSeeder extends Seeder
 {

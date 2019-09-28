@@ -7,7 +7,7 @@ use App\Employe;
 use App\Patient;
 use App\Area;
 use App\TypeSurgery;
-use App\BranchOffice;
+use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(Surgery::class, function (Faker $faker) {
@@ -15,13 +15,13 @@ $factory->define(Surgery::class, function (Faker $faker) {
     $patient = Patient::inRandomOrder()->first();
     $area = Area::inRandomOrder()->first();
     $typesurgery = TypeSurgery::inRandomOrder()->first();
-    $branchoffice = BranchOffice::inRandomOrder()->first();
+    $branchoffice = Branch::inRandomOrder()->first();
     return [
         'date' =>$faker->date,
         'employe_id' =>$employe->id,
         'patient_id' =>$patient->id,
         'area_id' =>$area->id,
         'type_surgery_id' =>$typesurgery->id,
-        'branchoffice_id' => $breanchoffice->id,
+        'branch_id' => $branchoffice->id,
     ];
 });

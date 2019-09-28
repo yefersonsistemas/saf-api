@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CleaningRecord;
+use App\CleaningRecord;
 
 class CleaningRecordTableSeeder extends Seeder
 {

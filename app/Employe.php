@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employe extends Model
 {
+    protected $table = 'employes';
+
     protected $fillable = [ //saldo
-        'person_id', 'position_id', 'branchoffice_id'
+        'person_id', 'position_id', 'branch_id'
     ];
 
     public function billing()
@@ -30,9 +32,29 @@ class Employe extends Model
         return $this->belongsToMany('App\Patient');
     }
 
-    public function doctor()
+    public function doctor() //clase de doctor en rango de popularidad
     {
         return $this->hasone('App\Doctor');
+    }
+
+    public function specialities()
+    {
+        return $this->belongsToMany('App\Speciality');
+    }
+
+    public function schedules()
+    {
+        return $this->belongsToMany('App\Schedule');
+    }
+
+    public function areaassigment()
+    {
+        return $this->belongsTo('App\AreaAssigment');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 
 }

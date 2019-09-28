@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use MachineEquipment;
+use App\MachineEquipment;
 
 class MachineEquipmentTableSeeder extends Seeder
 {

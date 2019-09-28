@@ -18,7 +18,7 @@ class CreateDoctorsTable extends Migration
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('type_doctor_id');
             $table->double('price');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('employe_id')
@@ -31,9 +31,9 @@ class CreateDoctorsTable extends Migration
                 ->on('type_doctors')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                 ->references('id')
-                ->on('branch_oficces')
+                ->on('branch')
                 ->onDelete('CASCADE');
         });
     }

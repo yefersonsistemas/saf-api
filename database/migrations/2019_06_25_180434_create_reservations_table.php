@@ -17,9 +17,9 @@ class CreateReservationsTable extends Migration
             $table->bigIncrements('id');
             $table->date('date');
             $table->longText('description');
-            $table->enum('status', ['approved', 'pending', 'cancelled']);
+            $table->enum('status', ['aprobado', 'pendiente', 'cancelado']);
             $table->unsignedBigInteger('schedule_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
             
             $table->foreign('schedule_id')
@@ -27,9 +27,9 @@ class CreateReservationsTable extends Migration
                 ->on('schedules')
                 ->onDelete('CASCADE');   
     
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                 ->references('id')
-                ->on('branch_oficces')
+                ->on('branch')
                 ->onDelete('CASCADE');
         });
     }

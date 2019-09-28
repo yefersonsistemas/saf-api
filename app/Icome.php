@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Icome extends Model //ingresos de la clinica por medico
 {
+    protected $table = 'icome';
+
     protected $fillable = [
-        'biiling_id', 'total', 'branchoffice_id'
+        'biiling_id', 'total', 'branch_id'
     ];
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
+    }
    
 }

@@ -17,7 +17,7 @@ class CreateMedicinePatientTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('medicine_id');
             $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('medicine_id')
@@ -30,9 +30,9 @@ class CreateMedicinePatientTable extends Migration
                 ->on('patients')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                   ->references('id')
-                  ->on('branch_oficces')
+                  ->on('branch')
                   ->onDelete('CASCADE');
         });
     }

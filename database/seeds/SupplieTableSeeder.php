@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Supplie;
+use App\Supplie;
 
 class SupplieTableSeeder extends Seeder
 {

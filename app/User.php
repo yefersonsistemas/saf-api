@@ -2,12 +2,11 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
-
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -18,8 +17,11 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
+
+    protected $table = 'users';
+
     protected $fillable = [
-        'password', 'person_id', 'branchoffice_id'
+        'person_id', 'password', 'branch_id'
     ];
 
     /**
@@ -68,6 +70,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function areasassigment()
     {
         return $this->belongsTo('App\AresAssigment');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
  
     /**

@@ -6,12 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Supplie extends Model //insumos
 {
+    protected $table = 'supplies';
+
     protected $fillable = [ //pagos
-        'name', 'type_supplie_id', 'presentation', 'branchoffice_id'
+        'name', 'type_supplie_id', 'presentation', 'branch_id'
     ];
 
     public function inventory()
     {
         return $this->belongsTo('App\Inventory');
+    }
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

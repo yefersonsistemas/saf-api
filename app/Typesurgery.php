@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Typesurgery extends Model //tipos de cirugias
 {
+    protected $table = 'type_surgeries';
+
     protected $fillable = [ 
-        'name', 'duration', 'cost',  'branchoffice_id'
+        'name', 'duration', 'cost',  'branch_id'
     ];
 
     public function employe()
@@ -19,4 +21,11 @@ class Typesurgery extends Model //tipos de cirugias
     {
         return $this->belongsTo('App\Surgery');
     }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
+    }
+
+    
 }

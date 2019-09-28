@@ -22,12 +22,12 @@ class CreatePersonsTable extends Migration
             $table->string('address');
             $table->string('phone')->nullable();
             $table->string('email')->unique();
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
             ->references('id')
-            ->on('branch_oficces')
+            ->on('branch')
             ->onDelete('CASCADE');
         });
     }

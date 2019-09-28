@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use AreaAssigment;
+use App\AreaAssigment;
 
 class AreaAssigmentsTableSeeder extends Seeder
 {

@@ -4,15 +4,15 @@
 
 use App\Balance;
 use App\Employe;
-use App\BranchOffice;
+use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(Balance::class, function (Faker $faker) {
     $employe = Employe::inRandomOrder()->first();
-    $branchoffice = BranchOffice::inRandomOrder()->first();
+    $branchoffice = Branch::inRandomOrder()->first();
     return [
         'employe_id' =>$employe->id,
         'total' =>$faker->randomFloat,
-        'branchoffice_id' => $breanchoffice->id,
+        'branch_id' => $branchoffice->id,
     ];
 });

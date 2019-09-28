@@ -20,7 +20,7 @@ class CreateSurgeriesTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('type_surgery_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('employe_id')
@@ -43,9 +43,9 @@ class CreateSurgeriesTable extends Migration
             ->on('typesurgeries')
             ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
             ->references('id')
-            ->on('branch_oficces')
+            ->on('branch')
             ->onDelete('CASCADE');
         });
     }

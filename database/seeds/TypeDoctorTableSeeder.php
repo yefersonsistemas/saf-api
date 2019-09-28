@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use TypeDoctor;
+use App\TypeDoctor;
 
 class TypeDoctorTableSeeder extends Seeder
 {

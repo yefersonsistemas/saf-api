@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Speciality extends Model
 {
+    protected $table = 'specialities';
+
     protected $fillable = [
-        'name', 'description', 'branchoffice_id'
+        'name', 'description', 'branch_id'
     ];
     
     public function users()
@@ -23,5 +25,14 @@ class Speciality extends Model
     public function patients()
     {
         return $this->hasMany('App\Patient');
+    }
+
+    public function employe()
+    {
+        return $this->hasMany('App\Speciality');
+    }
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

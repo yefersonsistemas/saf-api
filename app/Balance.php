@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Balance extends Model
 {
+    protected $table = 'balances';
+
     protected $fillable = [ //saldo
-        'employe_id', 'total', 'branchoffice_id'
+        'employe_id', 'total', 'branch_id'
     ];
 
     public function employe()
@@ -15,5 +17,8 @@ class Balance extends Model
         return $this->belongsTo('App\Employe');
     }
 
-
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
+    }
 }

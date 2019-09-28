@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class MachineEquipment extends Model //equipo maquinaria
 {
+    protected $table = 'machine_equipment';
+
     protected $fillable = [
-        'name', 'description', 'type_equipment_id', 'branchoffice_id'
+        'name', 'description', 'type_equipment_id', 'branch_id'
     ];
 
     public function inventory()
@@ -18,5 +20,10 @@ class MachineEquipment extends Model //equipo maquinaria
     public function inventory_area()
     {
         return $this->belongsto('App\InventoryArea');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

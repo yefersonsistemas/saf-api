@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model  //curso
 {
+    protected $table = 'courses';
+
     protected $fillable = [
-        'name', 'description', 'specialitie_id', 'program_id', 'Branchoffice_id'
+        'name', 'description', 'specialitie_id', 'program_id', 'branch_id'
     ];
     
     public function users()
@@ -28,6 +30,11 @@ class Course extends Model  //curso
     public function educationalGuides()
     {
         return $this->belongsToMany('App\EducationalGuide');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
     
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Procedure;
+use App\Procedure;
 
 class ProcedureTableSeeder extends Seeder
 {

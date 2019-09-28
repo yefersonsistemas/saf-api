@@ -15,11 +15,11 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('day', ['lunes', 'Martes','Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']);
+            $table->enum('day', ['lunes', 'Martes','Miercoles', 'Jueves', 'Viernes']);
             $table->enum('turn', ['mañana', 'tarde']);
             $table->integer('quota');
             $table->unsignedBigInteger('employe_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('employe_id')
@@ -27,9 +27,9 @@ class CreateSchedulesTable extends Migration
                 ->on('employes')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                 ->references('id')
-                ->on('branch_oficces')
+                ->on('branch')
                 ->onDelete('CASCADE');
            
         });

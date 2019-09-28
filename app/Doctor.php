@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model //clase de doctor
 {
+    protected $table = 'doctors';
+
     protected $fillable = [
-        'employe_id', 'type_doctor_id', 'price', 'branchoffice_id'
+        'employe_id', 'type_doctor_id', 'price', 'branch_id'
     ];
 
     public function employe()
@@ -18,5 +20,10 @@ class Doctor extends Model //clase de doctor
     public function typedoctor()
     {
         return $this->belongsTo('App\TypeDoctor');
+    }
+    
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

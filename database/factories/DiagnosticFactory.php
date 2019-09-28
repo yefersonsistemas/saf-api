@@ -5,13 +5,13 @@
 use App\Diagnostic;
 use App\Patient;
 use App\Employe;
-use App\BranchOffice;
+use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(Diagnostic::class, function (Faker $faker) {
     $patient = Patient::inRandomOrder()->first();
     $employe = Employe::role('doctor')->inRandomOrder()->first();
-    $branchoffice = BranchOffice::inRandomOrder()->first();
+    $branchoffice = Branch::inRandomOrder()->first();
 
     return [
         'patient_id'  => $patient->id,
@@ -21,6 +21,6 @@ $factory->define(Diagnostic::class, function (Faker $faker) {
         'annex'       => $faker->paragraph,
         'next_cite'   => $faker->date,
         'employe_id'  => $employe->id,
-        'branchoffice_id' => $breanchoffice->id,
+        'branch_id' => $branchoffice->id,
     ];
 });

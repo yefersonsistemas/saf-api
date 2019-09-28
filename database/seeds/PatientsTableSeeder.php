@@ -13,8 +13,8 @@ class PatientsTableSeeder extends Seeder
     public function run()
     {
         Patient::truncate();
-        // factory(Patient::class, 50)->create();
-        factory(Patient::class)->create([
+        factory(Patient::class, 10)->create();
+     /*   factory(Patient::class)->create([
             'date' => '2019-07-11',
             'name' => 'LESBIA',
             'lastname' => 'GOMEZ',
@@ -72,7 +72,7 @@ class PatientsTableSeeder extends Seeder
             'address' => 'PAVIA CALLE PRINCIPAL CASA16-03',
             'previous_surgery' => 'CESARIA',
             'doctor_id' => 1,
-        ]);
+        ]);*/
 
 
     }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Typesurgery;
+use App\Typesurgery;
 
 class TypeSurgeriesTableSeeder extends Seeder
 {

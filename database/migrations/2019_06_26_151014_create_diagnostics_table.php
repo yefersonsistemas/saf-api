@@ -22,7 +22,7 @@ class CreateDiagnosticsTable extends Migration
             $table->longText('annex')->nullable();
             $table->date('next_cite')->nullable();
             $table->unsignedBigInteger('employe_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('patient_id')
@@ -35,9 +35,9 @@ class CreateDiagnosticsTable extends Migration
                 ->on('employes')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                 ->references('id')
-                ->on('branch_oficces')
+                ->on('branch')
                 ->onDelete('CASCADE');
         });
     }

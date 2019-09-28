@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Reservation;
+use App\Reservation;
 
 class ReservationsTableSeeder extends Seeder
 {

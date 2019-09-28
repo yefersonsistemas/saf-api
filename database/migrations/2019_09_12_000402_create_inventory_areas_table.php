@@ -20,7 +20,7 @@ class CreateInventoryAreasTable extends Migration
             $table->integer('quantity_Available');
             $table->unsignedBigInteger('type_area_id');
             $table->unsignedBigInteger('inventory_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('type_area_id')
@@ -33,9 +33,9 @@ class CreateInventoryAreasTable extends Migration
                 ->on('inventories')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                   ->references('id')
-                  ->on('branch_oficces')
+                  ->on('branch')
                   ->onDelete('CASCADE');
        
         });

@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConsultationType extends Model  //motivo de la reservacion
 {
+    protected $table = 'consultation_types';
+
     protected $fillable = [
-        'name', 'description', 'reservation_id', 'branchoffice_id'
+        'name', 'description', 'reservation_id', 'branch_id'
     ];
 
     public function reservations()
@@ -18,5 +20,10 @@ class ConsultationType extends Model  //motivo de la reservacion
     public function payments()
     {
         return $this->hasMany('App\Payment');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

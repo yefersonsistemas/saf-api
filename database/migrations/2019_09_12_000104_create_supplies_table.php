@@ -18,7 +18,7 @@ class CreateSuppliesTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('type_supplie_id');
             $table->string('presentation');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('type_supplie_id')
@@ -26,9 +26,9 @@ class CreateSuppliesTable extends Migration
             ->on('type_supplies')
             ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
             ->references('id')
-            ->on('branch_oficces')
+            ->on('branch')
             ->onDelete('CASCADE');
        
 

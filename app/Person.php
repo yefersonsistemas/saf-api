@@ -6,9 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'persons';
+
     protected $fillable = [ //pagos
-        'type_dni', 'dni', 'name', 'lastname', 'address', 'phone', 'email', 'branchoffice_id'
+        'type_dni', 'dni', 'name', 'lastname', 'address', 'phone', 'email', 'branch_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     public function employe()
     {
@@ -23,5 +35,9 @@ class Person extends Model
     public function visitor()
     {
         return $this->belongsTo('App\Visitor');
+    }
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use TypeSupplie;
+use App\TypeSupplie;
 
 class TypeSupplieTableSeeder extends Seeder
 {

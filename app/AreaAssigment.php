@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AreaAssigment extends Model //area asignada
 {
+    protected $table = 'area_assigments';
+
     protected $fillable = [
-        'employe_id', 'area_id', 'branchoffice_id'
+        'employe_id', 'area_id', 'branch_id'
     ];
 
     public function employe()
@@ -18,6 +20,16 @@ class AreaAssigment extends Model //area asignada
     public function areas()
     {
         return $this->belongsTo('App\Area');
+    }
+
+    public function typearea()
+    {
+        return $this->belongsTo('App\TypeArea');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 
 }

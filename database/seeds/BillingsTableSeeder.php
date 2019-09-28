@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Billing;
+use App\Billing;
 
 class BillingsTableSeeder extends Seeder
 {

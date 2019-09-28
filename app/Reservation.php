@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
+    protected $table = 'reservations';
+
     protected $fillable = [
-        'date', 'description', 'status', 'schedule_id', 'branchoffice_id'
+        'date', 'description', 'status', 'schedule_id', 'branch_id'
     ];
 
     public function employe()
@@ -28,6 +30,11 @@ class Reservation extends Model
     public function patient()
     {
         return $this->belongsTo('App\Patient');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 
 

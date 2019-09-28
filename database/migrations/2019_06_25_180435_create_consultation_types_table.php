@@ -19,7 +19,7 @@ class CreateConsultationTypesTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->unsignedBigInteger('reservation_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('reservation_id')
@@ -27,9 +27,9 @@ class CreateConsultationTypesTable extends Migration
                 ->on('reservations')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                   ->references('id')
-                  ->on('branch_oficces')
+                  ->on('branch')
                   ->onDelete('CASCADE');
         });
     }

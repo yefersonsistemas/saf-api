@@ -5,7 +5,7 @@ use App\Headquarters;
 
 use Illuminate\Http\Request;
 
-class BranchOfficesController extends Controller
+class BranchsController extends Controller
 {
     /**
      * Display a listing of the resource.

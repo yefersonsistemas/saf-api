@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Balance;
+use App\Balance;
 
 class BalancesTableSeeder extends Seeder
 {

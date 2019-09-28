@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Area;
+use App\Area;
 
 class AreasTableSeeder extends Seeder
 {

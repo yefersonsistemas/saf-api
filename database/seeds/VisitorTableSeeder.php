@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Visitor;
+use App\Visitor;
 
 class VisitorTableSeeder extends Seeder
 {

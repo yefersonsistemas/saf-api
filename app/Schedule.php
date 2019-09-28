@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
+    protected $table = 'schedules';
+
     protected $fillable = [
-        'day', 'turn', 'quota', 'employe_id', 'branchoffice_id'
+        'day', 'turn', 'quota', 'employe_id', 'branch_id'
     ];
 
     public function employe()
@@ -18,5 +20,9 @@ class Schedule extends Model
     public function reservations()
     {
         return $this->hasMany('App\Reservation');
+    }
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

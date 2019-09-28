@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Surgery;
+use App\Surgery;
 
 class SurgeriesTableSeeder extends Seeder
 {

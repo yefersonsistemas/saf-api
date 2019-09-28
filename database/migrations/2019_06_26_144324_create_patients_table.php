@@ -27,7 +27,7 @@ class CreatePatientsTable extends Migration
             $table->string('profession');
             $table->string('previous_surgery')->nullable();
             $table->unsignedBigInteger('employe_id');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
             
             $table->foreign('employe_id')
@@ -35,9 +35,9 @@ class CreatePatientsTable extends Migration
                 ->on('employes')
                 ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
                   ->references('id')
-                  ->on('branch_oficces')
+                  ->on('branch')
                   ->onDelete('CASCADE');
         });
     }

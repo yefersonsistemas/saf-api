@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use TypeCleaning;
+use App\TypeCleaning;
 
 class TypeCleaningTableSeeder extends Seeder
 {

@@ -4,16 +4,16 @@
 
 use App\InputOutput;
 use App\Person;
-use App\BranchOffice;
+use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(InputOutput::class, function (Faker $faker) {
     $person = Personb::inRandomOrder()->first();
-    $branchoffice = BranchOffice::inRandomOrder()->first();
+    $branchoffice = Branch::inRandomOrder()->first();
     
     return [
         'person_id'  => $person->id,
         'status'  => $faker->randomElement(['input', 'output']),
-        'branchoffice_id' => $breanchoffice->id,
+        'branch_id' => $branchoffice->id,
     ];
 });

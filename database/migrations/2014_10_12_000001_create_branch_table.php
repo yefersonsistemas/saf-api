@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypesurgeriesTable extends Migration
+class CreateBranchTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateTypesurgeriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('typesurgeries', function (Blueprint $table) {
+        Schema::create('branch', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('duration');
-            $table->double('cost');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->string('length');
+            $table->string('latitude');
+            $table->unsignedBigInteger('headquarters_id');
             $table->timestamps();
 
-            $table->foreign('branchoffice_id')
-                  ->references('id')
-                  ->on('branch_oficces')
-                  ->onDelete('CASCADE');
+            $table->foreign('headquarters_id')
+                ->references('id')
+                ->on('headquarters')
+                ->onDelete('CASCADE');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateTypesurgeriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('typesurgeries');
+        Schema::dropIfExists('branch');
     }
 }

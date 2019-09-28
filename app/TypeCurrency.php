@@ -6,12 +6,19 @@ use Illuminate\Database\Eloquent\Model; //moneda
 
 class TypeCurrency extends Model
 {
+    protected $table = 'type_currencies';
+
     protected $fillable = [ //saldo
-        'name', 'branchoffice_id'
+        'name', 'branch_id'
     ];
 
     public function payment()
     {
         return $this->belongsTo('App\Payment');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

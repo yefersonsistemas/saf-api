@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Surgery extends Model
 {
+    protected $table = 'surgeries';
+    
     protected $fillable = [ //saldo
-        'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branchoffice_id'
+        'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branch_id'
     ];
 
     public function employe()
@@ -18,6 +20,11 @@ class Surgery extends Model
     public function typesurgeries()
     {
         return $this->belongsTo('App\TypeSurgery');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 
 }

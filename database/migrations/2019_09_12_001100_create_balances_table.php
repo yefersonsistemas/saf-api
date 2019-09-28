@@ -17,7 +17,7 @@ class CreateBalancesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('employe_id');
             $table->double('total');
-            $table->unsignedBigInteger('branchoffice_id');
+            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('employe_id')
@@ -25,9 +25,9 @@ class CreateBalancesTable extends Migration
             ->on('employes')
             ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('branch_id')
             ->references('id')
-            ->on('branch_oficces')
+            ->on('branch')
             ->onDelete('CASCADE');
         });
     }

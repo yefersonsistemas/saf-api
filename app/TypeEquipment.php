@@ -6,12 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class TypeEquipment extends Model //tipo de equipos
 {
+    protected $table = 'type_equipment';
+
     protected $fillable = [ //pagos
-        'name', 'branchoffice_id'
+        'name', 'branch_id'
     ];
 
     public function employe()
     {
         return $this->belongsTo('App\MachineEquipment');
+    }
+
+    public function branch()
+    {
+        return $this->belongsToMany('App\Branch');
     }
 }

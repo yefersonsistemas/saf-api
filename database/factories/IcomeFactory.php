@@ -4,16 +4,16 @@
 
 use App\Icome;
 use App\Billing;
-use App\BranchOffice;
+use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(Icome::class, function (Faker $faker) {
     $billing = Billing::inRandomOrder()->first();
-    $branchoffice = BranchOffice::inRandomOrder()->first();
+    $branchoffice = Branch::inRandomOrder()->first();
 
     return [
         'billing_id' => $billing->id,
         'total' => $faker->randomFloat,
-        'branchoffice_id' => $breanchoffice->id,
+        'branch_id' => $branchoffice->id,
     ];
 });

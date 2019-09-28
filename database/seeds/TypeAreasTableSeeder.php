@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use TypeArea;
+use App\TypeArea;
 
 class TypeAreasTableSeeder extends Seeder
 {

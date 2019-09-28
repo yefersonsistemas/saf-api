@@ -11,7 +11,7 @@ use Faker\Generator as Faker;
 $factory->define(Doctor::class, function (Faker $faker) {
     $employe = Employe::inRandomOrder()->first();
     $typedoctor = TypeDoctor::inRandomOrder()->first();
-    $branchoffice = BranchOffice::inRandomOrder()->first();
+    $branchoffice = Branch::inRandomOrder()->first();
 
     return [
        'employe_id' => $employe->id,
