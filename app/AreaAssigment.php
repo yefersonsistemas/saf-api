@@ -29,7 +29,7 @@ class AreaAssigment extends Model //area asignada
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 
 }

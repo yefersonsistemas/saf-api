@@ -29,6 +29,6 @@ class Area extends Model //deptos
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

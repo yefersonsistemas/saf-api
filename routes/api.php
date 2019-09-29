@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
     Route::post('details', 'API\UserController@details');
     });*/
 
+//rutas rol seguridad
 Route::group(['prefix' => 'security'], function(){
     Route::get('/', 'API\SecurityController@index');
     Route::POST('create', 'API\SecurityController@all_visitor');
@@ -29,14 +30,46 @@ Route::group(['prefix' => 'security'], function(){
     Route::POST('search', 'API\SecurityController@search');
     });
 
+//rutas rol recepcion
 Route::group(['prefix' => 'reception'], function(){
     Route::get('/', 'API\ReceptionController@index');
     Route::POST('create', 'API\ReceptionController@create_history');
     Route::POST('search', 'API\ReceptionController@search');
 });
 
+//rutas rol in
 Route::group(['prefix' => 'in'], function(){
     Route::POST('assigment/area', 'API\InController@assigment');
     Route::POST('create', 'API\InController@billing');
+});
+
+//rutas rol out
+Route::group(['prefix' => 'out'], function(){
+    Route::POST('assigment/area', 'API\OutController@assigment');
+    Route::POST('create', 'API\OutController@billing');
+});
+/*
+Route::group(['prefix' => 'supplie'], function(){
+    Route::POST('', 'API\LogisticController@index');
+    Route::POST('create', 'API\LogisticController@create');
+    Route::POST('/', 'LogisticController@store');
+    Route::get('edit/{supplie}', 'LogisticController@edit');
+    Route::put('/{id}', 'LogisticController@update');
+    Route::delete('{supplie}', 'LogisticController@destroy');
+});*/
+
+//rutas rol logistica
+Route::group(['prefix' => 'supplie'], function(){
+    Route::get('', 'API\LogisticController@index');
+    Route::POST('create', 'API\LogisticController@create_supplie');
+    Route::put('/{id}', 'LogisticController@edit_supplie');
+    Route::delete('{supplie}', 'LogisticController@delete_supplie');
+});
+
+Route::group(['prefix' => 'equipment'], function(){
+    Route::get('', 'API\LogisticController@index');
+    Route::POST('create', 'API\LogisticController@create_equipment');
+    Route::put('/{id}', 'LogisticController@edit_equipment');
+    Route::delete('{equipment}', 'LogisticController@delete_equipment');
 });
 

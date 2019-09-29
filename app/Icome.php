@@ -13,7 +13,7 @@ class Icome extends Model //ingresos de la clinica por medico
     ];
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
    
 }

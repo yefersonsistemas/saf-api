@@ -24,6 +24,6 @@ class TypeDoctor extends Model //clase del doctor en  popularidad
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

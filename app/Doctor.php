@@ -24,6 +24,6 @@ class Doctor extends Model //clase de doctor
     
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

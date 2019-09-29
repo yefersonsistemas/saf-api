@@ -14,6 +14,6 @@ class CleaningRecord extends Model //registro de limpieza
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

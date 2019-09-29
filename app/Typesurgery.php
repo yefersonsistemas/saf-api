@@ -24,7 +24,7 @@ class Typesurgery extends Model //tipos de cirugias
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 
     

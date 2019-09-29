@@ -33,6 +33,6 @@ class Speciality extends Model
     }
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

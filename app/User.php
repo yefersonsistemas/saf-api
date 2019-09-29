@@ -74,7 +74,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
  
     /**

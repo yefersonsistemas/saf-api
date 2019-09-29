@@ -20,6 +20,6 @@ class Allergy extends Model //alergia
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

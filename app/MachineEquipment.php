@@ -24,6 +24,6 @@ class MachineEquipment extends Model //equipo maquinaria
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

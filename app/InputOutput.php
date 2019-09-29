@@ -19,6 +19,6 @@ class InputOutput extends Model //control de personas en E/S
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }

@@ -29,7 +29,7 @@ class Visitor extends Model //visitantes
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 
 }

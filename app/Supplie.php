@@ -18,6 +18,12 @@ class Supplie extends Model //insumos
     }
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
+
+    public function typesupplie()
+    {
+        return $this->belongsTo('App\TypeSupplie');
+    }
+}
 }

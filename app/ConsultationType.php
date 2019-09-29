@@ -24,6 +24,6 @@ class ConsultationType extends Model  //motivo de la reservacion
 
     public function branch()
     {
-        return $this->belongsToMany('App\Branch');
+        return $this->belongsTo('App\Branch');
     }
 }
