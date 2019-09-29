@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\TypePayment;
 
 class TypePaymentsTableSeeder extends Seeder
 {
@@ -11,6 +12,7 @@ class TypePaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        TypePayment::truncate();
+        factory(TypePayment::class, 3)->create();
     }
 }

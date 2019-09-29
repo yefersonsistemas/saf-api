@@ -27,7 +27,7 @@ class DiagnosticsTableSeeder extends Seeder
             'annex'         => null,
             'next_cite'     => null,
             'patient_id'    => 2,
-            'user_id'       => 2,
+            'employe_id'    => 2,
         ]);
 
         factory(Diagnostic::class)->create([
@@ -37,7 +37,7 @@ class DiagnosticsTableSeeder extends Seeder
             'annex'         => null,
             'next_cite'     => null,
             'patient_id'    => 3,
-            'user_id'       => 2,
+            'employe_id'    => 2,
         ]);
     }
 }

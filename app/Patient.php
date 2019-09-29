@@ -41,6 +41,11 @@ class Patient extends Model
     {
         return $this->belongsToMany('App\Branch');
     }
+
+     public function reservation()
+    {
+        return $this->belongsTo('App\Reservation');
+    }
     /**
      * Scope a query to only include patients by dni.
      *

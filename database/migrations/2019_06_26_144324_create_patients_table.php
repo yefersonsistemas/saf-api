@@ -17,6 +17,7 @@ class CreatePatientsTable extends Migration
             $table->bigIncrements('id');
             $table->date('date')->nullable();
             $table->string('history_number')->nullable();
+            $table->string('reason')->nullable();
             $table->unsignedBigInteger('person_id');
             $table->enum('gender', ['Femenino', 'Masculino']);
             $table->string('place');
@@ -27,6 +28,8 @@ class CreatePatientsTable extends Migration
             $table->string('profession');
             $table->string('previous_surgery')->nullable();
             $table->unsignedBigInteger('employe_id');
+            $table->string('another_phone')->nullable();
+            $table->string('another_email')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
             

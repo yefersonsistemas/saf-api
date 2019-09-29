@@ -13,6 +13,7 @@ Use App\Employe;
 Use App\Person;
 Use App\Schedules;
 use App\Http\Requests\CreatePatientRequest;
+use App\Http\Requests\CreateReservationRequest;
 
 class ReceptionController extends Controller
 {
@@ -139,20 +140,24 @@ class ReceptionController extends Controller
         
     }
 
-    public function create_cite(){
+    //quota representa el max de cupos por dia de pacientes 
+    public function create_cite(CreateReservationRequest $request){
         $speciality = Speciality::all();
         $employe = Employe::where('id', $request->id)->first();
-        $schedules = Schedule::where('day', $request->day)->count('quota');
-        
-        if ($schedules  ) {
-            
-            $schedules = Schedule::create([
-                'day' => $request->day,
-                'turn' => $request->turn,
-                'quota' => $request->quota,
-                'employe_id' => $request->employe_id,
-            ]);
+        $cupos = Schedule::where('quota', $request->quota)->count()->fisrt(); //obtengo la cantidad de registros en quota 
+        $dia = Reservation::whereDate('date', Carbon::date()->format('d/m/Y'))->get()->count(); //obtengo todos los registros de ese dia y los cuento
 
+        if ($employe->position == 'doctor') {
+
+            if ($dia < $cupos) {
+            
+                $reservation = Reservation::create([		
+                'date' => $request->date,
+                'description' => $request->description,
+                'status' => $request->status,
+                'schedule_id' => $request->schedule_id,
+            ]);
+            }
             return response()->json([
                 'message' => 'Cita creada',
             ], 201);
@@ -162,6 +167,5 @@ class ReceptionController extends Controller
                 'message' => 'No hay cupos',
             ], 201);
         }
-        
     }
 }

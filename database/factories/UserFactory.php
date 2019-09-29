@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\User;
 use App\Branch;
+use App\Person;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -20,10 +21,11 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     $user = User::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
+    $person = Person::inRandomOrder()->first();
     return [
         'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'person_id'         => $user->id,
-        'branch_id'   => $branchoffice->id,
+        'person_id'         => $person->id,
+        'branch_id'         => $branchoffice->id,
         'remember_token'    => Str::random(10),
     ];
 });

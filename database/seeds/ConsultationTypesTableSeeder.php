@@ -13,6 +13,7 @@ class ConsultationTypesTableSeeder extends Seeder
     public function run()
     {
         ConsultationType::truncate();
+        //factory(ConsultationType::class, 20)->create();
 
         // Dr Jose Pastor
         factory(ConsultationType::class)->create([
@@ -158,10 +159,7 @@ class ConsultationTypesTableSeeder extends Seeder
             'name'        => 'Plasma gel',
             'description' => 'es un tipo de relleno temporal y biodegradable en el que se utiliza plasma obtenido del organismo del paciente a tratar.'
         ]);
-        // factory(ConsultationType::class)->create([
-        //     'name'        => 'Tóxina botulínica (botox)',
-        //     'description' => ''
-        // ]);
+   
         factory(ConsultationType::class)->create([
             'name'        => 'Rinomodelado',
             'description' => 'consiste en la aplicación de inyecciones localizadas en la zona de la nariz de relleno de acido Hialurónico, que también lo aplican para atenuar las arrugas o modelar los labios.'

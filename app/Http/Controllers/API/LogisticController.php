@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\TypeSupplie;
+use App\Supplie;
+use App\MachineEquipment;
+use App\TypeEquipment;
+use App\Http\Requests\CreateSupplieRequest;
+use App\Http\Requests\CreateEquipmentRequest;
 
 class LogisticController extends Controller
 {
@@ -13,7 +19,19 @@ class LogisticController extends Controller
      */
     public function index()
     {
-        //
+        $supplie = Supplie::all();
+        $equipment = MachineEquipment::all();
+
+       if (  == $supplie) {
+            return response()->json([
+            'supplie' => $supplie,
+        ]);
+       }else{
+            return response()->json([
+            'equipment' =>  $equipment,
+        ]);
+       }
+       
     }
 
     /**
@@ -21,9 +39,19 @@ class LogisticController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateSupplieRequest $request)
     {
-        //
+        $supplie = Supplie::create([
+            'date'               => $request['date'],
+            'presentation'             => $request['presentation'],
+            'type_supplie_id'          => $typesupplie->type_supplie_id,
+
+        ]);
+
+        return response()->json([
+            'message' => 'Insumo creado exitosamente',
+        ], 201);
+        
     }
 
     /**

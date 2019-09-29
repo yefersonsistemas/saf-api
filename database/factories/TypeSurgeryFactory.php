@@ -2,12 +2,12 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\TypeSurgery;
+use App\Typesurgery;
 use App\Branch;
 
 use Faker\Generator as Faker;
 
-$factory->define(TypeSurgery::class, function (Faker $faker) {
+$factory->define(Typesurgery::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
     return [
         'name' =>$faker->word,

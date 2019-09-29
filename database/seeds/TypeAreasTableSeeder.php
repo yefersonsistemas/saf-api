@@ -15,5 +15,5 @@ class TypeAreasTableSeeder extends Seeder
         TypeArea::truncate();
         factory(TypeArea::class, 20)->create();
     }
-    }
+    
 }

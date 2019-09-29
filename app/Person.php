@@ -40,4 +40,9 @@ class Person extends Model
     {
         return $this->belongsToMany('App\Branch');
     }
+
+      public function reservation()
+    {
+        return $this->belongsTo('App\Reservation');
+    }
 }

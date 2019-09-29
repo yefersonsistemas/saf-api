@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model //sucursales
 {
-   // protected $table = 'branchs';
+    protected $table = 'branch';
 
     protected $fillable = [ 
         'name', 'length', 'latitude', 'headquarters_id'

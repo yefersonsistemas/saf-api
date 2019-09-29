@@ -13,7 +13,7 @@ $factory->define(Reservation::class, function (Faker $faker) {
     return [
         'date' => $faker->date,
         'description' =>$faker->sentence,
-        'status'  => $faker->randomElement(['approved', 'pending', 'cancelled']),
+        'status'  => $faker->randomElement(['Pendiente', 'Aprobado', 'Cancelado']),
         'schedule_id'  =>$schedule->id,
         'branch_id' => $branchoffice->id,
     ];

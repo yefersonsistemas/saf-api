@@ -3,14 +3,12 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use App\Inventory;
-use App\TypeProduct;
 use App\Supplie;
 use App\MachineEquipment;
 use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(Inventory::class, function (Faker $faker) {
-    $typeproduct = TypeProduct::inRandomOrder()->first();
     $supplie = Supplie::inRandomOrder()->first();
     $machineequipment = MachineEquipment::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();

@@ -40,7 +40,7 @@ class CreateSurgeriesTable extends Migration
 
             $table->foreign('type_surgery_id')
             ->references('id')
-            ->on('typesurgeries')
+            ->on('type_surgeries')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')

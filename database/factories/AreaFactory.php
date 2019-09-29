@@ -4,7 +4,7 @@
 
 use App\Area;
 use App\TypeArea;
-use App\Branchoffice;
+use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(Area::class, function (Faker $faker) {

@@ -19,7 +19,7 @@ class CreateBillingsTable extends Migration
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('type_payment_id');
-            $table->unsignedBigInteger('type_currency_id');
+            $table->string('type_currency');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
@@ -41,11 +41,6 @@ class CreateBillingsTable extends Migration
             $table->foreign('type_payment_id')
             ->references('id')
             ->on('type_payments')
-            ->onDelete('CASCADE');
-
-            $table->foreign('type_currency_id')
-            ->references('id')
-            ->on('type_currencies')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')

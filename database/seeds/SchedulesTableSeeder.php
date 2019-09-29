@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Schedules;
+use App\Schedule;
 
 class SchedulesTableSeeder extends Seeder
 {
@@ -12,7 +12,7 @@ class SchedulesTableSeeder extends Seeder
      */
     public function run()
     {
-        Reservation::truncate();
-        factory(Reservation::class, 3)->create();
+        Schedule::truncate();
+        factory(Schedule::class, 10)->create();
     }
 }

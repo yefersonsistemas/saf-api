@@ -5,7 +5,7 @@
 use App\Doctor;
 use App\Employe;
 use App\TypeDoctor;
-use App\Branchoffice;
+use App\Branch;
 use Faker\Generator as Faker;
 
 $factory->define(Doctor::class, function (Faker $faker) {
@@ -17,6 +17,6 @@ $factory->define(Doctor::class, function (Faker $faker) {
        'employe_id' => $employe->id,
        'type_doctor_id' =>  $typedoctor->id,
        'price' => $faker->randomFloat,
-       'branchoffice' =>  $branchoffice->id,
+       'branch_id' =>  $branchoffice->id,
     ];
 });
