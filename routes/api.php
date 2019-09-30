@@ -48,15 +48,6 @@ Route::group(['prefix' => 'out'], function(){
     Route::POST('assigment/area', 'API\OutController@assigment');
     Route::POST('create', 'API\OutController@billing');
 });
-/*
-Route::group(['prefix' => 'supplie'], function(){
-    Route::POST('', 'API\LogisticController@index');
-    Route::POST('create', 'API\LogisticController@create');
-    Route::POST('/', 'LogisticController@store');
-    Route::get('edit/{supplie}', 'LogisticController@edit');
-    Route::put('/{id}', 'LogisticController@update');
-    Route::delete('{supplie}', 'LogisticController@destroy');
-});*/
 
 //rutas rol logistica
 Route::group(['prefix' => 'supplie'], function(){
@@ -72,4 +63,10 @@ Route::group(['prefix' => 'equipment'], function(){
     Route::put('/{id}', 'LogisticController@edit_equipment');
     Route::delete('{equipment}', 'LogisticController@delete_equipment');
 });
+
+Route::group(['prefix' => 'inventory'], function(){
+    Route::get('', 'API\LogisticController@list_inventory');
+    Route::get('', 'API\LogisticController@list_inventoryarea');
+});
+
 

@@ -11,12 +11,12 @@ class ConfigurationsTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {/*
         Configuration::truncate();
 
         Configuration::create([
             'name'  => 'price_usd',
             'value' => 8100,
-        ]);
+        ]);*/
     }
 }

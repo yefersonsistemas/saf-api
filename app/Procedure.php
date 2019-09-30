@@ -20,4 +20,10 @@ class Procedure extends Model
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function employe()
+    {
+        return $this->belongsToMany('App\Employe', 'procedure_employe')
+        ->withPivot('procedure_id');
+    }
 }

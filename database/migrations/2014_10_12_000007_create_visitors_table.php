@@ -16,7 +16,7 @@ class CreateVisitorsTable extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
-            $table->enum('type_visitor', ['paciente', 'visitante']);
+            $table->enum('type_visitor', ['Paciente', 'Visitante']);
             $table->enum('status', ['dentro', 'fuera']);
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();

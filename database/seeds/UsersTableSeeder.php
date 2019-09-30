@@ -173,6 +173,7 @@ class UsersTableSeeder extends Seeder
             ->givePermissionTo('asignar equipo')
             ->givePermissionTo('ver inventario')
             ->givePermissionTo('ver inventario por area')
+            ->givePermissionTo('Registrar limpieza')
             ->givePermissionTo('ver registro de limpieza')
             ->givePermissionTo('Crear reporte')->assignRole('logistica');
 
@@ -197,6 +198,5 @@ class UsersTableSeeder extends Seeder
             ->givePermissionTo('elegir procedimientos a realizar')
             ->givePermissionTo('crear recipe')
             ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
-
     }
 }

@@ -27,6 +27,9 @@ class CreateSupplieRequest extends FormRequest
             'name' => 'required',
             'presentation' => 'required',
             'type_suplie_id' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'type_equipment_id' => 'required',
         ];
     }
 }

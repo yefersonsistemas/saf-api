@@ -8,25 +8,19 @@ use App\Supplie;
 use App\MachineEquipment;
 use App\TypeEquipment;
 use App\Http\Requests\CreateSupplieRequest;
-use App\Http\Requests\CreateEquipmentRequest;
 
 class LogisticController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $supplie = Supplie::all();
-        $equipment = MachineEquipment::all();
+        $supplie = Supplie::where('type_supplie_id', $request->type_supplie_id)->first();
+        $equipment = MachineEquipment::where('type_equipment_id', $request->type_equipment_id)->first();
 
-       if (  == $supplie) {
+       if ($supplie == $supplie->type_supplie->id) {
             return response()->json([
             'supplie' => $supplie,
         ]);
-       }else{
+       }elseif($equipment == $equipment->type_equipment->id){
             return response()->json([
             'equipment' =>  $equipment,
         ]);
@@ -34,101 +28,6 @@ class LogisticController extends Controller
        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(CreateSupplieRequest $request)
-    {/*
-        $supplie = Supplie::create([
-            'date'               => $request['date'],
-            'presentation'       => $request['presentation'],
-            'type_supplie_id'    => $typesupplie->type_supplie_id,
-
-        ]);*/
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreateSupplieRequest $request)
-    {/*
-        $data = $request->validated();
-        $supplie = Supplie::create($data);
-
-           return response()->json([
-            'message' => 'Insumo creado exitosamente',
-        ], 201);*/
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Supplie $supplie)
-    {/*
-        $typesupplie = TypeSupplie::where('id', $request->id)->first();
-
-        $supplie = Supplie::create([
-            'date'               => $request['date'],
-            'presentation'       => $request['presentation'],
-            'type_supplie_id'    => $typesupplie->type_supplie_id,
-
-        ]);*/
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CreateSupplieRequest $request, $id)
-    {/*
-        $supplie = Supplie::find($id);
-        $data = $request->validated();
-        $supplie->update($data);
-
-           return response()->json([
-            'message' => 'Insumo actualizado exitosamente',
-        ], 201);*/
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Supplie $supplie)
-    {/*
-        $supplie->delete();
-
-        return response()->json([
-            'message' => 'Insumo eliminado',
-        ], 201);*/
-    }
- 
     //insumos
     public function create_supplie(CreateSupplieRequest $request){
 
@@ -169,13 +68,25 @@ class LogisticController extends Controller
         }
     }
 
-    public function assigment_suplie(){
+    public function assigment_suplie(CreateSupplieRequest $request){
+        $supplie = Supplie::where('id', $request->id);
+        $equipment = MachineEquipment::where('id', $request->id);
 
+        if ($suplie != null) {
+           
+            $inventoryarea = InventoryArea::create([
+                'quantity_Assigned'     => $request['quantity_Assigned'],
+                'quantity_Used'         => $request['quantity_Used'],
+                'quantity_Available'    => $request['quantity_Available'],
+                'type_area_id'          => $request['type_area_id'],
+                'inventory_id'          => $request['inventory_id'],
+            ]);
+        }
     }
-}
 
-            //equipos
-    public function create_equipment(CreateEquipmentRequest $request){
+    
+    //equipos
+    public function create_equipment(CreateSupplieRequest $request){
 
         $equipment = MachineEquipment::create([
             'name'               => $request['name'],
@@ -188,7 +99,7 @@ class LogisticController extends Controller
         ], 201);
     }
 
-    public function edit_equipment(CreateEquipmentRequest $request){
+    public function edit_equipment(CreateSupplieRequest $request){
 
         $equipment = MachineEquipment::where('id', $request->id)->first();
 
@@ -201,7 +112,7 @@ class LogisticController extends Controller
         }
     }
 
-    public function delete_equipment(CreateEquipmentRequest $request){
+    public function delete_equipment(CreateSupplieRequest $request){
 
         $equipment = MachineEquipment::where('id', $request->id)->first();
 
@@ -214,8 +125,57 @@ class LogisticController extends Controller
         }
     }
 
-     public function assigment_equipment(){
+     public function assigment_equipment(CreateSupplieRequest $request){
+        $equipment = MachineEquipment::where('id', $request->id);
+
+        if ($equipment != null) {
+           
+            $inventoryarea = InventoryArea::create([
+                'quantity_Assigned'     => $request['quantity_Assigned'],
+                'quantity_Used'         => $request['quantity_Used'],
+                'quantity_Available'    => $request['quantity_Available'],
+                'type_area_id'          => $request['type_area_id'],
+                'inventory_id'          => $request['inventory_id'],
+            ]);
+        }
+    }
+
+    public function list_inventory(){
+        $inventory = Inventory::all();
+
+        return response()->json([
+            'inventory' => $inventory,
+        ]);
+
+    }
+
+    public function list_inventoryArea(){
+        $inventoryarea = InventoryArea::all();
+
+        return response()->json([
+            'inventoryarea' => $inventoryarea,
+        ]);
+
+    }
+
+    public function registercleanig(){
         
+        $register = TypeCleanig::create([
+            'name' => $request['name'],
+            'type_cleaning' => $request['type_cleaning'],
+        ]);
+
+        return response()->json([
+            'message' => 'Limpieza registrada',
+        ], 201);
+    }
+
+    public function record_cleaning(){
+        $record = CleaningRecord::all();
+
+        return response()->json([
+            'record' => $record,
+        ], 201);
     }
 
 }

@@ -35,9 +35,7 @@ class SecurityController extends Controller
      */
     public function create()
     {
-       //$employes = Employe::all();
-      // $patients = Patient::all();
-       //return view('dashboard.security.create', compact('employes, patients'));
+       //
 
     }
 
@@ -49,9 +47,7 @@ class SecurityController extends Controller
      */
     public function store(Request $request)
     {
-        //$data = $request->validated();
-       // $visitors = Visitor::create($data);
-        //return redirect()->route('security.index');
+       //
     }
 
     /**

@@ -73,6 +73,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
 
         Permission::create(['name' => 'ver inventario']);
         Permission::create(['name' => 'ver inventario por area']);
+        Permission::create(['name' => 'Registrar limpieza']);
         Permission::create(['name' => 'ver registro de limpieza']);
         Permission::create(['name' => 'Crear reporte']);
 

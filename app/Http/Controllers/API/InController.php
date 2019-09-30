@@ -9,6 +9,7 @@ Use App\Employe;
 Use App\Area;
 Use App\Billing;
 Use App\Schedules;
+Use App\AreaAssigment;
 use App\Http\Requests\CreateBillingRequest;
 
 
@@ -93,9 +94,9 @@ class InController extends Controller
     public function assigment(Request $request) //asignacion de consultorio
     {
         $area = Area::Where('id', $request->id)->first();
-        $employe = Employe::join('area_assigments', 'employe.id', '=', 'area_assigments.employe_id')->first();
+        $employe = Employe::where('id', $request->id)->first();
 
-        if ($area && $employe->isNotEmpty()) {   //si existe el mismo usuario
+        if ($area != null) {   //si existe el mismo usuario
 
             return response()->json([
                 'message' => 'Consultorio ocupado',

@@ -17,7 +17,7 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'quantity_Available' => $faker->randomDigit,
         'quantity_Assigned' => $faker->randomDigit,
         'supplie_id' => $supplie->id,
-        'machine_Equipment_id' => $machineequipment->id,
+        'machine_equipment_id' => $machineequipment->id,
         'branch_id' => $branchoffice->id,
     ];
 });

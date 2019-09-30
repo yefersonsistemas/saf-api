@@ -13,6 +13,11 @@ class PositionsTableSeeder extends Seeder
     public function run()
     {
         Position::truncate();
+
+        factory(Position::class)->create([
+            'name'    => 'doctor',
+        ]);
+
         factory(Position::class, 10)->create();
     }
 }

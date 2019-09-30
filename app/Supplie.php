@@ -26,4 +26,4 @@ class Supplie extends Model //insumos
         return $this->belongsTo('App\TypeSupplie');
     }
 }
-}
+

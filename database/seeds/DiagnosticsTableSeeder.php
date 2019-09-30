@@ -39,5 +39,7 @@ class DiagnosticsTableSeeder extends Seeder
             'patient_id'    => 3,
             'employe_id'    => 2,
         ]);
+
+        factory(Diagnostic::class, 20)->create();
     }
 }
