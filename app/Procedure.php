@@ -12,6 +12,11 @@ class Procedure extends Model
         'name', 'description', 'price', 'branch_id'
     ];
 
+    public function person()
+    {
+       return $this->belongsTo('App\Person');
+    }
+
     public function doctors()
     {
         return $this->belongsToMany('App\Employe');
@@ -23,7 +28,8 @@ class Procedure extends Model
 
     public function employe()
     {
-        return $this->belongsToMany('App\Employe', 'procedure_employe')
-        ->withPivot('procedure_id');
+        return $this->belongsToMany('App\Employe','procedure_employe')
+       ->withPivot('employe_id','id');
+     
     }
 }
