@@ -72,17 +72,12 @@ class Employe extends Model
         return $this->belongsTo('App\Branch');
     }
 
-    public function procedures(Type $var = null)
+    public function procedures() //relacion  con la tabla m:m 
     {
-        return $this->hasMany('App\Procedure');
+        return $this->belongsToMany('App\Procedure','procedure_employe')
+       ->withPivot('procedure_id','id');
+       
+        //return $this->belongsToMany(Procedure::class,'name','description','price'); tambien puede ser asi
     }
-
-    // public function procedure() //relacion  con la tabla m:m 
-    // {
-    //     return $this->belongsToMany('App\Procedure', 'procedure_employe')
-    //     ->withPivot('employe_id');
-
-    //     //return $this->belongsToMany(Procedure::class,'name','description','price'); tambien puede ser asi
-    // }
 
 }
