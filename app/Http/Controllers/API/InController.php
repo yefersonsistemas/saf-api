@@ -91,28 +91,33 @@ class InController extends Controller
         //
     }
 
-    public function assigment(Request $request) //asignacion de consultorio
+    public function search(Request $request)//esta buena
     {
-        $area = Area::Where('id', $request->id)->first();
-        $employe = Employe::where('id', $request->id)->first();
+       $area = Area::Where('id', $request->id)->first(); 
 
-        if ($area != null) {   //si existe el mismo usuario
-
+        if ($area != null) {  //si existe
             return response()->json([
                 'message' => 'Consultorio ocupado',
             ], 201);
-       
+            
         }else{  //caso de que no exista
+            return response()->json([
+                'message' => 'Consultorio no encontrado',
+            ], 201);
+        }
+    }
 
-            $areaAssigment = AreaAssigment::create([
-                'employe_id' => $employe->id,
-                'area_id' => $area->id,
-            ]);
+    public function assigment(CreateBillingRequest $request) //asignacion de consultorio
+    {
+        $areaAssigment = AreaAssigment::create([
+            'employe_id'  => $request->id,
+            'area_id'     => $request->id,
+        ]);
             
             return response()->json([
                 'message' => 'consultorio asignado',
             ], 201);
-        }
+        
     }
 
     public function billing(CreateBillingRequest $request){  //facturacion

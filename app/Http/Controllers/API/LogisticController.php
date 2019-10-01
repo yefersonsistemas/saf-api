@@ -34,7 +34,7 @@ class LogisticController extends Controller
         $supplie = Supplie::create([
             'name'               => $request['name'],
             'presentation'       => $request['presentation'],
-            'type_supplie_id'    => $type_supplie->type_supplie_id,
+            'type_supplie_id'    => $request->type_supplie_id,
         ]);
 
           return response()->json([

@@ -39,7 +39,8 @@ Route::group(['prefix' => 'reception'], function(){
 
 //rutas rol in
 Route::group(['prefix' => 'in'], function(){
-    Route::POST('assigment/area', 'API\InController@assigment');
+    Route::POST('search', 'API\InController@search');
+    Route::POST('assigment', 'API\InController@assigment');
     Route::POST('create', 'API\InController@billing');
 });
 

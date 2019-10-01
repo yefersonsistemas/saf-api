@@ -95,7 +95,7 @@ class SecurityController extends Controller
         //
     }
     
-    public function search(Request $request)
+    public function search(Request $request)//esta buena
     {
        // $persons = Person::all()->dd();
         $person = Person::where('dni', $request)->first(); //busco dni para saber si existe
@@ -114,7 +114,7 @@ class SecurityController extends Controller
         }
     }
 
-    public function all_visitor(Request $request)
+    public function all_visitor(CreateVisitorRequest $request)
     {
         $person = Person::create([  //agregar un visitante ya sea un futuro paciente o no
             'type_dni'    => $request->type_dni,
@@ -123,7 +123,7 @@ class SecurityController extends Controller
             'lastname'    => $request->lastname,
             'address'     => $request->address,
             'email'       => $request->email,
-            'branch_id' => 1,
+           // 'branch_id'   => 1,
         ]);
 
         $this->create_visitor($person);

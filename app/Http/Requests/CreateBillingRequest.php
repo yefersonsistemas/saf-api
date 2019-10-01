@@ -29,6 +29,8 @@ class CreateBillingRequest extends FormRequest
             'patient_id' => 'required',
             'type_payment_id' => 'required',
             'type_currency' => 'required',
+            'employe_id' => 'required',
+            'area_id' => 'required',
         ];
     }
 }
