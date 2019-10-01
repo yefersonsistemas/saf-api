@@ -10,8 +10,13 @@ use Faker\Generator as Faker;
 
 $factory->define(Diagnostic::class, function (Faker $faker) {
     $patient = Patient::inRandomOrder()->first();
-   // $employe = Employe::role('doctor')->inRandomOrder()->first();
-   // $employe = Employe::inRandomOrder()->first();
+    $employes = Employe::with('person.user')->get();
+
+    $employes = $employes->each(function ($item, $employe) {
+        return $item->person->user->role('doctor');
+    });
+
+
     $branchoffice = Branch::inRandomOrder()->first();
 
     return [
@@ -21,7 +26,7 @@ $factory->define(Diagnostic::class, function (Faker $faker) {
         'treatment'   => $faker->paragraph,
         'annex'       => $faker->paragraph,
         'next_cite'   => $faker->date,
-        'employe_id'  => $employe->id,
-        'branch_id' => $branchoffice->id,
+        'employe_id'  => $employes->random()->id,
+        'branch_id'   => $branchoffice->id,
     ];
 });

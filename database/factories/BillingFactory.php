@@ -14,12 +14,12 @@ use Faker\Generator as Faker;
 $factory->define(Billing::class, function (Faker $faker) {
     $person = Person::inRandomOrder()->first();
     $procedure = Procedure::inRandomOrder()->first();
-    $employe = Employe::inRandomOrder()->first();
+    $employe = Employe::with('procedures')->get()->random();
     $patient = Patient::inRandomOrder()->first();
     $typepayment = TypePayment::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
     return [
-        'procedure_employe_id' => $procedure->pivot->employe_id,
+        'procedure_employe_id' => $employe->procedures->random()->id,
         'person_id' =>$person->id,
         'patient_id' =>$patient->id,
         'type_payment_id' =>$typepayment->id,

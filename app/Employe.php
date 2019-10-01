@@ -12,6 +12,16 @@ class Employe extends Model
         'person_id', 'position_id', 'branch_id'
     ];
 
+    public function person()
+    {
+        return $this->belongsTo('App\Person');
+    }
+
+    public function user()
+    {
+        return $this->hasOneThrough('App\User','App\Person');
+    }
+
     public function billing()
     {
         return $this->belongsTo('App\Billing');
@@ -62,12 +72,17 @@ class Employe extends Model
         return $this->belongsTo('App\Branch');
     }
 
-    public function procedure() //relacion  con la tabla m:m 
+    public function procedures(Type $var = null)
     {
-        return $this->belongsToMany('App\Procedure', 'procedure_employe')
-        ->withPivot('employe_id');
-
-        //return $this->belongsToMany(Procedure::class,'name','description','price'); tambien puede ser asi
+        return $this->hasMany('App\Procedure');
     }
+
+    // public function procedure() //relacion  con la tabla m:m 
+    // {
+    //     return $this->belongsToMany('App\Procedure', 'procedure_employe')
+    //     ->withPivot('employe_id');
+
+    //     //return $this->belongsToMany(Procedure::class,'name','description','price'); tambien puede ser asi
+    // }
 
 }
