@@ -10,11 +10,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Diagnostic::class, function (Faker $faker) {
     $patient = Patient::inRandomOrder()->first();
-    $employes = Employe::with('person.user')->get();
-
-    $employes = $employes->each(function ($item, $employe) {
-        return $item->person->user->role('doctor');
-    });
+    $employes = Employe::with('person.user')->get(); //trae todos los empleados q estan relacinados con persona 
+                                                    //y con un usuario en el sistema
+    $employes = $employes->each(function ($item) { //recorre c/u de los empleados y lo va guardando en item
+        return $item->person->user->role('doctor'); //comparo q el empleado en item relacionado con persona tenga un
+    });                                             //usuario y q ademas tenga el rol sea doctor
 
 
     $branchoffice = Branch::inRandomOrder()->first();

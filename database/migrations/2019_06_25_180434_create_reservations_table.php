@@ -18,9 +18,15 @@ class CreateReservationsTable extends Migration
             $table->date('date');
             $table->longText('description');
             $table->enum('status', ['Aprobado', 'Pendiente', 'Cancelado']);
+            $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('schedule_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
+
+            $table->foreign('person_id')
+            ->references('id')
+            ->on('persons')
+            ->onDelete('CASCADE');   
             
             $table->foreign('schedule_id')
                 ->references('id')
