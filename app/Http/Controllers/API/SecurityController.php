@@ -19,11 +19,19 @@ class SecurityController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::WhereDate('date', Carbon::now()->format('d/m/Y'))->get(); //mostrar las reservaciones solo del dia
+        $reservations = Reservation::whereDate('created_at', Carbon::now()->format('d/m/Y'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
         $visitors = Visitor::whereDate('created_at', Carbon::now()->format('d/m/Y'))->get(); //obtener solo registros creados hoy 
-        
+
+        $patients = $reservations->map(function ($item, $key) {
+            return $item->person;
+        });
+
+        $visitors = $visitors->map(function ($item, $key) {
+            return $item->person;
+        });
+
         return response()->json([
-            'reservation' => $reservations,
+            'reservation' => $patients,
             'visitor' =>  $visitors,
         ]);
     }

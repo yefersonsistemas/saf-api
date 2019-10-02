@@ -27,9 +27,9 @@ class Reservation extends Model
         return $this->belongsTo('App\Schedule','schedule_id');
     }
 
-    public function patient()
+    public function person()
     {
-        return $this->hasMany('App\Patient');
+        return $this->belongsTo('App\Person');
     }
 
     public function branch()
