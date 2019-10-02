@@ -12,13 +12,14 @@ class TypeCleaning extends Model //tipo de limpieza
         'name', 'description', 'branch_id'
     ];
 
-    public function employe()
-    {
-        return $this->belongsTo('App\Employe');
-    }
-
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function employe() //relacion  con la tabla m:m 
+    {
+        return $this->belongsToMany('App\Employe','employe_cleaning')
+       ->withPivot('employe_id','id');
     }
 }

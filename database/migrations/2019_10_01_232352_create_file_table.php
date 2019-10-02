@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImagesTable extends Migration
+class CreateFileTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('file', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('path');
-            $table->morphs('imageable');
+            $table->morphs('fileable');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('branch_id')
-                ->references('id')
-                ->on('branch')
-                ->onDelete('CASCADE');
+            ->references('id')
+            ->on('branch')
+            ->onDelete('CASCADE');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('file');
     }
 }
