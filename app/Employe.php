@@ -16,7 +16,7 @@ class Employe extends Model
     {
         return $this->belongsTo('App\Person');
     }
-
+    
     public function user()
     {
         return $this->hasOneThrough('App\User','App\Person');
@@ -78,6 +78,12 @@ class Employe extends Model
        ->withPivot('procedure_id','id');
        
         //return $this->belongsToMany(Procedure::class,'name','description','price'); tambien puede ser asi
+    }
+
+    public function typecleaning() 
+    {
+        return $this->belongsToMany('App\TypeCleaning','employe_cleaning')
+       ->withPivot('type_cleaning_id','id');
     }
 
 }
