@@ -23,7 +23,7 @@ class PatientController extends Controller
  public function index(Request $request)
  {
   $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
-  return view('dashboard.patients.index', compact('patients'));
+  //return view('dashboard.patients.index', compact('patients'));
  }
 
  /**
@@ -60,7 +60,7 @@ class PatientController extends Controller
    'Cocinero', 'Secretario', 'Programador', 'Fotógrafo', 'Mecánico/a', 'Abogado/a', 'Periodista', 'Ama de casa', 'Peluquero/a', 'Ingeniero/a', 'Electricista', 'Economista', 'Médico/a', 'Dentista', 'Consultor', 'Albañil', 'Panadero', 'Arquitecto', 'Actor', 'Contable', 'Modelo', 'Monja', 'Enfermero/a', 'Oficinista', 'Conserje', 'Político', 'Vendedor', ' Militar', 'Deportista', 'Cirujano', 'Veterinario', 'Profesor/a', 'Taxista',
   ];
 
-  return view('dashboard.patients.create', compact('professions', 'doctors', 'medicines', 'diseases', 'users', 'history_number'));
+  //return view('dashboard.patients.create', compact('professions', 'doctors', 'medicines', 'diseases', 'users', 'history_number'));
  }
 
  /**
@@ -120,7 +120,7 @@ class PatientController extends Controller
         $patient->medicines()->attach($newMedicine->id);
     }
     }
-  return redirect()->route('patients.index')->withSuccess('Paciente registrado exitosamente');
+  //return redirect()->route('patients.index')->withSuccess('Paciente registrado exitosamente');
  }
 
  /**
@@ -144,7 +144,7 @@ class PatientController extends Controller
   foreach ($diagnosticos as $diagnostico) {
    $doctor_diag[] = $diagnostico->doctor;
   }
-  return view('dashboard.patients.show', compact('doctor_diag', 'allergy', 'doct', 'patient', 'speciality', 'diagnosticos', 'diseases', 'medicines'));
+  //return view('dashboard.patients.show', compact('doctor_diag', 'allergy', 'doct', 'patient', 'speciality', 'diagnosticos', 'diseases', 'medicines'));
  }
 
  /**
@@ -189,7 +189,7 @@ class PatientController extends Controller
     }
    }$x++;
   }
-  return view('dashboard.patients.edit', compact('birthdate', 'doctors', 'doct', 'patient', 'professions', 'medicines', 'users', 'diseases', 'ds', 'md', 'prof', 'allergy'));
+ // return view('dashboard.patients.edit', compact('birthdate', 'doctors', 'doct', 'patient', 'professions', 'medicines', 'users', 'diseases', 'ds', 'md', 'prof', 'allergy'));
  }
 
  /**
@@ -273,7 +273,7 @@ class PatientController extends Controller
     $patient->medicines()->attach($newMedicine->id);
    }
   }
-  return redirect()->route('patients.show', $patient);
+ // return redirect()->route('patients.show', $patient);
  }
  /**
   * Remove the specified resource from storage.
@@ -296,6 +296,6 @@ class PatientController extends Controller
         // return $pdf->download('invoice.pdf');
     }
     public function recipe(Patient $patient){
-        return view('dashboard.patients.recipe', compact('patient'));
+       // return view('dashboard.patients.recipe', compact('patient'));
     }
 }

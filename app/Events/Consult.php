@@ -14,14 +14,17 @@ class Consult
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $patients;
+
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($patients)
     {
-        //
+        $this->patients->$patients;
     }
 
     /**
