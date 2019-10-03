@@ -2,16 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Patients;
-use App\Mediciens;
-use App\Examenes;
-use App\Diagnostic;
-use App\Carbon\CArbon;
-
 use Illuminate\Http\Request;
 
-class DoctorController extends Controller
+class AdministrationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,11 +13,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $patients = Patients::whereDate('date', Carbon::now()->format('d/m/Y'))->get();
-
-        return response()->json([
-            'patient' => $patients,
-        ]);
+        //
     }
 
     /**
@@ -91,18 +80,5 @@ class DoctorController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function create_diagnostic(){
-
-        $diagnostic = Diagnostic::create([
-            'petient_id' => $request->patient_id,
-            'description' => $request->description,
-            'reason' => $request->reason,
-            'treatment' => $request->treatment,
-            'annex' => $request->annex,
-            'next_cite' => $request->next_cite,
-            'employe_id' => $request->employe_id,
-        ]);
     }
 }

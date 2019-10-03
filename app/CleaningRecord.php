@@ -16,4 +16,24 @@ class CleaningRecord extends Model //registro de limpieza
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function person()
+    {
+        return $this->belongsTo('App\Person');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo('App\Position');
+    }
+
+    public function employe()
+    {
+        return $this->belongsTo('App\Employe');
+    }
+
+    public function typecleaning()
+    {
+        return $this->belongsTo('App\TypeCleaning');
+    }
 }

@@ -8,10 +8,14 @@ Use App\Visitor;
 Use App\Person;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
+use App\Events\Security;
 
 
 class SecurityController extends Controller
 {
+    protected $data = [
+        'patients'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -29,6 +33,8 @@ class SecurityController extends Controller
         $visitors = $visitors->map(function ($item, $key) {
             return $item->person;
         });
+
+        event(new Security($patients));
 
         return response()->json([
             'reservation' => $patients,
