@@ -27,9 +27,9 @@ class Employe extends Model
         return $this->belongsTo('App\Billing');
     }
 
-    public function positions()
+    public function position()
     {
-        return $this->belongsToMany('App\Position');
+        return $this->belongsTo('App\Position');
     }
 
     public function payments()
