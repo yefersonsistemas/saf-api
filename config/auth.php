@@ -71,11 +71,11 @@ return [
             'model' => App\User::class,
         ],
 
-        'users' => [
-            'driver' => 'eloquent',
-            'table' => 'persons',
-            'model' => App\Person::class,
-        ],
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'table' => 'persons',
+        //     'model' => App\Person::class,
+        // ],
     ],
 
     /*
