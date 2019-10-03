@@ -8,10 +8,14 @@ Use App\Visitor;
 Use App\Person;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
+use App\Events\Security;
 
 
 class SecurityController extends Controller
 {
+    protected $data = [
+        'patients'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +23,11 @@ class SecurityController extends Controller
      */
     public function index()
     {
+        $fecha = Carbon::now()->format('Y-m-d');
+        // dd($fecha);
         $reservations = Reservation::whereDate('date', Carbon::now()->format('d/m/Y'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
-        $visitors = Visitor::whereDate('created_at', Carbon::now()->format('d/m/Y'))->get(); //obtener solo registros creados hoy 
-
+        $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))->get(); //obtener solo registros creados hoy 
+        //dd($visitors);
         $patients = $reservations->map(function ($item, $key) {
             return $item->person;
         });
@@ -29,6 +35,8 @@ class SecurityController extends Controller
         $visitors = $visitors->map(function ($item, $key) {
             return $item->person;
         });
+
+        event(new Security($patients));
 
         return response()->json([
             'reservation' => $patients,

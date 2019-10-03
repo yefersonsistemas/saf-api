@@ -13,6 +13,6 @@ class TypeCleaningTableSeeder extends Seeder
     public function run()
     {
         TypeCleaning::truncate();
-        factory(TypeCleaning::class, 20)->create();
+        factory(TypeCleaning::class, 20);
     }
 }

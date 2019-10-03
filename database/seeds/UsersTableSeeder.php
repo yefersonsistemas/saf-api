@@ -199,4 +199,5 @@ class UsersTableSeeder extends Seeder
             ->givePermissionTo('crear recipe')
             ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
     }
+
 }

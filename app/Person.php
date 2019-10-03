@@ -45,4 +45,9 @@ class Person extends Model
     {
         return $this->belongsTo('App\Reservation');
     }
+
+    public function position()
+    {
+        return $this->belongsTo('App\Position');
+    }
 }

@@ -20,4 +20,14 @@ class Position extends Model
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function typecleaning() 
+    {
+        return $this->belongsToMany('App\TypeCleaning');
+    }
+
+    public function person()
+    {
+        return $this->belongsTo('App\Person');
+    }
 }

@@ -28,7 +28,7 @@ Route::group(['prefix' => 'security'], function(){
     Route::POST('inside', 'API\SecurityController@statusIN');
     Route::POST('outside', 'API\SecurityController@statusOut');
     Route::POST('search', 'API\SecurityController@search');
-    });
+});
 
 //rutas rol recepcion
 Route::group(['prefix' => 'reception'], function(){

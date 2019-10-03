@@ -29,7 +29,7 @@ class Employe extends Model
 
     public function positions()
     {
-        return $this->hasone('App\Position');
+        return $this->belongsToMany('App\Position');
     }
 
     public function payments()
@@ -76,8 +76,6 @@ class Employe extends Model
     {
         return $this->belongsToMany('App\Procedure','procedure_employe')
        ->withPivot('procedure_id','id');
-       
-        //return $this->belongsToMany(Procedure::class,'name','description','price'); tambien puede ser asi
     }
 
     public function typecleaning() 
@@ -85,5 +83,4 @@ class Employe extends Model
         return $this->belongsToMany('App\TypeCleaning','employe_cleaning')
        ->withPivot('type_cleaning_id','id');
     }
-
 }
