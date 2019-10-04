@@ -2,9 +2,13 @@
 
 use Illuminate\Database\Seeder;
 use App\TypeArea;
+use App\Traits\ImageFactory;
+
 
 class TypeAreasTableSeeder extends Seeder
 {
+    use ImageFactory;
+
     /**
      * Run the database seeds.
      *
@@ -13,7 +17,10 @@ class TypeAreasTableSeeder extends Seeder
     public function run()
     {
         TypeArea::truncate();
-        factory(TypeArea::class, 20)->create();
+        $this->deleteDirectory(storage_path('/app/public/typearea'));
+
+        factory(TypeArea::class, 3)->create()->each(function($type){
+            $this->to('typearea', $type->id, 'App\TypeArea');
+        });
     }
-    
 }

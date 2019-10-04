@@ -12,6 +12,14 @@ class Employe extends Model
         'person_id', 'position_id', 'branch_id'
     ];
 
+    /**
+     * Get the avatar image.
+     */
+    public function avatar()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
     public function person()
     {
         return $this->belongsTo('App\Person');

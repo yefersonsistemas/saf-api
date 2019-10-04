@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\TypeSupplie;
 use App\Supplie;
 use App\MachineEquipment;
@@ -72,7 +73,7 @@ class LogisticController extends Controller
         $supplie = Supplie::where('id', $request->id);
         $equipment = MachineEquipment::where('id', $request->id);
 
-        if ($suplie != null) {
+        if ($supplie != null) {
            
             $inventoryarea = InventoryArea::create([
                 'quantity_Assigned'     => $request['quantity_Assigned'],

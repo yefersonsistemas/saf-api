@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
+use App\Employe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Reservation;
@@ -9,7 +11,6 @@ Use App\Person;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
 use App\Events\Security;
-
 
 class SecurityController extends Controller
 {
@@ -139,7 +140,7 @@ class SecurityController extends Controller
             'lastname'    => $request->lastname,
             'address'     => $request->address,
             'email'       => $request->email,
-           // 'branch_id'   => 1,
+           'branch_id'   => 1,
         ]);
 
         $this->create_visitor($person);
@@ -154,19 +155,21 @@ class SecurityController extends Controller
     {
         $visitor = Visitor::create([
             'person_id'      => $person->id,
-            'type_visitor'   => 'visitante', 
+            'type_visitor'   => 'Visitante', 
             'status'         => 'dentro',
+            'branch_id'      => 1
         ]);
     }
 
-    public function statusIn(Person $person)
+    public function statusIn(Request $request)
     {
-        // $person = Person::where('id', $request->id)->first(); //busco el id 
+        $person = Person::where('id', $request->id)->first(); //busco el id 
 
         $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
-            'person_id' =>$person->person_id,
-            'type_visitor' => 'paciente',
+            'person_id' =>$person->id,
+            'type_visitor' => 'Paciente',
             'status' => 'dentro',
+            'branch_id' => 1,
         ]);
 
         //  event(new Security($visitor));
@@ -176,7 +179,7 @@ class SecurityController extends Controller
         ]);
     }
 
-    public function statusOut(CreateVisitorRequest $request)
+    public function statusOut(Request $request)
     {
         $person = Visitor::where('person_id', $request->person_id)->orderBy('created_at', 'desc')->first(); //busco el visitante comparando los id 
 
@@ -184,6 +187,7 @@ class SecurityController extends Controller
                 'person_id' => $person->person_id,
                 'type_visitor' => $person->type_visitor,
                 'status' => 'fuera',
+                'branch_id' => 1
             ]);
 
         return response()->json([
