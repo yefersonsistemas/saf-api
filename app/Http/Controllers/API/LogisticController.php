@@ -10,6 +10,7 @@ use App\TypeEquipment;
 use App\Inventory;
 use App\InventoryArea;
 use App\Http\Requests\CreateSupplieRequest;
+use App\Http\Requests\CreateEquipmentRequest;
 
 class LogisticController extends Controller
 {
@@ -36,7 +37,7 @@ class LogisticController extends Controller
 
           return response()->json([
             'message' => 'Insumo creado exitosamente',
-        ], 201);
+        ]);
     }
 
     public function edit_supplie(CreateSupplieRequest $request, $id){
@@ -44,15 +45,15 @@ class LogisticController extends Controller
         $supplie = Supplie::where('id', $request->id)->first();
 
         if ($supplie != null ){
-            $supplie->update($request->all());
+
+            $equipment->name = $request->name;
+            $equipment->type_supplie_id = $request->type_supplie_id;
+            $equipment->presentation = $request->presentation;
+            $equipment->update();
 
              return response()->json([
             'message' => 'Modificacion exitosa',
-        ], 201);
-        }else{
-            return response()->json([
-                'message' => 'No existe el insumo',
-            ], 201);
+        ]);
         }
     }
 
@@ -64,7 +65,7 @@ class LogisticController extends Controller
 
              return response()->json([
             'message' => 'Insumo eliminado',
-        ], 201);
+        ]);
     }
 
     public function assigment_suplie(CreateSupplieRequest $request){
@@ -85,29 +86,37 @@ class LogisticController extends Controller
 
     
     //equipos
-    public function create_equipment(CreateSupplieRequest $request){
-
+    public function create_equipment(CreateEquipmentRequest $request){
+        
         $equipment = MachineEquipment::create([
             'name'               => $request['name'],
             'description'        => $request['description'],
-            'type_equipment_id'  => $type_equipment->type_equipment_id,
+            'type_equipment_id'  => $request['type_equipment_id'],
+            'branch_id'          => 1 
         ]);
+
+        //$equipment = MachineEquipment::all()->dd();
 
           return response()->json([
             'message' => 'Equipo creado exitosamente',
-        ], 201);
+        ]);
     }
 
-    public function edit_equipment(CreateSupplieRequest $request){
+
+    public function edit_equipment(Request $request){
 
         $equipment = MachineEquipment::where('id', $request->id)->first();
 
         if ($equipment != null ){
-            $equipment->update($request->all());
 
-             return response()->json([
-            'message' => 'Modificacion exitosa',
-        ], 201);
+            $equipment->name = $request->name;
+            $equipment->description = $request->description;
+            $equipment->type_equipment_id = $request->type_equipment_id;
+            $equipment->update();
+
+                return response()->json([
+                'message' => 'Modificacion exitosa',
+            ]);
         }
     }
 
@@ -119,10 +128,10 @@ class LogisticController extends Controller
 
              return response()->json([
             'message' => 'Equipo eliminado',
-        ], 201);
+        ]);
     }
 
-     public function assigment_equipment(CreateSupplieRequest $request){
+     public function assigment_equipment(CreateEquipmentRequest $request){
         $equipment = MachineEquipment::where('id', $request->id);
 
         if ($equipment != null) {
@@ -164,7 +173,7 @@ class LogisticController extends Controller
 
         return response()->json([
             'message' => 'Limpieza registrada',
-        ], 201);
+        ]);
     }
 
     public function record_cleaning(){
@@ -172,7 +181,7 @@ class LogisticController extends Controller
 
         return response()->json([
             'record' => $record,
-        ], 201);
+        ]);
     }
 
 }

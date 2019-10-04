@@ -30,7 +30,7 @@ class CreateDiagnosticRequest extends FormRequest
             'employe_id' => 'required',
             'treatment' => 'required',
             'annex' => 'required',
-            'next_cie' => 'required',
+            'next_cite' => 'required',
         ];
     }
 
@@ -43,7 +43,7 @@ class CreateDiagnosticRequest extends FormRequest
             'empploye_id.required' => 'El :attribute es obligatorio.',
             'treatment.required' => 'El :attribute es obligatorio.',
             'annex.required' => 'El :attribute es obligatorio.',
-            'next_cie.required' => 'El :attribute es obligatorio.',
+            'next_cite.required' => 'El :attribute es obligatorio.',
         ];
     }
 
@@ -54,7 +54,7 @@ class CreateDiagnosticRequest extends FormRequest
             'description' => 'diagnostico',
             'patient_id' => 'paciente',
             'employe_id' => 'doctor',
-            'tratment' => 'tratamiento',
+            'treatment' => 'tratamiento',
             'annex' => 'anexo',
             'next_cite' => 'proxima cita',
         ];

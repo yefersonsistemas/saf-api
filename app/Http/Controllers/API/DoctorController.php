@@ -11,6 +11,8 @@ use App\Procedure;
 use App\Surgery;
 use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
+use App\Employe;
+
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -117,13 +119,13 @@ class DoctorController extends Controller
 
          //$diagnostic = Diagnostic::all()->dd();
         $diagnostic = Diagnostic::create([
-            'petient_id' => $request->patient_id,
-            'description' => $request->description,
-            'reason' => $request->reason,
-            'treatment' => $request->treatment,
-            'annex' => $request->annex,
-            'next_cite' => $request->next_cite,
-            'employe_id' => $request->employe_id,
+            'petient_id' => $request['patient_id'],
+            'description' => $request['description'],
+            'reason' => $request['reason'],
+            'treatment' => $request['treatment'],
+            'annex' => $request['annex'],
+            'next_cite' => $request['next_cite'],
+            'employe_id' => $request['employe_id'],
         ]);
 
             return response()->json([
@@ -143,4 +145,19 @@ class DoctorController extends Controller
     }
 
     //falta calculo del doctor p/paciente pago semanal
+    public function list()
+    {
+        $doctor = Employe::with('person.user','procedures')->get();
+
+        $doctors = $doctor->each(function ($doctor)
+        {
+            $doc = $doctor->person->user->role('doctor');
+            // $doc->load('procedures');
+            return $doc;
+        });
+
+        return response()->json([
+            'doctors' => $doctors,
+        ]);
+    }
 }

@@ -21,4 +21,10 @@ class TypeEquipment extends Model //tipo de equipos
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function equipment()
+    {
+        return $this->belongsTo('App\MachineEquipment');
+    }
+    
 }

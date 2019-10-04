@@ -32,6 +32,28 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user/notifications', 'API\UserController@notifications');
     });
 });
+
+Route::group(['prefix' => 'patients'], function(){
+    Route::get('/', 'API\PatientController@index');
+    Route::get('/list','API\PatientController@list');
+});
+
+Route::group(['prefix' => 'doctors'], function(){
+    Route::get('/', 'API\DoctorController@index');
+    Route::get('/list','API\DoctorController@list');
+});
+
+Route::group(['prefix' => 'payments'], function(){
+    Route::get('/type', 'API\PaymentController@index');
+});
+
+Route::group(['prefix' => 'areas'], function(){
+    Route::get('/type', 'API\AreasController@type');
+});
+
+Route::group(['prefix' => 'supplies'], function(){
+    Route::get('/type', 'API\SupplieController@type');
+});
  
 //rutas rol seguridad
 Route::group(['prefix' => 'security'], function(){
@@ -75,7 +97,7 @@ Route::group(['prefix' => 'supplie'], function(){
 });
 
 Route::group(['prefix' => 'equipment'], function(){
-    Route::POST('create', 'API\LogisticController@create_equipment');  //
+    Route::POST('create', 'API\LogisticController@create_equipment');  // listo
     Route::put('/{id}', 'LogisticController@edit_equipment');  //
     Route::delete('{equipment}', 'LogisticController@delete_equipment');  //
 });
@@ -89,6 +111,7 @@ Route::group(['prefix' => 'inventory'], function(){
 //rutas rol doctor
 Route::group(['prefix' => 'doctor'], function(){
     Route::get('/', 'API\DoctorController@index');  //se ve
+    Route::get('list', 'API\DoctorController@list'); //se ve
     Route::get('history', 'API\DoctorController@history_patient');  //se ve
     Route::POST('create','API\DoctorController@diagnostic');  // 200 ok pero no muestra
     Route::get('recipe', 'API\DoctorController@recipe');  // se ve

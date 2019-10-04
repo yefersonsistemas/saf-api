@@ -25,18 +25,23 @@ class SecurityController extends Controller
     {
         $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
         $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))->get(); //obtener solo registros creados hoy 
-        
-        $patients = $reservations->map(function ($item, $key) {
+        $all = collect([]);
+
+        $patients = $reservations->map(function ($item) {
+            $item->person->category = 'paciente';
             return $item->person;
         });
 
-        $visitors = $visitors->map(function ($item, $key) {
+        $visitors = $visitors->map(function ($item) {
+            $item->person->category = 'Visitante';
             return $item->person;
         });
+        
+        $all = $patients->concat($visitors);        
+        // event(new Security($patients));
 
         return response()->json([
-            'reservation' => $patients,
-            'visitor' =>  $visitors,
+            'all' => $all,
         ]);
     }
 
@@ -48,7 +53,6 @@ class SecurityController extends Controller
     public function create()
     {
        //
-
     }
 
     /**
@@ -117,12 +121,12 @@ class SecurityController extends Controller
 
             return response()->json([
                 'message' => 'Visitante creado',
-            ], 201);
+            ]);
             
         }else{  //caso de que no exista
             return response()->json([
                 'message' => 'Visitante no encontrado debe de crearlo',
-            ], 201);
+            ]);
         }
     }
 
@@ -142,7 +146,7 @@ class SecurityController extends Controller
 
         return response()->json([
             'message' => 'Visitante creado',
-        ], 201);
+        ]);
 
     }
 
@@ -155,10 +159,10 @@ class SecurityController extends Controller
         ]);
     }
 
-    public function statusIn(CreateVisitorRequest $request)
+    public function statusIn(Person $person)
     {
-        $person = Person::where('id', $request->id)->first(); //busco el id 
-        
+        // $person = Person::where('id', $request->id)->first(); //busco el id 
+
         $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
             'person_id' =>$person->person_id,
             'type_visitor' => 'paciente',
@@ -168,7 +172,6 @@ class SecurityController extends Controller
         //  event(new Security($visitor));
         
         return response()->json([
-            
             'message' => 'Visitante dentro de las instalaciones',
         ]);
     }
@@ -182,7 +185,7 @@ class SecurityController extends Controller
                 'type_visitor' => $person->type_visitor,
                 'status' => 'fuera',
             ]);
-            
+
         return response()->json([
             'message' => 'Visitante fuera de las instalaciones',
         ]);
