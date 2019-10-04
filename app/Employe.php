@@ -8,7 +8,7 @@ class Employe extends Model
 {
     protected $table = 'employes';
 
-    protected $fillable = [ //saldo
+    protected $fillable = [ 
         'person_id', 'position_id', 'branch_id'
     ];
 
@@ -27,9 +27,9 @@ class Employe extends Model
         return $this->belongsTo('App\Billing');
     }
 
-    public function positions()
+    public function position()
     {
-        return $this->belongsToMany('App\Position');
+        return $this->belongsTo('App\Position');
     }
 
     public function payments()

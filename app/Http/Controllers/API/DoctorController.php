@@ -7,7 +7,7 @@ use App\Patients;
 use App\Mediciens;
 use App\Examenes;
 use App\Diagnostic;
-use App\Carbon\CArbon;
+use App\Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -93,7 +93,23 @@ class DoctorController extends Controller
         //
     }
 
-    public function create_diagnostic(){
+    public function history_patient(Request $request){
+        $patients = Patient::where('id', $request->id);
+        $exam = Exam::all();   //se selecciona mediante un buscador
+        $procedure = Procedure::all();
+        $surgery = Surgery::all(); //informacion para posible cirugia cuando lo seleccione
+
+        //  event(new Consult($surgery)); //se activa cuando seleccionan la cirugia
+
+        return response()->json([
+            'patient' => $patients,
+            'exam' => $exam,
+            'procedure' => $procedure,
+        ]);
+
+    }
+
+    public function create_diagnostic(CreateDiagnosticRequest $request){
 
         $diagnostic = Diagnostic::create([
             'petient_id' => $request->patient_id,
@@ -104,5 +120,21 @@ class DoctorController extends Controller
             'next_cite' => $request->next_cite,
             'employe_id' => $request->employe_id,
         ]);
+
+            return response()->json([
+                'message' => 'diagnostico agregado',
+            ]);
     }
+
+    public function create_recipe(Request $request){
+        $patients = Patient::where('id', $request->id);  //para mostrar los datos basicos del paciente
+        $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
+        
+        return response()->json([
+            'patients' => $patients,
+            'medicines' => $medicines,
+        ]);
+    }
+
+    //falta calculo del doctor p/paciente pago semanal
 }

@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
         $this->call(InventoryAreasTableSeeder::class);
         $this->call(BillingsTableSeeder::class);
         $this->call(IcomeTableSeeder::class);
+        $this->call(ExamTableSeeder::class);
         $this->call(TypeCleaningTableSeeder::class);
         $this->call(CleaningRecordTableSeeder::class);
         Schema::enableForeignKeyConstraints();

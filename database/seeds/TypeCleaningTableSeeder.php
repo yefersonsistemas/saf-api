@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use App\TypeCleaning;
+use App\Employe;
+use App\Branch;
+use App\Position;
 
 class TypeCleaningTableSeeder extends Seeder
 {
@@ -13,6 +16,11 @@ class TypeCleaningTableSeeder extends Seeder
     public function run()
     {
         TypeCleaning::truncate();
-        factory(TypeCleaning::class, 20);
+        factory(TypeCleaning::class, 10)->create()->each(function ($cleaning){
+            $id = Position::where('name','mantenimiento')->first();
+            $employes = Employe::where('position_id', $id->id)->get(); 
+
+            $cleaning->employe()->attach($employes->random()->id);
+        });
     }
 }

@@ -10,6 +10,8 @@ Use App\Area;
 Use App\Billing;
 Use App\Schedules;
 use App\Http\Requests\CreateBillingRequest;
+use App\Http\Controllers\CitaController;
+use App\Http\Controllers\InController;
 
 class OutController extends Controller
 {
@@ -88,44 +90,23 @@ class OutController extends Controller
     {
         //
     }
-
     
-    public function assigment(Request $request) //asignacion de consultorio
+    
+    public function buscar()
     {
-        $area = Area::Where('id', $request->id)->first();
-        $employe = Employe::join('area_assigments', 'employe.id', '=', 'area_assigments.employe_id')->first();
-
-        if ($area && $employe->isNotEmpty()) {   //si existe el mismo usuario
-
-            return response()->json([
-                'message' => 'Consultorio ocupado',
-            ], 201);
-       
-        }else{  //caso de que no exista
-
-            $areaAssigment = AreaAssigment::create([
-                'employe_id' => $employe->id,
-                'area_id' => $area->id,
-            ]);
-            
-            return response()->json([
-                'message' => 'consultorio asignado',
-            ], 201);
-        }
+        InController::search();
+    }
+    
+    public function asignacion() //asignacion de consultorio
+    {
+        InController::assigment();
     }
 
-    public function billing(CreateBillingRequest $request){  //facturacion
-        
-        $billing = Billing::create([
-            'procedure_employe_id' => $request['procedure_employe_id'],
-            'person_id' => $request['person_id'],
-            'patient_id' => $request['patient_id'],
-            'type_payment_id' => $request['type_payment_id'],
-            'type_currency' => $request['type_currency'],
-        ]);
+    public function factura(){ //facturacion
+        InController::billing();
+    }
 
-        return response()->json([
-            'message' => 'Factura creada',
-        ], 201);
+    public function cite(){  //crear cita
+        CitaController::create_cite();
     }
 }

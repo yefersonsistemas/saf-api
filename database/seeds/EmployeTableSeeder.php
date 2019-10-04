@@ -13,6 +13,6 @@ class EmployeTableSeeder extends Seeder
     public function run()
     {
         Employe::truncate();
-        factory(Employe::class, 20)->create();
+        factory(Employe::class, 30)->create();
     }
 }

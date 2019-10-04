@@ -12,6 +12,7 @@ use Faker\Generator as Faker;
 
 $factory->define(CleaningRecord::class, function (Faker $faker) {
     $employe = Employe::inRandomOrder()->first();
+    $position = Posiiton::inRandomOrder()->first();
     $area = Area::inRandomOrder()->first();
     $typecleaning = TypeCleaning::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();

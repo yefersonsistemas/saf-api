@@ -31,7 +31,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Role::create(['name' => 'administracion']);
        
         //Permisos del rol seguridad
-         Permission::create(['name' => 'Registrar visitantes']);
+        Permission::create(['name' => 'Registrar visitantes']);
         Permission::create(['name' => 'Ver lista de visitantes']);
        
 
