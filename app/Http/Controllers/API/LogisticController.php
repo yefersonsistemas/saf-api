@@ -1,30 +1,27 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\TypeSupplie;
 use App\Supplie;
 use App\MachineEquipment;
 use App\TypeEquipment;
+use App\Inventory;
+use App\InventoryArea;
 use App\Http\Requests\CreateSupplieRequest;
 
 class LogisticController extends Controller
 {
     public function index()
     {
-        $supplie = Supplie::where('type_supplie_id', $request->type_supplie_id)->first();
-        $equipment = MachineEquipment::where('type_equipment_id', $request->type_equipment_id)->first();
+        $supplie = Supplie::all();
+        $equipment = MachineEquipment::all();
 
-       if ($supplie == $supplie->type_supplie->id) {
-            return response()->json([
+        return response()->json([
             'supplie' => $supplie,
-        ]);
-       }elseif($equipment == $equipment->type_equipment->id){
-            return response()->json([
             'equipment' =>  $equipment,
         ]);
-       }
        
     }
 
@@ -42,7 +39,7 @@ class LogisticController extends Controller
         ], 201);
     }
 
-    public function edit_supplie(CreateSupplieRequest $request){
+    public function edit_supplie(CreateSupplieRequest $request, $id){
 
         $supplie = Supplie::where('id', $request->id)->first();
 
@@ -52,20 +49,22 @@ class LogisticController extends Controller
              return response()->json([
             'message' => 'Modificacion exitosa',
         ], 201);
+        }else{
+            return response()->json([
+                'message' => 'No existe el insumo',
+            ], 201);
         }
     }
 
-      public function delete_supplie(CreateSupplieRequest $request){
+      public function delete_supplie(CreateSupplieRequest $request, $id){
 
         $supplie = Supplie::where('id', $request->id)->first();
 
-        if ($supplie != null ){
             $supplie->delete($request->all());
 
              return response()->json([
             'message' => 'Insumo eliminado',
         ], 201);
-        }
     }
 
     public function assigment_suplie(CreateSupplieRequest $request){
@@ -112,17 +111,15 @@ class LogisticController extends Controller
         }
     }
 
-    public function delete_equipment(CreateSupplieRequest $request){
+    public function delete_equipment(Request $request){
 
         $equipment = MachineEquipment::where('id', $request->id)->first();
 
-        if ($equipment != null ){
             $equipment->delete($request->all());
 
              return response()->json([
             'message' => 'Equipo eliminado',
         ], 201);
-        }
     }
 
      public function assigment_equipment(CreateSupplieRequest $request){

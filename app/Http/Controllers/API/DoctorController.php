@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Patients;
-use App\Mediciens;
-use App\Examenes;
+use App\Patient;
+use App\Medicine;
+use App\Exam;
 use App\Diagnostic;
-use App\Carbon\Carbon;
-
+use App\Procedure;
+use App\Surgery;
+use Carbon\Carbon;
+use App\Http\Requests\CreateDiagnosticRequest;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -20,8 +22,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $patients = Patients::whereDate('date', Carbon::now()->format('d/m/Y'))->get();
-
+        $patients = Patient::whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+       // $patient = Patient::all()->dd();
+       
         return response()->json([
             'patient' => $patients,
         ]);
@@ -105,12 +108,14 @@ class DoctorController extends Controller
             'patient' => $patients,
             'exam' => $exam,
             'procedure' => $procedure,
+            'surgery' => $surgery,
         ]);
 
     }
 
-    public function create_diagnostic(CreateDiagnosticRequest $request){
+    public function diagnostic(CreateDiagnosticRequest $request){
 
+         //$diagnostic = Diagnostic::all()->dd();
         $diagnostic = Diagnostic::create([
             'petient_id' => $request->patient_id,
             'description' => $request->description,
@@ -123,10 +128,11 @@ class DoctorController extends Controller
 
             return response()->json([
                 'message' => 'diagnostico agregado',
+                'diagnostic' => $diagnostic,
             ]);
     }
 
-    public function create_recipe(Request $request){
+    public function recipe(Request $request){
         $patients = Patient::where('id', $request->id);  //para mostrar los datos basicos del paciente
         $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
         
