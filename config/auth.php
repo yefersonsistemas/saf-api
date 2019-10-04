@@ -44,6 +44,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
@@ -71,8 +72,9 @@ return [
         ],
 
         // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
+        //     'driver' => 'eloquent',
+        //     'table' => 'persons',
+        //     'model' => App\Person::class,
         // ],
     ],
 
