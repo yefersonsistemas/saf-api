@@ -25,20 +25,23 @@ class SecurityController extends Controller
     {
         $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
         $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))->get(); //obtener solo registros creados hoy 
+        $all = collect([]);
+
+        $patients = $reservations->map(function ($item) {
+            $item->person->category = 'paciente';
+            return $item->person;
+        });
+
+        $visitors = $visitors->map(function ($item) {
+            $item->person->category = 'Visitante';
+            return $item->person;
+        });
         
-        $patients = $reservations->map(function ($item, $key) {
-            return $item->person;
-        });
-
-        $visitors = $visitors->map(function ($item, $key) {
-            return $item->person;
-        });
-
+        $all = $patients->concat($visitors);        
         // event(new Security($patients));
 
         return response()->json([
-            'reservation' => $patients,
-            'visitor' =>  $visitors,
+            'all' => $all,
         ]);
     }
 
