@@ -13,6 +13,12 @@ class EmployeTableSeeder extends Seeder
     public function run()
     {
         Employe::truncate();
+
+        factory(Employe::class)->create([
+            'person_id'    => '6',
+            'position_id'    => '2',
+        ]);
+
         factory(Employe::class, 30)->create();
     }
 }
