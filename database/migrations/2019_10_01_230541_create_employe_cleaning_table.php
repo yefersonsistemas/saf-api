@@ -17,7 +17,6 @@ class CreateEmployeCleaningTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('type_cleaning_id');
-            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('employe_id')
@@ -28,11 +27,6 @@ class CreateEmployeCleaningTable extends Migration
             $table->foreign('type_cleaning_id')
                 ->references('id')
                 ->on('type_cleaning')
-                ->onDelete('CASCADE');
-                
-            $table->foreign('branch_id')
-                ->references('id')
-                ->on('branch')
                 ->onDelete('CASCADE');
         });
     }
