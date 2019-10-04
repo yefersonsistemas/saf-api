@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\TypeArea;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AreasController extends Controller
@@ -80,5 +82,14 @@ class AreasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function type()
+    {
+        $typeArea = TypeArea::with('areas')->get();
+
+        return response()->json([
+            'typeArea' => $typeArea,
+        ]);
     }
 }

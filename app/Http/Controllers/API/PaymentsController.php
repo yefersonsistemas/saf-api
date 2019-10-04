@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\TypePayment;
 use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
@@ -80,5 +81,13 @@ class PaymentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function type()
+    {
+        $typePayments = TypePayment::all();
+        return response()->json([
+            'typePayments' => $typePayments,
+        ]);
     }
 }

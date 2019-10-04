@@ -14,7 +14,7 @@ class TypeArea extends Model
 
     public function areas()
     {
-        return $this->belongsTo('App\Area');
+        return $this->hasMany('App\Area');
     }
     public function branch()
     {

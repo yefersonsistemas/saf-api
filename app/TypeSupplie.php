@@ -12,9 +12,9 @@ class TypeSupplie extends Model //tipos de insumos
         'name', 'description', 'branch_id'
     ];
 
-    public function supplie()
+    public function supplies()
     {
-        return $this->belongsToMany('App\Supplie');
+        return $this->hasMany('App\Supplie');
     }
     public function branch()
     {

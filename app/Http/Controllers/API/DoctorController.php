@@ -7,7 +7,8 @@ use App\Patients;
 use App\Mediciens;
 use App\Examenes;
 use App\Diagnostic;
-use App\Carbon\CArbon;
+use App\Carbon\Carbon;
+use App\Employe;
 
 use Illuminate\Http\Request;
 
@@ -93,7 +94,7 @@ class DoctorController extends Controller
         //
     }
 
-    public function create_diagnostic(){
+    public function create_diagnostic(Request $request){
 
         $diagnostic = Diagnostic::create([
             'petient_id' => $request->patient_id,
@@ -103,6 +104,22 @@ class DoctorController extends Controller
             'annex' => $request->annex,
             'next_cite' => $request->next_cite,
             'employe_id' => $request->employe_id,
+        ]);
+    }
+
+    public function list()
+    {
+        $doctor = Employe::with('person.user','procedures')->get();
+
+        $doctors = $doctor->each(function ($doctor)
+        {
+            $doc = $doctor->person->user->role('doctor');
+            // $doc->load('procedures');
+            return $doc;
+        });
+
+        return response()->json([
+            'doctors' => $doctors,
         ]);
     }
 }

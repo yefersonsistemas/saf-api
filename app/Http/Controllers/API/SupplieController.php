@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\TypeSupplie;
 
 class SupplieController extends Controller
 {
@@ -80,5 +82,13 @@ class SupplieController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function type()
+    {
+        $typeSupplie = TypeSupplie::with('supplies')->get();
+        return response()->json([
+            'typeSupplie' => $typeSupplie,
+        ]);
     }
 }

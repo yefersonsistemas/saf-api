@@ -32,6 +32,28 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user/notifications', 'API\UserController@notifications');
     });
 });
+
+Route::group(['prefix' => 'patients'], function(){
+    Route::get('/', 'API\PatientController@index');
+    Route::get('/list','API\PatientController@list');
+});
+
+Route::group(['prefix' => 'doctors'], function(){
+    Route::get('/', 'API\DoctorController@index');
+    Route::get('/list','API\DoctorController@list');
+});
+
+Route::group(['prefix' => 'payments'], function(){
+    Route::get('/type', 'API\PaymentController@index');
+});
+
+Route::group(['prefix' => 'areas'], function(){
+    Route::get('/type', 'API\AreasController@type');
+});
+
+Route::group(['prefix' => 'supplies'], function(){
+    Route::get('/type', 'API\SupplieController@type');
+});
  
 //rutas rol seguridad
 Route::group(['prefix' => 'security'], function(){

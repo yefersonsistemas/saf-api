@@ -34,7 +34,7 @@ class SecurityController extends Controller
             return $item->person;
         });
 
-        event(new Security($patients));
+        // event(new Security($patients));
 
         return response()->json([
             'reservation' => $patients,
@@ -50,7 +50,6 @@ class SecurityController extends Controller
     public function create()
     {
        //
-
     }
 
     /**
@@ -157,10 +156,10 @@ class SecurityController extends Controller
         ]);
     }
 
-    public function statusIn(CreateVisitorRequest $request)
+    public function statusIn(Person $person)
     {
-        $person = Person::where('id', $request->id)->first(); //busco el id 
-        
+        // $person = Person::where('id', $request->id)->first(); //busco el id 
+
         $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
             'person_id' =>$person->person_id,
             'type_visitor' => 'paciente',
@@ -168,7 +167,6 @@ class SecurityController extends Controller
         ]);
 
         return response()->json([
-            
             'message' => 'Visitante dentro de las instalaciones',
         ]);
     }
@@ -182,7 +180,7 @@ class SecurityController extends Controller
                 'type_visitor' => $person->type_visitor,
                 'status' => 'fuera',
             ]);
-            
+
         return response()->json([
             'message' => 'Visitante fuera de las instalaciones',
         ]);
