@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Procedure;
+// use App\Procedure;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\User;
+// use Carbon\Carbon;
+// use App\User;
 
 class ProcedureController extends Controller
 {
@@ -26,9 +26,9 @@ class ProcedureController extends Controller
      */
     public function create(User $doctor)
     {   
-        $procedures = $doctor->procedures;
+      /*  $procedures = $doctor->procedures;
         $doctors   = User::role('doctor')->get();
-        return view('dashboard.procedures.index', compact('doctor','procedures','doctors'));
+        return view('dashboard.procedures.index', compact('doctor','procedures','doctors'));*/
     }
 
     /**
@@ -39,7 +39,7 @@ class ProcedureController extends Controller
      */
     public function store(Request $request, User $doctor)
     {
-      $data =  $request->validate([
+    /*  $data =  $request->validate([
             'name'   => 'required',
             'name.required' => 'Es obligatorio ingresar nombre del procedimiento.',
             'price'   => 'required',
@@ -52,7 +52,7 @@ class ProcedureController extends Controller
                       ]);
 
         $doctor->procedures()->attach($procedure->id);         
-        return redirect()->back()->withSuccess('Registro agregado correctamente');
+        return redirect()->back()->withSuccess('Registro agregado correctamente');*/
     }
 
     /**
@@ -74,7 +74,7 @@ class ProcedureController extends Controller
      */
     public function edit(Procedure $procedure)
     {
-        return response()->json($procedure);
+        //return response()->json($procedure);
     }
 
     /**
@@ -85,12 +85,12 @@ class ProcedureController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Procedure $procedure)
-    {
+    {/*
         $procedure->name          =  $request->name2;
         $procedure->price         =  $request->price2;
         $procedure->description   =  $request->description2; 
         $procedure->save();      
-        return response()->json($request->price);
+        return response()->json($request->price);*/
     }
 
     /**
@@ -100,11 +100,11 @@ class ProcedureController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Procedure $procedure)
-    {
+    {/*
         $doctor = $procedure->doctors->first();
         $doctor->procedures()->detach($procedure->id);
         $procedure->delete();
-        return redirect()->back()->withSuccess('Se ha Eliminacion correctamente');
+        return redirect()->back()->withSuccess('Se ha Eliminacion correctamente');*/
     }
 }
 

@@ -122,12 +122,12 @@ class SecurityController extends Controller
 
             return response()->json([
                 'message' => 'Visitante creado',
-            ], 201);
+            ]);
             
         }else{  //caso de que no exista
             return response()->json([
                 'message' => 'Visitante no encontrado debe de crearlo',
-            ], 201);
+            ]);
         }
     }
 
@@ -147,7 +147,7 @@ class SecurityController extends Controller
 
         return response()->json([
             'message' => 'Visitante creado',
-        ], 201);
+        ]);
 
     }
 

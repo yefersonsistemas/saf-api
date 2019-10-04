@@ -26,4 +26,16 @@ class MachineEquipment extends Model //equipo maquinaria
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function employe()
+    {
+        return $this->belongsTo('App\Employe');
+    }
+
+    public function typeequipment()
+    {
+        return $this->belongsTo('App\TypeEquipment');
+    }
+    
+    
 }
