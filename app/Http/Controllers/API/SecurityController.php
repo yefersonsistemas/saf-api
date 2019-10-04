@@ -13,9 +13,9 @@ use App\Events\Security;
 
 class SecurityController extends Controller
 {
-    protected $data = [
+   /* protected $data = [
         'patients'
-    ];
+    ];*/
     /**
      * Display a listing of the resource.
      *
@@ -169,6 +169,8 @@ class SecurityController extends Controller
             'status' => 'dentro',
         ]);
 
+        //  event(new Security($visitor));
+        
         return response()->json([
             'message' => 'Visitante dentro de las instalaciones',
         ]);

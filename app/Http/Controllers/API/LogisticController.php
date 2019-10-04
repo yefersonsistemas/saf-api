@@ -140,7 +140,7 @@ class LogisticController extends Controller
         }
     }
 
-    public function list_inventory(){
+    public function list_inventory(){  //sirve para report
         $inventory = Inventory::all();
 
         return response()->json([
@@ -149,7 +149,7 @@ class LogisticController extends Controller
 
     }
 
-    public function list_inventoryArea(){
+    public function list_inventoryArea(){ //sirve para report
         $inventoryarea = InventoryArea::all();
 
         return response()->json([

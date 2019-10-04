@@ -8,7 +8,7 @@ class Employe extends Model
 {
     protected $table = 'employes';
 
-    protected $fillable = [ //saldo
+    protected $fillable = [ 
         'person_id', 'position_id', 'branch_id'
     ];
 

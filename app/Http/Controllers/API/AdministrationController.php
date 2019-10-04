@@ -81,4 +81,13 @@ class AdministrationController extends Controller
     {
         //
     }
+
+    public function Debts_to_pay(){  //ctas. por pagar
+        
+
+    }
+
+    public function accounts_receivable(){  //ctas. por cobrar
+
+    }
 }

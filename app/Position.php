@@ -14,7 +14,7 @@ class Position extends Model
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->belongsToMany('App\Employe');
     }
     public function branch()
     {

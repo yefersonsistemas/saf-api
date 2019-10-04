@@ -13,7 +13,7 @@ class Outside
      *
      * @return void
      */
-    public function __construct($patients)
+    public function __construct()
     {
         //
     }
@@ -26,6 +26,6 @@ class Outside
      */
     public function handle(Consult $event)
     {
-        $event->$patients;
+        $event->$surgery;
     }
 }

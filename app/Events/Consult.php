@@ -14,17 +14,17 @@ class Consult
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $patients;
-
+    public $surgery;     //lo guarda como propiedad publica
+                        
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($patients)
+    public function __construct($surgery)  //recibe lo q se elige en cirugia para uin candidato 
     {
-        $this->patients->$patients;
+        $this->surgery = $surgery;    //guarda la información que se transmitirá junto al evento
     }
 
     /**

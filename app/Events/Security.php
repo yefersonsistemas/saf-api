@@ -14,16 +14,16 @@ class Security
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $patients; //lo guarda como propiedad publica
+    public $visitor; //lo guarda como propiedad publica
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($patients) //recibe lo q se semuestra en index
+    public function __construct($visitor) //recibe lo q se semuestra en index
     {
-        $this->patients->$patients;
+        $this->visitor->$visitor;     //guarda la información que se transmitirá junto al evento
     }
 
     /**

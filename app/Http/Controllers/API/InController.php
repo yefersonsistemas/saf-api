@@ -11,6 +11,7 @@ Use App\Billing;
 Use App\Schedules;
 Use App\AreaAssigment;
 use App\Http\Requests\CreateBillingRequest;
+use App\Http\Controllers\CitaController;
 
 
 class InController extends Controller
@@ -135,5 +136,7 @@ class InController extends Controller
         ], 201);
     }
 
-
+    public function cite(){  //crear cita
+        CitaController::create_cite();
+    }
 }
