@@ -93,17 +93,17 @@ Route::group(['prefix' => 'out'], function(){
 Route::group(['prefix' => 'supplie'], function(){
     Route::POST('create', 'API\LogisticController@create_supplie');  //
     Route::put('/{id}', 'API\LogisticController@edit_supplie');  //
-    Route::delete('/{id}', 'API\LogisticController@delete_supplie');  //
+    Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  //
 });
 
 Route::group(['prefix' => 'equipment'], function(){
     Route::POST('create', 'API\LogisticController@create_equipment');  // listo
-    Route::put('/{id}', 'API\LogisticController@edit_equipment');  //
-    Route::delete('/{id}', 'API\LogisticController@delete_equipment');  //
+    Route::put('/{id}', 'API\LogisticController@edit_equipment');  // 
+    Route::delete('delete/{id}', 'API\LogisticController@delete_equipment');  //
 });
 
 Route::group(['prefix' => 'inventory'], function(){
-    Route::get('/', 'API\LogisticController@index');  // se ve
+    Route::get('list', 'API\LogisticController@index');  // se ve
     Route::get('/', 'API\LogisticController@list_inventory');  // se ve
     Route::get('area', 'API\LogisticController@list_inventoryarea');  // se ve
 });

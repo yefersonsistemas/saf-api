@@ -7,12 +7,13 @@ use App\Employe;
 use App\Area;
 use App\TypeCleaning;
 use App\Branch;
+use App\Position;
 
 use Faker\Generator as Faker;
 
 $factory->define(CleaningRecord::class, function (Faker $faker) {
     $employe = Employe::inRandomOrder()->first();
-    $position = Posiiton::inRandomOrder()->first();
+    $position = Position::inRandomOrder()->first();
     $area = Area::inRandomOrder()->first();
     $typecleaning = TypeCleaning::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();

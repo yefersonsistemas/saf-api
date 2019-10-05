@@ -24,7 +24,9 @@ class UpdateEquipmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'description' => 'required',
+            'type_equipment_id' => 'required',   
         ];
     }
 }

@@ -160,4 +160,5 @@ class DoctorController extends Controller
             'doctors' => $doctors,
         ]);
     }
+    
 }

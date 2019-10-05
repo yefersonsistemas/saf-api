@@ -2,9 +2,12 @@
 
 use Illuminate\Database\Seeder;
 use App\Area;
+use App\Traits\ImageFactory;
 
 class AreasTableSeeder extends Seeder
 {
+    use ImageFactory;
+
     /**
      * Run the database seeds.
      *
@@ -13,6 +16,10 @@ class AreasTableSeeder extends Seeder
     public function run()
     {
         Area::truncate();
-        factory(Area::class, 20)->create();
+        $this->deleteDirectory(storage_path('/app/public/area'));
+        factory(Area::class, 20)->create()->each(function($area)
+        {
+            $this->to('area', $area->id, 'App\Area');
+        });
     }
 }

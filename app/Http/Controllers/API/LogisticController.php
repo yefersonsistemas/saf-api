@@ -11,6 +11,7 @@ use App\Inventory;
 use App\InventoryArea;
 use App\Http\Requests\CreateSupplieRequest;
 use App\Http\Requests\CreateEquipmentRequest;
+use App\Http\Requests\UpdateEquipmentRequest;
 
 class LogisticController extends Controller
 {
@@ -77,7 +78,7 @@ class LogisticController extends Controller
         $supplie = Supplie::where('id', $request->id);
         $equipment = MachineEquipment::where('id', $request->id);
 
-        if ($suplie != null) {
+        if ($supplie != null) {
            
             $inventoryarea = InventoryArea::create([
                 'quantity_Assigned'     => $request['quantity_Assigned'],
@@ -110,6 +111,7 @@ class LogisticController extends Controller
 
     public function edit_equipment(UpdateEquipmentRequest $request, $id){
 
+        
         $equipment = MachineEquipment::find($id);
 
         if ($equipment != null ){
@@ -117,10 +119,12 @@ class LogisticController extends Controller
             $equipment->name = $request->name;
             $equipment->description = $request->description;
             $equipment->type_equipment_id = $request->type_equipment_id;
-            $equipment->update();
+            $equipment->save();
+            //dd($equipment);
 
                 return response()->json([
-                'message' => 'Modificacion exitosa',
+                    'equipment'  => $equipment,
+                    'message' => 'Modificacion exitosa',
             ]);
         }
     }

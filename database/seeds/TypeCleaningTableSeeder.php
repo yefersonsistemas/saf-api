@@ -17,8 +17,8 @@ class TypeCleaningTableSeeder extends Seeder
     {
         TypeCleaning::truncate();
         factory(TypeCleaning::class, 10)->create()->each(function ($cleaning){
-            $id = Position::where('name','mantenimiento')->first();
-            $employes = Employe::where('position_id', $id->id)->get(); 
+            // $id = Position::where('name','mantenimiento')->first();
+            $employes = Employe::where('position_id', 2)->get(); 
 
             $cleaning->employe()->attach($employes->random()->id);
         });
