@@ -16,6 +16,12 @@ class EmployeTableSeeder extends Seeder
     {
         Employe::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
+
+        factory(Employe::class)->create([
+            'person_id'    => '6',
+            'position_id'    => '2',
+        ]);
+        
         factory(Employe::class, 30)->create()->each(function ($employe) {
             $this->to('employes', $employe->id, 'App\Employe');
         });
