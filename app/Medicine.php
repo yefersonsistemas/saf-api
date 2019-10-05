@@ -13,10 +13,16 @@ class Medicine extends Model
     ];
     public function patients()
     {
-        return $this->belongsToMany('App\Patient');
+        return $this->belongsToMany('App\Patient','medicine_patient')
+                    ->withPivot('patient_id','id');
     }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function employe (){
+        return $this->belongsTo('App\Employe', 'employe_id');
     }
 }

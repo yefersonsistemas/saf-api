@@ -91,4 +91,9 @@ class Employe extends Model
         return $this->belongsToMany('App\TypeCleaning','employe_cleaning')
        ->withPivot('type_cleaning_id','id');
     }
+
+    public function diagnostic()
+    {
+        return $this->belongsTo('App\Diagnostic');
+    }
 }

@@ -24,6 +24,6 @@ class ProcedureTableSeeder extends Seeder
             });                                                   //usuario y q ademas tenga el rol doctor
 
             $procedure->employe()->attach($employes->random()->id); //attach enlaza los procedures con los empleados encontrados
-        });                                                       //de manera aleatoria
+        });                                                      //de manera aleatoria
     }
 }

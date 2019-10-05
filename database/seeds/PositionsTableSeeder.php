@@ -18,7 +18,7 @@ class PositionsTableSeeder extends Seeder
             'name'    => 'doctor',
         ]);
 
-        factory(Position::class, 10)->create([
+        factory(Position::class)->create([
             'name'    => 'mantenimiento',
         ]);
 
