@@ -19,91 +19,12 @@ use App\Http\Controllers\CitaController;
 
 class ReceptionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $reservations = Reservation::WhereDate('date', Carbon::now()->format('d/m/Y'))->get(); //mostrar las reservaciones solo del dia
-    
-        return response()->json([
-            'reservation' => $reservations,
-        ]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function search($request){
+    public function search(Request $request){
        // $visitor = Visitor::all()->dd();
-        $visitor = Visitor::where('person_id', $request)->first(); //busco a ver si existe la persona
+        $person = Person::where('dni', $request)->first(); //busco a ver si existe la persona
 
-        if ($visitor->person->isNotEmpty()) {  //si existe
+        if ($person != null) {  //si existe
 
             return response()->json([
                 'person_id' => $visitor,
@@ -121,7 +42,7 @@ class ReceptionController extends Controller
         $patient = Patient::create([  //
             'date'               => $request['date'],
             'history_number'     => $request['history_number'],
-            'person_id'          => $person->person_id,
+            'person_id'          => $request['person_id'],
             'gender'             => $request['gender'],
             'place'              => $request['place'],
             'birthdate'          => $request['birthdate'],
@@ -134,6 +55,7 @@ class ReceptionController extends Controller
             'reason'             => $request['reason'],
             'another_phone'      => $request['another_phone'],
             'another_email'      => $request['another_email'],
+            'branch_id'          => 1
         ]);
 
         return response()->json([

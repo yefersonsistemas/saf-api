@@ -13,9 +13,9 @@ $factory->define(Inventory::class, function (Faker $faker) {
     $machineequipment = MachineEquipment::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
     return [
-        'quantity_Total' => $faker->randomDigit,
-        'quantity_Available' => $faker->randomDigit,
-        'quantity_Assigned' => $faker->randomDigit,
+        'quantity_Total' => $faker->numberBetween($min = 300, $max = 400),
+        'quantity_Available' => $faker->numberBetween($min = 200, $max = 250),
+        'quantity_Assigned' => $faker->numberBetween($min = 100, $max = 150),
         'supplie_id' => $supplie->id,
         'machine_equipment_id' => $machineequipment->id,
         'branch_id' => $branchoffice->id,

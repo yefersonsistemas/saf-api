@@ -67,32 +67,32 @@ Route::group(['prefix' => 'security'], function(){
 
 //rutas rol recepcion
 Route::group(['prefix' => 'reception'], function(){
-    Route::get('/', 'API\ReceptionController@index');  //
+    Route::get('/', 'API\ReceptionController@index');  // listo
     Route::POST('create', 'API\ReceptionController@create_history');  //
-    Route::POST('search', 'API\ReceptionController@search');  //
+    Route::POST('search', 'API\ReceptionController@search');  // listo
     Route::POST('cite', 'API\ReceptionController@cite');   //
 });
 
 //rutas rol in
 Route::group(['prefix' => 'in'], function(){
-    Route::POST('search', 'API\InController@search');  //
-    Route::POST('assigment', 'API\InController@assigment');  //
-    Route::POST('create', 'API\InController@billing');  //
-    Route::POST('cite', 'API\InController@cite');  //
+    Route::POST('search', 'API\InController@search');  // listo
+    Route::POST('assigment', 'API\InController@assigment');  // 
+    Route::POST('create', 'API\InController@billing');  // listo
+    Route::POST('cite', 'API\CitaController@create_cite'); //arroja la 2da rpta 
 });
 
 //rutas rol out
 Route::group(['prefix' => 'out'], function(){
-    Route::POST('search', 'API\InController@buscar');  //
+    Route::POST('search', 'API\OutController@buscar');  //
     Route::POST('assigment', 'API\OutController@asignacion');  //
     Route::POST('create', 'API\OutController@factura');  //
-    Route::POST('cite', 'API\OutController@cite');  //
+    Route::POST('cite', 'API\CitaController@create_cite'); //arroja la 2da rpta 
 });
 
 //rutas rol logistica
 Route::group(['prefix' => 'supplie'], function(){
-    Route::POST('create', 'API\LogisticController@create_supplie');  //
-    Route::put('/{id}', 'API\LogisticController@edit_supplie');  //
+    Route::POST('create', 'API\LogisticController@create_supplie');  // 200 ok
+    Route::put('/{id}', 'API\LogisticController@edit_supplie');  // 200 ok
     Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  // listo
     Route::POST('assigment/supplie', 'API\LogisticController@assigment_supplie'); //
 });

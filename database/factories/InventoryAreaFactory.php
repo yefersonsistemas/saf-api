@@ -14,9 +14,9 @@ $factory->define(InventoryArea::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
 
     return [
-        'quantity_Assigned' => $faker->randomDigit,
-        'quantity_Used' => $faker->randomDigit,
-        'quantity_Available' => $faker->randomDigit,
+        'quantity_Assigned' => $faker->numberBetween($min = 80, $max = 100),
+        'quantity_Used' => $faker->numberBetween($min = 50, $max = 80) ,
+        'quantity_Available' => $faker->numberBetween($min = 20, $max = 80),
         'type_area_id' => $typearea->id,
         'inventory_id' =>$inventory->id,
         'branch_id' => $branchoffice->id,

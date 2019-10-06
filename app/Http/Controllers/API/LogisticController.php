@@ -79,7 +79,6 @@ class LogisticController extends Controller
 
     public function assigment_suplie(CreateInventoryAreaRequest $request){
         $supplie = Supplie::where('id', $request->id);
-        $equipment = MachineEquipment::where('id', $request->id);
 
         if ($supplie != null) {
            
