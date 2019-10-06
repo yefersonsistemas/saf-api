@@ -10,8 +10,10 @@ use App\TypeEquipment;
 use App\Inventory;
 use App\InventoryArea;
 use App\Http\Requests\CreateSupplieRequest;
+use App\Http\Requests\UpdateSupplieRequest;
 use App\Http\Requests\CreateEquipmentRequest;
 use App\Http\Requests\UpdateEquipmentRequest;
+use App\Http\Requests\CreateInventoryAreaRequest;
 
 class LogisticController extends Controller
 {
@@ -28,36 +30,37 @@ class LogisticController extends Controller
     }
 
     //insumos
-    public function create_supplie(CreateSupplieRequest $request){
-
-        /*$supplie = Supplie::create([
+    public function create_supplie(CreateSupplieRequest $request)
+    {
+        $supplie = Supplie::create([
             'name'               => $request['name'],
             'type_supplie_id'    => $request['type_supplie_id'],
             'presentation'       => $request['presentation'],
-            'branch_id'          => 1 
-        ]);*/
-
-         $supplie = Supplie::all()->dd();
+            'branch_id'          => 1
+        ]);
          
           return response()->json([
+            //'supplie' => $supplie,
             'message' => 'Insumo creado exitosamente',
         ]);
     }
 
-    public function edit_supplie(CreateSupplieRequest $request, $id){
+    public function edit_supplie(UpdateSupplieRequest $request, $id){
 
         $supplie = Supplie::find($id);
 
-        if ($supplie != null ){
+            if (!is_null($supplie)){
 
-            $equipment->name = $request->name;
-            $equipment->type_supplie_id = $request->type_supplie_id;
-            $equipment->presentation = $request->presentation;
-            $equipment->update();
-
-             return response()->json([
-            'message' => 'Modificacion exitosa',
-        ]);
+            $supplie->name = $request->name;
+            $supplie->type_supplie_id = $request->type_supplie_id;
+            $supplie->presentation = $request->presentation;
+        
+            if($supplie->save()){
+                return response()->json([
+                    'supplie'  => $supplie,
+                    'message' => 'Modificacion exitosa',
+                ]);
+            }
         }
     }
 
@@ -65,16 +68,16 @@ class LogisticController extends Controller
 
         $supplie = Supplie::find($id);
 
-        if ($supplie != null ){
-            $supplie->delete();
-
+        if(!is_null($supplie)){
+           $supplie->delete();
+ 
                 return response()->json([
                 'message' => 'Insumo eliminado',
-            ]);
-        }
+                ]);
+            }
     }
 
-    public function assigment_suplie(CreateSupplieRequest $request){
+    public function assigment_suplie(CreateInventoryAreaRequest $request){
         $supplie = Supplie::where('id', $request->id);
         $equipment = MachineEquipment::where('id', $request->id);
 
@@ -101,8 +104,6 @@ class LogisticController extends Controller
             'branch_id'          => 1 
         ]);
 
-        //$equipment = MachineEquipment::all()->dd();
-
           return response()->json([
             'message' => 'Equipo creado exitosamente',
         ]);
@@ -111,38 +112,38 @@ class LogisticController extends Controller
 
     public function edit_equipment(UpdateEquipmentRequest $request, $id){
 
-        
         $equipment = MachineEquipment::find($id);
 
-        if ($equipment != null ){
+        if (!is_null($equipment)){
 
             $equipment->name = $request->name;
             $equipment->description = $request->description;
             $equipment->type_equipment_id = $request->type_equipment_id;
-            $equipment->save();
-            //dd($equipment);
-
-                return response()->json([
+           // $equipment->save();
+           
+            if($equipment->save()){
+                 return response()->json([
                     'equipment'  => $equipment,
                     'message' => 'Modificacion exitosa',
-            ]);
+                ]);
+            }
         }
     }
 
     public function delete_equipment($id){
 
-        $equipment = Equipment::find($id);
+        $equipment = MachineEquipment::find($id);
 
-        if ($equipment != null ){
-            $equipment->delete();
-
+          if(!is_null($equipment)){
+           $equipment->delete();
+ 
                 return response()->json([
                 'message' => 'Equipo eliminado',
-            ]);
-        }
+                ]);
+            }
     }
 
-     public function assigment_equipment(CreateEquipmentRequest $request){
+     public function assigment_equipment(CreateInventoryAreaRequest $request){
         $equipment = MachineEquipment::where('id', $request->id);
 
         if ($equipment != null) {

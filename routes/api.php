@@ -93,13 +93,15 @@ Route::group(['prefix' => 'out'], function(){
 Route::group(['prefix' => 'supplie'], function(){
     Route::POST('create', 'API\LogisticController@create_supplie');  //
     Route::put('/{id}', 'API\LogisticController@edit_supplie');  //
-    Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  //
+    Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  // listo
+    Route::POST('assigment/supplie', 'API\LogisticController@assigment_supplie'); //
 });
 
 Route::group(['prefix' => 'equipment'], function(){
     Route::POST('create', 'API\LogisticController@create_equipment');  // listo
-    Route::put('/{id}', 'API\LogisticController@edit_equipment');  // 
-    Route::delete('delete/{id}', 'API\LogisticController@delete_equipment');  //
+    Route::put('/{id}', 'API\LogisticController@edit_equipment');  // listo
+    Route::delete('delete/{id}', 'API\LogisticController@delete_equipment');  //listo
+    Route::POST('assigment/equipment', 'API\LogisticController@assigment_equipment'); //
 });
 
 Route::group(['prefix' => 'inventory'], function(){

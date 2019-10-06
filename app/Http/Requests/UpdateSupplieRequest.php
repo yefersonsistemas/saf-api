@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEquipmentRequest extends FormRequest
+class UpdateSupplieRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,12 @@ class UpdateEquipmentRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+         $rules = [
             'name' => 'required',
-            'description' => 'required',
-            'type_equipment_id' => 'required',   
+            'type_suplie_id' => 'required',
+            'presentation' => 'required',
         ];
 
-         return $rules;
+        return $rules;
     }
 }

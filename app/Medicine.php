@@ -25,4 +25,8 @@ class Medicine extends Model
     public function employe (){
         return $this->belongsTo('App\Employe', 'employe_id');
     }
+
+    public function patient (){
+        return $this->belongsTo('App\Patient', 'patient_id');
+    }
 }

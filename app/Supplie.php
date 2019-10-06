@@ -25,5 +25,10 @@ class Supplie extends Model //insumos
     {
         return $this->belongsTo('App\TypeSupplie');
     }
+
+    public function InventoryArea()
+    {
+        return $this->belongsTo('App\InventoryArea');
+    }
 }
 
