@@ -95,6 +95,7 @@ class AuthController extends Controller
                     $tokenResult->token->expires_at)
                     ->toDateTimeString(),
                 'message'      => 'Sesion Iniciada',
+                'user'         => Auth::id(),
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
