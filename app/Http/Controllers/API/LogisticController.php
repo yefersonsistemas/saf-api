@@ -169,7 +169,7 @@ class LogisticController extends Controller
     }
 
     public function list_inventoryArea(){ //sirve para report
-        $inventoryarea = InventoryArea::all();
+        $inventoryarea = InventoryArea::with('area.image')->get()->groupBy('area_id');
 
         return response()->json([
             'inventoryarea' => $inventoryarea,

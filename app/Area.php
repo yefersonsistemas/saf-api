@@ -12,6 +12,11 @@ class Area extends Model //deptos
         'name', 'type_area_id', 'branch_id'
     ];
 
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
     public function type_areas()
     {
         return $this->belongsTo('App\TypeArea');
@@ -30,5 +35,10 @@ class Area extends Model //deptos
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function inventory()
+    {
+        return $this->hasMany('App\InventoryArea');
     }
 }

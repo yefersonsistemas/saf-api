@@ -15,7 +15,7 @@ class CreateTypeDoctorsTable extends Migration
     {
         Schema::create('type_doctors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name');  //clase de doctor
             $table->double('comission');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();

@@ -12,6 +12,11 @@ class TypeArea extends Model
         'name', 'description', 'branch_id'
     ];
 
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
     public function areas()
     {
         return $this->hasMany('App\Area');

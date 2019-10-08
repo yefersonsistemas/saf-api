@@ -58,8 +58,8 @@ Route::group(['prefix' => 'supplies'], function(){
 //rutas rol seguridad
 Route::group(['prefix' => 'security'], function(){
     Route::get('/', 'API\SecurityController@index');  // se ve
-    Route::POST('create', 'API\SecurityController@all_visitor');  //
-    Route::POST('create/visitor', 'API\SecurityController@create_visitor');  //
+    Route::POST('create', 'API\SecurityController@all_visitor');  // listo
+    Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
     Route::POST('inside', 'API\SecurityController@statusIN');  //
     Route::POST('outside', 'API\SecurityController@statusOut');  //
     Route::POST('search', 'API\SecurityController@search');  //

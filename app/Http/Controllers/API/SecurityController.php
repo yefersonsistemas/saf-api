@@ -112,15 +112,16 @@ class SecurityController extends Controller
         //
     }
     
-    public function search(Request $request)//esta buena
+    public function search(Request $request)
     {
        // $persons = Person::all()->dd();
-        $person = Person::where('dni', $request)->first(); //busco dni para saber si existe
+        $person = Person::where('dni', $request->dni)->first(); //busco dni para saber si existe
 
-        if ($person != null) {  //si existe
-            $this->create_visitor($person); //lleno solo la tabla visitor
+        if (!is_null($person)) {  //si existe
+           $this->create_visitor($person); //lleno solo la tabla visitor
 
             return response()->json([
+                //'person' => $person,
                 'message' => 'Visitante creado',
             ]);
             
@@ -132,7 +133,7 @@ class SecurityController extends Controller
     }
 
     public function all_visitor(CreateVisitorRequest $request)
-    {
+    {                                 //no hay registro de esa persona
         $person = Person::create([  //agregar un visitante ya sea un futuro paciente o no
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
@@ -140,7 +141,7 @@ class SecurityController extends Controller
             'lastname'    => $request->lastname,
             'address'     => $request->address,
             'email'       => $request->email,
-           'branch_id'   => 1,
+            'branch_id'   => 1,
         ]);
 
         $this->create_visitor($person);
@@ -151,14 +152,25 @@ class SecurityController extends Controller
 
     }
 
-    public function create_visitor($person)
+    public function create_visitor(Person $person)
     {
+        // $data =  $request->validate([
+        //     'person_id'   => 'required',
+        // ]);
+
         $visitor = Visitor::create([
             'person_id'      => $person->id,
             'type_visitor'   => 'Visitante', 
             'status'         => 'dentro',
             'branch_id'      => 1
         ]);
+
+        $person->visitor()->associate($visitor->id); //asociar un visitante a una persona que ya tiene registro
+
+        // return response()->json([
+        //     'visitor' => $visitor,
+        //     'message' => 'Visitante creado',
+        // ]);
     }
 
     public function statusIn(Request $request)

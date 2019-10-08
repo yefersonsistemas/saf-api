@@ -9,10 +9,10 @@ class InventoryArea extends Model
     protected $table = 'inventory_areas';
 
     protected $fillable = [ //inventario de c/dpto
-        'quantity_Assigned', 'quantity_Used', 'quantity_Available',  'type_area_id', 'inventory_id', 'branch_id'
+        'quantity_Assigned', 'quantity_Used', 'quantity_Available',  'area_id', 'inventory_id', 'branch_id'
     ];
 
-    public function areas()
+    public function area()
     {
         return $this->belongsTo('App\Area');
     }
