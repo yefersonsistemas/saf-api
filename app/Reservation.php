@@ -9,7 +9,7 @@ class Reservation extends Model
     protected $table = 'reservations';
 
     protected $fillable = [
-        'date', 'description', 'status', 'schedule_id', 'branch_id'
+        'date', 'description', 'status', 'schedule_id', 'branch_id', 'person_id',
     ];
 
     public function employe()

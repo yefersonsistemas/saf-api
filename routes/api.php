@@ -70,23 +70,20 @@ Route::group(['prefix' => 'reception'], function(){
     Route::get('/', 'API\ReceptionController@index');  // listo
     Route::POST('create', 'API\ReceptionController@create_history');  //
     Route::POST('search', 'API\ReceptionController@search');  // listo
-    Route::POST('cite', 'API\ReceptionController@cite');   //
 });
 
-//rutas rol in
-Route::group(['prefix' => 'in'], function(){
+//rutas generar cita/reservacion
+Route::group(['prefix' => 'cite'], function(){
+    Route::POST('create', 'API\CitaController@create_cite'); //listo
+    Route::put('/{id}', 'API\CitaController@update_cite');
+    Route::delete('delete/{id}', 'API\CitaController@delete_cite');
+});
+
+//rutas rol in y out
+Route::group(['prefix' => 'IO'], function(){
     Route::POST('search', 'API\InController@search');  // listo
     Route::POST('assigment', 'API\InController@assigment');  // 
-    Route::POST('create', 'API\InController@billing');  // listo
-    Route::POST('cite', 'API\CitaController@create_cite'); //arroja la 2da rpta 
-});
-
-//rutas rol out
-Route::group(['prefix' => 'out'], function(){
-    Route::POST('search', 'API\OutController@buscar');  //
-    Route::POST('assigment', 'API\OutController@asignacion');  //
-    Route::POST('create', 'API\OutController@factura');  //
-    Route::POST('cite', 'API\CitaController@create_cite'); //arroja la 2da rpta 
+    Route::POST('create', 'API\InController@billing');  // listo 
 });
 
 //rutas rol logistica

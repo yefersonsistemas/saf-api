@@ -177,6 +177,36 @@ class UsersTableSeeder extends Seeder
             ->givePermissionTo('ver registro de limpieza')
             ->givePermissionTo('Crear reporte')->assignRole('logistica');
 
+            $person = Person::create([
+                'type_dni' => 'V',
+                'dni' => '12345678',
+                'name' => 'KENWHERLY',
+                'lastname' => 'HERNANDEZ',
+                'address' => 'Las velas',
+                'phone' => '292-717-70415 x861',
+                'email' => 'kenwherly@sinusandface.com',
+                'branch_id' => '1',
+            ]);
+    
+            factory(User::class)->create([
+                'person_id' => $person->id,
+    
+            ])->givePermissionTo('ver insumo')
+                ->givePermissionTo('registrar insumo')
+                ->givePermissionTo('modificar insumo')
+                ->givePermissionTo('eliminar insumo')
+                ->givePermissionTo('asignar insumo')
+                ->givePermissionTo('ver equipo')
+                ->givePermissionTo('registrar equipo')
+                ->givePermissionTo('modificar equipo')
+                ->givePermissionTo('eliminar equipo')
+                ->givePermissionTo('asignar equipo')
+                ->givePermissionTo('ver inventario')
+                ->givePermissionTo('ver inventario por area')
+                ->givePermissionTo('Registrar limpieza')
+                ->givePermissionTo('ver registro de limpieza')
+                ->givePermissionTo('Crear reporte')->assignRole('logistica');
+
         $person = Person::create([
             'type_dni' => 'V',
             'dni' => '12345677',

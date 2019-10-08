@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateReservationRequest extends FormRequest
+class UpdateCiteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,15 @@ class CreateReservationRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'date'               => 'required',
-            'description'        => 'required',
-            'schedule_id'        => 'required',
-            'doctor_id'          => 'required',
-            'person_id'          => 'required',
+            // 'description'        => 'required',
+            // 'status'             => 'required',
+            // 'schedule_id'        => 'required',
+            // 'doctor_id'          => 'required',
+            // 'person_id'          => 'required',
         ];
+
+        return $rules;
     }
 }

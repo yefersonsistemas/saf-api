@@ -26,9 +26,9 @@ class ProcedureController extends Controller
      */
     public function create(User $doctor)
     {   
-      /*  $procedures = $doctor->procedures;
+        $procedures = $doctor->procedures;
         $doctors   = User::role('doctor')->get();
-        return view('dashboard.procedures.index', compact('doctor','procedures','doctors'));*/
+        //return view('dashboard.procedures.index', compact('doctor','procedures','doctors'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ProcedureController extends Controller
      */
     public function store(Request $request, User $doctor)
     {
-    /*  $data =  $request->validate([
+      $data =  $request->validate([
             'name'   => 'required',
             'name.required' => 'Es obligatorio ingresar nombre del procedimiento.',
             'price'   => 'required',
@@ -47,12 +47,13 @@ class ProcedureController extends Controller
         ]);
         $procedure =  Procedure::create([
                         'name'            => $data['name'],
-                        'price'           => $data['price'],
                         'description'     => $request->description,
+                        'price'           => $data['price'],
                       ]);
 
-        $doctor->procedures()->attach($procedure->id);         
-        return redirect()->back()->withSuccess('Registro agregado correctamente');*/
+        $doctor->procedures()->attach($procedure->id);    
+
+      //  return redirect()->back()->withSuccess('Registro agregado correctamente');
     }
 
     /**

@@ -60,9 +60,9 @@ class Employe extends Model
         return $this->belongsToMany('App\Speciality');
     }
 
-    public function schedules()
+    public function schedule()
     {
-        return $this->belongsTo('App\Schedule');
+        return $this->hasMany('App\Schedule');
     }
 
     public function reservation()

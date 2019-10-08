@@ -25,7 +25,7 @@ class CreateSupplieRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'type_suplie_id' => 'required',
+            'type_supplie_id' => 'required',
             'presentation' => 'required',
         ];
     }

@@ -21,10 +21,12 @@ class LogisticController extends Controller
     {
         $supplie = Supplie::all();
         $equipment = MachineEquipment::all();
+        $type = TypeEquipment::all();
 
         return response()->json([
             'supplie' => $supplie,
             'equipment' =>  $equipment,
+            'type' => $type
         ]);
        
     }
