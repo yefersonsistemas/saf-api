@@ -26,6 +26,7 @@ class CreateEquipmentRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
-            'type_equipment_id' => 'required',        ];
+            'type_equipment_id' => 'required',
+        ];
     }
 }

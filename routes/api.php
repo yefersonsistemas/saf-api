@@ -117,4 +117,17 @@ Route::group(['prefix' => 'doctor'], function(){
     Route::get('recipe', 'API\DoctorController@recipe');  // se ve
 });
 
+Route::group(['prefix' => 'stocktaking'], function()
+{
+    //Insumos
+    Route::get('/', 'API\StocktakingController@index');
+    Route::post('/create_supplie', 'API\StocktakingController@create_supplie');
+    Route::PUT('/edit_supplie', 'API\StocktakingController@edit_supplie');
+
+    //Equipo
+    Route::post('/create_equipment', 'API\StocktakingController@create_equipment');
+    Route::put('/edit_equipment', 'API\StocktakingController@edit_equipment');
+
+});
+
 

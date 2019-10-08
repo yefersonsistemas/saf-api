@@ -26,7 +26,8 @@ class CreateSupplieRequest extends FormRequest
         return [
             'name' => 'required',
             'presentation' => 'required',
-            'type_suplie_id' => 'required',
+            'type_supplie_id' => 'required',
+            'id'            => ''
         ];
     }
 }

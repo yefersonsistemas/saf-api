@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\TypeSupplie;
@@ -12,7 +13,7 @@ use App\InventoryArea;
 use App\Http\Requests\CreateSupplieRequest;
 use App\Http\Requests\CreateEquipmentRequest;
 
-class LogisticController extends Controller
+class StocktakingController extends Controller
 {
     public function index()
     {
@@ -23,7 +24,6 @@ class LogisticController extends Controller
             'supplie' => $supplie,
             'equipment' =>  $equipment,
         ]);
-       
     }
 
     //insumos
@@ -32,7 +32,8 @@ class LogisticController extends Controller
         $supplie = Supplie::create([
             'name'               => $request['name'],
             'presentation'       => $request['presentation'],
-            'type_supplie_id'    => $request->type_supplie_id,
+            'type_supplie_id'    => $request['type_supplie_id'],
+            'branch_id'          => 1,
         ]);
 
           return response()->json([
@@ -40,24 +41,25 @@ class LogisticController extends Controller
         ]);
     }
 
-    public function edit_supplie(CreateSupplieRequest $request, $id){
+    public function edit_supplie(Request $request){
 
-        $supplie = Supplie::where('id', $request->id)->first();
+        $supplie = Supplie::find($request->id);
 
-        if ($supplie != null ){
+        if (!is_null($supplie)){
 
-            $equipment->name = $request->name;
-            $equipment->type_supplie_id = $request->type_supplie_id;
-            $equipment->presentation = $request->presentation;
-            $equipment->update();
-
-             return response()->json([
-            'message' => 'Modificacion exitosa',
-        ]);
+            $supplie->name = $request->name;
+            $supplie->presentation = $request->presentation;
+            $supplie->type_supplie_id = $request->type_supplie_id;
+            $supplie->update();
+            return response()->json([
+                'message' => 'Modificacion exitosa',
+            ]);
+        }else{
+            return 'error';
         }
     }
 
-      public function delete_supplie(CreateSupplieRequest $request, $id){
+    public function delete_supplie(CreateSupplieRequest $request, $id){
 
         $supplie = Supplie::where('id', $request->id)->first();
 
@@ -87,12 +89,12 @@ class LogisticController extends Controller
     
     //equipos
     public function create_equipment(CreateEquipmentRequest $request){
-        
+
         $equipment = MachineEquipment::create([
             'name'               => $request['name'],
             'description'        => $request['description'],
             'type_equipment_id'  => $request['type_equipment_id'],
-            'branch_id'          => 1 
+            'branch_id'          => 1
         ]);
 
         //$equipment = MachineEquipment::all()->dd();
@@ -183,5 +185,4 @@ class LogisticController extends Controller
             'record' => $record,
         ]);
     }
-
 }
