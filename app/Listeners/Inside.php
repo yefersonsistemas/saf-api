@@ -26,6 +26,6 @@ class Inside
      */
     public function handle(Security $event) //accede al paciente enviado desde el evento security
     {
-        $event->$patients;
+        $event->$visitor;
     }
 }

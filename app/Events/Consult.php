@@ -22,7 +22,7 @@ class Consult
      *
      * @return void
      */
-    public function __construct($surgery)  //recibe lo q se elige en cirugia para uin candidato 
+    public function __construct($surgery)  //recibe lo q se elige en cirugia para un candidato 
     {
         $this->surgery = $surgery;    //guarda la información que se transmitirá junto al evento
     }

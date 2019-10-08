@@ -60,9 +60,9 @@ Route::group(['prefix' => 'security'], function(){
     Route::get('/', 'API\SecurityController@index');  // se ve
     Route::POST('create', 'API\SecurityController@all_visitor');  // listo
     Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-    Route::POST('inside', 'API\SecurityController@statusIN');  //
-    Route::POST('outside', 'API\SecurityController@statusOut');  //
-    Route::POST('search', 'API\SecurityController@search');  //
+    Route::POST('inside', 'API\SecurityController@statusIN');  // listo
+    Route::POST('outside', 'API\SecurityController@statusOut');  // listo
+    Route::POST('search', 'API\SecurityController@search');  // listo
 });
 
 //rutas rol recepcion
@@ -75,8 +75,8 @@ Route::group(['prefix' => 'reception'], function(){
 //rutas generar cita/reservacion
 Route::group(['prefix' => 'cite'], function(){
     Route::POST('create', 'API\CitaController@create_cite'); //listo
-    Route::put('/{id}', 'API\CitaController@update_cite');
-    Route::delete('delete/{id}', 'API\CitaController@delete_cite');
+    Route::put('/{id}', 'API\CitaController@update_cite'); // listo
+    Route::delete('delete/{id}', 'API\CitaController@delete_cite');  //listo
 });
 
 //rutas rol in y out
@@ -110,7 +110,6 @@ Route::group(['prefix' => 'inventory'], function(){
 //rutas rol doctor
 Route::group(['prefix' => 'doctor'], function(){
     Route::get('/', 'API\DoctorController@index');  //se ve
-    Route::get('list', 'API\DoctorController@list'); //se ve
     Route::get('history', 'API\DoctorController@history_patient');  //se ve
     Route::POST('create','API\DoctorController@diagnostic');  // 200 ok pero no muestra
     Route::get('recipe', 'API\DoctorController@recipe');  // se ve

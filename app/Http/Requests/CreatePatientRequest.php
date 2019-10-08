@@ -38,8 +38,8 @@ class CreatePatientRequest extends FormRequest
             'reason'             => 'required',
             'previous_surgery'   => 'required',
             'employe_id'         => 'required',
-            //'another_phone'      => 'required',
-         //   'another_email'      => 'required',
+            // 'another_phone'      => 'required',
+            // 'another_email'      => 'required',
         ];
     }
 
@@ -69,7 +69,7 @@ class CreatePatientRequest extends FormRequest
         return [
             'date'           => 'fecha',
             'history_number' => 'Número de historia',
-            'person_id'      => 'el numero del paciente',
+            'person_id'      => 'el paciente',
             'weight'         => 'peso',
             'age'            => 'edad del paciente',
             'gender'         => 'genero del paciente',

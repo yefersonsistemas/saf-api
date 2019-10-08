@@ -21,8 +21,8 @@ class Security
      *
      * @return void
      */
-    public function __construct($visitor) //recibe lo q se semuestra en index
-    {
+    public function __construct($visitor) //recibe el cambio de estado del paciente cuando lo buscan en el sistema esta
+    {                                    //citado y ha llegado y pasa a estar dentro de las instalaciones
         $this->visitor->$visitor;     //guarda la información que se transmitirá junto al evento
     }
 

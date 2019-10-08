@@ -20,10 +20,10 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         'App\Events\Security' => [ //nombre del evento
-            'App\Listeners\Inside',
+            'App\Listeners\Inside', //nombre del escucha
         ],
 
-        'App\Events\Consult' => [  //nombre del escucha
+        'App\Events\Consult' => [  
             'App\Listeners\Outside',
         ],
     ];

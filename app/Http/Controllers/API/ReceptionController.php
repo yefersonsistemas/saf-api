@@ -6,42 +6,55 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reservation;
 use Carbon\Carbon;
-Use App\Pacient;
+Use App\Patient;
 Use App\Visitor;
 Use App\Specilaity;
 Use App\Employe;
 Use App\Person;
 Use App\Schedule;
 use App\Http\Requests\CreatePatientRequest;
-//use App\Http\Requests\CreateReservationRequest;
-use App\Http\Controllers\CitaController;
 
 
 class ReceptionController extends Controller
 {
 
-    public function search(Request $request){
-       // $visitor = Visitor::all()->dd();
-        $person = Person::where('dni', $request)->first(); //busco a ver si existe la persona
+    public function index()
+    {
+        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
+        $all = collect([]);
 
-        if ($person != null) {  //si existe
+        $patients = $reservations->map(function ($item) {
+            $item->person;
+            return $item->person;
+        });
+        
+        $all = $patients;        
+
+        return response()->json([
+            'patients' => $all,
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $person = Person::where('dni', $request->dni)->first(); //busco a ver si existe la persona
+        $history = Patient::where('history_number', $request->history_number);
+
+        if (!is_null($person)) {  //si existe
 
             return response()->json([
-                'person_id' => $visitor,
-            ], 201);
+                'person' => $person,
+            ]);
        
-        }else{  //caso de que no exista
-            return response()->json([
-                'message' => 'No encontrado',
-            ], 201);
         }
     }
 
-    public function create_history(CreatePatientRequest $request){
-
-        $patient = Patient::create([  //
+    public function create_history(CreatePatientRequest $request)
+    {
+        $patient = Patient::create([  
             'date'               => $request['date'],
             'history_number'     => $request['history_number'],
+            'reason'             => $request['reason'],
             'person_id'          => $request['person_id'],
             'gender'             => $request['gender'],
             'place'              => $request['place'],
@@ -50,9 +63,8 @@ class ReceptionController extends Controller
             'weight'             => $request['weight'],
             'occupation'         => $request['occupation'],
             'profession'         => $request['profession'],
-            'provious_surgery'   => $request['provious_surgery'],
+            'previous_surgery'   => $request['provious_surgery'],
             'employe_id'         => $request['employe_id'],
-            'reason'             => $request['reason'],
             'another_phone'      => $request['another_phone'],
             'another_email'      => $request['another_email'],
             'branch_id'          => 1
@@ -60,40 +72,7 @@ class ReceptionController extends Controller
 
         return response()->json([
             'message' => 'Paciente creado exitosamente',
-        ], 201);
+        ]);
         
     }
-
-    public function cite(){ //crear cita
-        CitaController::create_cite();
-    }
-
-    // //quota representa el max de cupos por dia de pacientes 
-    // public function create_cite(CreateReservationRequest $request){
-    //     $speciality = Speciality::all();
-    //     $employe = Employe::where('id', $request->id)->first();
-    //     $cupos = Schedule::where('quota', $request->quota)->count()->fisrt(); //obtengo la cantidad de registros en quota 
-    //     $dia = Reservation::whereDate('date', Carbon::date()->format('d/m/Y'))->get()->count(); //obtengo todos los registros de ese dia y los cuento
-
-    //     if ($employe->position == 'doctor') {
-
-    //         if ($dia < $cupos) {
-            
-    //             $reservation = Reservation::create([		
-    //             'date' => $request->date,
-    //             'description' => $request->description,
-    //             'status' => $request->status,
-    //             'schedule_id' => $request->schedule_id,
-    //         ]);
-    //         }
-    //         return response()->json([
-    //             'message' => 'Cita creada',
-    //         ], 201);
-
-    //     }else{
-    //         return response()->json([
-    //             'message' => 'No hay cupos',
-    //         ], 201);
-    //     }
-    // }
 }
