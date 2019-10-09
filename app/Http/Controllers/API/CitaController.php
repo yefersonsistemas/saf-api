@@ -61,7 +61,7 @@ class CitaController extends Controller
         $reservation = Reservation::find($id); 
        
         $employe = Employe::find($request['doctor_id']);  
-        $employe->load('schedule');
+        //$employe->load('schedule');
         $fecha = Carbon::parse($request['date']);
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
@@ -77,9 +77,9 @@ class CitaController extends Controller
             if ($dia <  $cupos) {
             
                 $reservation->date = $request->date;
-                // $reservation->description = $request->description;
-                // $reservation->person_id = $request->person_id;
-                // $reservation->schedule_id = $request->schedule_id;
+                $reservation->description = $request->description;
+                $reservation->person_id = $request->person_id;
+                $reservation->schedule_id = $request->schedule_id;
             
                 if($reservation->save()){
                     return response()->json([

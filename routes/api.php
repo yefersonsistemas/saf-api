@@ -75,7 +75,7 @@ Route::group(['prefix' => 'reception'], function(){
 //rutas generar cita/reservacion
 Route::group(['prefix' => 'cite'], function(){
     Route::POST('create', 'API\CitaController@create_cite'); //listo
-    Route::put('/{id}', 'API\CitaController@update_cite'); // 
+    Route::put('/{id}', 'API\CitaController@update_cite'); // listo
     Route::delete('delete/{id}', 'API\CitaController@delete_cite');  //listo
 });
 
@@ -89,16 +89,16 @@ Route::group(['prefix' => 'IO'], function(){
 //rutas rol logistica
 Route::group(['prefix' => 'supplie'], function(){
     Route::POST('create', 'API\LogisticController@create_supplie');  // listo
-    Route::put('/{id}', 'API\LogisticController@edit_supplie');  // 200 ok
+    Route::put('/{id}', 'API\LogisticController@edit_supplie');  // listo
     Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  // listo
-    Route::POST('assigment/supplie', 'API\LogisticController@assigment_supplie'); //
+    Route::POST('assigment/supplie', 'API\LogisticController@assigment_supplie'); // 200
 });
 
 Route::group(['prefix' => 'equipment'], function(){
     Route::POST('create', 'API\LogisticController@create_equipment');  // listo
     Route::put('/{id}', 'API\LogisticController@edit_equipment');  // listo
     Route::delete('delete/{id}', 'API\LogisticController@delete_equipment');  //listo
-    Route::POST('assigment/equipment', 'API\LogisticController@assigment_equipment'); //
+    Route::POST('assigment/equipment', 'API\LogisticController@assigment_equipment'); // 200
 });
 
 Route::group(['prefix' => 'inventory'], function(){
