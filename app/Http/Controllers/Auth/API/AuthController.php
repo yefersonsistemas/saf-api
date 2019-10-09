@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
-
+use Nexmo\Response;
 
 class AuthController extends Controller
 {
@@ -32,6 +32,10 @@ class AuthController extends Controller
                 'message' => 'Usuario ya se encuentra registrado!',
             ], 201);        
         }
+
+        return response()->json([
+            'messa' => $request,
+        ]);
 
         $branch = Branch::where('id', 1)->first();
 
