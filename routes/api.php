@@ -68,14 +68,14 @@ Route::group(['prefix' => 'security'], function(){
 //rutas rol recepcion
 Route::group(['prefix' => 'reception'], function(){
     Route::get('/', 'API\ReceptionController@index');  // listo
-    Route::POST('create', 'API\ReceptionController@create_history');  //
+    Route::POST('create', 'API\ReceptionController@create_history');  //lissto
     Route::POST('search', 'API\ReceptionController@search');  // listo
 });
 
 //rutas generar cita/reservacion
 Route::group(['prefix' => 'cite'], function(){
     Route::POST('create', 'API\CitaController@create_cite'); //listo
-    Route::put('/{id}', 'API\CitaController@update_cite'); // listo
+    Route::put('/{id}', 'API\CitaController@update_cite'); // 
     Route::delete('delete/{id}', 'API\CitaController@delete_cite');  //listo
 });
 
@@ -88,7 +88,7 @@ Route::group(['prefix' => 'IO'], function(){
 
 //rutas rol logistica
 Route::group(['prefix' => 'supplie'], function(){
-    Route::POST('create', 'API\LogisticController@create_supplie');  // 200 ok
+    Route::POST('create', 'API\LogisticController@create_supplie');  // listo
     Route::put('/{id}', 'API\LogisticController@edit_supplie');  // 200 ok
     Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  // listo
     Route::POST('assigment/supplie', 'API\LogisticController@assigment_supplie'); //

@@ -16,99 +16,23 @@ use Carbon\Carbon;
 
 class CitaController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     //quota representa el max de cupos por dia de pacientes 
     public static function create_cite(CreateReservationRequest $request){
         $speciality = Speciality::all();
         $employe = Employe::find($request['doctor_id']);
-        //$employe->load('schedule');
-        $fecha = Carbon::parse($request['date']);
+        $employe->load('schedule'); 
+        $fecha = Carbon::parse($request['date']); 
 
-        $date = Carbon::parse($request['date'])->Format('Y-m-d');
-        $diaDeReserva = ucfirst($fecha->dayName);
+        $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
+        $diaDeReserva = ucfirst($fecha->dayName); 
 
         $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
-
+                               
         $cupos = $dia->quota; //obtengo el valor de quota 
-
+              
         $dia = Reservation::whereDate('date', $date)->where('status', 'Aprobado')->get()->count(); //obtengo todos los registros de ese dia y los cuento
-       
-        if ($employe->person->user->hasRole('doctor')) {
+                                        
+        if ($employe->person->user->hasRole('doctor')) {  //el empleado debe ser doctor por rol y ocupacion sino no crea
 
             if ($dia <  $cupos) {
             
@@ -159,7 +83,6 @@ class CitaController extends Controller
             
                 if($reservation->save()){
                     return response()->json([
-                       // 'reservation'  => $reservation,
                         'message' => 'Cambio de cita satisfactorio',
                     ]);
                 }
