@@ -18,7 +18,6 @@ class CreateDoctorsTable extends Migration
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('type_doctor_id');
             $table->double('price');
-            $table->double('consultation_price');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
