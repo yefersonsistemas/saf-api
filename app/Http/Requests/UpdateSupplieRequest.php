@@ -25,7 +25,7 @@ class UpdateSupplieRequest extends FormRequest
     {
          $rules = [
             'name' => 'required',
-            'type_suplie_id' => 'required',
+            'type_supplie_id' => 'required',
             'presentation' => 'required',
         ];
 

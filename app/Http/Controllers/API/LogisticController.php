@@ -79,7 +79,7 @@ class LogisticController extends Controller
             }
     }
 
-    public function assigment_suplie(CreateInventoryAreaRequest $request){
+    public function assigment_supplie(CreateInventoryAreaRequest $request){
         $supplie = Supplie::where('id', $request->id);
 
         if ($supplie != null) {
@@ -88,10 +88,15 @@ class LogisticController extends Controller
                 'quantity_Assigned'     => $request['quantity_Assigned'],
                 'quantity_Used'         => $request['quantity_Used'],
                 'quantity_Available'    => $request['quantity_Available'],
-                'type_area_id'          => $request['type_area_id'],
+                'area_id'               => $request['area_id'],
                 'inventory_id'          => $request['inventory_id'],
             ]);
-        }
+
+            return response()->json([
+                'inventoryarea' => $inventoryarea,
+                'message' => 'Equipo creado exitosamente',
+             ]);
+       }
     }
 
     
@@ -153,7 +158,7 @@ class LogisticController extends Controller
                 'quantity_Assigned'     => $request['quantity_Assigned'],
                 'quantity_Used'         => $request['quantity_Used'],
                 'quantity_Available'    => $request['quantity_Available'],
-                'type_area_id'          => $request['type_area_id'],
+                'area_id'               => $request['_area_id'],
                 'inventory_id'          => $request['inventory_id'],
             ]);
         }

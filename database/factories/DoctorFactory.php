@@ -17,7 +17,6 @@ $factory->define(Doctor::class, function (Faker $faker) {
        'employe_id' => $employe->id,
        'type_doctor_id' =>  $typedoctor->id,
        'price' => $faker->randomFloat,
-       'consultation_price' => $faker->randomFloat,
        'branch_id' =>  $branchoffice->id,
     ];
 });

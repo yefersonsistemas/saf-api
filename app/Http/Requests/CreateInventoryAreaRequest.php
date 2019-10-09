@@ -28,7 +28,7 @@ class CreateInventoryAreaRequest extends FormRequest
             'quantity_Assigned' => 'required',
             'quantity_Used' => 'required',
             'quantity_Available' => 'required',
-            'type_area_id' => 'required',
+            'area_id' => 'required',
             'inventory_id' => 'required',
         ];
     }
