@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
+use Nexmo\Response;
 
 class AuthController extends Controller
 {
@@ -97,6 +98,7 @@ class AuthController extends Controller
                     ->toDateTimeString(),
                 'role'         =>   $user->user->getRoleNames(),
                 'message'      => 'Sesion Iniciada',
+                'user'         => Auth::id(),
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
