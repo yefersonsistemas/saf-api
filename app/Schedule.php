@@ -14,7 +14,7 @@ class Schedule extends Model
 
     public function employe()
     {
-        return $this->hasMany('App\Employe','employe_id');
+        return $this->belongsTo('App\Employe','employe_id');
     }
 
     public function reservations()

@@ -75,14 +75,14 @@ Route::group(['prefix' => 'reception'], function(){
 //rutas generar cita/reservacion
 Route::group(['prefix' => 'cite'], function(){
     Route::POST('create', 'API\CitaController@create_cite'); //listo
-    Route::put('/{id}', 'API\CitaController@update_cite'); // 
+    Route::put('/{id}', 'API\CitaController@update_cite'); // listo
     Route::delete('delete/{id}', 'API\CitaController@delete_cite');  //listo
 });
 
 //rutas rol in y out
 Route::group(['prefix' => 'IO'], function(){
     Route::POST('search', 'API\InController@search');  // listo
-    Route::POST('assigment', 'API\InController@assigment');  // 
+    Route::POST('assigment', 'API\InController@assigment');  // listo
     Route::POST('create', 'API\InController@billing');  // listo 
 });
 
@@ -111,8 +111,9 @@ Route::group(['prefix' => 'inventory'], function(){
 Route::group(['prefix' => 'doctor'], function(){
     Route::get('/', 'API\DoctorController@index');  //se ve
     Route::get('history', 'API\DoctorController@history_patient');  //se ve
-    Route::POST('create','API\DoctorController@diagnostic');  // 200 ok pero no muestra
+    Route::POST('create','API\DoctorController@diagnostic');  // listo
     Route::get('recipe', 'API\DoctorController@recipe');  // se ve
 });
 
 
+            

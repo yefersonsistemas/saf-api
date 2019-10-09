@@ -58,36 +58,62 @@ class CitaController extends Controller
 
     public function update_cite(UpdateCiteRequest $request, $id){
 
-        $reservation = Reservation::find($id); 
+        $reservation = Reservation::find($id);
+
+        if (is_null($reservation)) {
+            return response()->json([
+                'message' => 'Cita invalida',
+            ]);
+        }
+
+        // return response()->json([
+        //     'message' => $reservation->schedule->employe,
+        // ]);
        
-        $employe = Employe::find($request['doctor_id']);  
-        $employe->load('schedule');
-        $fecha = Carbon::parse($request['date']);
+        $employe = $reservation->schedule->employe;  
+        // $employe->load('schedule');
 
-        $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
-        $diaDeReserva = ucfirst($fecha->dayName); 
+        $date = Carbon::parse($request['date'])->Format('Y-m-d');
 
-        $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
+        // return dd(Carbon::parse('2018-06-15 17:34:15.984512', 'UTC')->format('Y-m-d')->dayName);
+
+        $diaDeReserva = ucfirst(Carbon::parse($request['date'])->dayName); 
+
+        $schedule = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
+
+        if ($schedule == null) {
+            return response()->json([
+                'message' => 'El doctor no cuenta con ese horario',
+                ]);
+        }
                                               
-        $cupos = $dia->quota; 
+        $cupos = $schedule->quota; 
 
         $dia = Reservation::whereDate('date', $date)->where('status', 'Aprobado')->get()->count();
         
-        if (!is_null($reservation)){
-            if ($dia <  $cupos) {
-            
-                $reservation->date = $request->date;
-                // $reservation->description = $request->description;
-                // $reservation->person_id = $request->person_id;
-                // $reservation->schedule_id = $request->schedule_id;
-            
-                if($reservation->save()){
-                    return response()->json([
-                        'message' => 'Cambio de cita satisfactorio',
-                    ]);
-                }
+        if ($dia <  $cupos) {
+        
+            $reservation->date = $request->date;
+            $reservation->status = 'Cancelado';
+            //  $reservation->description = $request->description;
+            //  $reservation->person_id = $request->person_id;
+            //  $reservation->schedule_id = $request->schedule_id;
+        
+            if($reservation->save()){
+                return response()->json([
+                    'message' => 'Cambio de cita satisfactorio',
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No se pudo actualizarla fecha',
+                ]);
             }
+        }else{
+            return response()->json([
+                'message' => 'No hay cupos disponibles para la fecha',
+            ]);
         }
+        
       
     }
 

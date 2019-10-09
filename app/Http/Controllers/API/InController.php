@@ -7,10 +7,12 @@ use App\Http\Controllers\Controller;
 Use App\Employe;
 Use App\Area;
 Use App\Billing;
-Use App\Schedules;
 Use App\AreaAssigment;
+use Carbon\Carbon;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Requests\CreateAreaAssigmentRequest;
+use App\Schedule;
+
 //use App\Http\Controllers\CitaController;
 
 
@@ -110,20 +112,54 @@ class InController extends Controller
 
     public static function assigment(CreateAreaAssigmentRequest $request) //asignacion de consultorio
     {
-        $e = Employe::where('id', $request->id);
-        $a = Area::where('id', $request->id);
+        $e = Employe::where('id', $request->employe_id)->first();
+        $a = Area::where('id', $request->area_id)->first();
 
-        if (!is_null($a)) {
+        if (!is_null($a) && !is_null($e)) {
+            $date = Carbon::now();
+
+            // if ($e->position->name != 'doctor') {
+            //     return response()->json([
+            //         'message' => 'Este empleado no es un medico',
+            //     ]); 
+            // }
+
+            $employeasignado = AreaAssigment::where('employe_id', $e->id)->whereDate('created_at', $date)->first();
+
+            if ($employeasignado != null) {
+                return response()->json([
+                    'message' => 'Empleado ya ha sido asigando',
+                ]);    
+            }
+
+            $turno = Schedule::where('employe_id', $e->id)->where('day', ucfirst($date->dayName))->first();
+
+            if ($turno->turn == 'mañana') {
+                $areaOcupada = AreaAssigment::where('area_id', $a->id)->whereDate('created_at', $date)->whereTime('created_at', '<=', '12:00')->first();
+            }else{
+                $areaOcupada = AreaAssigment::where('area_id', $a->id)->whereDate('created_at', $date)->whereTime('created_at', '>', '14:00')->first();
+            }
+            
+            if ($areaOcupada != null) {
+                return response()->json([
+                    'message' => 'Consultorio Ocupado',
+                ]);    
+            }
+
             $areaAssigment = AreaAssigment::create([
-            'employe_id'  => $request['id'],
-            'area_id'     => $request['id'],
+            'employe_id'  => $request['employe_id'],
+            'area_id'     => $request['area_id'],
+            'branch_id' => 1,
             ]);
-        }
-        
+
             return response()->json([
                 'message' => 'consultorio asignado',
-            ], 201);
-        
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Empleado o consultorio invalido',
+            ]);
+        }
     }
 
     public static function billing(CreateBillingRequest $request){  //facturacion
@@ -139,6 +175,6 @@ class InController extends Controller
 
         return response()->json([
             'message' => 'Factura creada',
-        ], 201);
+        ]);
     }
 }

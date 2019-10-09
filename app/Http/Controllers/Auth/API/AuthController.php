@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class AuthController extends Controller
@@ -94,6 +95,7 @@ class AuthController extends Controller
                 'expires_at'   => Carbon::parse(
                     $tokenResult->token->expires_at)
                     ->toDateTimeString(),
+                'role'         =>   $user->user->getRoleNames(),
                 'message'      => 'Sesion Iniciada',
             ]);
         } catch (ModelNotFoundException $e) {

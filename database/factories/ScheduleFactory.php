@@ -12,7 +12,7 @@ $factory->define(Schedule::class, function (Faker $faker) {
     $employe = Employe::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
     return [
-        'day' => $faker->randomElement(['lunes', 'Martes','Miercoles', 'Jueves', 'Viernes']),
+        'day' => $faker->randomElement(['Lunes', 'Martes','Miércoles', 'Jueves', 'Viernes']),
         'turn' => $faker->randomElement(['mañana', 'tarde']),
         'quota' => $faker->randomDigit,
         'employe_id' => $employe->id,

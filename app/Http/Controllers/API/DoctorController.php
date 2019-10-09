@@ -117,15 +117,20 @@ class DoctorController extends Controller
 
     public function diagnostic(CreateDiagnosticRequest $request){
 
+
+        // return response()->json([
+        //     'aa' => $request['patient_id'],
+        // ]);
          //$diagnostic = Diagnostic::all()->dd();
         $diagnostic = Diagnostic::create([
-            'petient_id' => $request['patient_id'],
+            'patient_id' => $request['patient_id'],
             'description' => $request['description'],
             'reason' => $request['reason'],
             'treatment' => $request['treatment'],
             'annex' => $request['annex'],
             'next_cite' => $request['next_cite'],
             'employe_id' => $request['employe_id'],
+            'branch_id'  => 1,
         ]);
 
             return response()->json([
