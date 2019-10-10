@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
-
-// use App\Procedure;
+namespace App\Http\Controllers\API;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-// use Carbon\Carbon;
-// use App\User;
+use App\Procedure;
+use App\Employe;
+//use Carbon\Carbon;
+
 
 class ProcedureController extends Controller
 {
@@ -24,10 +25,10 @@ class ProcedureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(User $doctor)
+    public function create(Employe $doctor)
     {   
         $procedures = $doctor->procedures;
-        $doctors   = User::role('doctor')->get();
+        $doctors   = Employe::role('doctor')->get();
         //return view('dashboard.procedures.index', compact('doctor','procedures','doctors'));
     }
 
@@ -37,21 +38,29 @@ class ProcedureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $doctor)
+    public function store(Request $request)
     {
-      $data =  $request->validate([
+        $doctor = Employe::find($request->doctor);
+
+        $data =  $request->validate([
             'name'   => 'required',
-            'name.required' => 'Es obligatorio ingresar nombre del procedimiento.',
+            'description' => 'required',
             'price'   => 'required',
             'price.required' => 'Es obligatorio precio del procedimiento.',
         ]);
-        $procedure =  Procedure::create([
-                        'name'            => $data['name'],
-                        'description'     => $request->description,
-                        'price'           => $data['price'],
-                      ]);
 
-        $doctor->procedures()->attach($procedure->id);    
+        $procedure =  Procedure::create([
+                'name'            => $data['name'],
+                'description'     => $request->description,
+                'price'           => $data['price'],
+                'branch_id'       => 1
+            ]);
+
+        $doctor->procedures()->attach($procedure->id);
+        
+        return response()->json([
+            'message' => 'Procedimiento creado satisfactoriamente',
+        ]);
 
       //  return redirect()->back()->withSuccess('Registro agregado correctamente');
     }

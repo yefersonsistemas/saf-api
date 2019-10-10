@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Employe;
-use App\Person;
+use App\Exam;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Position;
 
-class EmployesController extends Controller
+class ExamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,42 +38,15 @@ class EmployesController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'type_dni'  => 'required',
-            'dni'   => 'required',
-            'lastname' => 'required',
-            'phone'     => 'required',
-            'email' =>  'required',
-            'address'   => 'required',
-            'position_id'   => 'required',
         ]);
 
-        $person = Person::create([
-            'name' => $data['name'],
-            'type_dni'  => $data['type_dni'],
-            'dni'   => $data['dni'],
-            'lastname' => $data['lastname'],
-            'phone'     => $data['phone'],
-            'email' =>  $data['email'],
-            'address'   => $data['address'],
-            'branch_id' => 1
-        ]);
-
-        $employe = Employe::create([
-            'person_id' => $person->id,
-            'position_id'   =>$request->position_id,
-            'branch_id' => 1
+        $exam = Exam::create([
+            'name'  => $data['name'],
+            'branch_id' => 1,
         ]);
 
         return response()->json([
-            'message' => 'Empleado creado',
-        ]);
-    }
-
-    public function positions()
-    {
-        $positions = Position::all();
-        return response()->json([
-            'positions' => $positions,
+            'message' => 'Examen creado satisfactoriamente',
         ]);
     }
 

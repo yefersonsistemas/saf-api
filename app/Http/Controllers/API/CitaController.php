@@ -18,7 +18,7 @@ class CitaController extends Controller
 {
     //quota representa el max de cupos por dia de pacientes 
     public static function create_cite(CreateReservationRequest $request){
-        $speciality = Speciality::all();
+        
         $employe = Employe::find($request['doctor_id']);
         $employe->load('schedule'); 
         $fecha = Carbon::parse($request['date']); 
@@ -113,8 +113,6 @@ class CitaController extends Controller
                 'message' => 'No hay cupos disponibles para la fecha',
             ]);
         }
-        
-      
     }
 
     public function delete_cite($id){
@@ -127,5 +125,14 @@ class CitaController extends Controller
                 'message' => 'Cita eliminada',
                 ]);
             }
+    }
+
+    public function speciality()
+    {
+        $speciality = Speciality::all();
+
+        return response()->json([
+            'speciality' => $speciality,
+        ]);
     }
 }

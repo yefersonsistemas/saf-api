@@ -90,21 +90,22 @@ Route::group(['prefix' => 'IO'], function(){
 Route::group(['prefix' => 'supplie'], function(){
     Route::POST('create', 'API\LogisticController@create_supplie');  // listo
     Route::put('/{id}', 'API\LogisticController@edit_supplie');  // listo
-    Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  // listo
-    Route::POST('assigment/supplie', 'API\LogisticController@assigment_supplie'); // 200
+    Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  // listo 
 });
 
 Route::group(['prefix' => 'equipment'], function(){
     Route::POST('create', 'API\LogisticController@create_equipment');  // listo
     Route::put('/{id}', 'API\LogisticController@edit_equipment');  // listo
     Route::delete('delete/{id}', 'API\LogisticController@delete_equipment');  //listo
-    Route::POST('assigment/equipment', 'API\LogisticController@assigment_equipment'); // 200
 });
 
 Route::group(['prefix' => 'inventory'], function(){
     Route::get('list', 'API\LogisticController@index');  // se ve
     Route::get('/', 'API\LogisticController@list_inventory');  // se ve
     Route::get('area', 'API\LogisticController@list_inventoryarea');  // se ve
+    Route::POST('assigment', 'API\LogisticController@assigment'); //
+    Route::POST('register/cleaning', 'API\LogisticController@registercleanig');
+    Route::get('record/cleaning', 'API\LogisticController@record_cleaning');
 });
 
 //rutas rol doctor
@@ -126,6 +127,15 @@ Route::group(['prefix' => 'stocktaking'], function()
     Route::post('/create_equipment', 'API\StocktakingController@create_equipment');
     Route::put('/edit_equipment', 'API\StocktakingController@edit_equipment');
 
+});
+
+Route::group(['prefix' => 'create'], function(){
+    Route::POST('procedure', 'API\ProcedureController@store');
+    Route::POST('exam', 'API\ExamController@store');
+    Route::POST('employe', 'API\EmployesController@store');
+    Route::get('patients', 'API\DoctorController@patients');
+    Route::get('positions', 'API\EmployesController@positions');
+    Route::get('speciality', 'API\CitaController@speciality');
 });
 
 

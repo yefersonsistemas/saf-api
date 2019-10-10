@@ -154,6 +154,11 @@ class DoctorController extends Controller
     {
         $doctor = Employe::with('person.user','procedures')->get();
 
+        return response()->json([
+            'doctors' => $doctor,
+        ]);
+        
+
         $doctors = $doctor->each(function ($doctor)
         {
             $doc = $doctor->person->user->role('doctor');
@@ -163,6 +168,14 @@ class DoctorController extends Controller
 
         return response()->json([
             'doctors' => $doctors,
+        ]);
+    }
+
+    public function patients()
+    {
+        $patients = Patient::with('person')->get();
+        return response()->json([
+            'patients' => $patients,
         ]);
     }
     

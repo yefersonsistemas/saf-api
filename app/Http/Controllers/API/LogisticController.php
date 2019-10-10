@@ -3,30 +3,29 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\TypeSupplie;
 use App\Supplie;
 use App\MachineEquipment;
-use App\TypeEquipment;
 use App\Inventory;
 use App\InventoryArea;
+use App\CleaningRecord;
+use App\Employe;
 use App\Http\Requests\CreateSupplieRequest;
 use App\Http\Requests\UpdateSupplieRequest;
 use App\Http\Requests\CreateEquipmentRequest;
 use App\Http\Requests\UpdateEquipmentRequest;
 use App\Http\Requests\CreateInventoryAreaRequest;
+use App\Http\Requests\CreateTypeCleaningRequest;
 
 class LogisticController extends Controller
 {
     public function index()
     {
-        $supplie = Supplie::all();
-        $equipment = MachineEquipment::all();
-        $type = TypeEquipment::all();
+        $supplie = Supplie::with('typesupplie')->get();
+        $equipment = MachineEquipment::with('typeequipment')->get();
 
         return response()->json([
             'supplie' => $supplie,
             'equipment' =>  $equipment,
-            'type' => $type
         ]);
        
     }
@@ -66,43 +65,22 @@ class LogisticController extends Controller
         }
     }
 
-      public function delete_supplie($id){
+    public function delete_supplie($id){
 
         $supplie = Supplie::find($id);
 
-        if(!is_null($supplie)){
-           $supplie->delete();
- 
+            if(!is_null($supplie)){
+                $supplie->delete();
+
                 return response()->json([
                 'message' => 'Insumo eliminado',
                 ]);
             }
     }
-
-    public function assigment_supplie(CreateInventoryAreaRequest $request){
-        $supplie = Supplie::where('id', $request->id);
-
-        if ($supplie != null) {
-           
-            $inventoryarea = InventoryArea::create([
-                'quantity_Assigned'     => $request['quantity_Assigned'],
-                'quantity_Used'         => $request['quantity_Used'],
-                'quantity_Available'    => $request['quantity_Available'],
-                'area_id'               => $request['area_id'],
-                'inventory_id'          => $request['inventory_id'],
-            ]);
-
-            return response()->json([
-                'inventoryarea' => $inventoryarea,
-                'message' => 'Equipo creado exitosamente',
-             ]);
-       }
-    }
-
     
     //equipos
     public function create_equipment(CreateEquipmentRequest $request){
-        
+
         $equipment = MachineEquipment::create([
             'name'               => $request['name'],
             'description'        => $request['description'],
@@ -149,19 +127,22 @@ class LogisticController extends Controller
             }
     }
 
-     public function assigment_equipment(CreateInventoryAreaRequest $request){
-        $equipment = MachineEquipment::where('id', $request->id);
+    public function assigment(CreateInventoryAreaRequest $request)
+    {    
+        $inventoryarea = InventoryArea::create([
+            'quantity_Assigned'     => $request['quantity_Assigned'],
+            'quantity_Used'         => $request['quantity_Used'],
+            'quantity_Available'    => $request['quantity_Available'],
+            'area_id'               => $request['area_id'],
+            'inventory_id'          => $request['inventory_id'],
+            'branch_id'             => 1,
+        ]);
+        
+        return response()->json([
+        'inventoryarea' => $inventoryarea,
+        'message' => 'Equipo creado exitosamente',
+        ]);
 
-        if ($equipment != null) {
-           
-            $inventoryarea = InventoryArea::create([
-                'quantity_Assigned'     => $request['quantity_Assigned'],
-                'quantity_Used'         => $request['quantity_Used'],
-                'quantity_Available'    => $request['quantity_Available'],
-                'area_id'               => $request['_area_id'],
-                'inventory_id'          => $request['inventory_id'],
-            ]);
-        }
     }
 
     public function list_inventory(){  //sirve para report
@@ -182,11 +163,18 @@ class LogisticController extends Controller
 
     }
 
-    public function registercleanig(){
-        
+    public function registercleanig(CreateTypeCleaningRequest $request)
+    {
+        $employe = Employe::with('position')->get();
+
+        if ($employe->position->name == 'mantenimiento') {
+           
+        }
+
         $register = TypeCleanig::create([
-            'name' => $request['name'],
-            'type_cleaning' => $request['type_cleaning'],
+            'name'           => $request['name'],
+            'type_cleaning'  => $request['type_cleaning'],
+            'branch_id'      => 1,
         ]);
 
         return response()->json([
