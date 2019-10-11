@@ -16,6 +16,7 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->enum('status', ['ocupado', 'desocupado']);
             $table->unsignedBigInteger('type_area_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();

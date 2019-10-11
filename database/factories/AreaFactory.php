@@ -12,6 +12,7 @@ $factory->define(Area::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
     return [
         'name' => $faker->word,
+        'status' => $faker->randomElement(['ocupado', 'desocupado']),
         'type_area_id' =>$typeareas->id,
         'branch_id' => $branchoffice->id,
     ];

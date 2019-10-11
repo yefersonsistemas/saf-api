@@ -92,6 +92,12 @@ class Employe extends Model
        ->withPivot('type_cleaning_id','id');
     }
 
+    public function speciality() //relacion  con la tabla m:m 
+    {
+        return $this->belongsToMany('App\Speciality','speciality_employe')
+       ->withPivot('speciality_id','id');
+    }
+
     public function diagnostic()
     {
         return $this->belongsTo('App\Diagnostic');

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Speciality;
+use App\Employe;
+use App\Branch;
 
 class SpecialitiesTableSeeder extends Seeder
 {
@@ -13,6 +15,14 @@ class SpecialitiesTableSeeder extends Seeder
     public function run()
     {
         Speciality::truncate();
-        factory(Speciality::class, 20)->create();
+        factory(Speciality::class, 20)->create()->each(function ($speciality) {
+            $employes = Employe::with('person.user')->get();
+
+            $employes = $employes->each(function ($employe) { 
+                return $employe->person->user->role('doctor'); 
+            });                                                   
+
+            $speciality->employe()->attach($employes->random()->id); 
+        }); 
     }
 }

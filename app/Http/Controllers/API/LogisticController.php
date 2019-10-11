@@ -15,13 +15,16 @@ use App\Http\Requests\CreateEquipmentRequest;
 use App\Http\Requests\UpdateEquipmentRequest;
 use App\Http\Requests\CreateInventoryAreaRequest;
 use App\Http\Requests\CreateTypeCleaningRequest;
+use App\TypeEquipment;
+use App\TypeSupplie;
+use App\TypeCleaning;
 
 class LogisticController extends Controller
 {
     public function index()
     {
-        $supplie = Supplie::with('typesupplie')->get();
-        $equipment = MachineEquipment::with('typeequipment')->get();
+        $supplie = Supplie::all();
+        $equipment = MachineEquipment::all();
 
         return response()->json([
             'supplie' => $supplie,
@@ -163,23 +166,27 @@ class LogisticController extends Controller
 
     }
 
-    public function registercleanig(CreateTypeCleaningRequest $request)
+    public function registercleanig(CreateTypeCleaningRequest $request, Employe $employe)
     {
         $employe = Employe::with('position')->get();
 
         if ($employe->position->name == 'mantenimiento') {
-           
+            
+            return response()->json([
+                'message' => $employe,
+            ]);
+            
+            // $register = TypeCleanig::create([
+            //     'name'           => $request['name'],
+            //     'type_cleaning'  => $request['type_cleaning'],
+            //     'branch_id'      => 1,
+            // ]);
+    
+            // return response()->json([
+            //     'message' => 'Limpieza registrada',
+            // ]);
         }
 
-        $register = TypeCleanig::create([
-            'name'           => $request['name'],
-            'type_cleaning'  => $request['type_cleaning'],
-            'branch_id'      => 1,
-        ]);
-
-        return response()->json([
-            'message' => 'Limpieza registrada',
-        ]);
     }
 
     public function record_cleaning(){
@@ -187,6 +194,23 @@ class LogisticController extends Controller
 
         return response()->json([
             'record' => $record,
+        ]);
+    }
+
+    public function type_equipment()
+    {
+        $type = TypeEquipment::all();
+
+        return response()->json([
+            'type' => $type,
+        ]);
+    }
+
+    public function type_supplie()
+    {
+        $type = TypeSupplie::all();
+        return response()->json([
+            'type' => $type,
         ]);
     }
 

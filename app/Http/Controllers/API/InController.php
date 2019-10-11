@@ -101,13 +101,21 @@ class InController extends Controller
         if ($area != null) {  //si existe
             return response()->json([
                 'message' => 'Consultorio ocupado',
-            ], 201);
+            ]);
             
         }else{  //caso de que no exista
             return response()->json([
                 'message' => 'Consultorio no encontrado',
-            ], 201);
+            ]);
         }
+    }
+
+    public function list_area(){
+        $a = Area::all();
+
+        return response()->json([
+            'area' => $a,
+        ]);
     }
 
     public static function assigment(CreateAreaAssigmentRequest $request) //asignacion de consultorio

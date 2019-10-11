@@ -63,6 +63,7 @@ Route::group(['prefix' => 'security'], function(){
     Route::POST('inside', 'API\SecurityController@statusIN');  // listo
     Route::POST('outside', 'API\SecurityController@statusOut');  // listo
     Route::POST('search', 'API\SecurityController@search');  // listo
+    Route::get('/visitors', 'API\SecurityController@visitors');  // se ve
 });
 
 //rutas rol recepcion
@@ -83,17 +84,21 @@ Route::group(['prefix' => 'cite'], function(){
 Route::group(['prefix' => 'IO'], function(){
     Route::POST('search', 'API\InController@search');  // listo
     Route::POST('assigment', 'API\InController@assigment');  // listo
+    //Route::POST('area', 'API\InController@status');  // listo
+    Route::get('list', 'API\InController@list_area');  // listo
     Route::POST('create', 'API\InController@billing');  // listo 
 });
 
 //rutas rol logistica
 Route::group(['prefix' => 'supplie'], function(){
+    Route::get('type_supplie', 'API\LogisticController@type_supplie');
     Route::POST('create', 'API\LogisticController@create_supplie');  // listo
     Route::put('/{id}', 'API\LogisticController@edit_supplie');  // listo
     Route::delete('delete/{id}', 'API\LogisticController@delete_supplie');  // listo 
 });
 
 Route::group(['prefix' => 'equipment'], function(){
+    Route::get('type', 'API\LogisticController@type_equipment');
     Route::POST('create', 'API\LogisticController@create_equipment');  // listo
     Route::put('/{id}', 'API\LogisticController@edit_equipment');  // listo
     Route::delete('delete/{id}', 'API\LogisticController@delete_equipment');  //listo
@@ -126,7 +131,6 @@ Route::group(['prefix' => 'stocktaking'], function()
     //Equipo
     Route::post('/create_equipment', 'API\StocktakingController@create_equipment');
     Route::put('/edit_equipment', 'API\StocktakingController@edit_equipment');
-
 });
 
 Route::group(['prefix' => 'create'], function(){

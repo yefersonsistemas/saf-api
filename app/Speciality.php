@@ -27,10 +27,12 @@ class Speciality extends Model
         return $this->hasMany('App\Patient');
     }
 
-    public function employe()
+    public function employe() //relacion  con la tabla m:m 
     {
-        return $this->hasMany('App\Speciality');
+        return $this->belongsToMany('App\Employe','speciality_employe')
+       ->withPivot('employe_id','id');
     }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');

@@ -17,7 +17,6 @@ class CreateSpecialityEmployeTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('speciality_id');
-            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('employe_id')
@@ -29,11 +28,6 @@ class CreateSpecialityEmployeTable extends Migration
                 ->references('id')
                 ->on('specialities')
                 ->onDelete('CASCADE');
-
-            $table->foreign('branch_id')
-                  ->references('id')
-                  ->on('branch')
-                  ->onDelete('CASCADE');
         });
     }
 

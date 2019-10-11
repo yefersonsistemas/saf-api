@@ -38,10 +38,23 @@ class SecurityController extends Controller
             return $item->person;
         });
         
-        $all = $patients->concat($visitors);        
+        $all = $patients->concat($visitors);
 
         return response()->json([
             'all' => $all,
+        ]);
+    }
+
+    public function visitors(){
+        $v = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('type_visitor', 'Paciente')->get();
+        $r = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Aprobado')->get();
+
+        if ($v && $r) {
+            $v->status = 'pendiente';
+        }
+
+        return response()->json([
+            'visitantes' => $v,
         ]);
     }
 
