@@ -11,6 +11,11 @@ class Speciality extends Model
     protected $fillable = [
         'name', 'description', 'branch_id'
     ];
+
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
     
     public function users()
     {

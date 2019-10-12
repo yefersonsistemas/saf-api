@@ -18,8 +18,8 @@ class CreateInventoriesTable extends Migration
             $table->integer('quantity_Total');
             $table->integer('quantity_Available');
             $table->integer('quantity_Assigned');
-            $table->unsignedBigInteger('supplie_id');
-            $table->unsignedBigInteger('machine_equipment_id');
+            $table->unsignedBigInteger('supplie_id')->nullable();
+            $table->unsignedBigInteger('machine_equipment_id')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 

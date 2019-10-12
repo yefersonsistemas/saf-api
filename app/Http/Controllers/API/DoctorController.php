@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
 
+
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -25,7 +26,6 @@ class DoctorController extends Controller
     public function index()
     {
         $patients = Patient::whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-       // $patient = Patient::all()->dd();
        
         return response()->json([
             'patient' => $patients,
@@ -117,11 +117,6 @@ class DoctorController extends Controller
 
     public function diagnostic(CreateDiagnosticRequest $request){
 
-
-        // return response()->json([
-        //     'aa' => $request['patient_id'],
-        // ]);
-         //$diagnostic = Diagnostic::all()->dd();
         $diagnostic = Diagnostic::create([
             'patient_id' => $request['patient_id'],
             'description' => $request['description'],
@@ -171,6 +166,7 @@ class DoctorController extends Controller
         ]);
     }
 
+    
     public function patients()
     {
         $patients = Patient::with('person')->get();
@@ -178,5 +174,25 @@ class DoctorController extends Controller
             'patients' => $patients,
         ]);
     }
-    
+
+    public function calculo_week(){  //clase A fija su precio para las consultas
+        Carbon::setWeekStartsAt(Carbon::MONDAY);
+        Carbon::setWeekEndsAt(Carbon::WEDNESDAY);
+
+        $employe = Employe::with('person.user', 'doctor')->get();
+        
+        $employes = $employe->each(function ($employe)
+        {
+            $employe->person->user->role('doctor');
+        });
+
+        $patient = Patient::with('employe')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        ;
+        
+        return response()->json([
+           // 'doctors' => $employes,
+            'patient' => $patient,
+        ]);
+
+    }      
 }

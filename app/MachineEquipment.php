@@ -14,12 +14,12 @@ class MachineEquipment extends Model //equipo maquinaria
 
     public function inventory()
     {
-        return $this->belongsto('App\Inventory');
+        return $this->belongsTo('App\Inventory');
     }
 
     public function inventory_area()
     {
-        return $this->belongsto('App\InventoryArea');
+        return $this->belongsTo('App\InventoryArea');
     }
 
     public function branch()

@@ -10,7 +10,7 @@ $factory->define(TypeDoctor::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
     return [
         'name' => $faker->word,
-        'comission' => $faker->randomFloat,
+        'comission' => 0.75,
         'branch_id' => $branchoffice->id,
     ];
 });

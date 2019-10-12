@@ -25,7 +25,7 @@ class CreateTypeCleaningRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'type_cleaning' => 'required'
+            'description' => 'required'
         ];
     }
 }

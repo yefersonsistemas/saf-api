@@ -12,8 +12,28 @@ class Inventory extends Model
         'quantity_Total', 'quantity_Available', 'quantity_Assigned', 'supplie_id', 'machine_equipment_id', 'branch_id'
     ];
 
+    public function employe()
+    {
+        return $this->belongsTo('App\Employe');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function supplie()
+    {
+        return $this->belongsTo('App\Supplie');
+    }
+
+    public function equipment()
+    {
+        return $this->belongsTo('App\MachineEquipment','machine_equipment_id');
+    }
+
+    public function InventoryArea()
+    {
+        return $this->belongsTo('App\InventoryArea');
     }
 }

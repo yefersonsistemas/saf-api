@@ -33,7 +33,7 @@ class TypeCleaning extends Model //tipo de limpieza
         return $this->belongsTo('App\Position');
     }
 
-    public function cleaningrecord()
+    public function recordcleaning()
     {
         return $this->belongsTo('App\CleaningRecord');
     }

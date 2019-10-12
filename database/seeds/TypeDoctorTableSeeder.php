@@ -13,6 +13,22 @@ class TypeDoctorTableSeeder extends Seeder
     public function run()
     {
         TypeDoctor::truncate();
+
+        factory(TypeDoctor::class)->create([
+            'name'          => 'clase A',
+            'comission'     => '0.75',
+        ]);
+
+        factory(TypeDoctor::class)->create([
+            'name'          => 'clase B',
+            'comission'     => '0.75',
+        ]);
+
+        factory(TypeDoctor::class)->create([
+            'name'          => 'clase C',
+            'comission'     => '0.75',
+        ]);
+
         factory(TypeDoctor::class, 20)->create();
     }
 }

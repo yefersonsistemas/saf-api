@@ -8,7 +8,6 @@ use App\MachineEquipment;
 use App\Inventory;
 use App\InventoryArea;
 use App\CleaningRecord;
-use App\Employe;
 use App\Http\Requests\CreateSupplieRequest;
 use App\Http\Requests\UpdateSupplieRequest;
 use App\Http\Requests\CreateEquipmentRequest;
@@ -157,6 +156,24 @@ class LogisticController extends Controller
 
     }
 
+    public function list_supplie(){  //sirve para report
+        $supplie = Inventory::with('supplie')->get();
+
+        return response()->json([
+            'inventory' => $supplie,
+        ]);
+
+    }
+
+    public function list_equipment(){  //sirve para report
+        $equipment = Inventory::with('equipment')->get();
+
+        return response()->json([
+            'inventory' => $equipment,
+        ]);
+
+    }
+
     public function list_inventoryArea(){ //sirve para report
         $inventoryarea = InventoryArea::with('area.image')->get()->groupBy('area_id');
 
@@ -166,31 +183,23 @@ class LogisticController extends Controller
 
     }
 
-    public function registercleanig(CreateTypeCleaningRequest $request, Employe $employe)
-    {
-        $employe = Employe::with('position')->get();
+    public function registercleanig(CreateTypeCleaningRequest $request)
+    {   
+        $register = TypeCleaning::create([
+            'name'           => $request['name'],
+            'description'    => $request['description'],
+            'branch_id'      => 1,
+        ]);
 
-        if ($employe->position->name == 'mantenimiento') {
-            
-            return response()->json([
-                'message' => $employe,
-            ]);
-            
-            // $register = TypeCleanig::create([
-            //     'name'           => $request['name'],
-            //     'type_cleaning'  => $request['type_cleaning'],
-            //     'branch_id'      => 1,
-            // ]);
-    
-            // return response()->json([
-            //     'message' => 'Limpieza registrada',
-            // ]);
-        }
+        return response()->json([
+            'limpieza' => $register,
+            'message' => 'Limpieza registrada',
+        ]);
 
     }
 
     public function record_cleaning(){
-        $record = CleaningRecord::all();
+        $record = CleaningRecord::with('employe.person')->get();
 
         return response()->json([
             'record' => $record,

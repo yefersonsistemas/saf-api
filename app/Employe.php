@@ -15,7 +15,7 @@ class Employe extends Model
     /**
      * Get the avatar image.
      */
-    public function avatar()
+    public function image()
     {
         return $this->morphOne('App\Image', 'imageable');
     }
@@ -78,6 +78,11 @@ class Employe extends Model
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function typedoctor()
+    {
+        return $this->belongsTo('App\TypeDoctor');
     }
 
     public function procedures() //relacion  con la tabla m:m 

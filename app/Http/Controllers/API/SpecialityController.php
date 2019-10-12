@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Speciality;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Employe;
 
 class SpecialityController extends Controller
 {
@@ -35,7 +37,24 @@ class SpecialityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $doctor = Employe::find($request->doctor);
+
+        $data =  $request->validate([
+            'name'   => 'required',
+            'description' => 'required',
+        ]);
+
+        $speciality =  Speciality::create([
+                'name'            => $data['name'],
+                'description'     => $request['description'],
+                'branch_id'       => 1
+            ]);
+
+        $doctor->speciality()->attach($speciality->id);
+        
+        return response()->json([
+            'message' => 'Especialidad creada satisfactoriamente',
+        ]);
     }
 
     /**
