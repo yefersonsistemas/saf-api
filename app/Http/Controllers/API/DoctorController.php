@@ -176,22 +176,27 @@ class DoctorController extends Controller
     }
 
     public function calculo_week(){  //clase A fija su precio para las consultas
-        Carbon::setWeekStartsAt(Carbon::MONDAY);
-        Carbon::setWeekEndsAt(Carbon::WEDNESDAY);
+        // Carbon::setWeekStartsAt(Carbon::MONDAY);
+        // Carbon::setWeekEndsAt(Carbon::WEDNESDAY);
 
-        $employe = Employe::with('person.user', 'doctor')->get();
+        $employe = Employe::with('person.user', 'doctor', 'procedures', 'patient')->get();
         
         $employes = $employe->each(function ($employe)
         {
             $employe->person->user->role('doctor');
         });
 
-        $patient = Patient::with('employe')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        ;
+         $pay = $employes->each(function ($employe)
+        {
+            $employe->each(function ($pago)
+            {
+                $pago->procedures->sum('price');
+            });
+        });
         
         return response()->json([
-           // 'doctors' => $employes,
-            'patient' => $patient,
+            //'doctors' => $employes,
+            'pago' => $pay,
         ]);
 
     }      

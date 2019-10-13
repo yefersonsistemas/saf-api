@@ -47,7 +47,7 @@ class Employe extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->hasMany('App\Patient', 'employe_id');
     }
 
     public function doctor() //clase de doctor en rango de popularidad
