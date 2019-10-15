@@ -17,6 +17,11 @@ class TypeDoctor extends Model //clase del doctor en  popularidad
         return $this->belongsTo('App\Employe');
     }
 
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor');
+    }
+
     public function clase()
     {
         return $this->belongsTo('App\Doctor');

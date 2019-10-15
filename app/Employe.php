@@ -52,7 +52,7 @@ class Employe extends Model
 
     public function doctor() //clase de doctor en rango de popularidad
     {
-        return $this->hasone('App\Doctor');
+        return $this->belongsTo('App\Doctor');
     }
 
     public function specialities()
@@ -83,7 +83,7 @@ class Employe extends Model
     public function typedoctor()
     {
         return $this->belongsTo('App\TypeDoctor');
-    }
+    } 
 
     public function procedures() //relacion  con la tabla m:m 
     {

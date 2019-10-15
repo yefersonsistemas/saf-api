@@ -12,6 +12,7 @@ use App\Surgery;
 use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
+use App\Billing;
 
 
 use Illuminate\Http\Request;
@@ -176,27 +177,38 @@ class DoctorController extends Controller
     }
 
     public function calculo_week(){  //clase A fija su precio para las consultas
-        // Carbon::setWeekStartsAt(Carbon::MONDAY);
-        // Carbon::setWeekEndsAt(Carbon::WEDNESDAY);
-
-        $employe = Employe::with('person.user', 'doctor', 'procedures', 'patient')->get();
+        // Carbon::setWeekStartsAt(Carbon::THURSDAY);
+        // Carbon::setWeekEndsAt(Carbon::FRIDAY);
+        $billing = Billing::with('employe.person', 'procedures')->get();
+        $employe = Employe::with('person.user', 'doctor', 'typedoctor', 'procedures', 'patient')->get();
+        // $patient = Patient::with('employe')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        // ;
         
         $employes = $employe->each(function ($employe)
         {
             $employe->person->user->role('doctor');
         });
-
-         $pay = $employes->each(function ($employe)
-        {
-            $employe->each(function ($pago)
-            {
-                $pago->procedures->sum('price');
-            });
+        
+        $billings = $billing->map(function ($pay){
+            return $pay->procedures->price;
         });
+
+        //dd($billings->sum());
+
+        // $total = 0;
+        // foreach ($employes as $employe) {
+        //     foreach ($employe->doctor as $tipo) {
+        //         $total = sum($tipo->typedoctor->comission * $tipo->price);
+        //     } 
+        // }
+
+        // return $total;
         
         return response()->json([
-            //'doctors' => $employes,
-            'pago' => $pay,
+           // 'doctors' => $employes,
+            //'pago' => $pay,
+            //'patient' => $patient,
+            'factura' => $billings,
         ]);
 
     }      

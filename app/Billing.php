@@ -14,7 +14,7 @@ class Billing extends Model //facturacion
 
     public function employe()
     {
-        return $this->hasone('App\Employe');
+        return $this->belongsTo('App\Employe', 'person_id');
     }
 
     public function patients()
@@ -27,9 +27,9 @@ class Billing extends Model //facturacion
         return $this->belongsTo('App\Payment');
     }
 
-    public function procedure()
+    public function procedures()
     {
-        return $this->hasmany('App\Procedure');
+        return $this->belongsTo('App\Procedure','procedure_employe_id');
     }
 
     public function person()

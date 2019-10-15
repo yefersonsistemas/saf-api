@@ -19,7 +19,7 @@ class Doctor extends Model //clase de doctor
 
     public function typedoctor()
     {
-        return $this->belongsTo('App\TypeDoctor');
+        return $this->belongsTo('App\TypeDoctor', 'type_doctor_id');
     }
     
     public function branch()

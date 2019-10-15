@@ -145,6 +145,7 @@ class UserController extends Controller
                 $token->expires_at = Carbon::now()->addWeek(2);
             }
             $token->save();
+            
             return response()->json([
                 'access_token' => $tokenResult->accessToken,
                 'token_type'   => 'Bearer',

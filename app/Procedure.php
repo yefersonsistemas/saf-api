@@ -30,6 +30,10 @@ class Procedure extends Model
     {
         return $this->belongsToMany('App\Employe','procedure_employe')
        ->withPivot('employe_id','id');
-     
+    }
+
+    public function billing()
+    {
+        return $this->belongsTo('App\Billing');
     }
 }
