@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Patient;
 use App\Medicine;
 use App\Exam;
@@ -13,9 +14,6 @@ use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
 use App\Billing;
-
-
-use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
@@ -136,7 +134,7 @@ class DoctorController extends Controller
     }
 
     public function recipe(Request $request){
-        $patients = Patient::where('id', $request->id);  //para mostrar los datos basicos del paciente
+        $patients = Patient::where('id', $request->id)->first();  //para mostrar los datos basicos del paciente
         $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
         
         return response()->json([
@@ -176,40 +174,36 @@ class DoctorController extends Controller
         ]);
     }
 
-    public function calculo_week(){  //clase A fija su precio para las consultas
+    public function calculo_week(Request $request){  //clase A fija su precio para las consultas
         // Carbon::setWeekStartsAt(Carbon::THURSDAY);
         // Carbon::setWeekEndsAt(Carbon::FRIDAY);
-        $billing = Billing::with('employe.person', 'procedures')->get();
-        $employe = Employe::with('person.user', 'doctor', 'typedoctor', 'procedures', 'patient')->get();
         // $patient = Patient::with('employe')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         // ;
-        
+
+        $employe = Employe::with('person', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
+        $billing = Billing::where('person_id', $request->person_id)->get();
+        // dd($billing);
+       dd($employe->first());
+
         $employes = $employe->each(function ($employe)
         {
             $employe->person->user->role('doctor');
         });
+
+        $total = 0;
+        foreach($billing as $b){
+           $total += $b->procedures->price;
+        }
+        return $total; 
         
-        $billings = $billing->map(function ($pay){
-            return $pay->procedures->price;
-        });
+      //$pago = $e->doctor->typedoctor->comission;
 
-        //dd($billings->sum());
-
-        // $total = 0;
-        // foreach ($employes as $employe) {
-        //     foreach ($employe->doctor as $tipo) {
-        //         $total = sum($tipo->typedoctor->comission * $tipo->price);
-        //     } 
-        // }
-
-        // return $total;
         
         return response()->json([
-           // 'doctors' => $employes,
-            //'pago' => $pay,
-            //'patient' => $patient,
-            'factura' => $billings,
+         
         ]);
+
+       
 
     }      
 }

@@ -12,8 +12,8 @@ $factory->define(Visitor::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
     return [
         'person_id' => $person->id,
-        'type_visitor' => $faker->randomElement(['Paciente', 'Visitante']),
-        'status' => $faker->randomElement(['dentro', 'fuera']),
+        'type_visitor' => $faker->randomElement(['Paciente', 'Visitante', 'Empleado']),
+        'status' => $faker->randomElement(['dentro', 'fuera', 'pendiente']),
         'branch_id' => $branchoffice->id,
     ];
 });

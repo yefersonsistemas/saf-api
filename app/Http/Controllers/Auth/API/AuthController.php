@@ -32,7 +32,7 @@ class AuthController extends Controller
         if ($user != null) {
             return response()->json([
                 'message' => 'Usuario ya se encuentra registrado!',
-            ], 201);        
+            ]);        
         }
 
         $branch = Branch::where('id', 1)->first();
@@ -59,7 +59,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Usuario creado correctamente.!',
-        ], 201);
+        ]);
     }
 
     /**
@@ -90,6 +90,7 @@ class AuthController extends Controller
                 $token->expires_at = Carbon::now()->addWeek(2);
             }
             $token->save();
+
             return response()->json([
                 'access_token' => $tokenResult->accessToken,
                 'token_type'   => 'Bearer',
@@ -99,6 +100,8 @@ class AuthController extends Controller
                 'role'         =>   $user->user->getRoleNames(),
                 'message'      => 'Sesion Iniciada',
                 'user'         => Auth::id(),
+                'id'           => $user1->id,
+                'name'         => $user->name,
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

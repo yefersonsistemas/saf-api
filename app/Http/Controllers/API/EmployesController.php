@@ -7,6 +7,7 @@ use App\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Position;
+Use App\Visitor;
 
 class EmployesController extends Controller
 {
@@ -17,10 +18,16 @@ class EmployesController extends Controller
      */
     public function index()
     {
-        $employe = Employe::with('person')->get();
+        $employe = Employe::with('person', 'position')->get();
+
+        $employes = $employe->map(function ($item) {
+            $item->position;
+            $item->person->status = 'pendiente';
+            return $item;
+        });
 
         return response()->json([
-            'employes' => $employe,
+            'employes' => $employes,
         ]);
     }
 
@@ -126,5 +133,42 @@ class EmployesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function statusIn(Request $request)
+    {
+        $person = Person::with('employe')->where('id', $request->id)->first(); //busco el id 
+       // dd($person);
+        if (!is_null($person)) {
+
+            $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
+                'person_id' => $person->id,
+                'type_visitor' => 'Empleado',
+                'status' => 'dentro',
+                'branch_id' => 1,
+            ]);
+
+            event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
+        }
+        
+        return response()->json([
+            'message' => 'Empleado dentro de las instalaciones',
+        ]);
+    }
+
+    public function statusOut(Request $request)
+    {
+        $person = Visitor::where('person_id', $request->person_id)->orderBy('created_at', 'desc')->first(); //busco el visitante comparando los id 
+
+            $visitors = Visitor::create([                      
+                'person_id' => $person->person_id,
+                'type_visitor' => $person->type_visitor,
+                'status' => 'fuera',
+                'branch_id' => 1
+            ]);
+
+        return response()->json([
+            'message' => 'Empleado fuera de las instalaciones',
+        ]);
     }
 }

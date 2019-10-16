@@ -25,17 +25,18 @@ class SecurityController extends Controller
     public function index()
     {
         $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
-        $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))->get(); //obtener solo registros creados hoy 
+        $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))->get(); //obtener solo registros creados hoy
         $all = collect([]);
 
         $patients = $reservations->map(function ($item) {
             $item->person->category = 'paciente';
-            $item->person->status = 'pendiente';
+            //$item->person->status = 'pendiente';
             return $item->person;
         });
 
         $visitors = $visitors->map(function ($item) {
             $item->person->category = 'Visitante';
+            //$item->person->status = 'dentro';
             return $item->person;
         });
         
@@ -184,7 +185,7 @@ class SecurityController extends Controller
             ]);
 
             event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
-        }
+       }
         
         return response()->json([
             'message' => 'Visitante dentro de las instalaciones',

@@ -61,7 +61,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/', 'API\SecurityController@index');  // se ve
             Route::POST('create', 'API\SecurityController@all_visitor');  // listo
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            Route::POST('inside', 'API\SecurityController@statusIN');  // listo
+            Route::POST('inside', 'API\SecurityController@statusIn');  // listo
             Route::POST('outside', 'API\SecurityController@statusOut');  // listo
             Route::POST('search', 'API\SecurityController@search');  // listo
         });
@@ -120,8 +120,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/', 'API\DoctorController@index');  //se ve
             Route::get('history', 'API\DoctorController@history_patient');  //se ve
             Route::POST('create','API\DoctorController@diagnostic');  // listo
-            Route::get('recipe', 'API\DoctorController@recipe');  // se ve
-            Route::get('pay', 'API\DoctorController@calculo_week');  // 
+            Route::POST('recipe', 'API\DoctorController@recipe');  // se ve
+            Route::POST('pay', 'API\DoctorController@calculo_week');  // 
         });
 
         Route::group(['prefix' => 'stocktaking'], function()
@@ -139,13 +139,19 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'create'], function(){
             Route::POST('procedure', 'API\ProcedureController@store');
             Route::POST('exam', 'API\ExamController@store');
-            Route::POST('employe', 'API\EmployesController@store');
-            Route::get('list', 'API\EmployesController@index');
             Route::get('patients', 'API\DoctorController@patients');
             Route::get('positions', 'API\EmployesController@positions');
             Route::get('speciality', 'API\CitaController@speciality');
             Route::POST('create/speciality', 'API\SpecialityController@store');
-
+            
+        });
+        
+        Route::group(['prefix' => 'employe'], function(){
+            Route::get('/', 'API\EmployesController@index');  // listo
+            Route::POST('create', 'API\EmployesController@store');  // listo
+            Route::POST('inside', 'API\EmployesController@statusIn');  
+            Route::POST('outside', 'API\EmployesController@statusOut');  // listo
+            
         });
 //});
 

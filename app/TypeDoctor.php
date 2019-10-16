@@ -8,13 +8,13 @@ class TypeDoctor extends Model //clase del doctor en  popularidad
 {
     protected $table = 'type_doctors';
 
-    protected $fillable = [ //pagos
+    protected $fillable = [ //comision de acuerdo a la clase del doctor
         'name', 'comission', 'branch_id'
     ];
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->hasmany('App\Employe');
     }
 
     public function doctor()

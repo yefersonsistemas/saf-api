@@ -49,42 +49,42 @@ class Employe extends Model
     {
         return $this->hasMany('App\Patient', 'employe_id');
     }
-
-    public function doctor() //clase de doctor en rango de popularidad
-    {
-        return $this->belongsTo('App\Doctor');
-    }
-
+    
     public function specialities()
     {
         return $this->belongsToMany('App\Speciality');
     }
-
+    
     public function schedule()
     {
         return $this->hasMany('App\Schedule');
     }
-
+    
     public function reservation()
     {
         return $this->belongsTo('App\Reservation');
     }
-
+    
     public function areaassigment()
     {
         return $this->belongsTo('App\AreaAssigment');
     }
-
+    
     public function branch()
     {
         return $this->belongsTo('App\Branch');
     }
-
+    
     public function typedoctor()
     {
         return $this->belongsTo('App\TypeDoctor');
     } 
-
+    
+    public function doctor() //clase de doctor en rango de popularidad
+    {
+        return $this->hasone('App\Doctor');
+    }
+    
     public function procedures() //relacion  con la tabla m:m 
     {
         return $this->belongsToMany('App\Procedure','procedure_employe')
