@@ -14,7 +14,7 @@ class Reservation extends Model
 
     public function employe()
     {
-        return $this->belongsTo('App\Emplopye','employe_id');
+        return $this->belongsTo('App\Employe','employe_id');
     }
 
     public function consultationType()
@@ -30,6 +30,11 @@ class Reservation extends Model
     public function person()
     {
         return $this->belongsTo('App\Person');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Patient');
     }
 
     public function branch()

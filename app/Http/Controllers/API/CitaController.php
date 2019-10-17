@@ -39,6 +39,7 @@ class CitaController extends Controller
                 $reservation = Reservation::create([		
                     'date' => $request['date'],
                     'description' => $request['description'],
+                    'patient_id' => $request['patient_id'],
                     'status' => 'Pendiente',
                     'person_id' => $request['person_id'],
                     'schedule_id' => $request['schedule_id'],
@@ -47,12 +48,12 @@ class CitaController extends Controller
             }
             return response()->json([
                 'message' => 'Cita creada',
-            ], 201);
+            ]);
 
         }else{
             return response()->json([
                 'message' => 'No hay cupos',
-            ], 201);
+            ]);
         }
     }
 

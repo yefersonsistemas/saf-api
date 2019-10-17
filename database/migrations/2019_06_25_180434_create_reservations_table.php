@@ -17,11 +17,17 @@ class CreateReservationsTable extends Migration
             $table->bigIncrements('id');
             $table->date('date');
             $table->longText('description');
+            $table->unsignedBigInteger('patient_id');
             $table->enum('status', ['Aprobado', 'Pendiente', 'Cancelado']);
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('schedule_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
+
+            $table->foreign('patient_id')
+            ->references('id')
+            ->on('patients')
+            ->onDelete('CASCADE');  
 
             $table->foreign('person_id')
             ->references('id')

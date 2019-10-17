@@ -25,6 +25,7 @@ class UpdateCiteRequest extends FormRequest
     {
         $rules = [
             'date'               => 'required',
+            //'patient_id'         => 'required',
             // 'description'        => 'required',
             // 'status'             => 'required',
             // 'schedule_id'        => 'required',

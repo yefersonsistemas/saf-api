@@ -24,20 +24,21 @@ class SecurityController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
-        $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))->get(); //obtener solo registros creados hoy
+        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Pendiente')->get(); //mostrar las reservaciones solo del dia
+        $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))
+                            ->where('type_visitor', '=', 'Visitante', 'and', 'Paciente')->get(); //obtener solo registros creados hoy
         $all = collect([]);
 
         $patients = $reservations->map(function ($item) {
             $item->person->category = 'paciente';
-            //$item->person->status = 'pendiente';
-            return $item->person;
+            $item->status;
+                return $item;
         });
 
         $visitors = $visitors->map(function ($item) {
-            $item->person->category = 'Visitante';
-            //$item->person->status = 'dentro';
-            return $item->person;
+            $item->person->category = 'visitante';
+            $item->status;
+            return $item;
         });
         
         $all = $patients->concat($visitors);
@@ -126,7 +127,7 @@ class SecurityController extends Controller
                 //'person' => $person,
                 'message' => 'Visitante creado',
             ]);
-            
+
         }else{  //caso de que no exista
             return response()->json([
                 'message' => 'Visitante no encontrado debe de crearlo',
@@ -154,6 +155,19 @@ class SecurityController extends Controller
 
     }
 
+    // public function borrar($id){
+    //     $visitor = Visitor::find($id);
+
+    //     if(!is_null($visitor)){
+    //         $visitor->delete();
+
+    //         return response()->json([
+    //             'message' => 'eliminado',
+    //         ]);
+    //     }
+
+    // }
+
     public function create_visitor(Person $person)
     {
         $visitor = Visitor::create([
@@ -165,16 +179,15 @@ class SecurityController extends Controller
 
         $person->visitor()->associate($visitor->id); //asociar un visitante a una persona que ya tiene registro
 
-        // return response()->json([
-        //     'visitor' => $visitor,
-        //     'message' => 'Visitante creado',
-        // ]);
+        return response()->json([
+            'message' => 'Visitante creado',
+        ]);
     }
 
     public function statusIn(Request $request)
     {
         $person = Person::where('id', $request->id)->first(); //busco el id 
-        
+
         if (!is_null($person)) {
 
             $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
@@ -184,12 +197,12 @@ class SecurityController extends Controller
                 'branch_id' => 1,
             ]);
 
-            event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
-       }
-        
-        return response()->json([
-            'message' => 'Visitante dentro de las instalaciones',
-        ]);
+            // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
+            
+            return response()->json([
+                'message' => 'Visitante dentro de las instalaciones',
+            ]);
+        }
     }
 
     public function statusOut(Request $request)

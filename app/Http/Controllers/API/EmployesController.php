@@ -137,7 +137,7 @@ class EmployesController extends Controller
 
     public function statusIn(Request $request)
     {
-        $person = Person::with('employe')->where('id', $request->id)->first(); //busco el id 
+        $person = Person::where('id', $request->id)->first(); //busco el id 
        // dd($person);
         if (!is_null($person)) {
 

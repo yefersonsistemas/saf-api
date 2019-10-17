@@ -183,24 +183,25 @@ class DoctorController extends Controller
         $employe = Employe::with('person', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
         $billing = Billing::where('person_id', $request->person_id)->get();
         // dd($billing);
-       dd($employe->first());
+       //dd($employe->first());
 
         $employes = $employe->each(function ($employe)
         {
             $employe->person->user->role('doctor');
         });
 
-        $total = 0;
-        foreach($billing as $b){
-           $total += $b->procedures->price;
-        }
-        return $total; 
+        // $total = 0;
+        // foreach($billing as $b){
+        //    $total += $b->procedures->price;
+        // }
+        // return $total; 
         
-      //$pago = $e->doctor->typedoctor->comission;
+        $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price));
 
-        
+        $proce = Employe::with('procedures')->where('person_id', $request->person_id);
         return response()->json([
-         
+           // 'pago' => $pago,
+           'procedures' => $proce,
         ]);
 
        

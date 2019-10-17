@@ -43,15 +43,15 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/', 'API\DoctorController@index');
             Route::get('/list','API\DoctorController@list');
         });
-
+        
         Route::group(['prefix' => 'payments'], function(){
             Route::get('/type', 'API\PaymentController@index');
         });
-
+        
         Route::group(['prefix' => 'areas'], function(){
             Route::get('/type', 'API\AreasController@type');
         });
-
+        
         Route::group(['prefix' => 'supplies'], function(){
             Route::get('/type', 'API\SupplieController@type');
         });
@@ -61,7 +61,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/', 'API\SecurityController@index');  // se ve
             Route::POST('create', 'API\SecurityController@all_visitor');  // listo
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            Route::POST('inside', 'API\SecurityController@statusIn');  // listo
+            Route::delete('delete/{id}', 'API\SecurityController@borrar'); //borra el registro de pendiente para pasar al statuin
+            Route::POST('inside', 'API\SecurityController@statusIn');  // y crear de nuevo el registro con status dentro
             Route::POST('outside', 'API\SecurityController@statusOut');  // listo
             Route::POST('search', 'API\SecurityController@search');  // listo
         });
@@ -69,6 +70,7 @@ Route::group(['prefix' => 'auth'], function () {
         //rutas rol recepcion
         Route::group(['prefix' => 'reception'], function(){
             Route::get('/', 'API\ReceptionController@index');  // listo
+            Route::put('cancel', 'API\ReceptionController@status'); 
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto
             Route::POST('search', 'API\ReceptionController@search');  // listo
         });

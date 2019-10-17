@@ -6,6 +6,7 @@ use App\Reservation;
 use App\Schedule;
 use App\Branch;
 use App\Person;
+use App\Patient;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
@@ -13,9 +14,11 @@ $factory->define(Reservation::class, function (Faker $faker) {
     $schedule = Schedule::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
     $person = Person::inRandomOrder()->first();
+    $patient = Patient::inRandomOrder()->first();
     return [
         'date' => Carbon::now()->Format('Y-m-d'),
         'description' =>$faker->sentence,
+        'patient_id' => $patient->id, 
         'status'  => $faker->randomElement(['Pendiente', 'Aprobado', 'Cancelado']),
         'person_id'  =>$person->id,
         'schedule_id'  =>$schedule->id,
