@@ -179,7 +179,7 @@ class UsersTableSeeder extends Seeder
 
             $person = Person::create([
                 'type_dni' => 'V',
-                'dni' => '12345678',
+                'dni' => '12345670',
                 'name' => 'KENWHERLY',
                 'lastname' => 'HERNANDEZ',
                 'address' => 'Las velas',

@@ -17,7 +17,6 @@ class CreateDiseasePatientTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('disease_id');
             $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('disease_id')
@@ -29,11 +28,6 @@ class CreateDiseasePatientTable extends Migration
                 ->references('id')
                 ->on('patients')
                 ->onDelete('CASCADE');
-
-                $table->foreign('branch_id')
-                  ->references('id')
-                  ->on('branch')
-                  ->onDelete('CASCADE');
         });
     }
 

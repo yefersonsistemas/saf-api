@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Employe;
 use App\Person;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Patient;
 use App\Position;
+use App\Reservation;
 Use App\Visitor;
+use Carbon\Carbon;
 
 class EmployesController extends Controller
 {
@@ -147,28 +150,132 @@ class EmployesController extends Controller
                 'status' => 'dentro',
                 'branch_id' => 1,
             ]);
-
-            event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
+            
+            return response()->json([
+                'message' => 'Empleado dentro de las instalaciones',
+            ]);
         }
+    }
+
+    public function history_patient(Request $request){
+        $patients = Patient::where('id', $request->id);
+        $exam = Exam::all();   //se selecciona mediante un buscador
+        $procedure = Procedure::all();
+        $surgery = Surgery::all(); //informacion para posible cirugia cuando lo seleccione
+
+        //  event(new Consult($surgery)); //se activa cuando seleccionan la cirugia
+
+        return response()->json([
+            'patient' => $patients,
+            'exam' => $exam,
+            'procedure' => $procedure,
+            'surgery' => $surgery,
+        ]);
+
+    }
+
+    public function diagnostic(CreateDiagnosticRequest $request){
+
+        $diagnostic = Diagnostic::create([
+            'patient_id' => $request['patient_id'],
+            'description' => $request['description'],
+            'reason' => $request['reason'],
+            'treatment' => $request['treatment'],
+            'annex' => $request['annex'],
+            'next_cite' => $request['next_cite'],
+            'employe_id' => $request['employe_id'],
+            'branch_id'  => 1,
+        ]);
+
+            return response()->json([
+                'message' => 'diagnostico agregado',
+                'diagnostic' => $diagnostic,
+            ]);
+    }
+
+    public function recipe(Request $request){
+        $patients = Patient::where('id', $request->id)->first();  //para mostrar los datos basicos del paciente
+        $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
         
         return response()->json([
-            'message' => 'Empleado dentro de las instalaciones',
+            'patients' => $patients,
+            'medicines' => $medicines,
         ]);
     }
 
-    public function statusOut(Request $request)
+    public function list()
     {
-        $person = Visitor::where('person_id', $request->person_id)->orderBy('created_at', 'desc')->first(); //busco el visitante comparando los id 
-
-            $visitors = Visitor::create([                      
-                'person_id' => $person->person_id,
-                'type_visitor' => $person->type_visitor,
-                'status' => 'fuera',
-                'branch_id' => 1
-            ]);
+        $doctor = Employe::with('person.user','procedures')->get();
 
         return response()->json([
-            'message' => 'Empleado fuera de las instalaciones',
+            'doctors' => $doctor,
         ]);
+        
+
+        $doctors = $doctor->each(function ($doctor)
+        {
+            $doc = $doctor->person->user->role('doctor');
+            // $doc->load('procedures');
+            return $doc;
+        });
+
+        return response()->json([
+            'doctors' => $doctors,
+        ]);
+    }
+
+    //falta acomodar el rango de las fechas
+    public function calculo_week(Request $request){  //clase A fija su precio para las consultas
+        // Carbon::setWeekStartsAt(Carbon::THURSDAY);
+        // Carbon::setWeekEndsAt(Carbon::FRIDAY);
+        // $patient = Patient::with('employe')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        // ;
+
+        $employe = Employe::with('person', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
+        $billing = Billing::where('person_id', $request->person_id)->get();
+        
+        $employes = $employe->each(function ($employe)
+        {
+            $employe->person->user->role('doctor');
+        });
+
+        $total = 0;
+        foreach($billing as $b){
+           $total += $b->procedures->price;
+        }
+        return $total; 
+        //dd($total);
+
+        $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price) + $total);
+
+        return response()->json([
+            'pago' => $pago,
+           
+        ]);
+    }   
+    
+    public function record_patient(Request $request){  //todos los pacientes por doctor
+        $employe = Employe::with('person', 'patient')->where('id', $request->id)->get();
+
+        if (!is_null($employe)) {
+            
+            return response()->json([
+                'patients' => $employe,
+               
+            ]);
+        }
+    }
+
+    public function patient_on_day(Request $request){  //pacientes del dia por doctor
+        $patients = Reservation::with('employe', 'patient')->where('person_id', $request->person_id)
+                                ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+
+        if (!is_null($patients)) {
+
+            return response()->json([
+                'reservas' => $patients,
+                
+            ]);
+        }
     }
 }

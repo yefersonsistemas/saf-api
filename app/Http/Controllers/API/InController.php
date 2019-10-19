@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Requests\CreateAreaAssigmentRequest;
 use App\Schedule;
+use App\TypeArea;
 
 //use App\Http\Controllers\CitaController;
 
@@ -116,6 +117,16 @@ class InController extends Controller
         return response()->json([
             'area' => $a,
         ]);
+    }
+
+    public function search_area(){//se tiene q modificar a id en vez de name o se muestra toda la tabla
+        $type = TypeArea::with('areas')->where('name', 'Consultorio')->get();
+
+        if (!is_null($type)) {
+            return response()->json([
+                'consultorios' => $type, 
+            ]);
+        }
     }
 
     public static function assigment(CreateAreaAssigmentRequest $request) //asignacion de consultorio

@@ -14,12 +14,13 @@ class Patient extends Model
 
     public function person()
     {
-        return $this->belongsTo('App\Person');
+        return $this->hasone('App\Person');
     }
 
     public function disease()
     {
-        return $this->belongsToMany('App\Disease');
+         return $this->belongsToMany('App\Disease','disease_patient')
+                      ->withPivot('disease_id','id');
     }
 
     public function medicine()

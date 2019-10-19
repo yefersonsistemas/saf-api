@@ -9,12 +9,12 @@ class Reservation extends Model
     protected $table = 'reservations';
 
     protected $fillable = [
-        'date', 'description', 'status', 'schedule_id', 'branch_id', 'person_id',
+        'date', 'description', 'patient_id', 'status', 'person_id', 'schedule_id', 'branch_id', 
     ];
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe','employe_id');
+        return $this->belongsTo('App\Employe', 'person_id');
     }
 
     public function consultationType()
@@ -34,7 +34,7 @@ class Reservation extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Patient', 'patient_id');
     }
 
     public function branch()

@@ -9,7 +9,8 @@ use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Medicine;
 use App\Patient;
-use App\User;
+use App\Person;
+use App\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,18 +22,16 @@ class PatientController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-  public function index(Request $request)
+  public function index()
   {
-    $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
-    //return view('dashboard.patients.index', compact('patients'));
-  }
+    $patients = Patient::with('person')->get();
+      
+    return response()->json([
+      'patients' => $patients,
+    ]);
 
-  public function list()
-  {
-      $patients = Patient::with('person')->get();
-      return response()->json([
-        'patients' => $patients,
-      ]);
+    // $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
+    // //return view('dashboard.patients.index', compact('patients'));
   }
 
   /**
@@ -312,4 +311,25 @@ class PatientController extends Controller
   {
     // return view('dashboard.patients.recipe', compact('patient'));
   }
+
+  public function ver_history(Request $request){
+    $person = Person::with('patient.diagnostic', 'patient.medicine', 'patient.disease')->where('dni', $request->dni)->first();
+
+    if (!is_null($person)) {
+
+        return response()->json([
+            'history' => $person,
+        ]);
+    }
+  }
+
+  public function record_cite(Request $request){
+    $cite = Reservation::where('patient_id', $request->patient_id)->get();
+
+      return response()->json([
+        'Citas' => $cite,
+      ]);
+
+  }
+  
 }

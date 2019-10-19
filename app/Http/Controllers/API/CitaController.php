@@ -96,9 +96,6 @@ class CitaController extends Controller
         
             $reservation->date = $request->date;
             $reservation->status = 'Cancelado';
-            //  $reservation->description = $request->description;
-            //  $reservation->person_id = $request->person_id;
-            //  $reservation->schedule_id = $request->schedule_id;
         
             if($reservation->save()){
                 return response()->json([
@@ -130,10 +127,52 @@ class CitaController extends Controller
 
     public function speciality()
     {
-        $speciality = Speciality::with('image')->get()->groupBy('id');
+       // $speciality = Speciality::with('image')->get()->groupBy('id');
+       $speciality = Speciality::all();
 
         return response()->json([
             'speciality' => $speciality,
         ]);
+    }
+
+    public function search(Request $request){
+
+        $person = Person::where('dni', $request->dni)->first();
+
+        if (!is_null($person)) {
+            return response()->json([
+                'person' => $person,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',
+            ]);
+        }
+    }
+
+    public function search_doctor(Request $request){
+        $speciality = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
+
+        if (!is_null($speciality)) {
+
+            return response()->json([
+                'speciality' => $speciality,
+            ]);
+        }
+    }
+
+    public function search_schedule(Request $request){
+        $employe = Employe::with('schedule')->where('person_id', $request->person_id)->first();
+     
+        if (!is_null($employe)) {
+
+            return response()->json([
+                'employe' => $employe,
+            ]);
+        }else{
+            return response()->json([
+                'message' =>'No encontrado',
+            ]);
+        }
     }
 }

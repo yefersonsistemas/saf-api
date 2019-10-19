@@ -14,7 +14,7 @@ class Supplie extends Model //insumos
 
     public function inventory()
     {
-        return $this->belongsTo('App\Inventory');
+        return $this->hasone('App\Inventory');
     }
     public function branch()
     {

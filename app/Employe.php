@@ -50,11 +50,6 @@ class Employe extends Model
         return $this->hasMany('App\Patient', 'employe_id');
     }
     
-    public function specialities()
-    {
-        return $this->belongsToMany('App\Speciality');
-    }
-    
     public function schedule()
     {
         return $this->hasMany('App\Schedule');

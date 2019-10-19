@@ -12,12 +12,19 @@ class Disease extends Model
         'name', 'branch_id'
     ];
 
-    public function patients()
+    public function patient()
     {
-        return $this->belongsToMany('App\Patient');
+        return $this->belongsToMany('App\Patient','disease_patient')
+                    ->withPivot('patient_id','id');
     }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function person()
+    {
+        return $this->hasone('App\Person');
     }
 }

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 Use App\Patient;
 Use App\Person;
 use App\Http\Requests\CreatePatientRequest;
+use App\Http\Requests\UpdateStatusCiteRequest;
 
 
 class ReceptionController extends Controller
@@ -16,7 +17,8 @@ class ReceptionController extends Controller
 
     public function index()
     {
-        $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))->get(); //mostrar las reservaciones solo del dia
+        $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
+                                    ->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
 
         return response()->json([
             'reservations' => $reservations,
@@ -64,16 +66,19 @@ class ReceptionController extends Controller
         
     }
 
-    public function status(Request $request){
-        $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))
-                                    ->where('status', '=', 'Pendiente', 'or', 'Aprobado')
-                                    ->where('patient_id', $request->patient_id)->first();
+    public function status_change(UpdateStatusCiteRequest $request, $id){
+      
+        $reservation = Reservation::find($id);
         
-        $reservation->status = 'Cancelado';
+        $reservation->status = $request->status;
 
         if ($reservation->save()){
             return response()->json([
                 'message' => 'Cita cancelada',
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No se pudo cancelar la cita',
             ]);
         }
     }

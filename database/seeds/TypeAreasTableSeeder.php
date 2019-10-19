@@ -19,8 +19,12 @@ class TypeAreasTableSeeder extends Seeder
         TypeArea::truncate();
         $this->deleteDirectory(storage_path('/app/public/typearea'));
 
-        factory(TypeArea::class, 3)->create()->each(function($type){
+        factory(TypeArea::class, 2)->create()->each(function($type){
             $this->to('typearea', $type->id, 'App\TypeArea');
         });
+
+        factory(TypeArea::class)->create([
+            'name'     => 'Consultorio',
+        ]);
     }
 }

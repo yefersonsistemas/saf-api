@@ -21,5 +21,19 @@ class AreasTableSeeder extends Seeder
         {
             $this->to('area', $area->id, 'App\Area');
         });
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 1',
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 2',
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 3',
+        ]);
+        
     }
 }
+

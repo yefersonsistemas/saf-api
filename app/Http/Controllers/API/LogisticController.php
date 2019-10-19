@@ -129,6 +129,31 @@ class LogisticController extends Controller
             }
     }
 
+    public function escogerS(CreateInventoryAreaRequest $request){
+        $area = Area::where('id', $request->area_id)->first();
+        $supplie = Inventario::where('id', $request->inventory_id)->first();
+        $s = Supplie::with('inventory')->where('id', $request->id)->first();
+
+        if(!is_null($supplie) && !is_null($area)){
+
+            $insumoasignado = InventoryArea::where('area_id', $area->id)->first();
+
+            if ($insumoasignado != null) {
+                
+                $this->assigment($request);
+               
+                return response()->json([
+                    'message' => 'Insumo asignado exitosamente',
+                    ]);        
+            }
+
+        }else{
+            return response()->json([
+                'message' => 'Insumo no asignado',
+                ]);
+            }  
+    }
+    
     public function assigment(CreateInventoryAreaRequest $request)
     {    
         $inventoryarea = InventoryArea::create([
@@ -139,12 +164,24 @@ class LogisticController extends Controller
             'inventory_id'          => $request['inventory_id'],
             'branch_id'             => 1,
         ]);
-        
-        return response()->json([
-        'inventoryarea' => $inventoryarea,
-        'message' => 'Equipo creado exitosamente',
-        ]);
+    }
 
+    public function escogerE(Request $request)
+    {
+        $equipment = Supplie::with('inventory')->where('id', $request->id)->first();
+
+            if(!is_null($equipment)){
+
+                $this->assigment($request);
+               
+                return response()->json([
+                    'message' => 'Equipo asignado exitosamente',
+                    ]);  
+            }else{
+                return response()->json([
+                    'message' => 'Equipo no asignado',
+                    ]);
+                }   
     }
 
     public function list_inventory(){  //sirve para report
