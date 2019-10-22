@@ -11,6 +11,7 @@ use App\Medicine;
 use App\Patient;
 use App\Person;
 use App\Reservation;
+use App\Employe;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class PatientController extends Controller
 
   public function index()
   {
-    $patients = Patient::with('person')->get();
+    $patients = Patient::all();
       
     return response()->json([
       'patients' => $patients,
@@ -32,6 +33,16 @@ class PatientController extends Controller
 
     // $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
     // //return view('dashboard.patients.index', compact('patients'));
+  }
+
+  public function patient_doctor(Request $request){
+    $employe = Employe::with('patient')->where('id', $request->id)->first();
+
+    if (!is_null($employe)) {
+      return response()->json([
+        'patients' => $employe,
+      ]);    
+    }
   }
 
   /**
@@ -310,17 +321,6 @@ class PatientController extends Controller
   public function recipe(Patient $patient)
   {
     // return view('dashboard.patients.recipe', compact('patient'));
-  }
-
-  public function ver_history(Request $request){
-    $person = Person::with('patient.diagnostic', 'patient.medicine', 'patient.disease')->where('dni', $request->dni)->first();
-
-    if (!is_null($person)) {
-
-        return response()->json([
-            'history' => $person,
-        ]);
-    }
   }
 
   public function record_cite(Request $request){

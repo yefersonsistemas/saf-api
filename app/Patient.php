@@ -14,7 +14,7 @@ class Patient extends Model
 
     public function person()
     {
-        return $this->hasone('App\Person');
+        return $this->belongsTo('App\Person');
     }
 
     public function disease()
@@ -51,7 +51,7 @@ class Patient extends Model
 
      public function reservation()
     {
-        return $this->belongsTo('App\Reservation');
+        return $this->hasone('App\Reservation');
     }
 
     public function exam()

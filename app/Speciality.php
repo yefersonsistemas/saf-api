@@ -32,6 +32,11 @@ class Speciality extends Model
         return $this->hasMany('App\Patient');
     }
 
+    public function service()
+    {
+        return $this->belongsTo('App\Service', 'service_id');
+    }
+
     public function employe() //relacion  con la tabla m:m 
     {
         return $this->belongsToMany('App\Employe','speciality_employe')

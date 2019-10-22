@@ -27,11 +27,11 @@ class CitaController extends Controller
         $diaDeReserva = ucfirst($fecha->dayName); 
 
         $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
-                               
+       // dd($dia);                  
         $cupos = $dia->quota; //obtengo el valor de quota 
-              
+       // dd($cupos);  
         $dia = Reservation::whereDate('date', $date)->where('status', 'Aprobado')->get()->count(); //obtengo todos los registros de ese dia y los cuento
-                                        
+       // dd($dia);                                
         if ($employe->person->user->hasRole('doctor')) {  //el empleado debe ser doctor por rol y ocupacion sino no crea
 
             if ($dia <  $cupos) {
@@ -142,6 +142,7 @@ class CitaController extends Controller
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,
+                'message' => 'Paciente Encontrado'
             ]);
         }else{
             return response()->json([

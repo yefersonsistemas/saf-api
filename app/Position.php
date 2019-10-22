@@ -16,6 +16,12 @@ class Position extends Model
     {
         return $this->belongsTo('App\Employe');
     }
+
+    public function visitor()
+    {
+        return $this->belongsTo('App\Visitor');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');

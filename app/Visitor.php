@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; //importamos
 
 class Visitor extends Model //visitantes
 {
+    use SoftDeletes; //Implementamos 
+
+    protected $dates = ['deleted_at']; //Registramos la nueva columna
     protected $table = 'visitors';
     
     protected $fillable = [ //pagos
@@ -14,7 +18,12 @@ class Visitor extends Model //visitantes
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->belongsTo('App\Employe', 'person_id');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo('App\Position');
     }
 
     public function patient()

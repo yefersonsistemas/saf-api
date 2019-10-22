@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; //importamos
 
 class Employe extends Model
 {
+    use SoftDeletes; //Implementamos 
+
+    protected $dates = ['deleted_at']; //Registramos la nueva columna
     protected $table = 'employes';
 
     protected $fillable = [ 

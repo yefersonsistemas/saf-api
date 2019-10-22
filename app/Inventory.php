@@ -24,7 +24,7 @@ class Inventory extends Model
 
     public function supplie()
     {
-        return $this->hasmany('App\Supplie', 'supplie_id');
+        return $this->belongsTo('App\Supplie', 'supplie_id');
     }
 
     public function equipment()

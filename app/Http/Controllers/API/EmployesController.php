@@ -21,16 +21,10 @@ class EmployesController extends Controller
      */
     public function index()
     {
-        $employe = Employe::with('person', 'position')->get();
-
-        $employes = $employe->map(function ($item) {
-            $item->position;
-            $item->person->status = 'pendiente';
-            return $item;
-        });
+        $employe = Visitor::with('person.employe.position')->where('type_visitor', 'Empleado')->get();
 
         return response()->json([
-            'employes' => $employes,
+            'employes' => $employe,
         ]);
     }
 

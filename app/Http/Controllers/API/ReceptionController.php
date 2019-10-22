@@ -19,23 +19,38 @@ class ReceptionController extends Controller
     {
         $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
                                     ->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
+        $patients = Patient::with('person', 'reservation')->get();
+
+        $all = collect([]);
+
+            $reservation = $reservations->map(function ($item) {
+                $item->person;
+                    return $item;
+            });
+    
+            $patient = $patients->map(function ($item) {
+                $item->person;
+                return $item;
+            });
+        
+        $all = $reservation->concat($patient);
 
         return response()->json([
-            'reservations' => $reservations,
+           // 'reservations' => $reservations,
+            //'patient' => $patient,
+            'all' => $all,
         ]);
     }
 
     public function search(Request $request)
     {
         $person = Person::where('dni', $request->dni)->first(); //busco a ver si existe la persona
-        $history = Patient::where('history_number', $request->history_number);
 
         if (!is_null($person)) {  //si existe
 
             return response()->json([
                 'person' => $person,
             ]);
-       
         }
     }
 
@@ -70,12 +85,15 @@ class ReceptionController extends Controller
       
         $reservation = Reservation::find($id);
         
-        $reservation->status = $request->status;
-
-        if ($reservation->save()){
-            return response()->json([
-                'message' => 'Cita cancelada',
-            ]);
+        if (!empty($reservation)) {
+          
+            $reservation->status = $request->status;
+    
+            if ($reservation->save()){
+                return response()->json([
+                    'message' => 'Cita cancelada',
+                ]);
+            }
         }else{
             return response()->json([
                 'message' => 'No se pudo cancelar la cita',

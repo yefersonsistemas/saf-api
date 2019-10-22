@@ -17,8 +17,14 @@ class CreateSpecialitiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->longText('description');
+            $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
+
+            $table->foreign('service_id')
+                  ->references('id')
+                  ->on('services')
+                  ->onDelete('CASCADE');
 
             $table->foreign('branch_id')
                   ->references('id')

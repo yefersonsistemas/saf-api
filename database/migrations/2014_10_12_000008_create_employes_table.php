@@ -18,6 +18,7 @@ class CreateEmployesTable extends Migration
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('position_id');
             $table->unsignedBigInteger('branch_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('person_id')
