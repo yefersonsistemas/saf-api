@@ -18,8 +18,14 @@ class ReceptionController extends Controller
     public function index()
     {
         $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
-                                    ->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
-
+                        ->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
+        $reservations = $reservations->each(function( $reservation){
+            $patient = Person::where('id', $reservation->patient_id)->first();
+            $reservation->patient = $patient;
+            return $reservation; 
+        });
+        
+                        dd($reservations);
         return response()->json([
             'reservations' => $reservations,
         ]);
