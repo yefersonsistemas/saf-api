@@ -19,26 +19,9 @@ class ReceptionController extends Controller
     {
         $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
                                     ->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
-        $patients = Patient::with('person', 'reservation')->get();
-
-        $all = collect([]);
-
-            $reservation = $reservations->map(function ($item) {
-                $item->person;
-                    return $item;
-            });
-    
-            $patient = $patients->map(function ($item) {
-                $item->person;
-                return $item;
-            });
-        
-        $all = $reservation->concat($patient);
 
         return response()->json([
-           // 'reservations' => $reservations,
-            //'patient' => $patient,
-            'all' => $all,
+            'reservations' => $reservations,
         ]);
     }
 

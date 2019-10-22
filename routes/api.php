@@ -56,7 +56,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/', 'API\SecurityController@index');  // se ve
             Route::POST('create', 'API\SecurityController@all_visitor');  // corregido funciona bien
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            Route::delete('delete/{id}', 'API\SecurityController@delete_register_visitor');// funciona bien
             Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
             Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
             Route::POST('search', 'API\SecurityController@search');  // corregido funciona bien

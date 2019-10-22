@@ -173,20 +173,14 @@ class SecurityController extends Controller
         ]);
     }
 
-    public function delete_register_visitor($id){
-
-        $visitors = Visitor::find($id);
-
-        if(!is_null($visitors)){
-            $visitors->delete();
-        }
-    }
-
     public function statusIn(Request $request)
     {
         $person = Person::where('id', $request->id)->first(); //busco el id 
+        $v = Visitor::where('person_id', $request->id)->first(); 
        
-       if (!is_null($person)) {
+        if (!is_null($person)) {
+            $v->delete(); //borrado logico
+
                $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
                    'person_id' => $person->id,
                    'type_visitor' => 'Paciente',
@@ -195,7 +189,7 @@ class SecurityController extends Controller
                ]);
 
             // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
-            
+
             return response()->json([
                 'message' => 'Visitante dentro de las instalaciones',
             ]);
