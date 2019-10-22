@@ -29,7 +29,7 @@ class Person extends Model
 
     public function patient()
     {
-        return $this->belonghsTo('App\Patient', 'person_id');
+        return $this->hasone('App\Patient', 'person_id');
     }
 
     public function visitor()

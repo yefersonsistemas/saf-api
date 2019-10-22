@@ -135,8 +135,10 @@ class EmployesController extends Controller
     public function statusIn(Request $request)
     {
         $person = Person::where('id', $request->id)->first(); //busco el id 
-       // dd($person);
+        $v = Visitor::where('person_id', $request->id)->first();  //busco q sea el mismo id q el anterior
+
         if (!is_null($person)) {
+            $v->delete(); //como es el mismo se elimina de la lista
 
             $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
                 'person_id' => $person->id,

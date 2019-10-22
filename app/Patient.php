@@ -51,7 +51,7 @@ class Patient extends Model
 
      public function reservation()
     {
-        return $this->hasone('App\Reservation');
+        return $this->hasone('App\Reservation', 'patient_id');
     }
 
     public function exam()
