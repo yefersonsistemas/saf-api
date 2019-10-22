@@ -25,7 +25,7 @@ class ReceptionController extends Controller
             return $reservation; 
         });
         
-                        dd($reservations);
+        // dd($reservations);
         return response()->json([
             'reservations' => $reservations,
         ]);
