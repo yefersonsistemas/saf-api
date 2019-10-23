@@ -65,6 +65,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'reception'], function(){
             Route::get('/', 'API\ReceptionController@index');  // listo
             Route::put('cancel/{id}', 'API\ReceptionController@status_change'); //cancela la cita
+           // Route::POST('cancel/{id}', 'API\ReceptionController@status_change');
+            // Route::POST('cancel', 'API\ReceptionController@status_change');
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto
             Route::POST('search', 'API\ReceptionController@search');  // listo
         });
