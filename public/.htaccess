@@ -1,6 +1,4 @@
 <IfModule mod_rewrite.c>
-    Header set Access-Control-Allow-Origin *
-    Header set Access-Control-Allow-Methods GET,POST,PUT,OPTIONS,DELETE
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
