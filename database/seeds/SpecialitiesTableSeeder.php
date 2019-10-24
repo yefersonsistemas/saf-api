@@ -18,8 +18,10 @@ class SpecialitiesTableSeeder extends Seeder
         factory(Speciality::class, 20)->create()->each(function ($speciality) {
             $employes = Employe::with('person.user')->get();
 
-            $employes = $employes->each(function ($employe) { 
-                return $employe->person->user->role('doctor'); 
+            $employes = $employes->each(function ($employe) {
+                if($employe->person->user != null){
+                    return $employe->person->user->role('doctor'); 
+                } 
             });                                                   
 
             $speciality->employe()->attach($employes->random()->id); 

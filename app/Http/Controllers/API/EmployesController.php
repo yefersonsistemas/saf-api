@@ -249,7 +249,7 @@ class EmployesController extends Controller
         return response()->json([
             'pago' => $pago,
         ]);
-    }   
+    } 
     
     public function record_patient(Request $request){  //todos los pacientes por doctor
         $employe = Employe::with('person.user', 'patient')->where('id', $request->id)->get();

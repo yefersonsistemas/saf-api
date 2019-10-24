@@ -229,7 +229,11 @@ class UsersTableSeeder extends Seeder
             ->givePermissionTo('crear recipe')
             ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
 
-       
+        factory(App\User::class, 10)->create()->each(function ($user) {
+            $user->assignRole('doctor');
+        });
+
+        factory(Person::class,30)->create();
     }
 
 }

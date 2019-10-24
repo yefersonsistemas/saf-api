@@ -35,16 +35,6 @@ class PatientController extends Controller
     // //return view('dashboard.patients.index', compact('patients'));
   }
 
-  public function patient_doctor(Request $request){
-    $employe = Employe::with('patient')->where('id', $request->id)->first();
-
-    if (!is_null($employe)) {
-      return response()->json([
-        'patients' => $employe,
-      ]);    
-    }
-  }
-
   /**
    * Show the form for creating a new resource.
    *
@@ -324,10 +314,11 @@ class PatientController extends Controller
   }
 
   public function record_cite(Request $request){
-    $cite = Reservation::where('patient_id', $request->patient_id)->get();
-
+  //$cite = Reservation::with('patient.diagnostic')->where('patient_id', $request->patient_id)->get();
+  $cite = Patient::with('reservation','diagnostic')->where('id', $request->id)->first();
+  
       return response()->json([
-        'Citas' => $cite,
+        'Patient' => $cite,
       ]);
 
   }

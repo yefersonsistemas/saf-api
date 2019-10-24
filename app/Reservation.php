@@ -42,5 +42,10 @@ class Reservation extends Model
         return $this->belongsTo('App\Branch');
     }
 
+    public function diagnostic()
+    {
+        return $this->belongsTo('App\Diagnostic', 'patient_id');
+    }
+    
 
 }
