@@ -123,7 +123,6 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'doctor'], function(){
             Route::get('/', 'API\EmployesController@index');  //se ve
             Route::get('/', 'API\PatientController@index');
-            Route::POST('patient', 'API\PatientController@patient_doctor');
             Route::get('history', 'API\EmployesController@history_patient');  //se ve
             Route::POST('create','API\EmployesController@diagnostic');  // listo
             Route::POST('recipe', 'API\EmployesController@recipe');  // se ve
@@ -159,7 +158,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('outside', 'API\SecurityController@statusOut');  //listo
         });
         
-        Route::group(['prefix' => 'patient'], function(){ //interaccion del usuario con la App
+        //rutas para la App
+        Route::group(['prefix' => 'patient'], function(){
             Route::POST('record/cites', 'API\PatientController@record_cite');
             Route::POST('record','API\EmployesController@record_patient');
             Route::POST('date', 'API\EmployesController@patient_on_day');

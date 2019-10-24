@@ -10,6 +10,7 @@ use App\Patient;
 use App\Position;
 use App\Reservation;
 Use App\Visitor;
+use App\Billing;
 use Carbon\Carbon;
 
 class EmployesController extends Controller
@@ -227,7 +228,8 @@ class EmployesController extends Controller
         // $patient = Patient::with('employe')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         // ;
 
-        $employe = Employe::with('person', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
+        $employe = Employe::with('person.user', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
+       // dd($employe);
         $billing = Billing::where('person_id', $request->person_id)->get();
         
         $employes = $employe->each(function ($employe)
@@ -242,28 +244,32 @@ class EmployesController extends Controller
         return $total; 
         //dd($total);
 
-        $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price) + $total);
+        $pago = ($employes->doctor->typedoctor->comission + ($employes->doctor->price) + $total);
 
         return response()->json([
             'pago' => $pago,
-           
         ]);
-    }   
+    } 
     
     public function record_patient(Request $request){  //todos los pacientes por doctor
-        $employe = Employe::with('person', 'patient')->where('id', $request->id)->get();
+        $employe = Employe::with('person.user', 'patient')->where('id', $request->id)->get();
 
-        if (!is_null($employe)) {
+        $employes = $employe->each(function ($employe)
+        {
+            $employe->person->user->role('doctor');
+        });
+
+        if (!is_null($employes)) {
             
             return response()->json([
-                'patients' => $employe,
+                'patients' => $employes,
                
             ]);
         }
     }
 
     public function patient_on_day(Request $request){  //pacientes del dia por doctor
-        $patients = Reservation::with('employe', 'patient')->where('person_id', $request->person_id)
+        $patients = Reservation::with('patient')->where('person_id', $request->person_id)
                                 ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
         if (!is_null($patients)) {

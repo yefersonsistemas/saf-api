@@ -34,7 +34,7 @@ class Reservation extends Model
 
     public function patient()
     {
-        return $this->hasmany('App\Patient', 'patient_id');
+        return $this->belongsTo('App\Patient');
     }
 
     public function branch()
@@ -42,5 +42,10 @@ class Reservation extends Model
         return $this->belongsTo('App\Branch');
     }
 
+    public function diagnostic()
+    {
+        return $this->belongsTo('App\Diagnostic', 'patient_id');
+    }
+    
 
 }

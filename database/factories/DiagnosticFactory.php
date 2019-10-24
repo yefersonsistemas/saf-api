@@ -13,7 +13,9 @@ $factory->define(Diagnostic::class, function (Faker $faker) {
     $employes = Employe::with('person.user')->get(); //trae todos los empleados q estan relacinados con persona 
                                                     //y con un usuario en el sistema
     $employes = $employes->each(function ($item) { //recorre c/u de los empleados y lo va guardando en item
-        return $item->person->user->role('doctor'); //comparo q el empleado en item relacionado con persona tenga un
+        if($item->person->user != null){
+            return $item->person->user->role('doctor'); //comparo q el empleado en item relacionado con persona tenga un
+        }
     });                                             //usuario y q ademas tenga el rol sea doctor
 
 

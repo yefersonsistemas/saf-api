@@ -20,7 +20,9 @@ class ProcedureTableSeeder extends Seeder
             $employes = Employe::with('person.user')->get();
 
             $employes = $employes->each(function ($employe) { //recorre c/u de los empleados y lo va guardando en item
-                return $employe->person->user->role('doctor'); //comparo q el empleado en function (employe) relacionado con persona tenga un
+                if($employe->person->user != null){
+                    return $employe->person->user->role('doctor'); //comparo q el empleado en function (employe) relacionado con persona tenga un
+                }
             });                                                   //usuario y q ademas tenga el rol doctor
 
             $procedure->employe()->attach($employes->random()->id); //attach enlaza los procedures con los empleados encontrados
