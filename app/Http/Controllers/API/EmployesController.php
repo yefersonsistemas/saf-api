@@ -154,22 +154,22 @@ class EmployesController extends Controller
         }
     }
 
-    public function history_patient(Request $request){
-        $patients = Patient::where('id', $request->id);
-        $exam = Exam::all();   //se selecciona mediante un buscador
-        $procedure = Procedure::all();
-        $surgery = Surgery::all(); //informacion para posible cirugia cuando lo seleccione
+    // public function history_patient(Request $request){
+    //     $patients = Patient::where('id', $request->id);
+    //     $exam = Exam::all();   //se selecciona mediante un buscador
+    //     $procedure = Procedure::all();
+    //     $surgery = Surgery::all(); //informacion para posible cirugia cuando lo seleccione
 
-        //  event(new Consult($surgery)); //se activa cuando seleccionan la cirugia
+    //     //  event(new Consult($surgery)); //se activa cuando seleccionan la cirugia
 
-        return response()->json([
-            'patient' => $patients,
-            'exam' => $exam,
-            'procedure' => $procedure,
-            'surgery' => $surgery,
-        ]);
+    //     return response()->json([
+    //         'patient' => $patients,
+    //         'exam' => $exam,
+    //         'procedure' => $procedure,
+    //         'surgery' => $surgery,
+    //     ]);
 
-    }
+    // }
 
     public function diagnostic(CreateDiagnosticRequest $request){
 
@@ -243,6 +243,7 @@ class EmployesController extends Controller
             //dd($total);
     
             $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price) + $total);
+        }
         }
 
         return response()->json([

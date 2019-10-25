@@ -15,14 +15,14 @@ class EmployeTableSeeder extends Seeder
     public function run()
     {
         Employe::truncate();
-        $this->deleteDirectory(storage_path('/app/public/employes'));
+         $this->deleteDirectory(storage_path('/app/public/employes'));
 
         factory(Employe::class)->create([
             'person_id'    => '6',
-            'position_id'    => '2',
+            'position_id'    => '1',
         ]);
         
-        factory(Employe::class, 30)->create()->each(function ($employe) {
+        factory(Employe::class, 40)->create()->each(function ($employe) {
             $this->to('employes', $employe->id, 'App\Employe');
         });
     }

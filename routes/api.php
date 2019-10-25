@@ -65,8 +65,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'reception'], function(){
             Route::get('/', 'API\ReceptionController@index');  // listo
             Route::put('cancel/{id}', 'API\ReceptionController@status_change'); //cancela la cita
-           // Route::POST('cancel/{id}', 'API\ReceptionController@status_change');
-            // Route::POST('cancel', 'API\ReceptionController@status_change');
+            Route::POST('surgeries', 'API\ReceptionController@surgeries'); //muestra todas las cirugias por medico
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto
             Route::POST('search', 'API\ReceptionController@search');  // listo
         });
@@ -121,9 +120,9 @@ Route::group(['prefix' => 'auth'], function () {
         
         //rutas rol doctor
         Route::group(['prefix' => 'doctor'], function(){
-            Route::get('/', 'API\EmployesController@index');  //se ve
-            Route::get('/', 'API\PatientController@index');
-            Route::get('history', 'API\EmployesController@history_patient');  //se ve
+            Route::get('list', 'API\EmployesController@index');  //lista de empleados que trabajaran en el dia
+            Route::get('/', 'API\PatientController@index');  //muestra todos los pacientes
+            //Route::get('history', 'API\EmployesController@history_patient');  //se ve
             Route::POST('create','API\EmployesController@diagnostic');  // listo
             Route::POST('recipe', 'API\EmployesController@recipe');  // se ve
             Route::POST('pay', 'API\EmployesController@calculo_week');  // 
@@ -152,7 +151,7 @@ Route::group(['prefix' => 'auth'], function () {
         
         Route::group(['prefix' => 'employe'], function(){
             Route::get('/', 'API\EmployesController@index');  // listo
-            Route::get('/list','API\EmployesController@list');
+            Route::get('/list','API\EmployesController@list');  //muestra todos los medicos con procedimientos
             Route::POST('create', 'API\EmployesController@store');  // listo
             Route::POST('inside', 'API\EmployesController@statusIn');  //listo
             Route::POST('outside', 'API\SecurityController@statusOut');  //listo
