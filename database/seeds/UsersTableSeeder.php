@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Person;
+use App\Employe;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,6 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         User::truncate();
         Person::truncate();
+        Employe::truncate();
 
         $person = Person::create([
             'type_dni' => 'V',
@@ -234,6 +236,11 @@ class UsersTableSeeder extends Seeder
         });
 
         factory(Person::class,30)->create();
+
+        // factory(Person::class,10)->create()->each(function ($person){
+        //     factory(Employe::class)->create(['person_id' => $person->id]);
+        //     $person->user->assignRole('doctor');
+        // });
     }
 
 }

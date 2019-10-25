@@ -68,7 +68,7 @@ Route::group(['prefix' => 'auth'], function () {
            // Route::POST('cancel/{id}', 'API\ReceptionController@status_change');
             // Route::POST('cancel', 'API\ReceptionController@status_change');
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto
-            Route::POST('search', 'API\ReceptionController@search');  // listo
+            Route::POST('search'    , 'API\ReceptionController@search');  // listo
         });
 
         //rutas generar cita/reservacion
