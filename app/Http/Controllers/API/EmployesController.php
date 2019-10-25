@@ -231,20 +231,19 @@ class EmployesController extends Controller
         $employe = Employe::with('person.user', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
        // dd($employe);
         $billing = Billing::where('person_id', $request->person_id)->get();
-        
-        $employes = $employe->each(function ($employe)
-        {
-            $employe->person->user->role('doctor');
-        });
+        //dd($billing);
 
-        $total = 0;
-        foreach($billing as $b){
-           $total += $b->procedures->price;
+        if($employe->person->user->role('doctor')){
+          
+            $total = 0;
+            foreach($billing as $b){
+               $total += $b->procedures->price;
+            }
+            return $total; 
+            //dd($total);
+    
+            $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price) + $total);
         }
-        return $total; 
-        //dd($total);
-
-        $pago = ($employes->doctor->typedoctor->comission + ($employes->doctor->price) + $total);
 
         return response()->json([
             'pago' => $pago,
@@ -252,17 +251,12 @@ class EmployesController extends Controller
     } 
     
     public function record_patient(Request $request){  //todos los pacientes por doctor
-        $employe = Employe::with('person.user', 'patient')->where('id', $request->id)->get();
+        $employe = Employe::with('person.user', 'patient')->where('id', $request->id)->first();
 
-        $employes = $employe->each(function ($employe)
-        {
-            $employe->person->user->role('doctor');
-        });
-
-        if (!is_null($employes)) {
+        if (!is_null($employe)) {
             
             return response()->json([
-                'patients' => $employes,
+                'patients' => $employe,
                
             ]);
         }

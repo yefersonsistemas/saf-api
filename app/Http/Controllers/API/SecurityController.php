@@ -199,9 +199,11 @@ class SecurityController extends Controller
     public function statusOut(Request $request)
     {
         $person = Visitor::where('person_id', $request->person_id)->orderBy('created_at', 'desc')->first(); //busco el visitante comparando los id 
-
+        $v = Visitor::where('person_id', $request->person_id)->first();
+        
         if (!is_null($person)) {
-            
+            $v->delete();
+
             $visitors = Visitor::create([                      
                 'person_id' => $person->person_id,
                 'type_visitor' => $person->type_visitor,
