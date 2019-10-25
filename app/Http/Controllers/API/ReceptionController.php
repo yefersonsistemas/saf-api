@@ -76,16 +76,16 @@ class ReceptionController extends Controller
 
     public function status_change(Request $request, $id){
  
-        return response()->json([
-            'request' => $request->status,
-            'id'      => $id,
-        ]);
+        // return response()->json([
+        //     'request' => $request->status,
+        //     'id'      => $id,
+        // ]);
       
         $reservation = Reservation::find($id);
         
         if (!empty($reservation)) {
           
-            $reservation->status = $request->status;
+            $reservation->status = 'Cancelado';
     
             if ($reservation->save()){
                 return response()->json([
