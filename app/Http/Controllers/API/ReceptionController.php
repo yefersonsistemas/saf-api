@@ -8,6 +8,7 @@ use App\Reservation;
 use Carbon\Carbon;
 Use App\Patient;
 Use App\Person;
+Use App\Surgery;
 use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdateStatusCiteRequest;
 
@@ -89,12 +90,22 @@ class ReceptionController extends Controller
     
             if ($reservation->save()){
                 return response()->json([
-                    'message' => 'Cita cancelada',
+                    'message' => 'Cita cancelada', 
                 ]);
             }
         }else{
             return response()->json([
                 'message' => 'No se pudo cancelar la cita',
+            ]);
+        }
+    }
+
+    public function surgeries(Request $request){
+        $s = Surgery::where('employe_id', $request->employe_id)->get();
+
+        if(!is_null($s)){
+            return response()->json([
+                'surgeries' => $s,
             ]);
         }
     }
