@@ -242,7 +242,7 @@ class EmployesController extends Controller
             return $total; 
             //dd($total);
     
-            $pago = ($employes->doctor->typedoctor->comission + ($employes->doctor->price) + $total);
+            $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price) + $total);
         }
 
         return response()->json([
