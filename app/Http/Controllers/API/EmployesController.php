@@ -244,7 +244,6 @@ class EmployesController extends Controller
     
             $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price) + $total);
         }
-        }
 
         return response()->json([
             'pago' => $pago,
