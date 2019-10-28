@@ -8,6 +8,7 @@ use App\Position;
 use App\Diagnostic;
 use App\Patient;
 
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -19,6 +20,7 @@ class UsersTableSeeder extends Seeder
     {
         User::truncate();
         Person::truncate();
+        Employe::truncate();
 
         $person = Person::create([
             'type_dni' => 'V',
@@ -344,7 +346,6 @@ class UsersTableSeeder extends Seeder
                         'person_id' => $person->id
                         ])->assignRole('administracion');
         });
-
     }
 
 }

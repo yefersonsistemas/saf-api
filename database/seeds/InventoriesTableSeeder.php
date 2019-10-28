@@ -13,6 +13,6 @@ class InventoriesTableSeeder extends Seeder
     public function run()
     {
         Inventory::truncate();
-        factory(Inventory::class, 20)->create();
+        factory(Inventory::class, 40)->create();
     }
 }

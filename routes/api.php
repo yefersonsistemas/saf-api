@@ -67,7 +67,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::put('cancel/{id}', 'API\ReceptionController@status_change'); //cancela la cita
             Route::POST('surgeries', 'API\ReceptionController@surgeries'); //muestra todas las cirugias por medico
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto
-            Route::POST('search', 'API\ReceptionController@search');  // listo
+            Route::POST('search'    , 'API\ReceptionController@search');  // listo
         });
 
         //rutas generar cita/reservacion
