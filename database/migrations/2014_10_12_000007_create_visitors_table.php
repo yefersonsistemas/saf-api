@@ -17,7 +17,8 @@ class CreateVisitorsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
             $table->enum('type_visitor', ['Paciente', 'Visitante', 'Empleado']);
-            $table->enum('status', ['dentro', 'fuera', 'pendiente']);
+            $table->timestamp('inside')->nullable();
+            $table->timestamp('outside')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->softDeletes();
             $table->timestamps();

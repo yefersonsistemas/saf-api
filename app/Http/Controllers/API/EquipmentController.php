@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 
-class MachineEquipmentController extends Controller
+class EquipmentController extends Controller
 {
     /**
      * Display a listing of the resource.

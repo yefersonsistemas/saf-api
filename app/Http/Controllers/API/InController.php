@@ -128,6 +128,8 @@ class InController extends Controller
             ]);
         }
     }
+    
+    //hacer metodo que muestre solo los doctores del turno
 
     public static function assigment(CreateAreaAssigmentRequest $request) //asignacion de consultorio
     {

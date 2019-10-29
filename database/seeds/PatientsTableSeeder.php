@@ -13,7 +13,7 @@ class PatientsTableSeeder extends Seeder
     public function run()
     {
         Patient::truncate();
-        factory(Patient::class, 10)->create();
+        factory(Patient::class, 30)->create();
      /*   factory(Patient::class)->create([
             'date' => '2019-07-11',
             'name' => 'LESBIA',

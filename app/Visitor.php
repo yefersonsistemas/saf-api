@@ -13,7 +13,7 @@ class Visitor extends Model //visitantes
     protected $table = 'visitors';
     
     protected $fillable = [ //pagos
-        'person_id', 'type_visitor', 'branch_id', 'status'
+        'person_id', 'type_visitor', 'branch_id', 'inside', 'outside'
     ];
 
     public function employe()

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Schedule;
+use App\Equipment;
 
-class SchedulesTableSeeder extends Seeder
+class EquipmentTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class SchedulesTableSeeder extends Seeder
      */
     public function run()
     {
-        Schedule::truncate();
-        factory(Schedule::class, 20)->create();
+        Equipment::truncate();
+        factory(Equipment::class, 20)->create();
     }
 }

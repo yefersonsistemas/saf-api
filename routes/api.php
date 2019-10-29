@@ -55,9 +55,11 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'security'], function(){
             Route::get('/', 'API\SecurityController@index');  // se ve
             Route::POST('create', 'API\SecurityController@all_visitor');  // corregido funciona bien
+            Route::POST('create/person', 'API\SecurityController@only_person'); // registra solo en person
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
-            Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
+            Route::put('status/{id}', 'API\SecurityController@status');
+            // Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
+            // Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
             Route::POST('search', 'API\SecurityController@search');  // corregido funciona bien
         });
 

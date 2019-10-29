@@ -24,7 +24,7 @@ class SecurityController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->where('status','Aprobado')->get(); //mostrar las reservaciones solo del dia
+        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->get(); //mostrar las reservaciones solo del dia
         $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Visitante')
                             ->orWhere('type_visitor', 'Paciente')->get(); //obtener solo registros creados hoy
@@ -97,9 +97,9 @@ class SecurityController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\CAHttp\Response
      */
-    public function update(Request $request, $id)
+    public function update(CARequest $request, $id)
     {
         //
     }
@@ -137,6 +137,22 @@ class SecurityController extends Controller
         }
     }
 
+    public function only_person(CreateVisitorRequest $request){
+        $person = Person::create([  //agregar un visitante colado o q no se vea el/ella pero si otra persona 
+            'type_dni'    => $request->type_dni,
+            'dni'         => $request->dni,
+            'name'        => $request->name,
+            'lastname'    => $request->lastname,
+            'address'     => $request->address,
+            'email'       => $request->email,
+            'branch_id'   => 1,
+        ]);
+
+        return response()->json([
+            'message' => 'Registrado correctamente',
+        ]);
+    }
+
     public function all_visitor(CreateVisitorRequest $request)
     {                                 //no hay registro de esa persona
         $person = Person::create([  //agregar un visitante ya sea un futuro paciente o no
@@ -162,58 +178,90 @@ class SecurityController extends Controller
         $visitor = Visitor::create([
             'person_id'      => $person->id,
             'type_visitor'   => 'Visitante', 
-            'status'         => 'dentro',
+            'inside'         => Carbon::now(),
+            'outside'        => null,
             'branch_id'      => 1
         ]);
 
         $person->visitor()->associate($visitor->id); //asociar un visitante a una persona que ya tiene registro
 
         return response()->json([
-            'message' => 'Visitante creado',
+            'message' => 'Visitante creado y dentro de las instalaciones',
         ]);
     }
 
-    public function statusIn(Request $request)
-    {
-        $person = Person::where('id', $request->id)->first(); //busco el id 
-        $v = Visitor::where('person_id', $request->id)->first(); 
-       
-        if (!is_null($person)) {
-            $v->delete(); //borrado logico
-
-               $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
-                   'person_id' => $person->id,
-                   'type_visitor' => 'Paciente',
-                   'status' => 'dentro',
-                   'branch_id' => 1,
-               ]);
-
-            // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
-
-            return response()->json([
-                'message' => 'Visitante dentro de las instalaciones',
-            ]);
-        }
-    }
-
-    public function statusOut(Request $request)
-    {
-        $person = Visitor::where('person_id', $request->person_id)->orderBy('created_at', 'desc')->first(); //busco el visitante comparando los id 
-        $v = Visitor::where('person_id', $request->person_id)->first();
+    public function status(Request $request, $id){
         
-        if (!is_null($person)) {
-            $v->delete();
+        $visitor = Visitor::find($id);
+        
+        if (!empty($visitor)) {
+            if (empty($visitor->inside)){
+                $visitor->type_visitor = 'Paciente';
+                $visitor->inside = $request->inside;
+    
+                if ($visitor->save()){
+                    return response()->json([
+                        'message' => 'Paciente dentro de las instalaciones', 
+                    ]);
+                }
+            }else{
+                if (!empty($visitor->inside) && empty($visitor->outside)) {
+                    $visitor->type_visitor = $visitor->type_visitor;
+                    $visitor->outside = $request->outside;
+        
+                    if ($visitor->save()){
+                        return response()->json([
+                            'message' => 'Visitante fuera de las instalaciones', 
+                        ]);
+                    }
+                }
+            }
 
-            $visitors = Visitor::create([                      
-                'person_id' => $person->person_id,
-                'type_visitor' => $person->type_visitor,
-                'status' => 'fuera',
-                'branch_id' => 1
-                ]);
-
-            return response()->json([
-                'message' => 'Visitante fuera de las instalaciones',
-            ]);
         }
+
     }
+
+    // public function statusIn(Request $request)
+    // {
+    //     $person = Person::where('id', $request->id)->first(); //busco el id 
+    //     //$v = Visitor::where('person_id', $request->id)->first(); 
+       
+    //     if (!is_null($person)) {
+    //        // $v->delete(); //borrado logico
+
+    //            $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
+    //                'person_id' => $person->id,
+    //                'type_visitor' => 'Paciente',
+    //                'status' => 'dentro',
+    //                'branch_id' => 1,
+    //            ]);
+
+    //         // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
+
+    //         return response()->json([
+    //             'message' => 'Visitante dentro de las instalaciones',
+    //         ]);
+    //     }
+    // }
+
+    // public function statusOut(Request $request)
+    // {
+    //     $person = Visitor::where('person_id', $request->person_id)->orderBy('created_at', 'desc')->first(); //busco el visitante comparando los id 
+    //     $v = Visitor::where('person_id', $request->person_id)->first();
+        
+    //     if (!is_null($person)) {
+    //         $v->delete();
+
+    //         $visitors = Visitor::create([                      
+    //             'person_id' => $person->person_id,
+    //             'type_visitor' => $person->type_visitor,
+    //             'status' => 'fuera',
+    //             'branch_id' => 1
+    //             ]);
+
+    //         return response()->json([
+    //             'message' => 'Visitante fuera de las instalaciones',
+    //         ]);
+    //     }
+    // }
 }
