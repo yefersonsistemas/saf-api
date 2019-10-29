@@ -91,4 +91,14 @@ class SupplieController extends Controller
             'typeSupplie' => $typeSupplie,
         ]);
     }
+
+    
+    public function list_supplie(){  //sirve para report
+        $supplie = Inventory::with('supplie')->get();
+
+        return response()->json([
+            'inventory' => $supplie,
+        ]);
+
+    }
 }

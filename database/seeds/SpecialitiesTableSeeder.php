@@ -4,9 +4,11 @@ use Illuminate\Database\Seeder;
 use App\Speciality;
 use App\Employe;
 use App\Branch;
+//use App\Traits\ImageFactory;
 
 class SpecialitiesTableSeeder extends Seeder
 {
+   // use ImageFactory;
     /**
      * Run the database seeds.
      *
@@ -15,7 +17,11 @@ class SpecialitiesTableSeeder extends Seeder
     public function run()
     {
         Speciality::truncate();
-        factory(Speciality::class, 20)->create()->each(function ($speciality) {
+        //$this->deleteDirectory(storage_path('/app/public/speciality'));
+
+        factory(Speciality::class, 10)->create()->each(function ($speciality) {
+           //$this->to('speciality', $speciality->id, 'App\Speciality');
+
             $employes = Employe::with('person.user')->get();
 
             $employes = $employes->each(function ($employe) {

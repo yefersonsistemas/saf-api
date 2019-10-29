@@ -81,4 +81,12 @@ class CleaningRecordController extends Controller
     {
         //
     }
+
+    public function record_cleaning(){
+        $record = CleaningRecord::with('employe.person')->get();
+
+        return response()->json([
+            'record' => $record,
+        ]);
+    }
 }

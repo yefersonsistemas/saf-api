@@ -81,4 +81,13 @@ class InventorysController extends Controller
     {
         //
     }
+
+    public function list_inventory(){  //sirve para report
+        $inventory = Inventory::all();
+
+        return response()->json([
+            'inventory' => $inventory,
+        ]);
+
+    }
 }

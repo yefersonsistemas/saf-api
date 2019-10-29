@@ -81,4 +81,19 @@ class TypeCleaningController extends Controller
     {
         //
     }
+
+    public function registercleanig(CreateTypeCleaningRequest $request)
+    {   
+        $register = TypeCleaning::create([
+            'name'           => $request['name'],
+            'description'    => $request['description'],
+            'branch_id'      => 1,
+        ]);
+
+        return response()->json([
+            'limpieza' => $register,
+            'message' => 'Limpieza registrada',
+        ]);
+
+    }
 }

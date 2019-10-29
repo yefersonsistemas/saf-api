@@ -81,4 +81,21 @@ class EquipmentController extends Controller
     {
         //
     }
+
+    public function type()
+    {
+        $typeEquipment = TypeEquipment::with('equipment')->get();
+        return response()->json([
+            'typeEquipment' => $typeEquipment,
+        ]);
+    }
+
+    public function list_equipment(){  //sirve para report
+        $equipment = Inventory::with('equipment')->get();
+
+        return response()->json([
+            'inventory' => $equipment,
+        ]);
+
+    }
 }

@@ -133,26 +133,26 @@ class EmployesController extends Controller
         //
     }
 
-    public function statusIn(Request $request)
-    {
-        $person = Person::where('id', $request->id)->first(); //busco el id 
-        $v = Visitor::where('person_id', $request->id)->first();  //busco q sea el mismo id q el anterior
+    // public function statusIn(Request $request)
+    // {
+    //     $person = Person::where('id', $request->id)->first(); //busco el id 
+    //     $v = Visitor::where('person_id', $request->id)->first();  //busco q sea el mismo id q el anterior
 
-        if (!is_null($person)) {
-            $v->delete(); //como es el mismo se elimina de la lista
+    //     if (!is_null($person)) {
+    //         $v->delete(); //como es el mismo se elimina de la lista
 
-            $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
-                'person_id' => $person->id,
-                'type_visitor' => 'Empleado',
-                'status' => 'dentro',
-                'branch_id' => 1,
-            ]);
+    //         $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
+    //             'person_id' => $person->id,
+    //             'type_visitor' => 'Empleado',
+    //             'status' => 'dentro',
+    //             'branch_id' => 1,
+    //         ]);
             
-            return response()->json([
-                'message' => 'Empleado dentro de las instalaciones',
-            ]);
-        }
-    }
+    //         return response()->json([
+    //             'message' => 'Empleado dentro de las instalaciones',
+    //         ]);
+    //     }
+    // }
 
     // public function history_patient(Request $request){
     //     $patients = Patient::where('id', $request->id);
@@ -262,7 +262,7 @@ class EmployesController extends Controller
     }
 
     public function patient_on_day(Request $request){  //pacientes del dia por doctor
-        $patients = Reservation::with('patient')->where('person_id', $request->person_id)->where('status', 'Aprobado')
+        $patients = Reservation::with('patient')->where('person_id', $request->person_id)
                                 ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
         if (!is_null($patients)) {
@@ -271,6 +271,19 @@ class EmployesController extends Controller
                 'reservas' => $patients,
                 
             ]);
+        }
+    }
+
+    public function detail_doctor(Request $request){
+        $doctor = Employe::with('person.user', 'image')->where('id', $request->id)->first();
+
+        if (!is_null($doctor)) {
+            if ($doctor->person->user->role('doctor')) {
+                return response()->json([
+                    'doctor' => $doctor,
+                ]);   
+            }
+
         }
     }
 }
