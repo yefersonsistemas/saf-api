@@ -12,6 +12,7 @@ Use App\Employe;
 Use App\Schedule;
 use App\Person;
 use App\User;
+use App\Patient;
 use Carbon\Carbon;
 
 class CitaController extends Controller
@@ -35,11 +36,13 @@ class CitaController extends Controller
         if ($employe->person->user->hasRole('doctor')) {  //el empleado debe ser doctor por rol y ocupacion sino no crea
 
             if ($dia <  $cupos) {
+
+                $patient= Patient::where('person_id', $request['patient_id'])->first();
             
                 $reservation = Reservation::create([		
                     'date' => $request['date'],
                     'description' => $request['description'],
-                    'patient_id' => $request['patient_id'],
+                    'patient_id' => $patient->id,
                     'status' => 'Pendiente',
                     'person_id' => $request['person_id'],
                     'schedule_id' => $request['schedule_id'],
@@ -162,7 +165,7 @@ class CitaController extends Controller
         }
     }
 
-    public function search_schedule(Request $request){
+    public function search_schedule(Request $request){//busca el horario del medico para agendar cita
         $employe = Employe::with('schedule')->where('person_id', $request->person_id)->first();
      
         if (!is_null($employe)) {

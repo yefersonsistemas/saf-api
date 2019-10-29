@@ -18,7 +18,10 @@ class CreateReservationsTable extends Migration
             $table->date('date');
             $table->longText('description');
             $table->unsignedBigInteger('patient_id');
-            $table->enum('status', ['Aprobado', 'Pendiente', 'Cancelado']);
+            $table->string('approved')->nullable();          //aprobado
+            $table->string('reschedule')->nullable();          //reprogramar
+            $table->string('cancel')->nullable();
+            $table->string('discontinued')->nullable();      //suspendido
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('schedule_id');
             $table->unsignedBigInteger('branch_id');

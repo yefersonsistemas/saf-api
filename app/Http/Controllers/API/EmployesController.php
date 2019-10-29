@@ -191,11 +191,10 @@ class EmployesController extends Controller
     }
 
     public function recipe(Request $request){
-        $patients = Patient::where('id', $request->id)->first();  //para mostrar los datos basicos del paciente
+       
         $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
         
         return response()->json([
-            'patients' => $patients,
             'medicines' => $medicines,
         ]);
     }

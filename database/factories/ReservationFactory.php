@@ -19,7 +19,10 @@ $factory->define(Reservation::class, function (Faker $faker) {
         'date' => Carbon::now()->Format('Y-m-d'),
         'description' =>$faker->sentence,
         'patient_id' => $patient->id, 
-        'status'  => $faker->randomElement(['Pendiente', 'Aprobado', 'Cancelado']),
+        'approved'  => null,  //aprobado
+        'reschedule'  => null,  //reprogramar
+        'cancel'  => null,  //cancelado
+        'discontinued'  => null,  //suspendido
         'person_id'  =>$person->id,
         'schedule_id'  =>$schedule->id,
         'branch_id' => $branchoffice->id,

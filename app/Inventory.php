@@ -9,7 +9,7 @@ class Inventory extends Model
     protected $table = 'inventories';
 
     protected $fillable = [ //inventario
-        'quantity_Total', 'quantity_Available', 'quantity_Assigned', 'supplie_id', 'machine_equipment_id', 'branch_id'
+        'quantity_Total', 'quantity_Available', 'quantity_Assigned', 'supplie_id', 'equipment_id', 'branch_id'
     ];
 
     public function employe()
@@ -29,7 +29,7 @@ class Inventory extends Model
 
     public function equipment()
     {
-        return $this->belongsTo('App\MachineEquipment','machine_equipment_id');
+        return $this->belongsTo('App\MachineEquipment','equipment_id');
     }
 
     public function InventoryArea()

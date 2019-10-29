@@ -19,7 +19,7 @@ class CreateInventoriesTable extends Migration
             $table->integer('quantity_Available');
             $table->integer('quantity_Assigned');
             $table->unsignedBigInteger('supplie_id')->nullable();
-            $table->unsignedBigInteger('machine_equipment_id')->nullable();
+            $table->unsignedBigInteger('equipment_id')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
@@ -28,9 +28,9 @@ class CreateInventoriesTable extends Migration
             ->on('supplies')
             ->onDelete('CASCADE');
 
-            $table->foreign('machine_equipment_id')
+            $table->foreign('equipment_id')
             ->references('id')
-            ->on('machine_equipment')
+            ->on('equipment')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')

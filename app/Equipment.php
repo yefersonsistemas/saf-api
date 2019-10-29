@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MachineEquipment extends Model //equipo maquinaria
+class Equipment extends Model //equipo maquinaria
 {
-    protected $table = 'machine_equipment';
+    protected $table = 'equipment';
 
     protected $fillable = [
         'name', 'description', 'type_equipment_id', 'branch_id'

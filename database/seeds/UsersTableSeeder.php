@@ -269,83 +269,83 @@ class UsersTableSeeder extends Seeder
                         ]);
         });
 
-        factory(Person::class,5)->create()->each(function ($person){
-            $position = factory(App\Position::class)->create([
-                'name' =>'seguridad',
-                ]);
-               factory(App\Employe::class)->create([
-                   'person_id' => $person->id, 
-                   'position_id' => $position->id
-                   ]);
-                    factory(App\User::class)->create([
-                        'person_id' => $person->id
-                        ])->assignRole('seguridad');
-        });
+        // factory(Person::class,5)->create()->each(function ($person){
+        //     $position = factory(App\Position::class)->create([
+        //         'name' =>'seguridad',
+        //         ]);
+        //        factory(App\Employe::class)->create([
+        //            'person_id' => $person->id, 
+        //            'position_id' => $position->id
+        //            ]);
+        //             factory(App\User::class)->create([
+        //                 'person_id' => $person->id
+        //                 ])->assignRole('seguridad');
+        // });
 
-        factory(Person::class,5)->create()->each(function ($person){
-            $position = factory(App\Position::class)->create([
-                'name' =>'recepcion',
-                ]);
-               factory(App\Employe::class)->create([
-                   'person_id' => $person->id, 
-                   'position_id' => $position->id
-                   ]);
-                    factory(App\User::class)->create([
-                        'person_id' => $person->id
-                        ])->assignRole('recepcion');
-        });
+        // factory(Person::class,5)->create()->each(function ($person){
+        //     $position = factory(App\Position::class)->create([
+        //         'name' =>'recepcion',
+        //         ]);
+        //        factory(App\Employe::class)->create([
+        //            'person_id' => $person->id, 
+        //            'position_id' => $position->id
+        //            ]);
+        //             factory(App\User::class)->create([
+        //                 'person_id' => $person->id
+        //                 ])->assignRole('recepcion');
+        // });
 
-        factory(Person::class,5)->create()->each(function ($person){
-            $position = factory(App\Position::class)->create([
-                'name' =>'IN',
-                ]);
-               factory(App\Employe::class)->create([
-                   'person_id' => $person->id, 
-                   'position_id' => $position->id
-                   ]);
-                    factory(App\User::class)->create([
-                        'person_id' => $person->id
-                        ])->assignRole('IN');
-        });
+        // factory(Person::class,5)->create()->each(function ($person){
+        //     $position = factory(App\Position::class)->create([
+        //         'name' =>'IN',
+        //         ]);
+        //        factory(App\Employe::class)->create([
+        //            'person_id' => $person->id, 
+        //            'position_id' => $position->id
+        //            ]);
+        //             factory(App\User::class)->create([
+        //                 'person_id' => $person->id
+        //                 ])->assignRole('IN');
+        // });
 
-        factory(Person::class,5)->create()->each(function ($person){
-            $position = factory(App\Position::class)->create([
-                'name' =>'OUT',
-                ]);
-               factory(App\Employe::class)->create([
-                   'person_id' => $person->id, 
-                   'position_id' => $position->id
-                   ]);
-                    factory(App\User::class)->create([
-                        'person_id' => $person->id
-                        ])->assignRole('OUT');
-        });
+        // factory(Person::class,5)->create()->each(function ($person){
+        //     $position = factory(App\Position::class)->create([
+        //         'name' =>'OUT',
+        //         ]);
+        //        factory(App\Employe::class)->create([
+        //            'person_id' => $person->id, 
+        //            'position_id' => $position->id
+        //            ]);
+        //             factory(App\User::class)->create([
+        //                 'person_id' => $person->id
+        //                 ])->assignRole('OUT');
+        // });
 
-        factory(Person::class,5)->create()->each(function ($person){
-            $position = factory(App\Position::class)->create([
-                'name' =>'logistica',
-                ]);
-               factory(App\Employe::class)->create([
-                   'person_id' => $person->id, 
-                   'position_id' => $position->id
-                   ]);
-                    factory(App\User::class)->create([
-                        'person_id' => $person->id
-                        ])->assignRole('logistica');
-        });
+        // factory(Person::class,5)->create()->each(function ($person){
+        //     $position = factory(App\Position::class)->create([
+        //         'name' =>'logistica',
+        //         ]);
+        //        factory(App\Employe::class)->create([
+        //            'person_id' => $person->id, 
+        //            'position_id' => $position->id
+        //            ]);
+        //             factory(App\User::class)->create([
+        //                 'person_id' => $person->id
+        //                 ])->assignRole('logistica');
+        // });
 
-        factory(Person::class,5)->create()->each(function ($person){
-            $position = factory(App\Position::class)->create([
-                'name' =>'administracion',
-                ]);
-               factory(App\Employe::class)->create([
-                   'person_id' => $person->id, 
-                   'position_id' => $position->id
-                   ]);
-                    factory(App\User::class)->create([
-                        'person_id' => $person->id
-                        ])->assignRole('administracion');
-        });
+        // factory(Person::class,5)->create()->each(function ($person){
+        //     $position = factory(App\Position::class)->create([
+        //         'name' =>'administracion',
+        //         ]);
+        //        factory(App\Employe::class)->create([
+        //            'person_id' => $person->id, 
+        //            'position_id' => $position->id
+        //            ]);
+        //             factory(App\User::class)->create([
+        //                 'person_id' => $person->id
+        //                 ])->assignRole('administracion');
+        // });
     }
 
 }

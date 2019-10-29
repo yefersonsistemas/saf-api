@@ -13,7 +13,8 @@ $factory->define(Visitor::class, function (Faker $faker) {
     return [
         'person_id' => $person->id,
         'type_visitor' => $faker->randomElement(['Paciente', 'Visitante', 'Empleado']),
-        'status' => $faker->randomElement(['dentro', 'fuera', 'pendiente']),
+        'inside' => null,  //status dentro
+        'outside' => null,   //status fuera
         'branch_id' => $branchoffice->id,
     ];
 });

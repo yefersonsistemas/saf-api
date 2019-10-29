@@ -14,7 +14,7 @@ class TypeEquipment extends Model //tipo de equipos
 
     public function employe()
     {
-        return $this->belongsTo('App\MachineEquipment');
+        return $this->belongsTo('App\Employe');
     }
 
     public function branch()
@@ -24,7 +24,6 @@ class TypeEquipment extends Model //tipo de equipos
 
     public function equipment()
     {
-        return $this->hasMany('App\MachineEquipment');
+        return $this->hasMany('App\Equipment');
     }
-    
 }
