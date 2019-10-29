@@ -154,7 +154,7 @@ class CitaController extends Controller
         }
     }
 
-    public function search_doctor(Request $request){
+    public function search_doctor(Request $request){    //medico asociado a una especialidad 
         $speciality = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
 
         if (!is_null($speciality)) {

@@ -81,4 +81,13 @@ class InventoryAreasController extends Controller
     {
         //
     }
+
+    public function list_inventoryArea(){ //sirve para report
+        $inventoryarea = InventoryArea::with('area.image')->get()->groupBy('area_id');
+
+        return response()->json([
+            'inventoryarea' => $inventoryarea,
+        ]);
+
+    }
 }
