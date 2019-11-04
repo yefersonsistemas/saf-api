@@ -9,7 +9,7 @@ class Diagnostic extends Model
     protected $table = 'diagnostics';
 
     protected $fillable = [
-        'patient_id', 'description', 'reason', 'treatment', 'annex', 'next_cite', 'employe_id', 'branch_id'
+        'patient_id', 'description', 'reason', 'treatment_id', 'indications', 'employe_id', 'branch_id'
     ];
 
     public function patient()
@@ -35,5 +35,10 @@ class Diagnostic extends Model
      public function reservation()
     {
         return $this->belongsTo('App\Reservation');
+    }
+
+    public function treatment()
+    {
+        return $this->belongsTo('App\Treatment');
     }
 }

@@ -24,28 +24,35 @@ class SecurityController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->get(); //mostrar las reservaciones solo del dia
-        $visitors = Visitor::whereDate('created_at', Carbon::now()->format('Y-m-d'))
+        $reservations = Reservation::with('patient.image')->whereDate('date', Carbon::now()->format('Y-m-d'))->get(); //mostrar las reservaciones solo del dia
+        $visitors = Visitor::with('image')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Visitante')
                             ->orWhere('type_visitor', 'Paciente')->get(); //obtener solo registros creados hoy
         //dd($visitors);
         $all = collect([]);
 
+        if (!empty($reservations)) {
             $patients = $reservations->map(function ($item) {
-                $item->person->category = 'paciente';
+                if ($item != null) {
+                    $item->person->category = 'paciente';
                     return $item;
+                }
             });
     
             $visitors = $visitors->map(function ($item) {
-                $item->person->category = 'visitante';
-                return $item;
+                if ($item != null) {
+                    $item->person->category = 'visitante';
+                    return $item;
+                }
             });
-        
-        $all = $patients->concat($visitors);
 
-        return response()->json([
-            'all' => $all,
-        ]);
+            $all = $patients->concat($visitors);
+    
+            return response()->json([
+                'all' => $all,
+            ]);
+        }
+        
     }
 
 
@@ -124,7 +131,6 @@ class SecurityController extends Controller
            $this->create_visitor($person); //lleno solo la tabla visitor
 
             return response()->json([
-                //'person' => $person,
                 'message' => 'Visitante creado',
                 'activo' => 'true',
             ]);
@@ -164,7 +170,7 @@ class SecurityController extends Controller
             'email'       => $request->email,
             'branch_id'   => 1,
         ]);
-
+        
         $this->create_visitor($person);
 
         return response()->json([
@@ -204,6 +210,7 @@ class SecurityController extends Controller
                         'message' => 'Paciente dentro de las instalaciones', 
                     ]);
                 }
+                // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
             }else{
                 if (!empty($visitor->inside) && empty($visitor->outside)) {
                     $visitor->type_visitor = $visitor->type_visitor;

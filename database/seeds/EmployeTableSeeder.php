@@ -22,7 +22,7 @@ class EmployeTableSeeder extends Seeder
             'position_id'    => '1',
         ]);
         
-        factory(Employe::class, 40)->create()->each(function ($employe) {
+        factory(Employe::class, 20)->create()->each(function ($employe) {
             $this->to('employes', $employe->id, 'App\Employe');
         });
     }

@@ -13,6 +13,7 @@ $factory->define(Equipment::class, function (Faker $faker) {
     return [
         'name'  => $faker->word,
         'description'  => $faker->sentence,
+        'quantity'  => $faker->numberBetween($min = 200, $max = 250),
         'type_equipment_id'  => $typeequipment->id,
         'branch_id' => $branchoffice->id,
     ];

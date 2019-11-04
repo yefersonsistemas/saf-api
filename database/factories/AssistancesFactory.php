@@ -2,18 +2,17 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Icome;
-use App\Billing;
+use App\Assistance;
 use App\Branch;
+use App\Employe;
 use Faker\Generator as Faker;
 
-$factory->define(Icome::class, function (Faker $faker) {
-    $billing = Billing::inRandomOrder()->first();
+$factory->define(Assistance::class, function (Faker $faker) {
+    $employe = Employe::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
-
     return [
-        'billing_id' => $billing->id,
-        'total' => $faker->randomFloat,
+        'employe_id' => $employe->id,
+        'status' => $faker->word,
         'branch_id' => $branchoffice->id,
     ];
 });

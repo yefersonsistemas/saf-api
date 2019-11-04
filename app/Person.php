@@ -50,4 +50,9 @@ class Person extends Model
     {
         return $this->belongsTo('App\Position');
     }
+
+    public function notification()
+    {
+        return $this->belongsTo('App\Notification');
+    }
 }

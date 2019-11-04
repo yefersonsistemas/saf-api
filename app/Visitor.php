@@ -12,9 +12,14 @@ class Visitor extends Model //visitantes
     protected $dates = ['deleted_at']; //Registramos la nueva columna
     protected $table = 'visitors';
     
-    protected $fillable = [ //pagos
+    protected $fillable = [
         'person_id', 'type_visitor', 'branch_id', 'inside', 'outside'
     ];
+
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
 
     public function employe()
     {

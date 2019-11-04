@@ -1,9 +1,9 @@
 <?php
 
+use App\Cite;
 use Illuminate\Database\Seeder;
-use App\Icome;
 
-class IcomeTableSeeder extends Seeder
+class CitesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class IcomeTableSeeder extends Seeder
      */
     public function run()
     {
-        Icome::truncate();
-        factory(Icome::class, 20)->create();
+        Cite::truncate();
+        factory(Cite::class, 5)->create();
     }
 }

@@ -81,6 +81,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function notification()
+    {
+        return $this->belongsTo('App\Notification');
+    }
  
     /**
      * Get the first name of the User

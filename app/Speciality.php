@@ -47,4 +47,9 @@ class Speciality extends Model
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function reservation()
+    {
+        return $this->belongsTo('App\Reservation');
+    }
 }

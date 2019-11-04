@@ -9,6 +9,7 @@ use Carbon\Carbon;
 Use App\Patient;
 Use App\Person;
 Use App\Surgery;
+use App\Cite;
 use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdateStatusCiteRequest;
 
@@ -16,7 +17,7 @@ use App\Http\Requests\UpdateStatusCiteRequest;
 class ReceptionController extends Controller
 {
 
-    public function index()
+    public function index() //sirve mas para la App
     {
         $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
                         ->get(); //mostrar las reservaciones solo del dia
@@ -36,6 +37,42 @@ class ReceptionController extends Controller
         }
     }
 
+    public function list_reception(){  //para la vista de reception
+        $rs = Reservation::with('patient.person', 'patient.image')->whereDate('date', Carbon::now()->format('Y-m-d'))
+        ->get();
+
+        if (!empty($rs)) {
+            
+            $rs = $rs->each(function( $r){
+                $patient = Person::where('id', $r->patient_id)->first();
+                if ($patient != null) {
+                    $r->patient = $patient;
+                    return $r; 
+                }
+            });
+            return response()->json([
+                'reservations' => $rs,
+            ]);
+        }
+    }
+
+    public function cite_patient(Request $request){ //envia los datos de la cita por paciente cuando se va a generar la historia
+        $r = Reservation::with('person')->where('patient_id', $request->patient_id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+
+        if (!empty($r)) {
+
+            $patient = Person::where('id', $r->patient_id)->first();
+            if ($patient != null) {
+                $r->patient = $patient;
+                return $r; 
+            }
+           
+            return response()->json([
+                'Reservation' => $r,
+            ]);
+        }
+    }
+
     public function search(Request $request)
     {
         $person = Person::where('dni', $request->dni)->first(); //busco a ver si existe la persona
@@ -50,9 +87,27 @@ class ReceptionController extends Controller
 
     public function create_history(CreatePatientRequest $request)
     {
+
+        $patient    = Patient::all()->last();
+        if ($patient == null) {
+          $number = 1;
+        } else {
+          $number = $patient->id + 1;
+        }
+    
+        if (strlen($number) == 1) {
+          $history_number = 'P-000' . $number;
+        } elseif (strlen($number) == 2) {
+          $history_number = 'P-00' . $number;
+        } elseif (strlen($number) == 3) {
+          $history_number = 'P-0' . $number;
+        } else {
+          $history_number = 'P-' . $number;
+        }
+
         $patient = Patient::create([  
             'date'               => $request['date'],
-            'history_number'     => $request['history_number'],
+            'history_number'     => $history_number,
             'reason'             => $request['reason'],
             'person_id'          => $request['person_id'],
             'gender'             => $request['gender'],
@@ -75,10 +130,62 @@ class ReceptionController extends Controller
         
     }
 
-    public function status_change(Request $request, $id){
+    public function change(Request $request, $id){
  
         // return response()->json([
-        //     'request' => $request->status,
+        //     'request' => $request->cancel,
+        //     'id'      => $id,
+        // ]);
+      
+        $reservation = Reservation::find($id);
+        
+        if (!empty($reservation)) {
+          if ( $reservation->cancel) {
+              $reservation->cancel = $request->cancel;
+      
+              if ($reservation->save()){
+                  return response()->json([
+                      'message' => 'Cita cancelada', 
+                  ]);
+              }
+              
+          }else{
+            $reservation->discontinued = $request->discontinued;
+    
+            if ($reservation->save()){
+                return response()->json([
+                    'message' => 'Cita suspendida', 
+                ]);
+            }
+          }
+        }else{
+            return response()->json([
+                'message' => 'Ha ocurrido un error', 
+            ]);
+        }
+    }
+
+    public function reason(Request $request){  //motivo de cancelar o suspender la cita
+        $data = $request->validate([
+            'reservation_id' => 'required',
+            'reason'  => 'required',
+        ]);
+
+        $cites = Cite::create([
+            'reservation_id' => $data['reservation_id'],
+            'reason' => $data['reason'],
+            'branch_id' => 1
+        ]);
+
+        return response()->json([
+            'message' => 'Registro creado',
+        ]);
+    }
+
+    public function change_discontinued(Request $request, $id){
+ 
+        // return response()->json([
+        //     'request' => $request->cancel,
         //     'id'      => $id,
         // ]);
       
@@ -86,16 +193,16 @@ class ReceptionController extends Controller
         
         if (!empty($reservation)) {
           
-            $reservation->status = 'Cancelado';
+            $reservation->discontinued = $request->discontinued;
     
             if ($reservation->save()){
                 return response()->json([
-                    'message' => 'Cita cancelada', 
+                    'message' => 'Cita suspendida', 
                 ]);
             }
         }else{
             return response()->json([
-                'message' => 'No se pudo cancelar la cita',
+                'message' => 'No se pudo suspender la cita',
             ]);
         }
     }

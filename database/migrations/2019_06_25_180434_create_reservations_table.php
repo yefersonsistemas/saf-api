@@ -24,12 +24,18 @@ class CreateReservationsTable extends Migration
             $table->string('discontinued')->nullable();      //suspendido
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('schedule_id');
+            $table->unsignedBigInteger('specialitie_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('patient_id')
             ->references('id')
             ->on('patients')
+            ->onDelete('CASCADE');  
+
+            $table->foreign('specialitie_id')
+            ->references('id')
+            ->on('specialities')
             ->onDelete('CASCADE');  
 
             $table->foreign('person_id')
