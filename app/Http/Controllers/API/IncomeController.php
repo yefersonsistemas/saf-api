@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 
-class IcomeController extends Controller
+class IncomeController extends Controller
 {
     /**
      * Display a listing of the resource.

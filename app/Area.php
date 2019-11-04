@@ -41,4 +41,9 @@ class Area extends Model //deptos
     {
         return $this->hasMany('App\InventoryArea');
     }
+
+    public function classification()
+    {
+        return $this->belongsTo('App\Classification');
+    }
 }

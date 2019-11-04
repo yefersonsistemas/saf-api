@@ -98,7 +98,8 @@ class CitaController extends Controller
         if ($dia <  $cupos) {
         
             $reservation->date = $request->date;
-            $reservation->status = 'Cancelado';
+            $reservation->schedule_id = $request->schedule_id;
+            //$reservation->status = 'Cancelado';
         
             if($reservation->save()){
                 return response()->json([

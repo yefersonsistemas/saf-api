@@ -16,8 +16,8 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'quantity_Total' => $faker->numberBetween($min = 300, $max = 400),
         'quantity_Available' => $faker->numberBetween($min = 200, $max = 250),
         'quantity_Assigned' => $faker->numberBetween($min = 100, $max = 150),
-        'supplie_id' => $supplie->id,
-        'equipment_id' => $equipment->id,
+        'supplie_id' => null,
+        'equipment_id' => null,
         'branch_id' => $branchoffice->id,
     ];
 });

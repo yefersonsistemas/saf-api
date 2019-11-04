@@ -17,6 +17,7 @@ class CreateEquipmentTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
+            $table->integer('quantity');
             $table->unsignedBigInteger('type_equipment_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();

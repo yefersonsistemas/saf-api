@@ -12,7 +12,7 @@ class SchedulesTableSeeder extends Seeder
      */
     public function run()
     {
-        Schedule::truncate();
-        factory(Schedule::class, 20)->create();
+       // Schedule::truncate();
+        factory(Schedule::class, 10)->create();
     }
 }

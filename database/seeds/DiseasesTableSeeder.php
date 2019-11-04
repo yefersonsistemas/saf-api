@@ -14,7 +14,7 @@ class DiseasesTableSeeder extends Seeder
     public function run()
     {
         Disease::truncate();
-        factory(Disease::class, 20)->create()->each(function ($disease) { 
+        factory(Disease::class,5)->create()->each(function ($disease) { 
             $patients = Patient::with('disease')->get();  
                        
             $patients = $patients->each(function ($patient) { 

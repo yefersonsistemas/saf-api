@@ -18,21 +18,24 @@ class DatabaseSeeder extends Seeder
         $this->call(BranchTableSeeder::class);
         $this->call(PersonTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(PositionsTableSeeder::class);
-        $this->call(EmployeTableSeeder::class);
+        // $this->call(PositionsTableSeeder::class);
+        // $this->call(EmployeTableSeeder::class);
         $this->call(VisitorTableSeeder::class);
         $this->call(PatientsTableSeeder::class);
-        $this->call(SchedulesTableSeeder::class);
-        $this->call(ReservationsTableSeeder::class);
+        // $this->call(SchedulesTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
         $this->call(SpecialitiesTableSeeder::class);
+        $this->call(ReservationsTableSeeder::class);
+        $this->call(CitesTableSeeder::class);
         $this->call(ConsultationTypesTableSeeder::class);
         $this->call(ConfigurationsTableSeeder::class);
+        $this->call(TreatmentsTableSeeder::class);
         $this->call(DiagnosticsTableSeeder::class);
         $this->call(TypeAreasTableSeeder::class);
         $this->call(AreasTableSeeder::class);
+        $this->call(ClassificationsTableSeeder::class);
         $this->call(AreaAssigmentsTableSeeder::class);
-        $this->call(DiseasesTableSeeder::class);
+        //$this->call(DiseasesTableSeeder::class);
         $this->call(MedicinesTableSeeder::class);
         $this->call(BalancesTableSeeder::class);
         $this->call(TypeDoctorTableSeeder::class);
@@ -50,10 +53,14 @@ class DatabaseSeeder extends Seeder
         $this->call(InventoriesTableSeeder::class);
         $this->call(InventoryAreasTableSeeder::class);
         $this->call(BillingsTableSeeder::class);
-        $this->call(IcomeTableSeeder::class);
+        $this->call(IncomeTableSeeder::class);
         $this->call(ExamTableSeeder::class);
         $this->call(TypeCleaningTableSeeder::class);
         $this->call(CleaningRecordTableSeeder::class);
+        $this->call(NotificationsTableSeeder::class);
+        $this->call(BudgetTableSeeder::class);
+        $this->call(AssistanceTableSeeder::class);
+        $this->call(ItineraryTableSeeder::class);
         Schema::enableForeignKeyConstraints();
     }
 }

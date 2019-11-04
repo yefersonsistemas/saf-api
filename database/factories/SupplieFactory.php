@@ -14,6 +14,7 @@ $factory->define(Supplie::class, function (Faker $faker) {
         'name'  => $faker->word,
         'type_supplie_id'  => $typesupplie->id,
         'presentation'  => $faker->word,
+        'quantity'  => $faker->numberBetween($min = 200, $max = 250),
         'branch_id' => $branchoffice->id,
     ];
 });

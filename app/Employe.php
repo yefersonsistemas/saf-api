@@ -106,4 +106,9 @@ class Employe extends Model
     {
         return $this->belongsTo('App\Diagnostic');
     }
+
+    public function assistance()
+    {
+        return $this->belongsTo('App\Assistance');
+    }    
 }

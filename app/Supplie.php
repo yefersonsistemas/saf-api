@@ -9,7 +9,7 @@ class Supplie extends Model //insumos
     protected $table = 'supplies';
 
     protected $fillable = [ //pagos
-        'name', 'type_supplie_id', 'presentation', 'branch_id'
+        'name', 'type_supplie_id', 'presentation', 'quantity', 'branch_id'
     ];
 
     public function inventory()

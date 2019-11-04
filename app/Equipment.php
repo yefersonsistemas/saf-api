@@ -9,7 +9,7 @@ class Equipment extends Model //equipo maquinaria
     protected $table = 'equipment';
 
     protected $fillable = [
-        'name', 'description', 'type_equipment_id', 'branch_id'
+        'name', 'description', 'quantity', 'type_equipment_id', 'branch_id'
     ];
 
     public function inventory()

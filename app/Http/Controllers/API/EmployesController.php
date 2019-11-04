@@ -259,7 +259,7 @@ class EmployesController extends Controller
                
             ]);
         }
-    }
+    }  //hacer q muestre los datos tambien del paciente
 
     public function patient_on_day(Request $request){  //pacientes del dia por doctor
         $patients = Reservation::with('patient')->where('person_id', $request->person_id)

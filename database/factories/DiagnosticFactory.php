@@ -6,10 +6,12 @@ use App\Diagnostic;
 use App\Patient;
 use App\Employe;
 use App\Branch;
+use App\Treatment;
 use Faker\Generator as Faker;
 
 $factory->define(Diagnostic::class, function (Faker $faker) {
     $patient = Patient::inRandomOrder()->first();
+    $treatment = Treatment::inRandomOrder()->first();
     $employes = Employe::with('person.user')->get(); //trae todos los empleados q estan relacinados con persona 
                                                     //y con un usuario en el sistema
     $employes = $employes->each(function ($item) { //recorre c/u de los empleados y lo va guardando en item
@@ -18,16 +20,14 @@ $factory->define(Diagnostic::class, function (Faker $faker) {
         }
     });                                             //usuario y q ademas tenga el rol sea doctor
 
-
     $branchoffice = Branch::inRandomOrder()->first();
 
     return [
         'patient_id'  => $patient->id,
         'description' => $faker->sentence(8),
         'reason'      => $faker->sentence(5),
-        'treatment'   => $faker->paragraph,
-        'annex'       => $faker->paragraph,
-        'next_cite'   => $faker->date,
+        'treatment_id' => $treatment->id,
+        'indications' => $faker->sentence(5),
         'employe_id'  => $employes->random()->id,
         'branch_id'   => $branchoffice->id,
     ];

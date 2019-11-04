@@ -12,7 +12,7 @@ class PositionsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Position::truncate();
+        Position::truncate();
 
         // factory(Position::class)->create([
         //     'name'    => 'doctor',
@@ -22,6 +22,6 @@ class PositionsTableSeeder extends Seeder
             'name'    => 'mantenimiento',
         ]);
 
-         factory(Position::class, 5)->create();
+         //factory(Position::class, 5)->create();
     }
 }

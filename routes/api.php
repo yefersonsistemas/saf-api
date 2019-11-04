@@ -63,7 +63,10 @@ Route::group(['prefix' => 'auth'], function () {
         //rutas rol recepcion
         Route::group(['prefix' => 'reception'], function(){
             Route::get('/', 'API\ReceptionController@index');  // listo
-            Route::put('cancel/{id}', 'API\ReceptionController@status_change'); //cancela la cita
+            Route::get('list', 'API\ReceptionController@list_reception');
+            Route::POST('cite/patient', 'API\ReceptionController@cite_patient');
+            Route::put('cancel/{id}', 'API\ReceptionController@change'); //cancela/suspende la cita
+            Route::POST('reason', 'API\ReceptionController@reason');
             Route::POST('surgeries', 'API\ReceptionController@surgeries'); //muestra todas las cirugias por medico
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto
             Route::POST('search'    , 'API\ReceptionController@search');  // listo
