@@ -250,7 +250,7 @@ class EmployesController extends Controller
     } 
     
     public function record_patient(Request $request){  //todos los pacientes por doctor
-        $employe = Employe::with('person.user', 'patient')->where('id', $request->id)->first();
+        $employe = Employe::with('person.user', 'patient.person')->where('id', $request->id)->first();
 
         if (!is_null($employe)) {
             
@@ -259,7 +259,7 @@ class EmployesController extends Controller
                
             ]);
         }
-    }  //hacer q muestre los datos tambien del paciente
+    } 
 
     public function patient_on_day(Request $request){  //pacientes del dia por doctor
         $patients = Reservation::with('patient')->where('person_id', $request->person_id)

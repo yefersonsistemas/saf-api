@@ -52,4 +52,9 @@ class Speciality extends Model
     {
         return $this->belongsTo('App\Reservation');
     }
+
+    public function diagnostic()
+    {
+        return $this->belongsTo('App\Diagnostic');
+    }
 }

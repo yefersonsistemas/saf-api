@@ -315,7 +315,7 @@ class PatientController extends Controller
 
   public function record_cite(Request $request){
   //$cite = Reservation::with('patient.diagnostic')->where('patient_id', $request->patient_id)->get();
-  $cite = Patient::with('reservation','diagnostic')->where('id', $request->id)->first();
+  $cite = Patient::with('reservation.speciality','diagnostic.treatment')->where('id', $request->id)->first();
   
       return response()->json([
         'Patient' => $cite,
