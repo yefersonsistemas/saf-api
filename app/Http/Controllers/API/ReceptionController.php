@@ -87,7 +87,6 @@ class ReceptionController extends Controller
 
     public function create_history(CreatePatientRequest $request)
     {
-
         $patient    = Patient::all()->last();
         if ($patient == null) {
           $number = 1;
@@ -130,34 +129,19 @@ class ReceptionController extends Controller
         
     }
 
-    public function change(Request $request, $id){
- 
-        // return response()->json([
-        //     'request' => $request->cancel,
-        //     'id'      => $id,
-        // ]);
+    public function change(Request $request){
       
-        $reservation = Reservation::find($id);
+        $reservation = Reservation::find($request->id);
         
         if (!empty($reservation)) {
-          if ( $reservation->cancel) {
-              $reservation->cancel = $request->cancel;
+              $reservation->cancel = 'Cancelado';
       
               if ($reservation->save()){
+                  $this->reason($request);
                   return response()->json([
                       'message' => 'Cita cancelada', 
                   ]);
               }
-              
-          }else{
-            $reservation->discontinued = $request->discontinued;
-    
-            if ($reservation->save()){
-                return response()->json([
-                    'message' => 'Cita suspendida', 
-                ]);
-            }
-          }
         }else{
             return response()->json([
                 'message' => 'Ha ocurrido un error', 
@@ -182,20 +166,16 @@ class ReceptionController extends Controller
         ]);
     }
 
-    public function change_discontinued(Request $request, $id){
- 
-        // return response()->json([
-        //     'request' => $request->cancel,
-        //     'id'      => $id,
-        // ]);
+    public function change_discontinued(Request $request){
       
-        $reservation = Reservation::find($id);
+        $reservation = Reservation::find($request->id);
         
         if (!empty($reservation)) {
           
-            $reservation->discontinued = $request->discontinued;
+            $reservation->discontinued = 'Suspendido';
     
             if ($reservation->save()){
+                $this->reason($request);
                 return response()->json([
                     'message' => 'Cita suspendida', 
                 ]);

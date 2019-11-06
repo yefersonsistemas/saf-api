@@ -41,4 +41,9 @@ class Diagnostic extends Model
     {
         return $this->belongsTo('App\Treatment');
     }
+
+    public function speciality()
+    {
+        return $this->belongsTo('App\Speciality');
+    }
 }

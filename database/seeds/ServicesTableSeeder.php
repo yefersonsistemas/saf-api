@@ -13,6 +13,6 @@ class ServicesTableSeeder extends Seeder
     public function run()
     {
         Service::truncate();
-        factory(Service::class, 20)->create();
+        factory(Service::class, 5)->create();
     }
 }

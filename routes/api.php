@@ -54,7 +54,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create', 'API\SecurityController@all_visitor');  // corregido funciona bien
             Route::POST('create/person', 'API\SecurityController@only_person'); // registra solo en person
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            Route::put('status/{id}', 'API\SecurityController@status');
+            Route::POST('inside', 'API\SecurityController@statusIn'); //actualizacion de registro
+            Route::POST('outside', 'API\SecurityController@statusOut');
             // Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
             // Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
             Route::POST('search', 'API\SecurityController@search');  // corregido funciona bien
@@ -65,7 +66,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/', 'API\ReceptionController@index');  // listo
             Route::get('list', 'API\ReceptionController@list_reception');
             Route::POST('cite/patient', 'API\ReceptionController@cite_patient');
-            Route::put('cancel/{id}', 'API\ReceptionController@change'); //cancela/suspende la cita
+            Route::POST('cancel', 'API\ReceptionController@change'); //cancela/suspende la cita
+            Route::POST('suspendida', 'API\ReceptionController@change_discontinued');
             Route::POST('reason', 'API\ReceptionController@reason');
             Route::POST('surgeries', 'API\ReceptionController@surgeries'); //muestra todas las cirugias por medico
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto

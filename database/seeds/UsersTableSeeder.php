@@ -5,13 +5,8 @@ use Illuminate\Database\Seeder;
 use App\User;
 use App\Person;
 use App\Position;
-//use App\Diagnostic;
 use App\Patient;
-//use App\Procedure;
-//use App\Reservation;
 use App\Schedule;
-//use App\Treatment;
-
 
 class UsersTableSeeder extends Seeder
 {
