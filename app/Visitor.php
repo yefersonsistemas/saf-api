@@ -23,7 +23,7 @@ class Visitor extends Model //visitantes
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe', 'person_id');
+        return $this->belongsTo('App\Employe');
     }
 
     public function position()

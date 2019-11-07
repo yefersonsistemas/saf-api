@@ -38,15 +38,16 @@ class ReceptionController extends Controller
     }
 
     public function list_reception(){  //para la vista de reception
-        $rs = Reservation::with('patient.person', 'patient.image')->whereDate('date', Carbon::now()->format('Y-m-d'))
+        $rs = Reservation::with('speciality','person')->whereDate('date', Carbon::now()->format('Y-m-d'))
         ->get();
 
         if (!empty($rs)) {
             
-            $rs = $rs->each(function( $r){
+            $rs = $rs->map(function( $r){
                 $patient = Person::where('id', $r->patient_id)->first();
-                if ($patient != null) {
-                    $r->patient = $patient;
+                if ($r != null && $patient != null) {
+                    $r->patient->image;
+                    $r->patient->person;
                     return $r; 
                 }
             });
@@ -57,7 +58,7 @@ class ReceptionController extends Controller
     }
 
     public function cite_patient(Request $request){ //envia los datos de la cita por paciente cuando se va a generar la historia
-        $r = Reservation::with('person')->where('patient_id', $request->patient_id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        $r = Reservation::with('speciality','person')->where('patient_id', $request->patient_id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
         if (!empty($r)) {
 
@@ -85,7 +86,7 @@ class ReceptionController extends Controller
         }
     }
 
-    public function create_history(CreatePatientRequest $request)
+    public function generate_number()
     {
         $patient    = Patient::all()->last();
         if ($patient == null) {
@@ -103,6 +104,14 @@ class ReceptionController extends Controller
         } else {
           $history_number = 'P-' . $number;
         }
+
+        return $history_number;
+    }
+
+    public function create_history(CreatePatientRequest $request)
+    {
+
+        $history_number = $this->generate_number();
 
         $patient = Patient::create([  
             'date'               => $request['date'],
@@ -129,7 +138,24 @@ class ReceptionController extends Controller
         
     }
 
-    public function change(Request $request){
+    public function reason(Request $request){  //motivo de cancelar o suspender la cita
+        $data = $request->validate([
+            'reservation_id' => 'required',
+            'reason'  => 'required',
+        ]);
+
+        $cites = Cite::create([
+            'reservation_id' => $data['reservation_id'],
+            'reason' => $data['reason'],
+            'branch_id' => 1
+        ]);
+
+        return response()->json([
+            'message' => 'Registro creado',
+        ]);
+    }
+
+    public function cancel(Request $request){
       
         $reservation = Reservation::find($request->id);
         
@@ -149,24 +175,7 @@ class ReceptionController extends Controller
         }
     }
 
-    public function reason(Request $request){  //motivo de cancelar o suspender la cita
-        $data = $request->validate([
-            'reservation_id' => 'required',
-            'reason'  => 'required',
-        ]);
-
-        $cites = Cite::create([
-            'reservation_id' => $data['reservation_id'],
-            'reason' => $data['reason'],
-            'branch_id' => 1
-        ]);
-
-        return response()->json([
-            'message' => 'Registro creado',
-        ]);
-    }
-
-    public function change_discontinued(Request $request){
+    public function discontinued(Request $request){ //fecha limite
       
         $reservation = Reservation::find($request->id);
         
@@ -187,12 +196,53 @@ class ReceptionController extends Controller
         }
     }
 
-    public function surgeries(Request $request){
-        $s = Surgery::where('employe_id', $request->employe_id)->get();
-
-        if(!is_null($s)){
+    public function approved(Request $request){
+      
+        $reservation = Reservation::find($request->id);
+        
+        if (!empty($reservation)) {
+          
+            $reservation->approved = 'Aprobado';
+    
+            if ($reservation->save()){
+               return response()->json([
+                    'message' => 'Confirmada', 
+                ]);
+            }
+        }else{
             return response()->json([
-                'surgeries' => $s,
+                'message' => 'No se pudo confirmar la cita',
+            ]);
+        }
+    }
+
+    public function list_S(Request $request)
+    {
+        $cites = Reservation::with('cite')->where('discontinued', 'Suspendido')->get();
+
+        if (!is_null($cites)) {
+            return response()->json([
+                'discontinued' => $cites, 
+
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No hay citas suspendidas',
+            ]);
+        }
+    }
+
+    public function list_C()
+    {
+        $cites = Reservation::with('cite')->where('cancel', 'Cancelado')->get();
+
+        if (!empty($cites)) {
+            return response()->json([
+                'cancel' => $cites, 
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No hay citas canceladas',
             ]);
         }
     }

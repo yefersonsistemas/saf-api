@@ -10,7 +10,6 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Medicine;
 use App\Patient;
 use App\Person;
-use App\Reservation;
 use App\Employe;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -314,13 +313,32 @@ class PatientController extends Controller
   }
 
   public function record_cite(Request $request){
-  //$cite = Reservation::with('patient.diagnostic')->where('patient_id', $request->patient_id)->get();
-  $cite = Patient::with('reservation.speciality','diagnostic.treatment')->where('id', $request->id)->first();
+  $cite = Patient::with('reservation.speciality','diagnostic.treatment','reservation.person')->where('id', $request->id)->first();
   
       return response()->json([
         'Patient' => $cite,
       ]);
 
+  }
+
+  public function update_patient(Request $request)
+  {
+    $patient = Patient::find($request->id);
+
+    $patient->age = $request->age;
+    $patient->weight = $request->weight;
+    $patient->occupation = $request->occupation;
+    $patient->profession = $request->profession;
+
+    if($patient->save()){
+      return response()->json([
+          'message' => 'Modificacion exitosa',
+      ]);
+  }else{
+      return response()->json([
+          'message' => 'No se pudo actualizar los datos',
+      ]);
+  }
   }
   
 }

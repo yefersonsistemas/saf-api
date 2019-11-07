@@ -14,6 +14,6 @@ class Cite extends Model  //guarda las citas suspendidas y canceladas
 
     public function reservation()
     {
-        return $this->belongsTo('App\Reservation', 'person_id');
+        return $this->belongsTo('App\Reservation');
     }
 }

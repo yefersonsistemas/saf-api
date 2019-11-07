@@ -22,7 +22,32 @@ class EmployesController extends Controller
      */
     public function index()
     {
-        $employe = Visitor::with('person.employe.position')->where('type_visitor', 'Empleado')->get();
+        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+        $employes = Employe::all();
+        $days = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes');
+
+        $employes->each( function ($employe) {
+            if ($employe->position->name == 'doctor') {
+                $dia = Carbon::now()->dayOfWeek;
+                $employe->schedule->contains($dia);
+            }
+        });
+
+
+        if ($reservations->isNotEmpty()) {
+            foreach ($reservations as $person) {
+                Visitor::create([
+                    'person_id' => $person->person_id,
+                    'type_visitor' => 'Empleado',
+                    'inside'    => null,
+                    'outside'   => null,
+                    'branch_id' => 1
+                    ]);
+                }
+            }
+            
+        $employe = Visitor::with('person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+                            ->where('type_visitor', 'Empleado')->get();
 
         return response()->json([
             'employes' => $employe,
@@ -131,6 +156,31 @@ class EmployesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function statusIn(Request $request){
+        
+        $visitor = Visitor::where('person_id', $request->id)->first();
+    
+        if (!empty($visitor)) {
+            $visitor->type_visitor = 'Empleado';
+            $visitor->inside = Carbon::now();
+
+            if ($visitor->save()){
+                // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
+                return response()->json([
+                    'message' => 'Empleado dentro de las instalaciones', 
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No guardo', 
+                ]);
+            }
+        }else{
+            return response()->json([
+                'message' => 'No actualizo', 
+            ]);
+        }
     }
 
     // public function statusIn(Request $request)

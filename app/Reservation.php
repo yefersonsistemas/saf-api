@@ -54,7 +54,7 @@ class Reservation extends Model
 
     public function cite()
     {
-        return $this->belongsTo('App\Cite');
+        return $this->hasmany('App\Cite', 'reservation_id');
     }
 
     public function speciality()

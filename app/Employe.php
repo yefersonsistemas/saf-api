@@ -111,4 +111,9 @@ class Employe extends Model
     {
         return $this->belongsTo('App\Assistance');
     }    
+
+    public function visitor()
+    {
+        return $this->belongsTo('App\Visitor');
+    } 
 }

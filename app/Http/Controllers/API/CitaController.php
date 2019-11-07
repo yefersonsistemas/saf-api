@@ -25,27 +25,30 @@ class CitaController extends Controller
         $fecha = Carbon::parse($request['date']); 
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
+        //dd($date);
         $diaDeReserva = ucfirst($fecha->dayName); 
-
+        //dd($diaDeReserva);
         $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
        // dd($dia);                  
         $cupos = $dia->quota; //obtengo el valor de quota 
        // dd($cupos);  
-        $dia = Reservation::whereDate('date', $date)->where('status', 'Aprobado')->get()->count(); //obtengo todos los registros de ese dia y los cuento
+        $dia = Reservation::whereDate('date', $date)->get()->count(); //obtengo todos los registros de ese dia y los cuento
        // dd($dia);                                
         if ($employe->person->user->hasRole('doctor')) {  //el empleado debe ser doctor por rol y ocupacion sino no crea
 
             if ($dia <  $cupos) {
 
                 $patient= Patient::where('person_id', $request['patient_id'])->first();
+                //dd($patient);
+                //dd($patient->id);
             
                 $reservation = Reservation::create([		
                     'date' => $request['date'],
                     'description' => $request['description'],
                     'patient_id' => $patient->id,
-                    'status' => 'Pendiente',
                     'person_id' => $request['person_id'],
                     'schedule_id' => $request['schedule_id'],
+                    'specialitie_id' => $request['specialitie_id'],
                     'branch_id' => 1,
                 ]);
             }
@@ -60,9 +63,21 @@ class CitaController extends Controller
         }
     }
 
-    public function update_cite(UpdateCiteRequest $request, $id){
+    public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar
+        $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient.person')->where('id', $request->id)->first();
+        //dd($reservation);
 
-        $reservation = Reservation::find($id);
+        if (!empty($reservation)) {
+
+            return response()->json([
+                'all' =>  $reservation,
+            ]);
+        }
+    }
+
+    public function update_cite(UpdateCiteRequest $request){
+
+        $reservation = Reservation::find($request->id);
 
         if (is_null($reservation)) {
             return response()->json([
@@ -93,13 +108,17 @@ class CitaController extends Controller
                                               
         $cupos = $schedule->quota; 
 
-        $dia = Reservation::whereDate('date', $date)->where('status', 'Aprobado')->get()->count();
+        $dia = Reservation::whereDate('date', $date)->get()->count();
         
         if ($dia <  $cupos) {
         
             $reservation->date = $request->date;
+            $reservation->description = $request->description;
+            $reservation->patient_id = $request->patient_id;
+            $reservation->person_id = $request->person_id;
             $reservation->schedule_id = $request->schedule_id;
-            //$reservation->status = 'Cancelado';
+            $reservation->specialitie_id = $request->specialitie_id;
+            $reservation->reschedule = 'Reprogramado';
         
             if($reservation->save()){
                 return response()->json([
@@ -107,7 +126,7 @@ class CitaController extends Controller
                 ]);
             }else{
                 return response()->json([
-                    'message' => 'No se pudo actualizarla fecha',
+                    'message' => 'No se pudo actualizar la fecha',
                 ]);
             }
         }else{

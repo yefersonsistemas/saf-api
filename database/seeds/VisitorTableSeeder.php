@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Visitor;
+use App\Person;
 use App\Traits\ImageFactory;
 
 class VisitorTableSeeder extends Seeder
@@ -17,8 +18,11 @@ class VisitorTableSeeder extends Seeder
         Visitor::truncate();
         $this->deleteDirectory(storage_path('/app/public/visitor'));
 
-        factory(Visitor::class, 20)->create()->each(function ($visitor) {
-            $this->to('visitor', $visitor->id, 'App\Visitor');
+        factory(Person::class,5)->create()->each(function ($person) {
+            $visitor = factory(Visitor::class)->create([
+                'person_id' => $person->id,
+            ]);
+            $this->to('visitor', $visitor->id, 'App\Visitor');            
         });
 ;
     }
