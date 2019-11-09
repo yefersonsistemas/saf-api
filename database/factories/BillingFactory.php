@@ -13,8 +13,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Billing::class, function (Faker $faker) {
     $person = Person::inRandomOrder()->first();
-    $procedure = Procedure::inRandomOrder()->first();
-    $employe = Employe::inRandomOrder()->first();
+    do {
+        $procedure = Procedure::with('employe')->inRandomOrder()->first();
+    } while ($procedure->employe->isEmpty());
+    // $employe = Employe::inRandomOrder()->first();
     $patient = Patient::inRandomOrder()->first();
     $typepayment = TypePayment::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
