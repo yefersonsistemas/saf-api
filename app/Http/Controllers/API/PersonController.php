@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Person;
 
 class PersonController extends Controller
 {
@@ -81,4 +83,21 @@ class PersonController extends Controller
     {
         //
     }
+
+    public function update_person(Request $request) //cambiar direccion de paciente en la historia
+  {
+    $patient = Person::find($request->id);
+
+    $patient->address = $request->address;
+
+    if($patient->save()){
+        return response()->json([
+            'message' => 'Direccion modificada',
+        ]);
+    }else{
+        return response()->json([
+            'message' => 'No se pudo actualizar la direccion',
+        ]);
+    }
+  }
 }

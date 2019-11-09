@@ -13,6 +13,6 @@ class CitesTableSeeder extends Seeder
     public function run()
     {
         Cite::truncate();
-        factory(Cite::class, 5)->create();
+        //factory(Cite::class)->create();
     }
 }

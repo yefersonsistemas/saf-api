@@ -54,10 +54,10 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create', 'API\SecurityController@all_visitor');  // corregido funciona bien
             Route::POST('create/person', 'API\SecurityController@only_person'); // registra solo en person
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            Route::POST('inside', 'API\SecurityController@statusIn'); //actualizacion de registro
-            Route::POST('outside', 'API\SecurityController@statusOut');
-            // Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
-            // Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
+            //Route::POST('inside', 'API\SecurityController@statusIn'); //actualizacion de registro
+           // Route::POST('outside', 'API\SecurityController@statusOut');
+            Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
+            Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
             Route::POST('search', 'API\SecurityController@search');  // corregido funciona bien
         });
 
@@ -66,18 +66,26 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('/', 'API\ReceptionController@index');  // listo
             Route::get('list', 'API\ReceptionController@list_reception');
             Route::POST('cite/patient', 'API\ReceptionController@cite_patient');
-            Route::POST('cancel', 'API\ReceptionController@change'); //cancela/suspende la cita
-            Route::POST('suspendida', 'API\ReceptionController@change_discontinued');
+            Route::POST('cancel', 'API\ReceptionController@cancel'); //cancela/suspende la cita
+            Route::POST('discontinued', 'API\ReceptionController@discontinued');
+            Route::POST('approved', 'API\ReceptionController@approved');
             Route::POST('reason', 'API\ReceptionController@reason');
-            Route::POST('surgeries', 'API\ReceptionController@surgeries'); //muestra todas las cirugias por medico
-            Route::POST('create', 'API\ReceptionController@create_history');  //lissto
-            Route::POST('search'    , 'API\ReceptionController@search');  // listo
+            Route::POST('surgeries', 'API\SurgerysController@surgeries'); //muestra todas las cirugias por medico
+            Route::POST('create', 'API\ReceptionController@create_history');  //lissto.
+            Route::POST('update', 'API\PersonController@update_person');
+            Route::POST('update/patient', 'API\PatientController@update_patient');
+            Route::POST('search', 'API\ReceptionController@search');  // listo 
+            Route::get('list/discontinued', 'API\ReceptionController@list_S');
+            Route::get('list/cancel', 'API\ReceptionController@list_C');
+            Route::POST('delete', 'API\ReceptionController@delete_cite');
+            Route::get('reservation', 'API\ReceptionController@list_R');
         });
 
         //rutas generar cita/reservacion
         Route::group(['prefix' => 'cite'], function(){
             Route::POST('create', 'API\CitaController@create_cite'); //listo
-            Route::put('/{id}', 'API\CitaController@update_cite'); // listo
+            Route::POST('reschedule', 'API\CitaController@only_id');//id para reprogramar cita
+            Route::POST('update', 'API\CitaController@update_cite'); // listo
             Route::delete('delete/{id}', 'API\CitaController@delete_cite');  //listo
             Route::POST('search', 'API\CitaController@search');  //buscar persona para luego agendar cita 1era vez
             Route::POST('search/speciality', 'API\CitaController@search_doctor');
@@ -85,14 +93,21 @@ Route::group(['prefix' => 'auth'], function () {
         });
 
         //rutas rol in y out
-        Route::group(['prefix' => 'IO'], function(){
+        Route::group(['prefix' => 'in'], function(){
             Route::POST('search', 'API\InController@search');  // listo
             Route::get('search/area', 'API\AreasController@search_area');
             Route::POST('assigment', 'API\InController@assigment');  // asignar consultorio listo
             //Route::POST('area', 'API\InController@status');  // listo
             Route::get('list', 'API\AreasController@list_area');  // listo
-            Route::POST('create', 'API\InController@billing');  // listo 
         });
+
+        Route::group(['prefix' => 'out'], function(){
+            Route::get('show', 'API\OutController@show_P');
+            Route::get('/', 'API\PatientController@index');
+            Route::POST('create', 'API\OutController@billing');  // listo 
+        });
+
+
 
         //rutas rol logistica
         Route::group(['prefix' => 'supplie'], function(){
@@ -156,9 +171,12 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'employe'], function(){
             Route::get('/', 'API\EmployesController@index');  // listo
             Route::get('/list','API\EmployesController@list');  //muestra todos los medicos con procedimientos
+            Route::get('all/doctors','API\EmployesController@all_doctors'); //todos los medicos 
+            Route::get('doctor/onday','API\EmployesController@doctor_on_day'); //medicos del dia
             Route::POST('create', 'API\EmployesController@store');  // listo
-            //Route::POST('inside', 'API\EmployesController@statusIn');  //listo
+            Route::POST('inside', 'API\EmployesController@statusIn');  //listo
             Route::POST('outside', 'API\SecurityController@statusOut');  //listo
+            Route::POST('assistance', 'API\EmployesController@status');
         });
         
         //rutas para la App

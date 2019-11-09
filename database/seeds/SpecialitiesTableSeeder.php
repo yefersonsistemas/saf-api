@@ -19,13 +19,13 @@ class SpecialitiesTableSeeder extends Seeder
         Speciality::truncate();
         $this->deleteDirectory(storage_path('/app/public/speciality'));
 
-        factory(Speciality::class, 10)->create()->each(function ($speciality) {
+        factory(Speciality::class, 20)->create()->each(function ($speciality) {
            $this->to('speciality', $speciality->id, 'App\Speciality');
 
-            $employes = Employe::with('person.user')->get();
+            $employe = Employe::with('person.user')->get();
 
-            $employes = $employes->each(function ($employe) {
-                if($employe->person->user != null){
+            $employes = $employe->each(function ($employe) {
+                if($employe->person->user != null && $employe->person->user->role('doctor')){
                     return $employe->person->user->role('doctor'); 
                 } 
             });                                                   

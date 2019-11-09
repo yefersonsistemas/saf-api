@@ -25,11 +25,8 @@ class SecurityController extends Controller
     public function index()
     {
         $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->get(); //mostrar las reservaciones solo del dia
-        $visitors = Visitor::with('image')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
-                            ->where('type_visitor', 'Visitante')
-                            ->orWhere('type_visitor', 'Paciente')->get(); //obtener solo registros creados hoy
         //dd($visitors);
-        $all = collect([]);
+        //$all = collect([]);
 
         if (!empty($reservations)) {
             $patients = $reservations->map(function ($item) {
@@ -40,18 +37,34 @@ class SecurityController extends Controller
                     return $item; 
                 }
             });
-    
-            $visitors = $visitors->map(function ($item) {
-                if ($item != null) {
-                    $item->person->category = 'visitante';
-                    return $item;
-                }
-            });
 
-            $all = $patients->concat($visitors);
+            if ($patients->isNotEmpty()) {
+                foreach ($patients as $patient) {
+                    Visitor::create([
+                        'person_id' => $patient->id,
+                        'type_visitor' => 'Paciente',
+                        'inside'    => null,
+                        'outside'   => null,
+                        'branch_id' => 1
+                    ]);
+                }
+            }
+
+            $visitors = Visitor::with('image', 'person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+                            ->where('type_visitor', 'Visitante')
+                            ->orWhere('type_visitor', 'Paciente')->get(); //obtener solo registros creados hoy
+    
+            // $visitors = $visitors->map(function ($item) {
+            //     if ($item != null) {
+            //         $item->person->category = 'visitante';
+            //         return $item;
+            //     }
+            // });
+
+            // $all = $patients->concat($visitors);
     
             return response()->json([
-                'all' => $all,
+                'all' => $visitors,
             ]);
         }  
     }
@@ -146,11 +159,13 @@ class SecurityController extends Controller
 
     public function only_person(CreateVisitorRequest $request){
         $person = Person::create([  //agregar un visitante colado o q no se vea el/ella pero si otra persona 
+                                    //o q paga la factura de un paciente
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
             'name'        => $request->name,
             'lastname'    => $request->lastname,
             'address'     => $request->address,
+            'phone'       => $request->phone,
             'email'       => $request->email,
             'branch_id'   => 1,
         ]);
@@ -168,6 +183,7 @@ class SecurityController extends Controller
             'name'        => $request->name,
             'lastname'    => $request->lastname,
             'address'     => $request->address,
+            'phone'       => $request->phone,
             'email'       => $request->email,
             'branch_id'   => 1,
         ]);
@@ -193,13 +209,13 @@ class SecurityController extends Controller
         $person->visitor()->associate($visitor->id); //asociar un visitante a una persona que ya tiene registro
 
         return response()->json([
-            'message' => 'Visitante creado y dentro de las instalaciones',
+            'message' => 'Visitante registrado y dentro de las instalaciones',
         ]);
     }
 
     public function statusIn(Request $request){
         
-        $visitor = Visitor::find($request->id);
+        $visitor = Visitor::where('person_id', $request->id)->first();
     
         if (!empty($visitor)) {
             $visitor->type_visitor = 'Paciente';
@@ -210,15 +226,24 @@ class SecurityController extends Controller
                 return response()->json([
                     'message' => 'Paciente dentro de las instalaciones', 
                 ]);
-            } 
+            }else{
+                return response()->json([
+                    'message' => 'No guardo', 
+                ]);
+            }
+        }else{
+            return response()->json([
+                'message' => 'No actualizo', 
+            ]);
         }
     }
 
     public function statusOut(Request $request)
     {
-        $visitor = Visitor::find($request->id);
-
-        if (!empty($visitor)) {
+        $visitor = Visitor::where('person_id', $request->id)->first();
+       // dd($visitor);
+    
+        if (!empty($visitor) && !empty($visitor->inside)) {
             $visitor->type_visitor = $visitor->type_visitor;
             $visitor->outside = Carbon::now();
 
@@ -226,7 +251,15 @@ class SecurityController extends Controller
                 return response()->json([
                     'message' => $visitor->type_visitor.' fuera de las instalaciones', 
                 ]);
+            }else{
+                return response()->json([
+                    'message' => 'No guardo', 
+                ]);
             }
+        }else{
+            return response()->json([
+                'message' => 'No actualizo', 
+            ]);
         }
     }
 

@@ -9,7 +9,7 @@ class Patient extends Model
     protected $table = 'patients';
 
     protected $fillable = [
-        'date', 'history_number', 'person_id', 'gender', 'place', 'birthdate', 'age','weight',  'occupation', 'profession', 'another_phone', 'previous_surgery', 'employe_id', 'branch_id', 'another_email',
+        'date', 'history_number', 'reason', 'person_id', 'gender', 'place', 'birthdate', 'age','weight',  'occupation', 'profession', 'another_phone', 'previous_surgery', 'employe_id', 'branch_id', 'another_email',
     ];
 
     public function image()

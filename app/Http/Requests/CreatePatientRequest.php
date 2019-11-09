@@ -27,6 +27,7 @@ class CreatePatientRequest extends FormRequest
         return [
             'date'               => 'required',
             'history_number'     => 'nullable',
+            'reason'             => 'required',
             'person_id'          => 'required',
             'age'                => 'required|numeric',
             'weight'             => 'required|max:1000|numeric',
@@ -36,7 +37,7 @@ class CreatePatientRequest extends FormRequest
             'occupation'         => 'required|string|max:65',
             'profession'         => 'required|max:65',
             'reason'             => 'required',
-            'previous_surgery'   => 'required',
+            //'previous_surgery'   => 'required',
             'employe_id'         => 'required',
             // 'another_phone'      => 'required',
             // 'another_email'      => 'required',
