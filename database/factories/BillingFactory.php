@@ -16,7 +16,6 @@ $factory->define(Billing::class, function (Faker $faker) {
     do {
         $procedure = Procedure::with('employe')->inRandomOrder()->first();
     } while ($procedure->employe->isEmpty());
-    // $employe = Employe::inRandomOrder()->first();
     $patient = Patient::inRandomOrder()->first();
     $typepayment = TypePayment::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
