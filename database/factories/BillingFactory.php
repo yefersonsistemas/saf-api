@@ -20,8 +20,9 @@ $factory->define(Billing::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
     return [
         'procedure_employe_id' => $procedure->employe->first()->pivot->id, //debido a que pertenece a una tabla pivote
-        'person_id' => $procedure->employe->first()->person->id, //para que mantenga la relacion con el id anterior durante el random 
+        'person_id' => $person->id,
         'patient_id' => $patient->id,
+        'employe_id' => $procedure->employe->first(), //para que mantenga la relacion con el id anterior durante el random 
         'type_payment_id' => $typepayment->id,
         'type_currency' => $faker->word,
         'branch_id' => $branchoffice->id,

@@ -11,6 +11,7 @@ use App\Position;
 use App\Reservation;
 Use App\Visitor;
 use App\Billing;
+use App\Assistance;
 use Carbon\Carbon;
 
 class EmployesController extends Controller
@@ -72,22 +73,19 @@ class EmployesController extends Controller
         ]);
     }
 
-    public function doctor_on_day()
+    public function doctor_on_day()//medicos del dia
     {
-        // $employes = Employe::all();
         $employes = Employe::with('image','person.user', 'speciality')->get();    
-        $days = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes');
-
+        
         $employes->each( function ($employe) {
             if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
                 $employe->person->user->role('doctor');
                 $dia = Carbon::now()->dayOfWeek;
                 $employe->schedule->contains($dia);
+                $employe->accion = 'Cancelado';
                 return $employe;
             }
         });
-
-        //dd($e);
         
         if ($employes->isNotEmpty()){
             return response()->json([
@@ -257,16 +255,10 @@ class EmployesController extends Controller
     {
         $doctor = Employe::with('person.user','procedures')->get();
 
-        // return response()->json([
-        //     'doctors' => $doctor,
-        // ]);
-        
-
         $doctors = $doctor->each(function ($doctor)
         {
-            $doc = $doctor->person->user->role('doctor');
-            // $doc->load('procedures');
-            return $doc;
+            $doctor->person->user->role('doctor');
+            return $doctor;
         });
 
         return response()->json([
@@ -341,40 +333,20 @@ class EmployesController extends Controller
         }
     }
 
-    public function assistance(Request $request) //asistencia del medico de los dias q no asiste
+    public function assistance(Request $request) //control de asistencia del medico de los dias q no asiste
     {
         $data = $request->validate([
             'employe_id' => 'required',
-            'status'  => 'required',
         ]);
 
         $cites = Assistance::create([
             'employe_id' => $data['employe_id'],
-            'status' => $data['status'],
+            'status' => 'No asistio',
             'branch_id' => 1
         ]);
-    }
 
-    public function status(Request $request){
-
-        $employe = Employe::where('id', $request->person_id)->first();
-      
-        $reservation = Reservation::find($request->id);
-
-        
-        if (!empty($reservation)) {
-              $reservation->status = 'No asistio';
-      
-              if ($reservation->save()){
-                  $this->assistance($request);
-                  return response()->json([
-                    'message' => 'Medico no asistio el dia de hoy',
-                ]);
-              }
-        }else{
-            return response()->json([
-                'message' => 'Ha ocurrido un error', 
-            ]);
-        }
+        return response()->json([
+            'message' => 'Medico no asistio el dia de hoy',
+        ]);
     }
 }

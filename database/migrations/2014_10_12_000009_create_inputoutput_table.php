@@ -16,9 +16,21 @@ class CreateInputoutputTable extends Migration
         Schema::create('inputoutput', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
-            $table->enum('status', ['input', 'output']);
+            $table->string('inside')->nullable();
+            $table->string('outside')->nullable();
+            $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
+
+            $table->foreign('person_id')
+            ->references('id')
+            ->on('persons')
+            ->onDelete('CASCADE');   
+
+            $table->foreign('employe_id')
+            ->references('id')
+            ->on('employes')
+            ->onDelete('CASCADE');
 
             $table->foreign('branch_id')
             ->references('id')

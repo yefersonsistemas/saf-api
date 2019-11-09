@@ -39,6 +39,11 @@ class Employe extends Model
         return $this->belongsTo('App\Billing');
     }
 
+    public function inputoutput()
+    {
+        return $this->belongsTo('App\InputOutput');
+    }
+
     public function position()
     {
         return $this->belongsTo('App\Position');

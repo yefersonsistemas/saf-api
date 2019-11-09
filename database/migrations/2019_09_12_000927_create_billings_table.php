@@ -18,6 +18,7 @@ class CreateBillingsTable extends Migration
             $table->unsignedBigInteger('procedure_employe_id');
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('type_payment_id');
             $table->string('type_currency');
             $table->unsignedBigInteger('branch_id');
@@ -34,8 +35,13 @@ class CreateBillingsTable extends Migration
             ->onDelete('CASCADE');
 
             $table->foreign('patient_id')
+                ->references('id')
+                ->on('patients')
+                ->onDelete('CASCADE');
+            
+            $table->foreign('employe_id')
             ->references('id')
-            ->on('patients')
+            ->on('employes')
             ->onDelete('CASCADE');
 
             $table->foreign('type_payment_id')

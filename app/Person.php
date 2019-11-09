@@ -55,4 +55,9 @@ class Person extends Model
     {
         return $this->belongsTo('App\Notification');
     }
+
+    public function inputoutput()
+    {
+        return $this->belongsTo('App\InputOutput');
+    }
 }

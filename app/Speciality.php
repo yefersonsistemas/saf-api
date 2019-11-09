@@ -57,4 +57,9 @@ class Speciality extends Model
     {
         return $this->belongsTo('App\Diagnostic');
     }
+
+    public function procedure()
+    {
+        return $this->belongsTo('App\Procedure');
+    }
 }

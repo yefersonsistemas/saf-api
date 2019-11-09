@@ -9,7 +9,7 @@ class Procedure extends Model
     protected $table = 'procedures';
 
     protected $fillable = [
-        'name', 'description', 'price', 'branch_id'
+        'name', 'description', 'price', 'specialitie_id', 'branch_id'
     ];
 
     public function person()
@@ -35,5 +35,10 @@ class Procedure extends Model
     public function billing()
     {
         return $this->belongsTo('App\Billing');
+    }
+
+    public function speciality()
+    {
+        return $this->belongsTo('App\Speciality');
     }
 }

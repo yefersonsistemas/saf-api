@@ -165,7 +165,6 @@ class CitaController extends Controller
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,
-                'message' => 'Paciente Encontrado'
             ]);
         }else{
             return response()->json([

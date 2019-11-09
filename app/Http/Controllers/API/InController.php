@@ -13,6 +13,8 @@ use App\Http\Requests\CreateBillingRequest;
 use App\Http\Requests\CreateAreaAssigmentRequest;
 use App\Schedule;
 use App\TypeArea;
+use App\Person;
+use App\InputOutput;
 
 //use App\Http\Controllers\CitaController;
 
@@ -163,5 +165,29 @@ class InController extends Controller
                 'message' => 'Empleado o consultorio invalido',
             ]);
         }
+    }
+
+    public function statusIn(Request $request)
+    {
+        $p = Person::where('id', $request->id)->first();
+        $e = Employe::where('id', $request->id)->first();
+
+        $data = $request->validate([
+            'person_id' => 'required',
+            'employe_id'  => 'required',
+        ]);
+           
+        InputOutput::create([       
+            'person_id' =>  $data['person_id'],  //paciente tratado
+            'inside' => 'dentro',
+            'outside' => null,
+            'employe_id' =>  $data['employe_id'],  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+            'branch_id' => 1,
+        ]);
+
+        return response()->json([
+            'message' => 'Paciente dentro del consultorio',
+        ]);
+        
     }
 }

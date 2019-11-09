@@ -12,7 +12,7 @@ $factory->define(Assistance::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
     return [
         'employe_id' => $employe->id,
-        'status' => $faker->word,
+        'status' => null,
         'branch_id' => $branchoffice->id,
     ];
 });
