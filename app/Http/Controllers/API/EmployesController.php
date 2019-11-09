@@ -73,16 +73,43 @@ class EmployesController extends Controller
         ]);
     }
 
+    public function assistance(Request $request) //control de asistencia del medico de los dias q no asiste
+    {
+        $data = $request->validate([
+            'employe_id' => 'required',
+        ]);
+
+        $cites = Assistance::where('employe_id', $request->employe_id)
+                            ->where('created_at', Carbon::now()->format('Y-m-d'))->get();
+
+        if (empty($cites)) {
+            Assistance::create([
+                'employe_id' => $data['employe_id'],
+                'status' => 'No asistio',
+                'branch_id' => 1
+            ]);
+
+            return response()->json([
+                'message' => 'Medico no asistio el dia de hoy',
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Ya ha sido registrado como inasistente',
+            ]);
+        }
+
+
+    }
+
     public function doctor_on_day()//medicos del dia
     {
-        $employes = Employe::with('image','person.user', 'speciality')->get();    
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();    
         
         $employes->each( function ($employe) {
             if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
                 $employe->person->user->role('doctor');
                 $dia = Carbon::now()->dayOfWeek;
                 $employe->schedule->contains($dia);
-                $employe->accion = 'Cancelado';
                 return $employe;
             }
         });
@@ -331,22 +358,5 @@ class EmployesController extends Controller
             }
 
         }
-    }
-
-    public function assistance(Request $request) //control de asistencia del medico de los dias q no asiste
-    {
-        $data = $request->validate([
-            'employe_id' => 'required',
-        ]);
-
-        $cites = Assistance::create([
-            'employe_id' => $data['employe_id'],
-            'status' => 'No asistio',
-            'branch_id' => 1
-        ]);
-
-        return response()->json([
-            'message' => 'Medico no asistio el dia de hoy',
-        ]);
     }
 }

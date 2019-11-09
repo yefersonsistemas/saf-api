@@ -10,11 +10,12 @@ use Faker\Generator as Faker;
 $factory->define(Procedure::class, function (Faker $faker) {
     $speciality = Speciality::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
+    $speciality = Speciality::inRandomOrder()->first();
     return [
         'name' => $faker->word,
         'description' => $faker->sentence(8),
         'price' => $faker->randomFloat,
-        'specialitie_id' => $speciality->id,
+        'speciality_id' => $speciality->id,
         'branch_id' => $branchoffice->id,
     ];
 });

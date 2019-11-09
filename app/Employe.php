@@ -114,7 +114,7 @@ class Employe extends Model
 
     public function assistance()
     {
-        return $this->belongsTo('App\Assistance');
+        return $this->hasmany('App\Assistance', 'employe_id');
     }    
 
     public function visitor()

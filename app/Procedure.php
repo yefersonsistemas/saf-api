@@ -9,7 +9,7 @@ class Procedure extends Model
     protected $table = 'procedures';
 
     protected $fillable = [
-        'name', 'description', 'price', 'specialitie_id', 'branch_id'
+        'name', 'description', 'price', 'branch_id'
     ];
 
     public function person()

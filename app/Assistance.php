@@ -14,7 +14,7 @@ class Assistance extends Model  //guarda el medico que no asiste en el dia a tra
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe', 'employe_id');
+        return $this->belongsTo('App\Employe');
     }
 
     public function reservation()

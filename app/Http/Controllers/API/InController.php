@@ -190,4 +190,9 @@ class InController extends Controller
         ]);
         
     }
+
+    public function exams_previos()
+    {
+        
+    }
 }
