@@ -26,16 +26,17 @@ class EmployesController extends Controller
         $employes = Employe::all();
         $days = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes');
 
-        $employes->each( function ($employe) {
+        $e = $employes->each( function ($employe) {
             if ($employe->position->name == 'doctor') {
                 $dia = Carbon::now()->dayOfWeek;
                 $employe->schedule->contains($dia);
+                return $employe;
             }
         });
 
 
-        if ($reservations->isNotEmpty()) {
-            foreach ($reservations as $person) {
+        if ($e->isNotEmpty()) {
+            foreach ($e as $person) {
                 Visitor::create([
                     'person_id' => $person->person_id,
                     'type_visitor' => 'Empleado',
@@ -46,12 +47,53 @@ class EmployesController extends Controller
                 }
             }
             
-        $employe = Visitor::with('person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+        $employes = Visitor::with('person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Empleado')->get();
 
+
         return response()->json([
-            'employes' => $employe,
+            'employes' => $employes,
         ]);
+    }
+
+    public function all_doctors() //muestra todos los medicos registrados en el sistema
+    {
+        $employes = Employe::with('image','person.user')->get();
+
+        $e = $employes->map( function ($employe) {
+            if ($employe->position->name == 'doctor' && $employe->person->user->role('doctor')) {
+                $employe->person->user->role('doctor');
+                return $employe;
+            }
+        });
+
+        return response()->json([
+            'doctors' => $e,
+        ]);
+    }
+
+    public function doctor_on_day()
+    {
+        // $employes = Employe::all();
+        $employes = Employe::with('image','person.user', 'speciality')->get();    
+        $days = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes');
+
+        $employes->each( function ($employe) {
+            if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                $employe->person->user->role('doctor');
+                $dia = Carbon::now()->dayOfWeek;
+                $employe->schedule->contains($dia);
+                return $employe;
+            }
+        });
+
+        //dd($e);
+        
+        if ($employes->isNotEmpty()){
+            return response()->json([
+                'employes' => $employes,
+            ]);
+        }
     }
 
     /**
@@ -183,44 +225,6 @@ class EmployesController extends Controller
         }
     }
 
-    // public function statusIn(Request $request)
-    // {
-    //     $person = Person::where('id', $request->id)->first(); //busco el id 
-    //     $v = Visitor::where('person_id', $request->id)->first();  //busco q sea el mismo id q el anterior
-
-    //     if (!is_null($person)) {
-    //         $v->delete(); //como es el mismo se elimina de la lista
-
-    //         $visitor = Visitor::create([       //se crea y se guarda automaticamente el cambio de estado
-    //             'person_id' => $person->id,
-    //             'type_visitor' => 'Empleado',
-    //             'status' => 'dentro',
-    //             'branch_id' => 1,
-    //         ]);
-            
-    //         return response()->json([
-    //             'message' => 'Empleado dentro de las instalaciones',
-    //         ]);
-    //     }
-    // }
-
-    // public function history_patient(Request $request){
-    //     $patients = Patient::where('id', $request->id);
-    //     $exam = Exam::all();   //se selecciona mediante un buscador
-    //     $procedure = Procedure::all();
-    //     $surgery = Surgery::all(); //informacion para posible cirugia cuando lo seleccione
-
-    //     //  event(new Consult($surgery)); //se activa cuando seleccionan la cirugia
-
-    //     return response()->json([
-    //         'patient' => $patients,
-    //         'exam' => $exam,
-    //         'procedure' => $procedure,
-    //         'surgery' => $surgery,
-    //     ]);
-
-    // }
-
     public function diagnostic(CreateDiagnosticRequest $request){
 
         $diagnostic = Diagnostic::create([
@@ -253,9 +257,9 @@ class EmployesController extends Controller
     {
         $doctor = Employe::with('person.user','procedures')->get();
 
-        return response()->json([
-            'doctors' => $doctor,
-        ]);
+        // return response()->json([
+        //     'doctors' => $doctor,
+        // ]);
         
 
         $doctors = $doctor->each(function ($doctor)
@@ -334,6 +338,43 @@ class EmployesController extends Controller
                 ]);   
             }
 
+        }
+    }
+
+    public function assistance(Request $request) //asistencia del medico de los dias q no asiste
+    {
+        $data = $request->validate([
+            'employe_id' => 'required',
+            'status'  => 'required',
+        ]);
+
+        $cites = Assistance::create([
+            'employe_id' => $data['employe_id'],
+            'status' => $data['status'],
+            'branch_id' => 1
+        ]);
+    }
+
+    public function status(Request $request){
+
+        $employe = Employe::where('id', $request->person_id)->first();
+      
+        $reservation = Reservation::find($request->id);
+
+        
+        if (!empty($reservation)) {
+              $reservation->status = 'No asistio';
+      
+              if ($reservation->save()){
+                  $this->assistance($request);
+                  return response()->json([
+                    'message' => 'Medico no asistio el dia de hoy',
+                ]);
+              }
+        }else{
+            return response()->json([
+                'message' => 'Ha ocurrido un error', 
+            ]);
         }
     }
 }

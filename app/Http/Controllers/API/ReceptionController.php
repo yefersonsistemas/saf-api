@@ -150,9 +150,9 @@ class ReceptionController extends Controller
             'branch_id' => 1
         ]);
 
-        return response()->json([
-            'message' => 'Registro creado',
-        ]);
+        // return response()->json([
+        //     'message' => 'Registro creado',
+        // ]);
     }
 
     public function cancel(Request $request){
@@ -218,9 +218,10 @@ class ReceptionController extends Controller
 
     public function list_S(Request $request)
     {
-        $cites = Reservation::with('cite')->where('discontinued', 'Suspendido')->get();
+        $cites = Reservation::with('person', 'patient.person', 'cite')->where('discontinued', 'Suspendido')->get();
 
         if (!is_null($cites)) {
+            
             return response()->json([
                 'discontinued' => $cites, 
 
@@ -234,7 +235,7 @@ class ReceptionController extends Controller
 
     public function list_C()
     {
-        $cites = Reservation::with('cite')->where('cancel', 'Cancelado')->get();
+        $cites = Reservation::with('person', 'patient.person', 'cite')->where('cancel', 'Cancelado')->get();
 
         if (!empty($cites)) {
             return response()->json([
@@ -243,6 +244,41 @@ class ReceptionController extends Controller
         }else{
             return response()->json([
                 'message' => 'No hay citas canceladas',
+            ]);
+        }
+    }
+
+    public function delete_cite(Request $request)
+    {
+        $r = Reservation::where('id', $request->id)->first();
+        $cite = Cite::where('reservation_id', $request->id)->first();
+
+          if(!is_null($cite) && !is_null($r)){
+           $cite->delete();
+           $r->delete();
+ 
+                return response()->json([
+                'message' => 'Cita eliminada',
+                ]);
+            }
+    }
+    
+    public function list_R()
+    {
+        $rs = Reservation::with('speciality','person')->get();
+
+        if (!empty($rs)) {
+            
+            $rs = $rs->map(function( $r){
+                $patient = Person::where('id', $r->patient_id)->first();
+                if ($r != null && $patient != null) {
+                    $r->patient->image;
+                    $r->patient->person;
+                    return $r; 
+                }
+            });
+            return response()->json([
+                'all' => $rs,
             ]);
         }
     }

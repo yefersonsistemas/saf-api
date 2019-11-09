@@ -164,20 +164,4 @@ class InController extends Controller
             ]);
         }
     }
-
-    public static function billing(CreateBillingRequest $request){  //facturacion
-        
-        $billing = Billing::create([
-            'procedure_employe_id' => $request['procedure_employe_id'],
-            'person_id' => $request['person_id'],
-            'patient_id' => $request['patient_id'],
-            'type_payment_id' => $request['type_payment_id'],
-            'type_currency' => $request['type_currency'],
-            'branch_id' => 1
-        ]);
-
-        return response()->json([
-            'message' => 'Factura creada',
-        ]);
-    }
 }

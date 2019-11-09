@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(VisitorTableSeeder::class);
         // $this->call(PatientsTableSeeder::class);
         // $this->call(SchedulesTableSeeder::class);
-        // $this->call(ServicesTableSeeder::class);
-        // $this->call(SpecialitiesTableSeeder::class);
-        // $this->call(ReservationsTableSeeder::class);
+         $this->call(ServicesTableSeeder::class);
+         $this->call(SpecialitiesTableSeeder::class);
+        $this->call(ReservationsTableSeeder::class);
         $this->call(CitesTableSeeder::class);
         $this->call(ConsultationTypesTableSeeder::class);
         $this->call(ConfigurationsTableSeeder::class);
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AreasTableSeeder::class);
         $this->call(ClassificationsTableSeeder::class);
         $this->call(AreaAssigmentsTableSeeder::class);
-        //$this->call(DiseasesTableSeeder::class);
+        $this->call(DiseasesTableSeeder::class);
         $this->call(MedicinesTableSeeder::class);
         $this->call(BalancesTableSeeder::class);
         $this->call(TypeDoctorTableSeeder::class);

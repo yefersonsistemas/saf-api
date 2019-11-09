@@ -7,25 +7,28 @@ use App\User;
 use App\Person;
 use App\Position;
 use App\Patient;
-use App\Reservation;
+//use App\Reservation;
 use App\Schedule;
+//use App\Procedure;
+use App\Traits\ImageFactory;
 
 class UsersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     * ->givePermissionTo('')
-     * @return void
-     */
+    use ImageFactory;
+  
     public function run()
     {
         User::truncate();
         Person::truncate();
         Employe::truncate();
+        $this->deleteDirectory(storage_path('/app/public/employes'));
         Patient::truncate();
+        $this->deleteDirectory(storage_path('/app/public/patient'));
         Schedule::truncate();
         Diagnostic::truncate();
-        Reservation::truncate();
+       // Reservation::truncate();
+        //Procedure::truncate();
+
 
         $person = Person::create([
             'type_dni' => 'V',
@@ -46,6 +49,7 @@ class UsersTableSeeder extends Seeder
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
         
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -60,13 +64,13 @@ class UsersTableSeeder extends Seeder
 
         $schedule = factory(App\Schedule::class)->create([
             'employe_id' => $employe->id
-        ]);
+        ]);        
 
-        $service = factory(App\Service::class)->create();
+        // $service = factory(App\Service::class)->create();
 
-        $speciality = factory(App\Speciality::class)->create([
-            'service_id' => $service->id
-        ]);
+        // $speciality = factory(App\Speciality::class)->create([
+        //     'service_id' => $service->id
+        // ]);
         
         $persons = factory(Person::class)->create();
 
@@ -74,7 +78,9 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $persons->id,
                 'employe_id' => $employe->id
             ]);
-
+            $this->to('patient', $patient->id, 'App\Patient');
+            
+        //factory(App\Disease::class)->create();
         $treatment = factory(App\Treatment::class)->create();
         factory(App\Diagnostic::class)->create([
             'employe_id' => $employe->id,
@@ -82,12 +88,12 @@ class UsersTableSeeder extends Seeder
             'treatment_id' => $treatment->id
         ]);
 
-        factory(App\Reservation::class)->create([
-            'patient_id' => $patient->id,
-            'person_id' => $person->id,
-            'schedule_id' => $schedule->id,
-            'specialitie_id' => $speciality
-        ]);
+        // factory(App\Reservation::class)->create([
+        //     'patient_id' => $patient->id,
+        //     'person_id' => $person->id,
+        //     'schedule_id' => $schedule->id,
+        //     'specialitie_id' => $speciality
+        // ]);
 
 
         $person = Person::create([
@@ -105,6 +111,7 @@ class UsersTableSeeder extends Seeder
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
         
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -121,11 +128,11 @@ class UsersTableSeeder extends Seeder
             'employe_id' => $employe->id
         ]);
 
-        $service = factory(App\Service::class)->create();
+        // $service = factory(App\Service::class)->create();
 
-        $speciality = factory(App\Speciality::class)->create([
-            'service_id' => $service->id
-        ]);
+        // $speciality = factory(App\Speciality::class)->create([
+        //     'service_id' => $service->id
+        // ]);
         
         $persons = factory(Person::class)->create();
 
@@ -133,6 +140,7 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $persons->id,
                 'employe_id' => $employe->id
             ]);
+            $this->to('patient', $patient->id, 'App\Patient');
 
         $treatment = factory(App\Treatment::class)->create();
         factory(App\Diagnostic::class)->create([
@@ -141,12 +149,12 @@ class UsersTableSeeder extends Seeder
             'treatment_id' => $treatment->id
         ]);
 
-        factory(App\Reservation::class)->create([
-            'patient_id' => $patient->id,
-            'person_id' => $person->id,
-            'schedule_id' => $schedule->id,
-            'specialitie_id' => $speciality
-        ]);
+        // factory(App\Reservation::class)->create([
+        //     'patient_id' => $patient->id,
+        //     'person_id' => $person->id,
+        //     'schedule_id' => $schedule->id,
+        //     'specialitie_id' => $speciality
+        // ]);
 
         $person = Person::create([
             'type_dni' => 'V',
@@ -163,6 +171,7 @@ class UsersTableSeeder extends Seeder
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
         
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -179,11 +188,11 @@ class UsersTableSeeder extends Seeder
             'employe_id' => $employe->id
         ]);
 
-        $service = factory(App\Service::class)->create();
+        // $service = factory(App\Service::class)->create();
 
-        $speciality = factory(App\Speciality::class)->create([
-            'service_id' => $service->id
-        ]);
+        // $speciality = factory(App\Speciality::class)->create([
+        //     'service_id' => $service->id
+        // ]);
         
         $persons = factory(Person::class)->create();
 
@@ -191,6 +200,7 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $persons->id,
                 'employe_id' => $employe->id
             ]);
+            $this->to('patient', $patient->id, 'App\Patient');
 
         $treatment = factory(App\Treatment::class)->create();
         factory(App\Diagnostic::class)->create([
@@ -199,12 +209,12 @@ class UsersTableSeeder extends Seeder
             'treatment_id' => $treatment->id
         ]);
 
-        factory(App\Reservation::class)->create([
-            'patient_id' => $patient->id,
-            'person_id' => $person->id,
-            'schedule_id' => $schedule->id,
-            'specialitie_id' => $speciality
-        ]);
+        // factory(App\Reservation::class)->create([
+        //     'patient_id' => $patient->id,
+        //     'person_id' => $person->id,
+        //     'schedule_id' => $schedule->id,
+        //     'specialitie_id' => $speciality
+        // ]);
 
 
         factory(Person::class,10)->create()->each(function ($persons) use ($position){
@@ -212,6 +222,7 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $persons->id, 
                 'position_id' => $position->id
             ]);
+            $this->to('employes', $employe->id, 'App\Employe');
 
         factory(App\User::class)->create([
             'person_id' => $persons->id
@@ -221,11 +232,12 @@ class UsersTableSeeder extends Seeder
             'employe_id' => $employe->id
         ]);
 
-        $service = factory(App\Service::class)->create();
 
-        $speciality = factory(App\Speciality::class)->create([
-            'service_id' => $service->id
-        ]);
+        // $service = factory(App\Service::class)->create();
+
+        // $speciality = factory(App\Speciality::class)->create([
+        //     'service_id' => $service->id
+        // ]);
         
         $person = factory(Person::class)->create();
 
@@ -233,6 +245,7 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $person->id,
                 'employe_id' => $employe->id
             ]);
+            $this->to('patient', $patient->id, 'App\Patient');
 
         $treatment = factory(App\Treatment::class)->create();
         factory(App\Diagnostic::class)->create([
@@ -241,12 +254,12 @@ class UsersTableSeeder extends Seeder
             'treatment_id' => $treatment->id
         ]);
 
-        factory(App\Reservation::class)->create([
-            'patient_id' => $patient->id,
-            'person_id' => $persons->id,
-            'schedule_id' => $schedule->id,
-            'specialitie_id' => $speciality
-        ]);
+        // factory(App\Reservation::class)->create([
+        //     'patient_id' => $patient->id,
+        //     'person_id' => $persons->id,
+        //     'schedule_id' => $schedule->id,
+        //     'specialitie_id' => $speciality
+        // ]);
     });
 
         $person = Person::create([
@@ -264,10 +277,11 @@ class UsersTableSeeder extends Seeder
             'name' =>'seguridad',
         ]);
 
-        factory(App\Employe::class)->create([
+        $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
             
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -301,10 +315,11 @@ class UsersTableSeeder extends Seeder
             'name' =>'recepcion',
         ]);
 
-        factory(App\Employe::class)->create([
+        $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -339,10 +354,11 @@ class UsersTableSeeder extends Seeder
             'name' =>'IN',
         ]);
 
-        factory(App\Employe::class)->create([
+        $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -378,10 +394,11 @@ class UsersTableSeeder extends Seeder
             'name' =>'OUT',
         ]);
 
-        factory(App\Employe::class)->create([
+        $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
         
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -417,10 +434,11 @@ class UsersTableSeeder extends Seeder
             'name' =>'logistica',
         ]);
 
-        factory(App\Employe::class)->create([
+        $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -454,10 +472,11 @@ class UsersTableSeeder extends Seeder
         ]);
 
 
-        factory(App\Employe::class)->create([
+        $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -503,10 +522,11 @@ class UsersTableSeeder extends Seeder
             'name' =>'administracion',
         ]);
 
-        factory(App\Employe::class)->create([
+        $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id, 
             'position_id' => $position->id
         ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
             'person_id' => $person->id,
@@ -517,10 +537,12 @@ class UsersTableSeeder extends Seeder
 
        
         factory(Person::class,5)->create()->each(function ($person) use ($position){
-            factory(App\Employe::class)->create([
+            $employe = factory(App\Employe::class)->create([
                 'person_id' => $person->id, 
                 'position_id' => $position->id
             ]);
+            $this->to('employes', $employe->id, 'App\Employe');
+
             factory(App\User::class)->create([
                 'person_id' => $person->id
             ])->assignRole('administracion');

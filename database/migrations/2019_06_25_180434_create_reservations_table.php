@@ -23,6 +23,7 @@ class CreateReservationsTable extends Migration
             $table->string('cancel')->nullable();
             $table->string('discontinued')->nullable();      //suspendido
             $table->unsignedBigInteger('person_id');
+            $table->string('status')->nullable();  //asistencia doctor
             $table->unsignedBigInteger('schedule_id');
             $table->unsignedBigInteger('specialitie_id');
             $table->unsignedBigInteger('branch_id');

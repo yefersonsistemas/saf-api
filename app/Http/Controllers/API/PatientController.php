@@ -24,14 +24,22 @@ class PatientController extends Controller
 
   public function index()
   {
-    $patients = Patient::all();
+    // $patients = Patient::all();
       
-    return response()->json([
-      'patients' => $patients,
-    ]);
+    // return response()->json([
+    //   'patients' => $patients,
+    // ]);
 
     // $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
     // //return view('dashboard.patients.index', compact('patients'));
+
+    $patient = Patient::with('person')->get();
+
+    if (!is_null($patient)) {
+        return response()->json([
+            'patients' => $patient,
+        ]);
+    }
   }
 
   /**

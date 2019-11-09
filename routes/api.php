@@ -77,7 +77,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('search', 'API\ReceptionController@search');  // listo 
             Route::get('list/discontinued', 'API\ReceptionController@list_S');
             Route::get('list/cancel', 'API\ReceptionController@list_C');
-
+            Route::POST('delete', 'API\ReceptionController@delete_cite');
+            Route::get('reservation', 'API\ReceptionController@list_R');
         });
 
         //rutas generar cita/reservacion
@@ -92,14 +93,21 @@ Route::group(['prefix' => 'auth'], function () {
         });
 
         //rutas rol in y out
-        Route::group(['prefix' => 'IO'], function(){
+        Route::group(['prefix' => 'in'], function(){
             Route::POST('search', 'API\InController@search');  // listo
             Route::get('search/area', 'API\AreasController@search_area');
             Route::POST('assigment', 'API\InController@assigment');  // asignar consultorio listo
             //Route::POST('area', 'API\InController@status');  // listo
             Route::get('list', 'API\AreasController@list_area');  // listo
-            Route::POST('create', 'API\InController@billing');  // listo 
         });
+
+        Route::group(['prefix' => 'out'], function(){
+            Route::get('show', 'API\OutController@show_P');
+            Route::get('/', 'API\PatientController@index');
+            Route::POST('create', 'API\OutController@billing');  // listo 
+        });
+
+
 
         //rutas rol logistica
         Route::group(['prefix' => 'supplie'], function(){
@@ -163,9 +171,12 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'employe'], function(){
             Route::get('/', 'API\EmployesController@index');  // listo
             Route::get('/list','API\EmployesController@list');  //muestra todos los medicos con procedimientos
+            Route::get('all/doctors','API\EmployesController@all_doctors'); //todos los medicos 
+            Route::get('doctor/onday','API\EmployesController@doctor_on_day'); //medicos del dia
             Route::POST('create', 'API\EmployesController@store');  // listo
             Route::POST('inside', 'API\EmployesController@statusIn');  //listo
             Route::POST('outside', 'API\SecurityController@statusOut');  //listo
+            Route::POST('assistance', 'API\EmployesController@status');
         });
         
         //rutas para la App

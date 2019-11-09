@@ -159,11 +159,13 @@ class SecurityController extends Controller
 
     public function only_person(CreateVisitorRequest $request){
         $person = Person::create([  //agregar un visitante colado o q no se vea el/ella pero si otra persona 
+                                    //o q paga la factura de un paciente
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
             'name'        => $request->name,
             'lastname'    => $request->lastname,
             'address'     => $request->address,
+            'phone'       => $request->phone,
             'email'       => $request->email,
             'branch_id'   => 1,
         ]);
@@ -181,6 +183,7 @@ class SecurityController extends Controller
             'name'        => $request->name,
             'lastname'    => $request->lastname,
             'address'     => $request->address,
+            'phone'       => $request->phone,
             'email'       => $request->email,
             'branch_id'   => 1,
         ]);

@@ -150,7 +150,7 @@ class CitaController extends Controller
 
     public function speciality()
     {
-       $speciality = Speciality::with('image')->get()->groupBy('id');
+       $speciality = Speciality::with('image')->get();
        //$speciality = Speciality::all();
 
         return response()->json([

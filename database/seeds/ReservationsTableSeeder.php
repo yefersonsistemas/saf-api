@@ -13,6 +13,6 @@ class ReservationsTableSeeder extends Seeder
     public function run()
     {
         Reservation::truncate();
-        factory(Reservation::class, 20)->create();
+        factory(Reservation::class,10)->create();
     }
 }
