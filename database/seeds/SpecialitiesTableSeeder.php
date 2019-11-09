@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Speciality;
-use App\Employe;
-use App\Branch;
+use App\Service;
 use App\Traits\ImageFactory;
 
 class SpecialitiesTableSeeder extends Seeder
@@ -19,18 +18,13 @@ class SpecialitiesTableSeeder extends Seeder
         Speciality::truncate();
         $this->deleteDirectory(storage_path('/app/public/speciality'));
 
-        factory(Speciality::class, 20)->create()->each(function ($speciality) {
-           $this->to('speciality', $speciality->id, 'App\Speciality');
+        factory(Speciality::class, 15)->create()->each(function ($speciality) {
+            $service = Service::inRandomOrder()->first();
+            $speciality->service_id = $service->id;
+            $speciality->save();
 
-            $employe = Employe::with('person.user')->get();
-
-            $employes = $employe->each(function ($employe) {
-                if($employe->person->user != null && $employe->person->user->role('doctor')){
-                    return $employe->person->user->role('doctor'); 
-                } 
-            });                                                   
-
-            $speciality->employe()->attach($employes->random()->id); 
-        }); 
+            //Foto para la especialidad
+            $this->to('speciality', $speciality->id, 'App\Speciality');
+        });
     }
 }

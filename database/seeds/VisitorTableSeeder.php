@@ -24,6 +24,5 @@ class VisitorTableSeeder extends Seeder
             ]);
             $this->to('visitor', $visitor->id, 'App\Visitor');            
         });
-;
     }
 }
