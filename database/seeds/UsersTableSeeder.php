@@ -294,7 +294,6 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
 
-
         $position = factory(App\Position::class)->create([
             'name' => 'recepcion',
         ]);
