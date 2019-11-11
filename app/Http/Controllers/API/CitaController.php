@@ -26,7 +26,7 @@ class CitaController extends Controller
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
         //dd($date);
-        $diaDeReserva = ucfirst($fecha->dayName); 
+        $diaDeReserva = ucfirst($fecha->dayName);
         //dd($diaDeReserva);
         $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
        // dd($dia);                  

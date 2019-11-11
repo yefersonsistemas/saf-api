@@ -246,6 +246,10 @@ class UsersTableSeeder extends Seeder
             });
         });
 
+
+
+
+
         $person = Person::create([
             'type_dni' => 'V',
             'dni' => '12345678',
@@ -400,18 +404,6 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $person->id
             ])->assignRole('OUT');
         });
-
-        // $person = Person::create([
-        //     'type_dni' => 'V',
-        //     'dni' => '12345676',
-        //     'name' => 'YSBELIA',
-        //     'lastname' => 'CARIAZO',
-        //     'address' => 'venezuela',
-        //     'phone' => '292-787-95415 x861',
-        //     'email' => 'ycariazo@sinusandface.com',
-        //     'branch_id' => '1',
-        // ]);
-
 
         // $position = factory(App\Position::class)->create([
         //     'name' => 'logistica',
