@@ -8,6 +8,7 @@ use App\Speciality;
 use Faker\Generator as Faker;
 
 $factory->define(Procedure::class, function (Faker $faker) {
+    $speciality = Speciality::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
     $speciality = Speciality::inRandomOrder()->first();
     return [

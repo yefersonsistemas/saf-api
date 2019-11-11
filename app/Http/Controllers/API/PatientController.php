@@ -24,15 +24,6 @@ class PatientController extends Controller
 
   public function index()
   {
-    // $patients = Patient::all();
-      
-    // return response()->json([
-    //   'patients' => $patients,
-    // ]);
-
-    // $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
-    // //return view('dashboard.patients.index', compact('patients'));
-
     $patient = Patient::with('person')->get();
 
     if (!is_null($patient)) {
@@ -40,6 +31,10 @@ class PatientController extends Controller
             'patients' => $patient,
         ]);
     }
+   
+    // $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
+    // //return view('dashboard.patients.index', compact('patients'));
+
   }
 
   /**
@@ -303,6 +298,7 @@ class PatientController extends Controller
   {
     //
   }
+
   public function pdfPatient(Request $request, Patient $patient)
   {
     $description = $request->description;
@@ -347,6 +343,17 @@ class PatientController extends Controller
           'message' => 'No se pudo actualizar los datos',
       ]);
   }
+  }
+
+  public function search(Request $request) //busca paciente q estara en la factura
+  {
+      $p = Patient::with('person')->where('id', $request->id)->first();
+
+      if (!is_null($p)) {
+          return response()->json([
+              'patients' => $p,
+          ]);
+      }
   }
   
 }

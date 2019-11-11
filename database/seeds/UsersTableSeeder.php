@@ -225,7 +225,7 @@ class UsersTableSeeder extends Seeder
 
                 /**
                  * Tratamiento para el paciente
-                 * y su daignostico
+                 * y su diagnostico
                  */
                 $treatment = Treatment::inRandomOrder()->first();
                 factory(App\Diagnostic::class)->create([

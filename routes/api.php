@@ -54,8 +54,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create', 'API\SecurityController@all_visitor');  // corregido funciona bien
             Route::POST('create/person', 'API\SecurityController@only_person'); // registra solo en person
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            //Route::POST('inside', 'API\SecurityController@statusIn'); //actualizacion de registro
-           // Route::POST('outside', 'API\SecurityController@statusOut');
             Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
             Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
             Route::POST('search', 'API\SecurityController@search');  // corregido funciona bien
@@ -99,12 +97,21 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('assigment', 'API\InController@assigment');  // asignar consultorio listo
             //Route::POST('area', 'API\InController@status');  // listo
             Route::get('list', 'API\AreasController@list_area');  // listo
+            Route::POST('inside', 'API\InController@statusIn'); //creacion de registro
         });
 
         Route::group(['prefix' => 'out'], function(){
-            Route::get('show', 'API\OutController@show_P');
-            Route::get('/', 'API\PatientController@index');
+            Route::get('/', 'API\PatientController@index'); //todos los pacientes
+            Route::get('all/doctors','API\EmployesController@all_doctors');  //todos los doctores en el sistema
+            Route::POST('search', 'API\CitaController@search'); //busca persona a ver si existe
+            Route::POST('create/person', 'API\SecurityController@only_person'); // persona a cancelar en caso de no ser el paciente
+            Route::get('list','API\EmployesController@list'); //medicos con sus procedimientos
+            Route::POST('doctor','API\OutController@doctor_P');// procedimientos segun el medico
+            Route::POST('search/patient', 'API\PatientController@search'); //busca paciente q estara en la factura
+            Route::get('pay', 'API\OutController@payment');  //tipo de pago
+            Route::get('currency', 'API\OutController@currency');  //tipo de moneda
             Route::POST('create', 'API\OutController@billing');  // listo 
+            Route::POST('outside', 'API\OutController@statusOut'); //actualizacion de registro
         });
 
 
@@ -176,7 +183,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create', 'API\EmployesController@store');  // listo
             Route::POST('inside', 'API\EmployesController@statusIn');  //listo
             Route::POST('outside', 'API\SecurityController@statusOut');  //listo
-            Route::POST('assistance', 'API\EmployesController@status');
+            Route::POST('assistance', 'API\EmployesController@assistance');
         });
         
         //rutas para la App

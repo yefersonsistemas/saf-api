@@ -36,4 +36,9 @@ class Procedure extends Model
     {
         return $this->belongsTo('App\Billing');
     }
+
+    public function speciality()
+    {
+        return $this->belongsTo('App\Speciality');
+    }
 }

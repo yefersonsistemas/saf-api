@@ -16,7 +16,7 @@ class CreateAssistanceTable extends Migration
         Schema::create('assistance', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('employe_id');
-            $table->string('status');
+            $table->string('status')->nullable();;
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
