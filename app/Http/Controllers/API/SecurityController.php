@@ -179,13 +179,15 @@ class SecurityController extends Controller
         /**
          * Registro de la fotografia 
          */
-        $photo = $request->file('file');
-        $path = $photo->store('persons');
-        $image = new Image;
-        $image->path = $path;
-        $image->imageable_type = "App\Person";
-        $image->imageable_id = $person->id;
-        $image->save();
+        if ($request->file('file') != null) {
+            $photo = $request->file('file');
+            $path = $photo->store('persons');
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\Person";
+            $image->imageable_id = $person->id;
+            $image->save();
+        }
 
         return response()->json([
             'message' => 'Registrado correctamente',
