@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Reservation;
 Use App\Visitor;
 Use App\Person;
+Use App\Image;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
 use App\Events\Security;
@@ -157,9 +158,14 @@ class SecurityController extends Controller
         }
     }
 
+    /**
+     * Funcion que permite registrar
+     * solamente una persona, sin ejecutar
+     * ninguna otra accion
+     */
     public function only_person(CreateVisitorRequest $request){
-        $person = Person::create([  //agregar un visitante colado o q no se vea el/ella pero si otra persona 
-                                    //o q paga la factura de un paciente
+        
+        $person = Person::create([
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
             'name'        => $request->name,
@@ -169,6 +175,17 @@ class SecurityController extends Controller
             'email'       => $request->email,
             'branch_id'   => 1,
         ]);
+
+        /**
+         * Registro de la fotografia 
+         */
+        $photo = $request->file('file');
+        $path = $photo->store('persons');
+        $image = new Image;
+        $image->path = $path;
+        $image->imageable_type = "App\Person";
+        $image->imageable_id = $person->id;
+        $image->save();
 
         return response()->json([
             'message' => 'Registrado correctamente',
