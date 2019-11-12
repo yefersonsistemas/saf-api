@@ -62,6 +62,7 @@ class CitaController extends Controller
             ]);
         }
     }
+    
 
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar
         $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient.person')->where('id', $request->id)->first();
