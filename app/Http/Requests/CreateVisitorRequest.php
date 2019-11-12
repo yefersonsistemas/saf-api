@@ -24,13 +24,21 @@ class CreateVisitorRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_dni' => 'required',
-            'dni'      => 'required',
-            'name'     => 'required',
-            'lastname' => 'required',
-            'address'  => 'required',
-            // 'phone'    => 'required',
-            'email'    => 'required',
+            'type_dni'  =>  'required|min:1',
+            'dni'       =>  'required|min:6|numeric',
+            'name'      =>  'required|string',
+            'lastname'  =>  'required|strign',
+            'address'   =>  'required|string',
+            'phone'     =>  'required|numeric',
+            'email'     =>  'required|email',
+            'file'      =>  'file|image|nullable',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'type_dni'  =>  'el tipo de documento es obligatorio',
         ];
     }
 }
