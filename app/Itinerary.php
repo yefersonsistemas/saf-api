@@ -11,4 +11,10 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
     // protected $fillable = [
     //     '',
     // ];
+
+    // public function surgery() 
+    // {
+    //     return $this->belongsToMany('App\Suregery','equipment_surgery')
+    //    ->withPivot('surgery_id','id');
+    // }
 }

@@ -20,7 +20,7 @@ $factory->define(Billing::class, function (Faker $faker) {
     $typepayment = TypePayment::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
     return [
-        'procedure_employe_id' => $procedure->employe->first()->pivot->id, //debido a que pertenece a una tabla pivote
+        //'procedure_employe_id' => $procedure->employe->first()->pivot->id, //debido a que pertenece a una tabla pivote
         'person_id' => $person->id,
         'patient_id' => $patient->id,
         'employe_id' => $procedure->employe->first(), //para que mantenga la relacion con el id anterior durante el random 

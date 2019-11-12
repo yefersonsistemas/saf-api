@@ -119,7 +119,6 @@ Route::group(['prefix' => 'auth'], function () {
         });
 
 
-
         //rutas rol logistica
         Route::group(['prefix' => 'supplie'], function(){
             Route::get('type', 'API\SupplieController@type');
@@ -158,17 +157,17 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('pay', 'API\EmployesController@calculo_week');  // 
         });
         
-        Route::group(['prefix' => 'stocktaking'], function()
-        {
-            //Insumos
-            Route::get('/', 'API\StocktakingController@index');
-            Route::post('/create_supplie', 'API\StocktakingController@create_supplie');
-            Route::PUT('/edit_supplie', 'API\StocktakingController@edit_supplie');
+        // Route::group(['prefix' => 'stocktaking'], function()
+        // {
+        //     //Insumos
+        //     Route::get('/', 'API\StocktakingController@index');
+        //     Route::post('/create_supplie', 'API\StocktakingController@create_supplie');
+        //     Route::PUT('/edit_supplie', 'API\StocktakingController@edit_supplie');
             
-            //Equipo
-            Route::post('/create_equipment', 'API\StocktakingController@create_equipment');
-            Route::put('/edit_equipment', 'API\StocktakingController@edit_equipment');
-        });
+        //     //Equipo
+        //     Route::post('/create_equipment', 'API\StocktakingController@create_equipment');
+        //     Route::put('/edit_equipment', 'API\StocktakingController@edit_equipment');
+        // });
         
         Route::group(['prefix' => 'create'], function(){
             Route::POST('procedure', 'API\ProcedureController@store');

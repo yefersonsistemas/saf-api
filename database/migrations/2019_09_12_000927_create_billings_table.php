@@ -15,7 +15,6 @@ class CreateBillingsTable extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('procedure_employe_id');
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employe_id');
@@ -23,11 +22,6 @@ class CreateBillingsTable extends Migration
             $table->string('type_currency');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
-
-            $table->foreign('procedure_employe_id')
-            ->references('id')
-            ->on('procedure_employe')
-            ->onDelete('CASCADE');
 
             $table->foreign('person_id')
             ->references('id')

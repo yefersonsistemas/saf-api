@@ -327,12 +327,12 @@ class PatientController extends Controller
 
   public function update_patient(Request $request)
   {
-    $patient = Patient::find($request->id);
+    $patient = Patient::where('person_id', $request->person_id)->first();
 
     $patient->date = $request->date;
     $patient->history_number = $request->history_number;
     $patient->reason = $request->reason;
-    $patient->person_id = $request->age;
+    $patient->person_id = $request->person_id;
     $patient->gender = $request->gender;
     $patient->place = $request->place;
     $patient->birthdate = $request->birthdate;

@@ -26,5 +26,17 @@ class Surgery extends Model
     {
         return $this->belongsTo('App\Branch');
     }
+    
+    public function equipment() 
+    {
+        return $this->belongsToMany('App\Equipment','equipment_surgery')
+       ->withPivot('equipment_id','id');
+    }
+
+    public function itineraryP() 
+    {
+        return $this->belongsToMany('App\Procedure','itinerary_surgery_procedure')
+       ->withPivot('procedure_id','id');
+    }
 
 }

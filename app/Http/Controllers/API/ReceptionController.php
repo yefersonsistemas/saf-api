@@ -46,6 +46,7 @@ class ReceptionController extends Controller
             $rs = $rs->map(function( $r){
                 $patient = Person::with('inputoutput')->where('id', $r->patient_id)->first();
                 if ($r != null && $patient != null) {
+                
                     $r->patient->image;
                     $r->patient->person->inputoutput;
                     return $r; 

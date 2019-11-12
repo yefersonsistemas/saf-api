@@ -47,6 +47,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeSupplieTableSeeder::class);     
         $this->call(SupplieTableSeeder::class);
         $this->call(TypeSurgeriesTableSeeder::class);
+        $this->call(HospitalizationTableSeeder::class);
+        $this->call(ClassificationSurgeryTableSeeder::class);
         $this->call(SurgeriesTableSeeder::class);
         $this->call(TypeCurrenciesTableSeeder::class);
         $this->call(TypePaymentsTableSeeder::class);

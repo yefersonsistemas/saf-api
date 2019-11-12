@@ -13,6 +13,7 @@ $factory->define(Typesurgery::class, function (Faker $faker) {
         'name' =>$faker->word,
         'duration' =>$faker->randomDigit,
         'cost' =>$faker->randomFloat,
+        'description' =>$faker->sentence(5),
         'branch_id' => $branchoffice->id,
     ];
 });

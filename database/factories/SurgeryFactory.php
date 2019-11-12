@@ -8,11 +8,15 @@ use App\Patient;
 use App\Area;
 use App\TypeSurgery;
 use App\Branch;
+use App\Hospitalization;
+use App\ClassificationSurgery;
 use Faker\Generator as Faker;
 
 $factory->define(Surgery::class, function (Faker $faker) {
     $employe = Employe::inRandomOrder()->first();
     $patient = Patient::inRandomOrder()->first();
+    $hospitalization = Hospitalization::inRandomOrder()->first();
+    $claSurgery = ClassificationSurgery::inRandomOrder()->first();
     $area = Area::inRandomOrder()->first();
     $typesurgery = TypeSurgery::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
@@ -22,6 +26,8 @@ $factory->define(Surgery::class, function (Faker $faker) {
         'patient_id' =>$patient->id,
         'area_id' =>$area->id,
         'type_surgery_id' =>$typesurgery->id,
+        'hospitalization_id' =>$hospitalization->id,
+        'classification_surgery_id' =>$claSurgery->id,
         'branch_id' => $branchoffice->id,
     ];
 });

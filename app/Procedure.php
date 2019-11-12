@@ -41,4 +41,11 @@ class Procedure extends Model
     {
         return $this->belongsTo('App\Speciality');
     }
+
+    public function itineraryS() 
+    {
+        return $this->belongsToMany('App\Surgery','itinerary_surgery_procedure')
+       ->withPivot('surgery_id','id');
+    }
+
 }
