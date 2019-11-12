@@ -15,6 +15,7 @@ use App\Schedule;
 use App\TypeArea;
 use App\Person;
 use App\InputOutput;
+use App\Reservation;
 
 //use App\Http\Controllers\CitaController;
 
@@ -99,7 +100,7 @@ class InController extends Controller
 
     public static function search(Request $request)
     {
-       $area = Area::Where('id', $request->id)->first(); 
+       $area = Area::Where('', $request->id)->first(); 
 
         if ($area != null) {  //si existe
             return response()->json([
@@ -171,28 +172,43 @@ class InController extends Controller
     {
         $p = Person::where('id', $request->id)->first();
         $e = Employe::where('id', $request->id)->first();
-
+ 
         $data = $request->validate([
             'person_id' => 'required',
             'employe_id'  => 'required',
         ]);
-           
-        InputOutput::create([       
-            'person_id' =>  $data['person_id'],  //paciente tratado
-            'inside' => 'dentro',
-            'outside' => null,
-            'employe_id' =>  $data['employe_id'],  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
-            'branch_id' => 1,
-        ]);
 
-        return response()->json([
-            'message' => 'Paciente dentro del consultorio',
-        ]);
-        
+        //$io = InputOutput::where('person_id', $request->person_id)->where('employe_id', $request->employe_id)->first();
+           
+        //if (empty($io)) {
+            InputOutput::create([       
+                'person_id' =>  $data['person_id'],  //paciente tratado
+                'inside' => 'dentro',
+                'outside' => null,
+                'employe_id' =>  $data['employe_id'],  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'branch_id' => 1,
+            ]);
+
+            return response()->json([
+                'message' => 'Paciente dentro del consultorio',
+            ]);
+        // }else{
+        //     return response()->json([
+        //         'message' => 'El paciente ya se encuentra adentro',
+        //     ]);
+        //}
     }
 
-    public function exams_previos()
+    public function exams_previos(Request $request)
     {
-        
+        $p = Patient::where('id', $request->id)->first();
+
+        File::create([
+            'filiable_type' => 'Paciente',
+            'filiable_id' => $p->id,
+
+        ]);
+
+        $request->file('nombre del archivo')->store('Exams');
     }
 }

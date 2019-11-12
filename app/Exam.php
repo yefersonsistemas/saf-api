@@ -14,11 +14,16 @@ class Exam extends Model
 
     public function patient()
     {
-        return $this->belongsToMany('App\Patient');
+        return $this->belongsTo('App\Patient');
     }
 
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+    
+    public function diagnostic()
+    {
+        return $this->belongsTo('App\Diagnostic');
     }
 }

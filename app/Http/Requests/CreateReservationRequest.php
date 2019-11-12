@@ -30,6 +30,7 @@ class CreateReservationRequest extends FormRequest
             'schedule_id'        => 'required',
             'doctor_id'          => 'required',
             'person_id'          => 'required',
+            'specialitie_id'     => 'required',
         ];
     }
 }

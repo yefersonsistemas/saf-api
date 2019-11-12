@@ -79,10 +79,12 @@ class EmployesController extends Controller
             'employe_id' => 'required',
         ]);
 
-        $cites = Assistance::where('employe_id', $request->employe_id)
-                            ->where('created_at', Carbon::now()->format('Y-m-d'))->get();
+        $date = Carbon::now()->format('Y-d-m');
 
-        if (empty($cites)) {
+        $cites = Assistance::where('employe_id', $request->employe_id)
+                            ->whereDate('created_at', $date)->get();
+
+        if ($cites->isEmpty()) {
             Assistance::create([
                 'employe_id' => $data['employe_id'],
                 'status' => 'No asistio',
@@ -269,14 +271,14 @@ class EmployesController extends Controller
             ]);
     }
 
-    public function recipe(Request $request){
+    // public function recipe(Request $request){
        
-        $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
+    //     $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
         
-        return response()->json([
-            'medicines' => $medicines,
-        ]);
-    }
+    //     return response()->json([
+    //         'medicines' => $medicines,
+    //     ]);
+    // }
 
     public function list()
     {

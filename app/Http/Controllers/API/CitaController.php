@@ -38,14 +38,14 @@ class CitaController extends Controller
 
             if ($dia <  $cupos) {
 
-                $patient= Patient::where('person_id', $request['patient_id'])->first();
+                $patient= Person::where('id', $request['id'])->first();
                 //dd($patient);
                 //dd($patient->id);
             
                 $reservation = Reservation::create([		
                     'date' => $request['date'],
                     'description' => $request['description'],
-                    'patient_id' => $patient->id,
+                    'patient_id' => $request['patient_id'],
                     'person_id' => $request['person_id'],
                     'schedule_id' => $request['schedule_id'],
                     'specialitie_id' => $request['specialitie_id'],
@@ -186,7 +186,8 @@ class CitaController extends Controller
     }
 
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
-        $employe = Employe::with('schedule')->where('person_id', $request->person_id)->first();
+        $employe = Employe::where('id', $request->id)->first();
+        $employe->load('schedule');
      
         if (!is_null($employe)) {
 

@@ -31,4 +31,10 @@ class InputOutput extends Model //control de personas en E/S
     {
         return $this->belongsTo('App\Branch');
     }
+    
+    public function reservation()
+    {
+        return $this->belongsTo('App\Reservation');
+    }
+
 }

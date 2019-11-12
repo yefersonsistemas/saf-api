@@ -112,6 +112,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('currency', 'API\OutController@currency');  //tipo de moneda
             Route::POST('create', 'API\OutController@billing');  // listo 
             Route::POST('outside', 'API\OutController@statusOut'); //actualizacion de registro
+            Route::get('print/exam', 'API\OutController@exams');  //examenes que debe realizarce el paciente
+            Route::get('print/recipe', 'API\OutController@recipe');
         });
 
 

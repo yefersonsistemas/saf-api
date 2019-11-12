@@ -14,18 +14,19 @@ use Faker\Generator as Faker;
 $factory->define(Reservation::class, function (Faker $faker) {
     $schedule = Schedule::inRandomOrder()->first();
     $branchoffice = Branch::inRandomOrder()->first();
+    $persons = Person::inRandomOrder()->first();
     $person = Person::inRandomOrder()->first();
-    $patient = Patient::inRandomOrder()->first();
+   // $patient = Patient::inRandomOrder()->first();
     $specialitie = Speciality::inRandomOrder()->first();
     return [
         'date' => Carbon::now()->Format('Y-m-d'),
         'description' =>$faker->sentence,
-        'patient_id' => $patient->id, 
+        'patient_id' => $persons->id, 
         'approved'  => null,  //aprobado
         'reschedule'  => null,  //reprogramar
         'cancel'  => null,  //cancelado
         'discontinued'  => null,  //suspendido
-        'person_id'  =>$person->id,
+        'person_id'  =>$person->id,  //medico
         'schedule_id'  =>$schedule->id,
         'specialitie_id' =>$specialitie->id,
         'branch_id' => $branchoffice->id,
