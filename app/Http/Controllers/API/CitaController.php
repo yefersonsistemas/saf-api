@@ -184,17 +184,44 @@ class CitaController extends Controller
         }
     }
 
+    /**
+     * 
+     * Busca el horario del doctor y 
+     * retorna los dias que el tenga disponible
+     * 
+     */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
         $employe = Employe::with('schedule')->where('person_id', $request->person_id)->first();
-     
-        if (!is_null($employe)) {
 
-            return response()->json([
-                'employe' => $employe,
-            ]);
+        if (!is_null($employe)) {
+            if (!is_null($employe->schedule)) {
+                foreach ($employe->schedule as $schedule) {
+                    $date[]  = new Carbon('next ' . $schedule->day);
+                    $quota[] = $schedule->quota;
+                }
+
+                for ($i = 0; $i < count($date); $i++) {
+                    for ($j= 0; $j < 12; $j++) { 
+                        $citesToday = Reservation::whereDate('date', $date[$i])->get()->count();
+                        if ($citesToday[$i] < $quota[$i]) {
+                            $available[] = array('dia' => $date[$i]->day, 'mes' =>  $date[$i]->month); 
+                        }
+                        $date[$i] = $date[$i]->addWeek();
+                    }
+                }
+
+                return response()->json([
+                    'employe'       => $employe,
+                    'available'     => $available,
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'Medico sin horario',
+                ]);
+            }
         }else{
             return response()->json([
-                'message' =>'No encontrado',
+                'message' => 'Medico no encontrado',
             ]);
         }
     }
