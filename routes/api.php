@@ -197,7 +197,5 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('date', 'API\EmployesController@patient_on_day');
             Route::POST('details', 'API\EmployesController@detail_doctor');
         });
-        //});
-        
-        
+        //});        
         
