@@ -308,6 +308,7 @@ class UsersTableSeeder extends Seeder
             'person_id' => $person->id,
 
         ])->givePermissionTo('ver lista de pacientes')
+            ->givePermissionTo('crear historia de paciente')
             ->givePermissionTo('crear cita')->assignRole('recepcion');
 
 
@@ -346,9 +347,9 @@ class UsersTableSeeder extends Seeder
         factory(User::class)->create([
             'person_id' => $person->id,
 
-        ])->givePermissionTo('asignar consultorio')
-            ->givePermissionTo('crear factura')
-            ->givePermissionTo('Recibir notificacion de paciente de salida')->assignRole('IN');
+        ])->givePermissionTo('ver lista de pacientes')
+        ->givePermissionTo('crear historia de paciente')
+        ->givePermissionTo('asignar consultorio')->assignRole('IN');
 
 
         factory(Person::class, 2)->create()->each(function ($person) use ($position) {
@@ -386,8 +387,9 @@ class UsersTableSeeder extends Seeder
         factory(User::class)->create([
             'person_id' => $person->id,
 
-        ])->givePermissionTo('asignar consultorio')
-            ->givePermissionTo('crear factura')
+        ])->givePermissionTo('crear factura')
+            ->givePermissionTo('crear recipe')
+            ->givePermissionTo('crear diagnostico')
             ->givePermissionTo('Recibir notificacion de paciente candidato a cirugia')->assignRole('OUT');
 
 

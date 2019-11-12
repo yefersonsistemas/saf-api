@@ -17,6 +17,8 @@ use App\Person;
 use App\TypeCurrency;
 use App\TypePayment;
 use App\InputOutput;
+use App\Exam;
+use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
 {
@@ -102,7 +104,7 @@ class OutController extends Controller
 
         if ($doctor->person->user->role('doctor')) {
             return response()->json([
-                'doctors' => $doctor,
+                'doctor' => $doctor,
             ]);
         }
     }
@@ -129,7 +131,6 @@ class OutController extends Controller
         }
     }
 
-
     public static function billing(CreateBillingRequest $request){  //facturacion
         
         $billing = Billing::create([
@@ -151,7 +152,7 @@ class OutController extends Controller
     {
         $patient = InputOutput::where('id', $request->id)->first();
 
-        if (!empty($patient)) {
+        if (!empty($patient->inside)) {
           
             $patient->outside = 'fuera';
     
@@ -165,5 +166,27 @@ class OutController extends Controller
                 'message' => 'Ha ocurrido un error al actualizar la informacion',
             ]);
         }
+    }
+
+    public function exams() //falta
+    {
+        $patient = Exam::get();
+        //dd($patient);
+        $pdf = PDF::loadView('pdf.exam', compact('patient')); //vista generada por el componente PDF
+                    //carpeta.namearchivo
+        return response()->json([
+            'Exams' => $pdf->download('exams.pdf'), 
+        ]);
+    }
+
+    public function recipe()
+    {
+        $patient = Medicine::with('patient')->get();
+        dd($patient);
+        $pdf = PDF::loadView('pdf.recipe', compact('patient')); //vista generada por el componente PDF
+                          
+        return response()->json([
+            'Exams' => $pdf->download('recipe.pdf'), 
+        ]);
     }
 }

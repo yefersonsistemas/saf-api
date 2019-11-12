@@ -62,4 +62,9 @@ class Reservation extends Model
         return $this->belongsTo('App\Speciality', 'specialitie_id');
     }
 
+    public function inputoutput()
+    {
+        return $this->belongsTo('App\InputOutput','person_id');
+    }
+
 }

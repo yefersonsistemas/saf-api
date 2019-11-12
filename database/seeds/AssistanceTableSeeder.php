@@ -13,6 +13,6 @@ class AssistanceTableSeeder extends Seeder
     public function run()
     {
         Assistance::truncate();
-        factory(Assistance::class, 5)->create();
+        //factory(Assistance::class)->create();
     }
 }

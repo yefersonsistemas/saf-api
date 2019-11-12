@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Exam;
+use App\Diagnostic;
 
 class ExamTableSeeder extends Seeder
 {
@@ -34,6 +35,14 @@ class ExamTableSeeder extends Seeder
             'name'    => 'hemograma',
         ]);
 
-        factory(Exam::class, 20)->create();
+        // factory(Exam::class, 20)->create();
+        
+        // factory(Exam::class, 5)->create()->each(function ($exams) { 
+        //     $patients = Diagnostic::with('patient')->get();  
+
+        //     $exams->diagnostic()->attach($patients->random()->id);
+        // });
     }
+
+   
 }

@@ -61,7 +61,7 @@ class Patient extends Model
 
     public function exam()
     {
-        return $this->hasMany('App\Exam');
+        return $this->belongsTo('App\Exam');
     }
 
     public function employe()

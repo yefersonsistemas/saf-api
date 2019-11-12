@@ -31,7 +31,7 @@ class CreateReservationsTable extends Migration
 
             $table->foreign('patient_id')
             ->references('id')
-            ->on('patients')
+            ->on('persons')
             ->onDelete('CASCADE');  
 
             $table->foreign('specialitie_id')
