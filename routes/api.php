@@ -77,6 +77,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list/cancel', 'API\ReceptionController@list_C');
             Route::POST('delete', 'API\ReceptionController@delete_cite');
             Route::get('reservation', 'API\ReceptionController@list_R');
+            Route::POST('search/patient', 'API\ReceptionController@search_P'); 
         });
 
         //rutas generar cita/reservacion
@@ -98,6 +99,7 @@ Route::group(['prefix' => 'auth'], function () {
             //Route::POST('area', 'API\InController@status');  // listo
             Route::get('list', 'API\AreasController@list_area');  // listo
             Route::POST('inside', 'API\InController@statusIn'); //creacion de registro
+            Route::POST('print', 'API\InController@exams');
         });
 
         Route::group(['prefix' => 'out'], function(){

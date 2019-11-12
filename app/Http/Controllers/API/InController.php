@@ -170,17 +170,14 @@ class InController extends Controller
 
     public function statusIn(Request $request)
     {
-        $p = Person::where('id', $request->id)->first();
-        $e = Employe::where('id', $request->id)->first();
- 
         $data = $request->validate([
             'person_id' => 'required',
             'employe_id'  => 'required',
         ]);
 
-        //$io = InputOutput::where('person_id', $request->person_id)->where('employe_id', $request->employe_id)->first();
+        $io = InputOutput::where('person_id', $request->person_id)->where('employe_id', $request->employe_id)->first();
            
-        //if (empty($io)) {
+        if (empty($io)) {
             InputOutput::create([       
                 'person_id' =>  $data['person_id'],  //paciente tratado
                 'inside' => 'dentro',
@@ -192,11 +189,11 @@ class InController extends Controller
             return response()->json([
                 'message' => 'Paciente dentro del consultorio',
             ]);
-        // }else{
-        //     return response()->json([
-        //         'message' => 'El paciente ya se encuentra adentro',
-        //     ]);
-        //}
+        }else{
+            return response()->json([
+                'message' => 'El paciente ya se encuentra adentro',
+            ]);
+        }
     }
 
     public function exams_previos(Request $request)

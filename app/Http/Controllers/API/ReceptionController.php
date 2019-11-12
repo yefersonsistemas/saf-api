@@ -47,8 +47,7 @@ class ReceptionController extends Controller
                 $patient = Person::with('inputoutput')->where('id', $r->patient_id)->first();
                 if ($r != null && $patient != null) {
                     $r->patient->image;
-                    $r->patient->person;
-                    //$r->person->inputoutput;
+                    $r->patient->person->inputoutput;
                     return $r; 
                 }
             });
@@ -83,6 +82,18 @@ class ReceptionController extends Controller
 
             return response()->json([
                 'person' => $person,
+            ]);
+        }
+    }
+
+    public function search_P(Request $request)
+    {
+        $patient = Patient::where('person_id', $request->person_id)->first(); //busca paciente para ver si ya tiene historia
+
+        if (!is_null($patient)) { 
+
+            return response()->json([
+                'patient' => $patient,
             ]);
         }
     }

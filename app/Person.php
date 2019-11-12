@@ -58,6 +58,6 @@ class Person extends Model
 
     public function inputoutput()
     {
-        return $this->belongsTo('App\InputOutput');
+        return $this->hasmany('App\InputOutput');
     }
 }

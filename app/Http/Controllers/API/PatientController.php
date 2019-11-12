@@ -329,10 +329,21 @@ class PatientController extends Controller
   {
     $patient = Patient::find($request->id);
 
+    $patient->date = $request->date;
+    $patient->history_number = $request->history_number;
+    $patient->reason = $request->reason;
+    $patient->person_id = $request->age;
+    $patient->gender = $request->gender;
+    $patient->place = $request->place;
+    $patient->birthdate = $request->birthdate;
     $patient->age = $request->age;
     $patient->weight = $request->weight;
     $patient->occupation = $request->occupation;
     $patient->profession = $request->profession;
+    $patient->previous_surgery = $request->previous_surgery;
+    $patient->employe_id = $request->employe_id;
+    $patient->another_phone = $request->another_phone;
+    $patient->another_email = $request->another_email;
 
     if($patient->save()){
       return response()->json([

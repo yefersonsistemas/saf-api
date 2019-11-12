@@ -64,7 +64,7 @@ class Reservation extends Model
 
     public function inputoutput()
     {
-        return $this->belongsTo('App\InputOutput','person_id');
+        return $this->hasmany('App\InputOutput','person_id');
     }
 
 }

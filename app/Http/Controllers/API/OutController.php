@@ -168,14 +168,16 @@ class OutController extends Controller
         }
     }
 
-    public function exams() //falta
+    public function exams(Request $request) //falta
     {
-        $patient = Exam::get();
+        $patient = Patient::where('person_id', $request->person_id)->first();
+
+        $exam = Exam::get();
         //dd($patient);
-        $pdf = PDF::loadView('pdf.exam', compact('patient')); //vista generada por el componente PDF
+        $pdf = PDF::loadView('pdf.exam', compact('exam')); //vista generada por el componente PDF
                     //carpeta.namearchivo
         return response()->json([
-            'Exams' => $pdf->download('exams.pdf'), 
+            'Exams' => $pdf->download('exam.pdf'), 
         ]);
     }
 
