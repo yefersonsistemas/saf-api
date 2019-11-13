@@ -22,14 +22,14 @@ class CitaController extends Controller
         
         $employe = Employe::find($request['doctor_id']);
         $employe->load('schedule'); 
-        $fecha = Carbon::parse($request['date']); 
+        $fecha = Carbon::parse($request['date'])->locale('en'); 
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
         //dd($date);
-        $diaDeReserva = ucfirst($fecha->dayName);
+        $diaDeReserva = strtolower($fecha->dayName);
         //dd($diaDeReserva);
         $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
-       // dd($dia);                  
+        //dd($dia);                  
         $cupos = $dia->quota; //obtengo el valor de quota 
        // dd($cupos);  
         $dia = Reservation::whereDate('date', $date)->get()->count(); //obtengo todos los registros de ese dia y los cuento
@@ -97,7 +97,7 @@ class CitaController extends Controller
 
         // return dd(Carbon::parse('2018-06-15 17:34:15.984512', 'UTC')->format('Y-m-d')->dayName);
 
-        $diaDeReserva = ucfirst(Carbon::parse($request['date'])->dayName); 
+        $diaDeReserva = strtolower(Carbon::parse($request['date'])->dayName)->locale('en'); 
 
         $schedule = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
 

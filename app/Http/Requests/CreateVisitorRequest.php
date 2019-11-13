@@ -27,7 +27,7 @@ class CreateVisitorRequest extends FormRequest
             'type_dni'  =>  'required|min:1',
             'dni'       =>  'required|min:6|numeric',
             'name'      =>  'required|string',
-            'lastname'  =>  'required|strign',
+            'lastname'  =>  'required|string',
             'address'   =>  'required|string',
             'phone'     =>  'required|numeric',
             'email'     =>  'required|email',

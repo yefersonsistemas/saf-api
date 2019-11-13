@@ -38,15 +38,14 @@ class ReceptionController extends Controller
     }
 
     public function list_reception(){  //para la vista de reception
-        $rs = Reservation::with('speciality','person')->whereDate('date', Carbon::now()->format('Y-m-d'))
-        ->get();
-
+        $rs = Reservation::with('speciality','person')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
         if (!empty($rs)) {
             
             $rs = $rs->map(function( $r){
                 $patient = Person::with('inputoutput')->where('id', $r->patient_id)->first();
-                if ($r != null && $patient != null) {
+                $p = Patient::where('person_id', $r->patient_id)->first();
                 
+                if ($r != null && $p != null) {
                     $r->patient->image;
                     $r->patient->person->inputoutput;
                     return $r; 
