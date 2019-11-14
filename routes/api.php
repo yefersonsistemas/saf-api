@@ -68,7 +68,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('discontinued', 'API\ReceptionController@discontinued');
             Route::POST('approved', 'API\ReceptionController@approved');
             Route::POST('reason', 'API\ReceptionController@reason');
-            Route::POST('surgeries', 'API\SurgerysController@surgeries'); //muestra todas las cirugias por medico
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto.
             Route::POST('update', 'API\PersonController@update_person');
             Route::POST('update/patient', 'API\PatientController@update_patient');
@@ -114,8 +113,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('currency', 'API\OutController@currency');  //tipo de moneda
             Route::POST('create', 'API\OutController@billing');  // listo 
             Route::POST('outside', 'API\OutController@statusOut'); //actualizacion de registro
-            Route::get('print/exam', 'API\OutController@exams');  //examenes que debe realizarce el paciente
-            Route::get('print/recipe', 'API\OutController@recipe');
+            Route::POST('print/exam', 'API\ExamController@exams');  //examenes que debe realizarce el paciente
+            Route::POST('print/recipe', 'API\OutController@recipe');
         });
 
 
@@ -155,6 +154,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create','API\EmployesController@diagnostic');  // listo
             Route::POST('recipe', 'API\EmployesController@recipe');  // se ve
             Route::POST('pay', 'API\EmployesController@calculo_week');  // 
+            Route::get('surgeries', 'API\TypeSurgerysController@surgeries');
+            Route::POST('speciality', 'API\SpecialityController@doctor_S');// muestra 
         });
         
         // Route::group(['prefix' => 'stocktaking'], function()
@@ -196,5 +197,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('date', 'API\EmployesController@patient_on_day');
             Route::POST('details', 'API\EmployesController@detail_doctor');
         });
+        
         //});        
         

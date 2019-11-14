@@ -38,21 +38,22 @@ class ReceptionController extends Controller
     }
 
     public function list_reception(){  //para la vista de reception
-        $rs = Reservation::with('speciality','person')->whereDate('date', Carbon::now()->format('Y-m-d'))
-        ->get();
+        $rs = Reservation::with('speciality', 'person', 'patient.image')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
         if (!empty($rs)) {
-            
-            $rs = $rs->map(function( $r){
-                $patient = Person::with('inputoutput')->where('id', $r->patient_id)->first();
-                if ($r != null && $patient != null) {
+            $rs = $rs->each(function( $r){
+                $p = Patient::where('person_id', $r->patient_id)->first();
                 
-                    $r->patient->image;
-                    $r->patient->person->inputoutput;
-                    return $r; 
+                if ($r != null && $p != null) {
+                    return $r->historyPatient;
+                }else{
+                    if ($r != null && $p == null) {
+                        $r;
+                    }
                 }
             });
             return response()->json([
+               // 'reservations' => $rs->first()->patient->patient,
                 'reservations' => $rs,
             ]);
         }
@@ -276,7 +277,7 @@ class ReceptionController extends Controller
             }
     }
     
-    public function list_R()
+    public function list_R() //lista de reservaciones en GENERAL
     {
         $rs = Reservation::with('speciality','person')->get();
 

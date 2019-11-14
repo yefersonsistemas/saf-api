@@ -81,14 +81,4 @@ class SurgerysController extends Controller
     {
         //
     }
-
-    public function surgeries(Request $request){
-        $s = Surgery::where('employe_id', $request->employe_id)->get();
-
-        if(!is_null($s)){
-            return response()->json([
-                'surgeries' => $s,
-            ]);
-        }
-    }
 }

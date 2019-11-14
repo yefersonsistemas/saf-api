@@ -25,12 +25,12 @@ class UpdateCiteRequest extends FormRequest
     {
         $rules = [
             'date'               => 'required',
-            //'patient_id'         => 'required',
-            // 'description'        => 'required',
-            // 'status'             => 'required',
-            // 'schedule_id'        => 'required',
-            // 'doctor_id'          => 'required',
-            // 'person_id'          => 'required',
+            'patient_id'         => 'required',
+            'description'        => 'required',
+           // 'schedule_id'        => 'required',
+            'doctor_id'          => 'required',
+            'person_id'          => 'required',
+            'specialitie_id'     => 'required',
         ];
 
         return $rules;

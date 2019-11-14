@@ -2,9 +2,11 @@
 
 use Illuminate\Database\Seeder;
 use App\Person;
+use App\Traits\ImageFactory;
 
 class PersonTableSeeder extends Seeder
 {
+    use ImageFactory;
     /**
      * Run the database seeds.
      *
@@ -13,6 +15,9 @@ class PersonTableSeeder extends Seeder
     public function run()
     {
         // Person::truncate();
-        // factory(Person::class, 20)->create();
+        //$this->deleteDirectory(storage_path('/app/public/person'));
+        // factory(Person::class, 20)->create()->each(function ($person) {;
+            //$this->to('person', $person->id, 'App\Person');
+        // });
     }
 }

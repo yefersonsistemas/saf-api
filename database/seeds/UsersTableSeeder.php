@@ -109,6 +109,7 @@ class UsersTableSeeder extends Seeder
          * Personas que seran los pacientes
          */
         $persons = factory(Person::class, 5)->create()->each(function ($person) use ($employe) {
+            $this->to('person', $person->id, 'App\Person');
             /**
              * Registro de la historia medica
              * con su fotografia
@@ -117,7 +118,6 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $person->id,
                 'employe_id' => $employe->id
             ]);
-            $this->to('patient', $patient->id, 'App\Patient');
                 
             /**
              * Enfermedades del paciente
@@ -142,7 +142,7 @@ class UsersTableSeeder extends Seeder
              * Registro de la reservacion
              */
             factory(App\Reservation::class)->create([
-                'patient_id'     => $patient->id,
+                'patient_id'     => $person->id,
                 'person_id'      => $employe->id,
                 'schedule_id'    => $employe->schedule->first()->id,
                 'specialitie_id' => $employe->speciality->first()->id,
@@ -213,7 +213,7 @@ class UsersTableSeeder extends Seeder
                     'person_id' => $person->id,
                     'employe_id' => $employe->id
                 ]);
-                $this->to('patient', $patient->id, 'App\Patient');
+                $this->to('person', $person->id, 'App\Person');
                     
                 /**
                  * Enfermedades del paciente
@@ -238,16 +238,13 @@ class UsersTableSeeder extends Seeder
                  * Registro de la reservacion
                  */
                 factory(App\Reservation::class)->create([
-                    'patient_id'     => $patient->id,
+                    'patient_id'     => $person->id,
                     'person_id'      => $employe->id,
                     'schedule_id'    => $employe->schedule->first()->id,
                     'specialitie_id' => $employe->speciality->first()->id,
                 ]);
             });
         });
-
-
-
 
 
         $person = Person::create([
@@ -581,7 +578,7 @@ class UsersTableSeeder extends Seeder
     //     'person_id' => $persons->id,
     //     'employe_id' => $employe->id
     // ]);
-    // $this->to('patient', $patient->id, 'App\Patient');
+    //$this->to('person', $person->id, 'App\Person');
 
     // $treatment = factory(App\Treatment::class)->create();
     // factory(App\Diagnostic::class)->create([
@@ -641,7 +638,7 @@ class UsersTableSeeder extends Seeder
     //     'person_id' => $persons->id,
     //     'employe_id' => $employe->id
     // ]);
-    // $this->to('patient', $patient->id, 'App\Patient');
+    // $this->to('person', $person->id, 'App\Person');;
 
     // $treatment = factory(App\Treatment::class)->create();
     // factory(App\Diagnostic::class)->create([
