@@ -122,7 +122,15 @@ class InController extends Controller
         $a = Area::where('id', $request->area_id)->first();
 
         if (!is_null($a) && !is_null($e)) {
-            $date = Carbon::now();
+            $date = Carbon::now()->locale('en');
+            //dd($date);
+
+           // dd($e->schedule == $date);
+            if ($e->schedule == $date) {
+                return response()->json([
+                    'message' => 'El medico no trabaja hoy',
+                ]);
+            }
 
             // if ($e->position->name != 'doctor') {
             //     return response()->json([
@@ -138,7 +146,8 @@ class InController extends Controller
                 ]);    
             }
 
-            $turno = Schedule::where('employe_id', $e->id)->where('day', ucfirst($date->dayName))->first();
+            $turno = Schedule::where('employe_id', $e->id)->where('day', strtolower($date->dayName))->first();
+            //dd($e);
 
             if ($turno->turn == 'mañana') {
                 $areaOcupada = AreaAssigment::where('area_id', $a->id)->whereDate('created_at', $date)->whereTime('created_at', '<=', '12:00')->first();

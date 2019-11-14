@@ -12,11 +12,6 @@ class Patient extends Model
         'date', 'history_number', 'reason', 'person_id', 'gender', 'place', 'birthdate', 'age','weight',  'occupation', 'profession', 'another_phone', 'previous_surgery', 'employe_id', 'branch_id', 'another_email',
     ];
 
-    public function image()
-    {
-        return $this->morphOne('App\Image', 'imageable');
-    }
-
     public function person()
     {
         return $this->belongsTo('App\Person');
@@ -56,7 +51,7 @@ class Patient extends Model
 
      public function reservation()
     {
-        return $this->hasmany('App\Reservation', 'patient_id');
+        return $this->belongsTo('App\Reservation');
     }
 
     public function exam()

@@ -168,27 +168,12 @@ class OutController extends Controller
         }
     }
 
-    public function exams(Request $request) //falta
+    public function recipe(Request $request)
     {
-        $patient = Patient::where('person_id', $request->person_id)->first();
+        $patient = Patient::with('medicine')->where('id', $request->id)->first();
 
-        $exam = Exam::get();
-        //dd($patient);
-        $pdf = PDF::loadView('pdf.exam', compact('exam')); //vista generada por el componente PDF
-                    //carpeta.namearchivo
         return response()->json([
-            'Exams' => $pdf->download('exam.pdf'), 
-        ]);
-    }
-
-    public function recipe()
-    {
-        $patient = Medicine::with('patient')->get();
-        dd($patient);
-        $pdf = PDF::loadView('pdf.recipe', compact('patient')); //vista generada por el componente PDF
-                          
-        return response()->json([
-            'Exams' => $pdf->download('recipe.pdf'), 
+            'recipe' => $patient,
         ]);
     }
 }

@@ -79,7 +79,7 @@ class EmployesController extends Controller
             'employe_id' => 'required',
         ]);
 
-        $date = Carbon::now()->format('Y-d-m');
+        $date = Carbon::now()->format('Y-m-d');
 
         $cites = Assistance::where('employe_id', $request->employe_id)
                             ->whereDate('created_at', $date)->get();

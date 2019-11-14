@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Exam;
+use App\Patient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -94,4 +95,19 @@ class ExamController extends Controller
     {
         //
     }
+
+    public function exams(Request $request)
+    {
+        $patient = Patient::with('diagnostic.exam')->where('person_id', $request->person_id)->first();
+
+        // $exam = Exam::get();
+        // //dd($patient);
+        // $pdf = PDF::loadView('pdf.exam', compact('exam')); //vista generada por el componente PDF
+        //             //carpeta.namearchivo
+        return response()->json([
+            // 'Exams' => $pdf->download('exam.pdf'), 
+            'exams' => $patient,
+        ]);
+    }
+
 }

@@ -22,7 +22,7 @@ class VisitorTableSeeder extends Seeder
             $visitor = factory(Visitor::class)->create([
                 'person_id' => $person->id,
             ]);
-            $this->to('visitor', $visitor->id, 'App\Visitor');            
+            $this->to('person', $person->id, 'App\Person');           
         });
     }
 }

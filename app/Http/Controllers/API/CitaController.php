@@ -23,6 +23,7 @@ class CitaController extends Controller
         $employe = Employe::find($request['doctor_id']);
         $employe->load('schedule'); 
         $fecha = Carbon::parse($request['date'])->locale('en'); 
+        //dd($fecha);
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
         //dd($date);
@@ -83,6 +84,8 @@ class CitaController extends Controller
         if (is_null($reservation)) {
             return response()->json([
                 'message' => 'Cita invalida',
+                'reservation' => $reservation,
+                'request'   => $request,
             ]);
         }
 
@@ -95,12 +98,20 @@ class CitaController extends Controller
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d');
 
+        return response()->json([
+            'date' => $date,
+            'carbon' => $request['date'],
+
+        ]);
+
         // return dd(Carbon::parse('2018-06-15 17:34:15.984512', 'UTC')->format('Y-m-d')->dayName);
 
-        $diaDeReserva = strtolower(Carbon::parse($request['date'])->dayName)->locale('en'); 
+        $diaDeReserva = strtolower(Carbon::parse($request['date'])->locale('en')->dayName); 
+        //dd($diaDeReserva);
 
         $schedule = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
-
+        // dd($schedule);
+        
         if ($schedule == null) {
             return response()->json([
                 'message' => 'El doctor no cuenta con ese horario',

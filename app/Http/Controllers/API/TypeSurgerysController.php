@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Patient;
+Use App\TypeSurgery;
+
 
 class TypeSurgerysController extends Controller
 {
@@ -81,4 +85,25 @@ class TypeSurgerysController extends Controller
     {
         //
     }
+
+    public function surgeries(Request $request){
+        $s = TypeSurgery::get();
+
+        if(!is_null($s)){
+            return response()->json([
+                'surgeries' => $s,
+            ]);
+        }
+    }
+
+    // public function surgeries_patient(Request $request){
+    //     //$s = TypeSurgery::get();
+    //     $p = Patient::where('id', $request->id)->first();
+
+    //     if(!is_null($p)){
+    //         return response()->json([
+    //             'posible_surgeries' => $p,
+    //         ]);
+    //     }
+    // }
 }

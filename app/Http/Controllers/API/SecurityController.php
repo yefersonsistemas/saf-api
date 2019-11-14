@@ -9,6 +9,7 @@ use App\Reservation;
 Use App\Visitor;
 Use App\Person;
 Use App\Image;
+Use App\Patient;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
 use App\Events\Security;
@@ -30,13 +31,10 @@ class SecurityController extends Controller
         //$all = collect([]);
 
         if (!empty($reservations)) {
+
             $patients = $reservations->map(function ($item) {
                 $patient = Person::where('id', $item->patient_id)->first();
-                if ($item != null && $patient != null) {
-                    $item->patient->image;
-                    $item->patient->person->category = 'paciente';
-                    return $item; 
-                }
+                    return $patient;
             });
 
             if ($patients->isNotEmpty()) {
@@ -51,7 +49,7 @@ class SecurityController extends Controller
                 }
             }
 
-            $visitors = Visitor::with('image', 'person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+            $visitors = Visitor::with('person.image')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Visitante')
                             ->orWhere('type_visitor', 'Paciente')->get(); //obtener solo registros creados hoy
     

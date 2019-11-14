@@ -8,8 +8,8 @@ class Surgery extends Model
 {
     protected $table = 'surgeries';
     
-    protected $fillable = [ //saldo
-        'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branch_id'
+    protected $fillable = [ 
+        'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'hospitalization_id', 'branch_id'
     ];
 
     public function employe()
