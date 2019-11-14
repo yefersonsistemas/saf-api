@@ -29,6 +29,18 @@ class Patient extends Model
                       ->withPivot('medicine_id','id');
     }
 
+    public function surgery()
+    {
+         return $this->belongsToMany('App\Surgery','patient_surgery')
+                      ->withPivot('surgery_id','id');
+    }
+
+    public function procedure()
+    {
+         return $this->belongsToMany('App\Procedure','patient_procedure')
+                      ->withPivot('procedure_id','id');
+    }
+
     public function diagnostic()
     {
         return $this->hasMany('App\Diagnostic');
@@ -51,7 +63,7 @@ class Patient extends Model
 
      public function reservation()
     {
-        return $this->belongsTo('App\Reservation');
+        return $this->belongsTo('App\Reservation', 'patient_id');
     }
 
     public function exam()
@@ -62,6 +74,11 @@ class Patient extends Model
     public function employe()
     {
         return $this->belongsTo('App\Employe');
+    }
+
+    public function inputoutput()
+    {
+        return $this->belongsTo('App\InputOutput');
     }
     /**
      * Scope a query to only include patients by dni.

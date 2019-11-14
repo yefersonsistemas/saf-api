@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Itinerary;
+use App\Recipe;
 
-class ItineraryTableSeeder extends Seeder
+class RecipeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class ItineraryTableSeeder extends Seeder
      */
     public function run()
     {
-        Itinerary::truncate();
-        factory(Itinerary::class, 5)->create();
+        Recipe::truncate();
+        factory(Recipe::class)->create();
     }
 }

@@ -59,11 +59,12 @@ class EmployesController extends Controller
 
     public function all_doctors() //muestra todos los medicos registrados en el sistema
     {
-        $employes = Employe::with('image','person.user')->get();
+        $employes = Employe::with('image','person.user', 'position')->get();
+        // dd($employes);
 
         $e = $employes->map( function ($employe) {
             if ($employe->position->name == 'doctor' && $employe->person->user->role('doctor')) {
-                $employe->person->user->role('doctor');
+                //$employe->person->user->role('doctor');
                 return $employe;
             }
         });
@@ -71,7 +72,7 @@ class EmployesController extends Controller
         return response()->json([
             'doctors' => $e,
         ]);
-    }
+    } 
 
     public function assistance(Request $request) //control de asistencia del medico de los dias q no asiste
     {

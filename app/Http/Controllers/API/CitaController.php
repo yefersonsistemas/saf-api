@@ -66,7 +66,7 @@ class CitaController extends Controller
     
 
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar
-        $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient.person')->where('id', $request->id)->first();
+        $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient')->where('id', $request->id)->first();
         //dd($reservation);
 
         if (!empty($reservation)) {
@@ -98,11 +98,10 @@ class CitaController extends Controller
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d');
 
-        return response()->json([
-            'date' => $date,
-            'carbon' => $request['date'],
-
-        ]);
+        // return response()->json([
+        //     'date' => $date,
+        //     'carbon' => $request['date'],
+        // ]);
 
         // return dd(Carbon::parse('2018-06-15 17:34:15.984512', 'UTC')->format('Y-m-d')->dayName);
 
@@ -213,6 +212,11 @@ class CitaController extends Controller
                 }
 
                 for ($i = 0; $i < count($date); $i++) {
+                    /**
+                     * El 12 del ciclo for j,
+                     * hace referencia a 12 semanas que es la mayor 
+                     * anticipacion a la q se puede tener una cita
+                     */
                     for ($j= 0; $j < 12; $j++) { 
                         $citesToday = Reservation::whereDate('date', $date[$i])->get()->count();
                         if ($citesToday[$i] < $quota[$i]) {

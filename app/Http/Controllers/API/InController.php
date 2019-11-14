@@ -16,6 +16,7 @@ use App\TypeArea;
 use App\Person;
 use App\InputOutput;
 use App\Reservation;
+use App\Patient;
 
 //use App\Http\Controllers\CitaController;
 
@@ -184,7 +185,8 @@ class InController extends Controller
             'employe_id'  => 'required',
         ]);
 
-        $io = InputOutput::where('person_id', $request->person_id)->where('employe_id', $request->employe_id)->first();
+        $p = Patient::where('person_id', $request->person_id)->first();
+        $io = InputOutput::where('person_id', $p->id)->where('employe_id', $request->employe_id)->first();
            
         if (empty($io)) {
             InputOutput::create([       

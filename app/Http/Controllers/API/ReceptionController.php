@@ -45,10 +45,12 @@ class ReceptionController extends Controller
                 $p = Patient::where('person_id', $r->patient_id)->first();
                 
                 if ($r != null && $p != null) {
-                    return $r->historyPatient;
+                    $r->person->inputoutput;
+                    $r->historyPatient;
+                    return $r;
                 }else{
                     if ($r != null && $p == null) {
-                        $r;
+                        return $r;
                     }
                 }
             });
@@ -232,7 +234,7 @@ class ReceptionController extends Controller
 
     public function list_S(Request $request)
     {
-        $cites = Reservation::with('person', 'patient.person', 'cite')->where('discontinued', 'Suspendido')->get();
+        $cites = Reservation::with('person', 'patient', 'cite')->where('discontinued', 'Suspendido')->get();
 
         if (!is_null($cites)) {
             
@@ -249,7 +251,7 @@ class ReceptionController extends Controller
 
     public function list_C()
     {
-        $cites = Reservation::with('person', 'patient.person', 'cite')->where('cancel', 'Cancelado')->get();
+        $cites = Reservation::with('person', 'patient', 'cite')->where('cancel', 'Cancelado')->get();
 
         if (!empty($cites)) {
             return response()->json([

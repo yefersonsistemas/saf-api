@@ -22,6 +22,11 @@ class InputOutput extends Model //control de personas en E/S
         return $this->hasone('App\Person', 'person_id');
     }
 
+    public function patient()
+    {
+        return $this->belongsTo('App\Patient', 'person_id');
+    }
+
     public function employe()
     {
         return $this->belongsTo('App\Employe');
