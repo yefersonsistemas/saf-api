@@ -34,7 +34,8 @@ class Procedure extends Model
 
     public function billing()
     {
-        return $this->belongsTo('App\Billing');
+        return $this->belongsToMany('App\Billing','procedure_billing')
+       ->withPivot('billing_id','id');
     }
 
     public function speciality()
