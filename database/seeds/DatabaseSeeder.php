@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NotificationsTableSeeder::class);
         $this->call(BudgetTableSeeder::class);
         $this->call(AssistanceTableSeeder::class);
+        $this->call(RecipeTableSeeder::class);
         $this->call(ItineraryTableSeeder::class);
         Schema::enableForeignKeyConstraints();
     }

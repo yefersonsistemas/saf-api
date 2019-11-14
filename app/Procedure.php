@@ -49,4 +49,9 @@ class Procedure extends Model
        ->withPivot('surgery_id','id');
     }
 
+    public function patient()
+    {
+        return $this->belongsToMany('App\Patient','patient_procedure')
+                    ->withPivot('patient_id','id');
+    }
 }

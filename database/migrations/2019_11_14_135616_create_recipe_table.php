@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItineraryTable extends Migration
+class CreateRecipeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateItineraryTable extends Migration
      */
     public function up()
     {
-        Schema::create('itinerary', function (Blueprint $table) {
+        Schema::create('recipe', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employe_id');
-            $table->unsignedBigInteger('procedure_id');
-            $table->unsignedBigInteger('surgery_id');
-            $table->unsignedBigInteger('exam_id');
-            $table->unsignedBigInteger('recipe_id');
-            $table->unsignedBigInteger('reservation_id');
+            $table->unsignedBigInteger('medicine_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
@@ -35,10 +31,9 @@ class CreateItineraryTable extends Migration
             ->on('employes')
             ->onDelete('CASCADE');
 
-            
-            $table->foreign('reservation_id')
+            $table->foreign('medicine_id')
             ->references('id')
-            ->on('reservations')
+            ->on('medicines')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')
@@ -55,6 +50,6 @@ class CreateItineraryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('itinerary');
+        Schema::dropIfExists('recipe');
     }
 }
