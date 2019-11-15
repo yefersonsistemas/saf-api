@@ -34,7 +34,7 @@ class Reservation extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Person','patient_id');
+        return $this->belongsTo('App\Person');
     }
 
     public function historyPatient()  //relacion con paciente

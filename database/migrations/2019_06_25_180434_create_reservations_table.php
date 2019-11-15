@@ -26,6 +26,7 @@ class CreateReservationsTable extends Migration
             $table->string('status')->nullable();  //asistencia doctor
             $table->unsignedBigInteger('schedule_id');
             $table->unsignedBigInteger('specialitie_id');
+            $table->boolean('operation')->nullable();  //tendra 0/1 para saber si esta reserva es de consulta o de cirugia
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 

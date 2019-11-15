@@ -34,7 +34,7 @@ class Person extends Model
     
     public function historyPatient()  //relacion con paciente
     {
-        return $this->belongsTo('App\Patient');
+        return $this->hasOne('App\Patient');
     }
 
     public function visitor()
@@ -49,7 +49,12 @@ class Person extends Model
 
       public function reservation()
     {
-        return $this->belongsTo('App\Reservation', 'person_id', 'patient_id');
+        return $this->hasMany('App\Reservation');
+    }
+
+    public function reservationPatient()
+    {
+        return $this->hasMany('App\Reservation', 'patient_id');
     }
 
     public function position()
