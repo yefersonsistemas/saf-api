@@ -100,7 +100,7 @@ class OutController extends Controller
 
     public function doctor_P(Request $request)  //procedimientos segun el medico
     {
-        $doctor = Employe::with('person.user','procedures')->where('id', $request->id)->first();
+        $doctor = Employe::with('person.user','procedures', 'doctor')->where('id', $request->id)->first();
 
         if ($doctor->person->user->role('doctor')) {
             return response()->json([

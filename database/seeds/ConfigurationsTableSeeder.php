@@ -20,7 +20,7 @@ class ConfigurationsTableSeeder extends Seeder
             'branch_id' => 1,
         ]);
 
-        Configuration::create([
+        Configuration::create([  //esto es el rango de semanas para agendar una cita actualmente es de 3 meses
             'name'  => 'anticipation',
             'value' => 12,
             'branch_id' => 1,
