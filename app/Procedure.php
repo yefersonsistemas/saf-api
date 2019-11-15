@@ -54,4 +54,10 @@ class Procedure extends Model
         return $this->belongsToMany('App\Patient','patient_procedure')
                     ->withPivot('patient_id','id');
     }
+
+    public function surgery() 
+    {
+        return $this->belongsToMany('App\Surgery','procedure_surgery')
+       ->withPivot('surgery_id','id');
+    }
 }

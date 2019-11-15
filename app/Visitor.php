@@ -23,12 +23,12 @@ class Visitor extends Model //visitantes
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->hasone('App\Employe');
     }
 
     public function position()
     {
-        return $this->belongsTo('App\Position');
+        return $this->hasone('App\Position');
     }
 
     public function patient()

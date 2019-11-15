@@ -24,7 +24,8 @@ class EmployesController extends Controller
     public function index()
     {
         $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-        $employes = Employe::all();
+        $employes = Employe::get();
+        //dd($employes);
         $days = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes');
 
         $e = $employes->each( function ($employe) {
@@ -47,7 +48,7 @@ class EmployesController extends Controller
                 }
             }
             
-        $employes = Visitor::with('person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+        $employes = Visitor::with('person.employe.position')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Empleado')->get();
 
         return response()->json([
