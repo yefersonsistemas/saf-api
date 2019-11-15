@@ -39,6 +39,7 @@ class CitaController extends Controller
             });
         }  
     }
+
     //quota representa el max de cupos por dia de pacientes 
     public static function create_cite(CreateReservationRequest $request){
         
