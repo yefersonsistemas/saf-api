@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Patient;
 Use App\TypeSurgery;
+Use App\Surgery;
 
 
 class TypeSurgerysController extends Controller
@@ -111,7 +112,7 @@ class TypeSurgerysController extends Controller
 
     public function procedure_surgery(Request $request) //procedimientos pertenecientes a cierta cirugia
     {
-        $e = Employe::wiht('procedures.surgery')->where('id', $request->id)->first();
+        $e = Surgery::with('procedures')->where('id', $request->id)->first();
 
         if(!is_null($e)){
             return response()->json([
