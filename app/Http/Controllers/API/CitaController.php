@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Configuration;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateReservationRequest;
 use App\Http\Requests\UpdateCiteRequest;
@@ -13,10 +14,32 @@ Use App\Schedule;
 use App\Person;
 use App\User;
 use App\Patient;
+use App\Surgery;
 use Carbon\Carbon;
 
 class CitaController extends Controller
 {
+
+    public function __invoke()
+    {
+        $reservations = Reservation::with('cite')->where('discontinued','!=', null)->get();
+        if ($reservations->isNotEmpty()) {
+            $reservations->each(function ($reservation)
+            {
+                if (!is_null($reservation->cite)) {
+                    $tiempo = Configuration::where('name','limit')->first();
+                    if ($tiempo->value != 'indefinido') {
+                        $fechaLimite = Carbon::now()->subMonths(int($tiempo->value));
+                        $created_at = Carbon::parse($reservation->cite->created_at);
+                        if($created_at->lessThan($fechaLimite)){
+                            $reservation->delete();
+                        }
+                    }
+                }
+            });
+        }  
+    }
+
     //quota representa el max de cupos por dia de pacientes 
     public static function create_cite(CreateReservationRequest $request){
         
@@ -218,8 +241,8 @@ class CitaController extends Controller
                      * anticipacion a la q se puede tener una cita
                      */
                     for ($j= 0; $j < 12; $j++) { 
-                        $citesToday = Reservation::whereDate('date', $date[$i])->get()->count();
-                        if ($citesToday[$i] < $quota[$i]) {
+                        $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
+                        if ($citesToday < $quota[$i]) {
                             $available[] = array('dia' => $date[$i]->day, 'mes' =>  $date[$i]->month); 
                         }
                         $date[$i] = $date[$i]->addWeek();

@@ -17,13 +17,13 @@ class ConfigurationsTableSeeder extends Seeder
         Configuration::create([
             'name'  => 'limit',
             'value' => 3,
-            'branch_id' => '1',
+            'branch_id' => 1,
         ]);
 
         Configuration::create([
-            'name'  => 'limit',
-            'value' => 'indefinido',
-            'branch_id' => '1',
+            'name'  => 'anticipation',
+            'value' => 12,
+            'branch_id' => 1,
         ]);
     }
 }

@@ -35,7 +35,6 @@ class EmployesController extends Controller
             }
         });
 
-
         if ($e->isNotEmpty()) {
             foreach ($e as $person) {
                 Visitor::create([
@@ -50,7 +49,6 @@ class EmployesController extends Controller
             
         $employes = Visitor::with('person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Empleado')->get();
-
 
         return response()->json([
             'employes' => $employes,
@@ -117,7 +115,7 @@ class EmployesController extends Controller
                 return $employe;
             }
         });
-        
+
         if ($employes->isNotEmpty()){
             return response()->json([
                 'employes' => $employes,
@@ -299,41 +297,38 @@ class EmployesController extends Controller
 
     //falta acomodar el rango de las fechas
     public function calculo_week(Request $request){  //clase A fija su precio para las consultas
-        // Carbon::setWeekStartsAt(Carbon::THURSDAY);
-        // Carbon::setWeekEndsAt(Carbon::FRIDAY);
-        // $patient = Patient::with('employe')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        // ;
-
         $employe = Employe::with('person.user', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
-       // dd($employe);
-        $billing = Billing::where('person_id', $request->person_id)->get();
-        //dd($billing);
 
-        if($employe->person->user->role('doctor')){
-          
-            $total = 0;
-            foreach($billing as $b){
-               $total += $b->procedures->price;
-            }
-            return $total; 
-            //dd($total);
-    
-            $pago = ($employe->doctor->typedoctor->comission + ($employe->doctor->price) + $total);
+        if ($employe->position->name != 'doctor' || !$employe->person->user->role('doctor')) {
+            return response()->json([
+                'message' => 'empleado no es medico',
+            ]);
         }
 
+        $inicio = Carbon::now()->startOfWeek(Carbon::MONDAY);
+        $fin = Carbon::now()->endOfWeek(Carbon::FRIDAY);
+
+        $billing = Billing::with('procedures')->where('employe_id', $employe->id)->whereBetween('created_at', [$inicio , $fin])->get();
+
+        $total = 0;
+        foreach($billing as $b){
+            foreach ($b->procedures as $procedure) {
+                $total += $procedure->price;
+            }
+        }
+
+        $pago = (($employe->doctor->typedoctor->comission * $employe->doctor->price) + $total);
         return response()->json([
             'pago' => $pago,
         ]);
-    } 
+    }
     
     public function record_patient(Request $request){  //todos los pacientes por doctor
         $employe = Employe::with('person.user', 'patient.person')->where('id', $request->id)->first();
 
         if (!is_null($employe)) {
-            
             return response()->json([
                 'patients' => $employe,
-               
             ]);
         }
     } 
@@ -343,10 +338,8 @@ class EmployesController extends Controller
                                 ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
         if (!is_null($patients)) {
-
             return response()->json([
                 'reservas' => $patients,
-                
             ]);
         }
     }

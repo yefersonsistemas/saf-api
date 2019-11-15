@@ -59,7 +59,7 @@ class Reservation extends Model
 
     public function cite()
     {
-        return $this->hasmany('App\Cite', 'reservation_id');
+        return $this->hasMany('App\Cite', 'reservation_id');
     }
 
     public function speciality()
