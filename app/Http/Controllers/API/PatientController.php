@@ -11,6 +11,7 @@ use App\Medicine;
 use App\Patient;
 use App\Person;
 use App\Employe;
+use App\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -317,7 +318,8 @@ class PatientController extends Controller
   }
 
   public function record_cite(Request $request){
-  $cite = Patient::with('person','diagnostic.treatment')->where('id', $request->id)->first();
+  $cite = Patient::with('person.reservationPatient.speciality','diagnostic.treatment')
+          ->where('person_id', $request->person_id)->first();
   
       return response()->json([
         'Patient' => $cite,

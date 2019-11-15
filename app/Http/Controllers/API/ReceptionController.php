@@ -38,27 +38,12 @@ class ReceptionController extends Controller
     }
 
     public function list_reception(){  //para la vista de reception
-        $rs = Reservation::with('speciality', 'person', 'patient.image')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+        $rs = Reservation::with('speciality', 'person','patient.historyPatient','patient.inputoutput')
+                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
-        if (!empty($rs)) {
-            $rs = $rs->each(function( $r){
-                $p = Patient::where('person_id', $r->patient_id)->first();
-                
-                if ($r != null && $p != null) {
-                    $r->person->inputoutput;
-                    $r->historyPatient;
-                    return $r;
-                }else{
-                    if ($r != null && $p == null) {
-                        return $r;
-                    }
-                }
-            });
-            return response()->json([
-               // 'reservations' => $rs->first()->patient->patient,
-                'reservations' => $rs,
-            ]);
-        }
+                return response()->json([
+                    'reservations' => $rs,
+                ]);
     }
 
     public function cite_patient(Request $request){ //envia los datos de la cita por paciente cuando se va a generar la historia
