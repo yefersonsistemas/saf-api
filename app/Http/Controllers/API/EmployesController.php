@@ -46,7 +46,7 @@ class EmployesController extends Controller
                     ]);
                 }
             }
-            
+
         $employes = Visitor::with('person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Empleado')->get();
 
@@ -58,19 +58,19 @@ class EmployesController extends Controller
     public function all_doctors() //muestra todos los medicos registrados en el sistema
     {
         $employes = Employe::with('image','person.user', 'position')->get();
+        $em = collect([]);
         
-            if (!is_null($employes)) {
-                foreach($employes as $employe){
-                    if ($employe->position->name == 'doctor' && $employe->person->user->role('doctor')) {
-                        $employe->person->user->role('doctor');
-                    }
-                    return $employe;
+        if ($employes->isNotEmpty()) {
+            foreach($employes as $employe){
+                if ($employe->position->name == 'doctor' && $employe->person->user->role('doctor')) {
+                    $em->push($employe);
                 }
-                return response()->json([
-                    'doctors' => $employe,
-                ]);
             }
 
+            return response()->json([
+                'doctors' => $em,
+            ]);
+        }
     } 
 
     public function assistance(Request $request) //control de asistencia del medico de los dias q no asiste
@@ -105,20 +105,25 @@ class EmployesController extends Controller
 
     public function doctor_on_day()//medicos del dia
     {
-        $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();    
-        
-        $employes->each( function ($employe) {
-            if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
-                $employe->person->user->role('doctor');
-                $dia = Carbon::now()->dayOfWeek;
-                $employe->schedule->contains($dia);
-                return $employe;
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
+        $em = collect([]);
+        if ($employes->isNotEmpty()) {
+            foreach ($employes as $employe) {
+                if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                    if ($employe->schedule->isNotEmpty()) {
+                        $dia = strtolower(Carbon::now()->locale('en')->dayName);
+                        foreach ($employe->schedule as $schedule) {
+                            if ($schedule->day == $dia) {
+                                $em->push($employe);
+                            }
+                        }
+                    }
+                    
+                }
             }
-        });
 
-        if ($employes->isNotEmpty()){
             return response()->json([
-                'employes' => $employes,
+                'employes' => $em,
             ]);
         }
     }
