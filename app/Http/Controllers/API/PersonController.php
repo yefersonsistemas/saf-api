@@ -89,14 +89,16 @@ class PersonController extends Controller
     $patient = Person::find($request->id);
 
     $patient->address = $request->address;
+    $patient->phone = $request->phone;
+    $patient->email = $request->email;
 
     if($patient->save()){
         return response()->json([
-            'message' => 'Direccion modificada',
+            'message' => 'Datos modificados',
         ]);
     }else{
         return response()->json([
-            'message' => 'No se pudo actualizar la direccion',
+            'message' => 'No se pudo actualizar los datos',
         ]);
     }
   }

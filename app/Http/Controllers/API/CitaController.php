@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Configuration;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateReservationRequest;
 use App\Http\Requests\UpdateCiteRequest;
@@ -13,23 +14,46 @@ Use App\Schedule;
 use App\Person;
 use App\User;
 use App\Patient;
+use App\Surgery;
 use Carbon\Carbon;
 
 class CitaController extends Controller
 {
+
+    public function __invoke()
+    {
+        $reservations = Reservation::with('cite')->where('discontinued','!=', null)->get();
+        if ($reservations->isNotEmpty()) {
+            $reservations->each(function ($reservation)
+            {
+                if (!is_null($reservation->cite)) {
+                    $tiempo = Configuration::where('name','limit')->first();
+                    if ($tiempo->value != 'indefinido') {
+                        $fechaLimite = Carbon::now()->subMonths(int($tiempo->value));
+                        $created_at = Carbon::parse($reservation->cite->created_at);
+                        if($created_at->lessThan($fechaLimite)){
+                            $reservation->delete();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
     //quota representa el max de cupos por dia de pacientes 
     public static function create_cite(CreateReservationRequest $request){
         
         $employe = Employe::find($request['doctor_id']);
         $employe->load('schedule'); 
-        $fecha = Carbon::parse($request['date']); 
+        $fecha = Carbon::parse($request['date'])->locale('en'); 
+        //dd($fecha);
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
         //dd($date);
-        $diaDeReserva = ucfirst($fecha->dayName); 
+        $diaDeReserva = strtolower($fecha->dayName);
         //dd($diaDeReserva);
         $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
-       // dd($dia);                  
+        //dd($dia);                  
         $cupos = $dia->quota; //obtengo el valor de quota 
        // dd($cupos);  
         $dia = Reservation::whereDate('date', $date)->get()->count(); //obtengo todos los registros de ese dia y los cuento
@@ -38,14 +62,14 @@ class CitaController extends Controller
 
             if ($dia <  $cupos) {
 
-                $patient= Patient::where('person_id', $request['patient_id'])->first();
+                $patient= Person::where('id', $request['id'])->first();
                 //dd($patient);
                 //dd($patient->id);
             
                 $reservation = Reservation::create([		
                     'date' => $request['date'],
                     'description' => $request['description'],
-                    'patient_id' => $patient->id,
+                    'patient_id' => $request['patient_id'],
                     'person_id' => $request['person_id'],
                     'schedule_id' => $request['schedule_id'],
                     'specialitie_id' => $request['specialitie_id'],
@@ -62,9 +86,10 @@ class CitaController extends Controller
             ]);
         }
     }
+    
 
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar
-        $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient.person')->where('id', $request->id)->first();
+        $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient')->where('id', $request->id)->first();
         //dd($reservation);
 
         if (!empty($reservation)) {
@@ -82,6 +107,8 @@ class CitaController extends Controller
         if (is_null($reservation)) {
             return response()->json([
                 'message' => 'Cita invalida',
+                'reservation' => $reservation,
+                'request'   => $request,
             ]);
         }
 
@@ -94,12 +121,19 @@ class CitaController extends Controller
 
         $date = Carbon::parse($request['date'])->Format('Y-m-d');
 
+        // return response()->json([
+        //     'date' => $date,
+        //     'carbon' => $request['date'],
+        // ]);
+
         // return dd(Carbon::parse('2018-06-15 17:34:15.984512', 'UTC')->format('Y-m-d')->dayName);
 
-        $diaDeReserva = ucfirst(Carbon::parse($request['date'])->dayName); 
+        $diaDeReserva = strtolower(Carbon::parse($request['date'])->locale('en')->dayName); 
+        //dd($diaDeReserva);
 
         $schedule = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
-
+        // dd($schedule);
+        
         if ($schedule == null) {
             return response()->json([
                 'message' => 'El doctor no cuenta con ese horario',
@@ -165,7 +199,6 @@ class CitaController extends Controller
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,
-                'message' => 'Paciente Encontrado'
             ]);
         }else{
             return response()->json([
@@ -185,17 +218,49 @@ class CitaController extends Controller
         }
     }
 
+    /**
+     * 
+     * Busca el horario del doctor y 
+     * retorna los dias que el tenga disponible
+     * 
+     */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
         $employe = Employe::with('schedule')->where('person_id', $request->person_id)->first();
-     
-        if (!is_null($employe)) {
 
-            return response()->json([
-                'employe' => $employe,
-            ]);
+        if (!is_null($employe)) {
+            if (!is_null($employe->schedule)) {
+                foreach ($employe->schedule as $schedule) {
+                    $date[]  = new Carbon('next ' . $schedule->day);
+                    $quota[] = $schedule->quota;
+                }
+
+                for ($i = 0; $i < count($date); $i++) {
+                    /**
+                     * El 12 del ciclo for j,
+                     * hace referencia a 12 semanas que es la mayor 
+                     * anticipacion a la q se puede tener una cita
+                     */
+                    for ($j= 0; $j < 12; $j++) { 
+                        $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
+                        if ($citesToday < $quota[$i]) {
+                            $available[] = array('dia' => $date[$i]->day, 'mes' =>  $date[$i]->month); 
+                        }
+                        $date[$i] = $date[$i]->addWeek();
+                    }
+                }
+
+                return response()->json([
+                    'employe'       => $employe,
+                    'available'     => $available,
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'Medico sin horario',
+                ]);
+            }
         }else{
             return response()->json([
-                'message' =>'No encontrado',
+                'message' => 'Medico no encontrado',
             ]);
         }
     }

@@ -14,11 +14,17 @@ class Exam extends Model
 
     public function patient()
     {
-        return $this->belongsToMany('App\Patient');
+        return $this->belongsTo('App\Patient');
     }
 
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function diagnostic() 
+    {
+        return $this->belongsToMany('App\Diagnostic','diagnostic_exam')
+       ->withPivot('diagnostic_id','id');
     }
 }

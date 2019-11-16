@@ -38,23 +38,12 @@ class ReceptionController extends Controller
     }
 
     public function list_reception(){  //para la vista de reception
-        $rs = Reservation::with('speciality','person')->whereDate('date', Carbon::now()->format('Y-m-d'))
-        ->get();
+        $rs = Reservation::with('speciality', 'person','patient.historyPatient','patient.inputoutput')
+                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
-        if (!empty($rs)) {
-            
-            $rs = $rs->map(function( $r){
-                $patient = Person::where('id', $r->patient_id)->first();
-                if ($r != null && $patient != null) {
-                    $r->patient->image;
-                    $r->patient->person;
-                    return $r; 
-                }
-            });
-            return response()->json([
-                'reservations' => $rs,
-            ]);
-        }
+                return response()->json([
+                    'reservations' => $rs,
+                ]);
     }
 
     public function cite_patient(Request $request){ //envia los datos de la cita por paciente cuando se va a generar la historia
@@ -82,6 +71,18 @@ class ReceptionController extends Controller
 
             return response()->json([
                 'person' => $person,
+            ]);
+        }
+    }
+
+    public function search_P(Request $request)
+    {
+        $patient = Patient::where('person_id', $request->person_id)->first(); //busca paciente para ver si ya tiene historia
+
+        if (!is_null($patient)) { 
+
+            return response()->json([
+                'patient' => $patient,
             ]);
         }
     }
@@ -218,7 +219,7 @@ class ReceptionController extends Controller
 
     public function list_S(Request $request)
     {
-        $cites = Reservation::with('person', 'patient.person', 'cite')->where('discontinued', 'Suspendido')->get();
+        $cites = Reservation::with('person', 'patient', 'cite')->where('discontinued', 'Suspendido')->get();
 
         if (!is_null($cites)) {
             
@@ -235,7 +236,7 @@ class ReceptionController extends Controller
 
     public function list_C()
     {
-        $cites = Reservation::with('person', 'patient.person', 'cite')->where('cancel', 'Cancelado')->get();
+        $cites = Reservation::with('person', 'patient', 'cite')->where('cancel', 'Cancelado')->get();
 
         if (!empty($cites)) {
             return response()->json([
@@ -248,7 +249,7 @@ class ReceptionController extends Controller
         }
     }
 
-    public function delete_cite(Request $request)
+    public function delete_cite(Request $request) //eliminar de lista suspendidas
     {
         $r = Reservation::where('id', $request->id)->first();
         $cite = Cite::where('reservation_id', $request->id)->first();
@@ -263,7 +264,7 @@ class ReceptionController extends Controller
             }
     }
     
-    public function list_R()
+    public function list_R() //lista de reservaciones en GENERAL
     {
         $rs = Reservation::with('speciality','person')->get();
 

@@ -12,11 +12,6 @@ class Patient extends Model
         'date', 'history_number', 'reason', 'person_id', 'gender', 'place', 'birthdate', 'age','weight',  'occupation', 'profession', 'another_phone', 'previous_surgery', 'employe_id', 'branch_id', 'another_email',
     ];
 
-    public function image()
-    {
-        return $this->morphOne('App\Image', 'imageable');
-    }
-
     public function person()
     {
         return $this->belongsTo('App\Person');
@@ -32,6 +27,18 @@ class Patient extends Model
     {
          return $this->belongsToMany('App\Medicine','medicine_patient')
                       ->withPivot('medicine_id','id');
+    }
+
+    public function surgery()
+    {
+         return $this->belongsToMany('App\Surgery','patient_surgery')
+                      ->withPivot('surgery_id','id');
+    }
+
+    public function procedure()
+    {
+         return $this->belongsToMany('App\Procedure','patient_procedure')
+                      ->withPivot('procedure_id','id');
     }
 
     public function diagnostic()
@@ -54,19 +61,24 @@ class Patient extends Model
         return $this->belongsTo('App\Branch');
     }
 
-     public function reservation()
-    {
-        return $this->hasmany('App\Reservation', 'patient_id');
-    }
+    //  public function reservation()
+    // {
+    //     return $this->belongsTo('App\Reservation', 'patient_id');
+    // }
 
     public function exam()
     {
-        return $this->hasMany('App\Exam');
+        return $this->belongsTo('App\Exam');
     }
 
     public function employe()
     {
         return $this->belongsTo('App\Employe');
+    }
+
+    public function inputoutput()
+    {
+        return $this->belongsTo('App\InputOutput');
     }
     /**
      * Scope a query to only include patients by dni.

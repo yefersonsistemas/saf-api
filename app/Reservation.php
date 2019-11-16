@@ -34,7 +34,12 @@ class Reservation extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Person');
+    }
+
+    public function historyPatient()  //relacion con paciente
+    {
+        return $this->belongsTo('App\Patient', 'person_id');
     }
 
     public function branch()
@@ -54,12 +59,17 @@ class Reservation extends Model
 
     public function cite()
     {
-        return $this->hasmany('App\Cite', 'reservation_id');
+        return $this->hasMany('App\Cite', 'reservation_id');
     }
 
     public function speciality()
     {
         return $this->belongsTo('App\Speciality', 'specialitie_id');
+    }
+
+    public function inputoutput()
+    {
+        return $this->hasmany('App\InputOutput','person_id');
     }
 
 }

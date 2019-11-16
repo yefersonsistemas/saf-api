@@ -6,9 +6,55 @@ use Illuminate\Database\Eloquent\Model;
 
 class Itinerary extends Model  //guarda toda la informacion del paciente durante la consulta
 {
-    // protected $table = 'itinerary';
+    protected $table = 'itinerary';
 
-    // protected $fillable = [
-    //     '',
-    // ];
+    protected $fillable = [
+        'patient_id', 'employe_id', 'procedure_id', 'surgery_id', 'exam_id', 'recipe_id', 'reservation_id', 'branch_id'
+    ];
+
+    public function employe()
+    {
+        return $this->belongsTo('App\Employe');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Patient');
+    }
+
+    public function procedure()
+    {
+        return $this->belongsTo('App\Procedure');
+    }
+
+    public function surgery()
+    {
+        return $this->belongsTo('App\Surgery');
+    }
+
+    public function person()
+    {
+        return $this->belongsTo('App\Person');
+    }
+
+    public function speciality()
+    {
+        return $this->belongsTo('App\Specilaity');
+    }
+
+    public function exam()
+    {
+        return $this->belongsTo('App\Exam');
+    }
+
+    public function recipe()
+    {
+        return $this->belongsTo('App\Recipe');
+    }
+
+    public function reservation()
+    {
+        return $this->belongsTo('App\Reservation');
+    }
+
 }

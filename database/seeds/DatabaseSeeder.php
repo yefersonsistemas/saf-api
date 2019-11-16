@@ -46,7 +46,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentTableSeeder::class);
         $this->call(TypeSupplieTableSeeder::class);     
         $this->call(SupplieTableSeeder::class);
+        $this->call(ClassificationSurgeryTableSeeder::class);
         $this->call(TypeSurgeriesTableSeeder::class);
+        $this->call(HospitalizationTableSeeder::class);
         $this->call(SurgeriesTableSeeder::class);
         $this->call(TypeCurrenciesTableSeeder::class);
         $this->call(TypePaymentsTableSeeder::class);
@@ -60,6 +62,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NotificationsTableSeeder::class);
         $this->call(BudgetTableSeeder::class);
         $this->call(AssistanceTableSeeder::class);
+        $this->call(RecipeTableSeeder::class);
         $this->call(ItineraryTableSeeder::class);
         Schema::enableForeignKeyConstraints();
     }

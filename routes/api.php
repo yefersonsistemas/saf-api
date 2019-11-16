@@ -54,8 +54,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create', 'API\SecurityController@all_visitor');  // corregido funciona bien
             Route::POST('create/person', 'API\SecurityController@only_person'); // registra solo en person
             Route::POST('create/visitor', 'API\SecurityController@create_visitor');  // listo
-            //Route::POST('inside', 'API\SecurityController@statusIn'); //actualizacion de registro
-           // Route::POST('outside', 'API\SecurityController@statusOut');
             Route::POST('inside', 'API\SecurityController@statusIn');  // corregido funciona bien
             Route::POST('outside', 'API\SecurityController@statusOut');  // corregido funciona bien
             Route::POST('search', 'API\SecurityController@search');  // corregido funciona bien
@@ -70,7 +68,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('discontinued', 'API\ReceptionController@discontinued');
             Route::POST('approved', 'API\ReceptionController@approved');
             Route::POST('reason', 'API\ReceptionController@reason');
-            Route::POST('surgeries', 'API\SurgerysController@surgeries'); //muestra todas las cirugias por medico
             Route::POST('create', 'API\ReceptionController@create_history');  //lissto.
             Route::POST('update', 'API\PersonController@update_person');
             Route::POST('update/patient', 'API\PatientController@update_patient');
@@ -79,6 +76,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('list/cancel', 'API\ReceptionController@list_C');
             Route::POST('delete', 'API\ReceptionController@delete_cite');
             Route::get('reservation', 'API\ReceptionController@list_R');
+            Route::POST('search/patient', 'API\ReceptionController@search_P'); 
         });
 
         //rutas generar cita/reservacion
@@ -99,14 +97,25 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('assigment', 'API\InController@assigment');  // asignar consultorio listo
             //Route::POST('area', 'API\InController@status');  // listo
             Route::get('list', 'API\AreasController@list_area');  // listo
+            Route::POST('inside', 'API\InController@statusIn'); //creacion de registro
+            Route::POST('print', 'API\InController@exams');
         });
 
         Route::group(['prefix' => 'out'], function(){
-            Route::get('show', 'API\OutController@show_P');
-            Route::get('/', 'API\PatientController@index');
+            Route::get('/', 'API\PatientController@index'); //todos los pacientes
+            Route::get('all/doctors','API\EmployesController@all_doctors');  //todos los doctores en el sistema
+            Route::POST('search', 'API\CitaController@search'); //busca persona a ver si existe
+            Route::POST('create/person', 'API\SecurityController@only_person'); // persona a cancelar en caso de no ser el paciente
+            Route::get('list','API\EmployesController@list'); //medicos con sus procedimientos
+            Route::POST('doctor','API\OutController@doctor_P');// procedimientos segun el medico
+            Route::POST('search/patient', 'API\PatientController@search'); //busca paciente q estara en la factura
+            Route::get('pay', 'API\OutController@payment');  //tipo de pago
+            Route::get('currency', 'API\OutController@currency');  //tipo de moneda
             Route::POST('create', 'API\OutController@billing');  // listo 
+            Route::POST('outside', 'API\OutController@statusOut'); //actualizacion de registro
+            Route::POST('print/exam', 'API\ExamController@exams');  //examenes que debe realizarce el paciente
+            Route::POST('print/recipe', 'API\OutController@recipe');
         });
-
 
 
         //rutas rol logistica
@@ -145,19 +154,23 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create','API\EmployesController@diagnostic');  // listo
             Route::POST('recipe', 'API\EmployesController@recipe');  // se ve
             Route::POST('pay', 'API\EmployesController@calculo_week');  // 
+            Route::get('surgeries', 'API\TypeSurgerysController@surgeries');
+            Route::get('type/surgeries', 'API\TypeSurgerysController@type_surgery');
+            Route::POST('procedure/surgery', 'API\TypeSurgerysController@procedure_surgery');
+            Route::POST('speciality', 'API\SpecialityController@doctor_S');// muestra 
         });
         
-        Route::group(['prefix' => 'stocktaking'], function()
-        {
-            //Insumos
-            Route::get('/', 'API\StocktakingController@index');
-            Route::post('/create_supplie', 'API\StocktakingController@create_supplie');
-            Route::PUT('/edit_supplie', 'API\StocktakingController@edit_supplie');
+        // Route::group(['prefix' => 'stocktaking'], function()
+        // {
+        //     //Insumos
+        //     Route::get('/', 'API\StocktakingController@index');
+        //     Route::post('/create_supplie', 'API\StocktakingController@create_supplie');
+        //     Route::PUT('/edit_supplie', 'API\StocktakingController@edit_supplie');
             
-            //Equipo
-            Route::post('/create_equipment', 'API\StocktakingController@create_equipment');
-            Route::put('/edit_equipment', 'API\StocktakingController@edit_equipment');
-        });
+        //     //Equipo
+        //     Route::post('/create_equipment', 'API\StocktakingController@create_equipment');
+        //     Route::put('/edit_equipment', 'API\StocktakingController@edit_equipment');
+        // });
         
         Route::group(['prefix' => 'create'], function(){
             Route::POST('procedure', 'API\ProcedureController@store');
@@ -176,7 +189,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('create', 'API\EmployesController@store');  // listo
             Route::POST('inside', 'API\EmployesController@statusIn');  //listo
             Route::POST('outside', 'API\SecurityController@statusOut');  //listo
-            Route::POST('assistance', 'API\EmployesController@status');
+            Route::POST('assistance', 'API\EmployesController@assistance');
         });
         
         //rutas para la App
@@ -186,7 +199,6 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('date', 'API\EmployesController@patient_on_day');
             Route::POST('details', 'API\EmployesController@detail_doctor');
         });
-        //});
         
-        
+        //});        
         

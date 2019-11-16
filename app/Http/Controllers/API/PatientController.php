@@ -11,6 +11,7 @@ use App\Medicine;
 use App\Patient;
 use App\Person;
 use App\Employe;
+use App\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -24,15 +25,6 @@ class PatientController extends Controller
 
   public function index()
   {
-    // $patients = Patient::all();
-      
-    // return response()->json([
-    //   'patients' => $patients,
-    // ]);
-
-    // $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
-    // //return view('dashboard.patients.index', compact('patients'));
-
     $patient = Patient::with('person')->get();
 
     if (!is_null($patient)) {
@@ -40,6 +32,10 @@ class PatientController extends Controller
             'patients' => $patient,
         ]);
     }
+   
+    // $patients = Patient::with('diagnostics')->byDni($request->s)->byName($request->s)->latest()->paginate(20);
+    // //return view('dashboard.patients.index', compact('patients'));
+
   }
 
   /**
@@ -303,6 +299,7 @@ class PatientController extends Controller
   {
     //
   }
+
   public function pdfPatient(Request $request, Patient $patient)
   {
     $description = $request->description;
@@ -321,7 +318,8 @@ class PatientController extends Controller
   }
 
   public function record_cite(Request $request){
-  $cite = Patient::with('reservation.speciality','diagnostic.treatment','reservation.person')->where('id', $request->id)->first();
+  $cite = Patient::with('person.reservationPatient.speciality','diagnostic.treatment')
+          ->where('person_id', $request->person_id)->first();
   
       return response()->json([
         'Patient' => $cite,
@@ -331,12 +329,23 @@ class PatientController extends Controller
 
   public function update_patient(Request $request)
   {
-    $patient = Patient::find($request->id);
+    $patient = Patient::where('person_id', $request->person_id)->first();
 
+    $patient->date = $request->date;
+    $patient->history_number = $request->history_number;
+    $patient->reason = $request->reason;
+    $patient->person_id = $request->person_id;
+    $patient->gender = $request->gender;
+    $patient->place = $request->place;
+    $patient->birthdate = $request->birthdate;
     $patient->age = $request->age;
     $patient->weight = $request->weight;
     $patient->occupation = $request->occupation;
     $patient->profession = $request->profession;
+    $patient->previous_surgery = $request->previous_surgery;
+    $patient->employe_id = $request->employe_id;
+    $patient->another_phone = $request->another_phone;
+    $patient->another_email = $request->another_email;
 
     if($patient->save()){
       return response()->json([
@@ -347,6 +356,17 @@ class PatientController extends Controller
           'message' => 'No se pudo actualizar los datos',
       ]);
   }
+  }
+
+  public function search(Request $request) //busca paciente q estara en la factura
+  {
+      $p = Patient::with('person')->where('id', $request->id)->first();
+
+      if (!is_null($p)) {
+          return response()->json([
+              'patients' => $p,
+          ]);
+      }
   }
   
 }

@@ -9,7 +9,7 @@ class Typesurgery extends Model //tipos de cirugias
     protected $table = 'type_surgeries';
 
     protected $fillable = [ 
-        'name', 'duration', 'cost',  'branch_id'
+        'name', 'duration', 'cost', 'classification_surgery_id', 'branch_id'
     ];
 
     public function employe()
@@ -20,6 +20,11 @@ class Typesurgery extends Model //tipos de cirugias
     public function surgery()
     {
         return $this->belongsTo('App\Surgery');
+    }
+
+    public function classification()
+    {
+        return $this->belongsTo('App\ClassificationSurgery');
     }
 
     public function branch()

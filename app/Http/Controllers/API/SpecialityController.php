@@ -101,4 +101,16 @@ class SpecialityController extends Controller
     {
         //
     }
+
+    public function doctor_S(Request $request){    //medico con todas sus especialidades
+        $doctor = Employe::with('person.user', 'speciality')->where('person_id', $request->person_id)->first();
+
+        if (!is_null($doctor)) {
+
+            return response()->json([
+                'doctor' => $doctor,
+            ]);
+        }
+    }
+ 
 }

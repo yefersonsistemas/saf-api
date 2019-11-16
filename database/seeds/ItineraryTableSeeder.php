@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Itinerary;
 
 class ItineraryTableSeeder extends Seeder
 {
@@ -11,6 +12,7 @@ class ItineraryTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Itinerary::truncate();
+        factory(Itinerary::class, 5)->create();
     }
 }

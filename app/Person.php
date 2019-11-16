@@ -22,20 +22,26 @@ class Person extends Model
         return $this->hasOne('App\User');
     }
 
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
     public function employe()
     {
         return $this->hasOne('App\Employe');
     }
-
-    public function patient()
+    
+    public function historyPatient()  //relacion con paciente
     {
-        return $this->hasone('App\Patient', 'person_id');
+        return $this->hasOne('App\Patient');
     }
 
     public function visitor()
     {
         return $this->belongsTo('App\Visitor');
     }
+    
     public function branch()
     {
         return $this->belongsTo('App\Branch');
@@ -43,7 +49,12 @@ class Person extends Model
 
       public function reservation()
     {
-        return $this->belongsTo('App\Reservation');
+        return $this->hasMany('App\Reservation');
+    }
+
+    public function reservationPatient()
+    {
+        return $this->hasMany('App\Reservation', 'patient_id');
     }
 
     public function position()
@@ -54,5 +65,10 @@ class Person extends Model
     public function notification()
     {
         return $this->belongsTo('App\Notification');
+    }
+
+    public function inputoutput()
+    {
+        return $this->hasmany('App\InputOutput');
     }
 }

@@ -46,4 +46,16 @@ class Diagnostic extends Model
     {
         return $this->belongsTo('App\Speciality');
     }
+    
+    public function exams()
+    {
+        return $this->belongsTo('App\Exam');
+    }
+    
+    public function exam() 
+    {
+        return $this->belongsToMany('App\Exam','diagnostic_exam')
+       ->withPivot('exam_id','id');
+    }
+
 }

@@ -20,6 +20,7 @@ class CreateSurgeriesTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('type_surgery_id');
+            $table->unsignedBigInteger('hospitalization_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
@@ -41,6 +42,11 @@ class CreateSurgeriesTable extends Migration
             $table->foreign('type_surgery_id')
             ->references('id')
             ->on('type_surgeries')
+            ->onDelete('CASCADE');
+
+            $table->foreign('hospitalization_id')
+            ->references('id')
+            ->on('hospitalization')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')

@@ -9,7 +9,7 @@ class InputOutput extends Model //control de personas en E/S
     protected $table = 'inputoutput';
 
     protected $fillable = [
-        'person_id', 'status', 'branch_id'
+        'person_id', 'inside', 'outside', 'employe_id', 'branch_id'
     ];
 
     public function visitors()
@@ -17,8 +17,29 @@ class InputOutput extends Model //control de personas en E/S
         return $this->hasmany('App\Visitor');
     }
 
+    public function person()
+    {
+        return $this->hasone('App\Person', 'person_id');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Patient', 'person_id');
+    }
+
+    public function employe()
+    {
+        return $this->belongsTo('App\Employe');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');
     }
+    
+    public function reservation()
+    {
+        return $this->belongsTo('App\Reservation');
+    }
+
 }

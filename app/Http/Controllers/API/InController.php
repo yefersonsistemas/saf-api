@@ -13,6 +13,10 @@ use App\Http\Requests\CreateBillingRequest;
 use App\Http\Requests\CreateAreaAssigmentRequest;
 use App\Schedule;
 use App\TypeArea;
+use App\Person;
+use App\InputOutput;
+use App\Reservation;
+use App\Patient;
 
 //use App\Http\Controllers\CitaController;
 
@@ -97,7 +101,7 @@ class InController extends Controller
 
     public static function search(Request $request)
     {
-       $area = Area::Where('id', $request->id)->first(); 
+       $area = Area::Where('', $request->id)->first(); 
 
         if ($area != null) {  //si existe
             return response()->json([
@@ -119,7 +123,15 @@ class InController extends Controller
         $a = Area::where('id', $request->area_id)->first();
 
         if (!is_null($a) && !is_null($e)) {
-            $date = Carbon::now();
+            $date = Carbon::now()->locale('en');
+            //dd($date);
+
+           // dd($e->schedule == $date);
+            if ($e->schedule == $date) {
+                return response()->json([
+                    'message' => 'El medico no trabaja hoy',
+                ]);
+            }
 
             // if ($e->position->name != 'doctor') {
             //     return response()->json([
@@ -135,7 +147,8 @@ class InController extends Controller
                 ]);    
             }
 
-            $turno = Schedule::where('employe_id', $e->id)->where('day', ucfirst($date->dayName))->first();
+            $turno = Schedule::where('employe_id', $e->id)->where('day', strtolower($date->dayName))->first();
+            //dd($e);
 
             if ($turno->turn == 'mañana') {
                 $areaOcupada = AreaAssigment::where('area_id', $a->id)->whereDate('created_at', $date)->whereTime('created_at', '<=', '12:00')->first();
@@ -155,6 +168,8 @@ class InController extends Controller
             'branch_id' => 1,
             ]);
 
+            //$a->status = 'ocupado';
+
             return response()->json([
                 'message' => 'consultorio asignado',
             ]);
@@ -163,5 +178,48 @@ class InController extends Controller
                 'message' => 'Empleado o consultorio invalido',
             ]);
         }
+    }
+
+
+    public function statusIn(Request $request)
+    {
+        $data = $request->validate([
+            'person_id' => 'required',
+            'employe_id'  => 'required',
+        ]);
+
+        $p = Patient::where('person_id', $request->person_id)->first();
+        $io = InputOutput::where('person_id', $p->id)->where('employe_id', $request->employe_id)->first();
+           
+        if (empty($io)) {
+            InputOutput::create([       
+                'person_id' =>  $data['person_id'],  //paciente tratado
+                'inside' => 'dentro',
+                'outside' => null,
+                'employe_id' =>  $data['employe_id'],  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'branch_id' => 1,
+            ]);
+
+            return response()->json([
+                'message' => 'Paciente dentro del consultorio',
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'El paciente ya se encuentra adentro',
+            ]);
+        }
+    }
+
+    public function exams_previos(Request $request)
+    {
+        $p = Patient::where('id', $request->id)->first();
+
+        File::create([
+            'filiable_type' => 'Paciente',
+            'filiable_id' => $p->id,
+
+        ]);
+
+        $request->file('nombre del archivo')->store('Exams');
     }
 }

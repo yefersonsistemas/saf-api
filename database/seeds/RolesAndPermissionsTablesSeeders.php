@@ -42,12 +42,9 @@ class RolesAndPermissionsTablesSeeders extends Seeder
 
         //Permisos  del rol in
         Permission::create(['name' => 'asignar consultorio']);
-        Permission::create(['name' => 'crear factura']);
-        Permission::create(['name' => 'Recibir notificacion de paciente de salida']);
 
         //Permisos  del rol out
-        // Permission::create(['name' => 'asignar consultorio']);
-        // Permission::create(['name' => 'crear factura']);
+        Permission::create(['name' => 'crear factura']);
         Permission::create(['name' => 'Recibir notificacion de paciente candidato a cirugia']);
         
         //Permisos  del rol doctor

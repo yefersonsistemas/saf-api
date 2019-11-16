@@ -39,6 +39,11 @@ class Employe extends Model
         return $this->belongsTo('App\Billing');
     }
 
+    public function inputoutput()
+    {
+        return $this->belongsTo('App\InputOutput');
+    }
+
     public function position()
     {
         return $this->belongsTo('App\Position');
@@ -109,7 +114,7 @@ class Employe extends Model
 
     public function assistance()
     {
-        return $this->belongsTo('App\Assistance');
+        return $this->hasmany('App\Assistance', 'employe_id');
     }    
 
     public function visitor()

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInputoutputTable extends Migration
+class CreateClassificationSurgeryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateInputoutputTable extends Migration
      */
     public function up()
     {
-        Schema::create('inputoutput', function (Blueprint $table) {
+        Schema::create('classification_surgery', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('person_id');
-            $table->enum('status', ['input', 'output']);
+            $table->string('name');
+            $table->longText('description');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
@@ -34,6 +34,6 @@ class CreateInputoutputTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inputoutput');
+        Schema::dropIfExists('classification_surgery');
     }
 }

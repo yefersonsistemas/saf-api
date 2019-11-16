@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Reservation;
 Use App\Visitor;
 Use App\Person;
+Use App\Image;
+Use App\Patient;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
 use App\Events\Security;
@@ -24,18 +26,15 @@ class SecurityController extends Controller
      */
     public function index()
     {
+       
         $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->get(); //mostrar las reservaciones solo del dia
         //dd($visitors);
-        //$all = collect([]);
 
         if (!empty($reservations)) {
+
             $patients = $reservations->map(function ($item) {
                 $patient = Person::where('id', $item->patient_id)->first();
-                if ($item != null && $patient != null) {
-                    $item->patient->image;
-                    $item->patient->person->category = 'paciente';
-                    return $item; 
-                }
+                    return $patient;
             });
 
             if ($patients->isNotEmpty()) {
@@ -50,23 +49,14 @@ class SecurityController extends Controller
                 }
             }
 
-            $visitors = Visitor::with('image', 'person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
+            $visitors = Visitor::with('person.image')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Visitante')
                             ->orWhere('type_visitor', 'Paciente')->get(); //obtener solo registros creados hoy
-    
-            // $visitors = $visitors->map(function ($item) {
-            //     if ($item != null) {
-            //         $item->person->category = 'visitante';
-            //         return $item;
-            //     }
-            // });
-
-            // $all = $patients->concat($visitors);
     
             return response()->json([
                 'all' => $visitors,
             ]);
-        }  
+        }
     }
 
 
@@ -157,9 +147,14 @@ class SecurityController extends Controller
         }
     }
 
+    /**
+     * Funcion que permite registrar
+     * solamente una persona, sin ejecutar
+     * ninguna otra accion
+     */
     public function only_person(CreateVisitorRequest $request){
-        $person = Person::create([  //agregar un visitante colado o q no se vea el/ella pero si otra persona 
-                                    //o q paga la factura de un paciente
+        
+        $person = Person::create([
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
             'name'        => $request->name,
@@ -169,6 +164,19 @@ class SecurityController extends Controller
             'email'       => $request->email,
             'branch_id'   => 1,
         ]);
+
+        /**
+         * Registro de la fotografia 
+         */
+        if ($request->file('file') != null) {
+            $photo = $request->file('file');
+            $path = $photo->store('persons');
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\Person";
+            $image->imageable_id = $person->id;
+            $image->save();
+        }
 
         return response()->json([
             'message' => 'Registrado correctamente',
