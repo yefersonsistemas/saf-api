@@ -26,9 +26,9 @@ class SecurityController extends Controller
      */
     public function index()
     {
+       
         $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->get(); //mostrar las reservaciones solo del dia
         //dd($visitors);
-        //$all = collect([]);
 
         if (!empty($reservations)) {
 
@@ -53,19 +53,10 @@ class SecurityController extends Controller
                             ->where('type_visitor', 'Visitante')
                             ->orWhere('type_visitor', 'Paciente')->get(); //obtener solo registros creados hoy
     
-            // $visitors = $visitors->map(function ($item) {
-            //     if ($item != null) {
-            //         $item->person->category = 'visitante';
-            //         return $item;
-            //     }
-            // });
-
-            // $all = $patients->concat($visitors);
-    
             return response()->json([
                 'all' => $visitors,
             ]);
-        }  
+        }
     }
 
 

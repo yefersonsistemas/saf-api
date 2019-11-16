@@ -120,7 +120,7 @@ class OutController extends Controller
         }
     }
 
-    public function curency()
+    public function currency()
     {
         $currency = TypeCurrency::all();
 
