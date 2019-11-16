@@ -143,7 +143,7 @@ class InController extends Controller
 
             if ($employeasignado != null) {
                 return response()->json([
-                    'message' => 'Empleado ya ha sido asigando',
+                    'message' => 'Empleado ya ha sido asignado',
                 ]);    
             }
 
@@ -168,7 +168,7 @@ class InController extends Controller
             'branch_id' => 1,
             ]);
 
-            //$a->status = 'ocupado';
+            $this->update_area($request);
 
             return response()->json([
                 'message' => 'consultorio asignado',
@@ -180,6 +180,22 @@ class InController extends Controller
         }
     }
 
+    public function update_area(Request $request)
+    {
+        $a = Area::find($request->id);
+
+        if (!empty($a)) {
+          
+            $a->status = 'ocupado';
+            $a->save();
+
+            // if ($a->save()){
+            //    return response()->json([
+            //         'message' => 'ocupado', 
+            //     ]);
+            // }
+        }
+    }
 
     public function statusIn(Request $request)
     {
