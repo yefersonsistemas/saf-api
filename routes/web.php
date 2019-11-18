@@ -21,6 +21,8 @@ Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');
 
+
+//agrupando rutas con
 Route::group(['middleware' => 'auth'], function (){
 
 
@@ -37,6 +39,15 @@ Route::group(['middleware' => 'auth'], function (){
 
 
 
+
+
+});
+
+
+//======================= rutas para el usuario ckeckout ====================
+Route::group(['middleware' => 'checkout'], function (){
+
+    Route::get('index', 'Patient_Controller@index')->name('checkout.index');;  // para mostrar los pacientes del dia
 
 
 });
