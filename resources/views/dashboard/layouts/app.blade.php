@@ -3,7 +3,7 @@
 
 @include('dashboard.layouts.header')
 
-<body class="font-opensans sidebar_dark">
+<body class="font-opensans">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
