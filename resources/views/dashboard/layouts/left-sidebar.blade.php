@@ -9,11 +9,8 @@
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
-                            <li><a href="icons-feather.html">Nueva Cita</a></li>
-                            <li><a href="icons-line.html">Agendadas</a></li>
-                            <li><a href="icons-fontawesome.html">Suspendidas</a></li>
-                            <li><a href="icons-flags.html">Canceladas</a></li>
-                            <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Ver Todas</a></li>
+                            <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Citas</a></li>
+                            <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
                         </ul>
                     </li>
                     <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>

@@ -23,7 +23,6 @@ class ReceptionController extends Controller
                         ->get(); //mostrar las reservaciones solo del dia
 
         if (!empty($reservations)) {
-            
             $reservations = $reservations->each(function( $reservation){
                 $patient = Person::where('id', $reservation->patient_id)->first();
                 if ($patient != null) {

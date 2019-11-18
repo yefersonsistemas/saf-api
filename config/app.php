@@ -187,6 +187,11 @@ return [
          */
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        /**
+         * Sweet Alert
+         */
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
     ],
 
     /*
@@ -242,6 +247,12 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        /**
+         * Sweet Alert
+         */
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
 
     ],
 
