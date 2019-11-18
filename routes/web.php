@@ -25,7 +25,10 @@ Route::get('/home', function() {
 //agrupando rutas con
 Route::group(['middleware' => 'auth'], function (){
 
+    Route::group(['middleware' => ['role:recepcion']], function () {
+        Route::get('cite', 'CitaController@index')->name('reservation.index');
 
+    });
 
 
 

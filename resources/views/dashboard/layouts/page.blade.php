@@ -2,7 +2,7 @@
     <div class="container">
         <div class="page-header">
             <div class="left">
-                <h1 class="page-title">Dashboard</h1>
+                <h1 class="page-title">@yield('title')</h1>
                 <select class="custom-select">
                     <option>Year</option>
                     <option>Month</option>
