@@ -318,10 +318,12 @@ class PatientController extends Controller
   }
 
   public function record_cite(Request $request){
-  $cite = Patient::with('person.reservationPatient.speciality','diagnostic.treatment')
+  $cite = Patient::with('person.reservationPatient.speciality', 'diagnostic.treatment')
           ->where('person_id', $request->person_id)->first();
-  
+  // dd($cite->first()->person->reservationPatient->diagnostic($request->person_id));
+  $prueba = Reservation::find(1);
       return response()->json([
+        'Reservation' => $prueba->diagnostic($request->person_id),
         'Patient' => $cite,
       ]);
 
@@ -351,11 +353,11 @@ class PatientController extends Controller
       return response()->json([
           'message' => 'Modificacion exitosa',
       ]);
-  }else{
+    }else{
       return response()->json([
           'message' => 'No se pudo actualizar los datos',
       ]);
-  }
+    }
   }
 
   public function search(Request $request) //busca paciente q estara en la factura
