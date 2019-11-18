@@ -2,6 +2,7 @@
 <html lang="en">
 
 @include('dashboard.layouts.header')
+@include('sweetalert::alert')
 
 <body class="font-opensans">
     <!-- Page Loader -->
@@ -9,7 +10,6 @@
         <div class="loader">
         </div>
     </div>
-
     @include('dashboard.layouts.left-sidebar');
     @include('dashboard.layouts.navbar');
 
