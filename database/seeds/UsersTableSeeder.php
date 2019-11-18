@@ -28,9 +28,9 @@ class UsersTableSeeder extends Seeder
         Schedule::truncate();
         Patient::truncate();
         Diagnostic::truncate();
+        Reservation::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
         $this->deleteDirectory(storage_path('/app/public/patient'));
-        Reservation::truncate();
         //Procedure::truncate();
 
         /**
@@ -88,8 +88,8 @@ class UsersTableSeeder extends Seeder
          * del empleado
          */
         factory(User::class)->create([
+            'email' => 'dranatalianeira@sinusandface.com',
             'person_id' => $person->id,
-
         ])->givePermissionTo('ver lista de pacientes')
             ->givePermissionTo('crear historia de paciente')
             ->givePermissionTo('crear diagnostico')
@@ -185,6 +185,7 @@ class UsersTableSeeder extends Seeder
              * del empleado
              */
             factory(User::class)->create([
+                'email'     => $person->email,
                 'person_id' => $person->id,
             ])->givePermissionTo('ver lista de pacientes')
                 ->givePermissionTo('crear historia de paciente')
@@ -269,6 +270,7 @@ class UsersTableSeeder extends Seeder
         $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
+            'email' => 'drjoselinarez@sinusandface.com',
             'person_id' => $person->id,
         ])->givePermissionTo('Registrar visitantes')
             ->givePermissionTo('Ver lista de visitantes')->assignRole('seguridad');
@@ -280,6 +282,7 @@ class UsersTableSeeder extends Seeder
                 'position_id' => $position->id
             ]);
             factory(App\User::class)->create([
+                'email'     => $person->email,
                 'person_id' => $person->id
             ])->assignRole('seguridad');
         });
@@ -306,6 +309,7 @@ class UsersTableSeeder extends Seeder
         $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
+            'email' => 'recepcion@sinusandface.com',
             'person_id' => $person->id,
 
         ])->givePermissionTo('ver lista de pacientes')
@@ -319,6 +323,7 @@ class UsersTableSeeder extends Seeder
                 'position_id' => $position->id
             ]);
             factory(App\User::class)->create([
+                'email'     => $person->email,
                 'person_id' => $person->id
             ])->assignRole('recepcion');
         });
@@ -346,6 +351,7 @@ class UsersTableSeeder extends Seeder
         $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
+            'email' => 'asistente1@sinusandface.com',
             'person_id' => $person->id,
 
         ])->givePermissionTo('ver lista de pacientes')
@@ -359,6 +365,7 @@ class UsersTableSeeder extends Seeder
                 'position_id' => $position->id
             ]);
             factory(App\User::class)->create([
+                'email'     => $person->email,
                 'person_id' => $person->id
             ])->assignRole('IN');
         });
@@ -386,6 +393,7 @@ class UsersTableSeeder extends Seeder
         $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
+            'email' => 'asistente2@sinusandface.com',
             'person_id' => $person->id,
 
         ])->givePermissionTo('crear factura')
@@ -400,6 +408,7 @@ class UsersTableSeeder extends Seeder
                 'position_id' => $position->id
             ]);
             factory(App\User::class)->create([
+            'email' => $person->email,
                 'person_id' => $person->id
             ])->assignRole('OUT');
         });
