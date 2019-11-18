@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Diagnostic;
 
 class Reservation extends Model
 {
@@ -46,11 +48,6 @@ class Reservation extends Model
     {
         return $this->belongsTo('App\Branch');
     }
-
-    public function diagnostic()
-    {
-        return $this->belongsTo('App\Diagnostic', 'patient_id');
-    }
     
     public function assistance()
     {
@@ -70,6 +67,19 @@ class Reservation extends Model
     public function inputoutput()
     {
         return $this->hasmany('App\InputOutput','person_id');
+    }
+
+    public function diagnostic($id)
+    {
+        $reservations = $this->where('patient_id', $id)->get();
+        $diagnostics = collect([]);
+        foreach ($reservations as $reservation) {
+            $fecha = Carbon::parse($reservation->date)->format('Y-m-d');
+            $diagnostic = Diagnostic::where('employe_id', $reservation->person_id)
+            ->whereDate('created_at', $fecha)->where('patient_id' , $id)->get();
+            $diagnostics->push($diagnostic);
+        }
+        return $diagnostics;
     }
 
 }

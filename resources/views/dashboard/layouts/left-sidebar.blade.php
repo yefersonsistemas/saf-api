@@ -3,12 +3,14 @@
         <h5 class="brand-name">Epic Able <a href="javascript:void(0)" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
-                <li class="g_heading">Directories</li>
-                <li class="active"><a href="index.html"><i class="icon-home"></i><span>Dashboard</span></a></li>                        
-                <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
-                <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
-                <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
-                <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
+                @role('reception')
+                    <li class="g_heading">Directories</li>
+                    <li class="active"><a href="index.html"><i class="icon-home"></i><span>Dashboard</span></a></li>                        
+                    <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
+                    <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
+                    <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
+                    <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
+                @endrole
                 <li>
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-lock"></i><span>Authentication</span></a>
                     <ul>

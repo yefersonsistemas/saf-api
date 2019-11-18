@@ -12,16 +12,16 @@
 
     @include('dashboard.layouts.left-sidebar');
     @include('dashboard.layouts.navbar');
-    
+
     <div id="main_content">
         <div class="page">
-     
+    
             @include('dashboard.layouts.page')
             @yield('content')
 
 
             @include('dashboard.layouts.footer')
-    
+
         </div>
     </div>
 
