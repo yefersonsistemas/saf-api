@@ -6,11 +6,11 @@
                     Copyright © 2019 <a href="https://themeforest.net/user/puffintheme/portfolio">PuffinTheme</a>.
                 </div>
                 <div class="col-md-6 col-sm-12 text-md-right">
-                    <ul class="list-inline mb-0">
+                    {{-- <ul class="list-inline mb-0">
                         <li class="list-inline-item"><a href="..\doc\index.html">Documentation</a></li>
                         <li class="list-inline-item"><a href="javascript:void(0)">FAQ</a></li>
                         <li class="list-inline-item"><a href="https://themeforest.net/item/epic-able-bootstrap-admin-dashboard-template-ui-kit/24067717" class="btn btn-outline-primary btn-sm">Buy Now</a></li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>

@@ -25,21 +25,26 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('cite', 'CitaController@index')->name('reservation.index');
+        
 
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Route::group(['middleware' => ['role:doctor']], function () {
+        Route::get('doctor', 'DoctorController@index')->name('doctor.index');
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 });
