@@ -40,7 +40,9 @@ class InController extends Controller
      */
     public function create()
     {
-        //
+        // $type = TypeArea::with('areas')->where('name', 'Consultorio')->get();
+        // dd($type);
+        return view('dashboard.checkin.create', compact('type'));
     }
 
     /**
@@ -51,7 +53,7 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -114,6 +116,16 @@ class InController extends Controller
             ]);
         }
     }
+
+    // public function search_area(){//se tiene q modificar a id en vez de name o se muestra toda la tabla
+    //     $type = TypeArea::with('areas')->where('name', 'Consultorio')->get();
+
+    //     if (!is_null($type)) {
+    //         return response()->json([
+    //             'consultorios' => $type, 
+    //         ]);
+    //     }
+    // }
         
     //hacer metodo que muestre solo los doctores del turno
 
