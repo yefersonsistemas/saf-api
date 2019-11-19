@@ -124,7 +124,7 @@
 
                 @role('OUT')
                 <li class="g_heading">Checkout</li>
-                {{-- <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                         --}}
+                <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
                 <li class="@yield('cites')">
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Cirugías</span></a>
                     <ul>

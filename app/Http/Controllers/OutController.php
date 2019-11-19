@@ -18,6 +18,7 @@ use App\TypeCurrency;
 use App\TypePayment;
 use App\InputOutput;
 use App\Exam;
+use App\Reservation;
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
@@ -32,7 +33,10 @@ class OutController extends Controller
     public function index()
     {
         // $citas_pacientes = 
-        return view('dashboard.checkout.citas-pacientes');
+        $cites = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        // dd($cites);
+
+        return view('dashboard.checkout.citas-pacientes', compact('cites'));
     }
 
     /**
