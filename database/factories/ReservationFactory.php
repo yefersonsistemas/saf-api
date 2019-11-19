@@ -25,7 +25,8 @@ $factory->define(Reservation::class, function (Faker $faker) {
         'approved'  => null,  //aprobado
         'reschedule'  => null,  //reprogramar
         'cancel'  => null,  //cancelado
-        'discontinued'  => null,  //suspendido
+        'discontinued'  => null,  //suspendido,
+        'status'        => 'Pendiente',
         'person_id'  =>$person->id,  //medico
         'schedule_id'  =>$schedule->id,
         'specialitie_id' =>$specialitie->id,
