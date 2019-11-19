@@ -129,7 +129,7 @@
                                                     <span class="badge badge-warning">{{ $reservation->status }}</span>
                                                 @endif
                                                 @if ($reservation->status == 'Pendiente')
-                                                    <span class="badge badge-info">{{ $reservation->status }}</span>
+                                                    <span class="badge badge-info" style="background-color: #00506b;">{{ $reservation->status }}</span>
                                                 @endif
                                             </td>
                                             <td style="display: inline-block">
