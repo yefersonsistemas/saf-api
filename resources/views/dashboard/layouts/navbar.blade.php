@@ -1,7 +1,7 @@
 <style>
     img {
-        max-width: 65px;
-        width: 65px;
+        max-width: 50px;
+        width: 50px;
     }
 </style>
 
@@ -9,7 +9,7 @@
     <div class="container">
         <div class="hleft">
             <a class="header-brand" href="index.html">
-                <img src="{{ asset('img/logosinus.svg') }}" alt="">
+                <img src="{{ asset('img/logosinusblanco.svg') }}" alt="">
             </a>
             <div class="dropdown">
                 <a href="page-search.html" class="nav-link icon"><i class="fa fa-search" data-toggle="tooltip" data-placement="right" title="Search..."></i></a>
