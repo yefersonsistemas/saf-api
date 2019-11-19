@@ -310,3 +310,12 @@
 .page-link {
     color: #00ba88;
 }
+
+.dataTables_wrapper .dataTables_paginate {
+    float: left !important;
+    text-align: right;
+}
+
+.derecha {
+    right: 17px;
+}
