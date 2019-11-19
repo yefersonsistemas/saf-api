@@ -20,8 +20,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
                         <div class="card-body">                                
-                            <h6>Available Balance</h6>
-                            <h3 class="pt-3"><i class="fa fa-bitcoin"></i> <span class="counter">136.25402</span></h3>
+                            <h6>Total De Citas Agendadas</h6>
+                            <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
                             {{-- <h5>$1,25,451.23</h5> --}}
                         </div>
                     </div>
@@ -29,8 +29,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
                         <div class="card-body">
-                            <h6>Total Investment</h6>
-                            <h3 class="pt-3"><i class="fa fa-bitcoin"></i> <span class="counter">251.25402</span></h3>
+                            <h6>Total De Citas Del Mes</h6>
+                            <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
                             {{-- <h5>$3,80,451.00</h5> --}}
                         </div>
                     </div>
@@ -38,8 +38,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
                         <div class="card-body">
-                            <h6>Profit in Bitcoin</h6>
-                            <h3 class="pt-3"><i class="fa fa-bitcoin"></i> <span class="counter">32.96512</span></h3>
+                            <h6>Citas Para Hoy</h6>
+                            <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
                             {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
                         <div class="card-body">
-                            <h6>Profit in USD</h6>
-                            <h3 class="pt-3"><i class="fa fa-dollar"></i> <span class="counter">98,532.02</span></h3>
+                            <h6>Atendidos Hoy</h6>
+                            <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">5</span></h3>
                             {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
