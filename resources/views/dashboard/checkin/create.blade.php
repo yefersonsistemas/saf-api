@@ -26,34 +26,13 @@
                              |                               <div>
                                                                 <div class="card card-citas-md">
                                                                     <div class="card-header bg-turquesa unborder" >
-                                                                        <a>
-                                                                            <input name="consultorio" type="radio" class="imagecheck-input">
-                                                                        </a>
+                                                                        <a><input name="consultorio" type="radio" class="imagecheck-input"></a>
                                                                         <figure class="imagecheck-figure">
                                                                             <img src="" alt="">
                                                                         </figure>
                                                                     </div>
-                                                                    <div class="card-body">
-                                                                        
-                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div *ngFor="let lista of dataC">
-                                                                <div class="card card-citas-md" class="label-disable">
-                                                                    <div class="card-header bg-turquesa unborder" class="label-disable">
-                                                                        <a>
-                                                                            <input type="radio" class="imagecheck-input" disabled>
-                                                                        </a>
-                                                                        <figure class="imagecheck-figure">
-                                                                            <img src="" alt="" class="imagecheck-image">
-                                                                        </figure>
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                    
-                                                                    </div>
-                                                                </div>
-                                                            </div> 
-                                                            
                                                         </div>
                                                     </div>
                                                 </div>
