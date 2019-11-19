@@ -12,7 +12,7 @@ $factory->define(Speciality::class, function (Faker $faker) {
     $service = Service::inRandomOrder()->first();
 
     return [
-        'name'        => $faker->company,
+        'name'        => $faker->randomElement(['Otorrinolaringología', 'Cirugía Plastica', 'Cirugía Maxilofacial', 'Oftamología', 'Ginecología', 'Odontología', 'Nefrología', 'Epidemiología', 'Lipidología', 'Geriatria']),
         'description' => $faker->sentence,
         'service_id' => $service->id,
         'branch_id' => $branchoffice->id,

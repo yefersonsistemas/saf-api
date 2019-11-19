@@ -17,9 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', function() {
-//     return view('home');
-// })->name('home')->middleware('auth');
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');
 
 
 
@@ -28,6 +28,19 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('cite', 'CitaController@index')->name('reservation.index');
         Route::get('cite/create','CitaController@create')->name('reservations.create');
+    });
+
+
+
+
+    Route::group(['middleware' => ['role:IN']], function () {
+        Route::get('cite', 'InController@index')->name('checkin.index');
+        Route::get('', 'InController@create')->name('checkin.create');
+        //Route::get('', 'EmployesController@all_doctors')->name('checkin.doctor');
+        Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
+        // Route::put('update', 'API\InController@update_area');  // listo
+        // Route::POST('inside', 'API\InController@statusIn'); //creacion de registro
+
     });
 
 

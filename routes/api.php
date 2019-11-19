@@ -95,7 +95,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('search', 'API\InController@search');  // listo
             Route::get('search/area', 'API\AreasController@search_area');
             Route::POST('assigment', 'API\InController@assigment');  // asignar consultorio listo
-            //Route::POST('area', 'API\InController@status');  // listo
+            Route::POST('update', 'API\InController@update_area');  // listo
             Route::get('list', 'API\AreasController@list_area');  // listo
             Route::POST('inside', 'API\InController@statusIn'); //creacion de registro
             Route::POST('print', 'API\InController@exams');

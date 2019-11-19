@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             {{-- Contadores --}}
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
                         <div class="card-body">                                
                             <h6>Total De Citas Agendadas</h6>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-
+           
             {{-- Tabs de citas --}}
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
@@ -93,9 +93,9 @@
                                         <th>Apellido</th>
                                         <th>Doctor</th>
                                         <th>Esepcialidad</th>
-                                        <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
+                                        <th class="text-center">Historia</th>
+                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -106,9 +106,9 @@
                                         <th>Apellido</th>
                                         <th>Doctor</th>
                                         <th>Esepcialidad</th>
-                                        <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
+                                        <th class="text-center">Historia</th>
+                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -122,34 +122,22 @@
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
-                                            <td>
-                                                @if ($reservation->status == 'Aprobada')
-                                                    <span class="badge badge-success">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Cancelada')
-                                                    <span class="badge badge-danger">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Reprogramada')
-                                                    <span class="badge badge-secondary">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Suspendida')
-                                                    <span class="badge badge-warning">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Pendiente')
-                                                    <span class="badge badge-info" style="background-color: #00506b;">{{ $reservation->status }}</span>
-                                                @endif
-                                            </td>
+                                            
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 @if ($reservation->patient->historyPatient == null)
                                                     <a href="" class="btn btn-success">Generar</a>
                                                 @else
                                                     {{ $reservation->patient->historyPatient->history_number }}
                                                 @endif
+                                            </td>
+                                            <td style="display: inline-block">
+                                                <a href="" class="btn btn-secondary">E</a>
+                                                <a href="" class="btn btn-secondary">S</a>
                                             </td>
                                         </tr>
                                     @endforeach
