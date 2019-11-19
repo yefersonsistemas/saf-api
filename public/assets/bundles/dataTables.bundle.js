@@ -2407,25 +2407,25 @@
                 sSortDescending: ": activate to sort column descending"
             },
             oPaginate: {
-                sFirst: "First",
-                sLast: "Last",
-                sNext: "Next",
-                sPrevious: "Previous"
+                sFirst: "Primero",
+                sLast: "Ultimo",
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
             },
-            sEmptyTable: "No data available in table",
+            sEmptyTable: "La Información no esta disponible en la tabla",
             sInfo: "Showing _START_ to _END_ of _TOTAL_ entries",
             sInfoEmpty: "Showing 0 to 0 of 0 entries",
             sInfoFiltered: "(filtered from _MAX_ total entries)",
             sInfoPostFix: "",
             sDecimal: "",
             sThousands: ",",
-            sLengthMenu: "Show _MENU_ entries",
-            sLoadingRecords: "Loading...",
-            sProcessing: "Processing...",
-            sSearch: "Search:",
+            sLengthMenu: "Mostrar _MENU_ Entradas",
+            sLoadingRecords: "Cargando...",
+            sProcessing: "Procesando...",
+            sSearch: "Buscar:",
             sSearchPlaceholder: "",
             sUrl: "",
-            sZeroRecords: "No matching records found"
+            sZeroRecords: "No se encuentrar los registros"
         },
         oSearch: L.extend({}, $t.models.oSearch),
         sAjaxDataProp: "data",
