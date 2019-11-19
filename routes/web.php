@@ -25,6 +25,7 @@ Route::get('/home', function() {
 
 Route::group(['middleware' => 'auth'], function (){
 
+     //======================= rutas para el usuario recepcion ====================
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('cite', 'CitaController@index')->name('reservation.index');
         Route::get('cite/create','CitaController@create')->name('reservations.create');
@@ -32,7 +33,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
 
-
+     //======================= rutas para el usuario ckeckin ====================
     Route::group(['middleware' => ['role:IN']], function () {
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('', 'InController@create')->name('checkin.create');

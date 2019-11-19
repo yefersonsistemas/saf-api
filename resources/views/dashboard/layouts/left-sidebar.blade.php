@@ -22,14 +22,6 @@
 
 
 
-
-
-
-
-
-
-
-
                 @role('IN')
                 <li class="g_heading">Check-IN</li>                      
                 <li class="@yield('cites')">
@@ -55,19 +47,6 @@
                     <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
                     <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
                 @endrole
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -143,13 +122,9 @@
                 
 
 
-
-
-
-
                 @role('OUT')
                 <li class="g_heading">Checkout</li>
-                <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
+                {{-- <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                         --}}
                 <li class="@yield('cites')">
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Cirugías</span></a>
                     <ul>
