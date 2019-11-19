@@ -28,18 +28,24 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('cite/create','CitaController@create')->name('reservations.create');
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Route::group(['middleware' => ['role:doctor']], function () {
+        Route::get('/', 'DoctorController@index')->name('doctor.index');
+        Route::get('doctor', 'DoctorController@index')->name('doctor.index');
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 });

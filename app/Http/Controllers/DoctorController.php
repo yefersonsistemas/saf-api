@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,17 +14,34 @@ use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
 use App\Billing;
+use App\Reservation;
+use App\Person;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
+
+ 
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      
+       $patients = Reservation::with('patient')->where('person_id', $request->authperson_id)
+                                ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+                                dd($patients);
+
+        // if (!is_null($patients)) {
+        //     return response()->json([
+        //         'reservas' => $patients,
+        //     ]);
+        // }
+
+        
+      return view('dashboard.doctor.citasPacientes',compact('patients'));
     }
 
     /**
