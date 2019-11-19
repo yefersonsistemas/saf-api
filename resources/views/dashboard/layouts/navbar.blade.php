@@ -1,7 +1,16 @@
+<style>
+    img {
+        max-width: 65px;
+        width: 65px;
+    }
+</style>
+
 <div id="header_top" class="header_top dark">
     <div class="container">
         <div class="hleft">
-            <a class="header-brand" href="index.html"><i class="fe fe-command brand-logo"></i></a>
+            <a class="header-brand" href="index.html">
+                <img src="{{ asset('img/logosinus.svg') }}" alt="">
+            </a>
             <div class="dropdown">
                 <a href="page-search.html" class="nav-link icon"><i class="fa fa-search" data-toggle="tooltip" data-placement="right" title="Search..."></i></a>
                 <a href="javascript:void(0)" class="nav-link icon create_page xs-hide"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Create New"></i></a>
