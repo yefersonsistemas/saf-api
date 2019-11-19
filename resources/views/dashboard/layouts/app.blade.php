@@ -27,14 +27,12 @@
 
 
 <script src={{ asset("assets\bundles\lib.vendor.bundle.js") }}></script>
-
 <script src={{ asset("assets\bundles\counterup.bundle.js") }}></script>
 <script src={{ asset("assets\bundles\apexcharts.bundle.js") }}></script>
 <script src={{ asset("assets\bundles\jvectormap2.bundle.js") }}></script>
 
 <script src={{ asset("assets\js\core.js") }}></script>
 <script src={{ asset("assets\js\page\index.js") }}></script>
-
 @yield('scripts')
 </body>
 </html>
