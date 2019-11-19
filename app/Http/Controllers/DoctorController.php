@@ -14,17 +14,38 @@ use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
 use App\Billing;
+use App\Reservation;
+use App\Person;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
+
+ 
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      return view('dashboard.doctor.citasPacientes');
+       $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
+                        ->get(); //mostrar las reservaciones solo del dia
+
+        if (!empty($reservations)) {
+            $reservations = $reservations->each(function( $reservation){
+                $patient = Person::where('id', $reservation->patient_id)->first();
+                if ($patient != null) {
+                    $reservation->patient = $patient;
+                    return $reservation; 
+                }
+            });
+           
+        }
+
+        
+      return view('dashboard.doctor.citasPacientes',compact('reservations'));
     }
 
     /**

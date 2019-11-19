@@ -43,8 +43,41 @@ class CitaController extends Controller
 
     public function index()
     {
-        $reservations = Reservation::all();
-        return view('dashboard.reception.index', compact('reservations'));
+        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); //mostrar las reservaciones solo del dia
+        
+        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); //mostrar las reservaciones solo del dia
+        
+        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); //mostrar las reservaciones solo del dia
+
+        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get(); //mostrar las reservaciones solo del dia
+
+        return view('dashboard.reception.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
+    }
+
+    public function create()
+    {
+        $speciality = Speciality::all();
+        return view('dashboard.reception.create', compact('speciality'));
+    }
+
+    public function agendadas()
+    {
+        $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
+                        ->get(); //mostrar las reservaciones solo del dia
+
+        if ($reservations->isNotEmpty()) {
+            $reservations = $reservations->each(function( $reservation){
+                $patient = Person::where('id', $reservation->patient_id)->first();
+                if ($patient != null) {
+                    $reservation->patient = $patient;
+                    return $reservation; 
+                }
+            });
+        }
+        // dd($reservations);
+
+        return view('dashboard.reception.agendadas', compact('reservations'));
     }
 
     //quota representa el max de cupos por dia de pacientes 

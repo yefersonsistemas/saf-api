@@ -9,11 +9,8 @@
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
-                            <li><a href="icons-feather.html">Nueva Cita</a></li>
-                            <li><a href="icons-line.html">Agendadas</a></li>
-                            <li><a href="icons-fontawesome.html">Suspendidas</a></li>
-                            <li><a href="icons-flags.html">Canceladas</a></li>
-                            <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Ver Todas</a></li>
+                            <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Citas</a></li>
+                            <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
                         </ul>
                     </li>
                     <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
@@ -74,7 +71,7 @@
                         </ul>
                     </li>                 --}}
                     <li class="g_heading">Funciones</li>
-                    <li><a href=""><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
+                    <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
                     <li><a href=""><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li>
                     {{-- <li><a href="page-gallery.html"><i class="icon-picture"></i><span>Gallery</span></a></li> --}}
                     {{-- <li>
@@ -92,8 +89,6 @@
                 @endrole
                 {{-- FIN DEL MODULO DE LOS DOCTORES --}}
                 
-                
-
             </ul>
         </nav>
     </div>
