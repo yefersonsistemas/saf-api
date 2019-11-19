@@ -20,8 +20,75 @@
                         <div id="wizard_horizontal">
                             <h2>Buscar Paciente</h2>
                             <section>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc
-                                    eget quam libero. Nam at felis metus. Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi. </p>
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Basic Validation</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <form id="basic-form" method="post" novalidate="">
+                                                <div class="form-group">
+                                                    <label>Text Input</label>
+                                                    <input type="text" class="form-control" required="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Email Input</label>
+                                                    <input type="email" class="form-control" required="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Text Area</label>
+                                                    <textarea class="form-control" rows="5" cols="30" required=""></textarea>
+                                                </div>
+                                                <div class="form-group">                                    
+                                                    <label>Checkbox</label>
+                                                    <br>
+                                                    <label class="custom-control custom-checkbox custom-control-inline">
+                                                        <input type="checkbox" class="custom-control-input" name="checkbox" required="" data-parsley-errors-container="#error-checkbox">
+                                                        <span class="custom-control-label">Option 1</span>
+                                                    </label>                                    
+                                                    <label class="custom-control custom-checkbox custom-control-inline">
+                                                        <input type="checkbox" class="custom-control-input" name="checkbox">
+                                                        <span class="custom-control-label">Option 2</span>
+                                                    </label>
+                                                    <label class="custom-control custom-checkbox custom-control-inline">
+                                                        <input type="checkbox" class="custom-control-input" name="checkbox">
+                                                        <span class="custom-control-label">Option 3</span>
+                                                    </label>
+                                                    <p id="error-checkbox"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Radio Button</label>
+                                                    <br>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" class="custom-control-input" name="gender" value="male" required="" data-parsley-errors-container="#error-radio">
+                                                        <span class="custom-control-label">Male</span>
+                                                    </label>
+            
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" class="custom-control-input" name="gender" value="female">
+                                                        <span class="custom-control-label">Female</span>
+                                                    </label>
+                                                    <p id="error-radio"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="food">Multiselect</label>
+                                                    <br>
+                                                    <select id="food" name="food[]" class="multiselect multiselect-custom" multiple="multiple" data-parsley-required="" data-parsley-trigger-after-failure="change" data-parsley-errors-container="#error-multiselect">
+                                                        <option value="cheese">Cheese</option>
+                                                        <option value="tomatoes">Tomatoes</option>
+                                                        <option value="mozarella">Mozzarella</option>
+                                                        <option value="mushrooms">Mushrooms</option>
+                                                        <option value="pepperoni">Pepperoni</option>
+                                                        <option value="onions">Onions</option>
+                                                    </select>
+                                                    <p id="error-multiselect"></p>
+                                                </div>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">Validate</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </section>
                             <h2>Elegir Especialidad</h2>
                             <section>
