@@ -12,7 +12,14 @@
 @section('title','Todas las citas')
 
 @section('content')
-
+<style>
+    .dataTables_filter label{
+        color: #434a54;
+    }
+    .dataTables_filter label input:focus{
+        border: 2px solid #00506b;
+    }
+</style>
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix">
