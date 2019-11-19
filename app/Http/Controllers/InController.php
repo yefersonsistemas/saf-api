@@ -30,7 +30,16 @@ class InController extends Controller
      */
     public function index()
     {
-        return view('dashboard.checkin.assigment');
+        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); //mostrar las reservaciones solo del dia
+        
+        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); //mostrar las reservaciones solo del dia
+        
+        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); //mostrar las reservaciones solo del dia
+
+        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get(); //mostrar las reservaciones solo del dia
+
+        return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
     /**
@@ -40,9 +49,10 @@ class InController extends Controller
      */
     public function create()
     {
-        // $type = TypeArea::with('areas')->where('name', 'Consultorio')->get();
-        // dd($type);
-        return view('dashboard.checkin.create', compact('type'));
+        $types = TypeArea::with('areas.image')->where('name', 'Consultorio')->get();
+        //dd($types);
+
+       return view('dashboard.checkin.create', compact('types'));
     }
 
     /**
@@ -103,7 +113,7 @@ class InController extends Controller
 
     public static function search(Request $request)
     {
-       $area = Area::Where('', $request->id)->first(); 
+       $area = Area::Where('id', $request->id)->first(); 
 
         if ($area != null) {  //si existe
             return response()->json([
@@ -118,13 +128,10 @@ class InController extends Controller
     }
 
     // public function search_area(){//se tiene q modificar a id en vez de name o se muestra toda la tabla
-    //     $type = TypeArea::with('areas')->where('name', 'Consultorio')->get();
+    //     $types = TypeArea::with('areas.image')->where('name', 'Consultorio')->get();
+    //     //dd($types);
 
-    //     if (!is_null($type)) {
-    //         return response()->json([
-    //             'consultorios' => $type, 
-    //         ]);
-    //     }
+    //    return view('dashboard.checkin.create', compact('types'));
     // }
         
     //hacer metodo que muestre solo los doctores del turno

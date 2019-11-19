@@ -31,35 +31,29 @@
 
 
                 @role('IN')
-                <li class="g_heading">Check-IN</li>
-                <li class=""><a href="index.html"><i class="icon-home"></i><span>Dashboard</span></a></li>                        
+                <li class="g_heading">Check-IN</li>                      
                 <li class="@yield('cites')">
-                    <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
-                    <ul>
-                        <li><a href="icons-feather.html">Nueva Cita</a></li>
-                        <li><a href="icons-line.html">Agendadas</a></li>
-                        <li><a href="icons-fontawesome.html">Suspendidas</a></li>
-                        <li><a href="icons-flags.html">Canceladas</a></li>
-                        <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Ver Todas</a></li>
-                    </ul>
-                </li>
-
-                <li class="@yield('cites')">
-                        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
+                        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
-                            <li><a href="icons-feather.html">Del dia</a></li>
-                            <li><a href="icons-line.html">Todos</a></li>
+                            <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Citas</a></li>
+                            {{-- <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li> --}}
                         </ul>
-                </li>
-
-                <li class="@yield('cites')">
-                        <a href="{{ route('checkin.index') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Asignar Consultorio</span></a>
-
-                </li>
-                <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
-                <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
-                <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
-                <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
+                        <li class="@yield('cites')">
+                                <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
+                                <ul>
+                                    <li><a href="icons-feather.html">Del dia</a></li>
+                                    <li><a href="icons-line.html">Todos</a></li>
+                                </ul>
+                            </li>
+    
+                            <li class="@yield('cites')">
+                                <a href="{{ route('checkin.create') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Asignar Consultorio</span></a>
+                            </li>
+                    </li>
+                    <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
+                    <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
+                    <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
+                    <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
                 @endrole
 
 

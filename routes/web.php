@@ -17,9 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', function() {
-//     return view('home');
-// })->name('home')->middleware('auth');
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');
 
 
 
@@ -34,8 +34,8 @@ Route::group(['middleware' => 'auth'], function (){
 
 
     Route::group(['middleware' => ['role:IN']], function () {
-        Route::get('', 'InController@index')->name('checkin.index');
-        Route::get('search/area', 'API\InController@create')->name('checkin.create');
+        Route::get('cite', 'InController@index')->name('checkin.index');
+        Route::get('', 'InController@create')->name('checkin.create');
         //Route::get('', 'EmployesController@all_doctors')->name('checkin.doctor');
         Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
         // Route::put('update', 'API\InController@update_area');  // listo
