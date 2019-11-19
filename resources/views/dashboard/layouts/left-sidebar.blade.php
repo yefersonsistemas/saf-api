@@ -87,7 +87,29 @@
                             <li><a href="page-carousel.html">Carousel</a></li>                        
                         </ul>
                     </li>      
-                @endrole          
+                @endrole  
+                
+                
+
+
+
+
+
+
+                @role('OUT')
+                <li class="g_heading">Checkout</li>
+                <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
+                <li class="@yield('cites')">
+                    <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Cirugías</span></a>
+                    <ul>
+                        <li><a href="{{ route('checkout.cirugias_hospitalarias') }}">Hospitalarias</a></li>
+                        <li><a href="{{ route('checkout.cirugias_ambulatorias') }}">Ambulatorias</a></li>
+                        {{-- <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Ver Todas</a></li> --}}
+                    </ul>
+                </li>
+                <li><a href="{{ route('checkout.facturacion') }}"><i class="icon-calendar"></i><span>Facturación</span></a></li><br><br>
+                <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
+                 @endrole
             </ul>
         </nav>
     </div>
