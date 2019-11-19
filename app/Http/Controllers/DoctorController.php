@@ -30,22 +30,18 @@ class DoctorController extends Controller
      */
     public function index(Request $request)
     {
-       $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
-                        ->get(); //mostrar las reservaciones solo del dia
+       $patients = Reservation::with('patient')->where('person_id', $request->authperson_id)
+                                ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+                                dd($patients);
 
-        if (!empty($reservations)) {
-            $reservations = $reservations->each(function( $reservation){
-                $patient = Person::where('id', $reservation->patient_id)->first();
-                if ($patient != null) {
-                    $reservation->patient = $patient;
-                    return $reservation; 
-                }
-            });
-           
-        }
+        // if (!is_null($patients)) {
+        //     return response()->json([
+        //         'reservas' => $patients,
+        //     ]);
+        // }
 
         
-      return view('dashboard.doctor.citasPacientes',compact('reservations'));
+      return view('dashboard.doctor.citasPacientes',compact('patients'));
     }
 
     /**

@@ -39,15 +39,15 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                                @foreach ($reservations as $reservation)
+                                @foreach ($patients as $patient)
                                 <tr>
                                     <td> {{ $reservation->patient->id }}</td>
-                                    <td>  <img class="rounded circle" style="border-radius:50%!important" width="50px" height="50px"  src="{{ Storage::url($reservation->patient->image->path) }}" alt=""></td>
-                                    <td> {{ $reservation->patient->type_dni }} - {{ $reservation->patient->dni }}</td>
-                                    <td> {{ $reservation->patient->name }}</td>
-                                    <td> {{ $reservation->patient->lastname }}</td>
-                                    <td> {{ $reservation->patient->motive }}</td>
-                                    <td> {{ $reservation->patient->history }}</td>s
+                                    <td>  <img class="rounded circle" style="border-radius:50%!important" width="50px" height="50px"  src="{{ Storage::url($patient->image->path) }}" alt=""></td>
+                                    <td> {{ $patient->type_dni }} - {{ $patient->dni }}</td>
+                                    <td> {{ $patient->name }}</td>
+                                    <td> {{ $patient->lastname }}</td>
+                                    <td> {{ $patient->motive }}</td>
+                                    <td> {{ $patient->history }}</td>s
                                 </tr>
                                     
                                 @endforeach
