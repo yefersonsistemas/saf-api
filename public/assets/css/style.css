@@ -250,8 +250,13 @@
 }
 
 .dataTables_filter label input:focus {
-    border: 2px solid #00506b;
+    border: 1px solid rgba(0, 80, 107, .5);
 }
+
+
+/* .dataTables_filter label input {
+    border: 1px solid rgba(0, 80, 107, .5);
+} */
 
 .btn-azuloscuro {
     color: #fff;
@@ -264,4 +269,44 @@
 
 .badge-azuloscuro {
     background: #00506b;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #00506b;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 80, 107, .25);
+}
+
+.form-control,
+.dataTables_wrapper .dataTables_filter {
+    border-color: #00506b;
+    font-size: 14px;
+    height: auto;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #00ba88;
+    border-color: #00ba88;
+}
+
+.page-link:focus {
+    z-index: 2;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 186, 136, .25);
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #00ba88;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.page-link {
+    color: #00ba88;
 }

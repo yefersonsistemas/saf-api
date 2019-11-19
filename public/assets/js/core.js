@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     setTimeout(function() {
         $('.page-loader-wrapper').fadeOut();
-    }, 50);
+    }, 1300);
     /** Initialize tooltips */
     $('[data-toggle="tooltip"]').tooltip();
 

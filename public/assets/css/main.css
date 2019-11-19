@@ -11137,14 +11137,18 @@ a.card-tabs-item.active {
 }
 
 .loader {
-    height: 2.5rem;
-    width: 2.5rem;
+    /* height: 2.5rem;
+    width: 2.5rem; */
     color: #2185d0;
     display: block;
-    position: relative
+    position: relative;
+    background-image: url('../images/loading/S&FLoading_2.gif');
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.loader:before,
+
+/* .loader:before,
 .loader:after {
     width: 2.5rem;
     height: 2.5rem;
@@ -11173,7 +11177,7 @@ a.card-tabs-item.active {
     border-color: transparent;
     border-top-color: currentColor;
     box-shadow: 0 0 0 1px transparent
-}
+} */
 
 .icons-list {
     list-style: none;
@@ -16546,7 +16550,7 @@ svg {
 
 .page-loader-wrapper .loader {
     position: relative;
-    top: calc(40% - 30px);
+    /* top: calc(40% - 30px); */
     justify-content: center;
     width: 100%
 }
