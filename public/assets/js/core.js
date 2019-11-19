@@ -298,6 +298,10 @@ function setStyleSheet(url) {
     stylesheet.setAttribute('href', url);
 }
 
+$(document).ready(function() {
+
+})
+
 // H menu
 $(window).bind("resize", function() {
     console.log($(this).width())
@@ -429,4 +433,6 @@ window.anchor = {
         'gray-800': '#292b30',
         'gray-900': '#1C1D1E',
     }
+
+
 };
