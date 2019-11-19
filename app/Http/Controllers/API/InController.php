@@ -168,6 +168,8 @@ class InController extends Controller
             'branch_id' => 1,
             ]);
 
+            //$a->status = 'ocupado';
+
             return response()->json([
                 'message' => 'consultorio asignado',
             ]);
@@ -177,6 +179,7 @@ class InController extends Controller
             ]);
         }
     }
+
 
     public function statusIn(Request $request)
     {

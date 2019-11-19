@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItinerarySurgeryProcedureTable extends Migration
+class CreateProcedureSurgeryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateItinerarySurgeryProcedureTable extends Migration
      */
     public function up()
     {
-        Schema::create('itinerary_surgery_procedure', function (Blueprint $table) {
+        Schema::create('procedure_surgery', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('surgery_id');
             $table->unsignedBigInteger('procedure_id');
@@ -44,6 +44,6 @@ class CreateItinerarySurgeryProcedureTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('itinerary_surgery_procedure');
+        Schema::dropIfExists('procedure_surgery');
     }
 }

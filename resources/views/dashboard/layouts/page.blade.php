@@ -2,19 +2,11 @@
     <div class="container">
         <div class="page-header">
             <div class="left">
-                <h1 class="page-title">@yield('title')</h1>
-                <select class="custom-select">
-                    <option>Year</option>
-                    <option>Month</option>
-                    <option>Week</option>
-                </select>
-                <div class="input-group xs-hide">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div>                        
+                <h1 class="page-title">@yield('title')</h1>                      
             </div>
             <div class="right">
                 <ul class="nav nav-pills">
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Language</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#"><img class="w20 mr-2" src="..\assets\images\flags\us.svg" alt="">English</a>
@@ -43,8 +35,9 @@
                             <a class="dropdown-item" href="#">Home Development</a>
                             <a class="dropdown-item" href="#">New Blog post</a>
                         </div>
-                    </li>
+                    </li> --}}
                 </ul>
+                <h2 class="page-title">{{ ucfirst(strtolower(Auth::user()->person->name)) }} {{ ucfirst(strtolower(Auth::user()->person->lastname)) }}</h2>
                 <div class="notification d-flex">
                     <div class="dropdown d-flex">
                         <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-1" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="badge badge-success nav-unread"></span></a>
@@ -156,7 +149,10 @@
                             <a class="dropdown-item" href="javascript:void(0)"><i class="dropdown-icon fe fe-send"></i> Message</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="javascript:void(0)"><i class="dropdown-icon fe fe-help-circle"></i> Need help?</a>
-                            <a class="dropdown-item" href="login.html"><i class="dropdown-icon fe fe-log-out"></i> Sign out</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="dropdown-icon fe fe-log-out"></i> Sign out</button>
+                            </form>
                         </div>
                     </div>
                 </div>

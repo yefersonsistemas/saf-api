@@ -248,7 +248,7 @@ class ReceptionController extends Controller
         }
     }
 
-    public function delete_cite(Request $request)
+    public function delete_cite(Request $request) //eliminar de lista suspendidas
     {
         $r = Reservation::where('id', $request->id)->first();
         $cite = Cite::where('reservation_id', $request->id)->first();
