@@ -19,12 +19,19 @@
 
 </head>
 <body class="font-opensans">
-
+<style>
+    img {
+    margin-top: 40px;
+    max-width: 50%;
+}    
+</style>
 <div class="auth">
     <div class="auth_left">
         <div class="card">
             <div class="text-center mb-5">
-                <a class="header-brand" href="index.html"><i class="fe fe-command brand-logo"></i></a>
+                <a class="header-brand" href="https://sinussystem.logotipomiami.com/login">
+                    <img src="{{ asset('img/logosinus.svg') }}" alt="">
+                </a>
             </div>
             <div class="card-body">
                 <div class="card-title">Ingresa a tu cuenta</div>

@@ -1,5 +1,8 @@
 <div class="user_div">
-    <h5 class="brand-name mb-4">Epic Able<a href="javascript:void(0)" class="user_btn"><i class="icon-logout"></i></a></h5>
+    <h5 class="brand-name mb-4">Epic Able <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit"><i class="icon-logout"></i></button>
+    </form></h5>
     <div class="card">
         <div class="card-body">
             <div class="media">

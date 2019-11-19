@@ -155,6 +155,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::POST('recipe', 'API\EmployesController@recipe');  // se ve
             Route::POST('pay', 'API\EmployesController@calculo_week');  // 
             Route::get('surgeries', 'API\TypeSurgerysController@surgeries');
+            Route::get('type/surgeries', 'API\TypeSurgerysController@type_surgery');
+            Route::POST('procedure/surgery', 'API\TypeSurgerysController@procedure_surgery');
             Route::POST('speciality', 'API\SpecialityController@doctor_S');// muestra 
         });
         

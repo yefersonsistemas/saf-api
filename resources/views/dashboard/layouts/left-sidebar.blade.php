@@ -1,6 +1,6 @@
 <div id="left-sidebar" class="sidebar">
     <div class="container">
-        <h5 class="brand-name">Sinus & Face System<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
+        <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[0]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
                 @role('recepcion')
@@ -9,11 +9,8 @@
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
-                            <li><a href="icons-feather.html">Nueva Cita</a></li>
-                            <li><a href="icons-line.html">Agendadas</a></li>
-                            <li><a href="icons-fontawesome.html">Suspendidas</a></li>
-                            <li><a href="icons-flags.html">Canceladas</a></li>
-                            <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Ver Todas</a></li>
+                            <li class="@yield('all')"><a href="{{ route('reservation.index') }}">Citas</a></li>
+                            <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
                         </ul>
                     </li>
                     <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>

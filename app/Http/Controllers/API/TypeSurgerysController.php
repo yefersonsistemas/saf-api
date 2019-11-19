@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use App\ClassificationSurgery;
+use App\Employe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Patient;
 Use App\TypeSurgery;
+Use App\Surgery;
 
 
 class TypeSurgerysController extends Controller
@@ -86,12 +89,34 @@ class TypeSurgerysController extends Controller
         //
     }
 
-    public function surgeries(Request $request){
+    public function surgeries(Request $request){  //lista de todas las cirugias
         $s = TypeSurgery::get();
 
         if(!is_null($s)){
             return response()->json([
                 'surgeries' => $s,
+            ]);
+        }
+    }
+
+    public function type_surgery()
+    {
+        $s = ClassificationSurgery::get();
+
+        if(!is_null($s)){
+            return response()->json([
+                'tpesurgeries' => $s,
+            ]);
+        }
+    }
+
+    public function procedure_surgery(Request $request) //procedimientos pertenecientes a cierta cirugia
+    {
+        $e = Surgery::with('procedures')->where('id', $request->id)->first();
+
+        if(!is_null($e)){
+            return response()->json([
+                'details' => $e,
             ]);
         }
     }

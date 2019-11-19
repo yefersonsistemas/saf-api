@@ -23,7 +23,6 @@ class ReceptionController extends Controller
                         ->get(); //mostrar las reservaciones solo del dia
 
         if (!empty($reservations)) {
-            
             $reservations = $reservations->each(function( $reservation){
                 $patient = Person::where('id', $reservation->patient_id)->first();
                 if ($patient != null) {
@@ -249,7 +248,7 @@ class ReceptionController extends Controller
         }
     }
 
-    public function delete_cite(Request $request)
+    public function delete_cite(Request $request) //eliminar de lista suspendidas
     {
         $r = Reservation::where('id', $request->id)->first();
         $cite = Cite::where('reservation_id', $request->id)->first();

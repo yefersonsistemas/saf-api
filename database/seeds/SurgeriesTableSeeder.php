@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Surgery;
+use App\Procedure;
 
 class SurgeriesTableSeeder extends Seeder
 {
@@ -14,5 +15,11 @@ class SurgeriesTableSeeder extends Seeder
     {
         Surgery::truncate();
         factory(Surgery::class, 20)->create();
+
+        // factory(Surgery::class, 20)->create()->each(function ($surgery) { 
+        //     $procedure = Procedure::with('employe')->get();  
+
+        //     $surgery->employe()->attach($procedure->random()->id);
+        // }); 
     }
 }
