@@ -17,6 +17,7 @@ use App\User;
 use App\Patient;
 use App\Surgery;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CitaController extends Controller
 {
@@ -52,6 +53,9 @@ class CitaController extends Controller
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
         $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
+        
+        // Alert::success('Success Title', 'Success Message');
+
         return view('dashboard.reception.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas', 'pendientes'));
     }
 
@@ -232,17 +236,17 @@ class CitaController extends Controller
         ]);
     }
 
-    public function search(Request $request){
+    public function search_patient(Request $request){
 
-        $person = Person::where('dni', $request->dni)->first();
+        $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
 
         if (!is_null($person)) {
             return response()->json([
-                'person' => $person,
+                'person' => $person,201
             ]);
         }else{
             return response()->json([
-                'message' => 'No encontrado',
+                'message' => 'No encontrado',202
             ]);
         }
     }

@@ -340,8 +340,9 @@ class EmployesController extends Controller
     } 
 
     public function patient_on_day(Request $request){  //pacientes del dia por doctor
-        $patients = Reservation::with('patient')->where('person_id', $request->person_id)
+        $patients = Reservation::with('patient')->where('person_id', $request->authperson_id)
                                 ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+                                dd($patients);
 
         if (!is_null($patients)) {
             return response()->json([

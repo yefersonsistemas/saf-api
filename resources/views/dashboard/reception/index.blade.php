@@ -13,14 +13,6 @@
 
 @section('content')
 
-<style>
-    .dataTables_filter label{
-        color: #434a54;
-    }
-    .dataTables_filter label input:focus{
-        border: 2px solid #00506b;
-    }
-</style>
 
 <div class="section-body  py-4">
     <div class="container-fluid">
@@ -28,64 +20,69 @@
             {{-- Contadores --}}
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
-                        <div class="card-body">                                
+                        <div class="card-body py-2">                                
                             <h6>Total De Citas Agendadas</h6>
-                            <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
+                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
                             {{-- <h5>$1,25,451.23</h5> --}}
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body py-2">
                             <h6>Total De Citas Del Mes</h6>
-                            <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
+                            <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">750</span></h4>
                             {{-- <h5>$3,80,451.00</h5> --}}
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body py-2">
                             <h6>Citas Para Hoy</h6>
-                            <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
+                            <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">25</span></h4>
                             {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body py-2">
                             <h6>Atendidos Hoy</h6>
-                            <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">5</span></h3>
+                            <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">5</span></h4>
                             {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
                 </div>
+                <div class="container">
+                    <hr>
+                </div>
 
             {{-- Tabs de citas --}}
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active btn btn-outline-primary" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Todas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Aprobadas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Canceladas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-warning" id="pills-reprogram-tab" data-toggle="pill" href="#pills-reprogram" role="tab" aria-controls="pills-reprogram" aria-selected="false">Reprogramadas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-suspendidas" aria-selected="false">Suspendidas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-dark" id="pills-pendientes-tab" data-toggle="pill" href="#pills-pendientes" role="tab" aria-controls="pills-pendientes" aria-selected="false">Pendientes</a>
-                </li>
-            </ul>
+            <div class="col-md-12 mt-3">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Todas</a>
+                    </li>
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Aprobadas</a>
+                    </li>
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Canceladas</a>
+                    </li>
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-reprogram-tab" data-toggle="pill" href="#pills-reprogram" role="tab" aria-controls="pills-reprogram" aria-selected="false">Reprogramadas</a>
+                    </li>
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-suspendidas" aria-selected="false">Suspendidas</a>
+                    </li>
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-azuloscuro" id="pills-pendientes-tab" data-toggle="pill" href="#pills-pendientes" role="tab" aria-controls="pills-pendientes" aria-selected="false">Pendientes</a>
+                    </li>
+                </ul>
+            </div>
 
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content mx-auto" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -141,7 +138,7 @@
                                                     <span class="badge badge-warning">{{ $reservation->status }}</span>
                                                 @endif
                                                 @if ($reservation->status == 'Pendiente')
-                                                    <span class="badge badge-info" style="background-color: #00506b;">{{ $reservation->status }}</span>
+                                                    <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
                                                 @endif
                                             </td>
                                             <td style="display: inline-block">
