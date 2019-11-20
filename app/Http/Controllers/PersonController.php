@@ -42,10 +42,7 @@ class PersonController extends Controller
 
         $person = Person::create($data);
         if ($person != null) {
-            return response()->json([
-                201,
-                'paciente' => $person,
-            ]);
+            return $person;
         }else{
             return 'no registrado';
         }
