@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:IN']], function () {
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('', 'InController@create')->name('checkin.create');
+        Route::POST('create', 'InController@store')->name('checkin.store');
         //Route::get('', 'EmployesController@all_doctors')->name('checkin.doctor');
         Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
         // Route::put('update', 'API\InController@update_area');  // listo

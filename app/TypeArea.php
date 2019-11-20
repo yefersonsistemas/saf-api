@@ -19,7 +19,7 @@ class TypeArea extends Model
 
     public function areas()
     {
-        return $this->hasMany('App\Area');
+        return $this->hasMany('App\Area', 'type_area_id');
     }
     public function branch()
     {

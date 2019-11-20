@@ -49,10 +49,28 @@ class InController extends Controller
      */
     public function create()
     {
-        $types = TypeArea::with('areas.image')->where('name', 'Consultorio')->get();
-        //dd($types);
+        $areas = Area::with('typearea', 'image')->get();
+        //dd($areas);
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
+        $em = collect([]);
+        if ($employes->isNotEmpty()) {
+            foreach ($employes as $employe) {
+                if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                    if ($employe->schedule->isNotEmpty()) {
+                        $dia = strtolower(Carbon::now()->locale('en')->dayName);
+                        foreach ($employe->schedule as $schedule) {
+                            if ($schedule->day == $dia) {
+                                $em->push($employe);
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        //dd($em);
 
-       return view('dashboard.checkin.create', compact('types'));
+       return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
     /**
@@ -63,7 +81,8 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $data = $request->validated();
+        $employe = Employe::create($data);
     }
 
     /**
