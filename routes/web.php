@@ -17,15 +17,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', function() {
-//     return view('home');
-// })->name('home')->middleware('auth');
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function (){
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('cite', 'CitaController@index')->name('reservation.index');
         Route::get('cite/create','CitaController@create')->name('reservations.create');
+        Route::post('search/patient','CitaController@search_patient')->name('search.patient');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
