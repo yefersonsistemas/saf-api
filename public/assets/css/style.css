@@ -319,3 +319,51 @@
 .derecha {
     right: 17px;
 }
+
+.page-item.disabled .page-link {
+    color: #fff;
+    pointer-events: none;
+    cursor: auto;
+    background: #00ba88;
+    /* border-color: #00ba88; */
+    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+    /* margin-right: 10px; */
+}
+
+.page-item:first-child .page-link {
+    color: #fff;
+    background: #00ba88;
+}
+
+.page-item:first-child .page-link:active {
+    color: #fff;
+    background: #00ba88;
+    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+}
+
+.page-item.active .page-link:active {
+    z-index: 1;
+    color: #fff;
+    background-color: #00ba88;
+    /* border-color: #00ba88; */
+    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #00ba88;
+    /* border-color: #00ba88; */
+    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+}
+
+.page-item:last-child .page-link {
+    color: #fff;
+    background: #00ba88;
+}
+
+.page-item:last-child .page-link:active {
+    color: #fff;
+    background: #00ba88;
+    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+}
