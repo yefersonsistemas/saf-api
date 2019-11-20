@@ -12,8 +12,11 @@ class ClassificationSurgery extends Model
         'name', 'description', 'branch_id'
     ];
 
-    public function surgery()
+
+    // pertenece a 
+    public function typesurgeries()
     {
-        return $this->belongsTo('App\Surgery');
+        return $this->hasMany('App\TypeSurgery','classification_surgery_id');
     }
+
 }

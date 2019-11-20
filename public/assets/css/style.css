@@ -301,3 +301,51 @@ a{
 .collapse{
     left:0;right:auto
 }
+
+/* estilos para el usuario */
+
+.color_titulo{
+    font-weight: bold;
+}
+
+.botom{
+    color:#000;
+    font-weight: bold;
+    border:none;
+}
+
+.botom:focus {
+    border:none;
+    box-shadow: none;
+}
+
+span.titulos{
+    color:#000;
+    font-weight: bold;
+}
+
+/*estilo de cirugias*/
+/* .imagenCirugias{
+    width: 500px;
+    height: auto;
+}
+
+.imagenCirugias img{
+    width: 400px;
+    height: 100%;
+}
+
+img{
+    width: 350px;
+} */
+
+.tamano{
+    width: 100%;
+    height:auto;
+    background: #000;
+}
+
+.tamano img{
+    width: 100%;
+    height: 100%;
+}

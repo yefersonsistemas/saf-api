@@ -19,7 +19,7 @@ class Surgery extends Model
 
     public function typesurgeries()
     {
-        return $this->belongsTo('App\TypeSurgery');
+        return $this->belongsTo('App\TypeSurgery', 'type_surgery_id');
     }
 
     public function branch()

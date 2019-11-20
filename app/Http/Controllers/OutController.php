@@ -19,6 +19,11 @@ use App\TypePayment;
 use App\InputOutput;
 use App\Exam;
 use App\Reservation;
+use App\Itinerary;
+use App\TypeSurgery;
+use App\Surgery;
+use App\ClassificationSurgery;
+
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
@@ -33,11 +38,45 @@ class OutController extends Controller
     public function index()
     {
         // $citas_pacientes = 
-        $cites = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        // $cites = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
         // dd($cites);
+        // $all = collect([]);
+        $itinerary = Itinerary::with('employe', 'patient', 'procedure', 'surgery.typesurgeries', 'exam', 'recipe', 'reservation', 'person')->get();
+        // foreach ($itinerary as $itinerary) {
+        //     $procedure[] = json_decode($itinerary->procedure_id);
+        // }
+        // for ($i=0; $i < count($procedure) ; $i++) { 
+        //     $procedures[] = Procedure::find($procedure[$i]);
+        // }
+        // $all->push($procedures); 
+        // dd($itinerary);
 
-        return view('dashboard.checkout.citas-pacientes', compact('cites'));
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
+
+    //====================== lista de cirugias ============================
+    public function index_cirugias()
+    {
+        $cirugias_ambulatorias = ClassificationSurgery::with('typeSurgeries')->where('name','ambulatoria')->get();
+        $cirugias_hospitalarias = ClassificationSurgery::with('typeSurgeries')->where('name','hospitalaria')->get();
+        $clasificacion = ClassificationSurgery::all();
+
+        return view('dashboard.checkout.cirugias', compact('cirugias_ambulatorias', 'cirugias_hospitalarias', 'clasificacion'));
+    }
+
+
+
+     //====================== detalles de las cirugias ============================
+     public function cirugias_detalles($id)
+     {
+         
+        $cirugias = TypeSurgery::with('surgery.procedure');
+        dd($cirugias);
+
+         return view('dashboard.checkout.cirugias-detalles');
+     }
+
+
 
     /**
      * Show the form for creating a new resource.

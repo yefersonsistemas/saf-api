@@ -112,7 +112,7 @@ class TypeSurgerysController extends Controller
 
     public function procedure_surgery(Request $request) //procedimientos pertenecientes a cierta cirugia
     {
-        $e = Surgery::with('procedures')->where('id', $request->id)->first();
+        $e = Surgery::where('id', $request->id)->first();
 
         if(!is_null($e)){
             return response()->json([

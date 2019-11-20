@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
 @section('title','Citas de pacientes')
@@ -69,19 +70,86 @@
             <div class="container">
                   
                     <div class="accordion" id="accordionExample">
-                            @foreach ($cites as $cite)
+                            @foreach ($itinerary as $itinerary)
                             <div class="card">
-                              <div class="card-header" id="headingOne">
-                                <h2 class="mb-0">
-                                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                   {{ $cite->patients->name }}
-                                  </button>
-                                </h2>
+                              <div class="row card-header pl-5 pr-5" id="headingOne" >
+                                <div class="col-8">
+                                     <div class="row">
+                                         <div class="col-3">
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->patient->person->image->path) }}" alt="">
+                                         </div>
+                                           <div class="col-9">
+                                               
+                                                 <h2 class=" mb-0 p-0" >
+                                                    <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->patient->person->name }}" aria-expanded="true" aria-controls="{{ $itinerary->patient->person->name }}">
+                                                    {{ $itinerary->patient->person->name }}       {{ $itinerary->patient->person->lastname }}
+                                                    </button>
+                                                </h2>
+                                           </div>
+                                  </div>
+                                   
+                                   
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <a href="" class="btn btn-secondary mr-2">E</a>
+                                    <a href="" class="btn btn-secondary">S</a>
+                                </div>
                               </div>
                           
-                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                              <!--informacion del paciente reservacion y demas-->
+                              <div id="{{ $itinerary->patient->person->name }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="row card-body d-flex justify-content-lg-between">
+                                        <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title color_titulo">Medico tratante</h5>
+                                                <h6 class=" mb-2 text-muted"><span class="titulos">Nombre:<span>  {{ $itinerary->employe->person->name }}</h6> 
+                                              
+                                                <h6 class=" mb-2 text-muted"><span class="titulos">Apellido:<span> {{ $itinerary->employe->person->lastname }}</h6>
+                            
+                                                {{-- <h6 class="mb-2 text-muted"><span class="titulos">Especialidad:<span> {{ $itinerary->speciality->name }}</h6> --}}
+                                            </div>
+                                        
+                                        </div> 
+                                        <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title color_titulo">Posible cirugias</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                                    {{-- <p class="card-text">{{ $itinerary->surgery->typesurgeries->name }}</p> --}}
+                                              
+                                                </div>
+                                            
+                                            </div> 
+                                            <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title color_titulo">Posibles procedimientos</h5>
+                                                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                                        {{-- <p class="card-text">{{ $itinerary->procedure->name }}</p> --}}
+                                                  
+                                                    </div>
+                                                
+                                                </div> 
+                                       
+                                    
+
+
+                                </div>
+
+                                <div class="row card-body d-flex justify-content-between">
+                                        <div class="col-5 d-flex justify-content-end">
+                                            <button class="btn btn-danger" type="button">
+                                            Imprimir examen
+                                            </button>
+                                        </div>
+                                        <div class="col-2 d-flex justify-content-center">
+                                            <button class="btn btn-danger " type="button">
+                                                Imprimir recipe
+                                            </button>
+                                        </div>
+                                        <div class="col-5 d-flex justify-content-start">
+                                            <button class="btn btn-info" type="button">
+                                                generar cita
+                                            </button>
+                                        </div>
                                 </div>
                               </div>
                             </div>

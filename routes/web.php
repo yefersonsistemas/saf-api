@@ -47,9 +47,9 @@ Route::group(['middleware' => 'auth'], function (){
 
     //======================= rutas para el usuario ckeckout ====================
     Route::group(['middleware' => ['role:OUT']], function () {
-        Route::get('index', 'OutController@index')->name('checkout.index');  // para mostrar los pacientes del dia
-        Route::get('cirugias_hospitalarias', 'OutController@index')->name('checkout.cirugias_hospitalarias');  // para mostrar los pacientes del dia
-        Route::get('cirugias_ambulatorias', 'OutController@index')->name('checkout.cirugias_ambulatorias');  // para mostrar los pacientes del dia
+        Route::get('ken', 'OutController@index')->name('checkout.index');  // para mostrar los pacientes del dia
+        Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');  // para mostrar cirugias
+        Route::get('cirugias/detalles/{id}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de las cirugias
         Route::get('facturacion', 'OutController@index')->name('checkout.facturacion');  // para mostrar los pacientes del dia
 
     });
