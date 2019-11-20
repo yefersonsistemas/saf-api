@@ -7,10 +7,36 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 @endsection
 
 
 @section('content')
+<style>
+.wizard > .steps > ul > li {
+    font-size: 12px;
+    width: 206px;
+}
+.wizard a, .tabcontrol a {
+    outline: 0;
+    margin-top: 28px;
+}
+.wizard > .content {
+    min-height: 39rem;
+}
+
+.dropify-wrapper {
+    height: 130px;
+}
+
+.page .section-body {
+    margin-top: 26px;
+}
+
+.centrado{
+    align-self: center;
+}
+</style>
 <div class="section-body">
     <div class="container-fluid">
         <div class="row clearfix">
@@ -20,73 +46,79 @@
                         <div id="wizard_horizontal">
                             <h2>Buscar Paciente</h2>
                             <section>
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Basic Validation</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <form id="basic-form" method="post" novalidate="">
-                                                <div class="form-group">
-                                                    <label>Text Input</label>
-                                                    <input type="text" class="form-control" required="">
+                                <div class="row clearfix">                    
+                                    <div class="col-lg-12">
+                                        <form method="POST" action="" class="card">
+                                            @csrf
+                                            <div class="card-body">
+                                                <h2 class="card-title">Edit Profile</h2>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Tipo de documento</label>
+                                                            <select class="custom-select" name="type_dni" id="">
+                                                                <option value="0">----Seleccione----</option>
+                                                                <option value="">V</option>
+                                                                <option value="">E</option>
+                                                                <option value="">J</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-5">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Dni</label>
+                                                            <input type="text" class="form-control" placeholder="DNI" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5 col-md-3">
+                                                        <div class="form-group">
+                                                            <a href="#" id="search" class="btn btn-primary form-control"><i class="fa fa-search"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-2">
+                                                        <div class="card">
+                                                                <h3 class="card-title">Foto</h3>
+                                                            <div class="card-body">
+                                                                <input type="file" class="dropify">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 centrado">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Nombre</label>
+                                                            <input type="text" disabled class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 centrado">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Apellido</label>
+                                                            <input type="text" disabled class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Correo Electrónico</label>
+                                                            <input type="text" disabled class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Dirección</label>
+                                                            <input type="text" disabled class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Teléfono</label>
+                                                            <input type="number" disabled class="form-control">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Email Input</label>
-                                                    <input type="email" class="form-control" required="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Text Area</label>
-                                                    <textarea class="form-control" rows="5" cols="30" required=""></textarea>
-                                                </div>
-                                                <div class="form-group">                                    
-                                                    <label>Checkbox</label>
-                                                    <br>
-                                                    <label class="custom-control custom-checkbox custom-control-inline">
-                                                        <input type="checkbox" class="custom-control-input" name="checkbox" required="" data-parsley-errors-container="#error-checkbox">
-                                                        <span class="custom-control-label">Option 1</span>
-                                                    </label>                                    
-                                                    <label class="custom-control custom-checkbox custom-control-inline">
-                                                        <input type="checkbox" class="custom-control-input" name="checkbox">
-                                                        <span class="custom-control-label">Option 2</span>
-                                                    </label>
-                                                    <label class="custom-control custom-checkbox custom-control-inline">
-                                                        <input type="checkbox" class="custom-control-input" name="checkbox">
-                                                        <span class="custom-control-label">Option 3</span>
-                                                    </label>
-                                                    <p id="error-checkbox"></p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Radio Button</label>
-                                                    <br>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" class="custom-control-input" name="gender" value="male" required="" data-parsley-errors-container="#error-radio">
-                                                        <span class="custom-control-label">Male</span>
-                                                    </label>
-            
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" class="custom-control-input" name="gender" value="female">
-                                                        <span class="custom-control-label">Female</span>
-                                                    </label>
-                                                    <p id="error-radio"></p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="food">Multiselect</label>
-                                                    <br>
-                                                    <select id="food" name="food[]" class="multiselect multiselect-custom" multiple="multiple" data-parsley-required="" data-parsley-trigger-after-failure="change" data-parsley-errors-container="#error-multiselect">
-                                                        <option value="cheese">Cheese</option>
-                                                        <option value="tomatoes">Tomatoes</option>
-                                                        <option value="mozarella">Mozzarella</option>
-                                                        <option value="mushrooms">Mushrooms</option>
-                                                        <option value="pepperoni">Pepperoni</option>
-                                                        <option value="onions">Onions</option>
-                                                    </select>
-                                                    <p id="error-multiselect"></p>
-                                                </div>
-                                                <br>
-                                                <button type="submit" class="btn btn-primary">Validate</button>
-                                            </form>
-                                        </div>
+                                            </div>
+                                            <div class="card-footer text-right">
+                                                <button type="submit" class="btn btn-success" disabled>Registrar paciente</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </section>
@@ -123,5 +155,37 @@
 
 @section('scripts')
     <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
-    <script src="{{ asset('assets\js\form\wizard.js') }}"></script>
+    <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
+    <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+
+    <script>
+        $('#wizard_horizontal').steps({
+            headerTag: 'h2',
+            bodyTag: 'section',
+            transitionEffect: 'slideLeft',
+            onInit: function(event, currentIndex) {
+                setButtonWavesEffect(event);
+                search();
+            },
+            onStepChanged: function(event, currentIndex, priorIndex) {
+                setButtonWavesEffect(event);
+            }
+        });
+
+        function setButtonWavesEffect(event) {
+            $(event.currentTarget).find('[role="menu"] li a').removeClass('');
+            $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
+        }
+
+        function search(){
+            $("#search").click(function () {
+                var type_dni    =   $("type_dni").val();
+                var dni         =   $("dni").val();
+                console.log('type_dni', type_dni);
+                console.log('dni', dni);
+
+            });
+        }
+
+    </script>
 @endsection

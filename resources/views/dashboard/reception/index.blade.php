@@ -12,6 +12,7 @@
 @section('title','Todas las citas')
 
 @section('content')
+
 <style>
     .dataTables_filter label{
         color: #434a54;
@@ -20,6 +21,7 @@
         border: 2px solid #00506b;
     }
 </style>
+
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix">
@@ -73,10 +75,13 @@
                     <a class="nav-link btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Canceladas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-warning" id="pills-reprogram-tab" data-toggle="pill" href="#pills-reprogram" role="tab" aria-controls="pills-contact" aria-selected="false">Reprogramadas</a>
+                    <a class="nav-link btn btn-outline-warning" id="pills-reprogram-tab" data-toggle="pill" href="#pills-reprogram" role="tab" aria-controls="pills-reprogram" aria-selected="false">Reprogramadas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-contact" aria-selected="false">Suspendidas</a>
+                    <a class="nav-link btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-suspendidas" aria-selected="false">Suspendidas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-dark" id="pills-pendientes-tab" data-toggle="pill" href="#pills-pendientes" role="tab" aria-controls="pills-pendientes" aria-selected="false">Pendientes</a>
                 </li>
             </ul>
 
@@ -189,7 +194,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @forelse ($aprobadas as $reservation)
+                                    @foreach($aprobadas as $reservation)
                                         <tr>
                                             <td>
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
@@ -213,9 +218,7 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                    @empty
-                                        <h2>Sin datos</h2>
-                                    @endforelse
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -247,7 +250,7 @@
                                         <th>Doctor</th>
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
-                                        <th>Acciones</th>
+                                        {{-- <th>Acciones</th> --}}
                                         <th>Historia</th>
                                     </tr>
                                 </tfoot>
@@ -263,11 +266,11 @@
                                             <td>{{ $reservation->person->name }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-danger">{{ $reservation->status }}</span></td>
-                                            <td style="display: inline-block">
+                                            {{-- <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
                                                     <a href="" class="btn btn-success">Generar</a>
@@ -403,8 +406,69 @@
                             </table>
                         </div>
                     </div> 
-                </div>                   
-
+                </div>
+                <div class="tab-pane fade" id="pills-pendientes" role="tabpanel" aria-labelledby="pills-pendientes-tab">
+                    <div class="col-lg-12">
+                        <div class="table-responsive mb-4">
+                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                <thead>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cedula</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Doctor</th>
+                                        <th>Esepcialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                        <th>Historia</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cedula</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Doctor</th>
+                                        <th>Esepcialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                        <th>Historia</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach ($pendientes as $reservation)
+                                        <tr>
+                                            <td>
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                            </td>
+                                            <td>{{ $reservation->patient->dni }}</td>
+                                            <td>{{ $reservation->patient->name }}</td>
+                                            <td>{{ $reservation->patient->lastname }}</td>
+                                            <td>{{ $reservation->person->name }}</td>
+                                            <td>{{ $reservation->speciality->name }}</td>
+                                            <td><span class="badge badge-secondary" style="background-color: #00506b;">{{ $reservation->status }}</span></td>
+                                            <td style="display: inline-block">
+                                                <a href="" class="btn btn-success">A</a>
+                                                <a href="" class="btn btn-warning">R</a>
+                                                <a href="" class="btn btn-secondary">S</a>
+                                                <a href="" class="btn btn-danger">C</a>
+                                            </td>
+                                            <td>
+                                                @if ($reservation->patient->historyPatient == null)
+                                                    <a href="" class="btn btn-success">Generar</a>
+                                                @else
+                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                </div>             
             </div>
         </div>
     </div>
