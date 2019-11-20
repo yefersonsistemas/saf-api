@@ -65,23 +65,19 @@ class CitaController extends Controller
         return view('dashboard.reception.create', compact('speciality'));
     }
 
-    public function agendadas()
-    {
-        $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
-                        ->get(); 
+    public function search_patient(Request $request){
 
-        if ($reservations->isNotEmpty()) {
-            $reservations = $reservations->each(function( $reservation){
-                $patient = Person::where('id', $reservation->patient_id)->first();
-                if ($patient != null) {
-                    $reservation->patient = $patient;
-                    return $reservation; 
-                }
-            });
+        $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+
+        if (!is_null($person)) {
+            return response()->json([
+                'person' => $person,201
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',202
+            ]);
         }
-        // dd($reservations);
-
-        return view('dashboard.reception.agendadas', compact('reservations'));
     }
 
     //quota representa el max de cupos por dia de pacientes 
@@ -236,20 +232,6 @@ class CitaController extends Controller
         ]);
     }
 
-    public function search_patient(Request $request){
-
-        $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
-
-        if (!is_null($person)) {
-            return response()->json([
-                'person' => $person,201
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'No encontrado',202
-            ]);
-        }
-    }
 
     public function search_doctor(Request $request){    //medico asociado a una especialidad 
         $speciality = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();

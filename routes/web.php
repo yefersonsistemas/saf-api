@@ -23,6 +23,8 @@ Route::get('/home', function() {
 
 Route::group(['middleware' => 'auth'], function (){
 
+    Route::post('person','PersonController@store')->name('person.create');
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('cite', 'CitaController@index')->name('reservation.index');
         Route::get('cite/create','CitaController@create')->name('reservations.create');
