@@ -36,7 +36,7 @@
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
                             <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Citas</a></li>
-                            {{-- <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li> --}}
+                            {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                         </ul>
                         <li class="@yield('cites')">
                                 <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
