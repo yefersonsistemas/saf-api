@@ -51,7 +51,7 @@
                                         {{-- <form method="POST" action="" class="card">
                                             @csrf --}}
                                         <div class="card-body">
-                                            <h2 class="card-title">Edit Profile</h2>
+                                            <h2 class="card-title">Buscar Paciente</h2>
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <div class="form-group">
@@ -254,6 +254,13 @@
                         }
                     })
                     .done(function(data) {
+                        if (data[0] == 201) {
+                            Swal.fire({
+                            title: 'Excelente!',
+                            text: 'Paciente Registrado',
+                            type: 'success',
+                        })
+                        }
                         console.log(data);
                     })
                     .fail(function(data) {
