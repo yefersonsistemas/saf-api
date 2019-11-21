@@ -324,28 +324,33 @@ span.titulos{
     font-weight: bold;
 }
 
-/*estilo de cirugias*/
-/* .imagenCirugias{
-    width: 500px;
-    height: auto;
-}
-
-.imagenCirugias img{
-    width: 400px;
-    height: 100%;
-}
-
-img{
-    width: 350px;
-} */
 
 .tamano{
-    width: 100%;
-    height:auto;
+        /* width: 100%;
+        height:150px; */
     background: #000;
 }
 
 .tamano img{
     width: 100%;
     height: 100%;
+}
+
+.with150{
+    width: 100%;
+    height: 150px;
+}
+
+.tama{
+    width: 100%;
+    height: 120px;
+}
+
+
+.color{
+    color:#2185d0;
+}
+
+.bg-azul{
+    background: #2185d0;
 }

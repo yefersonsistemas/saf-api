@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('ken', 'OutController@index')->name('checkout.index');  // para mostrar los pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');  // para mostrar cirugias
         Route::get('cirugias/detalles/{id}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de las cirugias
-        Route::get('facturacion', 'OutController@index')->name('checkout.facturacion');  // para mostrar los pacientes del dia
+        Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');  // para mostrar los pacientes del dia
 
     });
 

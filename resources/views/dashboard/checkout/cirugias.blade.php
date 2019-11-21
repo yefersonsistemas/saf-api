@@ -76,16 +76,38 @@
                                         <div class="row card-body d-flex  justify-content-between">
                                     @forelse ($hospitalarias->typeSurgeries as $surgery)
 
+                                    <div class="col-sm-12 col-lg-3 m-2">
+                                            <div class="card ">
+                                                <div class="card-body text-center p-2">
+                                                    
+                                                    <div class="card bg-azul text-white">
+                                                        <div class="card-body tama">
+                                                            <img src="assets\images\pricing\plan1.svg" class="width150" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center px-2">
+                                                           
+                                                            <div>
+                                                                <div>{{ $surgery->name }}</div>
+                                                            </div>
+                                                            <div class="ml-auto text-muted">
+                                                                <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas...</a>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+{{-- 
                                             <div class="card" style="width: 18rem;">
                                                 <div class="tamano">
-                                                        <img src="assets/images/cirugia.jpg" class="card-img-top" alt="...">
+                                                        <img src="assets/images/1.jpg" class="card-img-top" alt="...">
                                                 </div>
                                                    
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{ $surgery->name }}</h5>
                                                     <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn">Detalles</a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                 
                                     @empty
                                         <h3>NO hay nada</h3>
@@ -103,16 +125,28 @@
                                 <div class="card mb-4">
                                         <div class="row card-body d-flex  justify-content-between">
                                     @forelse ($ambulatorias->typeSurgeries as $surgery)
-                                         <div class="card" style="width: 18rem;">
-                                            <div class="tamano">
-                                                    <img src="assets/images/cirugia.jpg" class="card-img-top" alt="...">
-                                            </div>
-                                               
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $surgery->name }}</h5>
-                                                <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn">Detalles</a>
+                                    <div class="col-sm-12 col-lg-3 m-2">
+                                        <div class="card ">
+                                            <div class="card-body text-center p-2">
+                                                
+                                                <div class="card bg-azul text-white">
+                                                    <div class="card-body tama">
+                                                        <img src="assets\images\pricing\plan1.svg" class="width150" >
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center px-2">
+                                                       
+                                                        <div>
+                                                            <div>{{ $surgery->name }}</div>
+                                                        </div>
+                                                        <div class="ml-auto text-muted">
+                                                            <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas...</a>
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
+                                    </div>
+
                                     @empty
                                         <h3>NO hay nada</h3>
                                     @endforelse

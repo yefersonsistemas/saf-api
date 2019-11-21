@@ -67,15 +67,16 @@ class OutController extends Controller
 
 
      //====================== detalles de las cirugias ============================
-     public function cirugias_detalles($id)
+     public function cirugias_detalles(Request $request)
      {
          
-        $cirugias = TypeSurgery::with('surgery.procedure');
-        dd($cirugias);
+        $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
+        
+        
+        // dd($cirugias);
 
-         return view('dashboard.checkout.cirugias-detalles');
+         return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
      }
-
 
 
     /**
@@ -85,7 +86,7 @@ class OutController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.checkout.facturacion');
     }
 
     /**

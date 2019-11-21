@@ -51,4 +51,9 @@ class Surgery extends Model
        ->withPivot('procedure_id','id');
     }
 
+    public function hospitalization()
+    {
+        return $this->belongsTo('App\Hospitalization');
+    }
+
 }
