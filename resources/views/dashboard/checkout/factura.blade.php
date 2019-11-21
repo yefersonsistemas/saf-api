@@ -4,9 +4,6 @@
 @section('all','active')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
@@ -14,27 +11,7 @@
 
 @section('content')
 <div class="section-body py-3">
-        <div class="container-fluid">
-            <div class="row clearfix">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body row">
-                        <div class="col-12">
-                                <h5>Buscar Paciente </h5>
-                        </div>
-                            <div class="input-group mt-2 col-6">
-                                <input type="text" class="form-control search" maxlength="8" placeholder="buscar paciente...">
-                                <button class="btn btn-info"><i class="icon-magnifier"></i></button>
-                            </div>
-                            <div class="card-options col-4 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary"><i class="fe fe-plus" data-toggle="tooltip" title="" data-original-title="fe fe-plus"></i> agregar procedimiento</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
 
         <div class="section-body py-3">
             <div class="container">
@@ -47,10 +24,9 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">#AB0017</h3>
-                                        <div class="card-options">
-                                            <a href="{{ route('checkout.factura') }}" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
-                                        </div>
+                                        <div class="col-8 d-flex justify-content-end">hola</div>
+                                        <div class="col-3 d-flex justify-content-end">  <h3 class="card-title">#AB0017</h3></div>
+                                      
                                     </div>
                                     <div class="card-body">
                                         <div class="row my-8">

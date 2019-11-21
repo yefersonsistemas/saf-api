@@ -354,3 +354,8 @@ span.titulos{
 .bg-azul{
     background: #2185d0;
 }
+
+.h4{
+    font-size: 24px;
+    color:#000;
+}

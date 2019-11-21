@@ -79,6 +79,7 @@ class OutController extends Controller
      }
 
 
+     
     /**
      * Show the form for creating a new resource.
      *
@@ -89,6 +90,11 @@ class OutController extends Controller
         return view('dashboard.checkout.facturacion');
     }
 
+    public function create_factura()
+    {
+        return view('dashboard.checkout.factura');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -97,7 +103,7 @@ class OutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
