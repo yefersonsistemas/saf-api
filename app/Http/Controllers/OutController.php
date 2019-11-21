@@ -95,12 +95,14 @@ class OutController extends Controller
     //===================buscanco paciente==============
     public function search_patient(Request $request){
 
-        $person = Person::where('dni', $request->dni)->first();
-
-        // dd($person);
-        if (!is_null($person)) {
+        $person = Person::with('reservation')->where('dni', $request->dni)->first();
+        // dd($person->id);
+        $encontrado = Itinerary::with('employe.person', 'reservation','procedure', 'person')->where('patient_id', $person->id)->first();
+        // dd($encontrado);
+        
+        if (!is_null($encontrado)) {
             return response()->json([
-                'person' => $person,201
+                'person' => $encontrado,201
             ]);
         }else{
             return response()->json([
