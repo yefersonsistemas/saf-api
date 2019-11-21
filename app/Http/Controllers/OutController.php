@@ -97,12 +97,12 @@ class OutController extends Controller
 
         $person = Person::with('reservation')->where('dni', $request->dni)->first();
         // dd($person->id);
-        $encontrado = Itinerary::with('employe.person', 'reservation','procedure', 'person')->where('patient_id', $person->id)->first();
+        $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->first();
         // dd($encontrado);
         
         if (!is_null($encontrado)) {
             return response()->json([
-                'person' => $encontrado,201
+                'encontrado' => $encontrado,201
             ]);
         }else{
             return response()->json([

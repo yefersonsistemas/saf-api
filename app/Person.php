@@ -71,4 +71,9 @@ class Person extends Model
     {
         return $this->hasmany('App\InputOutput');
     }
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Patient');
+    }
 }
