@@ -17,6 +17,8 @@ use App\Billing;
 use App\Reservation;
 use App\Person;
 use Illuminate\Support\Facades\Auth;
+use App\Doctor;
+use App\Speciality;
 
 class DoctorController extends Controller
 {
@@ -110,5 +112,69 @@ class DoctorController extends Controller
         //
     }
 
-    
+
+    public function searchDoctor(Request $request)
+    {
+        $doctors = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
+        if ($doctors->isNotEmpty()) {
+            return $doctors;
+        }else{
+            return response()->json([
+                202,
+                'message' => 'sin medicos',
+            ]);
+        }
+    }
+
+
+    /**
+     * 
+     * Busca el horario del doctor y 
+     * retorna los dias que el tenga disponible
+     * 
+     */
+    public function search_schedule(Request $request){//busca el horario del medico para agendar cita
+        $employe = Employe::with('schedule')->where('person_id', $request->id)->first();
+
+        if (!is_null($employe)) {
+            if (!is_null($employe->schedule)) {
+                foreach ($employe->schedule as $schedule) {
+                    $date[]  = new Carbon('next ' . $schedule->day);
+                    $quota[] = $schedule->quota;
+                }
+
+                for ($i = 0; $i < count($date); $i++) {
+                    /**
+                     * El 12 del ciclo for j,
+                     * hace referencia a 12 semanas que es la mayor 
+                     * anticipacion a la q se puede tener una cita
+                     */
+                    for ($j= 0; $j < 12; $j++) { 
+                        $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
+                        if ($citesToday < $quota[$i]) {
+                            $available[] = array(Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)); 
+                        }
+                        $date[$i] = $date[$i]->addWeek();
+                    }
+                }
+
+                for ($i=0; $i < count($available) ; $i++) { 
+                    $availables[$i] = $available[$i][0];
+                }
+
+                return response()->json([
+                    'employe'       => $employe,
+                    'available'     => $availables,
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'Medico sin horario',
+                ]);
+            }
+        }else{
+            return response()->json([
+                'message' => 'Medico no encontrado',
+            ]);
+        }
+    }
 }

@@ -24,11 +24,14 @@ Route::get('/home', function() {
 Route::group(['middleware' => 'auth'], function (){
 
     Route::post('person','PersonController@store')->name('person.create');
+    Route::post('search/doctor','DoctorController@searchDoctor')->name('search.medic');
+    Route::post('search/doctor/schedule','DoctorController@search_schedule')->name('search.schedule');
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('cite', 'CitaController@index')->name('reservation.index');
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::post('search/patient','CitaController@search_patient')->name('search.patient');
+        Route::post('cite','CitaController@store')->name('cite.store');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
