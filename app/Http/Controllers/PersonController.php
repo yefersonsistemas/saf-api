@@ -1,21 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Patient;
-use App\Medicine;
-use App\Exam;
-use App\Diagnostic;
-use App\Procedure;
-use App\Surgery;
-use Carbon\Carbon;
-use App\Http\Requests\CreateDiagnosticRequest;
-use App\Employe;
-use App\Billing;
+use App\Http\Controllers\Controller;
+use App\Person;
+use App\Http\Requests\CreatePersonRequest;
 
-class DoctorController extends Controller
+class PersonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +16,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-      
+        //
     }
 
     /**
@@ -43,9 +35,17 @@ class DoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePersonRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['branch_id'] = 1;
+
+        $person = Person::create($data);
+        if ($person != null) {
+            return $person;
+        }else{
+            return 'no registrado';
+        }
     }
 
     /**
@@ -93,5 +93,22 @@ class DoctorController extends Controller
         //
     }
 
-    
+    public function update_person(Request $request) //cambiar direccion de paciente en la historia
+  {
+    $patient = Person::find($request->id);
+
+    $patient->address = $request->address;
+    $patient->phone = $request->phone;
+    $patient->email = $request->email;
+
+    if($patient->save()){
+        return response()->json([
+            'message' => 'Datos modificados',
+        ]);
+    }else{
+        return response()->json([
+            'message' => 'No se pudo actualizar los datos',
+        ]);
+    }
+  }
 }

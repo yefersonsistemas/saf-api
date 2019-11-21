@@ -23,6 +23,7 @@ use App\Itinerary;
 use App\TypeSurgery;
 use App\Surgery;
 use App\ClassificationSurgery;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
@@ -89,6 +90,25 @@ class OutController extends Controller
     {
         return view('dashboard.checkout.facturacion');
     }
+
+
+    //===================buscanco paciente==============
+    public function search_patient(Request $request){
+
+        $person = Person::where('dni', $request->dni)->first();
+
+        // dd($person);
+        if (!is_null($person)) {
+            return response()->json([
+                'person' => $person,201
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',202
+            ]);
+        }
+    }
+
 
     public function create_factura()
     {

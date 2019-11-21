@@ -61,8 +61,8 @@
                             <li><a href="404.html">404 error</a></li>
                             <li><a href="500.html">500 error</a></li>   
                         </ul>
-                    </li>
-                    <li class="g_heading">Pages</li>
+                    </li> 
+                    {{-- <li class="g_heading">Pages</li>
                     <li>
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Icons</span></a>
                         <ul>
@@ -72,8 +72,8 @@
                             <li><a href="icons-flags.html">Flags Icons</a></li>
                             <li><a href="icons-payments.html">Payments Icons</a></li>
                         </ul>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-bar-chart"></i><span>Charts</span></a>
                         <ul>
                             <li><a href="charts-apex.html">Charts Apex</a></li>
@@ -82,8 +82,8 @@
                             <li><a href="charts-knob.html">JQuery Knob</a></li>
                             <li><a href="charts-sparkline.html">Sparkline Chart</a></li>
                         </ul>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-layers"></i><span>Forms</span></a>
                         <ul>
                             <li><a href="form-elements.html">Basic Elements</a></li>
@@ -93,19 +93,19 @@
                             <li><a href="form-summernote.html">Summernote</a></li>
                             
                         </ul>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Tables</span></a>
                         <ul>
                             <li><a href="table-normal.html">Bootstrap Table</a></li>
                             <li><a href="table-datatable.html">Jquery Datatable</a></li>
                         </ul>
-                    </li>                
-                    <li><a href="widgets.html"><i class="icon-puzzle"></i><span>Widgets</span></a></li>
-                    <li class="g_heading">Extra</li>
-                    <li><a href="page-maps.html"><i class="icon-map"></i><span>Maps</span></a></li>
-                    <li><a href="page-gallery.html"><i class="icon-picture"></i><span>Gallery</span></a></li>
-                    <li>
+                    </li>                 --}}
+                    <li class="g_heading">Funciones</li>
+                    <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
+                    <li><a href=""><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li>
+                    {{-- <li><a href="page-gallery.html"><i class="icon-picture"></i><span>Gallery</span></a></li> --}}
+                    {{-- <li>
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fe fe-file"></i><span>Pages</span></a>
                         <ul>
                             <li><a href="page-empty.html">Empty page</a></li>
@@ -117,9 +117,9 @@
                             <li><a href="page-carousel.html">Carousel</a></li>                        
                         </ul>
                     </li>      
-                @endrole     
+                @endrole     --}}
                 
-                
+                            @endrole
 
 
                 @role('OUT')
@@ -130,6 +130,10 @@
                 <li><a href="{{ route('checkout.facturacion') }}"><i class="icon-calendar"></i><span>Facturación</span></a></li><br><br>
                 <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                  @endrole
+                  
+    
+                {{-- FIN DEL MODULO DE LOS DOCTORES --}}
+                
             </ul>
         </nav>
     </div>
