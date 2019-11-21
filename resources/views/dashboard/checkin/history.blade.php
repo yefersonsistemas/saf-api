@@ -152,13 +152,61 @@
     </form>
 </div>
 
-<div class="card  p-4">
+{{-- <div class="card  p-4">
     <div class="col-md-5">
         <div class="form-group">
             <label class="form-label">Exámenes</label>
-            <input type="file" class="form-control" placeholder="Exámenes">
+            <input type="file" id=fileupload class="form-control" name="exams[]" multiple="">
         </div>
     </div>
+</div> --}}
+<div class="card  p-4">
+    <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
+        <div class="row fileupload-buttonbar">
+            <div>
+            <span class="btn btn-success fileinput-button">
+              <input type="file" name="files[]" multiple="">
+            </div>
+
+            <div class="ml-2">
+                <button type="submit" class="btn btn-primary start">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Subir</span>
+                </button>
+            </div>
+
+            <div class="ml-2">
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancelar</span>
+                </button>
+            </div>
+
+            <div class="ml-2">
+                <button type="button" class="btn btn-danger delete">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Eliminar</span>
+                </button>
+            </div>
+            
+            <div class="ml-2 mt-2">
+                <input type="checkbox" class="toggle">
+            </div>
+
+            <div class="col-lg-5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress state -->
+            <div class="progress-extended">&nbsp;</div>
+        </div>
+        
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped">
+            <tbody class="files"></tbody>
+        </table>
+    </form>
 </div>
 
 <div class="card  p-4">
@@ -185,20 +233,20 @@
         <div class="col-md-8 mt-2">
             <div class="form-group">
                 <label class="form-label">Cirugias previas</label>
-                <input type="text" class="form-control" placeholder="Cirugias anteriores">
+                <input type="text" class="form-control" placeholder="Cirugias anteriores" value="">
             </div>
         </div>
     </div>
 </div>
 
-<div class="card  p-4">
+<div class="card  p-4 row">
     <h4>Citas anteriores</h4>
     {{-- @foreach ($cites as $cite) --}}
-        <div class="card">
+        <div class="card col-4">
             {{ $cites->employe->person->name }} {{ $cites->employe->person->lastname }} 
-            {{ $cites->person->reservationPatient }}
-           
-           
+            {{-- {{ $cites->person->reservationPatient }} --}}
+            {{-- {{$cites->person->reservationPatient->date}} --}}
+          
         </div> 
     {{-- @endforeach --}}
 </div>
@@ -206,3 +254,9 @@
 <a href="" class="btn btn-primary">Guardar</a>
 
 @endsection
+
+<script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<script>
+    $('#fileupload').fileupload();
+</script>
+{{-- <script src="js/jquery.fileupload.js" type="text/javascript"></script> --}}
