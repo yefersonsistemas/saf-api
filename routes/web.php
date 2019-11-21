@@ -34,12 +34,14 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::group(['middleware' => ['role:IN']], function () {
         Route::get('cite', 'InController@index')->name('checkin.index');
-        Route::get('', 'InController@create')->name('checkin.create');
+        Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
+        Route::put('inside/{reservation}', 'InController@statusIn')->name('checkin.statusIn');
+        Route::POST('outside', 'OutController@statusOut')->name('checkin.statusOut');
+        Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::POST('create', 'InController@store')->name('checkin.store');
-        //Route::get('', 'EmployesController@all_doctors')->name('checkin.doctor');
-        Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
-        // Route::put('update', 'API\InController@update_area');  // listo
-        // Route::POST('inside', 'API\InController@statusIn'); //creacion de registro
+        Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+       // Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
+       
 
     });
 
@@ -61,20 +63,3 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('/', 'DoctorController@index')->name('doctor.index');
         Route::get('doctor', 'DoctorController@index')->name('doctor.index');
     });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-});

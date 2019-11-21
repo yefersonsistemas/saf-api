@@ -123,10 +123,17 @@ class EmployesController extends Controller
                 }
             }
 
-            return response()->json([
-                'employes' => $em,
-            ]);
         }
+        
+        $e = collect([]);
+        if ($employes->isNotEmpty()) {
+            foreach($employes as $employe){
+                if ($employe->position->name == 'doctor' && $employe->person->user->role('doctor')) {
+                    $e->push($employe);
+                }
+            }
+            }
+            return view('dashboard.checkin.doctor', compact('em', 'e'));
     }
 
     /**

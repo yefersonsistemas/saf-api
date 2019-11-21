@@ -132,12 +132,12 @@
                                                 @if ($reservation->patient->historyPatient == null)
                                                     <a href="" class="btn btn-success">Generar</a>
                                                 @else
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                   <a href="{{ route('checkin.history', $reservation->patient_id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
                                                 @endif
                                             </td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-secondary">E</a>
-                                                <a href="" class="btn btn-secondary">S</a>
+                                                <a href="{{ route ('checkin.statusIn', $reservation ) }}" class="btn btn-secondary">E</a>
+                                                <a href="{{ route('checkin.statusOut', $reservation ) }}" class="btn btn-secondary">S</a>
                                             </td>
                                         </tr>
                                     @endforeach

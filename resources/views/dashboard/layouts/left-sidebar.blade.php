@@ -38,15 +38,15 @@
                             <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Citas</a></li>
                             {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                         </ul>
-                        <li class="@yield('cites')">
-                                <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
-                                <ul>
-                                    <li><a href="icons-feather.html">Del dia</a></li>
-                                    <li><a href="icons-line.html">Todos</a></li>
-                                </ul>
+                        <li>
+                                <a href="{{ route('checkin.doctor') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
+                                {{-- <ul>
+                                    <li><a href="{{ route('checkin.doctor') }}">Del dia</a></li>
+                                    <li><a href="">Todos</a></li>
+                                </ul> --}}
                             </li>
     
-                            <li class="@yield('cites')">
+                            <li>
                                 <a href="{{ route('checkin.create') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Asignar Consultorio</span></a>
                             </li>
                     </li>

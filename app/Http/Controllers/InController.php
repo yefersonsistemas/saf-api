@@ -31,13 +31,14 @@ class InController extends Controller
     public function index()
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
-        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); //mostrar las reservaciones solo del dia
+        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         
-        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); //mostrar las reservaciones solo del dia
+        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
         
-        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); //mostrar las reservaciones solo del dia
+        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
-        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get(); //mostrar las reservaciones solo del dia
+        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+        //$pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
 
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
@@ -71,6 +72,18 @@ class InController extends Controller
         //dd($em);
 
        return view('dashboard.checkin.create', compact('areas', 'em'));
+    }
+
+    public function search_history(Request $request){  //busca historia para la lista de in
+        $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
+                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+
+        $cites = Patient::with('person.reservationPatient.speciality', 'diagnostic.treatment', 'employe.person')
+                         ->where('person_id', $request->patient_id)->first();
+
+                         //dd($cites->person->reservationPatient);
+
+        return view('dashboard.checkin.history', compact('rs', 'cites'));
     }
 
     /**
@@ -237,6 +250,8 @@ class InController extends Controller
 
     public function statusIn(Request $request)
     {
+        
+
         $data = $request->validate([
             'person_id' => 'required',
             'employe_id'  => 'required',

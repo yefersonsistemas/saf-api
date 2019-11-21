@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <div id="wizard_horizontal">
                             <h2>Seleccionar consultorio</h2>
-                            {{-- <form method="POST" action="{{route('checkin.store')}}">
+                            <form method="POST" action="{{route('checkin.store')}}">
                                 @csrf --}}
                             <section>
                                 <div class="card-body">
@@ -97,7 +97,7 @@
                                     </div>
                                   
                             </section>
-                        {{-- </form> --}}
+                        {{ --</form>-- }}
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,8 @@
             setButtonWavesEffect(event);
         },
         onFinished: function (event, currentIndex, priorIndex) {
-            
+            $(event.currentTarget).find('[role="menu"] li a').removeClass('');
+            $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
         }
     });
     </script>

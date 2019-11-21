@@ -114,6 +114,16 @@ class InController extends Controller
             ]);
         }
     }
+
+    public function search_history(Request $request){  //busca historia para la lista de in
+        $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
+                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+                         //dd($request->patient_id);
+
+                return response()->json([
+                    'reservations' => $rs,
+                ]);
+    }
         
     //hacer metodo que muestre solo los doctores del turno
 
@@ -199,6 +209,8 @@ class InController extends Controller
 
     public function statusIn(Request $request)
     {
+       return $request->all();
+
         $data = $request->validate([
             'person_id' => 'required',
             'employe_id'  => 'required',
