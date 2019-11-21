@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::post('search/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite','CitaController@store')->name('reservation.store');
+        Route::post('cite/status', 'CitaController@status')->name('reservation.status');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
