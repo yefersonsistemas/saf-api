@@ -19,6 +19,7 @@
 <!-- Core css -->
 <link rel="stylesheet" href={{ asset("assets\css\main.css") }}>
 <link rel="stylesheet" href={{ asset("assets\css\style.css") }}>
+{{-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"> --}}
 
 @yield('css')
 </head>

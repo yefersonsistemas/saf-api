@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets\css\brandAn') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
 
 @endsection
 
@@ -90,7 +90,6 @@
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td> {{ $reservation->description }}</td>
-                                           
                                             <td> 
                                                 <a href="/doctor/{{ $reservation->patient->historyPatient->id}}" class="badge badge-info btn p-2">
                                                     {{ $reservation->patient->historyPatient->history_number }}

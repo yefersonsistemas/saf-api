@@ -1,10 +1,15 @@
 @extends('dashboard.layouts.app')
  @section('doctor','active') 
+
  @section('css')
  <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
  <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
 @endsection
-  @section('title','Doctor') 
+
+@section('title','Diagnostico') 
+
   @section('content')
 <div class="section-body  py-4">
     <div class="container-fluid">
@@ -53,7 +58,6 @@
                     <form class="">
                         <div class="card">
                             <div class="card-header">
-                                <a href="javascript:history.back(-1);"></a>
                                 <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Crear Diagnostico</h3>
                             </div>
                             <div class="card-body">
@@ -70,8 +74,8 @@
                                             <textarea name="razon" id="razon" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
-                                            <label>Filter Enabled</label>
+                                    <div class="col-lg-12 col-md-12">
+                                            <label>Examenes</label>
                                             <div class="form-group multiselect_div">
                                                 <select id="multiselect4-filter" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                                     <option value="bootstrap">Bootstrap</option>
@@ -87,53 +91,28 @@
                                         </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">First Name</label>
-                                            <input type="text" class="form-control" placeholder="Company" value="Chet">
+                                            <label class="form-label">Indicaciones</label>
+                                            <textarea name="indicaciones" id="indicaciones" cols="30" rows="10" class="form-control text-razon" placeholder="Indicaciones"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Last Name" value="Faker">
+                                            <label class="form-label">Anexos</label>
+                                            <textarea name="anexos" id="anexos" cols="30" rows="10" class="form-control text-razon" placeholder="Anexos"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Address</label>
-                                            <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">City</label>
-                                            <input type="text" class="form-control" placeholder="City" value="Melbourne">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">Postal Code</label>
-                                            <input type="number" class="form-control" placeholder="ZIP Code">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label class="form-label">Country</label>
-                                            <select class="form-control custom-select">
-                                            <option value="">Germany</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group mb-0">
-                                            <label class="form-label">About Me</label>
-                                            <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme
-                                            You doubt I'll bother, reading into it I'll probably won't, left to my own devicesBut that's the difference in our opinions.</textarea>
-                                        </div>
+                                    <div class="col-lg-12 col-md-12">
+                                            <label>Prox. Cita</label>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Proxima Cita">
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer text-right">
-                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            <div class="card-footer text-center">
+                                <button type="submit" class="btn btn-azuloscuro">Generar</button>
                             </div>
 
                         </div>
@@ -150,4 +129,12 @@
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+
+<script>
+    $('#multiselect4-filter').multiselect({
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            maxHeight: 200
+    });
+</script>
 @endsection
