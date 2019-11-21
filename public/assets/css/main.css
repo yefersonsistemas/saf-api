@@ -10472,8 +10472,8 @@ img {
     padding: 20px 20px;
     border: 0;
     background: none;
-    display: flex;
-    align-items: center
+    /* display: flex;
+    align-items: center */
 }
 
 @media print {

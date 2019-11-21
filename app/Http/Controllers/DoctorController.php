@@ -28,11 +28,13 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-       $patients = Reservation::with('patient')->where('person_id', $request->authperson_id)
+        $id=Auth::id();
+       $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )
                                 ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-                                dd($patients);
+                                // dd($patients);
+                                // dd($patients);
 
         // if (!is_null($patients)) {
         //     return response()->json([
@@ -40,7 +42,7 @@ class DoctorController extends Controller
         //     ]);
         // }
 
-        
+       
       return view('dashboard.doctor.citasPacientes',compact('patients'));
     }
 
@@ -71,9 +73,13 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id )
     {
-        //
+
+        $history=Reservation::with('patient.historyPatient')->where('id',$id)
+        ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+        // dd($history);
+     return view('dashboard.doctor.historiaPaciente', compact('history'));
     }
 
     /**
@@ -108,6 +114,17 @@ class DoctorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function crearDiagnostico(){
+        return view('dashboard.doctor.crearDiagnostico');
+    }
+
+    public function crearRecipe(){
+        return view('dashboard.doctor.crearRecipe');
+    }
+    public function crearReferencia(){
+        return view('dashboard.doctor.crearReferencia');
     }
 
     
