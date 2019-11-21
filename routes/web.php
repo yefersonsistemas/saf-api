@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        //Route::POST('file/{id}', 'InController@exams_previos')->name('checkin.exams');
        // Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
        
 
