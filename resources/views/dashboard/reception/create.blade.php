@@ -153,8 +153,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
                                         <label class="form-label">About Me</label>
-                                        <textarea rows="5" id="motivo" class="form-control" placeholder="Here can be your description">Oh so, your weak rhyme
-                                        You doubt I'll bother, reading into it I'll probably won't, left to my own devicesBut that's the difference in our opinions.</textarea>
+                                        <textarea rows="5" id="motivo" class="form-control" placeholder="Here can be your description"></textarea>
                                     </div>
                                 </div>
                             </section>
@@ -213,11 +212,12 @@
             },
             onFinished: function (event, currentIndex)
             {
+                crear();
                 Swal.fire({
                     title: 'Excelente!',
                     text:  'Cita Agendada Exitosamente!',
                     type:  'success',
-                })
+                });
             }
         });
 
@@ -340,7 +340,7 @@
                     console.log(data);
                     Swal.fire({
                         title: 'Excelente!',
-                        text:  'Especialidad con medicos',
+                        text:  'Medico Seleccionado',
                         type:  'success',
                     });
                     $('#doctor').val(data.employe.id);
@@ -371,11 +371,11 @@
             var date        = $('#date').val();
             var person      = $('#newPerson').val();
             $.ajax({
-                url: "{{ route('cite.store') }}",
+                url: "{{ route('reservation.store') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    type_dni:type_dni,
+                    type_dni: type_dni,
                     dni: dni,
                     name: name,
                     lastname: lastname,
@@ -384,29 +384,22 @@
                     phone: phone,
                     speciality: speciality,
                     doctor: doctor,
-                    motivo:motivo,
-                    date: date
+                    motivo: motivo,
+                    date: date,
+                    person: person,
                 }
             })
             .done(function(data) {
                 console.log(data);
-                Swal.fire({
-                    title: 'Excelente!',
-                    text:  'Especialidad con medicos',
-                    type:  'success',
-                });
                 $('.datepicker').datepicker({
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,
                 });
-                $('#fecha').val();
             })
             .fail(function(data) {
                 console.log(data);
             })
-
-
         }
 
     </script>

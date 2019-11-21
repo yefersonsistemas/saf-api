@@ -24,13 +24,18 @@ class CreateReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'date'               => 'required',
+            'type_dni'           => 'required',
+            'dni'                => 'required',
+            'name'               => 'required',
+            'lastname'           => 'required',
+            'email'              => 'required',
+            'address'            => 'required',
+            'phone'              => 'required',
+            'speciality'         => 'required',
+            'doctor'             => 'required',
             'motivo'             => 'required',
-            'patient_id'         => 'required',
-            'schedule_id'        => 'required',
-            'doctor_id'          => 'required',
-            'person_id'          => 'required',
-            'specialitie_id'     => 'required',
+            'date'               => 'required',
+            'person'             => 'required',
         ];
     }
 }

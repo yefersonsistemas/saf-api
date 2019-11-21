@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('cite', 'CitaController@index')->name('reservation.index');
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::post('search/patient','CitaController@search_patient')->name('search.patient');
-        Route::post('cite','CitaController@store')->name('cite.store');
+        Route::post('cite','CitaController@store')->name('reservation.store');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {

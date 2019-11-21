@@ -80,8 +80,42 @@ class CitaController extends Controller
         }
     }
 
-    public function strore(CreateReservationRequest $request)
+    public function store(CreateReservationRequest $request)
     {
+
+        if ($request->person == 'nuevo') {
+            $person = Person::create([
+                'type_dni'  => $request->type_dni,
+                'dni'       => $request->dni,
+                'name'      => $request->name,
+                'lastname'  => $request->lastname,
+                'address'   => $request->address,
+                'phone'     => $request->phone,
+                'email'     => $request->email,
+                'status'    => 'Pendiente',
+                'branch_id' => 1
+            ]);
+
+            $request->person = $person->id;
+        }
+        $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
+
+        $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
+
+        $date = Carbon::create($request->date);
+
+        $reservation = Reservation::create([		
+            'date' => $date,
+            'description' => $request->motivo,
+            'patient_id' => $request->person,
+            'person_id' => $request->doctor,
+            'schedule_id' => $schedule->id,
+            'specialitie_id' => $request->speciality,
+            'branch_id' => 1,
+        ]);
+
+        return $reservation;
+
         $employe = Employe::find($request['doctor_id']);
         $employe->load('schedule'); 
         $fecha = Carbon::parse($request['date'])->locale('en'); 
@@ -104,7 +138,7 @@ class CitaController extends Controller
                 $patient= Person::where('id', $request['id'])->first();
                 //dd($patient);
                 //dd($patient->id);
-            
+
                 $reservation = Reservation::create([		
                     'date' => $request['date'],
                     'description' => $request['description'],
