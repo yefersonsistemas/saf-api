@@ -172,14 +172,14 @@
             }
 
             function disabled(data) {
-            $('#dnii').text(data.person.dni); 
-            $('#name').text(data.person.name);
-            $('#lastname').text(data.person.lastname);
-            $('#phone').text(data.person.phone);
-            $('#dniiD').text(data.person.dni); 
-            $('#nameD').text(data.person.name);
-            $('#lastnameD').text(data.person.lastname);
-            $('#phoneD').text(data.person.phone);
+            $('#dnii').text(data.encontrado.person.dni); 
+            $('#name').text(data.encontrado.person.name);
+            $('#lastname').text(data.encontrado.person.lastname);
+            $('#phone').text(data.encontrado.person.phone);
+            $('#dniiD').text(data.encontrado.employe.person.dni); 
+            $('#nameD').text(data.encontrado.employe.person.name);
+            $('#lastnameD').text(data.encontrado.employe.person.lastname);
+            $('#phoneD').text(data.encontrado.employe.person.phone);
 
             $('#procedimiento').text(data.person.name);
             $('#cantidad').text(data.person.dni);

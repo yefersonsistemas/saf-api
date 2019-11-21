@@ -80,6 +80,11 @@ class Patient extends Model
     {
         return $this->belongsTo('App\InputOutput');
     }
+
+    public function itinerary()
+    {
+        return $this->belongsTo('App\Itinerary','patient_id');
+    }
     /**
      * Scope a query to only include patients by dni.
      *
