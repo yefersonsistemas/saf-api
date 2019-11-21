@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:IN']], function () {
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
+        Route::POST('save', 'InController@save_data')->name('checkin.save');
         Route::put('inside/{reservation}', 'InController@statusIn')->name('checkin.statusIn');
         Route::POST('outside', 'OutController@statusOut')->name('checkin.statusOut');
         Route::get('assigment', 'InController@create')->name('checkin.create');

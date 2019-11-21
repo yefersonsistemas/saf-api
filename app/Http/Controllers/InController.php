@@ -8,6 +8,7 @@ Use App\Employe;
 Use App\Area;
 Use App\Billing;
 Use App\AreaAssigment;
+use App\Disease;
 use Carbon\Carbon;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Requests\CreateAreaAssigmentRequest;
@@ -15,6 +16,7 @@ use App\Schedule;
 use App\TypeArea;
 use App\Person;
 use App\InputOutput;
+use App\Medicine;
 use App\Reservation;
 use App\Patient;
 
@@ -38,9 +40,9 @@ class InController extends Controller
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
-        //$pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
+        $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
 
-        return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
+        return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas', 'pendientes'));
     }
 
     /**
@@ -74,16 +76,20 @@ class InController extends Controller
        return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
+    //nombre doctor especilaidad fecha de reservacion y razon de la misma
+
     public function search_history(Request $request){  //busca historia para la lista de in
         $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
                          ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        $cites = Patient::with('person.reservationPatient.speciality', 'diagnostic.treatment', 'employe.person')
-                         ->where('person_id', $request->patient_id)->first();
+        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
+        //dd($cites);
 
-                         //dd($cites->person->reservationPatient);
+        $disease = Disease::get();
 
-        return view('dashboard.checkin.history', compact('rs', 'cites'));
+        $medicine = Medicine::get();
+
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine'));
     }
 
     /**

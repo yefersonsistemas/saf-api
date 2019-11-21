@@ -16,7 +16,7 @@ class Reservation extends Model
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->belongsTo('App\Employe', 'person_id');
     }
 
     public function consultationType()
