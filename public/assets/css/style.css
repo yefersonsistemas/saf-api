@@ -323,6 +323,7 @@ p.remarcado{
     color:#000;
     background:#000 ;
 }
+
 .dataTables_wrapper .dataTables_paginate {
     float: left !important;
     text-align: right;
@@ -437,6 +438,7 @@ span.titulos{
     font-size: 24px;
     color:#000;
 }
+
 .page-item:last-child .page-link:active {
     color: #fff;
     background: #00ba88;

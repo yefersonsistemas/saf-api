@@ -42,9 +42,9 @@ class InController extends Controller
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
-        $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
+       // $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
 
-        return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas', 'pendientes'));
+        return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
     /**
@@ -130,8 +130,8 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validated();
-        $employe = Employe::create($data);
+        // $data = $request->validated();
+        // $employe = Employe::create($data);
     }
 
     /**
@@ -179,13 +179,15 @@ class InController extends Controller
         //
     }
 
-    public static function search(Request $request)
+    public static function search_area(Request $request)
     {
+        // dd($request);
        $area = Area::Where('id', $request->id)->first(); 
-
+        // dd($area);
         if ($area != null) {  //si existe
+            $areas= $area->name;
             return response()->json([
-                'message' => 'Consultorio ocupado',
+                'areas' => $areas,
             ]);
             
         }else{  //caso de que no exista
@@ -195,76 +197,50 @@ class InController extends Controller
         }
     }
 
-    // public function search_area(){//se tiene q modificar a id en vez de name o se muestra toda la tabla
-    //     $types = TypeArea::with('areas.image')->where('name', 'Consultorio')->get();
-    //     //dd($types);
 
-    //    return view('dashboard.checkin.create', compact('types'));
-    // }
-        
-    //hacer metodo que muestre solo los doctores del turno
-
-    public static function assigment(CreateAreaAssigmentRequest $request) //asignacion de consultorio
+    public static function search_medico(Request $request)
     {
-        $e = Employe::where('id', $request->employe_id)->first();
-        $a = Area::where('id', $request->area_id)->first();
-
-        if (!is_null($a) && !is_null($e)) {
-            $date = Carbon::now()->locale('en');
-            //dd($date);
-
-           // dd($e->schedule == $date);
-            if ($e->schedule == $date) {
-                return response()->json([
-                    'message' => 'El medico no trabaja hoy',
-                ]);
-            }
-
-            // if ($e->position->name != 'doctor') {
-            //     return response()->json([
-            //         'message' => 'Este empleado no es un medico',
-            //     ]); 
-            // }
-
-            $employeasignado = AreaAssigment::where('employe_id', $e->id)->whereDate('created_at', $date)->first();
-
-            if ($employeasignado != null) {
-                return response()->json([
-                    'message' => 'Empleado ya ha sido asignado',
-                ]);    
-            }
-
-            $turno = Schedule::where('employe_id', $e->id)->where('day', strtolower($date->dayName))->first();
-            //dd($e);
-
-            if ($turno->turn == 'mañana') {
-                $areaOcupada = AreaAssigment::where('area_id', $a->id)->whereDate('created_at', $date)->whereTime('created_at', '<=', '12:00')->first();
-            }else{
-                $areaOcupada = AreaAssigment::where('area_id', $a->id)->whereDate('created_at', $date)->whereTime('created_at', '>', '14:00')->first();
-            }
+        // dd($request);
+       $employe = Employe::with('person')->Where('id', $request->id)->first(); 
+        // dd($area);
+        if ($employe != null) {  //si existe
+            $employes= $employe->person->name;
+            return response()->json([
+                'employes' => $employes,
+            ]);
             
-            if ($areaOcupada != null) {
-                return response()->json([
-                    'message' => 'Consultorio Ocupado',
-                ]);    
-            }
-
-            $areaAssigment = AreaAssigment::create([
-            'employe_id'  => $request['employe_id'],
-            'area_id'     => $request['area_id'],
-            'branch_id' => 1,
-            ]);
-
-            $this->update_area($request);
-
+        }else{  //caso de que no exista
             return response()->json([
-                'message' => 'consultorio asignado',
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'Empleado o consultorio invalido',
+                'message' => 'Medico no encontrado',
             ]);
         }
+    }
+
+ 
+
+    public static function assigment_area(Request $request) //asignacion de consultorio
+    {
+        $e = $request->employe_id;
+        $a = $request->area_id;
+
+       $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
+
+       if(empty($existe)){
+        $areaAssigment = AreaAssigment::create([
+        'employe_id'  => $e,
+        'area_id'     => $a,
+        'branch_id' => 1,
+        ]);
+
+        return response()->json([
+            'asignado' => $areaAssigment,201
+        ]);
+         }else{
+            return response()->json([
+                'asignado' => 'Consultorio ya asignado',202
+            ]);
+         }
+       
     }
 
     public function update_area(Request $request)

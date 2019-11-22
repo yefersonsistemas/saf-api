@@ -17,7 +17,7 @@
 
 @section('content')
 <div class="section-body py-3">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <form method="POST" action="">
@@ -104,7 +104,7 @@
                         <div class="row clearfix">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header  d-flex justify-content-end">
+                                    <div class="card-header">
                                         <div class="card-options">
                                             <a href="{{ route('checkout.factura') }}" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
                                         </div>
