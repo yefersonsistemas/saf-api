@@ -1,5 +1,3 @@
-
-
 $(function() {
     'use strict';
 
@@ -14,32 +12,31 @@ $(function() {
     });
 
     /* Formatting function for row details - modify as you need */
-    function format ( d ) {
+    function format(d) {
         // `d` is the original data object for the row
-        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-            '<tr>'+
-                '<td>Full name:</td>'+
-                '<td>'+d.name+'</td>'+
-            '</tr>'+
-            '<tr>'+
-                '<td>Extension number:</td>'+
-                '<td>'+d.extn+'</td>'+
-            '</tr>'+
-            '<tr>'+
-                '<td>Extra info:</td>'+
-                '<td>And any further details here (images etc)...</td>'+
-            '</tr>'+
-        '</table>';
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            '<tr>' +
+            '<td>Full name:</td>' +
+            '<td>' + d.name + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>Extension number:</td>' +
+            '<td>' + d.extn + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>Extra info:</td>' +
+            '<td>And any further details here (images etc)...</td>' +
+            '</tr>' +
+            '</table>';
     }
-    
+
     $(document).ready(function() {
-        var table = $('#example').DataTable( {
+        var table = $('#example').DataTable({
             "ajax": "assets/data/objects.txt",
-            "columns": [
-                {
-                    "className":      'details-control',
-                    "orderable":      false,
-                    "data":           null,
+            "columns": [{
+                    "className": 'details-control',
+                    "orderable": false,
+                    "data": null,
                     "defaultContent": ''
                 },
                 { "data": "name" },
@@ -47,26 +44,27 @@ $(function() {
                 { "data": "office" },
                 { "data": "salary" }
             ],
-            "order": [[1, 'asc']]
-        } );
-        
+            "order": [
+                [1, 'asc']
+            ]
+        });
+
         // Add event listener for opening and closing details
-        $('#example tbody').on('click', 'td.details-control', function () {
+        $('#example tbody').on('click', 'td.details-control', function() {
             var tr = $(this).closest('tr');
-            var row = table.row( tr );
-    
-            if ( row.child.isShown() ) {
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
                 // This row is already open - close it
                 row.child.hide();
                 tr.removeClass('shown');
-            }
-            else {
+            } else {
                 // Open this row
-                row.child( format(row.data()) ).show();
+                row.child(format(row.data())).show();
                 tr.addClass('shown');
             }
-        } );
-    } );
+        });
+    });
 
     // Add row into table
     var addRowTable = {
@@ -107,7 +105,7 @@ $(function() {
                     confirmButtonColor: "#dc3545",
                     confirmButtonText: "Yes, delete it!",
                     closeOnConfirm: false
-                }, function () {
+                }, function() {
                     object.rowRemove($row)
                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
                 });
@@ -132,7 +130,7 @@ $(function() {
             var data, object = this;
             data = this.datatable.row($row.get(0)).data(), $row.children("td").each(function(i) {
                 var $this = $(this);
-                $this.hasClass("actions") ? object.rowSetActionsEditing($row) : $this.html('<input type="text" class="form-control input-block" value="' + data[i] + '"/>')
+                $this.hasClass("actions") ? object.rowSetActionsEditing($row) : $this.html('<input type="text" class="form-control input-block" value="' + data[i] + '" placeholder="Razon"/>')
             })
         },
         rowSave: function($row) {

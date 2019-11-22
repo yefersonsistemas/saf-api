@@ -81,8 +81,42 @@ class CitaController extends Controller
         }
     }
 
-    public function strore(CreateReservationRequest $request)
+    public function store(CreateReservationRequest $request)
     {
+
+        if ($request->person == 'nuevo') {
+            $person = Person::create([
+                'type_dni'  => $request->type_dni,
+                'dni'       => $request->dni,
+                'name'      => $request->name,
+                'lastname'  => $request->lastname,
+                'address'   => $request->address,
+                'phone'     => $request->phone,
+                'email'     => $request->email,
+                'status'    => 'Pendiente',
+                'branch_id' => 1
+            ]);
+
+            $request->person = $person->id;
+        }
+        $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
+
+        $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
+
+        $date = Carbon::create($request->date);
+
+        $reservation = Reservation::create([		
+            'date' => $date,
+            'description' => $request->motivo,
+            'patient_id' => $request->person,
+            'person_id' => $request->doctor,
+            'schedule_id' => $schedule->id,
+            'specialitie_id' => $request->speciality,
+            'branch_id' => 1,
+        ]);
+
+        return $reservation;
+
         $employe = Employe::find($request['doctor_id']);
         $employe->load('schedule'); 
         $fecha = Carbon::parse($request['date'])->locale('en'); 
@@ -105,7 +139,7 @@ class CitaController extends Controller
                 $patient= Person::where('id', $request['id'])->first();
                 //dd($patient);
                 //dd($patient->id);
-            
+
                 $reservation = Reservation::create([		
                     'date' => $request['date'],
                     'description' => $request['description'],
@@ -127,53 +161,58 @@ class CitaController extends Controller
         }
     }
 
-    //quota representa el max de cupos por dia de pacientes 
-    public static function create_cite(CreateReservationRequest $request){
-        
-        $employe = Employe::find($request['doctor_id']);
-        $employe->load('schedule'); 
-        $fecha = Carbon::parse($request['date'])->locale('en'); 
-        //dd($fecha);
+    public function status(Request $request)
+    {
+        $data = $request->validate([
+            'reservation_id'    =>  'required',
+            'type'              =>  'required',
+            'motivo'            =>  'required',
+        ]);
 
-        $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
-        //dd($date);
-        $diaDeReserva = strtolower($fecha->dayName);
-        //dd($diaDeReserva);
-        $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
-        //dd($dia);                  
-        $cupos = $dia->quota; //obtengo el valor de quota 
-       // dd($cupos);  
-        $dia = Reservation::whereDate('date', $date)->get()->count(); //obtengo todos los registros de ese dia y los cuento
-       // dd($dia);                                
-        if ($employe->person->user->hasRole('doctor')) {  //el empleado debe ser doctor por rol y ocupacion sino no crea
 
-            if ($dia <  $cupos) {
+        $reservation = Reservation::find($data['reservation_id']);
 
-                $patient= Person::where('id', $request['id'])->first();
-                //dd($patient);
-                //dd($patient->id);
-            
-                $reservation = Reservation::create([		
-                    'date' => $request['date'],
-                    'description' => $request['description'],
-                    'patient_id' => $request['patient_id'],
-                    'person_id' => $request['person_id'],
-                    'schedule_id' => $request['schedule_id'],
-                    'specialitie_id' => $request['specialitie_id'],
-                    'branch_id' => 1,
+        if (!is_null($reservation)) {
+            if($data['type'] == 'Suspendida'){
+                $reservation->discontinued = Carbon::now();
+                $cita = Cite::create([
+                    'reservation_id'    =>  $data['reservation_id'],
+                    'reason'            =>  $data['motivo'],
+                    'branch_id'         => 1,
                 ]);
-            }
-            return response()->json([
-                'message' => 'Cita creada',
-            ]);
 
+            }elseif ($data['type'] == 'Cancelada') {
+                $cita = Cite::create([
+                    'reservation_id'    =>  $data['reservation_id'],
+                    'reason'            =>  $data['motivo'],
+                    'branch_id'         => 1,
+                ]);
+                $reservation->cancel = Carbon::now();
+
+            }elseif ($data['type'] == 'Aprobada') {
+                $reservation->approved = Carbon::now();
+
+            }
+
+            $reservation->status = $data['type'];
+            $reservation->save();
+
+            return redirect()->route('reservation.index');
+        }
+
+    }
+
+    public function edit($id)
+    {
+        $reservation = Reservation::with('patient','person','speciality')->find($id);
+        if (!is_null($reservation)) {
+            // dd($reservation);
+            return view('dashboard.reception.edit', compact('reservation'))->withErrors('Cita no encontrada');
         }else{
-            return response()->json([
-                'message' => 'No hay cupos',
-            ]);
+            Alert::error('Cita no encontrada!');
+            return redirect()->back()->withErrors('Cita no encontrada');
         }
     }
-    
 
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar
         $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient')->where('id', $request->id)->first();

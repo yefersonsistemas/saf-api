@@ -117,7 +117,7 @@
                                     @foreach ($reservations as $reservation)
                                         <tr>
                                             <td>
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -142,9 +142,10 @@
                                                 @endif
                                             </td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
+                                                {{-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button> --}}
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -203,9 +204,9 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-success">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -234,7 +235,6 @@
                                         <th>Doctor</th>
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
-                                        <th>Acciones</th>
                                         <th>Historia</th>
                                     </tr>
                                 </thead>
@@ -247,7 +247,6 @@
                                         <th>Doctor</th>
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
-                                        {{-- <th>Acciones</th> --}}
                                         <th>Historia</th>
                                     </tr>
                                 </tfoot>
@@ -263,11 +262,6 @@
                                             <td>{{ $reservation->person->name }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-danger">{{ $reservation->status }}</span></td>
-                                            {{-- <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
-                                            </td> --}}
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
                                                     <a href="" class="btn btn-success">Generar</a>
@@ -325,9 +319,9 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-warning">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -386,9 +380,8 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -447,10 +440,10 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-secondary" style="background-color: #00506b;">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-success">A</a>
-                                                <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">A</button>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -471,9 +464,123 @@
     </div>
 </div>
 
+
+
+{{-- modals --}}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Paciente </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form method="POST" action="{{ route('reservation.status') }}">
+            @csrf
+            <div class="modal-body">
+                <div class="form-group">
+                    <div id="fecha">
+                        
+                    </div>
+                    <input type="text" disabled name="reservation_id" class="reservation_id">
+                    <input type="text" disabled name="type" class="type">
+                    <label for="message-text" class="col-form-label">Motivo:</label>
+                    <textarea class="form-control" name="motivo" id="message-text"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+{{-- modal suspendidas --}}
+
+<div class="modal fade" id="modalReprogramadas" tabindex="-1" role="dialog" aria-labelledby="modalReprogramadasLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Paciente </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('reservation.status') }}">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="reservation_id" id="reservation_id" value="1">
+                        <input type="hidden" name="type" id="type" value="1">
+                        <div class="form-group" id="newDate">
+                            <label>Seleccionar nueva fecha</label>
+                            <div class="input-group">
+                                <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control">
+                            </div>
+                        </div>
+                        <label for="message-text" class="col-form-label">Motivo:</label>
+                        <textarea class="form-control" name="motivo" id="message-text"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- modal suspendidas --}}
+
+{{-- modals --}}
 @endsection
 
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+    <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+    
+
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var recipient = button.data('whatever'); // Extract info from data-* attributes
+            var id  = button.data('id');
+            var type = button.data('type');
+
+            if (type == 'Reprogramada') {
+                $('#fecha').html('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
+                $('.reservation_id').val(id);
+                $('.type').val(type);
+            }
+            insertDates(type, id);
+            var modal = $(this);
+            modal.find('.modal-title').text(recipient);
+            $('.reservation_id').val(id);
+            $('.type').val(type);
+
+        });
+
+        $('#modalReprogramadas').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var recipient = button.data('whatever'); // Extract info from data-* attributes
+            var id  = button.data('id');
+            var type = button.data('type');
+
+            var modal = $(this);
+            modal.find('.modal-title').text(recipient);
+            insertDates(type, id);
+        });
+
+        function insertDates(type, id){
+            $('#reservation_id').val(id);
+            $('#type').val(type);
+        }
+
+    </script>
 @endsection

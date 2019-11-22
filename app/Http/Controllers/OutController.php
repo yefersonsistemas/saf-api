@@ -23,6 +23,7 @@ use App\Itinerary;
 use App\TypeSurgery;
 use App\Surgery;
 use App\ClassificationSurgery;
+use App\Procedure;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
@@ -87,7 +88,11 @@ class OutController extends Controller
      */
     public function create()
     {
-        return view('dashboard.checkout.prueba');
+        $procedimientos = Procedure::all();
+
+ 
+        
+        return view('dashboard.checkout.facturacion', compact('procedimientos'));
     }
 
 
@@ -113,7 +118,9 @@ class OutController extends Controller
 
     public function create_factura()
     {
-        return view('dashboard.checkout.factura');
+        $tipo_moneda = TypeCurrency::all();
+        $tipo_pago = TypePayment::all();
+        return view('dashboard.checkout.factura', compact('tipo_pago', 'tipo_moneda'));
     }
 
     /**
