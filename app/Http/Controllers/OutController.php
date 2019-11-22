@@ -42,7 +42,7 @@ class OutController extends Controller
         // $cites = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
         // dd($cites);
         // $all = collect([]);
-        $itinerary = Itinerary::with('employe', 'patient', 'procedure', 'surgery.typesurgeries', 'exam', 'recipe', 'reservation', 'person')->get();
+        $itinerary = Itinerary::with('employe', 'procedure', 'surgery.typesurgeries', 'exam', 'recipe', 'reservation', 'person')->get();
         // foreach ($itinerary as $itinerary) {
         //     $procedure[] = json_decode($itinerary->procedure_id);
         // }
@@ -73,7 +73,6 @@ class OutController extends Controller
          
         $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
         
-        
         // dd($cirugias);
 
          return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
@@ -88,7 +87,7 @@ class OutController extends Controller
      */
     public function create()
     {
-        return view('dashboard.checkout.facturacion');
+        return view('dashboard.checkout.prueba');
     }
 
 
@@ -223,17 +222,24 @@ class OutController extends Controller
         ]);
     }
 
-    public function statusOut($id)
+    public function statusOut($patient_id)
     {
         // dd($id);
-        $patient = InputOutput::where('person_id', $id)->first();
+        $patient = InputOutput::where('person_id', $patient_id)->first();
         // dd($patient);
+        $p = Patient::where('person_id', $patient->person_id)->first();
+            // dd($p);
+        $io = InputOutput::where('person_id', $p->person_id)->first();
+        //   dd($io);
 
-        if (!empty($patient->inside)) {
+        if (!empty($patient->inside) && empty($patient->outside)) {
           
             $patient->outside = 'fuera';
             $patient->save();
+        }else{
+            return "nouuuu";
         }
+
         return "listo";  
     }
 

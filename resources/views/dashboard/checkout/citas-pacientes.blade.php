@@ -76,13 +76,13 @@
                                 <div class="col-8">
                                      <div class="row">
                                          <div class="col-3">
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->patient->person->image->path) }}" alt="">
+                                                {{-- <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt=""> --}}
                                          </div>
                                            <div class="col-9">
                                                
                                                  <h2 class=" mb-0 p-0" >
-                                                    <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->patient->person->name }}" aria-expanded="true" aria-controls="{{ $itinerary->patient->person->name }}">
-                                                    {{ $itinerary->patient->person->name }}       {{ $itinerary->patient->person->lastname }}
+                                                    <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->name }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
+                                                    {{ $itinerary->person->name }}       {{ $itinerary->person->lastname }}
                                                     </button>
                                                 </h2>
                                            </div>
@@ -97,7 +97,7 @@
                               </div>
                           
                               <!--informacion del paciente reservacion y demas-->
-                              <div id="{{ $itinerary->patient->person->name }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div id="{{ $itinerary->person->name }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="row card-body d-flex justify-content-lg-between">
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">

@@ -34,6 +34,7 @@ class InController extends Controller
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         
+        // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
@@ -91,6 +92,34 @@ class InController extends Controller
         $medicine = Medicine::get();
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine'));
+    }
+
+    
+
+    public function statusIn($registro)
+    {
+        $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
+        // dd($busqueda);
+        $paciente = $busqueda->patient_id;
+        $doctor = $busqueda->person_id;
+
+        $p = Patient::where('person_id', $paciente)->first();
+            // dd($p);
+        $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $doctor)->first();
+          
+        if (empty($io->inside)) {
+            InputOutput::create([       
+                'person_id' =>  $paciente,  //paciente tratado
+                'inside' => 'dentro',
+                'outside' => null,
+                'employe_id' =>  $doctor,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'branch_id' => 1,
+            ]);
+        }
+        else{
+            return "ya registrado";
+         };
+        return "listo";
     }
 
     /**
@@ -255,25 +284,6 @@ class InController extends Controller
         }
     }
 
-    public function statusIn($registro)
-    {
-        $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
-        // dd($busqueda);
-
-        $paciente = $busqueda->patient_id;
-        $doctor = $busqueda->person_id;
-
-        if (!empty($paciente) && !empty($doctor)) {
-            InputOutput::create([       
-                'person_id' =>  $paciente,  //paciente tratado
-                'inside' => 'dentro',
-                'outside' => null,
-                'employe_id' =>  $doctor,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
-                'branch_id' => 1,
-            ]);
-        }
-
-    }
 
     public function exams_previos(Request $request)
     {

@@ -190,5 +190,16 @@
 
    
         </script>
+
+            {{-- <script>
+    $(document).ready(function() {
+        $('#create-account-button').on('click', function(e) {
+            e.preventDefault();
+            var dataString = $('#create-account-form').serializeArray().JSON();
+            // alert('Datos serializados: '+dataString);
+            console.log(dataString);
+        }); 
+    });
+    </script> --}}
     
 @endsection
