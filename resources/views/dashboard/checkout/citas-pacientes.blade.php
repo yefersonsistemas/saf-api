@@ -76,7 +76,7 @@
                                 <div class="col-8">
                                      <div class="row">
                                          <div class="col-3">
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt="">
+                                                    {{-- <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt=""> --}}
                                          </div>
                                            <div class="col-7">
                                                
