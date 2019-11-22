@@ -89,9 +89,7 @@ class OutController extends Controller
     public function create()
     {
         $procedimientos = Procedure::all();
-
- 
-        
+      
         return view('dashboard.checkout.facturacion', compact('procedimientos'));
     }
 
@@ -101,8 +99,9 @@ class OutController extends Controller
 
         $person = Person::with('reservation')->where('dni', $request->dni)->first();
         // dd($person->id);
-        $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->first();
-        // dd($encontrado);
+
+        $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->get();
+        dd($encontrado);
         
         if (!is_null($encontrado)) {
             return response()->json([
