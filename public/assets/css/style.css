@@ -263,6 +263,12 @@
     background: #00506b;
 }
 
+.btn-azuloscuro:hover {
+    color: #fff;
+    background-color: #023e52;
+    border-color: #023e52;
+}
+
 .text-azuloscuro {
     color: #00506b;
 }
@@ -366,4 +372,12 @@
     color: #fff;
     background: #00ba88;
     box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+}
+
+.event-click {
+    cursor: pointer;
+}
+
+.img-thumbnail {
+    padding: 0;
 }
