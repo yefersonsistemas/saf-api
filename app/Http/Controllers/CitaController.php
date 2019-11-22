@@ -162,7 +162,6 @@ class CitaController extends Controller
 
     public function status(Request $request)
     {
-        dd($request);
         $data = $request->validate([
             'reservation_id'    =>  'required',
             'type'              =>  'required',
@@ -192,13 +191,6 @@ class CitaController extends Controller
             }elseif ($data['type'] == 'Aprobada') {
                 $reservation->approved = Carbon::now();
 
-            }elseif ($data['type'] == 'Reprogramada') {
-                $reservation->reschedule = Carbon::now();
-                $date = $request->validate([
-                    'date'  =>  'required',
-                ]);
-
-                $reservation->reschedule = Carbon::now();
             }
 
             $reservation->status = $data['type'];
@@ -207,6 +199,18 @@ class CitaController extends Controller
             return redirect()->route('reservation.index');
         }
 
+    }
+
+    public function edit($id)
+    {
+        $reservation = Reservation::with('patient','person','speciality')->find($id);
+        if (!is_null($reservation)) {
+            // dd($reservation);
+            return view('dashboard.reception.edit', compact('reservation'))->withErrors('Cita no encontrada');
+        }else{
+            Alert::error('Cita no encontrada!');
+            return redirect()->back()->withErrors('Cita no encontrada');
+        }
     }
 
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar

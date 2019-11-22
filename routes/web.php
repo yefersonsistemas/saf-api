@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('cite', 'CitaController@index')->name('reservation.index');
         Route::get('cite/create','CitaController@create')->name('reservations.create');
+        Route::get('cite/{cite}','CitaController@edit')->name('reservation.edit');
         Route::post('search/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
