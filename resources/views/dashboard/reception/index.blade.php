@@ -553,11 +553,11 @@
             var type = button.data('type');
 
             if (type == 'Reprogramada') {
-                $('#fecha').append('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
+                $('#fecha').html('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
                 $('.reservation_id').val(id);
                 $('.type').val(type);
             }
-
+            insertDates(type, id);
             var modal = $(this);
             modal.find('.modal-title').text(recipient);
             $('.reservation_id').val(id);
