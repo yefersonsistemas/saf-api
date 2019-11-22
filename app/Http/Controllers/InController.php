@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,6 +8,7 @@ Use App\Employe;
 Use App\Area;
 Use App\Billing;
 Use App\AreaAssigment;
+use App\Disease;
 use Carbon\Carbon;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Requests\CreateAreaAssigmentRequest;
@@ -15,6 +16,7 @@ use App\Schedule;
 use App\TypeArea;
 use App\Person;
 use App\InputOutput;
+use App\Medicine;
 use App\Reservation;
 use App\Patient;
 
@@ -30,7 +32,19 @@ class InController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        
+        // dd($reservations);
+        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
+        
+        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
+        
+        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
+
+        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+       // $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
+
+        return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
     /**
@@ -40,7 +54,72 @@ class InController extends Controller
      */
     public function create()
     {
-        //
+        $areas = Area::with('typearea', 'image')->get();
+        //dd($areas);
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
+        $em = collect([]);
+        if ($employes->isNotEmpty()) {
+            foreach ($employes as $employe) {
+                if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                    if ($employe->schedule->isNotEmpty()) {
+                        $dia = strtolower(Carbon::now()->locale('en')->dayName);
+                        foreach ($employe->schedule as $schedule) {
+                            if ($schedule->day == $dia) {
+                                $em->push($employe);
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        //dd($em);
+
+       return view('dashboard.checkin.create', compact('areas', 'em'));
+    }
+
+    //nombre doctor especilaidad fecha de reservacion y razon de la misma
+
+    public function search_history(Request $request){  //busca historia para la lista de in
+        $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
+                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+
+        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
+        //dd($cites);
+
+        $disease = Disease::get();
+
+        $medicine = Medicine::get();
+
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine'));
+    }
+
+    
+
+    public function statusIn($registro)
+    {
+        $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
+        // dd($busqueda);
+        $paciente = $busqueda->patient_id;
+        $doctor = $busqueda->person_id;
+
+        $p = Patient::where('person_id', $paciente)->first();
+            // dd($p);
+        $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $doctor)->first();
+          
+        if (empty($io->inside)) {
+            InputOutput::create([       
+                'person_id' =>  $paciente,  //paciente tratado
+                'inside' => 'dentro',
+                'outside' => null,
+                'employe_id' =>  $doctor,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'branch_id' => 1,
+            ]);
+        }
+        else{
+            return "ya registrado";
+         };
+        return "listo";
     }
 
     /**
@@ -51,7 +130,8 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $data = $request->validated();
+        // $employe = Employe::create($data);
     }
 
     /**
@@ -101,7 +181,7 @@ class InController extends Controller
 
     public static function search(Request $request)
     {
-       $area = Area::Where('', $request->id)->first(); 
+       $area = Area::Where('id', $request->id)->first(); 
 
         if ($area != null) {  //si existe
             return response()->json([
@@ -115,15 +195,12 @@ class InController extends Controller
         }
     }
 
-    public function search_history(Request $request){  //busca historia para la lista de in
-        $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
-                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
-                         //dd($request->patient_id);
+    // public function search_area(){//se tiene q modificar a id en vez de name o se muestra toda la tabla
+    //     $types = TypeArea::with('areas.image')->where('name', 'Consultorio')->get();
+    //     //dd($types);
 
-                return response()->json([
-                    'reservations' => $rs,
-                ]);
-    }
+    //    return view('dashboard.checkin.create', compact('types'));
+    // }
         
     //hacer metodo que muestre solo los doctores del turno
 
@@ -207,36 +284,6 @@ class InController extends Controller
         }
     }
 
-    public function statusIn(Request $request)
-    {
-       return $request->all();
-
-        $data = $request->validate([
-            'person_id' => 'required',
-            'employe_id'  => 'required',
-        ]);
-
-        $p = Patient::where('person_id', $request->person_id)->first();
-        $io = InputOutput::where('person_id', $p->id)->where('employe_id', $request->employe_id)->first();
-           
-        if (empty($io)) {
-            InputOutput::create([       
-                'person_id' =>  $data['person_id'],  //paciente tratado
-                'inside' => 'dentro',
-                'outside' => null,
-                'employe_id' =>  $data['employe_id'],  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
-                'branch_id' => 1,
-            ]);
-
-            return response()->json([
-                'message' => 'Paciente dentro del consultorio',
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'El paciente ya se encuentra adentro',
-            ]);
-        }
-    }
 
     public function exams_previos(Request $request)
     {

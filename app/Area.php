@@ -9,7 +9,7 @@ class Area extends Model //deptos
     protected $table = 'areas';
 
     protected $fillable = [
-        'name', 'type_area_id', 'branch_id'
+        'name', 'status', 'type_area_id', 'branch_id'
     ];
 
     public function image()
@@ -17,9 +17,9 @@ class Area extends Model //deptos
         return $this->morphOne('App\Image', 'imageable');
     }
 
-    public function type_areas()
+    public function typearea()
     {
-        return $this->belongsTo('App\TypeArea');
+        return $this->belongsTo('App\TypeArea', 'type_area_id');
     }
 
     public function areaassigment()

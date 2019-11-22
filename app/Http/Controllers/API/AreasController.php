@@ -93,13 +93,5 @@ class AreasController extends Controller
         ]);
     }
 
-    public function search_area(){//se tiene q modificar a id en vez de name o se muestra toda la tabla
-        $type = TypeArea::with('areas')->where('name', 'Consultorio')->get();
-
-        if (!is_null($type)) {
-            return response()->json([
-                'consultorios' => $type, 
-            ]);
-        }
-    }
+    
 }

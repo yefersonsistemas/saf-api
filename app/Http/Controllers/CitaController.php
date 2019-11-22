@@ -45,6 +45,7 @@ class CitaController extends Controller
     public function index()
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
