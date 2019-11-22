@@ -142,7 +142,7 @@
                                                 @endif
                                             </td>
                                             <td style="display: inline-block">
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
@@ -203,7 +203,7 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-success">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
@@ -480,9 +480,12 @@
             @csrf
             <div class="modal-body">
                 <div class="form-group">
+                    <div id="fecha">
+                        
+                    </div>
+                    <input type="text" disabled name="reservation_id" class="reservation_id">
+                    <input type="text" disabled name="type" class="type">
                     <label for="message-text" class="col-form-label">Motivo:</label>
-                    <input type="hidden" name="reservation_id" class="reservation_id">
-                    <input type="hidden" name="type" class="type">
                     <textarea class="form-control" name="motivo" id="message-text"></textarea>
                 </div>
             </div>
@@ -510,8 +513,8 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="hidden" name="reservation_id" class="reservation_id">
-                        <input type="hidden" name="type" class="type">
+                        <input type="hidden" name="reservation_id" id="reservation_id" value="1">
+                        <input type="hidden" name="type" id="type" value="1">
                         <div class="form-group" id="newDate">
                             <label>Seleccionar nueva fecha</label>
                             <div class="input-group">
@@ -540,7 +543,7 @@
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
     <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+    
 
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
@@ -548,12 +551,18 @@
             var recipient = button.data('whatever'); // Extract info from data-* attributes
             var id  = button.data('id');
             var type = button.data('type');
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+            if (type == 'Reprogramada') {
+                $('#fecha').append('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
+                $('.reservation_id').val(id);
+                $('.type').val(type);
+            }
+
             var modal = $(this);
             modal.find('.modal-title').text(recipient);
             $('.reservation_id').val(id);
             $('.type').val(type);
+
         });
 
         $('#modalReprogramadas').on('show.bs.modal', function (event) {
@@ -561,12 +570,16 @@
             var recipient = button.data('whatever'); // Extract info from data-* attributes
             var id  = button.data('id');
             var type = button.data('type');
-            $('.reservation_id').val(id);
-            $('.type').val(type);
-            
+
             var modal = $(this);
             modal.find('.modal-title').text(recipient);
+            insertDates(type, id);
         });
+
+        function insertDates(type, id){
+            $('#reservation_id').val(id);
+            $('#type').val(type);
+        }
 
     </script>
 @endsection
