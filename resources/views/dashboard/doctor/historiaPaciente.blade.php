@@ -166,11 +166,11 @@
     
                                                             <div class="form-check ladymen p-0">
                                                                 <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
-                                                                    <input  type="radio" id="genero1" name="gender" class="form-check-input" value="Masculino" {{ $number->patient->historyPatient->age == 'Femenino' }} >
+                                                                    <input disabled type="radio" id="genero1" name="gender" class="form-check-input" {{ $number->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} value="Masculino">
                                                                     <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
                                                                 </div>
                                                                 <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-                                                                    <input  type="radio" id="genero2" name="gender" class="form-check-input" value="Femenino">
+                                                                    <input  disabled type="radio" id="genero2" name="gender" class="form-check-input"  {{ $number->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} value="Femenino">
                                                                     <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
                                                                 </div>
                                                             </div>
