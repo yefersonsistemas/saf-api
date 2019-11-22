@@ -61,10 +61,10 @@ class Patient extends Model
         return $this->belongsTo('App\Branch');
     }
 
-    //  public function reservation()
-    // {
-    //     return $this->belongsTo('App\Reservation', 'patient_id');
-    // }
+     public function reservation()
+    {
+        return $this->belongsTo('App\Reservation');
+    }
 
     public function exam()
     {
@@ -79,6 +79,11 @@ class Patient extends Model
     public function inputoutput()
     {
         return $this->belongsTo('App\InputOutput');
+    }
+
+    public function itinerary()
+    {
+        return $this->belongsTo('App\Itinerary','patient_id');
     }
     /**
      * Scope a query to only include patients by dni.

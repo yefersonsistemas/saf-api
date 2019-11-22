@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -44,8 +44,6 @@ class ReceptionController extends Controller
                     'reservations' => $rs,
                 ]);
     }
-
-    
 
     public function cite_patient(Request $request){ //envia los datos de la cita por paciente cuando se va a generar la historia
         $r = Reservation::with('speciality','person')->where('patient_id', $request->patient_id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();

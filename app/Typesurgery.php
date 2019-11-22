@@ -21,7 +21,7 @@ class Typesurgery extends Model //tipos de cirugias
     {
         return $this->belongsTo('App\Surgery');
     }
-
+    
     public function classification()
     {
         return $this->belongsTo('App\ClassificationSurgery');
