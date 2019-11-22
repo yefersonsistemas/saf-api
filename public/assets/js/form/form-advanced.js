@@ -9,6 +9,7 @@ $(function() {
     });
 
 
+
     var $demoMaskedInput = $('.demo-masked-input');
     //Date
     $demoMaskedInput.find('.date').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });
@@ -75,7 +76,6 @@ $(function() {
         buttonClass: 'btn btn-success'
     });
 });
-
 $(function() {
     "use strict";
 
@@ -83,11 +83,11 @@ $(function() {
 
     var drEvent = $('#dropify-event').dropify();
     drEvent.on('dropify.beforeClear', function(event, element) {
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        return confirm("Estas seguro de borrar el archivo \"" + element.file.name + "\" ?");
     });
 
     drEvent.on('dropify.afterClear', function(event, element) {
-        alert('File deleted');
+        alert('Archivo Borrado');
     });
 
     $('.dropify-fr').dropify({

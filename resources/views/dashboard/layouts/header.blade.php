@@ -4,7 +4,7 @@
 <meta name="description" content="Epic Able The most popular Admin Dashboard template and ui kit">
 <meta name="author" content="PuffinTheme the theme designer">
 
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
 
 <title>Sinus & Face</title>
 

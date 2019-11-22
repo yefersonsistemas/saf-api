@@ -1,15 +1,15 @@
-$(function () {
+$(function() {
     "use strict";
-    
+
     //Horizontal form basic
     $('#wizard_horizontal').steps({
         headerTag: 'h2',
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
-        onInit: function (event, currentIndex) {
+        onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
         },
-        onStepChanged: function (event, currentIndex, priorIndex) {
+        onStepChanged: function(event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
         }
     });
@@ -20,13 +20,13 @@ $(function () {
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
         stepsOrientation: 'vertical',
-        onInit: function (event, currentIndex) {
+        onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
         },
-        onStepChanged: function (event, currentIndex, priorIndex) {
+        onStepChanged: function(event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
         }
-    });        
+    });
 });
 
 function setButtonWavesEffect(event) {
