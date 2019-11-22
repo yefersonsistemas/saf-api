@@ -134,7 +134,8 @@ class DoctorController extends Controller
     public function searchDoctor(Request $request)
     {
         $doctors = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
-        if ($doctors->isNotEmpty()) {
+
+        if (!is_null($doctors->first()->employe)) {
             return $doctors;
         }else{
             return response()->json([
@@ -143,7 +144,6 @@ class DoctorController extends Controller
             ]);
         }
     }
-
 
     /**
      * 

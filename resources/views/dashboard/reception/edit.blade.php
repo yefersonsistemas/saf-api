@@ -11,6 +11,9 @@
     <form class="card">
         <div class="card-body">
             <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3>
+            <div style="margin-bottom:12px">
+                <a class="btn btn-primary" href="">Editar datos paciente <i class="fa fa-vcard"></i></a>
+            </div>
             <div class="row">
                 <div class="col-sm-6 col-md-1">
                     <div class="form-group">
@@ -60,25 +63,30 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="form-label">Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
+                        <label class="form-label">Doctor <i class="fa fa-user-md"></i></label>
+                        {{-- <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia"> --}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Especialidad</label>
+                        <select class="form-control custom-select" name="speciality" id="speciality">
+                            @foreach ($specialities as $speciality)
+                                <option {{ ($speciality->id == $reservation->specialitie_id ) ? 'selected' : '' }} value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
-                        <label class="form-label">City</label>
-                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                        <label class="form-label">Médico</label>
+                        <select class="form-control custom-select" name="doctor" id="doctor">
+                        </select>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Postal Code</label>
-                        <input type="number" class="form-control" placeholder="ZIP Code">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="form-label">Country</label>
+                        <label class="form-label">Fecha</label>
                         <select class="form-control custom-select">
                         <option value="">Germany</option>
                         </select>
@@ -86,17 +94,83 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group mb-0">
-                        <label class="form-label">About Me</label>
-                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme
-                        You doubt I'll bother, reading into it I'll probably won't, left to my own devicesBut that's the difference in our opinions.</textarea>
+                        <label class="form-label">Motivo de la consulta</label>
+                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">{{ $reservation->description }}</textarea>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <button type="submit" class="btn btn-primary">Actualizar cita</button>
         </div>
     </form>
 </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $("#speciality").change(function() {
+                var speciality = $(this).val();
+                $.ajax({
+                        url: "{{ route('search.medic') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: speciality,
+                        }
+                    })
+                    .done(function(data) {
+                        Swal.fire({
+                            title: 'Excelente!',
+                            text: 'Especialidad con medicos',
+                            type: 'success',
+                        });
+                        $('#speciality').val(data[0].id);
+                        cargarMedicos(data);
+                    })
+                    .fail(function(data) {
+                        console.log(data);
+                    })
+            });
+
+                $("#doctor").change(function() {
+                var doctor = $(this).val();
+                $.ajax({
+                        url: "{{ route('search.schedule') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: doctor,
+                        }
+                    })
+                    .done(function(data) {
+                        console.log(data);
+                        Swal.fire({
+                            title: 'Excelente!',
+                            text: 'Medico Seleccionado',
+                            type: 'success',
+                        });
+                        
+                    })
+                    .fail(function(data) {
+                        console.log(data);
+                    })
+            });
+
+        });
+
+        function cargarMedicos(data) {
+            console.log(data);
+            console.log(data[0].employe.length);
+            $('#doctor').empty();
+            $('#doctor').append('<option value=""> Seleccione </option>');
+            for (let i = 0; i < data.length; i++) {
+                for (let j = 0; j < data[i].employe.length; j++) {
+                    $('#doctor').append('<option {{ ('+data[i].employe[j].person.id+' == $reservation->person_id ) ? "selected" : '' }} value="'+ data[i].employe[j].id +'">'+ data[i].employe[j].person.name +'</option>');
+                }
+            }
+        }
+    </script>
 @endsection
