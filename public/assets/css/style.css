@@ -263,6 +263,12 @@
     background: #00506b;
 }
 
+.btn-azuloscuro:hover {
+    color: #fff;
+    background-color: #023e52;
+    border-color: #023e52;
+}
+
 .text-azuloscuro {
     color: #00506b;
 }
@@ -311,12 +317,6 @@
     color: #00ba88;
 }
 
-<<<<<<< HEAD
-p.remarcado{
-    font-weight: bold;
-    color:#000;
-    background:#000 ;
-=======
 .dataTables_wrapper .dataTables_paginate {
     float: left !important;
     text-align: right;
@@ -368,7 +368,6 @@ p.remarcado{
     background: #00ba88;
 }
 
-<<<<<<< HEAD
 .h_menu.rtl 
 .metismenu>li:last-child 
 .collapse{
@@ -431,11 +430,19 @@ span.titulos{
 .h4{
     font-size: 24px;
     color:#000;
-=======
+}
+
 .page-item:last-child .page-link:active {
     color: #fff;
     background: #00ba88;
     box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
->>>>>>> 361e0dc4a5324f40ba4a96bb4b99106fb1f1c566
->>>>>>> dbefb300ca954fc1725ce9acf526ef6ed03dd899
+
+}
+
+.event-click {
+    cursor: pointer;
+}
+
+.img-thumbnail {
+    padding: 0;
 }
