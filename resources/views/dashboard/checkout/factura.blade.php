@@ -10,14 +10,13 @@
 @section('title','Facturación')
 
 @section('content')
-<div class="section-body py-3">
+<div class="section-body py-3 row">
  
 
-        <div class="section-body py-3">
+        <div class="section-body py-3 col-8 ml-4 ">
             <div class="container">
                 <div class="tab-content">
                
-                     
 
                     <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                         <div class="row clearfix">
@@ -107,6 +106,49 @@
                 </div>                
             </div>
         </div>
+
+        <div class="section-body py-3 col-3">
+            <div class="container">
+                <div class="card">
+                    <div class="row my-8">
+                        <div class="col-12 p-4">
+                            <p class="h5 text-center">Tipo de moneda</p>
+                   
+                            <div class="form-group">
+                                <div class="custom-controls-stacked">
+                                    @foreach ($tipo_moneda as $moneda)
+                                        
+                                    
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="example-inline-radios1" value="{{ $moneda->id }}">
+                                        <span class="custom-control-label">{{ $moneda->name }}</span>
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 p-4">
+                            <p class="h5 text-center">Tipo de pago </p>
+                    
+                            <div class="form-group">
+                                <div class="custom-controls-stacked">
+                                    @foreach ($tipo_pago as $pago)
+                                    
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="{{ $pago->id }}">
+                                        <span class="custom-control-label">{{ $pago->name }}</span>
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+
+    </div>
 
 @endsection
 
