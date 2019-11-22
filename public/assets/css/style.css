@@ -317,6 +317,13 @@
     color: #00ba88;
 }
 
+
+p.remarcado{
+    font-weight: bold;
+    color:#000;
+    background:#000 ;
+}
+
 .dataTables_wrapper .dataTables_paginate {
     float: left !important;
     text-align: right;
@@ -445,4 +452,11 @@ span.titulos{
 
 .img-thumbnail {
     padding: 0;
+}
+
+.scrolll{
+    overflow-y: auto;
+}
+.scroll{
+    height: 300px;;
 }

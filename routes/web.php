@@ -42,10 +42,13 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:IN']], function () {
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
-        Route::POST('save', 'InController@save_data')->name('checkin.save');
+        Route::POST('assigment/area', 'InController@assigment')->name('checkin.assigment');
+        Route::post('search/area','InController@search_area')->name('search.area');  //revisa si el area esta ocupada
+        Route::post('search/medico','InController@search_medico')->name('search.medico');  //revisa si el area esta ocupada
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente a dentro del consultorio
         Route::get('outside/{id}', 'OutController@statusOut')->name('checkin.statusOut'); // cambia estado depaciente a fuera del consultorio
         Route::get('assigment', 'InController@create')->name('checkin.create');
+        Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
         //Route::POST('file/{id}', 'InController@exams_previos')->name('checkin.exams');
