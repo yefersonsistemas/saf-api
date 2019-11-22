@@ -134,7 +134,7 @@
                     console.log(dni);           //mostrando en consola
                     ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
                 });
-            
+        
      
 
             // funcion que mando el valor que recibe a la ruta a la que se desea enviar

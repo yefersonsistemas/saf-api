@@ -79,9 +79,9 @@
                     <li class="nav-item col-md-2">
                         <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-suspendidas" aria-selected="false">Suspendidas</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    {{-- <li class="nav-item col-md-2">
                         <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-azuloscuro" id="pills-pendientes-tab" data-toggle="pill" href="#pills-pendientes" role="tab" aria-controls="pills-pendientes" aria-selected="false">Pendientes</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
             <div class="tab-content" id="pills-tabContent">
@@ -416,7 +416,7 @@
                         </div>
                     </div> 
                 </div> 
-                <div class="tab-pane fade" id="pills-pendientes" role="tabpanel" aria-labelledby="pills-pendientes-tab">
+                {{-- <div class="tab-pane fade" id="pills-pendientes" role="tabpanel" aria-labelledby="pills-pendientes-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -481,7 +481,7 @@
                             </table>
                         </div>
                     </div> 
-                </div>                   
+                </div>                    --}}
             </div>
         </div>
     </div>
