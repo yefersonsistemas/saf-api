@@ -2,6 +2,9 @@
  @section('doctor','active') 
  @section('css')
  <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
 @endsection
   @section('title','Doctor') 
   @section('content')
@@ -50,12 +53,13 @@
             <div class="container">
                 <form class="">
                     @foreach ($history as $number)
+                    
 
                     <div class="card">
                         <div class="card-header">
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-6">
-                                    <h3 class="card-title">Nro. Historia: <span class="badge badge-info p-2">
+                                    <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Nro. Historia: <span class="badge badge-info p-2">
                                             {{ $number->patient->historyPatient->history_number }}</span></h3>
                                 </div>
                                 <div class="col-md-6 text-right">
@@ -66,87 +70,127 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title">Datos del Paciente</h3>
-                            <div class="row">
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Documento de Identidad</label>
-                                        <div class="input-group ">
-                                            <div class="input-group-prepend">
-                                                <select name="type_dni" class="custom-select input-group-text" disabled="">
-                                                    <option value="{{ $number->patient->type_dni }}">
-                                                        {{ $number->patient->type_dni }}</option>
-                                                </select>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="Documento de Identidad" name="dni" disabled="">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="form-label card-title">Datos de Paciente</label>
+                                    </div>
+                                    <div class="card-body d-flex flex-row align-items-center justify-content-between">
+                                        <div class="text-center">
+                                            <img src="{{ Storage::url($number->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:150px">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="m-0 form-label">Docuemento de identidad:</label>
+                                            <div class="input-group ">
+                                                    <div class="input-group-prepend">
+                                                        <select name="type_dni" class="custom-select input-group-text border-0 bg-white" disabled="">
+                                                            <option value="{{ $number->patient->type_dni }}">
+                                                                {{ $number->patient->type_dni }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <input type="text" class="form-control border-0 bg-white" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $number->patient->dni }}" name="dniP">
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="m-0 form-label">Nombre:</label>
+                                            <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $number->patient->name }}" name="nameP">
+
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="m-0 form-label">Apellido:</label>
+                                            <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $number->patient->lastname }}" name="lastnameP">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" disabled="" placeholder="Nombre" value="{{ $number->patient->name }}" name="lastname">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <label class="form-label card-title">Datos De la Cita</label>
+                                    </div>
+                                    <div class="card-body d-flex flex-row align-items-center justify-content-between">
+                                        <div class="form-group col-md-2">
+                                            <label class="m-0 form-label">Fecha:</label>
+                                            <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Proxima Cita" disabled="" value="{{ $number->date }}" name=proxCita>        
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                                <label class="m-0 form-label">Medico Tratante:</label>
+                                                <div class="input-group d-flex flex-row align-items-center">
+                                                    <label for="" class="m-0">Dr.(a) </label>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $number->person->name }}" name="nameM">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $number->person->lastname }}" name="lastnameM">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                    <label class="m-0 form-label">Razon:</label>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $number->description }}" name="razon">
+                                                </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" disabled="" placeholder="Apellido" value="{{ $number->patient->lastname }}">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Datos del Paciente</h3>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Dirección:</label>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" name="addressP" placeholder="dirección" value="{{ $number->patient->address }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Correo:</label>
+                                                    <input type="emailP" class="form-control border-0 bg-white" disabled="" placeholder="Email" value="{{ $number->patient->email }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Lugar de nacimiento</label>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Lugar de Nacimiento" value="{{ $number->patient->historyPatient->place }}" name="place">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 d-flex flex-row ">
+                                                    <div class="form-group">
+                                                            <label class="m-0 form-label">Fecha de nacimiento:</label>
+                                                            <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $number->patient->historyPatient->birthdate }}" name="birthdate">        
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label class="form-label">Edad:</label>
+                                                            <input type="number" class="form-control border-0 bg-white" placeholder="Edad" disabled="" name="age" value="{{ $number->patient->historyPatient->age }}">
+                                                        </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                    <div class="form-group">
+                                                            <label class="">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
+    
+                                                            <div class="form-check ladymen p-0">
+                                                                <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
+                                                                    <input  type="radio" id="genero1" name="gender" class="form-check-input" value="Masculino" {{ $number->patient->historyPatient->age == 'Femenino' }} >
+                                                                    <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
+                                                                </div>
+                                                                <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
+                                                                    <input  type="radio" id="genero2" name="gender" class="form-check-input" value="Femenino">
+                                                                    <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
+                                                                </div>
+                                                            </div>
+                                                            {{-- <div class="custom-controls-stacked ladymen">
+                                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                                        <input type="radio" class="custom-control-input" name="gender" value="option1">
+                                                                        <div class="custom-control-label"><span><i class="fa fa-female"></i></span></div>
+                                                                    </label>
+                                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                                        <input type="radio" class="custom-control-input" name="gender" value="option2">
+                                                                        <div class="custom-control-label"><span><i class="fa fa-male"></i></span></div>
+                                                                    </label>
+                                                                </div> --}}
+                                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" placeholder="Company" value="Chet">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" value="Faker">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">City</label>
-                                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Postal Code</label>
-                                        <input type="number" class="form-control" placeholder="ZIP Code">
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label class="form-label">Country</label>
-                                        <select class="form-control custom-select">
-                                            <option value="">Germany</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group mb-0">
-                                        <label class="form-label">About Me</label>
-                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme
-                                                    You doubt I'll bother, reading into it I'll probably won't, left to my own devicesBut that's the difference in our opinions.</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="card-footer text-right">
                             <button type="submit" class="btn btn-primary">Update Profile</button>
@@ -158,4 +202,14 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
+@section('scripts')
+<script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
+<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
+<script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+<script src="{{ asset('assets\css\brandAn.css') }}"></script>
+<script >
+</script>
+@endsection
