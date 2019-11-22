@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/patient','OutController@search_patient')->name('checkout.patient'); //buscar paciente
 
         Route::get('factura', 'OutController@create_factura')->name('checkout.factura');  // mostrar factura
+        Route::get('outside/{id}', 'OutController@statusOut')->name('checkout.statusOut'); // cambia estado depaciente a fuera del consultorio
 
     });
 

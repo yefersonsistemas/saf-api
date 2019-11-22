@@ -76,9 +76,9 @@
                                 <div class="col-8">
                                      <div class="row">
                                          <div class="col-3">
-                                                {{-- <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt=""> --}}
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt="">
                                          </div>
-                                           <div class="col-9">
+                                           <div class="col-7">
                                                
                                                  <h2 class=" mb-0 p-0" >
                                                     <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->name }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
@@ -91,8 +91,8 @@
                                    
                                 </div>
                                 <div class="col-4 d-flex justify-content-end">
-                                    <a href="" class="btn btn-secondary mr-2">E</a>
-                                    <a href="" class="btn btn-secondary">S</a>
+                                    <a disabled href="" class="btn btn-secondary mr-2">E</a>
+                                    <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-secondary">S</a>
                                 </div>
                               </div>
                           
