@@ -18,6 +18,13 @@ use App\TypeCurrency;
 use App\TypePayment;
 use App\InputOutput;
 use App\Exam;
+use App\Reservation;
+use App\Itinerary;
+use App\TypeSurgery;
+use App\Surgery;
+use App\ClassificationSurgery;
+use RealRashid\SweetAlert\Facades\Alert;
+
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
@@ -32,9 +39,48 @@ class OutController extends Controller
     public function index()
     {
         // $citas_pacientes = 
-        return view('dashboard.checkout.citas-pacientes');
+        // $cites = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        // dd($cites);
+        // $all = collect([]);
+        $itinerary = Itinerary::with('employe', 'patient', 'procedure', 'surgery.typesurgeries', 'exam', 'recipe', 'reservation', 'person')->get();
+        // foreach ($itinerary as $itinerary) {
+        //     $procedure[] = json_decode($itinerary->procedure_id);
+        // }
+        // for ($i=0; $i < count($procedure) ; $i++) { 
+        //     $procedures[] = Procedure::find($procedure[$i]);
+        // }
+        // $all->push($procedures); 
+        // dd($itinerary);
+
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
 
+    //====================== lista de cirugias ============================
+    public function index_cirugias()
+    {
+        $cirugias_ambulatorias = ClassificationSurgery::with('typeSurgeries')->where('name','ambulatoria')->get();
+        $cirugias_hospitalarias = ClassificationSurgery::with('typeSurgeries')->where('name','hospitalaria')->get();
+        $clasificacion = ClassificationSurgery::all();
+
+        return view('dashboard.checkout.cirugias', compact('cirugias_ambulatorias', 'cirugias_hospitalarias', 'clasificacion'));
+    }
+
+
+
+     //====================== detalles de las cirugias ============================
+     public function cirugias_detalles(Request $request)
+     {
+         
+        $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
+        
+        
+        // dd($cirugias);
+
+         return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
+     }
+
+
+     
     /**
      * Show the form for creating a new resource.
      *
@@ -42,7 +88,33 @@ class OutController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.checkout.facturacion');
+    }
+
+
+    //===================buscanco paciente==============
+    public function search_patient(Request $request){
+
+        $person = Person::with('reservation')->where('dni', $request->dni)->first();
+        // dd($person->id);
+        $encontrado = Itinerary::with('employe.person', 'reservation','procedure', 'person')->where('patient_id', $person->id)->first();
+        // dd($encontrado);
+        
+        if (!is_null($encontrado)) {
+            return response()->json([
+                'person' => $encontrado,201
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',202
+            ]);
+        }
+    }
+
+
+    public function create_factura()
+    {
+        return view('dashboard.checkout.factura');
     }
 
     /**
@@ -53,7 +125,7 @@ class OutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -151,24 +223,18 @@ class OutController extends Controller
         ]);
     }
 
-    public function statusOut(Request $request)
+    public function statusOut($id)
     {
-        $patient = InputOutput::where('id', $request->id)->first();
+        // dd($id);
+        $patient = InputOutput::where('person_id', $id)->first();
+        // dd($patient);
 
         if (!empty($patient->inside)) {
           
             $patient->outside = 'fuera';
-    
-            if ($patient->save()){
-               return response()->json([
-                    'message' => 'Paciente fuera del consultorio', 
-                ]);
-            }
-        }else{
-            return response()->json([
-                'message' => 'Ha ocurrido un error al actualizar la informacion',
-            ]);
+            $patient->save();
         }
+        return "listo";  
     }
 
     public function recipe(Request $request)

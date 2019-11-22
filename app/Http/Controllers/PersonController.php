@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\ClassificationSurgery;
-use App\Employe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Patient;
-Use App\TypeSurgery;
-Use App\Surgery;
+use App\Person;
+use App\Http\Requests\CreatePersonRequest;
 
-
-class TypeSurgerysController extends Controller
+class PersonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,9 +35,17 @@ class TypeSurgerysController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePersonRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['branch_id'] = 1;
+
+        $person = Person::create($data);
+        if ($person != null) {
+            return $person;
+        }else{
+            return 'no registrado';
+        }
     }
 
     /**
@@ -89,46 +93,22 @@ class TypeSurgerysController extends Controller
         //
     }
 
-    public function surgeries(Request $request){  //lista de todas las cirugias
-        $s = TypeSurgery::get();
+    public function update_person(Request $request) //cambiar direccion de paciente en la historia
+  {
+    $patient = Person::find($request->id);
 
-        if(!is_null($s)){
-            return response()->json([
-                'surgeries' => $s,
-            ]);
-        }
+    $patient->address = $request->address;
+    $patient->phone = $request->phone;
+    $patient->email = $request->email;
+
+    if($patient->save()){
+        return response()->json([
+            'message' => 'Datos modificados',
+        ]);
+    }else{
+        return response()->json([
+            'message' => 'No se pudo actualizar los datos',
+        ]);
     }
-
-    public function type_surgery()
-    {
-        $s = ClassificationSurgery::get();
-
-        if(!is_null($s)){
-            return response()->json([
-                'tpesurgeries' => $s,
-            ]);
-        }
-    }
-
-    public function procedure_surgery(Request $request) //procedimientos pertenecientes a cierta cirugia
-    {
-        $e = Surgery::with('procedure')->where('id', $request->id)->first();
-
-        if(!is_null($e)){
-            return response()->json([
-                'details' => $e,
-            ]);
-        }
-    }
-
-    // public function surgeries_patient(Request $request){
-    //     //$s = TypeSurgery::get();
-    //     $p = Patient::where('id', $request->id)->first();
-
-    //     if(!is_null($p)){
-    //         return response()->json([
-    //             'posible_surgeries' => $p,
-    //         ]);
-    //     }
-    // }
+  }
 }

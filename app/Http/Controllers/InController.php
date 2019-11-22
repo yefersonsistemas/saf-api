@@ -32,7 +32,8 @@ class InController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
@@ -254,35 +255,24 @@ class InController extends Controller
         }
     }
 
-    public function statusIn(Request $request)
+    public function statusIn($registro)
     {
-        
+        $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
+        // dd($busqueda);
 
-        $data = $request->validate([
-            'person_id' => 'required',
-            'employe_id'  => 'required',
-        ]);
+        $paciente = $busqueda->patient_id;
+        $doctor = $busqueda->person_id;
 
-        $p = Patient::where('person_id', $request->person_id)->first();
-        $io = InputOutput::where('person_id', $p->id)->where('employe_id', $request->employe_id)->first();
-           
-        if (empty($io)) {
+        if (!empty($paciente) && !empty($doctor)) {
             InputOutput::create([       
-                'person_id' =>  $data['person_id'],  //paciente tratado
+                'person_id' =>  $paciente,  //paciente tratado
                 'inside' => 'dentro',
                 'outside' => null,
-                'employe_id' =>  $data['employe_id'],  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'employe_id' =>  $doctor,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
                 'branch_id' => 1,
             ]);
-
-            return response()->json([
-                'message' => 'Paciente dentro del consultorio',
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'El paciente ya se encuentra adentro',
-            ]);
         }
+
     }
 
     public function exams_previos(Request $request)

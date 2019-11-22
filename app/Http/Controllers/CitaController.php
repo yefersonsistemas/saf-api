@@ -45,6 +45,7 @@ class CitaController extends Controller
     public function index()
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
@@ -61,27 +62,69 @@ class CitaController extends Controller
 
     public function create()
     {
-        $speciality = Speciality::all();
-        return view('dashboard.reception.create', compact('speciality'));
+        $specialities = Speciality::all();
+        return view('dashboard.reception.create', compact('specialities'));
     }
 
-    public function agendadas()
-    {
-        $reservations = Reservation::with('person')->whereDate('date', Carbon::now()->format('Y-m-d'))
-                        ->get(); 
+    public function search_patient(Request $request){
 
-        if ($reservations->isNotEmpty()) {
-            $reservations = $reservations->each(function( $reservation){
-                $patient = Person::where('id', $reservation->patient_id)->first();
-                if ($patient != null) {
-                    $reservation->patient = $patient;
-                    return $reservation; 
-                }
-            });
+        $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+
+        if (!is_null($person)) {
+            return response()->json([
+                'person' => $person,201
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',202
+            ]);
         }
-        // dd($reservations);
+    }
 
-        return view('dashboard.reception.agendadas', compact('reservations'));
+    public function strore(CreateReservationRequest $request)
+    {
+        $employe = Employe::find($request['doctor_id']);
+        $employe->load('schedule'); 
+        $fecha = Carbon::parse($request['date'])->locale('en'); 
+        //dd($fecha);
+
+        $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
+        //dd($date);
+        $diaDeReserva = strtolower($fecha->dayName);
+        //dd($diaDeReserva);
+        $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
+        //dd($dia);                  
+        $cupos = $dia->quota; //obtengo el valor de quota 
+       // dd($cupos);  
+        $dia = Reservation::whereDate('date', $date)->get()->count(); //obtengo todos los registros de ese dia y los cuento
+       // dd($dia);                                
+        if ($employe->person->user->hasRole('doctor')) {  //el empleado debe ser doctor por rol y ocupacion sino no crea
+
+            if ($dia <  $cupos) {
+
+                $patient= Person::where('id', $request['id'])->first();
+                //dd($patient);
+                //dd($patient->id);
+            
+                $reservation = Reservation::create([		
+                    'date' => $request['date'],
+                    'description' => $request['description'],
+                    'patient_id' => $request['patient_id'],
+                    'person_id' => $request['person_id'],
+                    'schedule_id' => $request['schedule_id'],
+                    'specialitie_id' => $request['specialitie_id'],
+                    'branch_id' => 1,
+                ]);
+            }
+            return response()->json([
+                'message' => 'Cita creada',
+            ]);
+
+        }else{
+            return response()->json([
+                'message' => 'No hay cupos',
+            ]);
+        }
     }
 
     //quota representa el max de cupos por dia de pacientes 
@@ -236,20 +279,6 @@ class CitaController extends Controller
         ]);
     }
 
-    public function search_patient(Request $request){
-
-        $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
-
-        if (!is_null($person)) {
-            return response()->json([
-                'person' => $person,201
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'No encontrado',202
-            ]);
-        }
-    }
 
     public function search_doctor(Request $request){    //medico asociado a una especialidad 
         $speciality = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
@@ -262,50 +291,4 @@ class CitaController extends Controller
         }
     }
 
-    /**
-     * 
-     * Busca el horario del doctor y 
-     * retorna los dias que el tenga disponible
-     * 
-     */
-    public function search_schedule(Request $request){//busca el horario del medico para agendar cita
-        $employe = Employe::with('schedule')->where('person_id', $request->person_id)->first();
-
-        if (!is_null($employe)) {
-            if (!is_null($employe->schedule)) {
-                foreach ($employe->schedule as $schedule) {
-                    $date[]  = new Carbon('next ' . $schedule->day);
-                    $quota[] = $schedule->quota;
-                }
-
-                for ($i = 0; $i < count($date); $i++) {
-                    /**
-                     * El 12 del ciclo for j,
-                     * hace referencia a 12 semanas que es la mayor 
-                     * anticipacion a la q se puede tener una cita
-                     */
-                    for ($j= 0; $j < 12; $j++) { 
-                        $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
-                        if ($citesToday < $quota[$i]) {
-                            $available[] = array('dia' => $date[$i]->day, 'mes' =>  $date[$i]->month); 
-                        }
-                        $date[$i] = $date[$i]->addWeek();
-                    }
-                }
-
-                return response()->json([
-                    'employe'       => $employe,
-                    'available'     => $available,
-                ]);
-            }else{
-                return response()->json([
-                    'message' => 'Medico sin horario',
-                ]);
-            }
-        }else{
-            return response()->json([
-                'message' => 'Medico no encontrado',
-            ]);
-        }
-    }
 }
