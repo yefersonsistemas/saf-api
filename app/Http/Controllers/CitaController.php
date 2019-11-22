@@ -206,8 +206,8 @@ class CitaController extends Controller
     {
         $reservation = Reservation::with('patient','person','speciality')->find($id);
         if (!is_null($reservation)) {
-            // dd($reservation);
-            return view('dashboard.reception.edit', compact('reservation'))->withErrors('Cita no encontrada');
+            $specialities = Speciality::with('employe.person')->get();
+            return view('dashboard.reception.edit', compact('reservation','specialities'));
         }else{
             Alert::error('Cita no encontrada!');
             return redirect()->back()->withErrors('Cita no encontrada');
