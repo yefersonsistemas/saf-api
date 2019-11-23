@@ -302,64 +302,6 @@
         maxHeight: 200
     });
 </script>
-
-    <script>
-               //Documento donde se insertara
-               $( document ).ready(function() {
-             
-             //llamando funcion definida en el html (search)
-                $("#search").click(function() {
-                    var dni = $("#dni").val();  //asignando el valor que se ingresa en el campo
-                    console.log(dni);           //mostrando en consola
-                    ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
-                });
-            
-     
-
-            // funcion que mando el valor que recibe a la ruta a la que se desea enviar
-            function ajax(dni) {
-                $.ajax({ 
-                        url: "{{ route('checkout.patient') }}",   //definiendo ruta
-                        type: "POST",                             //definiendo metodo
-                        data: {
-                            _token: "{{ csrf_token() }}",         //valor que se envia
-                            dni: dni
-                        }
-                    })
-                    .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                        console.log(data);
-                        if (data[0] == 202) {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Paciente no encontrado',
-                                type: 'error',
-                            })
-                            // enabled();
-                        }
-                        if (data[0] == 201) {
-                            Swal.fire({
-                                title: 'Excelente!',
-                                text:  'Paciente encontrado',
-                                type:  'success',
-                            })
-                            disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                        }
-                    })
-                    .fail(function(data) {
-                        console.log(data);
-                    })
-            }
-
-            function disabled(data) {
-            $('#mensaje').text(data.encontrado.person.dni);
-           
-        }
-            });
-
-        
-
-   
-        </script>
 @endsection
 
 {{-- <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>

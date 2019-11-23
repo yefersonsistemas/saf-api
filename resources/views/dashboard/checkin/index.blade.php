@@ -145,7 +145,7 @@
                                             </td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
-                                                <a href="{{ route('checkin.statusOut', $reservation->patient_id ) }}" class="btn btn-secondary">S</a>
+                                                <a href="{{ route('checkout.statusOut', $reservation->patient_id ) }}" class="btn btn-secondary">S</a>
                                             </td>
                                         </tr>
                                     @endforeach
