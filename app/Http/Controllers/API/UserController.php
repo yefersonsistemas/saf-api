@@ -7,14 +7,10 @@ use App\Person;
 Use App\Employe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\API\Controller;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    use HasRoles;
     /**
      * Display a listing of the resource.
      *
