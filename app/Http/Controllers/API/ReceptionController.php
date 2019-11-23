@@ -37,7 +37,7 @@ class ReceptionController extends Controller
     }
 
     public function list_reception(){  //para la vista de reception
-        $rs = Reservation::with('speciality', 'person','patient.historyPatient','patient.inputoutput')
+        $rs = Reservation::with('speciality', 'person','patient.historyPatient','patient.inputoutput', 'patient.image')
                          ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
                 return response()->json([
