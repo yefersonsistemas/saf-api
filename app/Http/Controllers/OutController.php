@@ -86,7 +86,7 @@ class OutController extends Controller
     }
 
 
-    //============================ buscanco paciente============================
+    //============================ buscanco paciente ============================
     public function search_patient(Request $request){
 
         $person = Person::with('reservation')->where('dni', $request->dni)->first();
@@ -95,16 +95,16 @@ class OutController extends Controller
         $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->get();
         // dd($encontrado);
 
-           foreach ($encontrado->procedure as $proce) {
-            $procedures[] = $proce->name;
-        }
-        dd($procedures);
-        for ($i=0; $i < count($procedures) ; $i++) { 
-            $proceduress[] = Procedure::find($procedures[$i]);
-        }
+        //    foreach ($encontrado->procedure as $proce) {
+        //     $procedures[] = $proce->name;
+        // }
+        // dd($procedures);
+        // for ($i=0; $i < count($procedures) ; $i++) { 
+        //     $proceduress[] = Procedure::find($procedures[$i]);
+        // }
         // $all->push($proceduress); 
         // dd($proceduress);
-            dd($proceduress[]);
+            // dd($proceduress[]);
         
         if (!is_null($encontrado)) {
             return response()->json([
@@ -116,6 +116,25 @@ class OutController extends Controller
             ]);
         }
     }
+
+
+        //============================ buscando procedimiento ============================
+        public function search_procedure($procedure_id){
+
+            // dd($procedure_id);
+            $data_procedure = Procedure::where('id', $procedure_id)->first();
+            // dd($procedure);
+     
+            if (!is_null($data_procedure)) {
+                return response()->json([
+                    'procedure' => $data_procedure,201
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No encontrado',202
+                ]);
+            }
+        }
 
 
      //============================ crear factura ============================

@@ -33,7 +33,7 @@
                             <div class="form-group multiselect_div col-6 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                             @foreach ($procedimientos as $procedimiento)
-                                            <option value="{{ $procedimiento->name }}" >{{ $procedimiento->name }}</option> 
+                                            <option value="{{ $procedimiento->id }}" >{{ $procedimiento->name }}</option> 
                                             {{-- <option value="ysbelia" >ysbe</option>
                                              <option value="hola" >kk</option> --}}
                                              @endforeach
@@ -132,22 +132,16 @@
                                         </div>
                                         <div class="table-responsive push">
                                             <table class="table table-bordered table-hover">
-                                                <tbody><tr>
+                                                <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th>Procedimiento</th>
                                                     <th class="text-center" style="width: 1%">cantidad</th>
                                                     <th class="text-right" style="width: 1%">Unidad</th>
                                                     <th class="text-right" style="width: 1%">Costo total</th>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>
-                                                        <p class="font600 mb-1" id="procedimiento">Logo Creation</p>
-                                                    </td>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-right" id="cantidad"></td>
-                                                    <td class="text-right" id="dni"></td>
-                                                </tr>
+                                                </tbody>
+                                                <tbody id="columna">
+                                                 
+                                                </tbody>                                                
                                                 <tr>
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right">$25.000,00</td>
@@ -156,7 +150,7 @@
                                                     <td colspan="4" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right">$30.000,00</td>
                                                 </tr>
-                                            </tbody></table>
+                                            </table>
                                         </div>
                                         
                                     </div>
@@ -200,7 +194,7 @@
                         }
                     })
                     .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                        console.log(data);
+                        console.log(data.encontrado[0].person.dni);
                         if (data[0] == 202) {
                             Swal.fire({
                                 title: 'Error!',
@@ -224,14 +218,14 @@
             }
 
             function disabled(data) {
-            $('#dnii').text(data.encontrado.person.dni); 
-            $('#name').text(data.encontrado.person.name);
-            $('#lastname').text(data.encontrado.person.lastname);
-            $('#phone').text(data.encontrado.person.phone);
-            $('#dniiD').text(data.encontrado.employe.person.dni); 
-            $('#nameD').text(data.encontrado.employe.person.name);
-            $('#lastnameD').text(data.encontrado.employe.person.lastname);
-            $('#phoneD').text(data.encontrado.employe.person.phone);
+            $('#dnii').text(data.encontrado[0].person.dni); 
+            $('#name').text(data.encontrado[0].person.name);
+            $('#lastname').text(data.encontrado[0].person.lastname);
+            $('#phone').text(data.encontrado[0].person.phone);
+            $('#dniiD').text(data.encontrado[0].employe.person.dni); 
+            $('#nameD').text(data.encontrado[0].employe.person.name);
+            $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
+            $('#phoneD').text(data.encontrado[0].employe.person.phone);
 
             $('#procedimiento').text(data.person.name);
             $('#cantidad').text(data.person.dni);
@@ -251,27 +245,34 @@ $('#select').multiselect({
 });
 </script>
 
+
 <script>
         $(document).ready(function(){
           $("#select").change(function(){
-            var categoria = $(this).val();
-            console.log(categoria)
+            var procedure_id = $(this).val();
+            console.log(procedure_id);
+            console.log(procedure_id.length);
+            console.log(procedure_id[0]);
             //  $('#hola').text(categoria); 
       
       
-            $.get('productByCategory/'+categoria, function(data){
+            $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
       //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-              console.log(data);
-                var producto_select = '<option value="">Seleccione Porducto</option>'
-                  for (var i=0; i<data.length;i++)
-                    producto_select+='<option value="'+data[i].id+'">'+data[i].nombre_producto+'</option>';
-      
-                  $("#campanas").html(producto_select);
+              console.log('datos',data.procedure.name);
+                // var producto_select = '<option value="">Seleccione Porducto</option>'
+                //   for (var i=0; i<data.length;i++)
+                    procedure_select='<tr><td>'+data.procedure.name+'</td>'+'<td>'+2+'</td>'+'<td>'+1+'</td>'+'<td>'+1+'</td>'+'<td>'+data.procedure.price+'</td></tr>';
+                console.log('procedimiento seleccionado',procedure_select);
+                // array[]= procedure_select;
+                // console.log(array);
+                  $("#columna").append(procedure_select);
       
             });
           });
         });
       </script>
+
+
 
             {{-- <script>
     $(document).ready(function() {
