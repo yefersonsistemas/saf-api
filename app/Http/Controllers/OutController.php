@@ -143,10 +143,12 @@ class OutController extends Controller
             $patient->outside = 'fuera';
             $patient->save();
         }else{
-            return "nouuuu";
+            Alert::error('Paciente ya ha salido');
+            return redirect()->back();
         }
 
-        return "listo";  
+        Alert::success('Paciente fuera');
+        return redirect()->back();
     }
 
     public function store(Request $request)

@@ -19,6 +19,7 @@ use App\InputOutput;
 use App\Medicine;
 use App\Reservation;
 use App\Patient;
+use RealRashid\SweetAlert\Facades\Alert;
 
 //use App\Http\Controllers\CitaController;
 
@@ -117,9 +118,12 @@ class InController extends Controller
             ]);
         }
         else{
-            return "ya registrado";
+            Alert::error('Paciente ya esta dentro');
+            return redirect()->back();
          };
-        return "listo";
+        // return "listo";
+        Alert::success('Paciente dentro');
+        return redirect()->back();
     }
 
     /**
