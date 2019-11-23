@@ -17,7 +17,7 @@ Route::get('/home', function() {
 })->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function (){
-
+    
     Route::post('person','PersonController@store')->name('person.create');
     Route::post('search/doctor','DoctorController@searchDoctor')->name('search.medic');
     Route::post('search/doctor/schedule','DoctorController@search_schedule')->name('search.schedule');

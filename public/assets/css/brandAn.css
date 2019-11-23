@@ -822,3 +822,60 @@ textarea[cols] {
 .glyphicon-wrench:before {
     content: "\1f527";
 }
+
+.ladymen {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ladymen input {
+    display: none;
+}
+
+.ladymen label {
+    display: flex;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    transition: ease all .3s;
+    -webkit-transition: ease all .3s;
+    -moz-transition: ease all .3s;
+    -ms-transition: ease all .3s;
+    -o-transition: ease all .3s;
+    border-radius: .25rem;
+    -webkit-border-radius: .25rem;
+    -moz-border-radius: .25rem;
+    -ms-border-radius: .25rem;
+    -o-border-radius: .25rem;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, .75);
+    background: #fff;
+}
+
+.ladymen label:hover {
+    background: #00be88;
+    color: #fff;
+}
+
+.ladymen label span {
+    position: relative;
+    display: flex;
+    max-width: 35px;
+    vertical-align: top;
+    margin: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.ladymen label span i {
+    font-size: 24px;
+}
+
+.ladymen input:checked+label {
+    background: #00be88;
+    color: #fff;
+    box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
+}
