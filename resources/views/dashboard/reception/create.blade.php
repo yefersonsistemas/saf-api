@@ -12,151 +12,150 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                            <form id="wizard_horizontal" method="POST" action="" class="card">
-                                    @csrf
-                                    <h2>Buscar Paciente</h2>
-                                    <section>
-                                        <div class="row clearfix">
-                                            <div class="col-lg-12">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h2 class="card-title">Edit Profile</h2>
-                
-                                                    </div>
-                                                    <div class="card-body ">
-                                                        <div class="col-lg-4  col-md-6">
-                                                            <div class="form-group d-flex flex-row  align-items-center">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend bg-white">
-                                                                        <span class="input-group-text btn-turquesa"><i
-                                                                                class="fa fa-id-card"></i></span>
-                                                                    </div>
-                                                                    <div class="input-group-prepend">
-                                                                        <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
-                                                                            <option value="0">...</option>
-                                                                            <option value="V">V</option>
-                                                                            <option value="E">E</option>
-                                                                            <option value="J">J</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="DNI" value="">
-                                                                    <input type="hidden" name="newPerson" id="newPerson">
-                                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
-                                                                            class="fa fa-search"></i></button>
-                                                                </div>
+                        <form id="wizard_horizontal" method="POST" action="" class="card">
+                            @csrf
+                            <h2>Buscar Paciente</h2>
+                            <section>
+                                <div class="row clearfix">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h2 class="card-title">Edit Profile</h2>
+                                            </div>
+                                            <div class="card-body ">
+                                                <div class="col-lg-4  col-md-6">
+                                                    <div class="form-group d-flex flex-row  align-items-center">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend bg-white">
+                                                                <span class="input-group-text btn-turquesa"><i
+                                                                        class="fa fa-id-card"></i></span>
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                                            <div class="col-lg-4 col-md-6 mb-2">
-                                                                                <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="">
-                                                                            </div>
-                                                            <div class="col-lg-4 col-md-6 centrado">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Nombre</label>
-                                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre">
-                                                                </div>
+                                                            <div class="input-group-prepend">
+                                                                <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
+                                                                    <option value="0">...</option>
+                                                                    <option value="V">V</option>
+                                                                    <option value="E">E</option>
+                                                                    <option value="J">J</option>
+                                                                </select>
                                                             </div>
-                                                            <div class="col-lg-4 col-md-6 centrado">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Apellido</label>
-                                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Correo Electrónico</label>
-                                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Dirección</label>
-                                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Teléfono</label>
-                                                                    <input type="number" disabled id="phone" name="phone" class="form-control" placeholder="Teléfono">
-                                                                </div>
-                                                            </div>
+                                                            <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="DNI" value="">
+                                                            <input type="hidden" name="newPerson" id="newPerson">
+                                                            <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
+                                                                    class="fa fa-search"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{--
-                                                <div class="card-footer text-right">
-                                                    <button type="submit" id="submit" class="btn btn-success" disabled>Registrar paciente</button>
-                                                </div> --}}
+                                                <div class="row">
+                                                                    <div class="col-lg-4 col-md-6 mb-2">
+                                                                        <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="">
+                                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 centrado">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Nombre</label>
+                                                            <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 centrado">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Apellido</label>
+                                                            <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Correo Electrónico</label>
+                                                            <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Dirección</label>
+                                                            <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Teléfono</label>
+                                                            <input type="number" disabled id="phone" name="phone" class="form-control" placeholder="Teléfono">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </section>
-                                    <h2>Elegir Especialidad</h2>
-                                    <section>
-                                        <div class="row">
-                                            @foreach ($specialities as $speciality)
-                                            <div class="col-6 col-sm-4">
-                                                    <label class="imagecheck mb-3">
-                                                        <div class="card max-card">
-                                                            <div class="card-header text-center ">
-                                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                                                <figure class="imagecheck-figure border-0">
-                                                                    <img src="..\assets\images\sm\avatar1.jpg" alt="}" class="imagecheck-image max-img">
-                                                                </figure>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">{{ $speciality->name }}</h5>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                
-                                                
-                                            {{-- <div class="col-sm-4">
-                                                <div class="card" style="width: 18rem;">
-                                                    <img src="{{ Storage::url($speciality->image->path) }}" class="card-img-top" alt="...">
+                                        {{--
+                                        <div class="card-footer text-right">
+                                            <button type="submit" id="submit" class="btn btn-success" disabled>Registrar paciente</button>
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </section>
+                            <h2>Elegir Especialidad</h2>
+                            <section>
+                                <div class="row">
+                                    @foreach ($specialities as $speciality)
+                                    <div class="col-6 col-sm-4">
+                                            <label class="imagecheck mb-3">
+                                                <div class="card max-card">
+                                                    <div class="card-header text-center ">
+                                                            <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
+                                                        <figure class="imagecheck-figure border-0">
+                                                            <img src="..\assets\images\sm\avatar1.jpg" alt="}" class="imagecheck-image max-img">
+                                                        </figure>
+                                                    </div>
                                                     <div class="card-body">
-                                                        <p class="card-text">{{ $speciality->description }}</p>
-                                                        <a href="#" class="btn btn-primary"><input type="radio" name="speciality"
-                                                                value="{{ $speciality->id }}" id=""></a>
+                                                        <h5 class="card-title">{{ $speciality->name }}</h5>
                                                     </div>
                                                 </div>
-                                            </div> --}}
-                                            @endforeach
-                                            <input type="hidden" name="speciality" id="speciality">
+                                            </label>
                                         </div>
-                                    </section>
-                                    <h2>Elegir Medico</h2>
-                                    <section>
-                                        <div class="row" id="medicos">
-                                            <input type="hidden" name="doctor" id="doctor">
-                                        </div>
-                
-                                    </section>
-                                    <h2>Motivo De La Consulta</h2>
-                                    <section>
-                                        <div class="col-md-12">
-                                            <div class="form-group mb-0">
-                                                <label class="form-label">About Me</label>
-                                                <textarea rows="5" id="motivo" class="form-control" placeholder="Here can be your description"></textarea>
+                                        
+                                        
+                                    {{-- <div class="col-sm-4">
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="{{ Storage::url($speciality->image->path) }}" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <p class="card-text">{{ $speciality->description }}</p>
+                                                <a href="#" class="btn btn-primary"><input type="radio" name="speciality"
+                                                        value="{{ $speciality->id }}" id=""></a>
                                             </div>
                                         </div>
-                                    </section>
-                                    <h2>Elegir Fecha</h2>
-                                    <section>
-                                        <div class="col-lg-3 col-md-6">
-                                            <div class="card bg-indigo">
-                                                <div class="card-header">
-                                                    <h3 class="card-title text-white">Inline Date Picker</h3>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker">
-                                                    </div>
-                                                </div>
+                                    </div> --}}
+                                    @endforeach
+                                    <input type="hidden" name="speciality" id="speciality">
+                                </div>
+                            </section>
+                            <h2>Elegir Medico</h2>
+                            <section>
+                                <div class="row" id="medicos">
+                                    <input type="hidden" name="doctor" id="doctor">
+                                </div>
+        
+                            </section>
+                            <h2>Motivo De La Consulta</h2>
+                            <section>
+                                <div class="col-md-12">
+                                    <div class="form-group mb-0">
+                                        <label class="form-label">About Me</label>
+                                        <textarea rows="5" id="motivo" class="form-control" placeholder="Here can be your description"></textarea>
+                                    </div>
+                                </div>
+                            </section>
+                            <h2>Elegir Fecha</h2>
+                            <section>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card bg-indigo">
+                                        <div class="card-header">
+                                            <h3 class="card-title text-white">Inline Date Picker</h3>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker">
                                             </div>
                                         </div>
-                                    </section>
-                                </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
                     </div>
                 </div>
             </div>

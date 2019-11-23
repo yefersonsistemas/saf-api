@@ -8,9 +8,6 @@ Use App\Employe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
 
 class UserController extends Controller
 {

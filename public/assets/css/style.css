@@ -445,3 +445,12 @@
             .img-thumbnail {
                 padding: 0;
             }
+            
+            .scrolll {
+                overflow-y: auto;
+            }
+            
+            .scroll {
+                height: 300px;
+                ;
+            }

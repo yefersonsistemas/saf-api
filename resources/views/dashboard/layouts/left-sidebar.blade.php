@@ -9,7 +9,7 @@
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
-                            <li class="@yield('all')"><a href="">Citas</a></li>
+                            <li class="@yield('all')"><a href="{{ route('citas.index') }}">Citas</a></li>
                             <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
                         </ul>
                     </li>

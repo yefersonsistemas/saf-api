@@ -17,7 +17,7 @@
 
 @section('content')
 <div class="section-body py-3">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <form method="POST" action="">
@@ -31,8 +31,49 @@
                                 <a id="search" class="btn btn-info"><i class="icon-magnifier"></i></a>
                             </div>
                             <div class="card-options col-4 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary"><i class="fe fe-plus" data-toggle="tooltip" title="" data-original-title="fe fe-plus"></i> agregar procedimiento</button>
+                                <button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-primary"><i class="fe fe-plus" data-toggle="tooltip" title="" data-original-title="fe fe-plus"></i> agregar procedimiento</button>
                             </div>
+
+          
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="input-group mt-4 col-12 col-sm-10 mr-4 ml-4">
+                            <input id="dni" type="text" class="form-control" maxlength="8" placeholder="buscar paciente...">
+                            <a id="search" class="btn btn-info"><i class="icon-magnifier"></i></a>
+                        </div>
+                        <div class="modal-body">
+                                <div class="card">
+                                        <div class="card-body scrolll">
+                                            <div class="form-group scroll">
+                                                <div class="custom-controls-stacked">
+                                                    @foreach ($procedimientos as $procedimiento)
+                                                        
+                                                    <label class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="">
+                                                        <span class="custom-control-label">{{ $procedimiento->name }}</span>
+                                                    </label>
+
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                      
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                         </div>
                     </div>
                     </form>
@@ -51,7 +92,7 @@
                         <div class="row clearfix">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header">
+                                    <div class="card-header  d-flex justify-content-end">
                                         <div class="card-options">
                                             <a href="{{ route('checkout.factura') }}" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
                                         </div>
@@ -120,9 +161,6 @@
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
-    {{-- <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
-    <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
-    <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script> --}}
 
     <script>
                //Documento donde se insertara
