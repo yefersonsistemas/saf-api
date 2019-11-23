@@ -25,6 +25,8 @@ $factory->define(Itinerary::class, function (Faker $faker) {
     return [
         'patient_id' => $patient->id,
         'employe_id' => $employe->id,
+        // 'procedure_id' => array_random([$faker->realText(350), null]),
+        // $faker->shuffle(array(1,2)),
         'procedure_id' =>  $procedue->id,
         'surgery_id' =>  $surgery->id,
         'exam_id' =>  $exam->id,

@@ -174,28 +174,21 @@
                                     <div class="col-md-12 col-sm-12 col-lg-12 m-2" style="width: 18rem;">
                                             <div class="tab-content" id="pills-tabContent">                                                                        
                                                                                         
-                                                <div class="col-lg-12">
-                                                    <div class="table-responsive mb-4">
-                                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                                            <thead>
-                                                                <tr>
-                                                                
-                                                                    <th>Nombre</th>
-                                                                    <th>Descripción</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>Nombre</th>
-                                                                    <th>Descripción</th>
-                                                                </tr>
-                                                            </tfoot>
-                                                            <tbody>
-                                                                <td>prueba</td>
-                                                                <td>prueba</td>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                <div class="col-lg-12 card p-5 text-justify" >
+                                                        el valor devuelto es un string. Te informo de que hace exactamente json_encode:
+                                                        json_encode — Retorna la representación JSON representation del valor dado
+                                                        Descripción
+                                                        string json_encode ( mixed $value [, int $options = 0 ] )
+                                                        
+                                                        Retorna un string con la representación JSON de value.
+                                                        
+                                                        
+                                                        Osea, aunque tenga el formato de json, sigue siendo un string como "este día me parece que va a llover".
+                                                        
+                                                        segundo:
+                                                        si necesitas recoger el valor devuelto a través de una función javascript, te recomiendo el uso de la función .ajax, de jquery.
+                                                        Tan solo tienes que usar datatype:"json", como formato de datos de vuelta. Y AHORA si estarás listo para recibir un json debidamente.
+                                                    <p>{{ $cirugias->hospitalization->name }}</p>
                                                 </div> 
                                             </div>     
                                     </div>                         

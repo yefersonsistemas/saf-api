@@ -17,7 +17,7 @@
 
 @section('content')
 <div class="section-body py-3">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <form method="POST" action="">
@@ -26,13 +26,23 @@
                         <div class="col-12">
                                 <h5>Buscar Paciente </h5>
                         </div>
-                            <div class="input-group mt-2 col-6">
+                            <div class="input-group mt-2 col-5">
                                 <input id="dni" type="text" class="form-control" maxlength="8" placeholder="buscar paciente...">
                                 <a id="search" class="btn btn-info"><i class="icon-magnifier"></i></a>
                             </div>
+                            <div class="form-group multiselect_div col-6 d-flex justify-content-end" >
+                                    <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                            @foreach ($procedimientos as $procedimiento)
+                                            <option value="{{ $procedimiento->name }}" >{{ $procedimiento->name }}</option> 
+                                            {{-- <option value="ysbelia" >ysbe</option>
+                                             <option value="hola" >kk</option> --}}
+                                             @endforeach
+                                    </select>
+                                </div>
+{{--                                 
                             <div class="card-options col-4 d-flex justify-content-end">
                                 <button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-primary"><i class="fe fe-plus" data-toggle="tooltip" title="" data-original-title="fe fe-plus"></i> agregar procedimiento</button>
-                            </div>
+                            </div> --}}
 
           
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -55,10 +65,12 @@
                                                 <div class="custom-controls-stacked">
                                                     @foreach ($procedimientos as $procedimiento)
                                                         
-                                                    <label class="custom-control custom-checkbox">
+                                                    {{-- <label class="custom-control custom-checkbox " id="select">
                                                         <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="">
                                                         <span class="custom-control-label">{{ $procedimiento->name }}</span>
-                                                    </label>
+                                                    </label> --}}
+
+                                                
 
                                                     @endforeach
                                                 </div>
@@ -92,7 +104,7 @@
                         <div class="row clearfix">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header  d-flex justify-content-end">
+                                    <div class="card-header">
                                         <div class="card-options">
                                             <a href="{{ route('checkout.factura') }}" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
                                         </div>
@@ -161,6 +173,8 @@
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+    <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
+    <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
     <script>
                //Documento donde se insertara
@@ -172,7 +186,7 @@
                     console.log(dni);           //mostrando en consola
                     ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
                 });
-        
+            
      
 
             // funcion que mando el valor que recibe a la ruta a la que se desea enviar
@@ -228,6 +242,36 @@
 
    
         </script>
+
+<script>
+$('#select').multiselect({
+    enableFiltering: true,
+    enableCaseInsensitiveFiltering: true,
+    maxHeight: 200
+});
+</script>
+
+<script>
+        $(document).ready(function(){
+          $("#select").change(function(){
+            var categoria = $(this).val();
+            console.log(categoria)
+            //  $('#hola').text(categoria); 
+      
+      
+            $.get('productByCategory/'+categoria, function(data){
+      //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
+              console.log(data);
+                var producto_select = '<option value="">Seleccione Porducto</option>'
+                  for (var i=0; i<data.length;i++)
+                    producto_select+='<option value="'+data[i].id+'">'+data[i].nombre_producto+'</option>';
+      
+                  $("#campanas").html(producto_select);
+      
+            });
+          });
+        });
+      </script>
 
             {{-- <script>
     $(document).ready(function() {
