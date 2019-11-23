@@ -107,6 +107,7 @@
                                     <div class="card-header">
                                         <div class="card-options">
                                             <a href="{{ route('checkout.factura') }}" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
+                                            {{-- <a id="generar_factura" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a> --}}
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -180,6 +181,11 @@
                     console.log(dni);           //mostrando en consola
                     ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
                 });
+
+                // $("#generar_factura").click(function(){
+                //     var dni = $(#dni).value();
+                //     generar(dni);
+                // })
             
      
 
@@ -230,6 +236,42 @@
             $('#procedimiento').text(data.person.name);
             $('#cantidad').text(data.person.dni);
         }
+            });
+
+                    
+            //           function generar(dni) {
+            //     $.ajax({ 
+            //             url: "{{ route('checkout.patient') }}",   //definiendo ruta
+            //             type: "POST",                             //definiendo metodo
+            //             data: {
+            //                 _token: "{{ csrf_token() }}",         //valor que se envia
+            //                 dni: dni
+            //             }
+            //         })
+            //         .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+            //             console.log(data.encontrado[0].person.dni);
+
+            //             patient_id = data.encontrado[0].person.id;
+            //             person_id = data.encontrado[0].person.id;
+            //             employe_id = data.encontrado.employe.person.id;
+            //             procudure_id = data.encontrado.procedure.id;
+
+            //             console.log('paciente', patient_id, 'person', person_id, 'employe', employe_id, 'procedure', procedure_id);
+            //             if (data[0] == 202) {
+                         
+            //                 // enabled();
+            //             }
+            //             if (data[0] == 201) {
+                         
+            //                 disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            //             }
+            //         })
+            //         .fail(function(data) {
+            //             console.log(data);
+            //         })
+            // }
+
+      
             });
 
         
