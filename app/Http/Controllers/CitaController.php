@@ -45,16 +45,17 @@ class CitaController extends Controller
     public function index()
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
-        
+
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
-        
+
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
-        
+
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+
         $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
-        
+
         // Alert::success('Success Title', 'Success Message');
 
         return view('dashboard.reception.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas', 'pendientes'));
@@ -206,8 +207,8 @@ class CitaController extends Controller
     {
         $reservation = Reservation::with('patient','person','speciality')->find($id);
         if (!is_null($reservation)) {
-            // dd($reservation);
-            return view('dashboard.reception.edit', compact('reservation'))->withErrors('Cita no encontrada');
+            $specialities = Speciality::with('employe.person')->get();
+            return view('dashboard.reception.edit', compact('reservation','specialities'));
         }else{
             Alert::error('Cita no encontrada!');
             return redirect()->back()->withErrors('Cita no encontrada');
