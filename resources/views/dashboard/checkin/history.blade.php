@@ -22,7 +22,7 @@
             <p>Apellido: {{ $rs->patient->lastname }}</p>
         </div>
         <div class="col-md-3 col-lg-3 sm-3">
-            <img src="{{ Storage::url($rs->patient->image->path) }}" alt="">
+            <img src="{{ Storage::url($rs->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:150px">
         </div>
     </div>
 
