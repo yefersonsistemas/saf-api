@@ -28,7 +28,7 @@
                         </div>
                             <div class="input-group mt-2 col-5">
                                 <input id="dni" type="text" class="form-control" maxlength="8" placeholder="buscar paciente...">
-                                <a id="search" class="btn btn-info"><i class="icon-magnifier"></i></a>
+                                <a id="search"name="search" class="search btn btn-info"><i class="icon-magnifier"></i></a>
                             </div>
                             <div class="form-group multiselect_div col-6 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
@@ -171,26 +171,25 @@
     <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
+
     <script>
-               //Documento donde se insertara
-               $( document ).ready(function() {
-             
-             //llamando funcion definida en el html (search)
-                $("#search").click(function() {
-                    var dni = $("#dni").val();  //asignando el valor que se ingresa en el campo
-                    console.log(dni);           //mostrando en consola
-                    ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
-                });
+    $('#select').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+    </script>
 
-                // $("#generar_factura").click(function(){
-                //     var dni = $(#dni).value();
-                //     generar(dni);
-                // })
-            
-     
 
-            // funcion que mando el valor que recibe a la ruta a la que se desea enviar
-            function ajax(dni) {
+    <script>
+        $(document).ready(function(){
+             $(".search").click(function() {
+            var dni = $("#dni").val();  //asignando el valor que se ingresa en el campo
+            console.log(dni);           //mostrando en consola
+            ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
+        });
+
+          function ajax(dni) {
                 $.ajax({ 
                         url: "{{ route('checkout.patient') }}",   //definiendo ruta
                         type: "POST",                             //definiendo metodo
@@ -200,7 +199,7 @@
                         }
                     })
                     .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                        console.log(data.encontrado[0].person.dni);
+                        console.log('esto',data.encontrado[0].person.dni);
                         if (data[0] == 202) {
                             Swal.fire({
                                 title: 'Error!',
@@ -222,89 +221,33 @@
                         console.log(data);
                     })
             }
-
             function disabled(data) {
-            $('#dnii').text(data.encontrado[0].person.dni); 
-            $('#name').text(data.encontrado[0].person.name);
-            $('#lastname').text(data.encontrado[0].person.lastname);
-            $('#phone').text(data.encontrado[0].person.phone);
-            $('#dniiD').text(data.encontrado[0].employe.person.dni); 
-            $('#nameD').text(data.encontrado[0].employe.person.name);
-            $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
-            $('#phoneD').text(data.encontrado[0].employe.person.phone);
+                $('#dnii').text(data.encontrado[0].person.dni); 
+                $('#name').text(data.encontrado[0].person.name);
+                $('#lastname').text(data.encontrado[0].person.lastname);
+                $('#phone').text(data.encontrado[0].person.phone);
+                $('#dniiD').text(data.encontrado[0].employe.person.dni); 
+                $('#nameD').text(data.encontrado[0].employe.person.name);
+                $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
+                $('#phoneD').text(data.encontrado[0].employe.person.phone);
 
-            $('#procedimiento').text(data.person.name);
-            $('#cantidad').text(data.person.dni);
-        }
-            });
-
-                    
-            //           function generar(dni) {
-            //     $.ajax({ 
-            //             url: "{{ route('checkout.patient') }}",   //definiendo ruta
-            //             type: "POST",                             //definiendo metodo
-            //             data: {
-            //                 _token: "{{ csrf_token() }}",         //valor que se envia
-            //                 dni: dni
-            //             }
-            //         })
-            //         .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-            //             console.log(data.encontrado[0].person.dni);
-
-            //             patient_id = data.encontrado[0].person.id;
-            //             person_id = data.encontrado[0].person.id;
-            //             employe_id = data.encontrado.employe.person.id;
-            //             procudure_id = data.encontrado.procedure.id;
-
-            //             console.log('paciente', patient_id, 'person', person_id, 'employe', employe_id, 'procedure', procedure_id);
-            //             if (data[0] == 202) {
-                         
-            //                 // enabled();
-            //             }
-            //             if (data[0] == 201) {
-                         
-            //                 disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-            //             }
-            //         })
-            //         .fail(function(data) {
-            //             console.log(data);
-            //         })
-            // }
-
-      
-            });
-
+                $('#procedimiento').text(data.person.name);
+                $('#cantidad').text(data.person.dni);
+            }
         
 
-   
-        </script>
-
-<script>
-$('#select').multiselect({
-    enableFiltering: true,
-    enableCaseInsensitiveFiltering: true,
-    maxHeight: 200
-});
-</script>
-
-
-<script>
-        $(document).ready(function(){
           $("#select").change(function(){
-            var procedure_id = $(this).val();
+            var procedure_id = $(this).val(); // este el valor que se enviara al metodo de crear factura 
             console.log(procedure_id);
-            console.log(procedure_id.length);
-            console.log(procedure_id[0]);
-            //  $('#hola').text(categoria); 
-      
+            console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
       
             $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
-      //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
+              //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
               console.log('datos',data.procedure.name);
                 // var producto_select = '<option value="">Seleccione Porducto</option>'
                 //   for (var i=0; i<data.length;i++)
                     procedure_select='<tr><td>'+data.procedure.name+'</td>'+'<td>'+2+'</td>'+'<td>'+1+'</td>'+'<td>'+1+'</td>'+'<td>'+data.procedure.price+'</td></tr>';
-                console.log('procedimiento seleccionado',procedure_select);
+                    console.log('procedimiento seleccionado',procedure_select);
                 // array[]= procedure_select;
                 // console.log(array);
                   $("#columna").append(procedure_select);
