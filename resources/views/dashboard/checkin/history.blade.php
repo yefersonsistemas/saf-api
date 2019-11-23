@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="form-group mt-3 ml-2">
-                        <label>Radio Button</label>
+                        <label>Género</label>
                         <br>
                         <label class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" name="gender" value="Masculino" {{ ($rs->historyPatient->gender == 'Masculino') ? 'checked' : '' }} required>
@@ -207,40 +207,47 @@
                     <label class="form-label">Alergias</label>
                     <div class="form-group multiselect_div">
                         <select id="multiselect4-filter3" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple" >
-                            @foreach ($medicine as $item)
+                            @foreach ($allergy as $item)
                                 <option value= {{ $item->name }}>{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
-                <div class="col-md-5 col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Cirugias previas</label>
-                        <input id="previous_surgery" type="text" class="form-control" placeholder="Cirugias anteriores" value="{{ $rs->patient->historyPatient->previous_surgery  }}" name="previous_surgery" disabled>
+                <div class="col-md-6 col-md-3">
+                    <div class="row">
+                        <div class="form-group col-10">
+                            <label class="form-label">Cirugias previas</label>
+                            <input id="previous_surgery" type="text" class="form-control" placeholder="Cirugias anteriores" value="{{ $rs->patient->historyPatient->previous_surgery  }}" name="previous_surgery" disabled>
+                        </div>
+                        <div class="col-2">
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
+                        </div>
+                        </div>
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
-                    </div>
-
                     
                     <!----------------modal para agregar cirugias------------------>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Agregar Cirugias</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <textarea id="cirugia" cols="30" rows="10"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                                <button type="button" id="guardar" class="btn btn-primary">Guardar</button>
-                            </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Agregar Cirugias</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="POST" action="{{ route('reservation.status') }}">
+                                    @csrf
+                                    <div class="modal-body">
+                                        {{-- <span class="input-group-addon" style="width:150px;">Cirugia previa:</span> --}}
+                                        <textarea id="cirugia" name="cirugia" cols="65" rows="5"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+                                        <button type="button" id="guardar" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -253,19 +260,19 @@
             @foreach ($cites as $reservation)
                 <div class="card col-4 text-justify p-4 form-control mt-2">
                 <div>
-                    <label class="remarcado">Doctor:</label>
+                    <label class="form-label">Doctor:</label>
                     {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}
                 </div>
                 <div>
-                    <label class="remarcado">Especilaidad:</label>
+                    <label class="form-label">Especilaidad:</label>
                     {{ $reservation->speciality->name }}
                 </div>
                 <div>
-                    <label class="remarcado">Fecha de la reservacion:</label>
+                    <label class="form-label">Fecha de la reservacion:</label>
                     {{ $reservation->date }} 
                 </div>
                 <div>
-                    <label class="remarcado">Razon de la cita:</label>
+                    <label class="form-label">Razon de la cita:</label>
                     {{ $reservation->description }}
                 </div>
                 </div> 
@@ -281,27 +288,55 @@
 @section('scripts')
     <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
-<script>
+
+    <script>
     $('#multiselect4-filter').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
     });
-</script>
-<script>
+    </script>
+
+    <script>
     $('#multiselect4-filter2').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
     });
-</script>
-<script>
+    </script>
+
+    <script>
     $('#multiselect4-filter3').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
     });
+    </script>
+<script>
+
+     $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var recipient = button.data('whatever'); // Extract info from data-* attributes
+            var id  = button.data('id');
+            var type = button.data('type');
+
+            if (type == 'Reprogramada') {
+                $('#fecha').html('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
+                $('.reservation_id').val(id);
+                $('.type').val(type);
+            }
+            insertDates(type, id);
+            var modal = $(this);
+            modal.find('.modal-title').text(recipient);
+            $('.reservation_id').val(id);
+            $('.type').val(type);
+
+        });
+
 </script>
+
+
+
 @endsection
 
 {{-- <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
