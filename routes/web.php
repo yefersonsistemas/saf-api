@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');  // generar factura
         Route::post('search/patient','OutController@search_patient')->name('checkout.patient'); //buscar paciente
         Route::get('factura', 'OutController@create_factura')->name('checkout.factura');  // mostrar factura
+
+        Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
      
 
     });
