@@ -121,6 +121,23 @@ class InController extends Controller
         Alert::success('Paciente dentro');
         return redirect()->back();
     }
+
+    public function surgery_previous(Request $request)
+    {
+          $patient = Patient::find($id)->first();
+
+          if (!empty($patient->surgery_previous)) {
+          
+            $patient->surgery_previous = $request->urgery_previous;
+            $patient->save();
+        }else{
+            Alert::error('No se guardo la cirugía');
+            return redirect()->back();
+        }
+
+        Alert::success('Cirugía agregada');
+        return redirect()->back();
+    }
     
     public function status(Request $request)
     {

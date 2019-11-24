@@ -54,7 +54,7 @@
                 <form class="">
                     @foreach ($history as $number)
                     
-
+                    
                     <div class="card">
                         <div class="card-header">
                             <div class="row d-flex align-items-center">
