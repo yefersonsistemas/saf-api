@@ -56,8 +56,6 @@ class CitaController extends Controller
 
         $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
 
-        // Alert::success('Success Title', 'Success Message');
-
         return view('dashboard.reception.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas', 'pendientes'));
     }
 
@@ -170,8 +168,7 @@ class CitaController extends Controller
             'motivo'            =>  'required',
         ]);
 
-
-        $reservation = Reservation::find($data['reservation_id']);
+        $reservation = Reservation::where('id', $data['reservation_id'])->where('status', '!=', $data['type'])->first();
 
         if (!is_null($reservation)) {
             if($data['type'] == 'Suspendida'){
@@ -181,24 +178,39 @@ class CitaController extends Controller
                     'reason'            =>  $data['motivo'],
                     'branch_id'         => 1,
                 ]);
+                Alert::success('Cita suspendida exitosamente');
 
             }elseif ($data['type'] == 'Cancelada') {
+                if ($reservation->discontinued != null) {
+                    $reservation->discontinued = null;
+                }elseif ($reservation->approved != null) {
+                    $reservation->approved = null;
+                }
+
                 $cita = Cite::create([
                     'reservation_id'    =>  $data['reservation_id'],
                     'reason'            =>  $data['motivo'],
                     'branch_id'         => 1,
                 ]);
                 $reservation->cancel = Carbon::now();
+                Alert::success('Cita Cancelada exitosamente');
 
             }elseif ($data['type'] == 'Aprobada') {
                 $reservation->approved = Carbon::now();
+                if ($reservation->discontinued != null) {
+                    $reservation->discontinued = null;
+                }
 
+                Alert::success('Cita Aprobada exitosamente');
             }
-
+            
             $reservation->status = $data['type'];
             $reservation->save();
 
-            return redirect()->route('reservation.index');
+            return redirect()->route('citas.index');
+        }else{
+            Alert::error('No se puede '.$data['type'].' esta cita');
+            return redirect()->back();
         }
 
     }
@@ -212,6 +224,47 @@ class CitaController extends Controller
         }else{
             Alert::error('Cita no encontrada!');
             return redirect()->back()->withErrors('Cita no encontrada');
+        }
+    }
+
+    public function update(Reservation $cite, Request $request)
+    {
+        if (!is_null($cite)) {
+            if ($request->dni != null) {
+                $paciente = Person::where('id', $cite->patient_id)->first();
+                if (!is_null($paciente)) {
+                    $paciente->update([
+                        'type_dni'  => $request->type_dni,
+                        'dni'       => $request->dni,
+                        'name'      => $request->name,
+                        'lastname'  => $request->lastname,
+                        'email'     => $request->email,
+                        'address'   => $request->address,
+                        'phone'     => $request->phone,
+                    ]);
+                }
+            }
+            if ($request->speciality != null) {
+                $cite->specialitie_id = $request->speciality;
+                // $employe = Employe::where('person_id', $request->doctor)->first();
+                $cite->person_id  = $request->person_id;
+                $cite->save();
+            }
+            if ($request->fecha != null) {
+                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
+                // dd($cite->person->employe);
+                $schedule = Schedule::where('employe_id', $cite->person->employe->id)->where('day', $dia)->first();
+                $cite->date       = Carbon::create($request->fecha);
+                $cite->reschedule = Carbon::now();
+                $cite->schedule_id = $schedule->id;
+            }
+            $cite->save();
+            Cite::create([
+                'reservation_id'    =>  $cite->id,
+                'reason'            =>  $request->motivo,
+            ]);
+            Alert::success('Cita actualizada exitosamente');
+            return redirect()->route('citas.index');
         }
     }
 
