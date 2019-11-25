@@ -20,7 +20,7 @@
                                     <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h2 class="card-title">Edit Profile</h2>
+                                                <h2 class="card-title">Datos del paciente</h2>
                                             </div>
                                             <div class="card-body ">
                                                 <div class="col-lg-4  col-md-6">
@@ -132,22 +132,22 @@
         
                             </section>
                             <h2>Motivo De La Consulta</h2>
-                            <section>
-                                <div class="col-md-12">
+                            <section class="container">
+                                <div class="col-md-9 m-auto ">
                                     <div class="form-group mb-0">
-                                        <label class="form-label">About Me</label>
+                                        <label class="form-label">Motivo de la consula</label>
                                         <textarea rows="5" id="motivo" class="form-control" placeholder="Here can be your description"></textarea>
                                     </div>
                                 </div>
                             </section>
                             <h2>Elegir Fecha</h2>
                             <section>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="card bg-indigo">
+                                <div class="col-md-6 m-auto">
+                                    <div class="card box_shadow">
                                         <div class="card-header">
-                                            <h3 class="card-title text-white">Inline Date Picker</h3>
+                                            <h3 class="card-title">Elegir fecha</h3>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mx-4">
                                             <div class="input-group">
                                                 <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker">
                                             </div>

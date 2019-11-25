@@ -123,3 +123,16 @@ ul[role="tablist"] {
     max-width: 270px;
     max-height: 190px;
 }
+
+.imagecheck-figure:before {
+    color: #00505b;
+    font-size: 25px;
+}
+
+.datepicker-dropdown {
+    width: 500px;
+}
+
+.datepicker table {
+    width: 100%;
+}
