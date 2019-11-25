@@ -34,7 +34,7 @@ class InController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get()->whereDate('date', Carbon::now()->format('Y-m-d'));
+        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         
         // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
@@ -86,9 +86,8 @@ class InController extends Controller
         //dd($cites);
 
         $disease = Disease::get();
-
+       
         $medicine = Medicine::get();
-
         $allergy = Allergy::get();
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
@@ -124,7 +123,7 @@ class InController extends Controller
 
     public function surgery_previous(Request $request)
     {
-          $patient = Patient::find($id)->first();
+          $patient = Patient::find($request->id)->first();
 
           if (!empty($patient->surgery_previous)) {
           
@@ -186,8 +185,7 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = $request->validated();
-        // $employe = Employe::create($data);
+        
     }
 
     /**

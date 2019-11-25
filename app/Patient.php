@@ -23,6 +23,12 @@ class Patient extends Model
                       ->withPivot('disease_id','id');
     }
 
+    public function allergy()
+    {
+         return $this->belongsToMany('App\Allergy','allergy_patient')
+                      ->withPivot('allergy_id','id');
+    }
+
     public function medicine()
     {
          return $this->belongsToMany('App\Medicine','medicine_patient')
