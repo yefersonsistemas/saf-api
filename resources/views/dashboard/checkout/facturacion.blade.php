@@ -28,12 +28,12 @@
                         </div>
                             <div class="input-group mt-2 col-5">
                                 <input id="dni" type="text" class="form-control" maxlength="8" placeholder="buscar paciente...">
-                                <a id="search" class="btn btn-info"><i class="icon-magnifier"></i></a>
+                                <a id="search"name="search" class="search btn btn-info"><i class="icon-magnifier"></i></a>
                             </div>
                             <div class="form-group multiselect_div col-6 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                             @foreach ($procedimientos as $procedimiento)
-                                            <option value="{{ $procedimiento->name }}" >{{ $procedimiento->name }}</option> 
+                                            <option value="{{ $procedimiento->id }}" >{{ $procedimiento->name }}</option> 
                                             {{-- <option value="ysbelia" >ysbe</option>
                                              <option value="hola" >kk</option> --}}
                                              @endforeach
@@ -107,6 +107,7 @@
                                     <div class="card-header">
                                         <div class="card-options">
                                             <a href="{{ route('checkout.factura') }}" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
+                                            {{-- <a id="generar_factura" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a> --}}
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -132,22 +133,16 @@
                                         </div>
                                         <div class="table-responsive push">
                                             <table class="table table-bordered table-hover">
-                                                <tbody><tr>
+                                                <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th>Procedimiento</th>
                                                     <th class="text-center" style="width: 1%">cantidad</th>
                                                     <th class="text-right" style="width: 1%">Unidad</th>
                                                     <th class="text-right" style="width: 1%">Costo total</th>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>
-                                                        <p class="font600 mb-1" id="procedimiento">Logo Creation</p>
-                                                    </td>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-right" id="cantidad"></td>
-                                                    <td class="text-right" id="dni"></td>
-                                                </tr>
+                                                </tbody>
+                                                <tbody id="columna">
+                                                 
+                                                </tbody>                                                
                                                 <tr>
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right">$25.000,00</td>
@@ -156,7 +151,7 @@
                                                     <td colspan="4" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right">$30.000,00</td>
                                                 </tr>
-                                            </tbody></table>
+                                            </table>
                                         </div>
                                         
                                     </div>
@@ -176,21 +171,25 @@
     <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
-    <script>
-               //Documento donde se insertara
-               $( document ).ready(function() {
-             
-             //llamando funcion definida en el html (search)
-                $("#search").click(function() {
-                    var dni = $("#dni").val();  //asignando el valor que se ingresa en el campo
-                    console.log(dni);           //mostrando en consola
-                    ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
-                });
-            
-     
 
-            // funcion que mando el valor que recibe a la ruta a la que se desea enviar
-            function ajax(dni) {
+    <script>
+    $('#select').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+    </script>
+
+
+    <script>
+        $(document).ready(function(){
+             $(".search").click(function() {
+            var dni = $("#dni").val();  //asignando el valor que se ingresa en el campo
+            console.log(dni);           //mostrando en consola
+            ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
+        });
+
+          function ajax(dni) {
                 $.ajax({ 
                         url: "{{ route('checkout.patient') }}",   //definiendo ruta
                         type: "POST",                             //definiendo metodo
@@ -200,7 +199,7 @@
                         }
                     })
                     .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                        console.log(data);
+                        console.log('esto',data.encontrado[0].person.dni);
                         if (data[0] == 202) {
                             Swal.fire({
                                 title: 'Error!',
@@ -222,56 +221,43 @@
                         console.log(data);
                     })
             }
-
             function disabled(data) {
-            $('#dnii').text(data.encontrado.person.dni); 
-            $('#name').text(data.encontrado.person.name);
-            $('#lastname').text(data.encontrado.person.lastname);
-            $('#phone').text(data.encontrado.person.phone);
-            $('#dniiD').text(data.encontrado.employe.person.dni); 
-            $('#nameD').text(data.encontrado.employe.person.name);
-            $('#lastnameD').text(data.encontrado.employe.person.lastname);
-            $('#phoneD').text(data.encontrado.employe.person.phone);
+                $('#dnii').text(data.encontrado[0].person.dni); 
+                $('#name').text(data.encontrado[0].person.name);
+                $('#lastname').text(data.encontrado[0].person.lastname);
+                $('#phone').text(data.encontrado[0].person.phone);
+                $('#dniiD').text(data.encontrado[0].employe.person.dni); 
+                $('#nameD').text(data.encontrado[0].employe.person.name);
+                $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
+                $('#phoneD').text(data.encontrado[0].employe.person.phone);
 
-            $('#procedimiento').text(data.person.name);
-            $('#cantidad').text(data.person.dni);
-        }
-            });
-
+                $('#procedimiento').text(data.person.name);
+                $('#cantidad').text(data.person.dni);
+            }
         
 
-   
-        </script>
-
-<script>
-$('#select').multiselect({
-    enableFiltering: true,
-    enableCaseInsensitiveFiltering: true,
-    maxHeight: 200
-});
-</script>
-
-<script>
-        $(document).ready(function(){
           $("#select").change(function(){
-            var categoria = $(this).val();
-            console.log(categoria)
-            //  $('#hola').text(categoria); 
+            var procedure_id = $(this).val(); // este el valor que se enviara al metodo de crear factura 
+            console.log(procedure_id);
+            console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
       
-      
-            $.get('productByCategory/'+categoria, function(data){
-      //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-              console.log(data);
-                var producto_select = '<option value="">Seleccione Porducto</option>'
-                  for (var i=0; i<data.length;i++)
-                    producto_select+='<option value="'+data[i].id+'">'+data[i].nombre_producto+'</option>';
-      
-                  $("#campanas").html(producto_select);
+            $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
+              //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
+              console.log('datos',data.procedure.name);
+                // var producto_select = '<option value="">Seleccione Porducto</option>'
+                //   for (var i=0; i<data.length;i++)
+                    procedure_select='<tr><td>'+data.procedure.name+'</td>'+'<td>'+2+'</td>'+'<td>'+1+'</td>'+'<td>'+1+'</td>'+'<td>'+data.procedure.price+'</td></tr>';
+                    console.log('procedimiento seleccionado',procedure_select);
+                // array[]= procedure_select;
+                // console.log(array);
+                  $("#columna").append(procedure_select);
       
             });
           });
         });
       </script>
+
+
 
             {{-- <script>
     $(document).ready(function() {

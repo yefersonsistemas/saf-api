@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        Route::get('surgery/previous', 'InController@surgery_previous')->name('surgery.previous');
+        // Route::post('status', 'InController@status')->name('checkin.status');
         //Route::POST('file/{id}', 'InController@exams_previos')->name('checkin.exams');
        // Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
        
@@ -59,6 +61,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');  // generar factura
         Route::post('search/patient','OutController@search_patient')->name('checkout.patient'); //buscar paciente
         Route::get('factura', 'OutController@create_factura')->name('checkout.factura');  // mostrar factura
+
+        Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
      
 
     });

@@ -79,9 +79,6 @@
                     <li class="nav-item col-md-2">
                         <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-suspendidas" aria-selected="false">Suspendidas</a>
                     </li>
-                    {{-- <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-azuloscuro" id="pills-pendientes-tab" data-toggle="pill" href="#pills-pendientes" role="tab" aria-controls="pills-pendientes" aria-selected="false">Pendientes</a>
-                    </li> --}}
                 </ul>
             </div>
             <div class="tab-content" id="pills-tabContent">
@@ -417,72 +414,6 @@
                         </div>
                     </div> 
                 </div> 
-                {{-- <div class="tab-pane fade" id="pills-pendientes" role="tabpanel" aria-labelledby="pills-pendientes-tab">
-                    <div class="col-lg-12">
-                        <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cedula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Esepcialidad</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                        <th>Historia</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cedula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Esepcialidad</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                        <th>Historia</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    @foreach ($pendientes as $reservation)
-                                        <tr>
-                                            <td>
-                                                @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                @else
-                                                <img src="" alt="" >
-                                                @endif
-                                            </td>
-                                            <td>{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td>{{ $reservation->person->name }}</td>
-                                            <td>{{ $reservation->speciality->name }}</td>
-                                            <td><span class="badge badge-secondary" style="background-color: #00506b;">{{ $reservation->status }}</span></td>
-                                            <td style="display: inline-block">
-                                                <a href="" class="btn btn-success">A</a>
-                                                <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
-                                            </td>
-                                            <td>
-                                                @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
-                                                @else
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-                </div>                    --}}
             </div>
         </div>
     </div>

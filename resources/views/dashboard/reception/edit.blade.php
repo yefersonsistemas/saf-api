@@ -114,6 +114,9 @@
 @endsection
 
 @section('scripts')
+
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+
     <script>
 
         $('#newMedic').click(function() {
@@ -129,6 +132,7 @@
 
         $("#doctor").change(function() {
             var doctor = $(this).val();
+            alert('ad');
             ajaxMedico(doctor);
         });
 
