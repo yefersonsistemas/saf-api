@@ -121,6 +121,12 @@ class InController extends Controller
         return redirect()->back();
     }
 
+    public function guardar(Request $request)
+    {
+        $disease = $request->input('disease[]');
+        dd($disease);
+    }
+
     public function surgery_previous(Request $request)
     {
           $patient = Patient::find($request->id)->first();
