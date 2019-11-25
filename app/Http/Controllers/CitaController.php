@@ -261,7 +261,8 @@ class CitaController extends Controller
             $cite->save();
             Cite::create([
                 'reservation_id'    =>  $cite->id,
-                'reason'            =>  $request->motivo,
+                'reason'            =>  $request->reason,
+                'branch_id'         =>  1,
             ]);
             Alert::success('Cita actualizada exitosamente');
             return redirect()->route('citas.index');

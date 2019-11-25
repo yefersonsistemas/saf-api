@@ -18,13 +18,13 @@
         <div class="card-body">
             <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3>
             <div style="margin-bottom:12px">
-                <a class="btn btn-primary" href="">Editar datos paciente <i class="fa fa-vcard"></i></a>
+                <a class="btn btn-primary" id="EditPatient" href="#">Editar datos paciente <i class="fa fa-vcard"></i></a>
             </div>
             <div class="row">
                 <div class="col-sm-6 col-md-1">
                     <div class="form-group">
                         <label class="form-label">Tipo DNI</label>
-                        <select name="type_dni" disabled class="form-control" id="">
+                        <select name="type_dni" disabled class="form-control" id="type_dni">
                             <option {{ ($reservation->patient->type_dni == 'V' ? 'selected' :'') }} value="V">V</option>
                             <option {{ ($reservation->patient->type_dni == 'E' ? 'selected' :'') }} value="E">E</option>
                             <option {{ ($reservation->patient->type_dni == 'J' ? 'selected' :'') }} value="J">J</option>
@@ -34,37 +34,38 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group">
                         <label class="form-label">DNI</label>
-                        <input type="number" name="type_dni" disabled class="form-control" value="{{ $reservation->patient->dni }}">
+                        <input type="number" name="dni" id="dni" disabled class="form-control" value="{{ $reservation->patient->dni }}">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="name" disabled="" value="{{ $reservation->patient->name }}">
+                        <input type="text" class="form-control" name="name"
+                        id="name" disabled="" value="{{ $reservation->patient->name }}">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
                         <label class="form-label">Apellido</label>
-                        <input type="text" disabled class="form-control" name="lastname" placeholder="Username" value="{{ $reservation->patient->lastname }}">
+                        <input type="text" disabled class="form-control" id="lastname" name="lastname" placeholder="Username" value="{{ $reservation->patient->lastname }}">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6">
                     <div class="form-group">
                         <label class="form-label">Correo Electrónico</label>
-                        <input type="email" disabled class="form-control" name="email" placeholder="Email" value="{{ $reservation->patient->email }}">
+                        <input type="email" disabled class="form-control" id="email" name="email" placeholder="Email" value="{{ $reservation->patient->email }}">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6">
                     <div class="form-group">
                         <label class="form-label">Teléfono</label>
-                        <input type="text" disabled name="phone" class="form-control" value="{{ $reservation->patient->phone }}">
+                        <input type="text" disabled id="phone" name="phone" class="form-control" value="{{ $reservation->patient->phone }}">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-12">
                     <div class="form-group">
                         <label class="form-label">Dirección</label>
-                        <input type="text" disabled name="address" class="form-control" value="{{ $reservation->patient->address }}">
+                        <input type="text" disabled id="address" name="address" class="form-control" value="{{ $reservation->patient->address }}">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -128,6 +129,16 @@
 <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
 
     <script>
+
+        $('#EditPatient').click(function() {
+            $('#type_dni').removeAttr('disabled');
+            $('#dni').removeAttr('disabled');
+            $('#name').removeAttr('disabled');
+            $('#lastname').removeAttr('disabled');
+            $('#address').removeAttr('disabled');
+            $('#email').removeAttr('disabled');
+            $('#phone').removeAttr('disabled');
+        });
 
         $('#newMedic').click(function() {
             $('#speciality').removeAttr('disabled');
