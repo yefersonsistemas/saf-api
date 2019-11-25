@@ -17,7 +17,7 @@ class CreateItineraryTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employe_id');
-            $table->json('procedure_id');
+            $table->unsignedBigInteger('procedure_id');
             $table->unsignedBigInteger('surgery_id');
             $table->unsignedBigInteger('exam_id');
             $table->unsignedBigInteger('recipe_id');
