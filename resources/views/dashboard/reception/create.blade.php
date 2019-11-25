@@ -307,7 +307,7 @@
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
                 // $('#medicos').append('<div class="col-sm-4"> <div class="card" style="width: 18rem;"> <img src="{{ Storage::url(' + data[i].employe[j].image.path + ') }}" class="card-img-top" alt="..."> <div class="card-body"> <h5 class="card-title">' + data[i].employe[j].person.name + '</h5><a href="#" class="btn btn-primary"><input type="radio" name="doctor" value="' + data[i].employe[j].id + '" id=""></a> </div> </div> </div>');
-                $('#medicos').append('<div class="col-6 col-sm-4"><label class="imagecheck mb-3"><div class="card max-card text-center"><div class="card-header text-center "><input type="radio" name="speciality" value="' + data[i].employe[j].id + '" id="" class="imagecheck-input"><figure class="imagecheck-figure border-0"><img src="'+data[i].employe[j].image.path+'" alt="" class="imagecheck-image max-img"></figure></div><div class="card-body"><h5 class="card-title">' + data[i].employe[j].person.name + ' '+data[i].employe[j].person.lastname+' </h5></div></div></label></div>');
+                $('#medicos').append('<div class="col-6 col-sm-4"><label class="imagecheck mb-3"><div class="card max-card text-center"><div class="card-header text-center "><input type="radio" name="speciality" value="' + data[i].employe[j].id + '" id="" class="imagecheck-input"><figure class="imagecheck-figure border-0"><img src="/storage/'+data[i].employe[j].image.path+'" alt="" class="imagecheck-image max-img"></figure></div><div class="card-body"><h5 class="card-title">' + data[i].employe[j].person.name + ' '+data[i].employe[j].person.lastname+' </h5></div></div></label></div>');
             }
         }
     }
