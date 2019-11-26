@@ -22,4 +22,10 @@ class Allergy extends Model //alergia
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function patient()
+    {
+        return $this->belongsToMany('App\Patient','allergy_patient')
+                      ->withPivot('patient_id','id');
+    }
 }

@@ -89,11 +89,11 @@ class OutController extends Controller
     //============================ buscanco paciente ============================
     public function search_patient(Request $request){
 
-        $person = Person::with('reservation')->where('dni', $request->dni)->first();
+        $person = Person::where('dni', $request->dni)->first();
         // dd($person->id);
         //   $all = collect([]);
         $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->get();
-        // dd($encontrado);
+        dd($encontrado);
 
         //    foreach ($encontrado->procedure as $proce) {
         //     $procedures[] = $proce->name;
@@ -118,23 +118,23 @@ class OutController extends Controller
     }
 
 
-        //============================ buscando procedimiento ============================
-        public function search_procedure($procedure_id){
+    //============================ buscando procedimiento ============================
+    public function search_procedure($procedure_id){
 
-            // dd($procedure_id);
-            $data_procedure = Procedure::where('id', $procedure_id)->first();
-            // dd($procedure);
-     
-            if (!is_null($data_procedure)) {
-                return response()->json([
-                    'procedure' => $data_procedure,201
-                ]);
-            }else{
-                return response()->json([
-                    'message' => 'No encontrado',202
-                ]);
-            }
+        // dd($procedure_id);
+        $data_procedure = Procedure::where('id', $procedure_id)->first();
+        // dd($data_procedure);
+    
+        if (!is_null($data_procedure)) {
+            return response()->json([
+                'procedure' => $data_procedure,201
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',202
+            ]);
         }
+    }
 
 
      //============================ crear factura ============================
