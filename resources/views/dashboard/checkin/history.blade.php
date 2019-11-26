@@ -233,8 +233,8 @@
                         <label class="form-label">Enfermedades</label>
                         <div class="form-group multiselect_div">
                             <select id="multiselect4-filter" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
-                                @foreach ($disease as $item)
-                                    <option value= {{ $item->name }}>{{ $item->name }}</option>
+                                @foreach ($disease as $enfermedades)
+                                    <option value= {{ $enfermedades->id }}>{{ $enfermedades->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -244,8 +244,8 @@
                         <label class="form-label">Medicamentos</label>
                         <div class="form-group multiselect_div">
                             <select id="multiselect4-filter2" name="multiselect2[]" class="multiselect multiselect-custom " multiple="multiple" >
-                                @foreach ($medicine as $item)
-                                    <option value= {{ $item->name }}>{{ $item->name }}</option>
+                                @foreach ($medicine as $medicamentos)
+                                    <option value= {{ $medicamentos->id }}>{{ $medicamentos->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -255,8 +255,8 @@
                         <label class="form-label">Alergias</label>
                         <div class="form-group multiselect_div">
                             <select id="multiselect4-filter3" name="multiselect3[]" class="multiselect multiselect-custom" multiple="multiple" >
-                                @foreach ($allergy as $item)
-                                    <option value= {{ $item->name }}>{{ $item->name }}</option>
+                                @foreach ($allergy as $alergias)
+                                    <option value= {{ $alergias->id }}>{{ $alergias->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -322,7 +322,7 @@
                             <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
                         </div>
 
-                         <div>
+                        <div>
                             <label class="m-0 form-label">Razon de la cita:</label>
                             <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
                         </div>
@@ -332,7 +332,7 @@
         </div>
 
             {{-- <a href="" class="btn btn-primary">Guardar</a> --}}
-        <button type="submit" class="btn btn-primary "> Guardar</button>
+        <button type="submit" class="btn btn-primary"> Guardar</button>
     </form>
 </div>
 @endsection
@@ -365,16 +365,36 @@
     });
     </script>
 
+    <script>
+        // para el select de las enfermedades
+        $("#multiselect4-filter").change(function(){
+            var disease_id = $(this).val();     // Capta el id de la enfermeda 
+            console.log('enfermedad', disease_id); 
+            console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            });
+
+            // para el select de las alergias
+            $("#multiselect4-filter3").change(function(){
+            var allergy_id = $(this).val();     // Capta el id de la alergia 
+            console.log('alergia', allergy_id);
+            console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            });
+
+                // para el select de las medicamentos
+        $("#multiselect4-filter2").change(function(){
+            var medicine_id = $(this).val(); // Capta el id del medicamento 
+            console.log('medicamento', medicine_id);
+            console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            });
+    </script>
+
     {{-- <script>
 
-    $('#exampleModal').on('show.bs.modal', function (event) {
-          
+    // $('#exampleModal').on('show.bs.modal', function (event) {
 
-         
+    //     });
 
-        });
-
-    </script> --}}
+    </script>  --}}
 
 
 

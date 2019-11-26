@@ -19,7 +19,7 @@ class AllergyTableSeeder extends Seeder
 
         factory(Allergy::class, 20)->create()->each(function ($allergy) { 
             $patients = Patient::with('diagnostic')->get();  
-                       
+
             $patients = $patients->each(function ($patient) { 
                 return $patient->diagnostic('patient_id'); 
             });

@@ -183,13 +183,13 @@
 
     <script>
         $(document).ready(function(){
-             $(".search").click(function() {
+            $(".search").click(function() {
             var dni = $("#dni").val();  //asignando el valor que se ingresa en el campo
             console.log(dni);           //mostrando en consola
             ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
         });
 
-          function ajax(dni) {
+            function ajax(dni) {
                 $.ajax({ 
                         url: "{{ route('checkout.patient') }}",   //definiendo ruta
                         type: "POST",                             //definiendo metodo
@@ -236,26 +236,26 @@
             }
         
 
-          $("#select").change(function(){
+            $("#select").change(function(){
             var procedure_id = $(this).val(); // este el valor que se enviara al metodo de crear factura 
             console.log(procedure_id);
             console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-      
+
             $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
               //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-              console.log('datos',data.procedure.name);
+                console.log('datos',data.procedure.name);
                 // var producto_select = '<option value="">Seleccione Porducto</option>'
                 //   for (var i=0; i<data.length;i++)
                     procedure_select='<tr><td>'+data.procedure.name+'</td>'+'<td>'+2+'</td>'+'<td>'+1+'</td>'+'<td>'+1+'</td>'+'<td>'+data.procedure.price+'</td></tr>';
                     console.log('procedimiento seleccionado',procedure_select);
                 // array[]= procedure_select;
                 // console.log(array);
-                  $("#columna").append(procedure_select);
-      
+                $("#columna").append(procedure_select);
+
+                });
             });
-          });
         });
-      </script>
+    </script>
 
 
 
