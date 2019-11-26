@@ -42,10 +42,10 @@
                                 <a href="{{ route('checkin.create') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Asignar Consultorio</span></a>
                             </li>
                         </li>
-                        <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
+                        {{-- <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
                         <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                         <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
-                        <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
+                        <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li> --}}
                         @endrole
                         
                         

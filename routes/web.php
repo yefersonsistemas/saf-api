@@ -47,8 +47,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
-        Route::get('surgery/previous', 'InController@surgery_previous')->name('surgery.previous');
-        Route::POST('save', 'InController@guardar')->name('save.history');
+        Route::post('surgery/previous', 'InController@guardar')->name('surgery.previous');
+       // Route::POST('save', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
         //Route::POST('file/{id}', 'InController@exams_previos')->name('checkin.exams');
        // Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');

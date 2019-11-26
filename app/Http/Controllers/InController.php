@@ -81,7 +81,7 @@ class InController extends Controller
 
     public function search_history(Request $request){  //busca historia para la lista de in
         $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
-                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();+
 
         $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
         //dd($cites);
@@ -92,6 +92,24 @@ class InController extends Controller
         $allergy = Allergy::get();
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
+    }
+
+    public function guardar(Request $request)
+    {
+          $patient = Patient::where('id', $request->patient_id)->first();
+          dd($patient);
+
+          if (!is_null($patient)) {
+          
+            $patient->surgery_previous = $request->surgery_previous;
+            $patient->save();
+        }else{
+            Alert::error('No se guardo la cirugía');
+            return redirect()->back();
+        }
+
+        Alert::success('Cirugía agregada');
+        return redirect()->back();
     }
 
     public function statusIn($registro)
@@ -127,28 +145,7 @@ class InController extends Controller
 
     }
 
-    public function guardar(Request $request)
-    {
-        $disease = $request->input('disease[]');
-        dd($disease);
-    }
-
-    public function surgery_previous(Request $request)
-    {
-          $patient = Patient::find($request->id)->first();
-
-          if (!empty($patient->surgery_previous)) {
-          
-            $patient->surgery_previous = $request->urgery_previous;
-            $patient->save();
-        }else{
-            Alert::error('No se guardo la cirugía');
-            return redirect()->back();
-        }
-
-        Alert::success('Cirugía agregada');
-        return redirect()->back();
-    }
+  
     
     public function status(Request $request)
     {

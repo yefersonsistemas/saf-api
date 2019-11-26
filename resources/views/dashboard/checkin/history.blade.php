@@ -74,7 +74,7 @@
             </div>
         </div>
     
-        <form action="{{ route('save.history') }}" method='POST' class="card p-4">
+        <form action="" method='POST' class="card p-4">
             @csrf
             <div class="card p-4">
                 <h5 class="text-center">Información personal</h5>
@@ -280,19 +280,24 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Agregar Cirugias</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Agregar Cirugias </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form method="POST" action="">
+                                    <form method="POST" action="{{ route('surgery.previous') }}" >
                                         @csrf
+                                        {{-- @foreach ($rs as $r) --}}
+                                            
                                         <div class="modal-body">
-                                            <textarea id="cirugia" name="cirugia" cols="63" rows="5"></textarea>
+                                            <input type="hidden" style="color:#fff; background:brown" name="patient_id" class="patient_id">
+                                            <label for="message-text" class="col-form-label">Nombre de la cirugía:</label>
+                                            <textarea class="letras" id="message-text" name="cirugia" cols="63" rows="5">{{ $rs->patient->historyPatient->previous_surgery  }}</textarea>
                                         </div>
+                                        {{-- @endforeach --}}
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                                            <button type="button" id="guardar" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="submit btn btn-success">Guardar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -365,16 +370,21 @@
     });
     </script>
 
-    {{-- <script>
+    <script>dse
+            var button = $(event.relatedTarget); // boton que dispara el modal
+            var recipient = button.data('whatever'); // extrae los datos
+            var id  = button.data('id');
 
-    $('#exampleModal').on('show.bs.modal', function (event) {
-          
-
-         
-
+            var modal = $(this);
+            modal.find('.modal-title').text(recipient);
+            insertDates(id);
         });
 
-    </script> --}}
+        function insertDates(id){
+            $('#patient_id').val(id);
+        }
+
+    </script>
 
 
 
