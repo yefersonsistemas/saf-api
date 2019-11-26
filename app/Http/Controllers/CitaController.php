@@ -44,7 +44,7 @@ class CitaController extends Controller
 
     public function index()
     {
-        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
+        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
 
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
 
@@ -267,6 +267,50 @@ class CitaController extends Controller
             Alert::success('Cita actualizada exitosamente');
             return redirect()->route('citas.index');
         }
+    }
+
+    public function createHistory($id)
+    {
+        $person = Person::find($id);
+        $fecha = Carbon::now()->format('Y-m-d');
+        return view('dashboard.reception.history', compact('person','fecha'));
+    }
+
+    public function storeHistory($id, Request $request)
+    {
+        $person = Person::find($id);
+        $data = $request->validate([
+            'date'          =>  'required',
+            'reason'        =>  'required',
+            'gender'        =>  'required',
+            'place'         =>  'required',
+            'birthdate'     =>  'required',
+            'weight'        =>  'required',
+            'occupation'    =>  'required',
+            'profession'    =>  'required',
+            'email2'        =>  'nullable',
+            'phone2'        =>  'nullable'
+        ]);
+
+        $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
+
+        dd($data);
+
+        $patient = Patient::create([
+            'date'          =>  Carbon::create($data['date']),
+            'reason'        =>  $data['reason'],
+            'gender'        =>  $data['gender'],
+            'age'           =>  $age,
+            'person_id'     =>  $person->id,
+            'place'         =>  $data['place'],
+            'birthdate'     =>  Carbon::create($data['birthdate']),
+            'weight'        =>  $data['weight'],
+            'occupation'    =>  $data['occupation'],
+            'profession'    =>  $data['profession'],
+            'employe_id'    =>  '',
+            'branch_id'     =>  1,
+
+        ]);
     }
 
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar

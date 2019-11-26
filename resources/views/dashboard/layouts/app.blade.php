@@ -34,6 +34,13 @@
 <script src={{ asset("vendor\sweetalert\sweetalert.all.js") }}></script>
 <script src={{ asset("assets\js\core.js") }}></script>
 <script src={{ asset("assets\js\page\index.js") }}></script>
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+<script>
+    $('.datepicker-reception').datepicker({
+        todayHighlight: true
+    });
+</script>
+
 @yield('scripts')
 </body>
 </html>

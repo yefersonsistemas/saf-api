@@ -1,3 +1,6 @@
+
+
+
 <div id="left-sidebar" class="sidebar">
     <div class="container">
         <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[0]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
@@ -17,6 +20,17 @@
                     <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                     <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
                     <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
+
+                    {{-- <div class="col-lg-2 col-md-2"> --}}
+                        <div class="card bg-indigo" style="background-color: #00506b;">
+                            <div class="card-header">
+                                <h3 class="card-title text-white">Fechas</h3>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="inline-datepicker datepicker-reception fill_bg"></div>
+                            </div>
+                        </div>
+                    {{-- </div> --}}
                 @endrole
 
 
@@ -132,14 +146,14 @@
                     
                     
                     
-                    @role('OUT')
-                <li class="g_heading">Checkout</li>
-                <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
-                <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="icon-home"></i><span>Cirugias</span></a></li>                        
-             
-                <li><a href="{{ route('checkout.facturacion') }}"><i class="icon-calendar"></i><span>Facturación</span></a></li><br><br>
-                <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
-                 @endrole
+                @role('OUT')
+                    <li class="g_heading">Checkout</li>
+                    <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="icon-home"></i><span>Cirugias</span></a></li>                        
+                
+                    <li><a href="{{ route('checkout.facturacion') }}"><i class="icon-calendar"></i><span>Facturación</span></a></li><br><br>
+                    <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
+                @endrole
                   
     
                 

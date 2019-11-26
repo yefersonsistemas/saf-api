@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
+        Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
+        Route::post('patient/create/{patien}','CitaController@storeHistory')->name('patients.store');
     });
 
      //======================= rutas para el usuario ckeckin ====================
