@@ -20,6 +20,7 @@ use App\Medicine;
 use App\Reservation;
 use App\Patient;
 use App\Allergy;
+use App\Cite;
 use RealRashid\SweetAlert\Facades\Alert;
 
 //use App\Http\Controllers\CitaController;
@@ -34,7 +35,7 @@ class InController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         
         // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
@@ -45,7 +46,7 @@ class InController extends Controller
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
        
-
+        // dd($reservations->first()->patient->inputoutput->first());
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
@@ -86,9 +87,8 @@ class InController extends Controller
         //dd($cites);
 
         $disease = Disease::get();
-
+       
         $medicine = Medicine::get();
-
         $allergy = Allergy::get();
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
@@ -118,13 +118,24 @@ class InController extends Controller
             Alert::error('Paciente ya esta dentro');
             return redirect()->back();
          };
+
+          $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
+        //  dd($reservation->patient->inputoutput);
+     
         Alert::success('Paciente dentro');
         return redirect()->back();
+
+    }
+
+    public function guardar(Request $request)
+    {
+        $disease = $request->input('disease[]');
+        dd($disease);
     }
 
     public function surgery_previous(Request $request)
     {
-          $patient = Patient::find($id)->first();
+          $patient = Patient::find($request->id)->first();
 
           if (!empty($patient->surgery_previous)) {
           
@@ -147,8 +158,7 @@ class InController extends Controller
             'motivo'            =>  'required',
         ]);
 
-
-        $reservation = Reservation::find($data['reservation_id']);
+        $reservation = Reservation::where('id', $data['reservation_id'])->where('status', '!=', $data['type'])->first();
 
         if (!is_null($reservation)) {
             if($data['type'] == 'Suspendida'){
@@ -158,21 +168,39 @@ class InController extends Controller
                     'reason'            =>  $data['motivo'],
                     'branch_id'         => 1,
                 ]);
+                Alert::success('Cita suspendida exitosamente');
 
             }elseif ($data['type'] == 'Cancelada') {
+                if ($reservation->discontinued != null) {
+                    $reservation->discontinued = null;
+                }elseif ($reservation->approved != null) {
+                    $reservation->approved = null;
+                }
+
                 $cita = Cite::create([
                     'reservation_id'    =>  $data['reservation_id'],
                     'reason'            =>  $data['motivo'],
                     'branch_id'         => 1,
                 ]);
                 $reservation->cancel = Carbon::now();
+                Alert::success('Cita Cancelada exitosamente');
 
+            }elseif ($data['type'] == 'Aprobada') {
+                $reservation->approved = Carbon::now();
+                if ($reservation->discontinued != null) {
+                    $reservation->discontinued = null;
+                }
+
+                Alert::success('Cita Aprobada exitosamente');
             }
-
+            
             $reservation->status = $data['type'];
             $reservation->save();
 
-            return redirect()->route('ckeckin.index');
+            return redirect()->route('checkin.index');
+        }else{
+            Alert::error('No se puede '.$data['type'].' esta cita');
+            return redirect()->back();
         }
 
     }
@@ -186,8 +214,7 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = $request->validated();
-        // $employe = Employe::create($data);
+        
     }
 
     /**

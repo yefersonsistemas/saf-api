@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 
 Route::get('/home', function() {
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
+        Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
     });
 
      //======================= rutas para el usuario ckeckin ====================
@@ -46,10 +48,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
         Route::get('surgery/previous', 'InController@surgery_previous')->name('surgery.previous');
-        // Route::post('status', 'InController@status')->name('checkin.status');
+        Route::POST('save', 'InController@guardar')->name('save.history');
+        Route::post('status', 'InController@status')->name('checkin.status');
         //Route::POST('file/{id}', 'InController@exams_previos')->name('checkin.exams');
        // Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
-       
     });
 
     

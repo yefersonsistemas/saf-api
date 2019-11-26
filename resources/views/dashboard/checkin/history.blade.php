@@ -74,7 +74,8 @@
             </div>
         </div>
     
-        <form action="" class="card p-4">
+        <form action="{{ route('save.history') }}" method='POST' class="card p-4">
+            @csrf
             <div class="card p-4">
                 <h5 class="text-center">Información personal</h5>
                 <div class="row">
@@ -231,7 +232,7 @@
                     <div class="col-lg-6 col-md-3" id="framework_form">
                         <label class="form-label">Enfermedades</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                            <select id="multiselect4-filter" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
                                 @foreach ($disease as $item)
                                     <option value= {{ $item->name }}>{{ $item->name }}</option>
                                 @endforeach
@@ -242,7 +243,7 @@
                     <div class="col-lg-6 col-md-3" id="framework_form2">
                         <label class="form-label">Medicamentos</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter2" name="multiselect4[]" class="multiselect multiselect-custom " multiple="multiple" >
+                            <select id="multiselect4-filter2" name="multiselect2[]" class="multiselect multiselect-custom " multiple="multiple" >
                                 @foreach ($medicine as $item)
                                     <option value= {{ $item->name }}>{{ $item->name }}</option>
                                 @endforeach
@@ -253,7 +254,7 @@
                     <div class="col-lg-6 col-md-3" id="framework_form3">
                         <label class="form-label">Alergias</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter3" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple" >
+                            <select id="multiselect4-filter3" name="multiselect3[]" class="multiselect multiselect-custom" multiple="multiple" >
                                 @foreach ($allergy as $item)
                                     <option value= {{ $item->name }}>{{ $item->name }}</option>
                                 @endforeach
@@ -331,7 +332,7 @@
         </div>
 
             {{-- <a href="" class="btn btn-primary">Guardar</a> --}}
-        <button type="submit" class="btn btn-primary start"> Guardar</button>
+        <button type="submit" class="btn btn-primary "> Guardar</button>
     </form>
 </div>
 @endsection
@@ -364,7 +365,7 @@
     });
     </script>
 
-    <script>
+    {{-- <script>
 
     $('#exampleModal').on('show.bs.modal', function (event) {
           
@@ -373,7 +374,7 @@
 
         });
 
-    </script>
+    </script> --}}
 
 
 
@@ -384,4 +385,3 @@
     $('#fileupload').fileupload();
 </script> --}}
 {{-- <script src="js/jquery.fileupload.js" type="text/javascript"></script> --}}
-
