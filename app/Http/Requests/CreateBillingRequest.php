@@ -24,11 +24,11 @@ class CreateBillingRequest extends FormRequest
     public function rules()
     {
         return [
-            'procedure_employe_id' => 'required',
-            'person_id' => 'required',
+            'employe_id' => 'required',
+            // 'person_id' => 'required',
             'patient_id' => 'required',
-            'type_payment_id' => 'required',
-            'type_currency' => 'required',
+            // 'type_payment_id' => 'required',
+            // 'type_currency' => 'required',
         ];
     }
 }

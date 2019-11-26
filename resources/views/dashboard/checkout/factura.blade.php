@@ -32,10 +32,14 @@
                                             <div class="col-6">
                                                 <p class="h4">Paciente</p>
                                                 <address>
-                                                V 26891162<br>
-                                                Kenwherly hernandez almario<br>
-                                                las velas yaritagua edo. yaracuy<br>
-                                                04247734195
+                                                
+                                                    {{-- @foreach ($itinerary as $item) --}}
+                                                    <span></span><br>
+                                                    <span id="name">Nombre</span><br>
+                                                    <span id="lastname">Apellido</span><br>
+                                                    <span id="phone"> Telefono</span><br>
+                                                    {{-- @endforeach --}}
+                                             
                                                 </address>
                                             </div>
                                             <div class="col-6 text-right">
