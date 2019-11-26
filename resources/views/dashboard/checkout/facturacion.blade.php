@@ -106,7 +106,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="card-options">
-                                            <a href="{{ route('checkout.factura') }}" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
+                                            <a id="factura" name="factura" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
                                             {{-- <a id="generar_factura" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a> --}}
                                         </div>
                                     </div>
@@ -182,65 +182,100 @@
 
 
     <script>
-        $(document).ready(function(){
-             $(".search").click(function() {
-            var dni = $("#dni").val();  //asignando el valor que se ingresa en el campo
-            console.log(dni);           //mostrando en consola
-            ajax(dni);                  // enviando el valor a la funcion ajax(darle cualquier nombre)
-        });
+    //================================ para poder acceder al documento html ===========================
+    $(document).ready(function(){
 
+        var id_patient;
+        var id_employe;
+            
+
+        // ==================== ejecuta cuando se clikea el boton de buscar =====================
+        $(".search").click(function() {
+            var dni = $("#dni").val();          //asignando el valor que se ingresa en el campo
+            console.log(dni);                   //mostrando en consola
+            ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+
+
+
+        //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
           function ajax(dni) {
                 $.ajax({ 
-                        url: "{{ route('checkout.patient') }}",   //definiendo ruta
-                        type: "POST",                             //definiendo metodo
-                        data: {
-                            _token: "{{ csrf_token() }}",         //valor que se envia
-                            dni: dni
-                        }
-                    })
-                    .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                        console.log('esto',data.encontrado[0].person.dni);
-                        if (data[0] == 202) {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Paciente no encontrado',
-                                type: 'error',
-                            })
-                            // enabled();
-                        }
-                        if (data[0] == 201) {
-                            Swal.fire({
-                                title: 'Excelente!',
-                                text:  'Paciente encontrado',
-                                type:  'success',
-                            })
-                            disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                        }
-                    })
-                    .fail(function(data) {
-                        console.log(data);
-                    })
-            }
-            function disabled(data) {
-                $('#dnii').text(data.encontrado[0].person.dni); 
-                $('#name').text(data.encontrado[0].person.name);
-                $('#lastname').text(data.encontrado[0].person.lastname);
-                $('#phone').text(data.encontrado[0].person.phone);
-                $('#dniiD').text(data.encontrado[0].employe.person.dni); 
-                $('#nameD').text(data.encontrado[0].employe.person.name);
-                $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
-                $('#phoneD').text(data.encontrado[0].employe.person.phone);
+                    url: "{{ route('checkout.patient') }}",   //definiendo ruta
+                    type: "POST",                             //definiendo metodo
+                    data: {
+                        _token: "{{ csrf_token() }}",        
+                        dni: dni                               //valor que se envia
+                    }
+                })
+                .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                    console.log('esto',data.encontrado[0].person.dni);
+                    console.log('arreglo', data.procedureS);
 
-                $('#procedimiento').text(data.person.name);
-                $('#cantidad').text(data.person.dni);
-            }
-        
+                    if (data[0] == 202) {                    //si no trae valores
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Paciente no encontrado',
+                            type: 'error',
+                        })
+                        
+                    }
+                    if (data[0] == 201) {                       //si no trae valores
+                        Swal.fire({
+                            title: 'Excelente!',
+                            text:  'Paciente encontrado',
+                            type:  'success',
+                        })
+                        disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                    }
+                })
+                .fail(function(data) {
+                    console.log(data);
+                })
+        } // fin de la funcion que busca datos del paciente/doctor/procedimientos
 
+
+
+        //================================== para porder mostrar en el documento html ==========================
+        function disabled(data) {
+
+            console.log('ken',data.procedureS);
+    
+            for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
+                console.log( data.procedureS[i].name)                 // arreglo de los procedimientos por paciente
+                procedure_select='<tr><td>'+data.procedureS[i].name+'</td>'+'<td>'+2+'</td>'+'<td>'+1+'</td>'+'<td>'+1+'</td>'+'<td>'+data.procedureS[i].price+'</td></tr>';
+                $("#columna").append(procedure_select);
+                }
+
+            // estas variables se usaran mas adelante para mostrar la factura generada
+            id_patient = data.encontrado[0].person.id;
+            id_employe = data.encontrado[0].employe.person.id; 
+            console.log(id_patient, id_employe);
+
+            // asignando valores a los campos con id en html 
+            $('#dnii').text(data.encontrado[0].person.dni); 
+            $('#name').text(data.encontrado[0].person.name);
+            $('#lastname').text(data.encontrado[0].person.lastname);
+            $('#phone').text(data.encontrado[0].person.phone);
+            $('#dniiD').text(data.encontrado[0].employe.person.dni); 
+            $('#nameD').text(data.encontrado[0].employe.person.name);
+            $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
+            $('#phoneD').text(data.encontrado[0].employe.person.phone);
+
+            $('#procedimiento').text(data.person.name);
+            $('#cantidad').text(data.person.dni);
+        } // fin de la funcion que muestra datos en el html
+    
+
+
+
+        //================================== para agregar procedimientos adicionales==========================
           $("#select").change(function(){
-            var procedure_id = $(this).val(); // este el valor que se enviara al metodo de crear factura 
+            var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
             console.log(procedure_id);
             console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
       
+            //ruta para buscar los datos segun procedimiento seleccionado
             $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
               //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
               console.log('datos',data.procedure.name);
@@ -253,21 +288,62 @@
                   $("#columna").append(procedure_select);
       
             });
-          });
-        });
+          }); // fin de la funcion para agregar procedimientos
+
+
+
+
+        //================================== para generar factura ==========================
+          $("#factura").click(function() {
+            console.log('hola ken',id_patient);
+            var patient_id = id_patient; 
+            var employe_id = id_employe; 
+             console.log('factura', patient_id, employe_id);
+          
+            ajax_factura(patient_id, employe_id);  // para guardar los datos de la factura
+            
+        }); // fin de generar factura
+
+
+
+        //============== guaardar datos del paciente/doctor/procedimientos de la factura =================
+        function ajax_factura(patient_id, employe_id) {
+            console.log('desde', patient_id, employe_id);
+                $.ajax({ 
+                        url: "{{ route('checkout.guardar_factura') }}",   //definiendo ruta
+                        type: "POST",                             //definiendo metodo
+                        data: {
+                            _token: "{{ csrf_token() }}",         //valor que se envia
+                            patient_id: patient_id,
+                            employe_id: employe_id,
+                        }
+                    })
+                    .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                       console.log(data.factura.employe_id);
+
+                       if (data[0] == 201) {
+                            // Swal.fire({
+                            //     title_:'hola',
+                            //     text: data.factura.employe_id,
+                            // })
+                            console.log('si')
+                                                    
+                        }else{
+                            // Swal.fire({
+                            //     text: 'no se pudo generar',
+                            // })
+                            console.log('no')
+                        }
+                    
+                    })
+                    .fail(function(data) {
+                        console.log(data);
+                    })
+            } // fin de la funcion que guarda datos
+
+
+        }); //fin del documento
       </script>
 
-
-
-            {{-- <script>
-    $(document).ready(function() {
-        $('#create-account-button').on('click', function(e) {
-            e.preventDefault();
-            var dataString = $('#create-account-form').serializeArray().JSON();
-            // alert('Datos serializados: '+dataString);
-            console.log(dataString);
-        }); 
-    });
-    </script> --}}
     
 @endsection
