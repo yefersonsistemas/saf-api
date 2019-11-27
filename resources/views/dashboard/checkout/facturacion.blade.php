@@ -16,11 +16,13 @@
 @section('title','Facturación')
 
 @section('content')
+<form action="{{ route('checkout.guardar_factura') }}" method="POST">
+        @csrf 
 <div class="section-body py-3">
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-lg-12">
-                    <form method="POST" action="">
+                    {{-- <form method="POST" action=""> --}}
                     <div class="card">
                         <div class="card-body row">
                         <div class="col-12">
@@ -88,7 +90,7 @@
                 </div>
                         </div>
                     </div>
-                    </form>
+                    {{-- </form> --}}
                 </div>
             </div>
         </div>
@@ -104,26 +106,29 @@
                         <div class="row clearfix">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-options">
-                                            <a id="factura" name="factura" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a>
-                                            {{-- <a id="generar_factura" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</a> --}}
-                                        </div>
-                                    </div>
+                                   
                                     <div class="card-body">
                                         <div class="row my-8">
                                             <div class="col-6">
                                                 <p class="h4">Paciente</p>
                                                 <address>
-                                               <span id="dnii"> Documento de Identidad</span><br>
+                                                                        
+                                                <!-----------------------Campos ocultoss---------------------->
+                                                <input id="procedure_id" type="hidden" name="procedure_id" value="" >
+                                                <input id="patient_id" type="hidden" name="patient_id" value="" >
+                                                <input id="employe_id" type="hidden" name="employe_id" value="" >
+                                                <!-------------------- fin de Campos ocultoss------------------>
+
+                                                <span id="dnii"> Documento de Identidad</span><br>
                                                 <span id="name">Nombre</span><br>
-                                               <span id="lastname">Apellido</span><br>
-                                               <span id="phone"> Telefono</span><br>
+                                                <span id="lastname">Apellido</span><br>
+                                                <span id="phone"> Telefono</span><br>
                                                 </address>
                                             </div>
                                             <div class="col-6 text-right">
                                                 <p class="h4">Doctor</p>
                                                 <address>
+                                                   
                                                     <span id="dniiD"> Documento de Identidad</span><br>
                                                     <span id="nameD">Nombre</span><br>
                                                     <span id="lastnameD">Apellido</span><br>
@@ -135,21 +140,23 @@
                                             <table class="table table-bordered table-hover">
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
-                                                    <th>Procedimiento</th>
-                                                    <th class="text-center" style="width: 1%">cantidad</th>
-                                                    <th class="text-right" style="width: 1%">Unidad</th>
-                                                    <th class="text-right" style="width: 1%">Costo total</th>
+                                                    <th colspan="4">Procedimiento</th>
+                                                    <th class="text-right" style="width: 4%">Costo</th>
                                                 </tbody>
+                                                
+
                                                 <tbody id="columna">
                                                  
                                                 </tbody>                                                
                                                 <tr>
+                                                    <th class="text-center width35"></th>
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
-                                                    <td class="text-right">$25.000,00</td>
+                                                    <td class="text-right" id="subtotal">0,00</td>
                                                 </tr>
                                                 <tr class="bg-info text-light">
+                                                    <th class="text-center width35"></th>
                                                     <td colspan="4" class="font700 text-right">Total a cancelar</td>
-                                                    <td class="font700 text-right">$30.000,00</td>
+                                                    <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -161,8 +168,13 @@
                     </div>
                 </div>                
             </div>
+            <div class="card-header">
+                    <div class="card-options">
+                        <button type="submit" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</button>
+                    </div>
+                </div>
         </div>
-
+<form>
 @endsection
 
 @section('scripts')
@@ -187,6 +199,8 @@
 
         var id_patient;
         var id_employe;
+        var costo_total=0;
+        var procedures_id=0;
             
 
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
@@ -218,7 +232,6 @@
                             text: 'Paciente no encontrado',
                             type: 'error',
                         })
-                        
                     }
                     if (data[0] == 201) {                       //si no trae valores
                         Swal.fire({
@@ -242,10 +255,12 @@
             console.log('ken',data.procedureS);
     
             for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
-                console.log( data.procedureS[i].name)                 // arreglo de los procedimientos por paciente
-                procedure_select='<tr><td>'+data.procedureS[i].name+'</td>'+'<td>'+2+'</td>'+'<td>'+1+'</td>'+'<td>'+1+'</td>'+'<td>'+data.procedureS[i].price+'</td></tr>';
+                costo_total += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
+                procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
+                console.log('proceduressss',procedures_id)
+                procedure_select='<tr><td></td><td colspan="4">'+data.procedureS[i].name+'<td>'+data.procedureS[i].price+'</td></tr>';
                 $("#columna").append(procedure_select);
-                }
+            }
 
             // estas variables se usaran mas adelante para mostrar la factura generada
             id_patient = data.encontrado[0].person.id;
@@ -253,6 +268,12 @@
             console.log(id_patient, id_employe);
 
             // asignando valores a los campos con id en html 
+            $('#patient_id').val(id_patient);
+            $('#employe_id').val(id_employe);
+            $('#procedure_id').val(procedures_id);
+
+            $('#costo_total').text(costo_total);
+            $('#subtotal').text(costo_total);
             $('#dnii').text(data.encontrado[0].person.dni); 
             $('#name').text(data.encontrado[0].person.name);
             $('#lastname').text(data.encontrado[0].person.lastname);
@@ -264,6 +285,8 @@
 
             $('#procedimiento').text(data.person.name);
             $('#cantidad').text(data.person.dni);
+
+       
         } // fin de la funcion que muestra datos en el html
     
 
@@ -278,69 +301,20 @@
             //ruta para buscar los datos segun procedimiento seleccionado
             $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
               //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-                console.log('datos',data.procedure.name);
-                // var producto_select = '<option value="">Seleccione Porducto</option>'
-                //   for (var i=0; i<data.length;i++)
-                    procedure_select='<tr><td>'+data.procedure.name+'</td>'+'<td>'+2+'</td>'+'<td>'+1+'</td>'+'<td>'+1+'</td>'+'<td>'+data.procedure.price+'</td></tr>';
-                    console.log('procedimiento seleccionado',procedure_select);
-                // array[]= procedure_select;
-                // console.log(array);
-                $("#columna").append(procedure_select);
+              console.log('datos',data.procedure.name);
 
-                });
+                    procedure_select='<tr><td></td><td colspan="4">'+data.procedure.name+'</td>'+'<td>'+data.procedure.price+'</td></tr>';
+                    console.log('procedimiento seleccionado',procedure_select);
+                    costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
+                    procedures_id = procedures_id +','+ (data.procedure.id); // guardarndo ids
+                
+                    console.log('ids',procedures_id);
+                    console.log(costo_total)
+                  $("#columna").append(procedure_select);
+                  $('#costo_total').text(costo_total);
+      
             });
           }); // fin de la funcion para agregar procedimientos
-
-
-
-
-        //================================== para generar factura ==========================
-          $("#factura").click(function() {
-            console.log('hola ken',id_patient);
-            var patient_id = id_patient; 
-            var employe_id = id_employe; 
-             console.log('factura', patient_id, employe_id);
-          
-            ajax_factura(patient_id, employe_id);  // para guardar los datos de la factura
-            
-        }); // fin de generar factura
-
-
-
-        //============== guaardar datos del paciente/doctor/procedimientos de la factura =================
-        function ajax_factura(patient_id, employe_id) {
-            console.log('desde', patient_id, employe_id);
-                $.ajax({ 
-                        url: "{{ route('checkout.guardar_factura') }}",   //definiendo ruta
-                        type: "POST",                             //definiendo metodo
-                        data: {
-                            _token: "{{ csrf_token() }}",         //valor que se envia
-                            patient_id: patient_id,
-                            employe_id: employe_id,
-                        }
-                    })
-                    .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                       console.log(data.factura.employe_id);
-
-                       if (data[0] == 201) {
-                            // Swal.fire({
-                            //     title_:'hola',
-                            //     text: data.factura.employe_id,
-                            // })
-                            console.log('si')
-                                                    
-                        }else{
-                            // Swal.fire({
-                            //     text: 'no se pudo generar',
-                            // })
-                            console.log('no')
-                        }
-                    
-                    })
-                    .fail(function(data) {
-                        console.log(data);
-                    })
-            } // fin de la funcion que guarda datos
 
 
         }); //fin del documento

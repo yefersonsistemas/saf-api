@@ -24,6 +24,7 @@ use App\TypeSurgery;
 use App\Surgery;
 use App\ClassificationSurgery;
 use App\Procedure;
+use App\Procedure_billing;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
@@ -92,34 +93,20 @@ class OutController extends Controller
     public function search_patient(Request $request){
 
         $person = Person::where('dni', $request->dni)->first();
-        // dd($person->id);
-          $all = collect([]);
-        // $procedure = Itinerary::with('procedure')->get();
-        // dd($procedure);
-
-        // $encode = json_encode($procedure->procedure);
-        // dd($encode);
-
+        $all = collect([]);
+     
         $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->get();
-
         $procedures = explode(',', $encontrado->last()->procedure_id);
-        // dd($encontrado->procedure_id);
-        // dd($procedures);
 
-           foreach ($encontrado as $proce) {
-            $procedures[] = $proce->procedure_id;
-            
+        foreach ($encontrado as $proce) {
+        $procedures[] = $proce->procedure_id;
         }
-        // dd($procedures);
-        // dd($procedures);
+   
         for ($i=0; $i < count($procedures)-1 ; $i++) { 
             $procedureS[] = Procedure::find($procedures[$i]);
         }
-
         $all->push($procedureS); 
-        // dd($proceduress);
-            // dd($proceduress[]);
-        
+  
 
         if (!is_null($encontrado)) {
             return response()->json([
@@ -171,59 +158,59 @@ class OutController extends Controller
     }
 
 
-     //============================ crear factura ============================
-    public function create_factura()
-    {
-        $tipo_moneda = TypeCurrency::all();
-        $tipo_pago = TypePayment::all();
-        return view('dashboard.checkout.factura', compact('tipo_pago', 'tipo_moneda'));
-    }
-
     //============================ guardar factura ============================
     public function guardar_factura(Request $request)
     {
-        // dd($request);
+        
         $tipo_moneda = TypeCurrency::all();
         $tipo_pago = TypePayment::all();
-        $patient_id = $request->patient_id;
-        $employe_id = $request->employe_id;
-        // dd($employe_id);
-        $itinerary = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $patient_id)->first();
-        dd($itinerary);
-        // dd($person_patient);
+        // dd($request);
+        $itinerary = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $request->patient_id)->first();
+        // $procedures = explode(',', $itinerary->last()->procedure_id-1);
 
-        // dd($employe_id);
+        // foreach ($itinerary as $proce) {
+        // $procedures[] = $proce->procedure_id+1;
+        // $crear_factura->attach($procedures);
+        // }
 
-        // if($patient_id && $employe_id){
+
+        if($request->patient_id && $request->employe_id){
         $crear_factura = Billing::create([
-            'patient_id'  => $patient_id,
-            'employe_id'     => $employe_id,
+            'patient_id'  => $request->patient_id,
+            'employe_id'     => $request->employe_id,
             'branch_id' => 1,
             ]);
 
-            return view('dashboard.checkout.factura', compact('itinerary','tipo_pago', 'tipo_moneda'));
-            // return response()->json([
-            //     'factura' => $crear_factura,201
-            // ]);
-            //  }else{
-            //     return response()->json([
-            //         'factura' => 'no se pudo crear la factura',202
-            //     ]);
-            //  }
-        // return view('dashboard.checkout.factura', compact('tipo_pago', 'tipo_moneda'));
+            $itinerary->procedure_id = $request->procedure_id;
+            $itinerary->save();
+     
+
+            return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','itinerary'));
+             }else{
+                return response()->json([
+                    'factura' => 202
+                ]);
+             }
     }
      
+       //============================ crear factura ============================
+       public function create_factura(Request $request)
+       {
+           $patient_id = $request->patient_id;
+           $employe_id = $request->employe_id;
+        //    dd($patient_id);
+           $tipo_moneda = TypeCurrency::all();
+           $tipo_pago = TypePayment::all();
+           
+           return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago'));
+       }
 
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {
-        // dd($id);
         $patient = InputOutput::where('person_id', $patient_id)->first();
-        // dd($patient);
         $p = Patient::where('person_id', $patient->person_id)->first();
-            // dd($p);
         $io = InputOutput::where('person_id', $p->person_id)->first();
-        //   dd($io);
 
         if (!empty($patient->inside) && empty($patient->outside)) {
           
