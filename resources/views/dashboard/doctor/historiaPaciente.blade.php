@@ -52,20 +52,18 @@
             </div>
             <div class="container">
                 <form class="">
-                    @foreach ($history as $number)
-                    
+                    {{-- @foreach ($history as $number) --}}
 
                     <div class="card">
                         <div class="card-header">
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-6">
-                                    <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Nro. Historia: <span class="badge badge-info p-2">
-                                            {{ $number->patient->historyPatient->history_number }}</span></h3>
+                                    <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Nro. Historia: <span class="badge badge-info p-2">{{ $history->patient->historyPatient->history_number }}</span></h3>
                                 </div>
                                 <div class="col-md-6 text-right">
                                     <a href="{{ route('doctor.crearDiagnostico') }}" class="btn btn-azuloscuro">Diagnostico</a>
                                     <a href="{{ route('doctor.crearRecipe') }}" class="btn btn-azuloscuro">Recipe</a>
-                                    <a href="{{ route('doctor.crearReferencia') }}" class="btn btn-azuloscuro">Referecia</a>
+                                    <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
                                 </div>
                             </div>
                         </div>
@@ -76,29 +74,29 @@
                                     </div>
                                     <div class="card-body d-flex flex-row align-items-center justify-content-between">
                                         <div class="text-center">
-                                            <img src="{{ Storage::url($number->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:150px">
+                                            <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:150px">
                                         </div>
                                         <div class="form-group">
-                                            <label class="m-0 form-label">Docuemento de identidad:</label>
+                                            <label class="m-0 form-label">Documento de identidad:</label>
                                             <div class="input-group ">
                                                     <div class="input-group-prepend">
                                                         <select name="type_dni" class="custom-select input-group-text border-0 bg-white" disabled="">
-                                                            <option value="{{ $number->patient->type_dni }}">
-                                                                {{ $number->patient->type_dni }}</option>
+                                                            <option value="{{ $history->patient->type_dni }}">
+                                                                {{ $history->patient->type_dni }}</option>
                                                         </select>
                                                     </div>
-                                                    <input type="text" class="form-control border-0 bg-white" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $number->patient->dni }}" name="dniP">
+                                                    <input type="text" class="form-control border-0 bg-white" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $history->patient->dni }}" name="dniP">
                                                 </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="m-0 form-label">Nombre:</label>
-                                            <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $number->patient->name }}" name="nameP">
+                                            <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->patient->name }}" name="nameP">
 
                                             
                                         </div>
                                         <div class="form-group">
                                             <label class="m-0 form-label">Apellido:</label>
-                                            <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $number->patient->lastname }}" name="lastnameP">
+                                            <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->patient->lastname }}" name="lastnameP">
                                         </div>
                                     </div>
                                 </div>
@@ -109,19 +107,19 @@
                                     <div class="card-body d-flex flex-row align-items-center justify-content-between">
                                         <div class="form-group col-md-2">
                                             <label class="m-0 form-label">Fecha:</label>
-                                            <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Proxima Cita" disabled="" value="{{ $number->date }}" name=proxCita>        
+                                            <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Proxima Cita" disabled="" value="{{ $history->date }}" name=proxCita>        
                                         </div>
                                         <div class="form-group col-md-3">
                                                 <label class="m-0 form-label">Medico Tratante:</label>
                                                 <div class="input-group d-flex flex-row align-items-center">
                                                     <label for="" class="m-0">Dr.(a) </label>
-                                                    <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $number->person->name }}" name="nameM">
-                                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $number->person->lastname }}" name="lastnameM">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                     <label class="m-0 form-label">Razon:</label>
-                                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $number->description }}" name="razon">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->description }}" name="razon">
                                                 </div>
                                     </div>
                                 </div>
@@ -135,29 +133,29 @@
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
                                                     <label class="form-label">Dirección:</label>
-                                                    <input type="text" class="form-control border-0 bg-white" disabled="" name="addressP" placeholder="dirección" value="{{ $number->patient->address }}">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" name="addressP" placeholder="dirección" value="{{ $history->patient->address }}">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
                                                     <label class="form-label">Correo:</label>
-                                                    <input type="emailP" class="form-control border-0 bg-white" disabled="" placeholder="Email" value="{{ $number->patient->email }}">
+                                                    <input type="emailP" class="form-control border-0 bg-white" disabled="" placeholder="Email" value="{{ $history->patient->email }}">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
                                                     <label class="form-label">Lugar de nacimiento</label>
-                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Lugar de Nacimiento" value="{{ $number->patient->historyPatient->place }}" name="place">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Lugar de Nacimiento" value="{{ $history->patient->historyPatient->place }}" name="place">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4 d-flex flex-row ">
                                                     <div class="form-group">
                                                             <label class="m-0 form-label">Fecha de nacimiento:</label>
-                                                            <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $number->patient->historyPatient->birthdate }}" name="birthdate">        
+                                                            <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $history->patient->historyPatient->birthdate }}" name="birthdate">        
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label class="form-label">Edad:</label>
-                                                            <input type="number" class="form-control border-0 bg-white" placeholder="Edad" disabled="" name="age" value="{{ $number->patient->historyPatient->age }}">
+                                                            <input type="number" class="form-control border-0 bg-white" placeholder="Edad" disabled="" name="age" value="{{ $history->patient->historyPatient->age }}">
                                                         </div>
                                             </div>
                                             <div class="col-md-5">
@@ -166,11 +164,11 @@
     
                                                             <div class="form-check ladymen p-0">
                                                                 <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
-                                                                    <input disabled type="radio" id="genero1" name="gender" class="form-check-input" {{ $number->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} value="Masculino">
+                                                                    <input disabled type="radio" id="genero1" name="gender" class="form-check-input" {{ $history->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} value="Masculino">
                                                                     <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
                                                                 </div>
                                                                 <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-                                                                    <input  disabled type="radio" id="genero2" name="gender" class="form-check-input"  {{ $number->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} value="Femenino">
+                                                                    <input  disabled type="radio" id="genero2" name="gender" class="form-check-input"  {{ $history->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} value="Femenino">
                                                                     <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
                                                                 </div>
                                                             </div>
@@ -196,7 +194,7 @@
                             <button type="submit" class="btn btn-primary">Update Profile</button>
                         </div>
                     </div>
-                    @endforeach
+                    {{-- @endforeach --}}
                 </form>
             </div>
         </div>

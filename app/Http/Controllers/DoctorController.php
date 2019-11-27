@@ -79,9 +79,9 @@ class DoctorController extends Controller
     {
 
         $history=Reservation::with('patient.historyPatient')->where('id',$id)
-        ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+        ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         // dd($history);
-     return view('dashboard.doctor.historiaPaciente', compact('history'));
+        return view('dashboard.doctor.historiaPaciente', compact('history'));
     }
 
     /**
