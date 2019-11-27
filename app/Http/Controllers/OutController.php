@@ -158,7 +158,6 @@ class OutController extends Controller
     }
 
 
-  
     //============================ guardar factura ============================
     public function guardar_factura(Request $request)
     {
@@ -167,12 +166,12 @@ class OutController extends Controller
         $tipo_pago = TypePayment::all();
         // dd($request);
         $itinerary = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $request->patient_id)->first();
-        $procedures = explode(',', $itinerary->last()->procedure_id-1);
+        // $procedures = explode(',', $itinerary->last()->procedure_id-1);
 
-        foreach ($itinerary as $proce) {
-        $procedures[] = $proce->procedure_id+1;
-        $crear_factura->attach($procedures);
-        }
+        // foreach ($itinerary as $proce) {
+        // $procedures[] = $proce->procedure_id+1;
+        // $crear_factura->attach($procedures);
+        // }
 
 
         if($request->patient_id && $request->employe_id){
@@ -184,19 +183,7 @@ class OutController extends Controller
 
             $itinerary->procedure_id = $request->procedure_id;
             $itinerary->save();
-            // dd($itinerary);
-
-         
-        
-        
-            // dd($procedure);
-          
-            
-            // $crear_billing = Procedure_billing::create([
-            //     'procedure_id'  => $request->procedure_id,
-            //      'billing_id'    => $crear_factura->id,
-            //     'branch_id' => 1,
-            //     ]);
+     
 
             return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','itinerary'));
              }else{
@@ -221,13 +208,9 @@ class OutController extends Controller
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {
-        // dd($id);
         $patient = InputOutput::where('person_id', $patient_id)->first();
-        // dd($patient);
         $p = Patient::where('person_id', $patient->person_id)->first();
-            // dd($p);
         $io = InputOutput::where('person_id', $p->person_id)->first();
-        //   dd($io);
 
         if (!empty($patient->inside) && empty($patient->outside)) {
           
