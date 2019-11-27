@@ -81,7 +81,7 @@ class InController extends Controller
 
     public function search_history(Request $request){  //busca historia para la lista de in
         $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
-                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();+
+                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
         $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
         //dd($cites);
@@ -96,20 +96,31 @@ class InController extends Controller
 
     public function guardar(Request $request)
     {
-          $patient = Patient::where('id', $request->patient_id)->first();
-          dd($patient);
+        //dd($request);
+        $person = Person::where('dni', $request->dni)->first();
+        //dd($person);
+         $patient = Patient::where('person_id', $person->id)->first();
+         //dd($patient);
+
 
           if (!is_null($patient)) {
           
-            $patient->surgery_previous = $request->surgery_previous;
-            $patient->save();
-        }else{
-            Alert::error('No se guardo la cirugía');
-            return redirect()->back();
+                $patient->update([
+                    'age'               => $request->age,
+                    'weight'            => $request->weight,
+                    'occupation'        => $request->occupation,
+                    'profession'        => $request->profession,
+                    'another_phone'     => $request->another_phone,
+                    'another_email'     => $request->another_email,
+                    'previous_surgery'  => $request->previous_surgery,
+                ]);
+
+            Alert::success('Guardado exitosamente');
+            return redirect()->route('checkin.index');
         }
 
-        Alert::success('Cirugía agregada');
-        return redirect()->back();
+
+        
     }
 
     public function statusIn($registro)
@@ -144,8 +155,6 @@ class InController extends Controller
         return redirect()->back();
 
     }
-
-  
     
     public function status(Request $request)
     {
