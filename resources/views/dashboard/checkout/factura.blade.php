@@ -33,22 +33,20 @@
                                                 <p class="h4">Paciente</p>
                                                 <address>
                                                 
-                                                    {{-- @foreach ($itinerary as $item) --}}
-                                                    <span></span><br>
-                                                    <span id="name">Nombre</span><br>
-                                                    <span id="lastname">Apellido</span><br>
-                                                    <span id="phone"> Telefono</span><br>
-                                                    {{-- @endforeach --}}
+                                                    <span>{{ $itinerary->person->dni }}</span><br>
+                                                    <span>{{ $itinerary->person->name }}</span><br>
+                                                    <span>{{ $itinerary->person->lastname }}</span><br>
+                                                    <span>{{ $itinerary->person->phone }}</span><br>
                                              
                                                 </address>
                                             </div>
                                             <div class="col-6 text-right">
                                                 <p class="h4">Doctor</p>
                                                 <address>
-                                                V 18263839<br>
-                                                Ysbelia Cariazo Yepez<br>
-                                                La moran<br>
-                                                04163570943
+                                                    <span>{{ $itinerary->employe->person->dni }}</span><br>
+                                                    <span>{{ $itinerary->employe->person->name }}</span><br>
+                                                    <span>{{ $itinerary->employe->person->lastname }}</span><br>
+                                                    <span>{{ $itinerary->employe->person->phone }}</span><br>
                                                 </address>
                                             </div>
                                         </div>

@@ -57,19 +57,20 @@ Route::group(['middleware' => 'auth'], function (){
     
     //======================= rutas para el usuario ckeckout ====================
     Route::group(['middleware' => ['role:OUT']], function () {
-        Route::get('ken', 'OutController@index')->name('checkout.index');  // mostrar pacientes del dia
-        Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');  // mostrar cirugias
+        Route::get('index', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
+        Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('cirugias/detalles/{id}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de cirugias
-        Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');  // generar factura
-        Route::post('search/patient','OutController@search_patient')->name('checkout.patient'); //buscar paciente
-        Route::get('factura', 'OutController@create_factura')->name('checkout.factura');  // mostrar factura
-        
-        Route::post('facturaG', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardar factura
-        
-        Route::get('procedure', 'OutController@create_procedure')->name('checkout.procedure');  // mostrar factura
-       
-
+        Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');           // para generar factura
+        Route::post('search/patient','OutController@search_patient')->name('checkout.patient');    // buscar paciente    
+        Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
+
+
+        Route::POST('factura', 'OutController@create_factura')->name('checkout.factura');           // mostrar factura
+        Route::get('procedure', 'OutController@create_procedure')->name('checkout.procedure');  // mostrar factura
+ 
+
+       
      
 
     });
