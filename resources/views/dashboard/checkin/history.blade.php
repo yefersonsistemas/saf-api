@@ -239,9 +239,9 @@
                     <div class="col-lg-6 col-md-3" id="framework_form">
                         <label class="form-label">Enfermedades</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
-                                @foreach ($disease as $item)
-                                    <option value= {{ $item->name }}>{{ $item->name }}</option>
+                            <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
+                                @foreach ($disease as $enfermedades)
+                                    <option value= {{ $enfermedades->id }}>{{ $enfermedades->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -250,9 +250,9 @@
                     <div class="col-lg-6 col-md-3" id="framework_form2">
                         <label class="form-label">Medicamentos</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter2" name="multiselect2[]" class="multiselect multiselect-custom " multiple="multiple" >
-                                @foreach ($medicine as $item)
-                                    <option value= {{ $item->name }}>{{ $item->name }}</option>
+                            <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
+                                @foreach ($medicine as $medicamentos)
+                                    <option value= {{ $medicamentos->id }}>{{ $medicamentos->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -261,9 +261,9 @@
                     <div class="col-lg-6 col-md-3" id="framework_form3">
                         <label class="form-label">Alergias</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter3" name="multiselect3[]" class="multiselect multiselect-custom" multiple="multiple" >
-                                @foreach ($allergy as $item)
-                                    <option value= {{ $item->name }}>{{ $item->name }}</option>
+                            <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
+                                @foreach ($allergy as $alergias)
+                                    <option value= {{ $alergias->id }}>{{ $alergias->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -299,7 +299,7 @@
                             <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
                         </div>
 
-                         <div>
+                        <div>
                             <label class="m-0 form-label">Razon de la cita:</label>
                             <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
                         </div>
@@ -320,7 +320,7 @@
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
     <script>
-    $('#multiselect4-filter').multiselect({
+    $('#disease').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -328,7 +328,7 @@
     </script>
 
     <script>
-    $('#multiselect4-filter2').multiselect({
+    $('#medicine').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -336,7 +336,7 @@
     </script>
 
     <script>
-    $('#multiselect4-filter3').multiselect({
+    $('#allergy').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -356,12 +356,33 @@
             $('#previous_surgery').removeAttr('disabled');
            
     });
+    </script>
 
-        // $('#agregar').click(function() {
-        //     $('#previous_surgery').removeAttr('disabled');
-        // });
-        
-      
+    <script>
+        // para el select de las enfermedades
+        $("#disease").change(function(){
+            var disease_id = $(this).val();     // Capta el id de la enfermedad 
+            console.log('enfermedad', disease_id); 
+            console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            });
+    </script>
+
+    <script>
+            // para el select de las alergias
+            $("allergy").change(function(){
+            var allergy_id = $(this).val();     // Capta el id de la alergia 
+            console.log('alergia', allergy_id);
+            console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            });
+    </script>
+
+    <script>
+                // para el select de las medicamentos
+        $("#medicine").change(function(){
+            var medicine_id = $(this).val(); // Capta el id del medicamento 
+            console.log('medicamento', medicine_id);
+            console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            });
     </script>
 
 @endsection

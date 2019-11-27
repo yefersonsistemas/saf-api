@@ -20,6 +20,7 @@
 <link rel="stylesheet" href={{ asset("assets\css\main.css") }}>
 <link rel="stylesheet" href={{ asset("assets\css\style.css") }}>
 {{-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"> --}}
+<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
 
 @yield('css')
 </head>

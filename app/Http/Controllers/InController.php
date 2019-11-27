@@ -99,8 +99,8 @@ class InController extends Controller
         //dd($request);
         $person = Person::where('dni', $request->dni)->first();
         //dd($person);
-         $patient = Patient::where('person_id', $person->id)->first();
-         //dd($patient);
+         $patient = Patient::with('disease', 'medicine', 'allergy')->where('person_id', $person->id)->first();
+         dd($patient);
 
 
           if (!is_null($patient)) {

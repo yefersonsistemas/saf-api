@@ -152,7 +152,7 @@
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
+                                                    <a href="{{ route('patients.generate', $reservation->patient) }}" class="btn btn-success">Generar</a>
                                                 @else
                                                     {{ $reservation->patient->historyPatient->history_number }}
                                                 @endif
@@ -213,7 +213,7 @@
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
+                                                    <a href="{{ route('patients.generate', $reservation->patient) }}" class="btn btn-success">Generar</a>
                                                 @else
                                                     {{ $reservation->patient->historyPatient->history_number }}
                                                 @endif
@@ -344,7 +344,7 @@
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
+                                                    <a href="{{ route('patients.generate', $reservation->patient) }}" class="btn btn-success">Generar</a>
                                                 @else
                                                     {{ $reservation->patient->historyPatient->history_number }}
                                                 @endif
@@ -405,7 +405,7 @@
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
+                                                    <a href="{{ route('patients.generate', $reservation->patient) }}" class="btn btn-success">Generar</a>
                                                 @else
                                                     {{ $reservation->patient->historyPatient->history_number }}
                                                 @endif
@@ -467,7 +467,7 @@
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
+                                                    <a href="{{ route('patients.generate', $reservation) }}" class="btn btn-success">Generar</a>
                                                 @else
                                                     {{ $reservation->patient->historyPatient->history_number }}
                                                 @endif
