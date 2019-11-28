@@ -20,7 +20,7 @@
                                     <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h2 class="card-title">Edit Profile</h2>
+                                                <h2 class="card-title">Datos del paciente</h2>
                                             </div>
                                             <div class="card-body ">
                                                 <div class="col-lg-4  col-md-6">
@@ -132,22 +132,22 @@
         
                             </section>
                             <h2>Motivo De La Consulta</h2>
-                            <section>
-                                <div class="col-md-12">
+                            <section class="container">
+                                <div class="col-md-9 m-auto ">
                                     <div class="form-group mb-0">
-                                        <label class="form-label">About Me</label>
-                                        <textarea rows="5" id="motivo" class="form-control" placeholder="Here can be your description"></textarea>
+                                        <label class="form-label">Motivo de la consula</label>
+                                        <textarea rows="5" id="motivo" class="form-control" placeholder="Motivo de la Consulta"></textarea>
                                     </div>
                                 </div>
                             </section>
                             <h2>Elegir Fecha</h2>
                             <section>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="card bg-indigo">
+                                <div class="col-md-6 m-auto">
+                                    <div class="card card-date">
                                         <div class="card-header">
-                                            <h3 class="card-title text-white">Inline Date Picker</h3>
+                                            <h3 class="card-title">Elegir fecha</h3>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mx-4">
                                             <div class="input-group">
                                                 <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker">
                                             </div>
@@ -326,7 +326,7 @@
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
                 // $('#medicos').append('<div class="col-sm-4"> <div class="card" style="width: 18rem;"> <img src="{{ Storage::url(' + data[i].employe[j].image.path + ') }}" class="card-img-top" alt="..."> <div class="card-body"> <h5 class="card-title">' + data[i].employe[j].person.name + '</h5><a href="#" class="btn btn-primary"><input type="radio" name="doctor" value="' + data[i].employe[j].id + '" id=""></a> </div> </div> </div>');
-                $('#medicos').append('<div class="col-6 col-sm-4"><label class="imagecheck mb-3"><div class="card max-card text-center"><div class="card-header text-center "><input type="radio" name="doctor" value="' + data[i].employe[j].id + '" id="" class="imagecheck-input"><figure class="imagecheck-figure border-0"><img src="/storage/'+data[i].employe[j].image.path+'" alt="" class="imagecheck-image max-img"></figure></div><div class="card-body"><h5 class="card-title">' + data[i].employe[j].person.name + ' '+data[i].employe[j].person.lastname+' </h5></div></div></label></div>');
+                    $('#medicos').append(`<div class="col-6 col-sm-4"><label class="imagecheck mb-3"><div class="card max-card text-center"><div class="card-header text-center "><input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input"><figure class="imagecheck-figure border-0"><img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image max-img"></figure></div><div class="card-body"><h5 class="card-title">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname} </h5></div></div></label></div>`);
             }
         }
     }
