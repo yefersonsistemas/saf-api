@@ -14,7 +14,7 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
     ];
 
     protected $fillable = [
-        'patient_id', 'employe_id', 'procedure', 'surgery_id', 'exam_id', 'recipe_id', 'reservation_id', 'branch_id'
+        'patient_id', 'employe_id', 'doctor_id', 'procedure', 'surgery_id',  'exam_id', 'recipe_id', 'reservation_id', 'branch_id'
     ];
 
     // protected $irinerary = 'itinerary';
@@ -28,6 +28,11 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
     // {
     //     return $this->belongsTo('App\Patient', 'patient_id');
     // }
+
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor'); // hace referencia al precio de la consulta
+    }
 
     public function procedure()
     {

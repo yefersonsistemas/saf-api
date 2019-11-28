@@ -24,14 +24,14 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body row">
-                                <div class="col-12">
-                                        <h5>Buscar Paciente </h5>
+                                <div class="col-3 mt-2">
+                                        <h6>Buscar Paciente </h6>
                                 </div>
-                                <div class="input-group mt-2 col-5">
+                                <div class="input-group col-5">
                                     <input id="dni" type="text" class="form-control" maxlength="8" placeholder="buscar paciente...">
                                     <a id="search"name="search" class="search btn btn-info"><i class="icon-magnifier"></i></a>
                                 </div>
-                                <div class="form-group multiselect_div col-6 d-flex justify-content-end" >
+                                <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                         @foreach ($procedimientos as $procedimiento)
                                             <option value="{{ $procedimiento->id }}" >{{ $procedimiento->name }}</option>
@@ -45,20 +45,7 @@
             </div>
         </div>
 
-        <div class="card-body py-3 text-center">
-
-            <h6>Persona a cancelar</h6>
-            <button class="btn btn-primary" id="paciente" name="paciente">
-            Paciente
-            </button>
-            <a  class="btn btn-primary"  data-toggle="modal" data-target="#otro">
-                Otro
-            </a>
-        
-        <!-- Modal -->
-       
-        <!--fin del modal-->
-         </div>
+      
 
         <div class="section-body py-3">
             <div class="container">
@@ -71,48 +58,65 @@
                                     
                                     <div class="card-body">
                                         <div class="row my-8">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <p class="h6">Paciente</p>
                                                                         
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
                                                 <input id="patient_id" type="hidden" name="patient_id" value="" >
                                                 <input id="employe_id" type="hidden" name="employe_id" value="" >
-                                                <input id="person_id" type="hidden" name="person_id" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
-                                                <span id="dnii"> Documento de Identidad</span><br>
-                                                <span id="name">Nombre</span><br>
-                                                <span id="lastname">Apellido</span><br>
-                                                <span id="phone"> Telefono</span><br>
+                                                <span id="dnii"> </span><br>
+                                                <span id="name"></span>
+                                                <span id="lastname"></span><br>
+                                                <span id="phone"></span><br>
                                             </div>
-                                            <div class="col-4 text-left">
+                                            <div class="col-6 text-right">
                                                 <p class="h6">Doctor</p>
-                                                <span id="dniiD"> Documento de Identidad</span><br>
-                                                <span id="nameD">Nombre</span><br>
-                                                <span id="lastnameD">Apellido</span><br>
-                                                <span id="phoneD"> Telefono</span><br>
+                                                <span id="dniiD"></span><br>
+                                                <span id="nameD"></span>
+                                                <span id="lastnameD"></span><br>
+                                                <span id="phoneD"></span><br>
                                             </div>
 
-                                            <div class="col-4 text-right">
-                                                <p class="h6">Cancelado por:</p>
-                                                <span id="dni_c"> Documento de Identidad</span><br>
-                                                <span id="name_c">Nombre</span><br>
-                                                <span id="lastname_c">Apellido</span><br>
-                                                <span id="phone_c"> Telefono</span><br>
-                                            </div>
+
                                         </div>
-                                        <div class="table-responsive push">
+                                        <div class="table-responsive push mt-3">
                                             <table class="table table-bordered table-hover">
+                                                <tbody style="border-bottom: 1px solid #000">
+                                                    {{-- <th class="text-center width35"></th> --}}
+                                                    <th colspan="5" class="text-center">Nombre</th>
+                                                    <th class="text-right" style="width: 4%">Costo</th>
+                                                </tbody>
+
+                                                <tbody style="border-bottom: 1px solid #000">
+                                                    <th class="text-center width35"></th>
+                                                    <th colspan="4">Consulta</th>
+                                                    <th class="text-right" style="width: 4%"></th>
+                                                </tbody>
+                                                
+                                                <tbody id="conaulta">
+                                                    
+                                                </tbody>    
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th colspan="4">Procedimiento</th>
-                                                    <th class="text-right" style="width: 4%">Costo</th>
+                                                    <th class="text-right" style="width: 4%"></th>
                                                 </tbody>
                                                 
                                                 <tbody id="columna">
                                                     
-                                                </tbody>                                                
+                                                </tbody> 
+                                                <tbody style="border-bottom: 1px solid #000">
+                                                        <th class="text-center width35"></th>
+                                                        <th colspan="4">Cirugías</th>
+                                                        <th class="text-right" style="width: 4%"></th>
+                                                    </tbody>
+                                                    
+                                                    <tbody id="columna">
+                                                        
+                                                    </tbody>                                             
                                                 <tr>
                                                     <th class="text-center width35"></th>
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
@@ -125,6 +129,7 @@
                                                 </tr>
                                             </table>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +205,7 @@
                         </div>
         
                         <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a class="btn btn-secondary" data-dismiss="modal">Close</a>
                         <a class="btn btn-primary" id="registrar">Registrar</a>
                         </div>
                     </div>
@@ -231,6 +236,7 @@
         var id_employe;
         var costo_total=0;
         var procedures_id=0;
+        var data_paciente;
             
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
@@ -238,7 +244,6 @@
             console.log(dni);                   //mostrando en consola
             ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
-
 
 
         //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
@@ -251,17 +256,20 @@
                         dni: dni                               //valor que se envia
                     }
                 })
-                .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                .done(function(data) {               
+                    console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
                     console.log('esto',data.encontrado[0].person);
                     console.log('arreglo', data.procedureS);
 
-                    if (data[0] == 202) {                    //si no trae valores
+                    if(data[0] == 202){   
+                        console.log('si')                 //si no trae valores
                         Swal.fire({
                             title: 'Error!',
-                            text: 'Paciente no encontrado',
+                            text: data.encontrado,
                             type: 'error',
-                        })
+                        });
                     }
+                   
                     if (data[0] == 201) {                       //si no trae valores
                         Swal.fire({
                             title: 'Excelente!',
@@ -280,6 +288,10 @@
 
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
+
+            data_paciente = data.encontrado[0].person; //uasarla mas adelante
+
+            console.log("data_paciente", data_paciente);
 
             console.log('ken',data.encontrado[0].person);
             
@@ -345,88 +357,6 @@
       
             });
           }); // fin de la funcion para agregar procedimientos
-
-
-
-           // ==================== ejecuta cuando se clikea el boton de registrar otro =====================
-        $("#registrar").click(function() {
-            var tipo_dni = $("#tipo_dniC").val(); 
-            var dni = $("#dniC").val(); 
-            var name =  $("#nameC").val();
-            var lastname = $("#lastnameC").val();
-            var phone = $("#phoneC").val();
-            var email = $("#emailC").val();
-            var address = $("#direccionC").val();
-        
-            registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
-        }); //fin de la funcion clikea
-
-
-        //=================== funcion para registrar al cliente================
-          function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {
-                $.ajax({ 
-                    url: "{{ route('checkout.person') }}",  
-                    type: "POST",                            
-                    data: {
-                        _token: "{{ csrf_token() }}",        
-                        type_dni: tipo_dni,
-                        dni:dni,
-                        name:name,
-                        lastname:lastname,
-                        phone:phone,
-                        email:email,
-                        address:address,                           
-                    }
-                })
-                .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                    console.log('esto',data);
-
-                    // if (data[0] == 202) {                   
-                    //     Swal.fire({
-                    //         title: 'Error!',
-                    //         text: 'No se ha podido registrar',
-                    //         type: 'error',
-                    //     })
-                    // }
-                    if (data[0] == 201) {                       
-                        Swal.fire({
-                            title: 'Excelente!',
-                            text:  'Registro satisfactorio',
-                            type:  'success',
-                        })
-                        factura_cliente(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                    }
-                })
-                .fail(function(data) {
-                    console.log(data);
-                })
-        } // fin de la funcion que busca datos del paciente/doctor/procedimientos
-
-
-        //================================== para porder mostrar en el documento html ==========================
-        function factura_cliente(data) {
-
-            console.log('ken',data);
-
-            $('#dni_c').text(data.cliente.dni); 
-            $('#name_c').text(data.cliente.name);
-            $('#lastname_c').text(data.cliente.lastname);
-            $('#phone_c').text(data.cliente.phone);
-
-            $('#person_id').val(data.cliente.id);
-        } // fin de la funcion que muestra datos en el html
-
-
-        // ==================== ejecuta el que va a cancelar es el paciente =====================
-        // $("#paciente").click(function() {
-           
-        //     $('#dni_c').$("#dnii").val();
-        //     $('#name_c').$("#name").val();
-        //     $('#lastname_c').$("#lastname").val();
-        //     $('#phone_c').$("#phone").val();  
-        //     $('#person_id').$("#patient_id").val();      
-        // }); //fin de la funcion clikea
-
 
         }); //fin del documento
       </script>
