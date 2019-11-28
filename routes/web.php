@@ -74,7 +74,8 @@ Route::group(['middleware' => 'auth'], function (){
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
         Route::get('doctor/recipe','DoctorController@crearRecipe')->name('doctor.crearRecipe');
-        Route::get('doctor/Referencia','DoctorController@crearReferencia')->name('doctor.crearReferencia');
+        Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
+        Route::post('doctor/Referencia/{patient}','DoctorController@referenceStore')->name('reference.store');
     });
 });

@@ -189,6 +189,7 @@
             if (currentIndex === 1) {
                 speciality();
             }
+
             if (currentIndex === 2) {
                 schedule();
             }

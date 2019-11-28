@@ -293,7 +293,7 @@ class CitaController extends Controller
             'profession'    =>  'required',
             'email2'        =>  'nullable',
             'phone2'        =>  'nullable'
-            ]);
+        ]);
             
         // dd($data);
         $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
