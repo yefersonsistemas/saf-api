@@ -330,10 +330,26 @@ class InController extends Controller
         }
     }
 
+    public static function horario(Request $request){
+        // dd($request);
+
+        $employe = Employe::with('schedule')->where('id', $request->id)->first();
+
+        if(!empty($employe)){
+            return response()->json([
+                'employe' => $employe,201
+            ]);
+        }else{
+            return response()->json([
+                'employe' => 202
+            ]);
+        }
+    }
  
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
+        // dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
 

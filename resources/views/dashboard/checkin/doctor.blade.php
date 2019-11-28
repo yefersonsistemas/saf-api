@@ -63,9 +63,8 @@
                                     @endforeach
                                     </td>
                                     <td>
-                                    {{-- <a href="{{ route('checkin.doctor') }}"  class="btn btn-info">ver</a> ata-toggle="modal" data-target=".bd-example-modal-sm"--}}
-                                    {{-- <input type="hidden" value="{{ $employe->person->id }}"> --}}
-                                    <a id="buscar" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-sm">ver</a>
+                                    <input type="hidden" id="id" value="{{ $employe->person->id }}">
+                                    <a class="btn btn-info"  data-toggle="modal" data-target="#{{ $employe->person->name }}{{ $employe->person->id }}">ver</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -122,22 +121,69 @@
             </div> 
         </div>
 
-        @foreach ($em as $employe)
-        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    @foreach ($employe->schedule as $item)
-                    {{ $item->day}} <br>
-                    @endforeach
-                </div>
+      <!-- Modal -->
+        @foreach ($em as $employe) 
+      <div class="modal fade" id="{{ $employe->person->name }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+              <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    
+                    <table class="table table-bordered table-sm">
+                            <thead class="table-info">
+                              <tr>
+                                <th scope="col" style="text-align:center; color:black">Dias</th>
+                                <th scope="col" style="text-align:center; color:black">Turno</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                            @foreach ($employe->schedule as $item)
+                                @if ($item->day == 'monday')
+                                <td style="text-align:center">Lunes</td>
+                                @endif
+                                @if ($item->day == 'tuesday')
+                                <td style="text-align:center">Martes</td>
+                                @endif
+                                @if ($item->day == 'wednesday')
+                                <td style="text-align:center">Miercoles</td>
+                                @endif
+                                @if ($item->day == 'thursday')
+                                <td style="text-align:center">Jueves</td>
+                                @endif
+                                @if ($item->day == 'friday')
+                                <td style="text-align:center">Viernes</td>
+                                @endif
+                                @if ($item->turn ==  'mañana')
+                                <td style="text-align:center">Mañana</td>
+                                @endif
+                                @if ($item->turn ==  'tarde')
+                                <td style="text-align:center">Tarde</td>
+                                @endif
+                                
+                              </tr>
+                            @endforeach
+                            </tbody>
+                          </table>
                     
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+             
+            </div>
+          </div>
         </div>
-        @endforeach
+      </div>
+      @endforeach
+
 @endsection
 
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
-
 @endsection

@@ -138,14 +138,6 @@ class EmployesController extends Controller
             return view('dashboard.checkin.doctor', compact('em', 'e'));
     }
 
-    public function doctor_horario(Request $request)
-    {
-        $employe = Employe::with('schedule')->where('id', $request->id)->first();
-        // dd();
-
-        return $employe;
-    }
-
     /**
      * Show the form for creating a new resource.
      *
