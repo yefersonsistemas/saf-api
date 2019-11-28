@@ -31,6 +31,7 @@
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Esepcialidad</th>
+                                    <th>Horario</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -40,6 +41,7 @@
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Esepcialidad</th>
+                                    <th>Horario</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -59,6 +61,11 @@
                                     @foreach ($employe->speciality as $item)
                                         {{ $item->name }} <br>
                                     @endforeach
+                                    </td>
+                                    <td>
+                                    {{-- <a href="{{ route('checkin.doctor') }}"  class="btn btn-info">ver</a> ata-toggle="modal" data-target=".bd-example-modal-sm"--}}
+                                    {{-- <input type="hidden" value="{{ $employe->person->id }}"> --}}
+                                    <a id="buscar" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-sm">ver</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -114,9 +121,23 @@
                 </div>
             </div> 
         </div>
+
+        @foreach ($em as $employe)
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    @foreach ($employe->schedule as $item)
+                    {{ $item->day}} <br>
+                    @endforeach
+                </div>
+                    
+            </div>
+        </div>
+        @endforeach
 @endsection
 
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+
 @endsection

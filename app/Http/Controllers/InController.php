@@ -94,33 +94,58 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
-    public function guardar(Request $request)
+    public function guardar(Request $request)  //guarda registros de nuevos y editados en la historia del paciente
     {
         //dd($request);
         $person = Person::where('dni', $request->dni)->first();
         //dd($person);
-         $patient = Patient::with('disease', 'medicine', 'allergy')->where('person_id', $person->id)->first();
-         dd($patient);
+         $patient = Patient::where('person_id', $person->id)->first();
+        // dd($request);
+        
+        if (!is_null($patient)) {
+            if (!empty($request->disease)) {
+                foreach ($request->disease as $disease) {
+                    $di = Disease::find($disease);
+                    $patient->disease()->attach($di); 
+                }
+            }
 
+            if (!empty($request->medicine)){
 
-          if (!is_null($patient)) {
-          
+                foreach ($request->medicine as $medicine) {
+                    $me = Medicine::find($medicine);
+                    $patient->medicine()->attach($me); 
+                }
+            }
+
+            if (!empty($request->allergy)){
+
+                foreach ($request->allergy as $allergy) {
+                    $al = Allergy::find($allergy);
+                    $patient->allergy()->attach($al); 
+                }
+            }
+
+            //dd($request);
+
+            if ($request->age != null ) {
+           
                 $patient->update([
                     'age'               => $request->age,
                     'weight'            => $request->weight,
+                    'address'           => $request->address,
+                    'phone'             => $request->phone,
                     'occupation'        => $request->occupation,
                     'profession'        => $request->profession,
                     'another_phone'     => $request->another_phone,
                     'another_email'     => $request->another_email,
                     'previous_surgery'  => $request->previous_surgery,
                 ]);
-
+            }
+        
             Alert::success('Guardado exitosamente');
             return redirect()->route('checkin.index');
         }
-
-
-        
     }
 
     public function statusIn($registro)

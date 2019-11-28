@@ -363,7 +363,7 @@
         $("#disease").change(function(){
             var disease_id = $(this).val();     // Capta el id de la enfermedad 
             console.log('enfermedad', disease_id); 
-            console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            //console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
             });
     </script>
 

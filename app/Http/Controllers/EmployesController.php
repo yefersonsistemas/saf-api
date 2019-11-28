@@ -106,7 +106,8 @@ class EmployesController extends Controller
 
     public function doctor_on_day()//medicos del dia
     {
-        $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
+        // dd($id);
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule')->get();
         $em = collect([]);
         if ($employes->isNotEmpty()) {
             foreach ($employes as $employe) {
@@ -122,8 +123,9 @@ class EmployesController extends Controller
                     
                 }
             }
-
         }
+
+        //dd($em);
         
         $e = collect([]);
         if ($employes->isNotEmpty()) {
@@ -134,6 +136,14 @@ class EmployesController extends Controller
             }
             }
             return view('dashboard.checkin.doctor', compact('em', 'e'));
+    }
+
+    public function doctor_horario(Request $request)
+    {
+        $employe = Employe::with('schedule')->where('id', $request->id)->first();
+        // dd();
+
+        return $employe;
     }
 
     /**
