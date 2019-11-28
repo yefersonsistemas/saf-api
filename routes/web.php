@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
 
-
+        Route::POST('registro', 'OutController@create_cliente')->name('checkout.person');           // mostrar factura
         Route::POST('factura', 'OutController@create_factura')->name('checkout.factura');           // mostrar factura
         Route::get('procedure', 'OutController@create_procedure')->name('checkout.procedure');  // mostrar factura
  

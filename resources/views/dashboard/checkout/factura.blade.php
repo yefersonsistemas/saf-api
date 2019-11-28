@@ -22,81 +22,125 @@
                         <div class="row clearfix">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header">
-                                        <div class="col-8 d-flex justify-content-end">hola</div>
-                                        <div class="col-3 d-flex justify-content-end">  <h3 class="card-title">#AB0017</h3></div>
+                                    <div class="card-header row">
+                                        <div class="col-8">
+                                                <img src="{{ asset('assets\images\logo_factura.png') }}" class="w-100">
+                                        </div>
+                                        <div class="col-3 text-right"><p class="h66 text-right">#AB0017</p></div>
                                       
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row my-8">
+
+                                    <div class="row my-8 pr4 pl-4 ">
+                                        <div class="col-12"> <span class="text"> Rif:</span></div>
+                                        <div class="col-12"> <span class="text">Dirección:</span></div>
+                                        <div class="col-12"> <span class="text">Telefono:</span></div>
+
+                                     
+                                    </div>
+                                    <div class="card-body mt-0">
+                                        <div class="row">
                                             <div class="col-6">
-                                                <p class="h4">Paciente</p>
-                                                <address>
-                                                
-                                                    <span>{{ $itinerary->person->dni }}</span><br>
-                                                    <span>{{ $itinerary->person->name }}</span><br>
-                                                    <span>{{ $itinerary->person->lastname }}</span><br>
-                                                    <span>{{ $itinerary->person->phone }}</span><br>
-                                             
-                                                </address>
+                                                <p class="h6 h66">Paciente</p>
+                                                    <span class="text">{{ $itinerary->person->dni }}</span><br>
+                                                    <span class="text">{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span><br>
+                                                    <span class="text">{{ $itinerary->person->phone }}</span><br>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p class="h4">Doctor</p>
+                                                <p class="h6 h66">Doctor</p>
                                                 <address>
-                                                    <span>{{ $itinerary->employe->person->dni }}</span><br>
-                                                    <span>{{ $itinerary->employe->person->name }}</span><br>
-                                                    <span>{{ $itinerary->employe->person->lastname }}</span><br>
-                                                    <span>{{ $itinerary->employe->person->phone }}</span><br>
+                                                    <span class="text">{{ $itinerary->employe->person->dni }}</span><br>
+                                                    <span class="text">{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span><br>
+                                                    <span class="text">{{ $itinerary->employe->person->phone }}</span><br>
                                                 </address>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="form-group multiselect_div">
+                                                    <select id="single-selection" name="single_selection" class="multiselect multiselect-custom" style="display: none;">
+                                                        {{-- <option value="">moneda</option> --}}
+                                                        @foreach ($tipo_moneda as $moneda)
+                                                        <option value="{{ $moneda->id }}">{{ $moneda->name }}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                    <div class="form-group multiselect_div">
+                                                        <select id="single-selection" name="single_selection" class="multiselect multiselect-custom" style="display: none;">
+                                                            {{-- <option value="">moneda</option> --}}
+                                                            @foreach ($tipo_pago as $pago)
+                                                            <option value="{{ $pago->id }}">{{ $pago->name }}</option>
+                                                            @endforeach
+                                                        </select>
+    
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="col-lg-4 col-md-4">
+                                                    <div class="form-group multiselect_div">
+                                                        <select id="single-selection" name="single_selection" class="multiselect multiselect-custom" style="display: none;">
+                                                      
+                                                            <option id="paciente" value="{{ $itinerary->person->id }}">Paciente</option>
+                                                            <option type="button" id="cliente"  data-toggle="modal" data-target="#exampleModal" >Otro cliente</option>
+                                                         
+                                                        </select>
+                                                    </div>
+                                                </div> --}}
+                                        </div>
+
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      ...
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
                                         <div class="table-responsive push">
+                                        <div></div>
                                             <table class="table table-bordered table-hover">
                                                 <tbody><tr>
                                                     <th class="text-center width35"></th>
-                                                    <th>Procedimiento</th>
-                                                    <th class="text-center" style="width: 1%">cantidad</th>
-                                                    <th class="text-right" style="width: 1%">Unidad</th>
-                                                    <th class="text-right" style="width: 1%">Costo total</th>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>
-                                                        <p class="font600 mb-1">Logo Creation</p>
-                                                        <div class="text-muted">Logo and business cards design</div>
+                                                    <th colspan="4">Descripción</th>
+                                                    <th class="text-right" style="width: 1%">Costo</th>
+                                                </tr> 
+                                                @foreach ($procedure as $item)
+                                                    
+                                               
+                                                <tr >
+                                                    <td class="text-center width35"></td>
+                                                    <td colspan="4">
+                                                        <div class="text-muted">{{ $item->name }}</div>
                                                     </td>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-right">$1.800,00</td>
-                                                    <td class="text-right">$1.800,00</td>
+                                                   
+                                                    <td class="text-right" style="width: 1%">{{ $item->price }}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td>
-                                                        <p class="font600 mb-1">Online Store Design &amp; Development</p>
-                                                        <div class="text-muted">Design/Development for all popular modern browsers</div>
-                                                    </td>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-right">$20.000,00</td>
-                                                    <td class="text-right">$20.000,00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">3</td>
-                                                    <td>
-                                                        <p class="font600 mb-1">App Design</p>
-                                                        <div class="text-muted">Promotional mobile application</div>
-                                                    </td>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-right">$3.200,00</td>
-                                                    <td class="text-right">$3.200,00</td>
-                                                </tr>
-                                                <tr>
+                                                @endforeach
+                                           |    <tr>
+                                                    <th class="text-center width35"></th>
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
-                                                    <td class="text-right">$25.000,00</td>
+                                                    <td class="text-right" id="subtotal">0,00</td>
                                                 </tr>
                                                 <tr class="bg-info text-light">
+                                                    <th class="text-center width35"></th>
                                                     <td colspan="4" class="font700 text-right">Total a cancelar</td>
-                                                    <td class="font700 text-right">$30.000,00</td>
+                                                    <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
+
                                             </tbody></table>
                                         </div>
                                         
@@ -105,48 +149,11 @@
                             </div>
                         </div>
                     </div>
-                </div>                
-            </div>
-        </div>
 
-        <div class="section-body py-3 col-3">
-            <div class="container">
-                <div class="card">
-                    <div class="row my-8">
-                        <div class="col-12 p-4">
-                            <p class="h5 text-center">Tipo de moneda</p>
-                   
-                            <div class="form-group">
-                                <div class="custom-controls-stacked">
-                                    @foreach ($tipo_moneda as $moneda)
-                                        
-                                    
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios1" value="{{ $moneda->id }}">
-                                        <span class="custom-control-label">{{ $moneda->name }}</span>
-                                    </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 p-4">
-                            <p class="h5 text-center">Tipo de pago </p>
-                    
-                            <div class="form-group">
-                                <div class="custom-controls-stacked">
-                                    @foreach ($tipo_pago as $pago)
-                                    
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="{{ $pago->id }}">
-                                        <span class="custom-control-label">{{ $pago->name }}</span>
-                                    </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row d-flex justify-content-center">
+                        <button type="submit" class="btn btn-info">Guardar</button>
                     </div>
-                 </div>
+                </div>                
             </div>
         </div>
 
@@ -155,6 +162,14 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
+<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
+<script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+    <script>
+             $('#multiselect1, #multiselect2, #single-selection, #multiselect5, #multiselect6').multiselect({
+        maxHeight: 300
+    });
+        </script>
 @endsection
