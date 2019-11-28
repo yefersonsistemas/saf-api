@@ -143,7 +143,7 @@
                             <h2>Elegir Fecha</h2>
                             <section>
                                 <div class="col-md-6 m-auto">
-                                    <div class="card box_shadow">
+                                    <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title">Elegir fecha</h3>
                                         </div>
