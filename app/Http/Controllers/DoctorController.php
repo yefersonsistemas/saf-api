@@ -18,7 +18,9 @@ use App\Reservation;
 use App\Person;
 use Illuminate\Support\Facades\Auth;
 use App\Doctor;
+use App\Reference;
 use App\Speciality;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DoctorController extends Controller
 {
@@ -33,19 +35,8 @@ class DoctorController extends Controller
     public function index()
     {
         $id=Auth::id();
-       $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )
-                                ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-                                // dd($patients);
-                                // dd($patients);
-
-        // if (!is_null($patients)) {
-        //     return response()->json([
-        //         'reservas' => $patients,
-        //     ]);
-        // }
-
-       
-      return view('dashboard.doctor.citasPacientes',compact('patients'));
+        $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
+        return view('dashboard.doctor.index',compact('patients'));
     }
 
     /**
@@ -75,13 +66,13 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id )
+    public function show($id)
     {
-
+        // dd($id);
+        // $history = 
         $history=Reservation::with('patient.historyPatient')->where('id',$id)
-        ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-        // dd($history);
-     return view('dashboard.doctor.historiaPaciente', compact('history'));
+        ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        return view('dashboard.doctor.historiaPaciente', compact('history'));
     }
 
     /**
@@ -125,8 +116,31 @@ class DoctorController extends Controller
     public function crearRecipe(){
         return view('dashboard.doctor.crearRecipe');
     }
-    public function crearReferencia(){
-        return view('dashboard.doctor.crearReferencia');
+
+    public function crearReferencia(Person $patient){
+        $specialities = Speciality::all();
+        return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
+    }
+
+    public function referenceStore(Request $request, $patient)
+    {
+        // dd($request);
+        $person = Person::find($patient);
+        $data = $request->validate([
+            'speciality'        =>  'required',
+            'reason'            =>  'required',
+        ]);
+
+        $reference = Reference::create([
+            'patient_id'    =>  $person->id,
+            'specialitie_id'    =>  $data['speciality'],
+            'reason'        =>  $data['reason'],
+            'employe_id'    =>  $request->doctor,
+            'doctor'        =>  $request->doctorExterno,
+        ]);
+
+        Alert::success('Referencia Creada');
+        return redirect()->back();
     }
 
     
@@ -152,7 +166,7 @@ class DoctorController extends Controller
      * 
      */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
-        $employe = Employe::with('schedule')->where('person_id', $request->id)->first();
+        $employe = Employe::with('schedule')->where('id', $request->id)->first();
 
         if (!is_null($employe)) {
             if (!is_null($employe->schedule)) {

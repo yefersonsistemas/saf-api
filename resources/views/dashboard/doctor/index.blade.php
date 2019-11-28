@@ -91,7 +91,7 @@
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
-                                                <a href="/doctor/{{ $reservation->patient->historyPatient->id}}" class="badge badge-info btn p-2">
+                                                <a href="{{ route('doctor.show', $reservation) }}" class="badge badge-info btn p-2">
                                                     {{ $reservation->patient->historyPatient->history_number }}
                                                 </a>
                                             </td>

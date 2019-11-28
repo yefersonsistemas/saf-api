@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
+use App\Payment;
 use App\TypePayment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

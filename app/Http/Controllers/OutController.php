@@ -30,11 +30,7 @@ use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
 {
-         /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
 
      //=================== listando los pacientes del dia ==================
     public function index()
@@ -55,6 +51,7 @@ class OutController extends Controller
 
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
+
 
     //====================== lista de cirugias ============================
     public function index_cirugias()
@@ -80,12 +77,7 @@ class OutController extends Controller
      }
 
 
-     
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   //====================== para generar factura ============================
     public function create()
     {
         $procedimientos = Procedure::all();
@@ -94,14 +86,25 @@ class OutController extends Controller
     }
 
 
-    //===================buscanco paciente==============
+    //============================ buscanco paciente ============================
     public function search_patient(Request $request){
 
         $person = Person::with('reservation')->where('dni', $request->dni)->first();
         // dd($person->id);
-
+        //   $all = collect([]);
         $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->get();
-        dd($encontrado);
+        // dd($encontrado);
+
+        //    foreach ($encontrado->procedure as $proce) {
+        //     $procedures[] = $proce->name;
+        // }
+        // dd($procedures);
+        // for ($i=0; $i < count($procedures) ; $i++) { 
+        //     $proceduress[] = Procedure::find($procedures[$i]);
+        // }
+        // $all->push($proceduress); 
+        // dd($proceduress);
+            // dd($proceduress[]);
         
         if (!is_null($encontrado)) {
             return response()->json([
@@ -115,6 +118,26 @@ class OutController extends Controller
     }
 
 
+        //============================ buscando procedimiento ============================
+        public function search_procedure($procedure_id){
+
+            // dd($procedure_id);
+            $data_procedure = Procedure::where('id', $procedure_id)->first();
+            // dd($procedure);
+     
+            if (!is_null($data_procedure)) {
+                return response()->json([
+                    'procedure' => $data_procedure,201
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No encontrado',202
+                ]);
+            }
+        }
+
+
+     //============================ crear factura ============================
     public function create_factura()
     {
         $tipo_moneda = TypeCurrency::all();
@@ -122,12 +145,31 @@ class OutController extends Controller
         return view('dashboard.checkout.factura', compact('tipo_pago', 'tipo_moneda'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    //============================ cambiar a estado fuera ============================
+    public function statusOut($patient_id)
+    {
+        // dd($id);
+        $patient = InputOutput::where('person_id', $patient_id)->first();
+        // dd($patient);
+        $p = Patient::where('person_id', $patient->person_id)->first();
+            // dd($p);
+        $io = InputOutput::where('person_id', $p->person_id)->first();
+        //   dd($io);
+
+        if (!empty($patient->inside) && empty($patient->outside)) {
+          
+            $patient->outside = 'fuera';
+            $patient->save();
+        }else{
+            Alert::error('Paciente ya ha salido');
+            return redirect()->back();
+        }
+
+        Alert::success('Paciente fuera');
+        return redirect()->back();
+    }
+
     public function store(Request $request)
     {
         
@@ -228,26 +270,7 @@ class OutController extends Controller
         ]);
     }
 
-    public function statusOut($patient_id)
-    {
-        // dd($id);
-        $patient = InputOutput::where('person_id', $patient_id)->first();
-        // dd($patient);
-        $p = Patient::where('person_id', $patient->person_id)->first();
-            // dd($p);
-        $io = InputOutput::where('person_id', $p->person_id)->first();
-        //   dd($io);
-
-        if (!empty($patient->inside) && empty($patient->outside)) {
-          
-            $patient->outside = 'fuera';
-            $patient->save();
-        }else{
-            return "nouuuu";
-        }
-
-        return "listo";  
-    }
+ 
 
     public function recipe(Request $request)
     {
