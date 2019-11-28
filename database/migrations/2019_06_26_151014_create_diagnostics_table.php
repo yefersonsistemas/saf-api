@@ -18,7 +18,7 @@ class CreateDiagnosticsTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->longText('description')->nullable();
             $table->longText('reason')->nullable();
-            $table->unsignedBigInteger('treatment_id');
+            $table->unsignedBigInteger('treatment_id')->nullable();
             $table->longText('indications')->nullable();
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('branch_id');

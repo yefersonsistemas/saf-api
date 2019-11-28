@@ -3,13 +3,10 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
-<link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
-<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
-<link rel="stylesheet"
-    href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
-<link rel="stylesheet"
-    href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }} ">
+
 @endsection
 
 @section('title','Recipe')
@@ -59,12 +56,11 @@
             </div>
             <div class="container">
                 <div class="col-lg-10 mx-auto">
-                    <form class="">
+                    <form class="" method="POST" action="{{ route('recipe.store') }}">
+                        @csrf
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"> <a href="javascript:history.back(-1);"
-                                        class="btn btn-sm btn-azuloscuro mr-3 text-white"><i
-                                            class="icon-action-undo  mx-auto"></i></a>Crear Recipe</h3>
+                                <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Crear Recipe</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -98,8 +94,7 @@
                                                     <tbody>
                                                         <tr class="gradeA">
                                                             <td>
-                                                                <select class="form-control"
-                                                                    id="Meicamentos">
+                                                                <select class="form-control" id="Meicamentos">
                                                                     <option>medicina</option>
                                                                 </select>
                                                             </td>
@@ -109,38 +104,34 @@
                                                                 <button
                                                                     class="btn btn-sm btn-icon on-editing m-r-5 button-save"
                                                                     data-toggle="tooltip" data-original-title="Save"
-                                                                    hidden=""><i class="icon-drawer"
-                                                                        aria-hidden="true"></i></button>
+                                                                    hidden=""><i class="icon-drawer" aria-hidden="true"></i>
+                                                                </button>
                                                                 <button
                                                                     class="btn btn-sm btn-icon on-editing button-discard"
                                                                     data-toggle="tooltip" data-original-title="Discard"
-                                                                    hidden=""><i class="icon-close"
-                                                                        aria-hidden="true"></i></button>
+                                                                    hidden=""><i class="icon-close" aria-hidden="true"></i>
+                                                                </button>
                                                                 <button
                                                                     class="btn btn-sm btn-icon on-default m-r-5 button-edit"
-                                                                    data-toggle="tooltip" data-original-title="Edit"><i
-                                                                        class="icon-pencil"
-                                                                        aria-hidden="true"></i></button>
+                                                                    data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
+                                                                </button>
                                                                 <button
                                                                     class="btn btn-sm btn-icon on-default button-remove"
                                                                     data-toggle="tooltip"
-                                                                    data-original-title="Remove"><i class="icon-trash"
-                                                                        aria-hidden="true"></i></button>
+                                                                    data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i>
+                                                                </button>
                                                             </td>
                                                         </tr>
-
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="card-footer text-center">
                                 <button type="submit" class="btn btn-azuloscuro">Generar</button>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -149,9 +140,9 @@
     </div>
 </div>
 @endsection
+
 @section('scripts')
-<script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
-<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
