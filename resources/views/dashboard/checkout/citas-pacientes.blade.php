@@ -114,23 +114,22 @@
                                         
                                         </div> 
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
-                                                <div class="card-body">
-                                                    <h5 class="card-title color_titulo">Posible cirugias</h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                                    {{-- <p class="card-text">{{ $itinerary->surgery->typesurgeries->name }}</p> --}}
-                                              
-                                                </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title color_titulo">Posible cirugias</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">Nombre: {{ $itinerary->surgery->typesurgeries->name }}</h6>
+                                                <h6 class="card-subtitle mb-2 text-muted">Descripcion{{ $itinerary->surgery->typesurgeries->description }}</h6>
+                                                <h6 class="card-subtitle mb-2 text-muted">Duracion: {{ $itinerary->surgery->typesurgeries->duration }}</h6>                                                
+                                                <h6 class="card-subtitle mb-2 text-muted">costo: {{ $itinerary->surgery->typesurgeries->cost }}</h6>
+                                            </div>                                            
+                                        </div> 
+                                        <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title color_titulo">Posibles procedimientos</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                                {{-- <p class="card-text">{{ $itinerary->procedure->name }}</p> --}}
                                             
-                                            </div> 
-                                            <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title color_titulo">Posibles procedimientos</h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                                        {{-- <p class="card-text">{{ $itinerary->procedure->name }}</p> --}}
-                                                  
-                                                    </div>
-                                                
-                                                </div> 
+                                            </div>                                                
+                                        </div> 
                                        
                                     
 
