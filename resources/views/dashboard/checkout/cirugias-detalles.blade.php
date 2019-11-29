@@ -10,43 +10,13 @@
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
-@section('title','Cirugia')
+@section('title','Detalles de cirugía')
 
 @section('content')
 
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
-            {{-- Contadores --}}
-                {{-- <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body">                                
-                            <h6>Reservaciones confirmadas</h6>
-                            <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
-                 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6>Pacientes por atender</h6>
-                            <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
-                  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6>Pacientes atendidos</h6>
-                            <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
-                         
-                        </div>
-                    </div>
-                </div> --}}
-
-            <!--lista de reservaciones confirmadas-->
             <div class="container">
                 <div class="card">
                         
@@ -65,7 +35,7 @@
                                     <h6 class="card-title color_titulo">Descripción</h6>
                                     <p class="card-subtitle mb-2 text-muted">{{ $cirugias->typeSurgeries->description }}</p>
                                     <div class="row d-flex justify-content-end">
-                                        <h6 class="card-title color_titulo mt-4 ">{{ $cirugias->typeSurgeries->cost }}</h6>
+                                        <h6 class="card-title color_titulo mt-4 ">Costo: {{ $cirugias->typeSurgeries->cost }}</h6>
                                     </div>
                                 </div>
                             </div>                           
@@ -175,20 +145,7 @@
                                             <div class="tab-content" id="pills-tabContent">                                                                        
                                                                                         
                                                 <div class="col-lg-12 card p-5 text-justify" >
-                                                        el valor devuelto es un string. Te informo de que hace exactamente json_encode:
-                                                        json_encode — Retorna la representación JSON representation del valor dado
-                                                        Descripción
-                                                        string json_encode ( mixed $value [, int $options = 0 ] )
-                                                        
-                                                        Retorna un string con la representación JSON de value.
-                                                        
-                                                        
-                                                        Osea, aunque tenga el formato de json, sigue siendo un string como "este día me parece que va a llover".
-                                                        
-                                                        segundo:
-                                                        si necesitas recoger el valor devuelto a través de una función javascript, te recomiendo el uso de la función .ajax, de jquery.
-                                                        Tan solo tienes que usar datatype:"json", como formato de datos de vuelta. Y AHORA si estarás listo para recibir un json debidamente.
-                                                    <p>{{ $cirugias->hospitalization->name }}</p>
+                                                    <p>{{ $cirugias->hospitalization->description }}</p>
                                                 </div> 
                                             </div>     
                                     </div>                         
@@ -204,6 +161,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+    {{-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> --}}
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 @endsection

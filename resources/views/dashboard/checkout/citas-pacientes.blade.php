@@ -104,10 +104,10 @@
                                 <div class="row card-body d-flex justify-content-lg-between">
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
-                                                <h5 class="card-title color_titulo">Medico tratante</h5>
-                                                <h6 class=" mb-2 text-muted"><span class="titulos">Nombre:<span>  {{ $itinerary->employe->person->name }}</h6> 
+                                                <h5 class="card-title color_titulo text-start">Medico tratante</h5>
+                                                <span class="titulos">Nombre:<span><span class=" mb-2 text-muted">  {{ $itinerary->employe->person->name }}</span> <br>
                                               
-                                                <h6 class=" mb-2 text-muted"><span class="titulos">Apellido:<span> {{ $itinerary->employe->person->lastname }}</h6>
+                                                <span class="titulos">Apellido:<span> <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span>
                             
                                                 {{-- <h6 class="mb-2 text-muted"><span class="titulos">Especialidad:<span> {{ $itinerary->speciality->name }}</h6> --}}
                                             </div>
@@ -115,25 +115,26 @@
                                         </div> 
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
-                                                <h5 class="card-title color_titulo">Posible cirugias</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">Nombre: {{ $itinerary->surgery->typesurgeries->name }}</h6>
-                                                <h6 class="card-subtitle mb-2 text-muted">Descripcion{{ $itinerary->surgery->typesurgeries->description }}</h6>
-                                                <h6 class="card-subtitle mb-2 text-muted">Duracion: {{ $itinerary->surgery->typesurgeries->duration }}</h6>                                                
-                                                <h6 class="card-subtitle mb-2 text-muted">costo: {{ $itinerary->surgery->typesurgeries->cost }}</h6>
+                                                <h5 class="card-title color_titulo">Posible cirugia</h5>
+                                                <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $itinerary->surgery->typesurgeries->name }}</span><br>
+                                                <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
+                                                <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
+                                                <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
                                             </div>                                            
                                         </div> 
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posibles procedimientos</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                                {{-- <p class="card-text">{{ $itinerary->procedure->name }}</p> --}}
+                                                @foreach ($itinerary->procedures as $proce)
+                                                     {{-- @foreach ($proce->procedures as $p) --}}
+                                                        <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $proce }} {{ $itinerary->surgery->typesurgeries->name }}</span><br>
+                                                    {{-- @endforeach --}}
+                                                @endforeach
+                                                
                                             
                                             </div>                                                
                                         </div> 
                                        
-                                    
-
-
                                 </div>
 
                                 <div class="row card-body d-flex justify-content-between">

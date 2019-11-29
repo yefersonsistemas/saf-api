@@ -40,7 +40,17 @@ class OutController extends Controller
         // $all = collect([]); //definiendo una coleccion|
         $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
         // dd($itinerary);
-//         $procedures = explode(',', $itinerary->last()->procedure_id); //decodificando los procedimientos en $encontrado
+        for ($i=0; $i < count($itinerary) ; $i++) { 
+                $procedures[$i] = explode(',', $itinerary[$i]->procedure_id); //decodificando los procedimientos en $encontrado
+                // dd($procedures);        
+                for ($y=0; $y < count($procedures); $y++) {
+                $procedureS[] = Procedure::find($procedures[$y]);
+                }
+            $itinerary[$i]->procedures = ($procedureS);
+            $procedureS = array();
+           
+        }
+        dd($itinerary); 
 
 //                 //recorriendo el arreglo de procedimientos
 //                 foreach ($itinerary as $proce) {
@@ -53,7 +63,7 @@ class OutController extends Controller
 //                 }
 //                 $all->push($procedureS);  // colocando los procedimientos en colas ordenados
 // dd($proceduresS);
-        return view('dashboard.checkout.citas-pacientes', compact('itinerary','proceduresS'));
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
 
 
@@ -72,8 +82,9 @@ class OutController extends Controller
      //====================== detalles de las cirugias ============================
      public function cirugias_detalles(Request $request)
      {
+        
         $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
-
+        // dd($request);
          return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
      }
 
@@ -235,7 +246,7 @@ class OutController extends Controller
                 $billing->type_currency = $request->tipo_moneda;
                 $billing->save();
 
-                dd($billing);
+                // dd($billing);
                 return view('dashboard.checkout.index');
 
             }else{
