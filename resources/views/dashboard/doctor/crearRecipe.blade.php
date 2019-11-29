@@ -94,12 +94,9 @@
                                                     <tbody>
                                                         <tr class="gradeA">
                                                             <td>
-                                                                <select class="form-control" id="Meicamentos">
-                                                                    <option>medicina</option>
-                                                                </select>
                                                             </td>
-                                                            <td>System Architect</td>
-                                                            <td>Edinburgh</td>
+                                                            <td></td>
+                                                            <td></td>
                                                             <td class="actions">
                                                                 <button
                                                                     class="btn btn-sm btn-icon on-editing m-r-5 button-save"

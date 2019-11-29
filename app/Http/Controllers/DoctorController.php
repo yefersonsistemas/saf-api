@@ -178,7 +178,6 @@ class DoctorController extends Controller
     }
 
 
-
     public function searchDoctor(Request $request)
     {
         $doctors = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
