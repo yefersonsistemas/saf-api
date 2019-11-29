@@ -23,8 +23,6 @@ use App\Speciality;
 class DoctorController extends Controller
 {
 
- 
-
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +31,7 @@ class DoctorController extends Controller
     public function index()
     {
         $id=Auth::id();
-       $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )
+        $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )
                                 ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
                                 // dd($patients);
                                 // dd($patients);
@@ -43,9 +41,7 @@ class DoctorController extends Controller
         //         'reservas' => $patients,
         //     ]);
         // }
-
-       
-      return view('dashboard.doctor.citasPacientes',compact('patients'));
+        return view('dashboard.doctor.citasPacientes',compact('patients'));
     }
 
     /**
@@ -81,7 +77,7 @@ class DoctorController extends Controller
         $history=Reservation::with('patient.historyPatient')->where('id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
         // dd($history);
-     return view('dashboard.doctor.historiaPaciente', compact('history'));
+    return view('dashboard.doctor.historiaPaciente', compact('history'));
     }
 
     /**
@@ -117,7 +113,41 @@ class DoctorController extends Controller
     {
         //
     }
+    
+    // Para visualizar el Pago total del doctor
+    public function recordpago() {
+        $id=Auth::id();
+        $employe = Employe::with('person.user', 'doctor.typedoctor', 'patient')->where('person_id', $id)->first();
+        // dd($employe);
+        if ($employe->position->name != 'doctor' || !$employe->person->user->role('doctor')) {
+            return response()->json([
+                'message' => 'empleado no es medico',
+            ]);
+        }
+        
+        $inicio = Carbon::now()->startOfWeek(Carbon::MONDAY);
+        $fin = Carbon::now()->endOfWeek(Carbon::FRIDAY);
+        
+        $billing = Billing::with('procedures', 'patient')->where('employe_id', $employe->id)->whereBetween('created_at', [$inicio , $fin])->get();
+        // dd($billing);
+        $total = 0;
+        foreach($billing as $b){
+            foreach ($b->procedures as $procedure) {
+                $total += $procedure->price;
+            }
+        }
 
+        $pago = ((($employe->doctor->typedoctor->comission * $employe->doctor->price) * count($billing)) + $total);
+        // dd($id);
+
+        return view('dashboard.doctor.recordpago', compact('pago'));
+    }
+
+    // //Para Visualizar el pago del doctor detalladamente
+    // public function detailpago(){
+    
+    // return view('dashboard.doctor.detailpago');
+    // }
     public function crearDiagnostico(){
         return view('dashboard.doctor.crearDiagnostico');
     }
@@ -128,8 +158,6 @@ class DoctorController extends Controller
     public function crearReferencia(){
         return view('dashboard.doctor.crearReferencia');
     }
-
-    
 
     public function searchDoctor(Request $request)
     {

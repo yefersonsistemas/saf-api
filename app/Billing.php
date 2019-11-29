@@ -17,7 +17,7 @@ class Billing extends Model //facturacion
         return $this->belongsTo('App\Employe', 'person_id');
     }
 
-    public function patients()
+    public function patient()
     {
         return $this->belongsTo('App\Patient');
     }
@@ -30,7 +30,7 @@ class Billing extends Model //facturacion
     public function procedures() //relacion con la tabla m:m 
     {
         return $this->belongsToMany('App\Procedure','procedure_billing')
-       ->withPivot('procedure_id','id');
+        ->withPivot('procedure_id','id');
     }
 
     public function person()

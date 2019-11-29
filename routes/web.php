@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
         Route::POST('assigment/area', 'InController@assigment')->name('checkin.assigment');
         Route::post('search/area','InController@search_area')->name('search.area');  //revisa si el area esta ocupada
-        Route::post('search/medico','InController@search_medico')->name('search.medico');  //revisa si el area esta ocupada
+        Route::post('search/medico','InController@search_medico')->name('search.medico');  //busca los doctores
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente a dentro del consultorio
         Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
@@ -75,6 +75,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('/', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
+        Route::get('doctor/recordpago', 'DoctorController@recordpago')->name('doctor.recordpago');
+        // Route::get('doctor/detailpago', 'DoctorController@detailpago')->name('doctor.detailpago');
         Route::get('doctor/diagnostico','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
         Route::get('doctor/recipe','DoctorController@crearRecipe')->name('doctor.crearRecipe');
         Route::get('doctor/Referencia','DoctorController@crearReferencia')->name('doctor.crearReferencia');

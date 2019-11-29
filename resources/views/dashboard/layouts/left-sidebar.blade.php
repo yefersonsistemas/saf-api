@@ -117,7 +117,7 @@
                     </li>                 --}}
                     <li class="g_heading">Funciones</li>
                     <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
-                    <li><a href=""><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li>
+                    <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li>
                     {{-- <li><a href="page-gallery.html"><i class="icon-picture"></i><span>Gallery</span></a></li> --}}
                     {{-- <li>
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fe fe-file"></i><span>Pages</span></a>

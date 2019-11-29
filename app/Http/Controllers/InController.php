@@ -265,7 +265,7 @@ class InController extends Controller
     public static function search_area(Request $request)
     {
         // dd($request);
-       $area = Area::Where('id', $request->id)->first(); 
+        $area = Area::Where('id', $request->id)->first(); 
         // dd($area);
         if ($area != null) {  //si existe
             $areas= $area->name;
@@ -284,7 +284,7 @@ class InController extends Controller
     public static function search_medico(Request $request)
     {
         // dd($request);
-       $employe = Employe::with('person')->Where('id', $request->id)->first(); 
+        $employe = Employe::with('person')->Where('id', $request->id)->first(); 
         // dd($area);
         if ($employe != null) {  //si existe
             $employes= $employe->person->name;
@@ -299,31 +299,31 @@ class InController extends Controller
         }
     }
 
- 
+
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
         $e = $request->employe_id;
         $a = $request->area_id;
 
-       $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
+        $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
 
-       if(empty($existe)){
+        if(empty($existe)){
         $areaAssigment = AreaAssigment::create([
         'employe_id'  => $e,
         'area_id'     => $a,
         'branch_id' => 1,
         ]);
-
         return response()->json([
             'asignado' => $areaAssigment,201
+            
         ]);
-         }else{
+        }else{
             return response()->json([
                 'asignado' => 'Consultorio ya asignado',202
+                
             ]);
-         }
-       
+        }
     }
 
     public function update_area(Request $request)
