@@ -146,7 +146,66 @@
 
                                             <div class="table-responsive push">
                                             <div></div>
-                                                <table class="table table-bordered table-hover">
+                                        <table class="table table-bordered table-hover">
+                                                <tbody style="border-bottom: 1px solid #000">
+                                                    {{-- <th class="text-center width35"></th> --}}
+                                                    <th colspan="5" class="text-center">Nombre</th>
+                                                    <th class="text-right" style="width: 4%">Costo</th>
+                                                </tbody>
+
+                                                <tbody style="border-bottom: 1px solid #000">
+                                                    <th class="text-center width35"></th>
+                                                    <th colspan="4">Consulta</th>
+                                                    <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
+                                                </tbody>
+                                                           
+                                                <tbody style="border-bottom: 1px solid #000">
+                                                    <th class="text-center width35"></th>
+                                                    <th colspan="4">Procedimiento</th>
+                                                    <th class="text-right" style="width: 4%"></th>
+                                                </tbody>
+                                                
+                                                <tbody >
+                                                    @foreach ($procedure as $item)
+                                                    <tr>
+                                                        <td class="text-center width35"></td>
+                                                        <td colspan="4">
+                                                            <div class="text-muted">{{ $item->name }}</div>
+                                                        </td>
+                                                    
+                                                        <td class="text-right" style="width: 1%">{{ $item->price }}</td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody> 
+
+                                                <tbody style="border-bottom: 1px solid #000">
+                                                    <th class="text-center width35"></th>
+                                                    <th colspan="4">Cirugía</th>
+                                                    <th class="text-right" style="width: 4%"></th>
+                                                </tbody>
+                                                    
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-center width35"></td>
+                                                        <td colspan="4">
+                                                            <div class="text-muted">{{ $itinerary->surgery->typesurgeries->name }}</div>
+                                                        </td>
+                                                        <td class="text-right" style="width: 1%">{{ $itinerary->surgery->typesurgeries->cost }}</td>
+                                                    </tr>
+                                                </tbody>                                             
+                                                <tr>
+                                                    <th class="text-center width35"></th>
+                                                    <td colspan="4" class="font600 text-right">Subtotal</td>
+                                                    <td class="text-right" id="subtotal">{{ $total }}</td> 
+                                                </tr>
+                                                <tr class="bg-info text-light">
+                                                    <th class="text-center width35"></th>
+                                                    <td colspan="4" class="font700 text-right">Total a cancelar</td>
+                                                    <td class="font700 text-right" id="costo_total">{{ $total }}</td>
+                                                </tr>
+                                            </table>
+
+                                                {{-- <table class="table table-bordered table-hover">
                                                     <tbody><tr>
                                                         <th class="text-center width35"></th>
                                                         <th colspan="4">Descripción</th>
@@ -175,7 +234,7 @@
                                                         <td class="font700 text-right" id="costo_total">0,00</td>
                                                     </tr>
 
-                                                </tbody></table>
+                                                </tbody></table> --}}
                                             </div>
                                             
                                         </div>

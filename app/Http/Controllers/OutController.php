@@ -77,7 +77,8 @@ class OutController extends Controller
             if(!empty($itinerary)){
 
                 $all = collect([]); //definiendo una coleccion|
-                $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->get(); // esta es una coleccion
+                $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
+            //    dd($encontrado);
                 $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
 
                 //recorriendo el arreglo de procedimientos
@@ -170,11 +171,11 @@ class OutController extends Controller
         if($request->patient_id != null && $request->employe_id != null){
             
      
-           
+                $total = $request->total_cancelar; // el $total_cancelar viene de la funcion ajax y se muestra en la siguiente vista
                 $tipo_moneda = TypeCurrency::all();
                 $tipo_pago = TypePayment::all();
 
-                $itinerary = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $request->patient_id)->first();
+                $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
                 // $person = Person::where('id', $request->person_id)->first();
                 $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
@@ -200,7 +201,7 @@ class OutController extends Controller
                         $crear_factura->procedures()->attach($procedure[$i]);
                     }
 
-                    return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','itinerary','procedure','crear_factura'));
+                    return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','itinerary','procedure','crear_factura','total'));
                    
             // }else{
                 // return response()->json([

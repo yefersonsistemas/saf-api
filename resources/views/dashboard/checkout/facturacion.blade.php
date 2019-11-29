@@ -65,6 +65,7 @@
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
                                                 <input id="patient_id" type="hidden" name="patient_id" value="" >
                                                 <input id="employe_id" type="hidden" name="employe_id" value="" >
+                                                <input id="total" type="hidden" name="total_cancelar" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
                                                 <span id="dnii"> </span><br>
@@ -93,12 +94,10 @@
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th colspan="4">Consulta</th>
-                                                    <th class="text-right" style="width: 4%"></th>
+                                                    <td class="text-right" style="width: 4%" id="consulta"></td>
                                                 </tbody>
                                                 
-                                                <tbody id="conaulta">
-                                                    
-                                                </tbody>    
+                                                 
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th colspan="4">Procedimiento</th>
@@ -110,12 +109,11 @@
                                                 </tbody> 
                                                 <tbody style="border-bottom: 1px solid #000">
                                                         <th class="text-center width35"></th>
-                                                        <th colspan="4">Cirugías</th>
+                                                        <th colspan="4">Cirugía</th>
                                                         <th class="text-right" style="width: 4%"></th>
                                                     </tbody>
                                                     
-                                                    <tbody id="columna">
-                                                        
+                                                    <tbody id="cirugia">
                                                     </tbody>                                             
                                                 <tr>
                                                     <th class="text-center width35"></th>
@@ -235,8 +233,13 @@
         var id_patient;
         var id_employe;
         var costo_total=0;
+        var costo_procedimientos=0;
+        var costo_cirugia=0;
+        var costo_consulta=0;
         var procedures_id=0;
         var data_paciente;
+        var costo =0;
+        var total =0;
             
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
@@ -293,22 +296,47 @@
 
             console.log("data_paciente", data_paciente);
 
+            console.log("consulta", data.encontrado[0].employe.doctor.price);
+            console.log("cirugia", data.encontrado[0].surgery.typesurgeries.name);
+            console.log("cirugia", data.encontrado[0].surgery.typesurgeries.cost);
+
             console.log('ken',data.encontrado[0].person);
             
             // estas variables se usaran mas adelante para mostrar la factura generada
             id_patient = data.encontrado[0].person.id;
-            
             id_employe = data.encontrado[0].employe.person.id; 
             console.log('jaja',id_patient, id_employe);
+
+            consulta= data.encontrado[0].employe.doctor.price;
+            $("#consulta").append(consulta);
+            costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
+            console.log('consulta',costo_consulta);
+
+            cirugia='<tr><td></td><td colspan="4">'+data.encontrado[0].surgery.typesurgeries.name+'<td>'+data.encontrado[0].surgery.typesurgeries.cost+'</td></tr>';
+            $("#cirugia").append(cirugia);
+            costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
+            console.log('cirugia',costo_cirugia);
     
+
             for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
-                costo_total += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
+                costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
                 procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                 console.log('proceduressss',procedures_id)
                 procedure_select='<tr><td></td><td colspan="4">'+data.procedureS[i].name+'<td>'+data.procedureS[i].price+'</td></tr>';
                 $("#columna").append(procedure_select);
             }
+            console.log(costo_procedimientos);
 
+            cu = parseInt(costo_consulta);
+            ci = parseInt(costo_cirugia);
+            p = parseInt(costo_procedimientos);
+            
+            costo_total = cu + ci + p ;
+            total = costo_total;
+            console.log('totallllllll',total);
+            console.log('procedimientos hhh',costo_total);
+            $('#total').val(costo_total);
+            
 
             // asignando valores a los campos con id en html 
             $('#patient_id').val(id_patient);
@@ -329,6 +357,9 @@
             $('#procedimiento').text(data.person.name);
             $('#cantidad').text(data.person.dni);
 
+          
+           
+
        
         } // fin de la funcion que muestra datos en el html
     
@@ -347,6 +378,7 @@
 
                     procedure_select='<tr><td></td><td colspan="4">'+data.procedure.name+'</td>'+'<td>'+data.procedure.price+'</td></tr>';
                     console.log('procedimiento seleccionado',procedure_select);
+
                     costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
                     procedures_id = procedures_id +','+ (data.procedure.id); // guardarndo ids
                 
@@ -354,6 +386,10 @@
                     console.log(costo_total)
                   $("#columna").append(procedure_select);
                   $('#costo_total').text(costo_total);
+                  $('#subtotal').text(costo_total);
+                  total = costo_total;
+                  
+                  $('#total').val(costo_total);
       
             });
           }); // fin de la funcion para agregar procedimientos
