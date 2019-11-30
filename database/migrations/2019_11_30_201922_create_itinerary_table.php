@@ -43,6 +43,23 @@ class CreateItineraryTable extends Migration
             ->on('reservations')
             ->onDelete('CASCADE');
 
+            
+            $table->foreign('surgery_id')
+            ->references('id')
+            ->on('surgeries')
+            ->onDelete('CASCADE');
+            
+            $table->foreign('exam_id')
+            ->references('id')
+            ->on('exams')
+            ->onDelete('CASCADE');
+
+            
+            $table->foreign('recipe_id')
+            ->references('id')
+            ->on('recipe')
+            ->onDelete('CASCADE');
+
             $table->foreign('branch_id')
             ->references('id')
             ->on('branch')

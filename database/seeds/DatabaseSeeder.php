@@ -64,6 +64,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AssistanceTableSeeder::class);
         $this->call(RecipeTableSeeder::class);
         $this->call(ItineraryTableSeeder::class);
+        $this->call(AllergyTableSeeder::class);
         Schema::enableForeignKeyConstraints();
     }
 }

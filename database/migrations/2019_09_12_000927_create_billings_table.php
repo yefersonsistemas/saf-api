@@ -15,11 +15,11 @@ class CreateBillingsTable extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('person_id')->nullable();
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employe_id');
-            $table->unsignedBigInteger('type_payment_id');
-            $table->string('type_currency');
+            $table->unsignedBigInteger('type_payment_id')->nullable();
+            $table->string('type_currency')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
