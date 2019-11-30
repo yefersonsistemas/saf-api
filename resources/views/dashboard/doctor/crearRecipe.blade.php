@@ -3,13 +3,10 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
-<link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
-<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
-<link rel="stylesheet"
-    href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
-<link rel="stylesheet"
-    href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }} ">
+
 @endsection
 
 @section('title','Recipe')
@@ -59,104 +56,117 @@
             </div>
             <div class="container">
                 <div class="col-lg-10 mx-auto">
-                    <form class="">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title"> <a href="javascript:history.back(-1);"
-                                        class="btn btn-sm btn-azuloscuro mr-3 text-white"><i
-                                            class="icon-action-undo  mx-auto"></i></a>Crear Recipe</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Crear Recipe</h3>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Agregar Medicamento</h3>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Medicamento</label>
+                                        <select class="form-control custom-select" name="medicamento">
+                                            <option value="0">Seleccione</option>
+                                            @foreach ($medicines as $medicine)
+                                                <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Dosis</label>
+                                        <input type="text" class="form-control" name="dosis" placeholder="3">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Medida</label>
+                                        <select name="medida" class="form-control custom-select">
+                                            <option value="0">Seleccione</option>
+                                            <option value="CC">CC</option>
+                                            <option value="G">G</option>
+                                            <option value="ML">ML</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Duracion</label>
+                                        <input type="text" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Agregar Medicamento</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <button id="addToTable" class="btn btn-azuloscuro mb-15" type="button">
-                                                <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
-                                            </button>
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-vcenter table-striped"
-                                                    cellspacing="0" id="addrowExample">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Medicamento Seleccionado</th>
-                                                            <th>Medidas</th>
-                                                            <th>Dosis</th>
-                                                            <th>Duracion</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Medicamento Seleccionado</th>
-                                                            <th>Medidas</th>
-                                                            <th>Dosis</th>
-                                                            <th>Duracion</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                    <tbody>
-                                                        <tr class="gradeA">
-                                                            <td>
-                                                                <select class="form-control"
-                                                                    id="Meicamentos">
-                                                                    <option>medicina</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>System Architect</td>
-                                                            <td>Edinburgh</td>
-                                                            <td class="actions">
-                                                                <button
-                                                                    class="btn btn-sm btn-icon on-editing m-r-5 button-save"
-                                                                    data-toggle="tooltip" data-original-title="Save"
-                                                                    hidden=""><i class="icon-drawer"
-                                                                        aria-hidden="true"></i></button>
-                                                                <button
-                                                                    class="btn btn-sm btn-icon on-editing button-discard"
-                                                                    data-toggle="tooltip" data-original-title="Discard"
-                                                                    hidden=""><i class="icon-close"
-                                                                        aria-hidden="true"></i></button>
-                                                                <button
-                                                                    class="btn btn-sm btn-icon on-default m-r-5 button-edit"
-                                                                    data-toggle="tooltip" data-original-title="Edit"><i
-                                                                        class="icon-pencil"
-                                                                        aria-hidden="true"></i></button>
-                                                                <button
-                                                                    class="btn btn-sm btn-icon on-default button-remove"
-                                                                    data-toggle="tooltip"
-                                                                    data-original-title="Remove"><i class="icon-trash"
-                                                                        aria-hidden="true"></i></button>
-                                                            </td>
-                                                        </tr>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-0">
+                                <label class="form-label">Indicaciones</label>
+                                <textarea rows="5" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer text-right">
+                            <button class="btn btn-azuloscuro mb-15" id="add" type="button">
+                                <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
+                            </button>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-vcenter table-striped"
+                                                cellspacing="0" id="addrowExample">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Medicamento Seleccionado</th>
+                                                        <th>Dosis</th>
+                                                        <th>Medidas</th>
+                                                        <th>Duracion</th>
+                                                        <th>Indicaciones</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Medicamento Seleccionado</th>
+                                                        <th>Dosis</th>
+                                                        <th>Medidas</th>
+                                                        <th>Duracion</th>
+                                                        <th>Indicaciones</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody id="addRow">
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="card-footer text-center">
-                                <button type="submit" class="btn btn-azuloscuro">Generar</button>
-                            </div>
-
                         </div>
-                    </form>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-azuloscuro">Generar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
 @section('scripts')
-<script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
-<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
-<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
 <script>
     $('#multiselect4-filter').multiselect({
@@ -164,5 +174,57 @@
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
     });
+</script>
+
+<script>
+    $('#add').click(function () {
+        medicina        = $("select[name='medicamento']").val();
+        dosis           = $("input[name='dosis']").val();
+        medida          = $("select[name='medida']").val();
+        duracion        = $("input[name='duracion']").val();
+        indicaciones    = $("textarea[name='indicaciones']").val();
+        console.log(indicaciones)
+
+        ajax(medicina, dosis, medida, duracion, indicaciones);
+
+        validacion(medicina, dosis, medida, duracion);
+
+    });
+
+    function validacion (medicina, dosis, medida, duracion){
+
+    }
+
+    function ajax(medicina, dosis, medida, duracion, indicaciones) {
+        $.ajax({
+                url: "{{ route('recipe.store', $paciente) }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    medicina : medicina, 
+                    dosis: dosis, 
+                    medida : medida, 
+                    duracion: duracion,
+                    indicaciones: indicaciones,
+                }
+            })
+            .done(function(data) {
+                console.log(data);
+                Swal.fire({
+                    title: 'Excelente!',
+                    text: 'Medicina agregada',
+                    type: 'success',
+                })
+                addRow(data);
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+    }
+
+    function addRow(data) {
+        $('#addRow').append('<tr class="gradeA"> <td>'+data.medicine.name+'</td> <td>'+data.doses+'</td> <td>'+data.measure+'</td> <td>'+data.duration+'</td> <td>'+data.indications+'</td> <td class="actions"> <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden=""><i class="icon-drawer" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden=""><i class="icon-close" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>');
+    }
+
 </script>
 @endsection
