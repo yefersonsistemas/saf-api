@@ -295,10 +295,10 @@
             data_paciente = data.encontrado[0].person; //uasarla mas adelante
 
             console.log("data_paciente", data_paciente);
+            // console.log("data_procedure", data.encontrado[0].procedure);
 
             console.log("consulta", data.encontrado[0].employe.doctor.price);
-            console.log("cirugia", data.encontrado[0].surgery.typesurgeries.name);
-            console.log("cirugia", data.encontrado[0].surgery.typesurgeries.cost);
+            console.log('jjj',data.encontrado[0].surgery);
 
             console.log('ken',data.encontrado[0].person);
             
@@ -308,12 +308,8 @@
             console.log('jaja',id_patient, id_employe);
 
             //------------- consulta --------------
-            price_consulta= data.encontrado[0].employe.doctor.price;
-            nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
-            costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
-
-            if(price_consulta != ''){
-            
+            if(data.encontrado[0].employe.doctor != null){
+                price_consulta= data.encontrado[0].employe.doctor.price;
                 costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
                 console.log('consulta',costo_consulta);
                 consulta_html = '<th class="text-center width35"></th><th colspan="4">Consulta</th><td class="text-right">'+costo_consulta+'</td>';
@@ -321,7 +317,10 @@
             }
 
             //-------------------cirugia -------------
-            if(nombre_cirugia != '' && costo_cirugia != ''){
+            if(data.encontrado[0].surgery != null){
+                nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
+                costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
+
                 titulo_cirugia= '<th class="text-center width35"></th><th colspan="4">Cirugía</th><th class="text-right" style="width: 4%"></th>';
                 cirugia='<tr><td></td><td colspan="4">'+nombre_cirugia+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia_html").append(titulo_cirugia);
@@ -331,7 +330,7 @@
             }
     
              // --------------------Procedures -------------
-            if(data.procedureS != ''){
+            if(data.encontrado[0].procedure != null){
                 procedure = '<th class="text-center width35"></th><th colspan="4">Procedimiento</th><th class="text-right" style="width: 4%"></th>';
                 $("#procedure").append(procedure);
 
@@ -343,6 +342,7 @@
                     $("#columna").append(procedure_select);
                 }
             }
+            
             console.log(costo_procedimientos);
 
             cu = parseInt(costo_consulta);

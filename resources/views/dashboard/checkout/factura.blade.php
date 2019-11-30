@@ -204,37 +204,6 @@
                                                     <td class="font700 text-right" id="costo_total">{{ $total }}</td>
                                                 </tr>
                                             </table>
-
-                                                {{-- <table class="table table-bordered table-hover">
-                                                    <tbody><tr>
-                                                        <th class="text-center width35"></th>
-                                                        <th colspan="4">Descripción</th>
-                                                        <th class="text-right" style="width: 1%">Costo</th>
-                                                    </tr> 
-                                                    @foreach ($procedure as $item)
-                                                        
-                                                
-                                                    <tr >
-                                                        <td class="text-center width35"></td>
-                                                        <td colspan="4">
-                                                            <div class="text-muted">{{ $item->name }}</div>
-                                                        </td>
-                                                    
-                                                        <td class="text-right" style="width: 1%">{{ $item->price }}</td>
-                                                    </tr>
-                                                    @endforeach
-                                            |    <tr>
-                                                        <th class="text-center width35"></th>
-                                                        <td colspan="4" class="font600 text-right">Subtotal</td>
-                                                        <td class="text-right" id="subtotal">0,00</td>
-                                                    </tr>
-                                                    <tr class="bg-info text-light">
-                                                        <th class="text-center width35"></th>
-                                                        <td colspan="4" class="font700 text-right">Total a cancelar</td>
-                                                        <td class="font700 text-right" id="costo_total">0,00</td>
-                                                    </tr>
-
-                                                </tbody></table> --}}
                                             </div>
                                             
                                         </div>
@@ -246,6 +215,9 @@
                         <div class="row d-flex justify-content-center">
                             <button type="submit" class="btn btn-info">Guardar</button>
                         </div>
+                        {{-- <div class="row d-flex justify-content-center">
+                                <a href="{{ route('checkout.imprimir_factura') }}" class="btn btn-info">Guardar</a>
+                            </div> --}}
                     </div>                
                 </div>
             </div>

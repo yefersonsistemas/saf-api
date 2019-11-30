@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::POST('registro', 'OutController@create_cliente')->name('checkout.person');           // mostrar factura
         Route::POST('imprimir', 'OutController@imprimir_factura')->name('checkout.imprimir_factura');           // mostrar factura
+        // Route::get('imprimir', 'OutController@ken')->name('checkout.imprimir_factura');           // mostrar factura
  
 
        

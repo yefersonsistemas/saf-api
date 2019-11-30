@@ -17,6 +17,11 @@ class TypePayment extends Model
         return $this->belongsTo('App\Employe');
     }
 
+    public function billing()
+    {
+        return $this->belongsTo('App\Billing', 'type_payment_id');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');

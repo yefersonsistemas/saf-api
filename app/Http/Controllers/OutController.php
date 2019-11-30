@@ -41,16 +41,19 @@ class OutController extends Controller
         $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
         // dd($itinerary);
         for ($i=0; $i < count($itinerary) ; $i++) { 
+            // dd($itinerary[$i]->procedure_id == null);
+            if ($itinerary[$i]->procedure_id == null) { 
+                break;
+            }else{
                 $procedures[$i] = explode(',', $itinerary[$i]->procedure_id); //decodificando los procedimientos en $encontrado
-                // dd($procedures);        
                 for ($y=0; $y < count($procedures); $y++) {
-                $procedureS[] = Procedure::find($procedures[$y]);
+                    $procedureS[] = Procedure::find($procedures[$y]);
                 }
-            $itinerary[$i]->procedures = ($procedureS);
-            $procedureS = array();
-           
+                $itinerary[$i]->procedures = ($procedureS);
+                $procedureS = array();
+            }
         }
-        dd($itinerary); 
+        // dd($itinerary); 
 
 //                 //recorriendo el arreglo de procedimientos
 //                 foreach ($itinerary as $proce) {
@@ -184,26 +187,32 @@ class OutController extends Controller
             $tipo_pago = TypePayment::all();
 
             $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
-            $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
-            $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
+            // dd($itinerary);
+                // if($itinerary->procedure_id != 0){
+                    $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
-            if($procedures_for != null){ // Si es distinto de null
-                $procedimientos= array_merge($procedures,$procedures_for);
-            }else{ 
-                $procedimientos = $procedures;
-            }
-
-            $crear_factura = Billing::create([
-                'patient_id'  => $request->patient_id,
-                'employe_id'     => $request->employe_id,
-                'branch_id' => 1,
-            ]);
+                    $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
         
-            for ($i=0; $i < count($procedimientos) ; $i++) { 
-                $procedure[] = Procedure::find($procedimientos[$i]);
-                $crear_factura->procedures()->attach($procedure[$i]);
-            }
+                    if($procedures_for != null){ // Si es distinto de null
+                        $procedimientos= array_merge($procedures,$procedures_for);
+                    }else{ 
+                        $procedimientos = $procedures;
+                    }
+                // }
+                // dd($procedimientos);
+
+                $crear_factura = Billing::create([
+                    'patient_id'  => $itinerary->patient_id,
+                    'employe_id'     => $itinerary->employe_id,
+                    'branch_id' => 1,
+                ]);
+            
+    
+                for ($i=0; $i < count($procedimientos) ; $i++) { 
+                    $procedure[] = Procedure::find($procedimientos[$i]);
+                    $crear_factura->procedure()->attach($procedure[$i]);
+                }
 
             return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','itinerary','procedure','crear_factura','total'));
         }else{
@@ -235,19 +244,28 @@ class OutController extends Controller
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
-        // dd($request);
+        // dd($request);   
         if($request->person_id != null && $request->tipo_moneda != null && $request->tipo_pago != null){
             if($request->factura != null){
                 
                 $billing = billing::find($request->factura);
-                
+                // dd($billing);
                 $billing->person_id = $request->person_id;
                 $billing->type_payment_id = $request->tipo_pago;
                 $billing->type_currency = $request->tipo_moneda;
                 $billing->save();
-
                 // dd($billing);
-                return view('dashboard.checkout.index');
+
+                $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
+                // dd($todos);
+
+                $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
+                // dd($cirugia);
+              
+
+                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia'));
+
+                return $pdf->stream('factura.pdf');
 
             }else{
                 Alert::error('No puede procesar la factura');
@@ -257,8 +275,8 @@ class OutController extends Controller
             Alert::error('No puede procesar la factura');
             return redirect()->back();
         }
-    
     }
+
 
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
