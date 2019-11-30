@@ -21,6 +21,7 @@ use App\Doctor;
 use App\Itinerary;
 use App\Reference;
 use App\Speciality;
+use App\Treatment;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DoctorController extends Controller
@@ -113,8 +114,9 @@ class DoctorController extends Controller
         return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
     }
 
-    public function crearRecipe(){
-        return view('dashboard.doctor.crearRecipe');
+    public function crearRecipe($paciente){
+        $medicines = Medicine::all();
+        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
     }
 
     public function crearReferencia(Person $patient){
@@ -147,9 +149,20 @@ class DoctorController extends Controller
         return redirect()->back();
     }
 
-    public function recipeStore(Request $request)
+    public function recipeStore(Request $request, $paciente)
     {
-        dd($request);
+        $paciente = Person::find($paciente);
+        $treatment = Treatment::create([
+            'medicine_id'   =>  $request->medicina,
+            'doses'         =>  $request->dosis,
+            'duration'      =>  $request->duracion,
+            'measure'       =>  $request->medida,
+            'indications'   =>  $request->indicaciones,
+            'branch_id'     =>  1,
+        ]);
+
+        $treatment->load('medicine');
+        return response()->json($treatment);
     }
 
     public function storeDiagnostic(Request $request, $id)
