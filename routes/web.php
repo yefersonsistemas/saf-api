@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function() {
+    return view('welcome');
+})->name('welcome');
 
 Auth::routes();
 
@@ -28,14 +31,6 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
-        Route::get('cite/create','CitaController@create')->name('reservations.create');
-        Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
-        Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
-        Route::post('cite/store','CitaController@store')->name('reservation.store');
-        Route::post('cite/status', 'CitaController@status')->name('reservation.status');
-        Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
-        Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
-        Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
     });
 
      //======================= rutas para el usuario ckeckin ====================
@@ -50,15 +45,22 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
-
         Route::post('horario', 'InController@horario')->name('checkin.horario');
-  
         Route::POST('save', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
-       
+
+        // Recepcion
+        Route::get('cite/create','CitaController@create')->name('reservations.create');
+        Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
+        Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
+        Route::post('cite/store','CitaController@store')->name('reservation.store');
+        Route::post('cite/status', 'CitaController@status')->name('reservation.status');
+        Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
+        Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
+        Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
     });
 
-    
+
     //======================= rutas para el usuario ckeckout ====================
     Route::group(['middleware' => ['role:OUT']], function () {
         Route::get('index', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia

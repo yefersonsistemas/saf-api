@@ -408,7 +408,7 @@
                     language: 'es',
                     datesDisabled: data.available,
                 });
-                window.location.href = "{{ route('citas.index') }}";
+                window.location.href = "{{ route('checkin.index') }}";
             })
             .fail(function(data) {
                 console.log(data);
