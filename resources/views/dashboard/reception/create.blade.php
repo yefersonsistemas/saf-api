@@ -400,28 +400,10 @@
             })
             .done(function(data) {
                 console.log(data);
-                $('#date').datepicker({
+                $('.datepicker').datepicker({
                     todayHighlight: true,
                     language: 'es',
-                    datesDisabled: data.available,
-                    format: {
-        /*
-         * Say our UI should display a week ahead,
-         * but textbox should store the actual date.
-         * This is useful if we need UI to select local dates,
-         * but store in UTC
-         */
-        toDisplay: function (date, format, language) {
-            var d = new Date(date);
-            d.setDate(d.getDate() - 7);
-            return d.toISOString();
-        },
-        toValue: function (date, format, language) {
-            var d = new Date(date);
-            d.setDate(d.getDate() + 7);
-            return new Date(d);
-        }
-    }
+                    datesDisabled: data.available
                 });
                 window.location.href = "{{ route('citas.index') }}";
             })
@@ -430,14 +412,5 @@
             })
     }
 
-    $('#date').datepicker({
-   daysOfWeekDisabled: ""
-}); 
-</script>
-
-<script>
-    // Date picker
-    fecha = new Date(2019, 10, 06),
-        console.log('yeaaah',fecha);
 </script>
 @endsection
