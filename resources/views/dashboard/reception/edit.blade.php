@@ -118,7 +118,7 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary">Actualizar cita</button>
+            <button type="submit" class="btn btn-verdePastel">Actualizar cita</button>
         </div>
     </form>
 </div>

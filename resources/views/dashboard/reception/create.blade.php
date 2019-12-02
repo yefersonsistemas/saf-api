@@ -145,11 +145,11 @@
                                 <div class="col-md-6 m-auto">
                                     <div class="card card-date">
                                         <div class="card-header">
-                                            <h3 class="card-title">Elegir fecha</h3>
+                                            <h3 class="card-title"></h3>
                                         </div>
                                         <div class="form-group mx-4">
                                             <div class="input-group">
-                                                <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker">
+                                                <input data-provide="datepicker" data-date-autoclose="true" id="dates" name="date" class="form-control datepicker" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +162,8 @@
         </div>
     </div>
 </div>
-@endsection @section('scripts')
+@endsection 
+@section('scripts')
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
@@ -409,6 +410,10 @@
                 console.log(data);
             })
     }
+
+    $('#dates').datepicker({
+   daysOfWeekDisabled: "0,6"
+}); 
 </script>
 
 <script>
