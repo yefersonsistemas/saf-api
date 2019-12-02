@@ -13,12 +13,13 @@
 
 Auth::routes();
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function (){
-    
+
+    Route::get('/home', function() {
+        return view('home');
+    })->name('home');
+
     Route::post('person','PersonController@store')->name('person.create');
     Route::post('search/doctor','DoctorController@searchDoctor')->name('search.medic');
     Route::post('search/doctor/schedule','DoctorController@search_schedule')->name('search.schedule');
@@ -79,7 +80,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('/', 'DoctorController@index')->name('doctor.index');
+        Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
