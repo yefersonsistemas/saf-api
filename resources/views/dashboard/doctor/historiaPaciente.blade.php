@@ -62,8 +62,8 @@
                                     <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Nro. Historia: <span class="badge badge-info p-2">{{ $history->patient->historyPatient->history_number }}</span></h3>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <a href="{{ route('doctor.crearDiagnostico') }}" class="btn btn-azuloscuro">Diagnostico</a>
-                                    <a href="{{ route('doctor.crearRecipe') }}" class="btn btn-azuloscuro">Recipe</a>
+                                    <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
+                                    <a href="{{ route('doctor.crearRecipe', $history->patient) }}" class="btn btn-azuloscuro">Recipe</a>
                                     <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
                                 </div>
                             </div>

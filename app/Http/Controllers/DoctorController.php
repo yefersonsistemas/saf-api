@@ -18,15 +18,14 @@ use App\Reservation;
 use App\Person;
 use Illuminate\Support\Facades\Auth;
 use App\Doctor;
+use App\Itinerary;
 use App\Reference;
 use App\Speciality;
+use App\Treatment;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DoctorController extends Controller
 {
-
- 
-
     /**
      * Display a listing of the resource.
      *
@@ -109,12 +108,15 @@ class DoctorController extends Controller
         //
     }
 
-    public function crearDiagnostico(){
-        return view('dashboard.doctor.crearDiagnostico');
+    public function crearDiagnostico($id){
+        $patient = Person::find($id);
+        $exams = Exam::all();
+        return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
     }
 
-    public function crearRecipe(){
-        return view('dashboard.doctor.crearRecipe');
+    public function crearRecipe($paciente){
+        $medicines = Medicine::all();
+        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
     }
 
     public function crearReferencia(Person $patient){
@@ -124,8 +126,8 @@ class DoctorController extends Controller
 
     public function referenceStore(Request $request, $patient)
     {
-        // dd($request);
-        $person = Person::find($patient);
+        $person = Person::with('historyPatient')->where('id',$patient)->first();
+
         $data = $request->validate([
             'speciality'        =>  'required',
             'reason'            =>  'required',
@@ -139,11 +141,55 @@ class DoctorController extends Controller
             'doctor'        =>  $request->doctorExterno,
         ]);
 
+        $itinerary = Itinerary::where('patient_id', $person->historyPatient->id)->first();
+        $itinerary->reference_id = $reference->id;
+        $itinerary->save();
+
         Alert::success('Referencia Creada');
         return redirect()->back();
     }
 
-    
+    public function recipeStore(Request $request, $paciente)
+    {
+        $paciente = Person::find($paciente);
+        $treatment = Treatment::create([
+            'medicine_id'   =>  $request->medicina,
+            'doses'         =>  $request->dosis,
+            'duration'      =>  $request->duracion,
+            'measure'       =>  $request->medida,
+            'indications'   =>  $request->indicaciones,
+            'branch_id'     =>  1,
+        ]);
+
+        $treatment->load('medicine');
+        return response()->json($treatment);
+    }
+
+    public function storeDiagnostic(Request $request, $id)
+    {
+        $patient = Patient::where('person_id', $id)->first();
+        // dd($request);
+        $diagnostic = Diagnostic::create([
+            'patient_id'    =>  $patient->id,
+            'description'   =>  $request->description,
+            'reason'        =>  $request->razon,
+            'indications'   =>  $request->indicaciones,
+            'employe_id'    =>  $patient->employe_id,
+            'branch_id'     =>  1,
+        ]);
+
+        foreach ($request->multiselect4 as $examen) {
+            $diagnostic->exam()->attach($examen);
+        }
+
+        $itinerary = Itinerary::where('patient_id', $patient->id)->first();
+        $itinerary->reference_id = $diagnostic->id;
+        $itinerary->save();
+
+        Alert::success('diagnostico creado');
+        return redirect()->back();
+    }
+
 
     public function searchDoctor(Request $request)
     {
