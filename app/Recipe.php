@@ -19,7 +19,7 @@ class Recipe extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Person', 'patient_id');
     }
 
     public function medicine()
