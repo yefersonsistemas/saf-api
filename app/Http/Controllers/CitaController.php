@@ -208,7 +208,7 @@ class CitaController extends Controller
             $reservation->status = $data['type'];
             $reservation->save();
 
-            return redirect()->route('citas.index');
+            return redirect()->back();
         }else{
             Alert::error('No se puede '.$data['type'].' esta cita');
             return redirect()->back();
@@ -266,7 +266,7 @@ class CitaController extends Controller
                 'branch_id'         =>  1,
             ]);
             Alert::success('Cita actualizada exitosamente');
-            return redirect()->route('citas.index');
+            return redirect()->route('checkin.index');
         }
     }
 

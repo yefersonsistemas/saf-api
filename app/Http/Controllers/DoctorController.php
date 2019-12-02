@@ -236,7 +236,7 @@ class DoctorController extends Controller
                     for ($j= 0; $j < 12; $j++) { 
                         $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
                         if ($citesToday < $quota[$i]) {
-                            $available[] = array(Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)); 
+                            $available[] = array(Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)->format('m/d/Y')); 
                         }
                         $date[$i] = $date[$i]->addWeek();
                     }
