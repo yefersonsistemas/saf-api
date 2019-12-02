@@ -346,21 +346,18 @@
                 })
                 .done(function(data) {
                     console.log('Doctores:',data);
-
                     console.log('Fechas disponibles de los Doctores',data.available);
-                    fecha = new date();
-                    
                     Swal.fire({
                         title: 'Excelente!',
                         text: 'Medico Seleccionado',
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);
-                    for (let i = 0; i < data.available.length; i++) {
-                    $('#date').datepicker({
-                    datesDisabled: '12/12/2019'
-}); 
-                    }
+                    $('.datepicker').datepicker({
+                        todayHighlight: true,
+                        language: 'es',
+                        datesDisabled: data.available,
+                    });
                     $('#fecha').val();
                 })
                 .fail(function(data) {
@@ -407,17 +404,35 @@
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,
+                    format: {
+        /*
+         * Say our UI should display a week ahead,
+         * but textbox should store the actual date.
+         * This is useful if we need UI to select local dates,
+         * but store in UTC
+         */
+        toDisplay: function (date, format, language) {
+            var d = new Date(date);
+            d.setDate(d.getDate() - 7);
+            return d.toISOString();
+        },
+        toValue: function (date, format, language) {
+            var d = new Date(date);
+            d.setDate(d.getDate() + 7);
+            return new Date(d);
+        }
+    }
                 });
-                window.location.href = "{{ route('checkin.index') }}";
+                window.location.href = "{{ route('citas.index') }}";
             })
             .fail(function(data) {
                 console.log(data);
             })
     }
 
-//     $('#date').datepicker({
-//         datesDisabled: '12/12/2019'
-// }); 
+    $('#date').datepicker({
+   daysOfWeekDisabled: ""
+}); 
 </script>
 
 <script>
