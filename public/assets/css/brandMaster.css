@@ -302,3 +302,10 @@ ul[role="tablist"] {
     color: #fff;
     box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
 }
+
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+    background: #9aa0ac;
+    color: #fff;
+    cursor: default;
+}
