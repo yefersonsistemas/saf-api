@@ -140,10 +140,12 @@ class DoctorController extends Controller
             'employe_id'    =>  $request->doctor,
             'doctor'        =>  $request->doctorExterno,
         ]);
-
+        
         $itinerary = Itinerary::where('patient_id', $person->historyPatient->id)->first();
-        $itinerary->reference_id = $reference->id;
-        $itinerary->save();
+        if (!is_null($itinerary)) {
+            $itinerary->reference_id = $reference->id;
+            $itinerary->save();
+        }
 
         Alert::success('Referencia Creada');
         return redirect()->back();
@@ -183,8 +185,12 @@ class DoctorController extends Controller
         }
 
         $itinerary = Itinerary::where('patient_id', $patient->id)->first();
-        $itinerary->reference_id = $diagnostic->id;
-        $itinerary->save();
+        
+        if (!is_null($itinerary)) {
+            $itinerary->diagnostic_id = $diagnostic->id;
+            $itinerary->save();
+        }
+
 
         Alert::success('diagnostico creado');
         return redirect()->back();

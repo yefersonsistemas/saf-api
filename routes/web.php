@@ -13,12 +13,13 @@
 
 Auth::routes();
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function (){
-    
+
+    Route::get('/home', function() {
+        return view('home');
+    })->name('home');
+
     Route::post('person','PersonController@store')->name('person.create');
     Route::post('search/doctor','DoctorController@searchDoctor')->name('search.medic');
     Route::post('search/doctor/schedule','DoctorController@search_schedule')->name('search.schedule');
@@ -49,27 +50,37 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
-        //Route::POST('file/{id}', 'InController@exams_previos')->name('checkin.exams');
-       // Route::POST('assigment', 'API\InController@index')->name('checkin.assigment');
+
+        Route::post('horario', 'InController@horario')->name('checkin.horario');
+  
+        Route::POST('save', 'InController@guardar')->name('save.history');
+        Route::post('status', 'InController@status')->name('checkin.status');
+       
     });
 
     
     //======================= rutas para el usuario ckeckout ====================
     Route::group(['middleware' => ['role:OUT']], function () {
-        Route::get('ken', 'OutController@index')->name('checkout.index');  // mostrar pacientes del dia
-        Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');  // mostrar cirugias
+        Route::get('index', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
+        Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('cirugias/detalles/{id}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de cirugias
-        Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');  // generar factura
-        Route::post('search/patient','OutController@search_patient')->name('checkout.patient'); //buscar paciente
-        Route::get('factura', 'OutController@create_factura')->name('checkout.factura');  // mostrar factura
-
+        Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');           // para generar factura
+        Route::post('search/patient','OutController@search_patient')->name('checkout.patient');    // buscar paciente    
+        Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
+
+
+        Route::POST('factura', 'OutController@create_factura')->name('checkout.factura');           // mostrar factura
+        Route::get('procedure', 'OutController@create_procedure')->name('checkout.procedure');  // mostrar factura
+ 
+
+       
      
 
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('/', 'DoctorController@index')->name('doctor.index');
+        Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');

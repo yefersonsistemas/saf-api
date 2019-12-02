@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(Itinerary::class, function (Faker $faker) {
     $patient = Patient::inRandomOrder()->first();
     $employe = Employe::inRandomOrder()->first();
-    $procedue = Procedure::inRandomOrder()->first();
+    $procedure_id = Procedure::inRandomOrder()->first();
     $surgery = Surgery::inRandomOrder()->first();
     $exam = Exam::inRandomOrder()->first();
     $recipe = Recipe::inRandomOrder()->first();
@@ -25,9 +25,7 @@ $factory->define(Itinerary::class, function (Faker $faker) {
     return [
         'patient_id' => $patient->id,
         'employe_id' => $employe->id,
-        // 'procedure_id' => array_random([$faker->realText(350), null]),
-        // $faker->shuffle(array(1,2)),
-        'procedure_id' =>  $procedue->id,
+        'procedure_id' => Procedure::all()->random()->procedure_id,
         'surgery_id' =>  $surgery->id,
         'exam_id' =>  $exam->id,
         'recipe_id' =>  $recipe->id,

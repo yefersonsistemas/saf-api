@@ -19,6 +19,8 @@ use App\InputOutput;
 use App\Medicine;
 use App\Reservation;
 use App\Patient;
+use App\Allergy;
+use App\Cite;
 use RealRashid\SweetAlert\Facades\Alert;
 
 //use App\Http\Controllers\CitaController;
@@ -33,7 +35,7 @@ class InController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         
         // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
@@ -43,8 +45,8 @@ class InController extends Controller
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
-       // $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
-
+       
+        // dd($reservations->first()->patient->inputoutput->first());
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
@@ -74,12 +76,8 @@ class InController extends Controller
                 }
             }
         }
-        //dd($em);
-
        return view('dashboard.checkin.create', compact('areas', 'em'));
     }
-
-    //nombre doctor especilaidad fecha de reservacion y razon de la misma
 
     public function search_history(Request $request){  //busca historia para la lista de in
         $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
@@ -89,13 +87,66 @@ class InController extends Controller
         //dd($cites);
 
         $disease = Disease::get();
-
+       
         $medicine = Medicine::get();
+        $allergy = Allergy::get();
 
-        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine'));
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
-    
+    public function guardar(Request $request)  //guarda registros de nuevos y editados en la historia del paciente
+    {
+        //dd($request);
+        $person = Person::where('dni', $request->dni)->first();
+        //dd($person);
+         $patient = Patient::where('person_id', $person->id)->first();
+        // dd($request);
+        
+        if (!is_null($patient)) {
+            if (!empty($request->disease)) {
+                foreach ($request->disease as $disease) {
+                    $di = Disease::find($disease);
+                    $patient->disease()->attach($di); 
+                }
+            }
+
+            if (!empty($request->medicine)){
+
+                foreach ($request->medicine as $medicine) {
+                    $me = Medicine::find($medicine);
+                    $patient->medicine()->attach($me); 
+                }
+            }
+
+            if (!empty($request->allergy)){
+
+                foreach ($request->allergy as $allergy) {
+                    $al = Allergy::find($allergy);
+                    $patient->allergy()->attach($al); 
+                }
+            }
+
+            //dd($request);
+
+            if ($request->age != null ) {
+           
+                $patient->update([
+                    'age'               => $request->age,
+                    'weight'            => $request->weight,
+                    'address'           => $request->address,
+                    'phone'             => $request->phone,
+                    'occupation'        => $request->occupation,
+                    'profession'        => $request->profession,
+                    'another_phone'     => $request->another_phone,
+                    'another_email'     => $request->another_email,
+                    'previous_surgery'  => $request->previous_surgery,
+                ]);
+            }
+        
+            Alert::success('Guardado exitosamente');
+            return redirect()->route('checkin.index');
+        }
+    }
 
     public function statusIn($registro)
     {
@@ -121,10 +172,70 @@ class InController extends Controller
             Alert::error('Paciente ya esta dentro');
             return redirect()->back();
          };
-        // return "listo";
+
+          $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
+        //  dd($reservation->patient->inputoutput);
+     
         Alert::success('Paciente dentro');
         return redirect()->back();
+
     }
+    
+    public function status(Request $request)
+    {
+        $data = $request->validate([
+            'reservation_id'    =>  'required',
+            'type'              =>  'required',
+            'motivo'            =>  'required',
+        ]);
+
+        $reservation = Reservation::where('id', $data['reservation_id'])->where('status', '!=', $data['type'])->first();
+
+        if (!is_null($reservation)) {
+            if($data['type'] == 'Suspendida'){
+                $reservation->discontinued = Carbon::now();
+                $cita = Cite::create([
+                    'reservation_id'    =>  $data['reservation_id'],
+                    'reason'            =>  $data['motivo'],
+                    'branch_id'         => 1,
+                ]);
+                Alert::success('Cita suspendida exitosamente');
+
+            }elseif ($data['type'] == 'Cancelada') {
+                if ($reservation->discontinued != null) {
+                    $reservation->discontinued = null;
+                }elseif ($reservation->approved != null) {
+                    $reservation->approved = null;
+                }
+
+                $cita = Cite::create([
+                    'reservation_id'    =>  $data['reservation_id'],
+                    'reason'            =>  $data['motivo'],
+                    'branch_id'         => 1,
+                ]);
+                $reservation->cancel = Carbon::now();
+                Alert::success('Cita Cancelada exitosamente');
+
+            }elseif ($data['type'] == 'Aprobada') {
+                $reservation->approved = Carbon::now();
+                if ($reservation->discontinued != null) {
+                    $reservation->discontinued = null;
+                }
+
+                Alert::success('Cita Aprobada exitosamente');
+            }
+            
+            $reservation->status = $data['type'];
+            $reservation->save();
+
+            return redirect()->route('checkin.index');
+        }else{
+            Alert::error('No se puede '.$data['type'].' esta cita');
+            return redirect()->back();
+        }
+
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -134,8 +245,7 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = $request->validated();
-        // $employe = Employe::create($data);
+        
     }
 
     /**
@@ -220,10 +330,26 @@ class InController extends Controller
         }
     }
 
+    public static function horario(Request $request){
+        // dd($request);
+
+        $employe = Employe::with('schedule')->where('id', $request->id)->first();
+
+        if(!empty($employe)){
+            return response()->json([
+                'employe' => $employe,201
+            ]);
+        }else{
+            return response()->json([
+                'employe' => 202
+            ]);
+        }
+    }
  
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
+        // dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
 

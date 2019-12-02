@@ -3810,3 +3810,7 @@ span.titulos {
     height: 300px;
     ;
 }
+
+textarea.letras {
+    color: #000;
+}
