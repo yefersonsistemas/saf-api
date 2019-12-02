@@ -12,7 +12,12 @@
 
 @section('content')
 <div class="container">
+<form action="{{ route('save.history') }}" method='POST' class="card p-4">
+@csrf
     <div class="card p-4">
+        <div style="margin-bottom:12px">
+            <a class="btn btn-primary" id="EditPatient" href="#">Editar datos <i class="fa fa-vcard"></i></a>
+        </div>
         <div class="card p-4">
             <h5 class="text-center">Datos Personales</h5>
             <div class="row">
@@ -26,23 +31,24 @@
                             <label class="m-0 form-label">DNI:</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <select name="type_dni" class="custom-select input-group-text form-control">
+                                    <select name="type_dni" disabled class="custom-select input-group-text form-control">
                                         <option value="{{ $rs->patient->type_dni }}">
                                             {{ $rs->patient->type_dni }}</option>
                                     </select>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Documento de Identidad" name="dni" value=" {{ $rs->patient->dni }}" name="dniP">
+                                <input type="hidden" value=" {{ $rs->patient->dni }}" name="dni">
+                                <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
                             </div>
                         </div>
                     
                         <div class="col-4">
                             <label class="m-0 form-label">Nombre:</label>
-                            <input type="text" class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
+                            <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
                         </div>
 
                         <div class="col-4">
                             <label class="m-0 form-label">Apellido:</label>
-                            <input type="text" class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
+                            <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
                         </div>
                     </div>
                 </div>
@@ -58,24 +64,25 @@
                 <div class="row mt-4 mb-2">
                     <div class="col-4">
                         <label class="m-0 form-label">Fecha:</label>
-                        <input type="text" class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
+                        <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
                     </div>
 
                     <div class="col-4">
                         <label class="m-0 form-label">Médico tratante:</label>
-                        <input type="text" class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
+                        <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
                     </div>
 
                     <div class="col-4">
                         <label class="m-0 form-label">Razón:</label>
-                        <input type="text" class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
+                        <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
                     </div>
                 </div>
             </div>
         </div>
     
-        <form action="{{ route('save.history') }}" method='POST' class="card p-4">
-            @csrf
+        {{-- <form action="{{ route('save.history') }}" method='POST' class="card p-4">
+            @csrf --}}
+            {{-- @method('PUT') --}}
             <div class="card p-4">
                 <h5 class="text-center">Información personal</h5>
                 <div class="row">
@@ -85,35 +92,35 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Fecha de Nacimiento</label>
-                                    <input type="text" class="form-control" placeholder="Fecha de Nacimiento" value="{{ $rs->historyPatient->birthdate }}">
+                                    <input type="text" disabled class="form-control" placeholder="Fecha de Nacimiento" value="{{ $rs->historyPatient->birthdate }}">
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Lugar de Nacimiento</label>
-                                    <input type="text" class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->historyPatient->place }}">
+                                    <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->historyPatient->place }}">
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
-                                    <input type="text" class="form-control" placeholder="Edad" value="{{ $rs->historyPatient->age }}">
+                                    <input type="text" disabled id="age" name="age" class="form-control" placeholder="Edad" value="{{ $rs->historyPatient->age }}">
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="form-label">Peso</label>
-                                    <input type="text" class="form-control" placeholder="Peso" value="{{ $rs->historyPatient->weight }}">
+                                    <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ $rs->historyPatient->weight }}">
                                 </div>
                             </div>
 
                             <div class="col-8">
                                 <div class="form-group">
                                     <label class="form-label">Direccion</label>
-                                    <input type="text" name="address" class="form-control" placeholder="Direccion" value="{{ $rs->patient->address }}">
+                                    <input type="text" disabled name="address" id="address" class="form-control" placeholder="Direccion" value="{{ $rs->patient->address }}">
                                 </div>
                             </div>
                             
@@ -121,12 +128,12 @@
                                 <label>Género</label>
                                 <br>
                                 <label class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" name="gender" value="Masculino" {{ ($rs->historyPatient->gender == 'Masculino') ? 'checked' : '' }} required>
+                                    <input type="radio" disabled class="custom-control-input" name="gender" value="Masculino" {{ ($rs->historyPatient->gender == 'Masculino') ? 'checked' : '' }} required>
                                     <span class="custom-control-label">M</span>
                                 </label>
 
                                 <label class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" name="gender" value="Femenino" {{ ($rs->historyPatient->gender == 'Femenino') ? 'checked' : '' }} required>
+                                    <input type="radio" disabled class="custom-control-input" name="gender" value="Femenino" {{ ($rs->historyPatient->gender == 'Femenino') ? 'checked' : '' }} required>
                                     <span class="custom-control-label">F</span>
                                 </label>
                                 <p id="error-radio"></p>
@@ -135,38 +142,38 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Email</label>
-                                    <input type="email"  name="email" class="form-control" placeholder="Email" value="{{ $rs->patient->email }}">
+                                    <input type="email" disabled id="email" name="email" class="form-control" placeholder="Email" value="{{ $rs->patient->email }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Teléfono</label>
-                                    <input type="text"  name="phone" class="form-control" placeholder="Teléfono" value="{{ $rs->patient->phone }}">
+                                    <input type="text" disabled id="phone" name="phone" class="form-control" placeholder="Teléfono" value="{{ $rs->patient->phone }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Teléfono adicional</label>
-                                    <input type="text"  name="another_phone" class="form-control" placeholder="Teléfono adicional" value="{{ $rs->historyPatient->another_phone }}">
+                                    <input type="text" disabled id="another_phone" name="another_phone" class="form-control" placeholder="Teléfono adicional" value="{{ $rs->historyPatient->another_phone }}">
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Email adicional</label>
-                                    <input type="email"  name="another_email" class="form-control" placeholder="Email" value="{{ $rs->historyPatient->another_email }}">
+                                    <input type="email" disabled id="another_email" name="another_email" class="form-control" placeholder="Email" value="{{ $rs->historyPatient->another_email }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Profesión</label>
-                                    <input type="text"  name="profession" class="form-control" placeholder="Profesión" value="{{ $rs->historyPatient->profession }}">
+                                    <input type="text" disabled id="profession" name="profession" class="form-control" placeholder="Profesión" value="{{ $rs->historyPatient->profession }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Ocupación</label>
-                                    <input type="text"  name="occupation" class="form-control" placeholder="Ocupación" value="{{ $rs->historyPatient->occupation }}">
+                                    <input type="text" disabled id="occupation" name="occupation" class="form-control" placeholder="Ocupación" value="{{ $rs->historyPatient->occupation }}">
                                 </div>
                             </div>
                         </div>
@@ -177,7 +184,7 @@
         <div class="card p-4">
             <label class="form-label">Exámenes</label>
             <div class="form-control">
-                    <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
+                    {{-- <form id="fileupload" action="" method="POST" enctype="multipart/form-data"> --}}
                         <div class="row fileupload-buttonbar mt-4 ml-2">
                             <div>
                                 <span class="btn btn-success fileinput-button">
@@ -223,7 +230,7 @@
                         <table role="presentation" class="table table-striped">
                             <tbody class="files"></tbody>
                         </table>
-                    </form>
+                    {{-- </form> --}}
                 </div>
             </div>
 
@@ -232,7 +239,7 @@
                     <div class="col-lg-6 col-md-3" id="framework_form">
                         <label class="form-label">Enfermedades</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
+                            <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
                                 @foreach ($disease as $enfermedades)
                                     <option value= {{ $enfermedades->id }}>{{ $enfermedades->name }}</option>
                                 @endforeach
@@ -243,7 +250,7 @@
                     <div class="col-lg-6 col-md-3" id="framework_form2">
                         <label class="form-label">Medicamentos</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter2" name="multiselect2[]" class="multiselect multiselect-custom " multiple="multiple" >
+                            <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
                                 @foreach ($medicine as $medicamentos)
                                     <option value= {{ $medicamentos->id }}>{{ $medicamentos->name }}</option>
                                 @endforeach
@@ -254,7 +261,7 @@
                     <div class="col-lg-6 col-md-3" id="framework_form3">
                         <label class="form-label">Alergias</label>
                         <div class="form-group multiselect_div">
-                            <select id="multiselect4-filter3" name="multiselect3[]" class="multiselect multiselect-custom" multiple="multiple" >
+                            <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
                                 @foreach ($allergy as $alergias)
                                     <option value= {{ $alergias->id }}>{{ $alergias->name }}</option>
                                 @endforeach
@@ -262,42 +269,12 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-md-3">
-                        <div class="row">
-                            <div class="form-group col-10">
+                    <div class="col-lg-6 col-md-3">
+                            <div class="form-group col-12">
                                 <label class="form-label">Cirugias previas</label>
-                                <input id="previous_surgery" type="text" class="form-control" placeholder="Cirugias anteriores" value="{{ $rs->patient->historyPatient->previous_surgery  }}" name="previous_surgery" disabled>
+                                <input  type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ $rs->patient->historyPatient->previous_surgery  }}" name="previous_surgery" disabled>
+                                {{-- <textarea class="form-control" disabled id="previous_surgery" name="cirugia" cols="63" rows="5">{{ $rs->patient->historyPatient->previous_surgery  }}</textarea> --}}
                             </div>
-                            <div class="col-2">
-                            <div class="mt-4">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
-                            </div>
-                            </div>
-                        </div>
-                    
-                        <!----------------modal para agregar cirugias------------------>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Agregar Cirugias</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form method="POST" action="">
-                                        @csrf
-                                        <div class="modal-body">
-                                            <textarea id="cirugia" name="cirugia" cols="63" rows="5"></textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                                            <button type="button" id="guardar" class="btn btn-primary">Guardar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -331,8 +308,9 @@
             </div>
         </div>
 
-            {{-- <a href="" class="btn btn-primary">Guardar</a> --}}
-        <button type="submit" class="btn btn-primary"> Guardar</button>
+        <div>
+            <button type="submit" class="btn btn-primary "> Guardar</button>
+        </div>
     </form>
 </div>
 @endsection
@@ -342,7 +320,7 @@
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
     <script>
-    $('#multiselect4-filter').multiselect({
+    $('#disease').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -350,7 +328,7 @@
     </script>
 
     <script>
-    $('#multiselect4-filter2').multiselect({
+    $('#medicine').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -358,50 +336,59 @@
     </script>
 
     <script>
-    $('#multiselect4-filter3').multiselect({
+    $('#allergy').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
+    });
+    </script>
+
+    <script>
+    $('#EditPatient').click(function() {
+            $('#age').removeAttr('disabled');
+            $('#weight').removeAttr('disabled');
+            $('#address').removeAttr('disabled');
+            $('#phone').removeAttr('disabled');
+            $('#profession').removeAttr('disabled');
+            $('#occupation').removeAttr('disabled');
+            $('#another_phone').removeAttr('disabled');
+            $('#another_email').removeAttr('disabled');
+            $('#previous_surgery').removeAttr('disabled');
+           
     });
     </script>
 
     <script>
         // para el select de las enfermedades
-        $("#multiselect4-filter").change(function(){
-            var disease_id = $(this).val();     // Capta el id de la enfermeda 
+        $("#disease").change(function(){
+            var disease_id = $(this).val();     // Capta el id de la enfermedad 
             console.log('enfermedad', disease_id); 
-            console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            //console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
             });
+    </script>
 
+    <script>
             // para el select de las alergias
-            $("#multiselect4-filter3").change(function(){
+            $("allergy").change(function(){
             var allergy_id = $(this).val();     // Capta el id de la alergia 
             console.log('alergia', allergy_id);
             console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
             });
+    </script>
 
+    <script>
                 // para el select de las medicamentos
-        $("#multiselect4-filter2").change(function(){
+        $("#medicine").change(function(){
             var medicine_id = $(this).val(); // Capta el id del medicamento 
             console.log('medicamento', medicine_id);
             console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
             });
     </script>
 
-    {{-- <script>
-
-    // $('#exampleModal').on('show.bs.modal', function (event) {
-
-    //     });
-
-    </script>  --}}
-
-
-
 @endsection
 
-{{-- <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
-<script>
-    $('#fileupload').fileupload();
-</script> --}}
-{{-- <script src="js/jquery.fileupload.js" type="text/javascript"></script> --}}
+{{--   <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+ <script>
+     $('#fileupload').fileupload();
+ </script>
+ <script src="js/jquery.fileupload.js" type="text/javascript"></script>  --}}
