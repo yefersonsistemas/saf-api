@@ -145,11 +145,11 @@
                                 <div class="col-md-6 m-auto">
                                     <div class="card card-date">
                                         <div class="card-header">
-                                            <h3 class="card-title"></h3>
+                                            <h3 class="card-title">Elegir Fecha</h3>
                                         </div>
                                         <div class="form-group mx-4">
                                             <div class="input-group">
-                                                <input data-provide="datepicker" data-date-autoclose="true" id="dates" name="date" class="form-control datepicker" autocomplete="off">
+                                                <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -345,18 +345,22 @@
                     }
                 })
                 .done(function(data) {
-                    console.log(data);
+                    console.log('Doctores:',data);
+
+                    console.log('Fechas disponibles de los Doctores',data.available);
+                    fecha = new date();
+                    
                     Swal.fire({
                         title: 'Excelente!',
                         text: 'Medico Seleccionado',
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);
-                    $('.datepicker').datepicker({
-                        todayHighlight: true,
-                        language: 'es',
-                        datesDisabled: data.available,
-                    });
+                    for (let i = 0; i < data.available.length; i++) {
+                    $('#date').datepicker({
+                    datesDisabled: '12/12/2019'
+}); 
+                    }
                     $('#fecha').val();
                 })
                 .fail(function(data) {
@@ -399,7 +403,7 @@
             })
             .done(function(data) {
                 console.log(data);
-                $('.datepicker').datepicker({
+                $('#date').datepicker({
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,
@@ -411,14 +415,14 @@
             })
     }
 
-    $('#dates').datepicker({
-   daysOfWeekDisabled: "0,6"
-}); 
+//     $('#date').datepicker({
+//         datesDisabled: '12/12/2019'
+// }); 
 </script>
 
 <script>
     // Date picker
     fecha = new Date(2019, 10, 06),
-        console.log(fecha);
+        console.log('yeaaah',fecha);
 </script>
 @endsection
