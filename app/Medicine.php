@@ -25,4 +25,10 @@ class Medicine extends Model
     public function employe (){
         return $this->belongsTo('App\Employe', 'employe_id');
     }
+
+    public function recipe()
+    {
+         return $this->belongsToMany('App\Recipe','recipe_medicine')
+                      ->withPivot('recipe_id','id');
+    }
 }

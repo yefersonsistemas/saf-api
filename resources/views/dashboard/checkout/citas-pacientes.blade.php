@@ -131,43 +131,40 @@
                                                        <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
                                                     @endforeach
                                                 </ul>
-                                                @endif
-                                                
-                                            
+                                                @endif                                            
                                             </div>                                                
                                         </div> 
-                                       
-                                </div>
+                                    </div>
 
                                 <div class="row card-body d-flex justify-content-between">
-                                        <div class="col-5 d-flex justify-content-end">
-                                            @if($itinerary->exam_id != null)
-                                                <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-danger" type="button">
-                                                Imprimir examen
-                                                </a>
+                                    <div class="col-5 d-flex justify-content-end">
+                                        @if($itinerary->exam_id != null)
+                                            <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-danger" type="button">
+                                            Imprimir examen
+                                            </a>
+                                        @else
+                                            <a class="btn btn-info" type="button">
+                                                Generar examen
+                                            </a>
+                                        @endif
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        @if($itinerary->recipe_id != null)
+                                            <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-danger " type="button">
+                                                Imprimir recipe
+                                            </a>
                                             @else
-                                                <a class="btn btn-info" type="button">
-                                                    Generar examen
-                                                </a>
-                                            @endif
-                                        </div>
-                                        <div class="col-2 d-flex justify-content-center">
-                                            @if($itinerary->recipe_id != null)
-                                                <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-danger " type="button">
-                                                    Imprimir recipe
-                                                </a>
-                                                @else
-                                                <a class="btn btn-info" type="button">
-                                                    Generar recipe
-                                                </a>
-                                            @endif
+                                            <a class="btn btn-info" type="button">
+                                                Generar recipe
+                                            </a>
+                                        @endif
 
-                                        </div>
-                                        <div class="col-5 d-flex justify-content-start">
-                                            <button class="btn btn-info" type="button">
-                                                generar cita
-                                            </button>
-                                        </div>
+                                    </div>
+                                    <div class="col-5 d-flex justify-content-start">
+                                        <button class="btn btn-info" type="button">
+                                            generar cita
+                                        </button>
+                                    </div>
                                 </div>
                               </div>
                             </div>

@@ -248,22 +248,21 @@ class OutController extends Controller
     {
         $examen = explode(',', $request->id); // decodificando los prcocedimientos json
 
+        $datos = Itinerary::with('person','employe.person','exam')->where('exam_id',$request->id)->first();
         for ($i=0; $i < count($examen) ; $i++) { 
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
 
-
-        $pdf = PDF::loadView('dashboard.checkout.print_examen');
+        $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
         return $pdf->stream('examen.pdf');
     }
-    
+
 
     //============================ imprimir recipe ============================
     public function imprimir_recipe(Request $request)
     {
-
         $recipe = Recipe::with('patient','employe.person')->where('id', $request->id)->first();
-        dd($recipe);
+        // dd($recipe);
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe');
         return $pdf->stream('recipe.pdf');
@@ -273,6 +272,7 @@ class OutController extends Controller
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {
+        dd($patient_id);
         $patient = InputOutput::where('person_id', $patient_id)->first();
         $p = Patient::where('person_id', $patient->person_id)->first();
         $io = InputOutput::where('person_id', $p->person_id)->first();
