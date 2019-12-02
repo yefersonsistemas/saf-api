@@ -24,7 +24,8 @@ use App\TypeSurgery;
 use App\Surgery;
 use App\ClassificationSurgery;
 use App\Procedure;
-use App\Procedure_billing;
+use App\Http\Requests\CreateVisitorRequest;
+// use App\Procedure_billing;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
@@ -36,20 +37,35 @@ class OutController extends Controller
      //=================== listando los pacientes del dia ==================
     public function index()
     {
-        // $citas_pacientes = 
-        // $cites = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->get();
-        // dd($cites);
-        // $all = collect([]);
-        $itinerary = Itinerary::with('employe', 'procedure', 'surgery.typesurgeries', 'exam', 'recipe', 'reservation', 'person')->get();
-        // foreach ($itinerary as $itinerary) {
-        //     $procedure[] = json_decode($itinerary->procedure_id);
-        // }
-        // for ($i=0; $i < count($procedure) ; $i++) { 
-        //     $procedures[] = Procedure::find($procedure[$i]);
-        // }
-        // $all->push($procedures); 
+        // $all = collect([]); //definiendo una coleccion|
+        $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
         // dd($itinerary);
+        for ($i=0; $i < count($itinerary) ; $i++) { 
+            // dd($itinerary[$i]->procedure_id == null);
+            if ($itinerary[$i]->procedure_id == null) { 
+                break;
+            }else{
+                $procedures[$i] = explode(',', $itinerary[$i]->procedure_id); //decodificando los procedimientos en $encontrado
+                for ($y=0; $y < count($procedures); $y++) {
+                    $procedureS[] = Procedure::find($procedures[$y]);
+                }
+                $itinerary[$i]->procedures = ($procedureS);
+                $procedureS = array();
+            }
+        }
+        // dd($itinerary); 
 
+//                 //recorriendo el arreglo de procedimientos
+//                 foreach ($itinerary as $proce) {
+//                 $procedures[] = $proce->procedure_id;
+//                 }
+
+//                 //buscando datos de cada procedimiento
+//                 for ($i=0; $i < count($procedures)-1 ; $i++) { 
+//                     $procedureS[] = Procedure::find($procedures[$i]);
+//                 }
+//                 $all->push($procedureS);  // colocando los procedimientos en colas ordenados
+// dd($proceduresS);
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
 
@@ -69,64 +85,87 @@ class OutController extends Controller
      //====================== detalles de las cirugias ============================
      public function cirugias_detalles(Request $request)
      {
-         
-        $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
         
-        // dd($cirugias);
-
+        $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
+        // dd($request);
          return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
      }
 
-
-   //====================== para generar factura ============================
-    public function create()
-    {
-        $procedimientos = Procedure::all();
-        $itinerary = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', 2)->get();
-        // dd(json_decode($itinerary->last()->procedure_id));
-      
-        return view('dashboard.checkout.facturacion', compact('procedimientos'));
-    }
 
 
     //============================ buscanco paciente ============================
     public function search_patient(Request $request){
 
+        // dd($request);
+        if(!empty($request->dni)){ 
+
         $person = Person::where('dni', $request->dni)->first();
-        $all = collect([]);
-     
-        $encontrado = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $person->id)->get();
-        $procedures = explode(',', $encontrado->last()->procedure_id);
+        if(!empty($person)){
 
-        foreach ($encontrado as $proce) {
-        $procedures[] = $proce->procedure_id;
-        }
-   
-        for ($i=0; $i < count($procedures)-1 ; $i++) { 
-            $procedureS[] = Procedure::find($procedures[$i]);
-        }
-        $all->push($procedureS); 
-  
+            $itinerary = Itinerary::where('patient_id', $person->id)->first();
+            if(!empty($itinerary)){
 
-        if (!is_null($encontrado)) {
-            return response()->json([
-                'encontrado' => $encontrado,201,
-                'procedureS'  => $procedureS,
-            ]);
+                $all = collect([]); //definiendo una coleccion|
+                $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
+            //    dd($encontrado);
+            
+                $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
+
+                //recorriendo el arreglo de procedimientos
+
+                foreach ($encontrado as $proce) {
+                $procedures[] = $proce->procedure_id;
+                }
+
+                //buscando datos de cada procedimiento
+                for ($i=0; $i < count($procedures)-1 ; $i++) { 
+                    $procedureS[] = Procedure::find($procedures[$i]);
+                }
+                $all->push($procedureS);  // colocando los procedimientos en colas ordenados
+                // dd($procedureS);
+
+                if (!is_null($encontrado)) {
+                    return response()->json([
+                        'encontrado' => $encontrado,201,
+                        'procedureS'  => $procedureS,
+                    ]);
+                }else{
+                    return response()->json([
+                        'encontrado' => 'persona no encontrado', 202
+                    ]);
+                }
+
+            }else{
+                return response()->json([
+                    'encontrado' => 'paciente no encontrado', 202
+                ]);
+            }
+
         }else{
             return response()->json([
-                'message' => 'No encontrado',202
+                'encontrado' => 'paciente no registrado',202
+            ]);
+
+            }//fin del else
+        }else{
+            return response()->json([
+                'encontrado' => 'Debe ingresar un valor de busqueda',202
             ]);
         }
+    }
+
+ 
+    //============== buscando procedimiento y mostrando en la vista para generar factura==============
+    public function create(){
+        $procedimientos = Procedure::all();
+        return view('dashboard.checkout.facturacion', compact('procedimientos'));
     }
 
 
     //============================ buscando procedimiento ============================
     public function search_procedure($procedure_id){
 
-        // dd($procedure_id);
         $data_procedure = Procedure::where('id', $procedure_id)->first();
-        // dd($data_procedure);
     
         if (!is_null($data_procedure)) {
             return response()->json([
@@ -139,71 +178,107 @@ class OutController extends Controller
         }
     }
 
-       //============================ buscando procedimiento ============================
-       public function create_procedure($procedure_id){
-
-        dd($procedure_id);
-        $data_procedure = Procedure::where('id', $procedure_id)->first();
-        // dd($data_procedure);
-    
-        if (!is_null($data_procedure)) {
-            return response()->json([
-                'procedure' => $data_procedure,201
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'No encontrado',202
-            ]);
-        }
-    }
-
-
-    //============================ guardar factura ============================
+    //============================================ guardar factura ========================================
     public function guardar_factura(Request $request)
     {
-        
-        $tipo_moneda = TypeCurrency::all();
-        $tipo_pago = TypePayment::all();
         // dd($request);
-        $itinerary = Itinerary::with('person', 'employe.person', 'procedure')->where('patient_id', $request->patient_id)->first();
-        // $procedures = explode(',', $itinerary->last()->procedure_id-1);
+        if($request->patient_id != null && $request->employe_id != null){
+            
+            $total = $request->total_cancelar; // el $total_cancelar viene de la funcion ajax y se muestra en la siguiente vista
+            $tipo_moneda = TypeCurrency::all();
+            $tipo_pago = TypePayment::all();
 
-        // foreach ($itinerary as $proce) {
-        // $procedures[] = $proce->procedure_id+1;
-        // $crear_factura->attach($procedures);
-        // }
+            $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
 
+            // dd($itinerary);
+                // if($itinerary->procedure_id != 0){
+                    $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
-        if($request->patient_id && $request->employe_id){
-        $crear_factura = Billing::create([
-            'patient_id'  => $request->patient_id,
-            'employe_id'     => $request->employe_id,
-            'branch_id' => 1,
-            ]);
+                    $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
+        
+                    if($procedures_for != null){ // Si es distinto de null
+                        $procedimientos= array_merge($procedures,$procedures_for);
+                    }else{ 
+                        $procedimientos = $procedures;
+                    }
+                // }
+                // dd($procedimientos);
 
-            $itinerary->procedure_id = $request->procedure_id;
-            $itinerary->save();
-     
-
-            return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','itinerary'));
-             }else{
-                return response()->json([
-                    'factura' => 202
+                $crear_factura = Billing::create([
+                    'patient_id'  => $itinerary->patient_id,
+                    'employe_id'     => $itinerary->employe_id,
+                    'branch_id' => 1,
                 ]);
-             }
+            
+    
+                for ($i=0; $i < count($procedimientos) ; $i++) { 
+                    $procedure[] = Procedure::find($procedimientos[$i]);
+                    $crear_factura->procedure()->attach($procedure[$i]);
+                }
+
+            return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','itinerary','procedure','crear_factura','total'));
+        }else{
+            Alert::error('No puede procesar la factura');
+            return redirect()->back();
+        }
     }
+
+    //============================ registrando cliente ============================
+    public function create_cliente(CreateVisitorRequest $request){
+        
+        $person = Person::create([
+            'type_dni'    => $request->type_dni,
+            'dni'         => $request->dni,
+            'name'        => $request->name,
+            'lastname'    => $request->lastname,
+            'address'     => $request->address,
+            'phone'       => $request->phone,
+            'email'       => $request->email,
+            'branch_id'   => 1,
+        ]);
+
+        return response()->json([
+            'cliente' => $person,201
+        ]);
+    }
+
      
-       //============================ crear factura ============================
-       public function create_factura(Request $request)
-       {
-           $patient_id = $request->patient_id;
-           $employe_id = $request->employe_id;
-        //    dd($patient_id);
-           $tipo_moneda = TypeCurrency::all();
-           $tipo_pago = TypePayment::all();
-           
-           return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago'));
-       }
+    //============================ imprimir factura ============================
+    public function imprimir_factura(Request $request)
+    {
+        // dd($request);   
+        if($request->person_id != null && $request->tipo_moneda != null && $request->tipo_pago != null){
+            if($request->factura != null){
+                
+                $billing = billing::find($request->factura);
+                // dd($billing);
+                $billing->person_id = $request->person_id;
+                $billing->type_payment_id = $request->tipo_pago;
+                $billing->type_currency = $request->tipo_moneda;
+                $billing->save();
+                // dd($billing);
+
+                $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
+                // dd($todos);
+
+                $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
+                // dd($cirugia);
+              
+
+                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia'));
+
+                return $pdf->stream('factura.pdf');
+
+            }else{
+                Alert::error('No puede procesar la factura');
+                return redirect()->back();
+            }
+        }else{
+            Alert::error('No puede procesar la factura');
+            return redirect()->back();
+        }
+    }
+
 
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
@@ -224,6 +299,8 @@ class OutController extends Controller
         Alert::success('Paciente fuera');
         return redirect()->back();
     }
+
+
 
     public function store(Request $request)
     {

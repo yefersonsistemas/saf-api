@@ -17,8 +17,9 @@ class CreateItineraryTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employe_id');
+            $table->unsignedBigInteger('doctor_id'); // precio de la consulta
             $table->string('procedure_id')->nullable();
-            $table->unsignedBigInteger('surgery_id');
+            $table->unsignedBigInteger('surgery_id')->nullable();
             $table->unsignedBigInteger('exam_id');
             $table->unsignedBigInteger('recipe_id');
             $table->unsignedBigInteger('reservation_id');
@@ -33,6 +34,11 @@ class CreateItineraryTable extends Migration
             $table->foreign('employe_id')
             ->references('id')
             ->on('employes')
+            ->onDelete('CASCADE');
+
+            $table->foreign('doctor_id')
+            ->references('id')
+            ->on('doctors')
             ->onDelete('CASCADE');
 
             $table->foreign('reservation_id')

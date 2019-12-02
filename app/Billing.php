@@ -14,20 +14,25 @@ class Billing extends Model //facturacion
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe', 'person_id');
+        return $this->belongsTo('App\Employe');
     }
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Person', 'patient_id');
     }
 
-    public function payments()
+    public function payment()
     {
         return $this->belongsTo('App\Payment');
     }
 
-    public function procedures() //relacion con la tabla m:m 
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor');
+    }
+
+    public function procedure() //relacion con la tabla m:m 
     {
         return $this->belongsToMany('App\Procedure','procedure_billing')
         ->withPivot('procedure_id','id');
@@ -35,17 +40,17 @@ class Billing extends Model //facturacion
 
     public function person()
     {
-        return $this->hasMany('App\Person');
+        return $this->belongsTo('App\Person', 'person_id');
     }
 
-    public function typepaymnets()
+    public function typepayment()
     {
-        return $this->hasmany('App\TypePayments');
+        return $this->belongsTo('App\TypePayment', 'type_payment_id');
     }
 
     public function typecurrency()
     {
-        return $this->hasmany('App\TypeCurrency');
+        return $this->belongsTo('App\TypeCurrency', 'type_currency');
     }
 
     public function branch()

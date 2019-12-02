@@ -458,3 +458,15 @@
             textarea.letras{
                 color:#000;
             }
+
+            .borderF{
+                border-bottom: 2px solid #2185d0;
+                border-top:2px solid #2185d0;
+            }
+            .text{
+                font-size: 14px;
+            }
+
+            .h66{
+                font-weight: bold;
+            }

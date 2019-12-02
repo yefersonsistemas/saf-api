@@ -59,11 +59,12 @@
                 {{-- Tabs de citas --}}
                 <ul class=" row nav nav-pills mb-3 d-flex justify-content-start mt-4" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active btn btn-outline-primary" id="pills-home-tab" data-toggle="pill" href="#hospitalarias" role="tab" aria-controls="hospitalarias" aria-selected="true">Hospitalarias</a>
+                        <a class="nav-link active btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#ambulatorias" role="tab" aria-controls="ambulatorias" aria-selected="true">Ambulatorias</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#ambulatorias" role="tab" aria-controls="ambulatorias" aria-selected="false">Ambulatorias</a>
+                        <a class="nav-link btn btn-outline-primary" id="pills-home-tab" data-toggle="pill" href="#hospitalarias" role="tab" aria-controls="hospitalarias" aria-selected="false">Hospitalarias</a>
                     </li>
+                   
                 </ul>
 
                 <div class="tab-content" id="pills-tabContent">
@@ -85,29 +86,18 @@
                                                             <img src="assets\images\pricing\plan1.svg" class="width150" >
                                                         </div>
                                                     </div>
-                                                    <div class="d-flex align-items-center px-2">
+                                                    <div class="d-flex align-items-center px-2 row" >
                                                            
-                                                            <div>
+                                                            <div class="col-12">
                                                                 <div>{{ $surgery->name }}</div>
                                                             </div>
-                                                            <div class="ml-auto text-muted">
-                                                                <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas...</a>
+                                                            <div class="ml-auto text-muted col-12">
+                                                                <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas</a>
                                                             </div>
                                                         </div>
                                                 </div>
                                             </div>
                                         </div>
-{{-- 
-                                            <div class="card" style="width: 18rem;">
-                                                <div class="tamano">
-                                                        <img src="assets/images/1.jpg" class="card-img-top" alt="...">
-                                                </div>
-                                                   
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $surgery->name }}</h5>
-                                                    <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn">Detalles</a>
-                                                </div>
-                                            </div> --}}
                                 
                                     @empty
                                         <h3>NO hay nada</h3>
@@ -134,13 +124,13 @@
                                                         <img src="assets\images\pricing\plan1.svg" class="width150" >
                                                     </div>
                                                 </div>
-                                                <div class="d-flex align-items-center px-2">
+                                                <div class="d-flex align-items-center px-2 row">
                                                        
-                                                        <div>
+                                                        <div class="col-12"> 
                                                             <div>{{ $surgery->name }}</div>
                                                         </div>
-                                                        <div class="ml-auto text-muted">
-                                                            <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas...</a>
+                                                        <div class="ml-auto text-muted col-12">
+                                                            <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas</a>
                                                         </div>
                                                     </div>
                                             </div>
