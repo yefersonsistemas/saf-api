@@ -357,6 +357,7 @@
                         todayHighlight: true,
                         language: 'es',
                         datesDisabled: data.available,
+                        daysOfWeekDisabled:'0'
                     });
                     $('#fecha').val();
                 })
@@ -403,7 +404,8 @@
                 $('.datepicker').datepicker({
                     todayHighlight: true,
                     language: 'es',
-                    datesDisabled: data.available
+                    datesDisabled: data.available,
+                    daysOfWeekDisabled: '0'
                 });
                 window.location.href = "{{ route('citas.index') }}";
             })
