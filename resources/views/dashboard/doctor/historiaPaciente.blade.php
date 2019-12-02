@@ -161,11 +161,11 @@
                                                 <label class="">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
                                                 <div class="form-check ladymen p-0">
                                                     <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
-                                                        <input disabled type="radio" id="genero1" name="gender" class="form-check-input" {{ $history->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} disabled value="Masculino">
+                                                        <input type="radio" id="genero1" name="gender" class="form-check-input" {{ $history->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} disabled value="Masculino">
                                                         <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
                                                     </div>
                                                     <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-                                                        <input  disabled type="radio" id="genero2" name="gender" class="form-check-input"  {{ $history->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} disabled value="Femenino">
+                                                        <input  type="radio" id="genero2" name="gender" class="form-check-input"  {{ $history->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} disabled value="Femenino">
                                                         <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
                                                     </div>
                                                 </div>

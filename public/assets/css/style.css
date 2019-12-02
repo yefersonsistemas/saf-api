@@ -107,7 +107,8 @@
 
 /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
 
-@-webkit-keyframes pulse {
+
+/* @-webkit-keyframes pulse {
     from {
         -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
@@ -140,7 +141,7 @@
 .pulse {
     -webkit-animation-name: pulse;
     animation-name: pulse;
-}
+} */
 
 @-webkit-keyframes rubberBand {
     from {
