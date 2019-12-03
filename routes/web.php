@@ -73,7 +73,6 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
         Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe   
-
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
