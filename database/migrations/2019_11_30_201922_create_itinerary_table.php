@@ -15,17 +15,6 @@ class CreateItineraryTable extends Migration
     {
         Schema::create('itinerary', function (Blueprint $table) {
             $table->bigIncrements('id');
-<<<<<<< HEAD:database/migrations/2019_10_30_201922_create_itinerary_table.php
-            $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('employe_id');
-            $table->unsignedBigInteger('doctor_id'); // precio de la consulta
-            $table->string('procedure_id')->nullable();
-            $table->unsignedBigInteger('surgery_id')->nullable();
-            $table->unsignedBigInteger('exam_id');
-            $table->unsignedBigInteger('recipe_id');
-            $table->unsignedBigInteger('reservation_id');
-            $table->unsignedBigInteger('branch_id');
-=======
             $table->unsignedBigInteger('patient_id')->nullable();
             $table->unsignedBigInteger('employe_id')->nullable();
             $table->json('procedure_id')->nullable();
@@ -37,7 +26,6 @@ class CreateItineraryTable extends Migration
             $table->unsignedBigInteger('reference_id')->nullable();
             $table->unsignedBigInteger('diagnostic_id')->nullable();
 
->>>>>>> 54afa414b2c56755cf68d3f03b2dee0dfc2ec017:database/migrations/2019_11_30_201922_create_itinerary_table.php
             $table->timestamps();
 
             $table->foreign('patient_id')
@@ -66,10 +54,10 @@ class CreateItineraryTable extends Migration
             ->on('surgeries')
             ->onDelete('CASCADE');
             
-            $table->foreign('exam_id')
-            ->references('id')
-            ->on('exams')
-            ->onDelete('CASCADE');
+            // $table->foreign('exam_id')
+            // ->references('id')
+            // ->on('exams')
+            // ->onDelete('CASCADE');
 
             
             $table->foreign('recipe_id')

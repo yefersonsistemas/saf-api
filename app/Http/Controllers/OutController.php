@@ -24,6 +24,7 @@ use App\TypeSurgery;
 use App\Surgery;
 use App\ClassificationSurgery;
 use App\Procedure;
+use App\Recipe;
 use App\Http\Requests\CreateVisitorRequest;
 // use App\Procedure_billing;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -33,39 +34,22 @@ use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 class OutController extends Controller
 {
    
-
-     //=================== listando los pacientes del dia ==================
+    //=================== listando los pacientes del dia ==================
     public function index()
     {
-        // $all = collect([]); //definiendo una coleccion|
+        $procedures_id = array();
         $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
-        // dd($itinerary);
-        for ($i=0; $i < count($itinerary) ; $i++) { 
-            // dd($itinerary[$i]->procedure_id == null);
-            if ($itinerary[$i]->procedure_id == null) { 
-                break;
-            }else{
-                $procedures[$i] = explode(',', $itinerary[$i]->procedure_id); //decodificando los procedimientos en $encontrado
-                for ($y=0; $y < count($procedures); $y++) {
-                    $procedureS[] = Procedure::find($procedures[$y]);
+        foreach ($itinerary as $iti) {
+            if ($iti->procedure_id != null) {
+                $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
+                if ($procedures_id != null) {
+                    for ($i=0; $i < count($procedures_id); $i++) {
+                        $procedures = Procedure::find($procedures_id[$i]);
+                        $iti->procedures = $procedures;
+                    }
                 }
-                $itinerary[$i]->procedures = ($procedureS);
-                $procedureS = array();
             }
         }
-        // dd($itinerary); 
-
-//                 //recorriendo el arreglo de procedimientos
-//                 foreach ($itinerary as $proce) {
-//                 $procedures[] = $proce->procedure_id;
-//                 }
-
-//                 //buscando datos de cada procedimiento
-//                 for ($i=0; $i < count($procedures)-1 ; $i++) { 
-//                     $procedureS[] = Procedure::find($procedures[$i]);
-//                 }
-//                 $all->push($procedureS);  // colocando los procedimientos en colas ordenados
-// dd($proceduresS);
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
 
@@ -81,22 +65,18 @@ class OutController extends Controller
     }
 
 
-
      //====================== detalles de las cirugias ============================
      public function cirugias_detalles(Request $request)
      {
-        
         $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
-        // dd($request);
+        dd($request->id);
          return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
      }
-
 
 
     //============================ buscanco paciente ============================
     public function search_patient(Request $request){
 
-        // dd($request);
         if(!empty($request->dni)){ 
 
         $person = Person::where('dni', $request->dni)->first();
@@ -107,22 +87,17 @@ class OutController extends Controller
 
                 $all = collect([]); //definiendo una coleccion|
                 $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
-            //    dd($encontrado);
-            
+
                 $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
 
-                //recorriendo el arreglo de procedimientos
-
-                foreach ($encontrado as $proce) {
+                foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
                 $procedures[] = $proce->procedure_id;
                 }
 
-                //buscando datos de cada procedimiento
-                for ($i=0; $i < count($procedures)-1 ; $i++) { 
+                for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
                     $procedureS[] = Procedure::find($procedures[$i]);
                 }
                 $all->push($procedureS);  // colocando los procedimientos en colas ordenados
-                // dd($procedureS);
 
                 if (!is_null($encontrado)) {
                     return response()->json([
@@ -146,7 +121,7 @@ class OutController extends Controller
                 'encontrado' => 'paciente no registrado',202
             ]);
 
-            }//fin del else
+            }
         }else{
             return response()->json([
                 'encontrado' => 'Debe ingresar un valor de busqueda',202
@@ -181,7 +156,6 @@ class OutController extends Controller
     //============================================ guardar factura ========================================
     public function guardar_factura(Request $request)
     {
-        // dd($request);
         if($request->patient_id != null && $request->employe_id != null){
             
             $total = $request->total_cancelar; // el $total_cancelar viene de la funcion ajax y se muestra en la siguiente vista
@@ -190,8 +164,6 @@ class OutController extends Controller
 
             $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
 
-            // dd($itinerary);
-                // if($itinerary->procedure_id != 0){
                     $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
                     $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
@@ -201,8 +173,6 @@ class OutController extends Controller
                     }else{ 
                         $procedimientos = $procedures;
                     }
-                // }
-                // dd($procedimientos);
 
                 $crear_factura = Billing::create([
                     'patient_id'  => $itinerary->patient_id,
@@ -225,7 +195,6 @@ class OutController extends Controller
 
     //============================ registrando cliente ============================
     public function create_cliente(CreateVisitorRequest $request){
-        
         $person = Person::create([
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
@@ -246,25 +215,19 @@ class OutController extends Controller
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
-        // dd($request);   
         if($request->person_id != null && $request->tipo_moneda != null && $request->tipo_pago != null){
             if($request->factura != null){
                 
                 $billing = billing::find($request->factura);
-                // dd($billing);
                 $billing->person_id = $request->person_id;
                 $billing->type_payment_id = $request->tipo_pago;
                 $billing->type_currency = $request->tipo_moneda;
                 $billing->save();
-                // dd($billing);
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
-                // dd($todos);
-
+            
                 $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
-                // dd($cirugia);
-              
-
+            
                 $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia'));
 
                 return $pdf->stream('factura.pdf');
@@ -280,9 +243,36 @@ class OutController extends Controller
     }
 
 
+    //============================ imprimir examen ============================
+    public function imprimir_examen(Request $request)
+    {
+        $examen = explode(',', $request->id); // decodificando los prcocedimientos json
+
+        $datos = Itinerary::with('person','employe.person','exam')->where('exam_id',$request->id)->first();
+        for ($i=0; $i < count($examen) ; $i++) { 
+            $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
+        }
+
+        $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
+        return $pdf->stream('examen.pdf');
+    }
+
+
+    //============================ imprimir recipe ============================
+    public function imprimir_recipe(Request $request)
+    {
+        $recipe = Recipe::with('patient','employe.person')->where('id', $request->id)->first();
+        // dd($recipe);
+
+        $pdf = PDF::loadView('dashboard.checkout.print_recipe');
+        return $pdf->stream('recipe.pdf');
+    }
+
+
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {
+        dd($patient_id);
         $patient = InputOutput::where('person_id', $patient_id)->first();
         $p = Patient::where('person_id', $patient->person_id)->first();
         $io = InputOutput::where('person_id', $p->person_id)->first();
@@ -299,7 +289,6 @@ class OutController extends Controller
         Alert::success('Paciente fuera');
         return redirect()->back();
     }
-
 
 
     public function store(Request $request)

@@ -19,12 +19,13 @@ class Recipe extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Person', 'patient_id');
     }
 
     public function medicine()
     {
-        return $this->belongsTo('App\Medicine');
+         return $this->belongsToMany('App\Medicine','recipe_medicine')
+                      ->withPivot('medicine_id','id');
     }
 
 }

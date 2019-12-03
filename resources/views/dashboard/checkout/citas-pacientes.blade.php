@@ -85,8 +85,8 @@
                                         <div class="col-7">
                                             
                                                 <h2 class=" mb-0 p-0" >
-                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->name }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
-                                                {{ $itinerary->person->name }}       {{ $itinerary->person->lastname }}
+                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->type_dni }}{{ $itinerary->person->dni }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
+                                                        {{ $itinerary->person->name }}       {{ $itinerary->person->lastname }}
                                                 </button>
                                             </h2>
                                         </div>
@@ -100,7 +100,7 @@
                               </div>
                           
                               <!--informacion del paciente reservacion y demas-->
-                              <div id="{{ $itinerary->person->name }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->dni }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="row card-body d-flex justify-content-lg-between">
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
@@ -125,34 +125,46 @@
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posibles procedimientos</h5>
-                                                @foreach ($itinerary->procedures as $proce)
-                                                     {{-- @foreach ($proce->procedures as $p) --}}
-                                                        <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $proce }} {{ $itinerary->surgery->typesurgeries->name }}</span><br>
-                                                    {{-- @endforeach --}}
-                                                @endforeach
-                                                
-                                            
+                                                @if ($itinerary->procedures != null)
+                                                <ul>
+                                                    @foreach ($itinerary->procedures as $proce)
+                                                       <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
+                                                    @endforeach
+                                                </ul>
+                                                @endif                                            
                                             </div>                                                
                                         </div> 
-                                       
-                                </div>
+                                    </div>
 
                                 <div class="row card-body d-flex justify-content-between">
-                                        <div class="col-5 d-flex justify-content-end">
-                                            <button class="btn btn-danger" type="button">
+                                    <div class="col-5 d-flex justify-content-end">
+                                        @if($itinerary->exam_id != null)
+                                            <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-danger" type="button">
                                             Imprimir examen
-                                            </button>
-                                        </div>
-                                        <div class="col-2 d-flex justify-content-center">
-                                            <button class="btn btn-danger " type="button">
+                                            </a>
+                                        @else
+                                            <a class="btn btn-info" type="button">
+                                                Generar examen
+                                            </a>
+                                        @endif
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        @if($itinerary->recipe_id != null)
+                                            <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-danger " type="button">
                                                 Imprimir recipe
-                                            </button>
-                                        </div>
-                                        <div class="col-5 d-flex justify-content-start">
-                                            <button class="btn btn-info" type="button">
-                                                generar cita
-                                            </button>
-                                        </div>
+                                            </a>
+                                            @else
+                                            <a class="btn btn-info" type="button">
+                                                Generar recipe
+                                            </a>
+                                        @endif
+
+                                    </div>
+                                    <div class="col-5 d-flex justify-content-start">
+                                        <button class="btn btn-info" type="button">
+                                            generar cita
+                                        </button>
+                                    </div>
                                 </div>
                               </div>
                             </div>
