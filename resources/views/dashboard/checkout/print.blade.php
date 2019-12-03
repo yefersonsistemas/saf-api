@@ -298,18 +298,13 @@ footer {
                 <td class="desc_titulo">Consulta</td>
                 <td class="total">{{ $todos->employe->doctor->price }}</td>
             </tr>
-        </tbody>
 
         @if($todos->procedure->first() != null)
-        <tbody>
             <tr>
                 <td class="no"></td>
                 <td class="desc_titulo">Procedimientos  </td>
                 <td class="total"></td>
             </tr>
-        </tbody>
-        
-        <tbody>
             @foreach ($todos->procedure as $item)
             <tr class="proces">
                 <td class="no"></td>
@@ -321,19 +316,15 @@ footer {
                 <td class="total">{{ $item->price }}</td>
             </tr>
             @endforeach
-        </tbody>
-        @endif
+            @endif
+        
 
         @if($cirugia->surgery != null)
-        <tbody>
             <tr>
                 <td class="no"></td>
                 <td class="desc_titulo">Cirugía</td>
                 <td class="total"></td>
             </tr>
-        </tbody>
-
-        <tbody>
             <tr>
                 <td class="no"></td>
                 <td class="desc">
@@ -341,8 +332,10 @@ footer {
                 </td>
                 <td class="total" >{{ $cirugia->surgery->typesurgeries->cost }}</td>    
             </tr>
+            @endif
+            
         </tbody>  
-        @endif
+     
     
         <tfoot>
         <tr>
@@ -352,18 +345,12 @@ footer {
           </tr>
           <tr>
             <td colspan="1"></td>
-            <td colspan="1">IMPUESTO xx%</td>
-            <td>$1,300.00</td>
-          </tr>
-          <tr>
-            <td colspan="1"></td>
             <td colspan="1">TOTAL</td>
             <td>{{ $total_cancelar }}</td>
           </tr>
         </tfoot>
 
       </table>
-      <div id="thanks">Gracios por preferirnos</div>
     </main>
     <footer>
       Invoice was created on a computer and is valid without the signature and seal.

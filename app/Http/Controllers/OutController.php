@@ -171,16 +171,17 @@ class OutController extends Controller
 
                     $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
-                    // dd($procedures);
                     $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
-        
-                    // dd($procedures_for);
-                    if($procedures_for != null){ // Si es distinto de null
+
+                    if($procedures_for != null && $procedures[0] != ''){ // Si es distinto de null
                         $procedimientos= array_merge($procedures,$procedures_for);
+
+                    }elseif($procedures_for != null && $procedures[0] == ''){ 
+                        $procedimientos= $procedures_for;
+                       
                     }else{ 
                         $procedimientos = $procedures;
                     }
-                    // dd($procedimientos);
 
                 $crear_factura = Billing::create([
                     'patient_id'  => $itinerary->patient_id,
@@ -226,7 +227,8 @@ class OutController extends Controller
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
-        if($request->person_id != null && $request->tipo_moneda != null && $request->tipo_pago != null){
+        // dd($request);
+        if($request->person_id != null){
             if($request->factura != null){
                 
                 $billing = billing::find($request->factura);
@@ -237,24 +239,22 @@ class OutController extends Controller
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
             
-                // dd($todos->procedure->first()->price);
-                for ($i=0; $i < count($todos->procedure) ; $i++) { 
-                    $total_procedure = array_sum($todos->procedure[$i]->price);
-                    
+                $total = 0;
+                foreach($todos->procedure as $proce) { 
+                    $total += $proce->price;
                 }
 
-                dd($total_procedure);
-            
-                
                 $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
  
-                // dd($todos->employe->doctor->price);
-                $total_cancelar = $cirugia->surgery->typesurgeries->cost + $todos->employe->doctor->price ;
-                // dd($total_cancelar);
+                if($cirugia->surgery != null){
+                     $total_cancelar = $cirugia->surgery->typesurgeries->cost + $todos->employe->doctor->price + $total;
+                }else{
+                    $total_cancelar = $todos->employe->doctor->price + $total;
+                }
+
                 $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar'));
 
                 return $pdf->stream('factura.pdf');
-
             }else{
                 Alert::error('No puede procesar la factura');
                 return redirect()->back();
