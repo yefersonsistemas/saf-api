@@ -9,7 +9,7 @@ class Recipe extends Model
     protected $table = 'recipe';
 
     protected $fillable = [
-        'patient_id', 'employe_id', 'medicine_id', 'branch_id'
+        'patient_id', 'employe_id', 'branch_id'
     ];
 
     public function employe()

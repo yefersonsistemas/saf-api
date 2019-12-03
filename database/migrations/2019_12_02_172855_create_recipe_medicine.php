@@ -17,7 +17,6 @@ class CreateRecipeMedicine extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('recipe_id');
             $table->unsignedBigInteger('medicine_id');
-            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('recipe_id')
@@ -30,10 +29,6 @@ class CreateRecipeMedicine extends Migration
             ->on('medicines')
             ->onDelete('CASCADE');
 
-            $table->foreign('branch_id')
-            ->references('id')
-            ->on('branch')
-            ->onDelete('CASCADE');
         });
     }
 
