@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Allergy;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AllergyController extends Controller
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Headquarters;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BranchsController extends Controller
 {

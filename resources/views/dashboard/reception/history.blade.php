@@ -3,31 +3,29 @@
 @section('title','Crear Historia Médica')
 
 @section('css')
-
-<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
 @endsection
 
 @section('content')
 <div class="row clearfix" style="margin: 15px">                    
     <div class="col-lg-12">
-        <form class="card" method="POST" action="{{ route('patients.store', $person) }}">
+        <form class="card" method="POST" action="{{ route('patients.store', $reservation) }}">
             @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <h3 class="card-title">Historia Médica De <b>{{ $person->name }}</b></h3>
+                            <h3 class="card-title">Historia Médica De <b>{{ $reservation->patient->name }}</b></h3>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    {{-- <div class="col-md-5">
                         <div class="form-group">
                             <label class="form-label">Numero de historia</label>
                             <input type="text" class="form-control" disabled="" name="history_number" placeholder="SF-0001">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-md-5">
                         <div class="form-group">
                             <label class="form-label">Fecha</label>
@@ -49,25 +47,25 @@
                     <div class="col-sm-6 col-md-2">
                         <div class="form-group">
                             <label class="form-label">DNI</label>
-                            <input type="text" class="form-control" placeholder="Nombre" value="{{ $person->dni }}" name="dni">
+                            <input type="text" class="form-control" placeholder="Nombre" value="{{ $reservation->patient->dni }}" name="dni">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" placeholder="Nombre" value="{{ $person->name }}" name="name">
+                            <input type="text" class="form-control" placeholder="Nombre" value="{{ $reservation->patient->name }}" name="name">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Apellido</label>
-                            <input type="text" name="lastname" class="form-control" placeholder="Apellido" value="{{ $person->lastname }}">
+                            <input type="text" name="lastname" class="form-control" placeholder="Apellido" value="{{ $reservation->patient->lastname }}">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="form-group">
                             <label class="form-label">Correo Electrónico</label>
-                            <input type="email" name="email" class="form-control" placeholder="Correo Electrónico" value="{{ $person->email }}">
+                            <input type="email" name="email" class="form-control" placeholder="Correo Electrónico" value="{{ $reservation->patient->email }}">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
@@ -79,13 +77,13 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="form-label">Dirección</label>
-                            <input type="text" class="form-control" placeholder="Dirección" name="address" value="{{ $person->address }}">
+                            <input type="text" class="form-control" placeholder="Dirección" name="address" value="{{ $reservation->patient->address }}">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="form-group">
                             <label class="form-label">Teléfono</label>
-                            <input type="text" name="phone" class="form-control" placeholder="Teléfono" value="{{ $person->phone }}">
+                            <input type="text" name="phone" class="form-control" placeholder="Teléfono" value="{{ $reservation->patient->phone }}">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
@@ -178,7 +176,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button type="submit" class="btn btn-primary">Update Profile</button>
+                <button type="submit" class="btn btn-primary">Crear Historia</button>
             </div>
         </form>
     </div>
