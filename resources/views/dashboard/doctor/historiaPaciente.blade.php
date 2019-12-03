@@ -71,7 +71,7 @@
                         <div class="card-body">
                             <div class="card">
                                 <div class="card-header">
-                                    <label class="form-label card-title">Datos de Paciente</label>
+                                    <h3 class="card-title">Datos de Paciente</h3>
                                 </div>
                                 <div class="card-body d-flex flex-row align-items-center justify-content-between">
                                     <div class="text-center">
@@ -101,7 +101,7 @@
                             </div>
                             <div class="card">
                                 <div class="card-header">
-                                    <label class="form-label card-title">Datos De la Cita</label>
+                                    <h3 class="card-title">Datos De la Cita</h3>
                                 </div>
                                 <div class="card-body d-flex flex-row align-items-center justify-content-between">
                                     <div class="form-group col-md-2">
@@ -213,7 +213,7 @@
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
-<script src="{{ asset('assets\css\brandAn.css') }}"></script>
+<script src="{{ asset('assets\css\brandAn.js') }}"></script>
 <script >
 </script>
 @endsection

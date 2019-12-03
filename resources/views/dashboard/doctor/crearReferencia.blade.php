@@ -73,29 +73,29 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Documento de Identidad</label>
+                                            <label class="form-label">Documento de Identidad:</label>
                                             <div class="input-group ">
-                                                <div class="input-group-prepend col-md-3">
-                                                    <input type="text" class="form-control" placeholder="Tipo de documento" name="type_dni" disabled value="{{ $patient->type_dni }}">
+                                                <div class="input-group-prepend col-md-3 p-0">
+                                                    <input type="text" class="form-control input-group-text bg-white border-0" placeholder="Tipo de documento" name="type_dni" disabled value="{{ $patient->type_dni }}">
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Documento de Identidad" name="dni" disabled value="{{ $patient->dni }}">
+                                                <input type="text" class="form-control bg-white border-0" placeholder="Documento de Identidad" name="dni" disabled value="{{ $patient->dni }}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-6">
                                         <div class="form-group">
-                                            <label class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" disabled placeholder="Nombre" value="{{ $patient->name }}" name="name">
+                                            <label class="form-label">Nombre:</label>
+                                            <input type="text" class="form-control border-0 bg-white" disabled placeholder="Nombre" value="{{ $patient->name }}" name="name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Apellido</label>
-                                            <input type="text" class="form-control" disabled placeholder="lastname" value="{{ $patient->lastname }}">
+                                            <label class="form-label">Apellido:</label>
+                                            <input type="text" class="form-control border-0 bg-white" disabled placeholder="lastname" value="{{ $patient->lastname }}">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 mt-2">
-                                        <label>Especialidad</label>
+                                    <div class="col-sm-6 col-md-4">
+                                        <label class="form-label" >Especialidad:</label>
                                         <select class="form-control custom-select" name="speciality" id="speciality">
                                             <option value="0" >Seleccione</option>
                                             @foreach ($specialities as $speciality)
@@ -103,26 +103,47 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-lg-6 col-md-6">
+                                    <div class="col-md-8">
+                                            <div class="form-group" style=" margin-top:8px;">
+                                                    <div class="custom-controls-stacked d-flex justify-content-between">
+                                                        <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
+                                                            <span class="custom-control-label">Medico Interno</span>
+                                                            <select class="form-control custom-select" name="doctor" id="medicoInterno">
+                                                                    <option>Medico Interno</option>
+                                                            </select>
+                                                        </label>
+                                                        <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
+                                                            <span class="custom-control-label">Medico Externo</span>
+                                                            <input type="text" id="medicoExterno" class="form-control"  placeholder="" name="doctorExterno" >
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    {{-- <div class="col-md-4">
                                         <label>Medico Interno</label>
                                         <select class="form-control custom-select" name="doctor" id="medicoInterno">
                                             <option>Medico Interno</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-6 col-md-6">
+                                    <div class="col-sm-6 col-md-5">
                                         <div class="form-group">
-                                            <a class="btn btn-primary" id="doctorExterno">Medico externo</a>
+                                                <label class="form-label">Medico Externo</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <a class="btn btn-azuloscuro input-group-text text-white" id="doctorExterno">Medico externo</a>
+                                                    </div>
+                                                    <input type="text" id="medicoExterno" disabled class="form-control"  placeholder="" name="doctorExterno" value="">
+                                                </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Medico Externo</label>
-                                            <input type="text" id="medicoExterno" disabled class="form-control"  placeholder="" name="doctorExterno" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12">
+                                    </div> --}}
+                                    <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label class="form-label">Razon</label>
                                             <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -139,8 +160,30 @@
 @endsection
 
 @section('scripts')
-
+<script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
+<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
+<script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+<script src="{{ asset('assets\css\brandAn.js') }}"></script>
 <script>
+
+   $('input[name="tipoMedico"]').on('click',function(){
+
+       if ($('#interno').is(':checked')) {
+          $('#medicoExterno').attr('disabled', 'disabled');
+          $('#medicoInterno').removeAttr('disabled');
+          $('#medicoExterno').val(null);
+       }
+
+       if($('#externo').is(':checked')){
+        $('#medicoInterno').attr('disabled', 'disabled');
+        $('#medicoInterno').val(null);
+        $('#medicoExterno').removeAttr('disabled');
+       }
+   })
+  
+
     $("#speciality").change(function() {
         var speciality = $(this).val();
         $.ajax({
@@ -167,7 +210,7 @@
             console.log(data[i].employe);
             for (let j = 0; j < data[i].employe.length; j++) {
                 console.log(data[i].employe[j].id);
-                $('#medicoInterno').append('<option value="'+data[i].employe[j].id+'">'+data[i].employe[j].person.name+'</option>');
+                $('#medicoInterno').append(`<option value="${data[i].employe[j].id}">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</option>`);
             }
         }
     }
