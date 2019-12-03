@@ -151,14 +151,14 @@
                                                 <label class="m-0 form-label">Fecha de nacimiento:</label>
                                                 <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $history->patient->historyPatient->birthdate }}" name="birthdate">        
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group">
                                                 <label class="form-label">Edad:</label>
                                                 <input type="number" class="form-control border-0 bg-white" placeholder="Edad" disabled="" name="age" value="{{ $history->patient->historyPatient->age }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
+                                                <label class="form-label">Genero <span class=""><i class="fa fa-venus-mars"></i></span>:</label>
                                                 <div class="form-check ladymen p-0">
                                                     <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
                                                         <input type="radio" id="genero1" name="gender" class="form-check-input" {{ $history->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} disabled value="Masculino">
@@ -168,6 +168,30 @@
                                                         <input  type="radio" id="genero2" name="gender" class="form-check-input"  {{ $history->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} disabled value="Femenino">
                                                         <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Telefono: </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Telefono" name="phone" value="{{ $history->patient->phone }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Profesión: </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Profesión" name="profession" value="{{  $history->patient->historyPatient->profession }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Ocupación: </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Ocupación" name="occupation" value="{{  $history->patient->historyPatient->occupation }}">
                                                 </div>
                                             </div>
                                         </div>
