@@ -44,17 +44,17 @@ class CitaController extends Controller
 
     public function index()
     {
-        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+        $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
 
-        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
+        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
 
-        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
+        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
 
-        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
+        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
-        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
 
-        $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
+        $pendientes = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNull('discontinued')->whereNull('reschedule')->whereNull('cancel')->whereNull('approved')->whereNotNull('status')->where('status', 'Pendiente')->get();
 
         return view('dashboard.reception.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas', 'pendientes'));
     }
@@ -110,6 +110,7 @@ class CitaController extends Controller
             'patient_id' => $request->person,
             'person_id' => $request->doctor,
             'schedule_id' => $schedule->id,
+            'status'      => 'Pendiente',
             'specialitie_id' => $request->speciality,
             'branch_id' => 1,
         ]);
@@ -207,7 +208,7 @@ class CitaController extends Controller
             $reservation->status = $data['type'];
             $reservation->save();
 
-            return redirect()->route('citas.index');
+            return redirect()->back();
         }else{
             Alert::error('No se puede '.$data['type'].' esta cita');
             return redirect()->back();
@@ -265,20 +266,22 @@ class CitaController extends Controller
                 'branch_id'         =>  1,
             ]);
             Alert::success('Cita actualizada exitosamente');
-            return redirect()->route('citas.index');
+            return redirect()->route('checkin.index');
         }
     }
 
     public function createHistory($id)
     {
-        $person = Person::find($id);
+        $reservation = Reservation::with('patient','person')->where('id',$id)->first();
+        // dd($reservation);
+        // $person = Person::find($id);
         $fecha = Carbon::now()->format('Y-m-d');
-        return view('dashboard.reception.history', compact('person','fecha'));
+        return view('dashboard.reception.history', compact('reservation','fecha'));
     }
 
     public function storeHistory($id, Request $request)
     {
-        $person = Person::find($id);
+        $reservation = Reservation::with('person','patient')->where('id',$id)->first();
         $data = $request->validate([
             'date'          =>  'required',
             'reason'        =>  'required',
@@ -291,26 +294,53 @@ class CitaController extends Controller
             'email2'        =>  'nullable',
             'phone2'        =>  'nullable'
         ]);
-
+            
+        // dd($data);
         $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
 
-        dd($data);
-
         $patient = Patient::create([
+            'history_number' => $this->numberHistory(),
+            'another_phone' =>  $data['phone2'],
+            'another_email' =>  $data['email2'],
             'date'          =>  Carbon::create($data['date']),
             'reason'        =>  $data['reason'],
             'gender'        =>  $data['gender'],
             'age'           =>  $age,
-            'person_id'     =>  $person->id,
+            'person_id'     =>  $reservation->patient->id,
             'place'         =>  $data['place'],
             'birthdate'     =>  Carbon::create($data['birthdate']),
             'weight'        =>  $data['weight'],
             'occupation'    =>  $data['occupation'],
             'profession'    =>  $data['profession'],
-            'employe_id'    =>  '',
+            'employe_id'    =>  $reservation->person->id,
             'branch_id'     =>  1,
-
         ]);
+
+        if (!is_null($patient)) {
+            Alert::success('Historia medica creada exitosamente. Su número de historia es: ' . $patient->history_number);
+            return redirect()->route('citas.index');
+        }
+    }
+
+    public function numberHistory()
+    {
+        $patient    = Patient::all()->last();
+        if ($patient == null) {
+            $number = 1;
+        } else {
+            $number = $patient->id + 1;
+        }
+
+        if (strlen($number) == 1) {
+            $history_number = 'P-000' . $number;
+        } elseif (strlen($number) == 2) {
+            $history_number = 'P-00' . $number;
+        } elseif (strlen($number) == 3) {
+            $history_number = 'P-0' . $number;
+        } else {
+            $history_number = 'P-' . $number;
+        }
+        return $history_number;
     }
 
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar
@@ -364,13 +394,13 @@ class CitaController extends Controller
                 'message' => 'El doctor no cuenta con ese horario',
                 ]);
         }
-                                              
+                                 
         $cupos = $schedule->quota; 
 
         $dia = Reservation::whereDate('date', $date)->get()->count();
         
         if ($dia <  $cupos) {
-        
+
             $reservation->date = $request->date;
             $reservation->description = $request->description;
             $reservation->patient_id = $request->patient_id;
@@ -378,7 +408,7 @@ class CitaController extends Controller
             $reservation->schedule_id = $request->schedule_id;
             $reservation->specialitie_id = $request->specialitie_id;
             $reservation->reschedule = 'Reprogramado';
-        
+
             if($reservation->save()){
                 return response()->json([
                     'message' => 'Cambio de cita satisfactorio',

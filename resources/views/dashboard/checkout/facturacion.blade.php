@@ -318,7 +318,7 @@
                 costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
                 console.log('cirugia',costo_cirugia);
             }
-    
+  
              // --------------------Procedures -------------
             if(data.procedureS != null){
                 procedure = '<th class="text-center width35"></th><th colspan="4">Procedimiento</th><th class="text-right" style="width: 4%"></th>';

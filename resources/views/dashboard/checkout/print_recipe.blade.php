@@ -101,7 +101,7 @@ table th {
   font-weight: normal;
 }
 
-table .service,
+table .medicine,
 table .desc {
   text-align: center;
   color: #000000;
@@ -112,7 +112,7 @@ table td {
   text-align: center;
 }
 
-table td.service,
+table td.medicine,
 table td.desc {
   vertical-align: top;
 }
@@ -189,7 +189,7 @@ footer {
     <table>
         <thead>
         <tr>
-            <th class="service">MEDICAMENTOS</th>
+            <th class="medicine">MEDICAMENTOS</th>
             <th class="desc">INDICACIONES</th>
         </tr>
         </thead>

@@ -288,6 +288,7 @@ class OutController extends Controller
         // dd($recipe);
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe'));
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('recipe.pdf');
     }
 

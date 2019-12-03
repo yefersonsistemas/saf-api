@@ -11,7 +11,7 @@ class Reservation extends Model
     protected $table = 'reservations';
 
     protected $fillable = [
-        'date', 'description', 'patient_id', 'approved', 'reschedule', 'cancel', 'discontinued', 'person_id', 'schedule_id', 'specialitie_id', 'branch_id', 
+        'date', 'description', 'status', 'patient_id', 'approved', 'reschedule', 'cancel', 'discontinued', 'person_id', 'schedule_id', 'specialitie_id', 'branch_id', 
     ];
 
     public function employe()

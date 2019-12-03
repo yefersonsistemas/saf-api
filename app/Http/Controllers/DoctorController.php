@@ -18,13 +18,14 @@ use App\Reservation;
 use App\Person;
 use Illuminate\Support\Facades\Auth;
 use App\Doctor;
+use App\Itinerary;
+use App\Reference;
 use App\Speciality;
+use App\Treatment;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DoctorController extends Controller
 {
-
- 
-
     /**
      * Display a listing of the resource.
      *
@@ -33,19 +34,8 @@ class DoctorController extends Controller
     public function index()
     {
         $id=Auth::id();
-       $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )
-                                ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-                                // dd($patients);
-                                // dd($patients);
-
-        // if (!is_null($patients)) {
-        //     return response()->json([
-        //         'reservas' => $patients,
-        //     ]);
-        // }
-
-       
-      return view('dashboard.doctor.citasPacientes',compact('patients'));
+        $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
+        return view('dashboard.doctor.index',compact('patients'));
     }
 
     /**
@@ -75,13 +65,13 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id )
+    public function show($id)
     {
-
+        // dd($id);
+        // $history = 
         $history=Reservation::with('patient.historyPatient')->where('id',$id)
-        ->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-        // dd($history);
-     return view('dashboard.doctor.historiaPaciente', compact('history'));
+        ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        return view('dashboard.doctor.historiaPaciente', compact('history'));
     }
 
     /**
@@ -117,19 +107,123 @@ class DoctorController extends Controller
     {
         //
     }
-
-    public function crearDiagnostico(){
-        return view('dashboard.doctor.crearDiagnostico');
-    }
-
-    public function crearRecipe(){
-        return view('dashboard.doctor.crearRecipe');
-    }
-    public function crearReferencia(){
-        return view('dashboard.doctor.crearReferencia');
-    }
-
     
+    // Para visualizar el Pago total del doctor
+    public function recordpago() {
+        $id=Auth::id();
+        $employe = Employe::with('person.user', 'doctor.typedoctor', 'patient')->where('person_id', $id)->first();
+        // dd($employe);
+        if ($employe->position->name != 'doctor' || !$employe->person->user->role('doctor')) {
+            return response()->json([
+                'message' => 'empleado no es medico',
+            ]);
+        }
+        
+        $inicio = Carbon::now()->startOfWeek(Carbon::MONDAY);
+        $fin = Carbon::now()->endOfWeek(Carbon::FRIDAY);
+        
+        $billing = Billing::with('procedures', 'patient')->where('employe_id', $employe->id)->whereBetween('created_at', [$inicio , $fin])->get();
+        // dd($billing);
+        $total = 0;
+        foreach($billing as $b){
+            foreach ($b->procedures as $procedure) {
+                $total += $procedure->price;
+            }
+        }
+
+        $pago = ((($employe->doctor->typedoctor->comission * $employe->doctor->price) * count($billing)) + $total);
+        // dd($id);
+
+        return view('dashboard.doctor.recordpago', compact('pago'));
+    }
+
+    public function crearDiagnostico($id){
+        $patient = Person::find($id);
+        $exams = Exam::all();
+        return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
+    }
+
+    public function crearRecipe($paciente){
+        $medicines = Medicine::all();
+        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
+    }
+
+    public function crearReferencia(Person $patient){
+        $specialities = Speciality::all();
+        return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
+    }
+
+    public function referenceStore(Request $request, $patient)
+    {
+        $person = Person::with('historyPatient')->where('id',$patient)->first();
+
+        $data = $request->validate([
+            'speciality'        =>  'required',
+            'reason'            =>  'required',
+        ]);
+
+        $reference = Reference::create([
+            'patient_id'    =>  $person->id,
+            'specialitie_id'    =>  $data['speciality'],
+            'reason'        =>  $data['reason'],
+            'employe_id'    =>  $request->doctor,
+            'doctor'        =>  $request->doctorExterno,
+        ]);
+        
+        $itinerary = Itinerary::where('patient_id', $person->historyPatient->id)->first();
+        if (!is_null($itinerary)) {
+            $itinerary->reference_id = $reference->id;
+            $itinerary->save();
+        }
+
+        Alert::success('Referencia Creada');
+        return redirect()->back();
+    }
+
+    public function recipeStore(Request $request, $paciente)
+    {
+        $paciente = Person::find($paciente);
+        $treatment = Treatment::create([
+            'medicine_id'   =>  $request->medicina,
+            'doses'         =>  $request->dosis,
+            'duration'      =>  $request->duracion,
+            'measure'       =>  $request->medida,
+            'indications'   =>  $request->indicaciones,
+            'branch_id'     =>  1,
+        ]);
+
+        $treatment->load('medicine');
+        return response()->json($treatment);
+    }
+
+    public function storeDiagnostic(Request $request, $id)
+    {
+        $patient = Patient::where('person_id', $id)->first();
+        // dd($request);
+        $diagnostic = Diagnostic::create([
+            'patient_id'    =>  $patient->id,
+            'description'   =>  $request->description,
+            'reason'        =>  $request->razon,
+            'indications'   =>  $request->indicaciones,
+            'employe_id'    =>  $patient->employe_id,
+            'branch_id'     =>  1,
+        ]);
+
+        foreach ($request->multiselect4 as $examen) {
+            $diagnostic->exam()->attach($examen);
+        }
+
+        $itinerary = Itinerary::where('patient_id', $patient->id)->first();
+        
+        if (!is_null($itinerary)) {
+            $itinerary->diagnostic_id = $diagnostic->id;
+            $itinerary->save();
+        }
+
+
+        Alert::success('diagnostico creado');
+        return redirect()->back();
+    }
 
     public function searchDoctor(Request $request)
     {
@@ -152,7 +246,7 @@ class DoctorController extends Controller
      * 
      */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
-        $employe = Employe::with('schedule')->where('person_id', $request->id)->first();
+        $employe = Employe::with('schedule')->where('id', $request->id)->first();
 
         if (!is_null($employe)) {
             if (!is_null($employe->schedule)) {
@@ -170,7 +264,7 @@ class DoctorController extends Controller
                     for ($j= 0; $j < 12; $j++) { 
                         $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
                         if ($citesToday < $quota[$i]) {
-                            $available[] = array(Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)); 
+                            $available[] = array(Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)->format('m/d/Y')); 
                         }
                         $date[$i] = $date[$i]->addWeek();
                     }

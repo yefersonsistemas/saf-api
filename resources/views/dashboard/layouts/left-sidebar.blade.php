@@ -37,30 +37,37 @@
 
 
                 @role('IN')
-                <li class="g_heading">Check-IN</li>                      
-                <li class="@yield('cites')">
+                    <li class="g_heading">Check-IN</li>                      
+                    <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
                             <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Citas</a></li>
+                            <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
                             {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                         </ul>
                         <li>
-                                <a href="{{ route('checkin.doctor') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
-                                {{-- <ul>
-                                    <li><a href="{{ route('checkin.doctor') }}">Del dia</a></li>
-                                    <li><a href="">Todos</a></li>
-                                </ul> --}}
-                            </li>
-                            
-                            <li>
-                                <a href="{{ route('checkin.create') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Asignar Consultorio</span></a>
-                            </li>
+                            <a href="{{ route('checkin.doctor') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
+                            {{-- <ul>
+                                <li><a href="{{ route('checkin.doctor') }}">Del dia</a></li>
+                                <li><a href="">Todos</a></li>
+                            </ul> --}}
                         </li>
-                        {{-- <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
-                        <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
-                        <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
-                        <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li> --}}
-                        @endrole
+                                
+                        <li>
+                            <a href="{{ route('checkin.create') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Asignar Consultorio</span></a>
+                        </li>
+                    </li>
+                    {{-- <div class="col-lg-2 col-md-2"> --}}
+                        <div class="card bg-indigo" style="background-color: #00506b;">
+                            <div class="card-header">
+                                <h3 class="card-title text-white">Fechas</h3>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="inline-datepicker datepicker-reception fill_bg"></div>
+                            </div>
+                        </div>
+                    {{-- </div> --}}
+                @endrole
                         
                         
                         
@@ -117,7 +124,7 @@
                     </li>                 --}}
                     <li class="g_heading">Funciones</li>
                     <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
-                    <li><a href=""><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li>
+                    <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li>
                     {{-- <li><a href="page-gallery.html"><i class="icon-picture"></i><span>Gallery</span></a></li> --}}
                     {{-- <li>
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fe fe-file"></i><span>Pages</span></a>

@@ -141,7 +141,7 @@
             $("input[name='searcharea']").click(function() {
                 var area = $(this).val();
 
-                console.log(area)
+                console.log('area paso 1',area)
                 $.ajax({
                         url: "{{ route('search.area') }}",
                         type: "POST",
@@ -175,7 +175,7 @@
             $("input[name='searchemploye']").click(function() {
                 var employe = $(this).val();
 
-                console.log(employe)
+                console.log('emp paso 1',employe)
                 $.ajax({
                         url: "{{ route('search.medico') }}",
                         type: "POST",
@@ -190,7 +190,7 @@
                             Swal.fire({
                                 title : 'Medico  seleccionado',
                                 text: data.employes,
-                            
+                                
                             })
                         }
                         if (!data){
@@ -221,20 +221,21 @@
                 }
             })
             .done(function(data) {
-                if(data[0] == 201){
-                console.log('asignado',data.asignado.area_id, data.asignado.employe_id) ;
+            //     if(data[0] == 201){
+            //     console.log('asignado',data.asignado.area_id, data.asignado.employe_id) ;
+            //     Swal.fire({
+            //         title : 'Consultorio asignado',
+            //         text: data.areaAssigment.employe_id,                    
+            //     })
+            // } 
+            if(data[0] == 202){
+            console.log('h',data);
                 Swal.fire({
-                    title : 'Consultorio asignado',
-                    text: data.areaAssigment.employe_id,
+                    type: 'sucess',
+                    text: data.error,
                 })
-             }
-             if(data[0] == 202){
-               
-                Swal.fire({
-                    title : 'Consultorio ya ha sido asignado ',
-                })
-             }
-             
+            }
+            
             })
             .fail(function(data) {
                 console.log(data);

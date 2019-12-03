@@ -9,7 +9,7 @@ class Billing extends Model //facturacion
     protected $table = 'billings';
 
     protected $fillable = [ //saldo
-         'person_id', 'patient_id', 'employe_id', 'type_payment_id', 'type_currency_id', 'branch_id'
+        'person_id', 'patient_id', 'employe_id', 'type_payment_id', 'type_currency_id', 'branch_id'
     ];
 
     public function employe()
@@ -35,7 +35,7 @@ class Billing extends Model //facturacion
     public function procedure() //relacion con la tabla m:m 
     {
         return $this->belongsToMany('App\Procedure','procedure_billing')
-       ->withPivot('procedure_id','id');
+        ->withPivot('procedure_id','id');
     }
 
     public function person()

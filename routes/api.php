@@ -39,10 +39,6 @@ Route::group(['prefix' => 'auth'], function () {
         //     Route::get('/list','API\PatientController@list');
         // });
         
-        Route::group(['prefix' => 'payments'], function(){
-            Route::get('/type', 'API\PaymentController@index');
-        });
-        
         Route::group(['prefix' => 'areas'], function(){
             Route::get('/type', 'API\AreasController@type');
         });
