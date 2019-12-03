@@ -79,7 +79,6 @@
                                                         <span id="phone_c"></span><br>
                                                     </div>
 
-                                                
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-6 text-end">
@@ -100,29 +99,22 @@
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group multiselect_div">
                                                         <select id="single-selection" name="tipo_moneda" class="multiselect multiselect-custom" style="display: none;">
-                                                            {{-- <option value="">moneda</option> --}}
                                                             @foreach ($tipo_moneda as $moneda)
                                                             <option value="{{ $moneda->id }}">{{ $moneda->name }}</option>
                                                             @endforeach
                                                         </select>
-
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                         <div class="form-group multiselect_div">
                                                             <select id="single-selection2" name="tipo_pago" class="multiselect multiselect-custom" style="display: none;">
-                                                                {{-- <option value="">moneda</option> --}}
                                                                 @foreach ($tipo_pago as $pago)
                                                                 <option value="{{ $pago->id }}">{{ $pago->name }}</option>
                                                                 @endforeach
                                                             </select>
-        
                                                         </div>
                                                     </div>
-                                            
-
-                                    
-                                            </div>
+                                                </div>
 
                                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
@@ -159,13 +151,14 @@
                                                     <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
                                                 </tbody>
                                                            
+                                                @if($procedure != 0)
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th colspan="4">Procedimiento</th>
                                                     <th class="text-right" style="width: 4%"></th>
                                                 </tbody>
                                                 
-                                                <tbody >
+                                                <tbody>
                                                     @foreach ($procedure as $item)
                                                     <tr>
                                                         <td class="text-center width35"></td>
@@ -177,13 +170,15 @@
                                                     </tr>
                                                     @endforeach
                                                 </tbody> 
+                                                @endif
 
+                                                @if($itinerary->surgery != null)
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th colspan="4">Cirugía</th>
                                                     <th class="text-right" style="width: 4%"></th>
                                                 </tbody>
-                                                    
+                                                   
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-center width35"></td>
@@ -192,7 +187,9 @@
                                                         </td>
                                                         <td class="text-right" style="width: 1%">{{ $itinerary->surgery->typesurgeries->cost }}</td>
                                                     </tr>
-                                                </tbody>                                             
+                                                </tbody> 
+                                                @endif
+
                                                 <tr>
                                                     <th class="text-center width35"></th>
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
@@ -215,9 +212,6 @@
                         <div class="row d-flex justify-content-center">
                             <button type="submit" class="btn btn-info">Guardar</button>
                         </div>
-                        {{-- <div class="row d-flex justify-content-center">
-                                <a href="{{ route('checkout.imprimir_factura') }}" class="btn btn-info">Guardar</a>
-                            </div> --}}
                     </div>                
                 </div>
             </div>

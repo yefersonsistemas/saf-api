@@ -300,12 +300,13 @@ footer {
             </tr>
         </tbody>
 
+        @if($todos->procedure->first() != null)
         <tbody>
-            {{-- <tr> --}}
+            <tr>
                 <td class="no"></td>
                 <td class="desc_titulo">Procedimientos  </td>
                 <td class="total"></td>
-            {{-- </tr> --}}
+            </tr>
         </tbody>
         
         <tbody>
@@ -321,7 +322,9 @@ footer {
             </tr>
             @endforeach
         </tbody>
+        @endif
 
+        @if($cirugia->surgery != null)
         <tbody>
             <tr>
                 <td class="no"></td>
@@ -339,12 +342,13 @@ footer {
                 <td class="total" >{{ $cirugia->surgery->typesurgeries->cost }}</td>    
             </tr>
         </tbody>  
+        @endif
     
         <tfoot>
         <tr>
             <td colspan="1"></td>
             <td colspan="1">SUBTOTAL</td>
-            <td>total</td>
+            <td>{{ $total_cancelar }}</td>
           </tr>
           <tr>
             <td colspan="1"></td>
@@ -354,7 +358,7 @@ footer {
           <tr>
             <td colspan="1"></td>
             <td colspan="1">TOTAL</td>
-            <td>total</td>
+            <td>{{ $total_cancelar }}</td>
           </tr>
         </tfoot>
 

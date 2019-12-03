@@ -46,7 +46,6 @@
         </div>
 
       
-
         <div class="section-body py-3">
             <div class="container">
                 <div class="tab-content">
@@ -92,25 +91,16 @@
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="consulta">
-                                                    {{-- <th class="text-center width35"></th>
-                                                    <th colspan="4">Consulta</th>
-                                                    <td class="text-right" style="width: 4%" id="consulta"></td> --}}
                                                 </tbody>
                                                 
                                                  
                                                 <tbody style="border-bottom: 1px solid #000" id="procedure">
-                                                    {{-- <th class="text-center width35"></th>
-                                                    <th colspan="4">Procedimiento</th>
-                                                    <th class="text-right" style="width: 4%"></th> --}}
                                                 </tbody>
                                                 
                                                 <tbody id="columna">
                                                     
                                                 </tbody> 
                                                 <tbody style="border-bottom: 1px solid #000" id="cirugia_html">
-                                                    {{-- <th class="text-center width35"></th>
-                                                    <th colspan="4">Cirugía</th>
-                                                    <th class="text-right" style="width: 4%"></th> --}}
                                                 </tbody>
                                                     
                                                 <tbody id="cirugia">
@@ -353,7 +343,6 @@
             total = costo_total;
 
             console.log('totallllllll',total);
-            console.log('procedimientos hhh',costo_total);
             $('#total').val(costo_total);
             
 
