@@ -262,9 +262,10 @@ class OutController extends Controller
     public function imprimir_recipe(Request $request)
     {
         $recipe = Recipe::with('patient','employe.person')->where('id', $request->id)->first();
-        // dd($recipe);
+        dd($recipe);
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe');
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('recipe.pdf');
     }
 

@@ -29,9 +29,28 @@ body {
   font-family: Arial;
 }
 
+/* main {
+  position: relative;
+}
+
+main:before{
+  content: "";
+  background-image: url("assets/images/Isotipo_S&F.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 60px;
+  z-index: 0;
+  width: 100%;
+  height: 75%;
+  position: absolute;
+  opacity: .5;
+} */
+
 header {
   padding: 10px 0;
   margin-bottom: 30px;
+  background-image: url("assets/images/Isotipo_S&F.svg");
 }
 
 #logo {
@@ -85,10 +104,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   margin-bottom: 20px;
+  position: absolute;
+  left: 0;
 }
 
 table tr:nth-child(2n-1) td {
-  background: #F5F5F5;
+  background: transparent;
 }
 
 table th,
@@ -98,8 +119,7 @@ table td {
 
 table th {
   padding: 5px 20px;
-  color: #5D6975;
-  border-bottom: 1px solid #C1CED9;
+  border-bottom: 1px solid #a1a1a1;
   white-space: nowrap;        
   font-weight: normal;
 }
@@ -115,9 +135,12 @@ table td {
   text-align: center;
 }
 
-table td.service,
+table td.service{
+  vertical-align: top;
+}
 table td.desc {
   vertical-align: top;
+  border-left: 1px solid #a1a1a1;
 }
 
 
@@ -138,22 +161,23 @@ footer {
 }
 
 span .name{
- font-size:14px;
- width: 100px;
+  font-size:14px;
+  width: 100px;
+  text-align: center;
 }
 
 #client {
   padding-left: 6px;
   /* border-left: 6px solid #0087C3; */
-  float: left;
 }
 
 #client .name_titulo{
- font-size:18px;
+  font-size:18px;
+  text-align: center;
 }
 
 #invoice .name_titulo{
- font-size:18px;
+  font-size:18px;
 }
 
 
@@ -161,14 +185,23 @@ span .name{
   /* float: right; */
   text-align: right;
 }
+.imgfondo{
+  position: relative;
+  opacity: .2;
+  background-position: center;
+  vertical-align: top;
+  width: 100%
+}
 
-
+#details{
+  text-align: center
+}
     </style>
   </head>
   <body>
     <header class="clearfix">
     <div id="logo">
-        <img src="logo.png">
+        <img src="assets/images/Isotipo_S&F.svg">
         <div id="company" class="clearfix">
             <div>Sinus And Faces</div>
             <div>Dirección</div>
@@ -186,29 +219,30 @@ span .name{
                 <span class="name">Direcciòn:</i></span><span>{{ $datos->person->address }}</span><br>
                 <span class="name">Telefono:</i></span><span >{{ $datos->person->phone }}</span><br> 
             </div>
-            <div id="invoice">
+            {{-- <div id="invoice">
                 <span class="name_titulo">Medico tratante:</span><br><br>
                 <span class="name">Doc. de identidad:</span> <span>{{ $datos->employe->person->type_dni }}</span> <span>{{ $datos->employe->person->dni }}</span><br>
                 <span class="name">Nombre y Apellido:</span> <span>{{ $datos->employe->person->name }} {{ $datos->employe->person->lastname }}</span><br>
                 <span class="name">Direcciòn:</i></span><span>{{ $datos->employe->person->address }}</span><br>
                 <span class="name">Telefono:</i></span><span >{{ $datos->employe->person->phone }}</span><br> 
-            </div>
+            </div> --}}
         </div>
 
     </header>
     <main>
+        <img src="assets/images/Isotipo_S&F.svg" class="imgfondo">
     <table>
-        <thead>
+      <thead>
         <tr>
-            <th class="service">EXAMEN</th>
-            <th class="desc">INDICACIONES</th>
+          <th class="service">EXAMEN</th>
+          <th class="desc">INDICACIONES</th>
         </tr>
         </thead>
         <tbody>
         @foreach ($examenes as $item)
             <tr>
-                <td class="service">{{ $item->name }}</td>
-                <td class="desc">Sin indicaciòn</td>
+              <td class="service">{{ $item->name }}</td>
+              <td class="desc">Sin indicaciòn</td>
             </tr>
         @endforeach
         </tbody>
