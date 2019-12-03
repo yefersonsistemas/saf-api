@@ -38,7 +38,8 @@ class OutController extends Controller
     public function index()
     {
         $procedures_id = array();
-        $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
+        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
+    //   dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -87,6 +88,7 @@ class OutController extends Controller
 
                 $all = collect([]); //definiendo una coleccion|
                 $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
+
 
                 $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
 
@@ -296,7 +298,7 @@ class OutController extends Controller
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {
-        dd($patient_id);
+        // dd($patient_id);
         $patient = InputOutput::where('person_id', $patient_id)->first();
         $p = Patient::where('person_id', $patient->person_id)->first();
         $io = InputOutput::where('person_id', $p->person_id)->first();

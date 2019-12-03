@@ -93,11 +93,32 @@
                                   </div>
                                    
                                 </div>
-                                <div class="col-4 d-flex justify-content-end">
-                                    <a disabled href="" class="btn btn-secondary mr-2">E</a>
-                                    <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-secondary">S</a>
-                                </div>
-                              </div>
+                              
+
+                                <!--si ambos estan vacios-->
+                                @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <a disabled href="" disabled class="btn btn-secondary mr-2">E</a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" diabled class="btn btn-secondary">S</a>
+                                    </div>
+                                @endif
+
+                                <!--si fuera  estan vacios-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <a disabled href="" disabled class="btn btn-success mr-2">E</a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" diabled class="btn btn-secondary">S</a>
+                                    </div>
+                                @endif
+
+                                <!--si ambos tienen datos-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <a disabled href="" disabled class="btn btn-success mr-2">E</a>
+                                        <a href="" disabled class="btn btn-danger">S</a>
+                                    </div>
+                                @endif
+                            </div>
                           
                               <!--informacion del paciente reservacion y demas-->
                               <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->dni }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -108,20 +129,24 @@
                                                 <span class="titulos">Nombre:<span><span class=" mb-2 text-muted">  {{ $itinerary->employe->person->name }}</span> <br>
                                               
                                                 <span class="titulos">Apellido:<span> <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span>
-                            
-                                                {{-- <h6 class="mb-2 text-muted"><span class="titulos">Especialidad:<span> {{ $itinerary->speciality->name }}</h6> --}}
                                             </div>
                                         
                                         </div> 
+                                     
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posible cirugia</h5>
+                                                @if($itinerary->surgery != null)
                                                 <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $itinerary->surgery->typesurgeries->name }}</span><br>
                                                 <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
                                                 <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
                                                 <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
+                                                @else
+                                                <span class="mb-2 text-muted">Sin cirugia</span><br>
+                                                @endif
                                             </div>                                            
                                         </div> 
+                                      
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posibles procedimientos</h5>
@@ -131,7 +156,9 @@
                                                        <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
                                                     @endforeach
                                                 </ul>
-                                                @endif                                            
+                                                @else
+                                                <span class="mb-2 text-muted">Sin procedimientos</span><br>
+                                                @endif
                                             </div>                                                
                                         </div> 
                                     </div>
