@@ -133,12 +133,32 @@ footer {
   padding: 8px 0;
   text-align: center;
 }
+
+#client {
+  padding-left: 6px;
+  /* border-left: 6px solid #0087C3; */
+  float: left;
+}
+
+#client .name_titulo{
+ font-size:18px;
+}
+
+#invoice .name_titulo{
+ font-size:18px;
+}
+
+
+#invoice {
+  /* float: right; */
+  text-align: right;
+}
     </style>
   </head>
   <body>
     <header class="clearfix">
     <div id="logo">
-        <img src="logo.png">
+      
         <div id="company" class="clearfix">
             <div>Nombre de la Empresa</div>
             <div>Dirección<br /> De la Empresa</div>
@@ -147,13 +167,23 @@ footer {
         </div>
     </div>
         <h1>Recipe Medico</h1>
-    <div id="project">
-        <div><span>PACIENTE</span> Nombre</div>
-        <div><span>DNI</span> AQUI </div>
-        <div><span>DIRECCIÓN</span> AQUI</div>
-        <div><span>EMAIL</span> AQUI</div>
-        <div><span>FECHA</span> August 17, 2015</div>
-    </div>
+  
+        <div id="details" class="clearfix">
+            <div id="client">
+                <span class="name_titulo">Paciente:</span><br><br>
+                <span class="name">Doc. de identidad:</span> <span>{{ $recipe->patient->type_dni }}</span> <span>{{ $recipe->patient->dni }}</span><br>
+                <span class="name">Nombre y Apellido:</span> <span>{{ $recipe->patient->name }} {{ $recipe->patient->lastname }}</span><br>
+                <span class="name">Direcciòn:</i></span><span>{{ $recipe->patient->address }}</span><br>
+                <span class="name">Telefono:</i></span><span >{{ $recipe->patient->phone }}</span><br> 
+            </div>
+            <div id="invoice">
+                <span class="name_titulo">Medico tratante:</span><br><br>
+                <span class="name">Doc. de identidad:</span> <span>{{ $recipe->employe->person->type_dni }}</span> <span>{{ $recipe->employe->person->dni }}</span><br>
+                <span class="name">Nombre y Apellido:</span> <span>{{ $recipe->employe->person->name }} {{ $recipe->employe->person->lastname }}</span><br>
+                <span class="name">Direcciòn:</i></span><span>{{ $recipe->employe->person->address }}</span><br>
+                <span class="name">Telefono:</i></span><span >{{ $recipe->employe->person->phone }}</span><br> 
+            </div>
+        </div>
     </header>
     <main>
     <table>
@@ -164,16 +194,14 @@ footer {
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="service">Creating a recognizable design solution based on the company's existing visual identity</td>
-            <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
-        </tr>
+        @foreach ($recipe->medicine as $item)
+            <tr>
+              <td class="service">{{ $item->name }}</td>
+              <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
+            </tr>
+        @endforeach  
         </tbody>
     </table>
-    {{-- <div id="notices">
-        <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-    </div> --}}
     </main>
     <footer>
     Invoice was created on a computer and is valid without the signature and seal.
