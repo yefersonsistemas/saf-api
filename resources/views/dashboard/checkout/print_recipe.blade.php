@@ -10,10 +10,7 @@
   clear: both;
 }
 
-a {
-  color: #5D6975;
-  text-decoration: underline;
-}
+
 
 body {
   position: relative;
@@ -29,16 +26,12 @@ body {
 
 header {
   padding: 10px 0;
-  margin-bottom: 30px;
-}
-
-#logo {
-  text-align: center;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  margin-top: -25px;
 }
 
 #logo img {
-  width: 90px;
+  width: 120px;
 }
 
 h1 {
@@ -68,7 +61,7 @@ h1 {
 
 #company {
   /* float: right; */
-  text-align: center;
+  /* text-align: center; */
   color: #000000;
 }
 
@@ -82,10 +75,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   margin-bottom: 20px;
+  position: absolute;
+  left: 0;
 }
 
 table tr:nth-child(2n-1) td {
-  background: #F5F5F5;
+  background: transparent;
 }
 
 table th,
@@ -95,13 +90,12 @@ table td {
 
 table th {
   padding: 5px 20px;
-  color: #5D6975;
-  border-bottom: 1px solid #C1CED9;
+  border-bottom: 1px solid #000000;
   white-space: nowrap;        
   font-weight: normal;
 }
 
-table .medicine,
+table .service,
 table .desc {
   text-align: center;
   color: #000000;
@@ -112,11 +106,13 @@ table td {
   text-align: center;
 }
 
-table td.medicine,
-table td.desc {
-  vertical-align: top;
+table td.service{
+  vertical-align: center;
 }
-
+table td.desc {
+  vertical-align: center;
+  border-left: #a1a1a1 dashed 2px;
+}
 
 #notices .notice {
   color: #5D6975;
@@ -134,74 +130,197 @@ footer {
   text-align: center;
 }
 
-#client {
-  padding-left: 6px;
-  /* border-left: 6px solid #0087C3; */
+.imgfondo{
+  position: relative;
+  opacity: .2;
+  background-position: center;
+  vertical-align: top;
+  width: 500px;
+  margin-left: -5px;
+  margin-top: 60px;
+}
+
+.imgfondo2{
+  position: relative;
+  opacity: .2;
+  background-position: center;
+  vertical-align: top;
+  width: 500px;
+  margin-left: 25px;
+  margin-top:60px;
+}
+
+.cabecera{
+  width: 50%;
+  height: 100px;
+}
+
+.img{
+  width: 200px;
+  max-width: 35%;
   float: left;
+  margin-left: -15px
 }
 
-#client .name_titulo{
- font-size:18px;
+.sociales{
+  width: 200px;
+  max-width: 35%;
+  float: left;
+  margin-left: -15px
 }
 
-#invoice .name_titulo{
- font-size:18px;
+.sociales ul{
+list-style: none;
 }
 
-
-#invoice {
-  /* float: right; */
-  text-align: right;
+.img img{
+  width: 100%;
 }
-    </style>
+
+.fila ul{
+  list-style: none;
+  width: 200px;
+  max-width: 35%;
+  float: left;
+  margin-left: -50px;
+  margin-top: 20px;
+}
+
+.cabecera2{
+  width: 50%;
+  height: 100px;
+}
+
+.img2{
+  width: 200px;
+  max-width: 35%;
+  float: left;
+  /* margin-left: -15px */
+}
+
+.sociales2{
+  width: 200px;
+  max-width: 35%;
+  float: left;
+  margin-left: -5px
+}
+
+.sociales2 ul{
+list-style: none;
+}
+
+.img2 img{
+  width: 100%;
+}
+
+.fila2 ul{
+  list-style: none;
+  width: 200px;
+  /* max-width: 35%; */
+  float: left;
+  margin-left: -10px;
+  /* margin-top: 20px; */
+}
+
+.logos{
+  width: 13%;
+  margin-left: -15px;
+  margin-top: 5px;
+  margin-right: 5px
+}
+
+</style>
   </head>
   <body>
     <header class="clearfix">
-    <div id="logo">
       
-        <div id="company" class="clearfix">
-            <div>Nombre de la Empresa</div>
-            <div>Dirección<br /> De la Empresa</div>
-            <div>Numéros Telefonicos de la Empresa</div>
-            <div>Correo de la Empresa</div>
+    <div  class="cabecera">
+      <div class="img">
+        <img src="assets/images/Imagotipo_S&F-NOV_Horizontal.svg" >
+      </div>
+        <div class="fila">
+          <ul>
+            <li style="text-align:center;">Consultorio:<br>
+              Calle Pdte. Gonzaléz #4
+            </li>
+            <li style="text-align:center;">Clinica:<br>
+              Calle El Vergel #27 C.P. 10107
+            </li>
+            <li style="text-align:center">Santo Domingo - Rep. Dom.</li>
+          </ul>
+        </div>
+        <div class="sociales">
+          <ul>
+            <li><img src="assets/images/Internet.svg" class="logos">www.syfdominacana.com</li>
+            <li><img src="assets/images/e-mail.svg" class="logos">info@syfdominicana.com</li>
+            <li><img src="assets/images/Instagram.svg" class="logos">@syfclinic.dom</li>
+            <li><img src="assets/images/Telefono.svg" class="logos">+1(786)544 43 16</li>
+          </ul>
         </div>
     </div>
-        <h1>Recipe Medico</h1>
-  
-        <div id="details" class="clearfix">
-            <div id="client">
-                <span class="name_titulo">Paciente:</span><br><br>
-                <span class="name">Doc. de identidad:</span> <span>{{ $recipe->patient->type_dni }}</span> <span>{{ $recipe->patient->dni }}</span><br>
-                <span class="name">Nombre y Apellido:</span> <span>{{ $recipe->patient->name }} {{ $recipe->patient->lastname }}</span><br>
-                <span class="name">Direcciòn:</i></span><span>{{ $recipe->patient->address }}</span><br>
-                <span class="name">Telefono:</i></span><span >{{ $recipe->patient->phone }}</span><br> 
-            </div>
-            <div id="invoice">
-                <span class="name_titulo">Medico tratante:</span><br><br>
-                <span class="name">Doc. de identidad:</span> <span>{{ $recipe->employe->person->type_dni }}</span> <span>{{ $recipe->employe->person->dni }}</span><br>
-                <span class="name">Nombre y Apellido:</span> <span>{{ $recipe->employe->person->name }} {{ $recipe->employe->person->lastname }}</span><br>
-                <span class="name">Direcciòn:</i></span><span>{{ $recipe->employe->person->address }}</span><br>
-                <span class="name">Telefono:</i></span><span >{{ $recipe->employe->person->phone }}</span><br> 
-            </div>
+    
+    <div  class="cabecera2">
+        <div class="img2">
+          <img src="assets/images/Imagotipo_S&F-NOV_Horizontal.svg" >
         </div>
+          {{-- <div class="fila2">
+            <ul>
+              <li style="text-align:center;">Consultorio:<br>
+                Calle Pdte. Gonzaléz #4
+              </li>
+              <li style="text-align:center;">Clinica:<br>
+                Calle El Vergel #27 C.P. 10107
+              </li>
+              <li style="text-align:center">Santo Domingo - Rep. Dom.</li>
+            </ul>
+          </div> --}}
+          {{-- <div class="sociales2">
+            <ul>
+              <li><img src="assets/images/Internet.svg" class="logos">www.syfdominacana.com</li>
+              <li><img src="assets/images/e-mail.svg" class="logos">info@syfdominicana.com</li>
+              <li><img src="assets/images/Instagram.svg" class="logos">@syfclinic.dom</li>
+              <li><img src="assets/images/Telefono.svg" class="logos">+1(786)544 43 16</li>
+            </ul>
+          </div> --}}
+      </div>
+        {{-- <h1>Recipe Medico</h1> --}}
+    {{-- <div id="project">
+      <span>PACIENTE:</span><span>Nombre</span> 
+      <span>DNI:</span><span>AQUI</span>  
+      <span>DIRECCIÓN:</span><span>AQUI</span> 
+      <span>EMAI:</span><span>AQUI</span> 
+      <span class="fecha">FECHA:</span><span>August 17, 2015</span> 
+    </div> --}}
     </header>
     <main>
+      <img src="assets/images/Isotipo_S&F.svg" class="imgfondo">
+      <img src="assets/images/Isotipo_S&F.svg" class="imgfondo2">
     <table>
         <thead>
         <tr>
-            <th class="medicine">MEDICAMENTOS</th>
+            <th class="service">MEDICAMENTOS</th>
             <th class="desc">INDICACIONES</th>
         </tr>
         </thead>
         <tbody>
-        @foreach ($recipe->medicine as $item)
+        
+            {{-- @foreach ($recipe->medicine as $item)
             <tr>
               <td class="service">{{ $item->name }}</td>
               <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
             </tr>
-        @endforeach  
+        @endforeach   --}}
+        <tr>
+            <td class="service">Creating a recognizable design solution based on the company's existing visual</td>
+            <td class="desc">Creating a recognizable design solution based on the company's existing visual </td>
+        </tr>
+        
         </tbody>
     </table>
+    {{-- <div id="notices">
+        <div>NOTICE:</div>
+        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+    </div> --}}
     </main>
     <footer>
     Invoice was created on a computer and is valid without the signature and seal.

@@ -143,7 +143,6 @@ table td.desc {
   border-left: 1px solid #a1a1a1;
 }
 
-
 #notices .notice {
   color: #5D6975;
   font-size: 1.2em;
@@ -215,7 +214,7 @@ span .name{
             <div id="client">
                 <span class="name_titulo">Paciente:</span><br><br>
                 <span class="name">Doc. de identidad:</span> <span>{{ $datos->person->type_dni }}</span> <span>{{ $datos->person->dni }}</span><br>
-                <span class="name">Nombre y Apellido:</span> <span>{{ $datos->person->name }} {{ $datos->person->lastname }}</span><br>
+                <span class="name">Nombre:</span> <span>{{ $datos->person->name }} {{ $datos->person->lastname }}</span><br>
                 <span class="name">Direcciòn:</i></span><span>{{ $datos->person->address }}</span><br>
                 <span class="name">Telefono:</i></span><span >{{ $datos->person->phone }}</span><br> 
             </div>
