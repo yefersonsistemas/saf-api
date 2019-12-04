@@ -296,8 +296,7 @@ class CitaController extends Controller
             'email2'        =>  'nullable',
             'phone2'        =>  'nullable'
         ]);
-            
-        // dd($data);
+
         $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
 
         $patient = Patient::create([

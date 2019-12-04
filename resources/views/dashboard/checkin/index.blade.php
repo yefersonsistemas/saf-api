@@ -132,7 +132,7 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
+                                                    <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
                                                 @else
                                                     <a href="{{ route('checkin.history', $reservation->patient_id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
                                                 @endif
@@ -142,7 +142,23 @@
                                             <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                             <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
-                                            <td><span class="badge badge-secondary" style="background-color: #00506b;">{{ $reservation->status }}</span></td>
+                                            <td>
+                                                @if ($reservation->status == 'Aprobada')
+                                                    <span class="badge badge-success">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Cancelada')
+                                                    <span class="badge badge-danger">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Reprogramada')
+                                                    <span class="badge badge-secondary">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Suspendida')
+                                                    <span class="badge badge-warning">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Pendiente')
+                                                    <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
+                                                @endif
+                                            </td>
                                             
                                             <td style="display: inline-block">
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
@@ -151,8 +167,7 @@
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
                                             
-                                            <td >
-                                                
+                                            <td>  
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
                                                         <button href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success" disabled>E</button>
