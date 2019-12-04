@@ -45,7 +45,7 @@
           
             <div class="container">
                 <div class="col-lg-10 mx-auto">
-                    <form class="" method="POST" action="{{ route('checkout.diagnostic.store', $patient->person_id) }}">
+                    <form class="" method="POST" action="{{ route('checkout.diagnostic.store', $patient) }}">
                         @csrf
                         <div class="card">
                             <div class="card-header">

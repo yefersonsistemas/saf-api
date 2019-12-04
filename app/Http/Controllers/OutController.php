@@ -81,16 +81,15 @@ class OutController extends Controller
     public function storeDiagnostic(Request $request, $id)
     {
         // dd($id);
-        dd($request);
-        $patient = Patient::where('person_id', $id)->first();
+        // dd($request);
+        // $patient = Patient::where('id', $id)->first();
+        // dd($patient);
 
         $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$id)->first();
-        $diagnostic = Diagnostic::update([
-            'patient_id'    =>  $patient->id,
-            'indications'   =>  $request->indicaciones,
-            'employe_id'    =>  $patient->employe_id,
-            'branch_id'     =>  1,
-        ]);
+        dd($diagnostico);
+
+        $diagnostico->indications = $request->indicaciones;
+        $diagnostico->save();
 
         foreach ($request->multiselect4 as $examen) {
             $diagnostic->exam()->attach($examen);
