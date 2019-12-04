@@ -45,7 +45,7 @@
           
             <div class="container">
                 <div class="col-lg-10 mx-auto">
-                    <form class="" method="POST" action="{{ route('diagnostic.store', $patient) }}">
+                    <form class="" method="POST" action="{{ route('checkout.diagnostic.store', $patient->person_id) }}">
                         @csrf
                         <div class="card">
                             <div class="card-header">
@@ -53,18 +53,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Descripción</label>
-                                            <textarea name="description" id="description" cols="30" rows="10" class="form-control text-description" placeholder="Descripción"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                         <div class="form-group">
-                                            <label class="form-label">Razon</label>
-                                            <textarea name="razon" id="razon" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
-                                        </div>
-                                    </div>
+                                 
                                     <div class="col-lg-12 col-md-12">
                                         <label>Examenes</label>
                                         <div class="form-group multiselect_div">
@@ -81,24 +70,10 @@
                                             <textarea name="indicaciones" id="indicaciones" cols="30" rows="10" class="form-control text-razon" placeholder="Indicaciones"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Anexos</label>
-                                            <textarea name="anexos" id="anexos" cols="30" rows="10" class="form-control text-razon" placeholder="Anexos"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12">
-                                        <label>Prox. Cita</label>
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input data-provide="datepicker" name="nextDate" data-date-autoclose="true" class="form-control" placeholder="Proxima Cita">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer text-center">
-                                <button type="submit" class="btn btn-azuloscuro">Generar</button>
+                                <button type="submit" class="btn btn-azuloscuro">Guardar</button>
                             </div>
 
                         </div>

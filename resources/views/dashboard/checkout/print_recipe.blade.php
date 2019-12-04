@@ -259,10 +259,10 @@ list-style: none;
         </div>
     </div>
     
-    <div  class="cabecera2">
+    {{-- <div  class="cabecera2">
         <div class="img2">
           <img src="assets/images/Imagotipo_S&F-NOV_Horizontal.svg" >
-        </div>
+        </div> --}}
           {{-- <div class="fila2">
             <ul>
               <li style="text-align:center;">Consultorio:<br>
@@ -282,7 +282,7 @@ list-style: none;
               <li><img src="assets/images/Telefono.svg" class="logos">+1(786)544 43 16</li>
             </ul>
           </div> --}}
-      </div>
+      {{-- </div> --}}
         {{-- <h1>Recipe Medico</h1> --}}
     {{-- <div id="project">
       <span>PACIENTE:</span><span>Nombre</span> 

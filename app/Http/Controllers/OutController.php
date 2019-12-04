@@ -70,16 +70,45 @@ class OutController extends Controller
       public function crearExamen($patient_id){
 
         $patient = Patient::with('person')->where('person_id', $patient_id)->first();
-        // dd($patient);
-        $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$patient->id)->first();
-        dd($diagnostico);
-        
-        $itinerary = Itinerary::with('employe.person', 'procedure','employe.doctor','reservation')->where('id', $itinerary_id)->first();
+        $exams = Exam::all();
+        // $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$patient->id)->first();
 
-        $medicines = Medicine::all();
-        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
+        return view('dashboard.checkout.crearDiagnostico', compact('patient','exams'));
     }
 
+
+     //====================== guardar examen ============================
+    public function storeDiagnostic(Request $request, $id)
+    {
+        // dd($id);
+        dd($request);
+        $patient = Patient::where('person_id', $id)->first();
+
+        $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$id)->first();
+        $diagnostic = Diagnostic::update([
+            'patient_id'    =>  $patient->id,
+            'indications'   =>  $request->indicaciones,
+            'employe_id'    =>  $patient->employe_id,
+            'branch_id'     =>  1,
+        ]);
+
+        foreach ($request->multiselect4 as $examen) {
+            $diagnostic->exam()->attach($examen);
+        }
+
+        $itinerary = Itinerary::where('patient_id', $patient->id)->first();
+        
+        if (!is_null($itinerary)) {
+            $itinerary->diagnostic_id = $diagnostic->id;
+            $itinerary->save();
+        }
+
+        dd($itinerary);
+
+
+        Alert::success('diagnostico creado');
+        return redirect()->back();
+    }
 
     //====================== lista de cirugias ============================
     public function index_cirugias()
