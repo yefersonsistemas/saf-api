@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
-        Route::POST('save', 'InController@guardar')->name('save.history');
+        Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
 
         // Recepcion

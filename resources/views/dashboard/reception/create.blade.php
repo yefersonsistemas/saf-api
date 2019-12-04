@@ -46,9 +46,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                                    <div class="col-lg-4 col-md-6 mb-2">
-                                                                        <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="">
-                                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 mb-2">
+                                                        <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="">
+                                                    </div>
                                                     <div class="col-lg-4 col-md-6 centrado">
                                                         <div class="form-group">
                                                             <label class="form-label">Nombre</label>
@@ -354,7 +354,6 @@
                     $('.datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
-                        datesDisabled: data.available,
                     });
                     $('#fecha').val();
                 })
