@@ -144,12 +144,13 @@
                                                     <th colspan="5" class="text-center">Nombre</th>
                                                     <th class="text-right" style="width: 4%">Costo</th>
                                                 </tbody>
-
-                                                <tbody style="border-bottom: 1px solid #000">
-                                                    <th class="text-center width35"></th>
-                                                    <th colspan="4">Consulta</th>
-                                                    <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
-                                                </tbody>
+                                                @if($itinerary->employe->doctor != null)
+                                                    <tbody style="border-bottom: 1px solid #000">
+                                                        <th class="text-center width35"></th>
+                                                        <th colspan="4">Consulta</th>
+                                                        <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
+                                                    </tbody>
+                                                @endif
                                                            
                                                 @if($procedure != 0)
                                                 <tbody style="border-bottom: 1px solid #000">

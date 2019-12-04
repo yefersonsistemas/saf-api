@@ -130,6 +130,15 @@ margin-left: 550px;
 font-size: 15px;
 margin-top: -40px
 }
+
+.medicamento{
+  width: 480px;
+}
+
+.indicacion{
+  width: 520px;
+}
+
 </style>
   </head>
   <body>
@@ -147,28 +156,20 @@ margin-top: -40px
         </tr>
         </thead>
         <tbody>
-        
-            {{-- @foreach ($recipe->medicine as $item)
-            <tr>
-              <td class="service">{{ $item->name }}</td>
-              <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
-            </tr>
-        @endforeach   --}}
-        <tr>
-            <td class="service">Creating a recognizable design solution based on the company's existing visual</td>
-            <td class="desc">Creating a recognizable design solution based on the company's existing visual </td>
-        </tr>
-        
+   
+        @foreach ($recipe->medicine as $item)
+          <tr>
+              <td class="service medicamento">{{ $item->name }}</td>
+              <td class="desc indicacion">Creating a recognizable design solution based on the company's existing visual </td>
+          </tr>
+        @endforeach  
         </tbody>
+
     </table>
-    {{-- <div id="notices">
-        <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-    </div> --}}
     </main>
     <footer>
       <div class="footer">
-        <span>PACIENTE:</span><span style="text-decoration:underline">Yefferson</span>
+        <div> <span>PACIENTE:</span> <span style="text-decoration:underline, with">{{ $datos->person->name }} </div>
         <span>EDAD:</span><span style="text-decoration:underline">________________</span><br>   
         <span>DOCTOR:</span><span style="text-decoration:underline">________________</span> 
         <span>FECHA:</span><span style="text-decoration:underline">August 17, 2015</span>

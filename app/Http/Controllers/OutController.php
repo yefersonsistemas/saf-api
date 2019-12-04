@@ -153,15 +153,18 @@ class OutController extends Controller
         if(!empty($request->dni)){ 
         
         $person = Person::where('dni', $request->dni)->first();
+
+        // dd($person);
     
         if(!empty($person)){
 
             $itinerary = Itinerary::where('patient_id', $person->id)->first();
+            // dd($itinerary);
             if(!empty($itinerary)){
 
                 $all = collect([]); //definiendo una coleccion|
                 $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
-
+// dd($encontrado);
 
                 $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
 
@@ -359,10 +362,13 @@ class OutController extends Controller
     //============================ imprimir recipe ============================
     public function imprimir_recipe(Request $request)
     {
+        // dd($request->id);
+        $datos = Itinerary::with('person','employe.person','exam')->where('recipe_id',$request->id)->first();
+        // dd($datos);
         $recipe = Recipe::with('patient','employe.person','medicine')->where('id', $request->id)->first();
         // dd($recipe);
 
-        $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe'));
+        $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe','datos'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('recipe.pdf');
     }
