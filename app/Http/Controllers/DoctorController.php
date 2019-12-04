@@ -144,6 +144,7 @@ class DoctorController extends Controller
     }
 
     public function crearRecipe($paciente){
+        // dd($paciente);
         $medicines = Medicine::all();
         return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
     }

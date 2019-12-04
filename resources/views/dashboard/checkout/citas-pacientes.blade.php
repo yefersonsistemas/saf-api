@@ -163,38 +163,38 @@
                                         </div> 
                                     </div>
 
-                                <div class="row card-body d-flex justify-content-between">
-                                    <div class="col-5 d-flex justify-content-end">
-                                        @if($itinerary->exam_id != null)
-                                            <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-danger" type="button">
-                                            Imprimir examen
-                                            </a>
-                                        @else
-                                            <a class="btn btn-info" type="button">
-                                                Generar examen
-                                            </a>
-                                        @endif
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->recipe_id != null)
-                                            <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-danger " type="button">
-                                                Imprimir recipe
-                                            </a>
+                                    <div class="row card-body d-flex justify-content-between">
+                                        <div class="col-5 d-flex justify-content-end">
+                                            @if($itinerary->exam_id != null)
+                                                <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-danger" type="button">
+                                                Imprimir examen
+                                                </a>
                                             @else
-                                            <a class="btn btn-info" type="button">
-                                                Generar recipe
-                                            </a>
-                                        @endif
+                                                <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-info" type="button">
+                                                    Generar examen
+                                                </a>
+                                            @endif
+                                        </div>
+                                        <div class="col-2 d-flex justify-content-center">
+                                            @if($itinerary->recipe_id != null)
+                                                <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-danger " type="button">
+                                                    Imprimir recipe
+                                                </a>
+                                                @else
+                                                <a href="{{ route('doctor.crearRecipe',$itinerary->patient_id) }}" class="btn btn-info" type="button">
+                                                    Generar recipe
+                                                </a>
+                                            @endif
 
-                                    </div>
-                                    <div class="col-5 d-flex justify-content-start">
-                                        <button class="btn btn-info" type="button">
-                                            generar cita
-                                        </button>
+                                        </div>
+                                        <div class="col-5 d-flex justify-content-start">
+                                            <a  class="btn btn-info" >
+                                                nueva cita
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                              </div>
-                            </div>
+                                </div>
                             @endforeach
                           </div>
                         

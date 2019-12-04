@@ -25,6 +25,9 @@ use App\Surgery;
 use App\ClassificationSurgery;
 use App\Procedure;
 use App\Recipe;
+use App\Speciality;
+use App\Diagnostic;
+use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
 // use App\Procedure_billing;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -53,6 +56,30 @@ class OutController extends Controller
         }
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
+
+    //====================== crear recipe ============================
+    public function crearRecipe($itinerary_id){
+        dd($itinerary_id);
+        $itinerary = Itinerary::with('employe.person', 'procedure','employe.doctor','reservation')->where('id', $itinerary_id)->first();
+
+        $medicines = Medicine::all();
+        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
+    }
+
+      //====================== crear examen ============================
+      public function crearExamen($patient_id){
+
+        $patient = Patient::with('person')->where('person_id', $patient_id)->first();
+        // dd($patient);
+        $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$patient->id)->first();
+        dd($diagnostico);
+        
+        $itinerary = Itinerary::with('employe.person', 'procedure','employe.doctor','reservation')->where('id', $itinerary_id)->first();
+
+        $medicines = Medicine::all();
+        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
+    }
+
 
     //====================== lista de cirugias ============================
     public function index_cirugias()
@@ -339,10 +366,10 @@ class OutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    // public function edit($id)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
