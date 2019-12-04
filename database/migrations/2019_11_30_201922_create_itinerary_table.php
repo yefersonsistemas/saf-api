@@ -18,9 +18,9 @@ class CreateItineraryTable extends Migration
             $table->unsignedBigInteger('patient_id')->nullable();
             $table->unsignedBigInteger('employe_id')->nullable();
             $table->unsignedBigInteger('doctor_id')->nullable();
-            $table->json('procedure_id')->nullable();
+            $table->string('procedure_id')->nullable();
             $table->unsignedBigInteger('surgery_id')->nullable();
-            $table->unsignedBigInteger('exam_id')->nullable();
+            $table->string('exam_id')->nullable();
             $table->unsignedBigInteger('recipe_id')->nullable();
             $table->unsignedBigInteger('reservation_id')->nullable();
             $table->unsignedBigInteger('branch_id')->nullable();

@@ -90,32 +90,41 @@ class OutController extends Controller
         $itinerary = Itinerary::with('person')->where('patient_id', $id)->first();
         // dd($itinerary);
 
-
-        $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$id)->first();
-     dd($diagnostico);
+        $diagnostico = Diagnostic::with('patient.person')->where('id',$itinerary->diagnostic_id)->first();
+        //  dd($diagnostico);
 
         $diagnostico->indications = $request->indicaciones;
         $diagnostico->save();
        
+        //  dd($diagnostico);
 
         foreach ($request->multiselect4 as $examen) {
             $diagnostico->exam()->attach($examen);
         }
-        dd($diagnostico);
+        // dd($diagnostico);
+
+        // dd($itinerary);
 
 
-        $itinerary = Itinerary::where('patient_id', $patient->id)->first();
-        
-        if (!is_null($itinerary)) {
-            $itinerary->diagnostic_id = $diagnostic->id;
-            $itinerary->save();
+        //Para mostrar lista de citas de pacientes
+        $procedures_id = array();
+        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
+    //   dd($itinerary);
+        foreach ($itinerary as $iti) {
+            if ($iti->procedure_id != null) {
+                $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
+                if ($procedures_id != null) {
+                    for ($i=0; $i < count($procedures_id); $i++) {
+                        $procedures = Procedure::find($procedures_id[$i]);
+                        $iti->procedures = $procedures;
+                    }
+                }
+            }
         }
-
-        dd($itinerary);
-
-
-        Alert::success('diagnostico creado');
-        return redirect()->back();
+      
+        Alert::success('Examen generado');
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
+        // return redirect()->back();
     }
 
     //====================== lista de cirugias ============================

@@ -14,7 +14,7 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
     ];
 
     protected $fillable = [
-        'patient_id', 'employe_id','doctor_id', 'procedure_id', 'surgery_id', 'exam_id', 'recipe_id', 'reservation_id', 'branch_id', 'reference_id'
+        'patient_id', 'employe_id','doctor_id', 'procedure_id', 'surgery_id', 'exam_id', 'recipe_id', 'reservation_id', 'branch_id', 'reference_id','diagnostic_id'
     ];
 
     // protected $irinerary = 'itinerary';
@@ -72,6 +72,11 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
     public function reservation()
     {
         return $this->belongsTo('App\Reservation');
+    }
+
+    public function diagnostic()
+    {
+        return $this->belongsTo('App\Diagnostic');
     }
 
 }

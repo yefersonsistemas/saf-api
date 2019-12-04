@@ -49,7 +49,7 @@
                         @csrf
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Crear Diagnostico</h3>
+                                <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Generar examen</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
