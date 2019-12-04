@@ -69,7 +69,9 @@ class OutController extends Controller
       //====================== crear examen ============================
       public function crearExamen($patient_id){
 
-        $patient = Patient::with('person')->where('person_id', $patient_id)->first();
+        $patient = $patient_id;
+        // dd($patient);
+        // $patient = Patient::with('person')->where('person_id', $patient_id)->first();
         $exams = Exam::all();
         // $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$patient->id)->first();
 
@@ -85,15 +87,22 @@ class OutController extends Controller
         // $patient = Patient::where('id', $id)->first();
         // dd($patient);
 
+        $itinerary = Itinerary::with('person')->where('patient_id', $id)->first();
+        // dd($itinerary);
+
+
         $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$id)->first();
-        dd($diagnostico);
+     dd($diagnostico);
 
         $diagnostico->indications = $request->indicaciones;
         $diagnostico->save();
+       
 
         foreach ($request->multiselect4 as $examen) {
-            $diagnostic->exam()->attach($examen);
+            $diagnostico->exam()->attach($examen);
         }
+        dd($diagnostico);
+
 
         $itinerary = Itinerary::where('patient_id', $patient->id)->first();
         
