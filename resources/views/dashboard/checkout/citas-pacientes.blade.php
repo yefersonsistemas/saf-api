@@ -182,7 +182,7 @@
                                                 </a>
                                                 @else
                                                 <a href="{{ route('doctor.crearRecipe',$itinerary->patient_id) }}" class="btn btn-info" type="button">
-                                                    Generar recipe
+                                                    Generar Recetario
                                                 </a>
                                             @endif
 

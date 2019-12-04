@@ -139,6 +139,20 @@ margin-top: -40px
   width: 520px;
 }
 
+/* .text_paciente{
+  text-align: left;
+} */
+
+.text_paciente .datos{
+  /* width: 300px; */
+}
+
+.ancho{
+  /* width: 100%;
+  margin-left: 40px; */
+  border-bottom: 1px solid #000;  
+}
+
 </style>
   </head>
   <body>
@@ -169,12 +183,14 @@ margin-top: -40px
     </main>
     <footer>
       <div class="footer">
-        <div> <span>PACIENTE:</span> <span style="text-decoration:underline, with">{{ $datos->person->name }} </div>
+        <div class="ancho"><span class="text_paciente">PACIENTE:</span> <span style="text-decoration:underline; " class="datos">{{ $datos->person->name }} </span> </div>
+
         <span>EDAD:</span><span style="text-decoration:underline">________________</span><br>   
         <span>DOCTOR:</span><span style="text-decoration:underline">________________</span> 
         <span>FECHA:</span><span style="text-decoration:underline">August 17, 2015</span>
       </div>
-      <div class="footer2">
+
+      <div class="footer2 indicacion">
         <span>PACIENTE:</span><span style="text-decoration:underline">______________</span>
         <span>EDAD:</span><span style="text-decoration:underline">________________</span><br>   
         <span>DOCTOR:</span><span style="text-decoration:underline">________________</span> 

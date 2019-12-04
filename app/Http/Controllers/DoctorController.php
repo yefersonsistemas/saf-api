@@ -181,9 +181,18 @@ class DoctorController extends Controller
         return redirect()->back();
     }
 
+
     public function recipeStore(Request $request, $paciente)
     {
+        
+        // dd($paciente);
         $paciente = Person::find($paciente);
+        // $itinerary = Itinerary::where('patient_id',$paciente)->first();
+        // dd($itinerary);
+
+        // $itinerary->exam_id = $examenes;
+        // $itinerary->save();
+
         $treatment = Treatment::create([
             'medicine_id'   =>  $request->medicina,
             'doses'         =>  $request->dosis,
@@ -196,6 +205,7 @@ class DoctorController extends Controller
         $treatment->load('medicine');
         return response()->json($treatment);
     }
+
 
     public function storeDiagnostic(Request $request, $id)
     {

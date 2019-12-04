@@ -84,8 +84,6 @@ class OutController extends Controller
     {
         // dd($id);
         // dd($request);
-        // $patient = Patient::where('id', $id)->first();
-        // dd($patient);
 
         $itinerary = Itinerary::with('person')->where('patient_id', $id)->first();
         // dd($itinerary);
@@ -100,16 +98,15 @@ class OutController extends Controller
 
         foreach ($request->multiselect4 as $examen) {
             $diagnostico->exam()->attach($examen);
+            $examenes =  implode(',', $request->multiselect4);
         }
-        // dd($diagnostico);
-
-        // dd($itinerary);
-
+       
+        $itinerary->exam_id = $examenes;
+        $itinerary->save();
 
         //Para mostrar lista de citas de pacientes
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
-    //   dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -124,7 +121,6 @@ class OutController extends Controller
       
         Alert::success('Examen generado');
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
-        // return redirect()->back();
     }
 
     //====================== lista de cirugias ============================
@@ -149,22 +145,17 @@ class OutController extends Controller
     //============================ buscanco paciente ============================
     public function search_patient(Request $request){
 
-  
         if(!empty($request->dni)){ 
         
         $person = Person::where('dni', $request->dni)->first();
 
-        // dd($person);
-    
         if(!empty($person)){
 
             $itinerary = Itinerary::where('patient_id', $person->id)->first();
-            // dd($itinerary);
             if(!empty($itinerary)){
 
                 $all = collect([]); //definiendo una coleccion|
                 $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
-// dd($encontrado);
 
                 $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
 
