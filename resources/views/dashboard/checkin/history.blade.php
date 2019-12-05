@@ -94,7 +94,11 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Fecha de Nacimiento</label>
-                                    <input type="text" id="birthdate" name="birthdate" disabled class="form-control" placeholder="Fecha de Nacimiento" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->birthdate : '' }}">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input id="birthdate" disabled name="birthdate" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->birthdate : '' }}" data-provide="datepicker" data-date-autoclose="true" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

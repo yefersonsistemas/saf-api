@@ -79,29 +79,24 @@ class InController extends Controller
        return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
-    public function search_history(Request $request){  //busca historia para la lista de in
-        $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
+    public function search_history(Request $request, $id){  //busca historia para la lista de in
+        $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                          ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
 
         $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
-        //dd($cites);
 
         $disease = Disease::get();
-       
+
         $medicine = Medicine::get();
         $allergy = Allergy::get();
-
-        // dd($rs->patient->historyPatient->disease);
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
     public function guardar(Request $request, $id)  //guarda registros de nuevos y editados en la historia del paciente
     {
-
         $person = Person::where('dni', $request->dni)->first();
 
-        // dd($person);
 
         $reservation = Reservation::find($id);
 
