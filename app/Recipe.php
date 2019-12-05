@@ -22,10 +22,17 @@ class Recipe extends Model
         return $this->belongsTo('App\Person', 'patient_id');
     }
 
+    public function treatment ()
+    {
+        return $this->belongsTo('App\Treatment');
+    }
+
     public function medicine()
     {
          return $this->belongsToMany('App\Medicine','recipe_medicine')
                       ->withPivot('medicine_id','id');
     }
+
+
 
 }

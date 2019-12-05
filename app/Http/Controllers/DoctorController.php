@@ -22,6 +22,7 @@ use App\Itinerary;
 use App\Reference;
 use App\Speciality;
 use App\Treatment;
+use App\Recipe;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DoctorController extends Controller
@@ -69,8 +70,10 @@ class DoctorController extends Controller
     {
         // dd($id);
         // $history = 
-        $history=Reservation::with('patient.historyPatient')->where('id',$id)
+        $history=Reservation::with('patient.historyPatient','person')->where('id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+
+        // dd($history);
         return view('dashboard.doctor.historiaPaciente', compact('history'));
     }
 
@@ -143,10 +146,11 @@ class DoctorController extends Controller
         return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
     }
 
-    public function crearRecipe($paciente){
-        // dd($paciente);
+    public function crearRecipe($paciente, $employe){
+
+        // dd($employe);
         $medicines = Medicine::all();
-        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
+        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente', 'employe'));
     }
 
     public function crearReferencia(Person $patient){
@@ -154,8 +158,11 @@ class DoctorController extends Controller
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
     }
 
+
+
     public function referenceStore(Request $request, $patient)
     {
+           
         $person = Person::with('historyPatient')->where('id',$patient)->first();
 
         $data = $request->validate([
@@ -182,31 +189,46 @@ class DoctorController extends Controller
     }
 
 
-    public function recipeStore(Request $request, $paciente)
+    // ================================= crear recipe y guardar medicinas con tratamientos ======================================
+    public function recipeStore(Request $request, $paciente, $employe)
     {
-        
-        // dd($paciente);
-        $paciente = Person::find($paciente);
-        // $itinerary = Itinerary::where('patient_id',$paciente)->first();
-        // dd($itinerary);
+        $recipe = Recipe::with('patient','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
+       
+        $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
 
-        // $itinerary->exam_id = $examenes;
-        // $itinerary->save();
-
+        if($recipe == null){
+            $crear_recipe = Recipe::create([
+                'patient_id'   =>  $paciente,
+                'employe_id'   =>  $employe,
+                'branch_id'    =>  1,
+            ]);
+        }else{
+            $crear_recipe = $recipe;
+        }
+        // $paciente = Person::find($paciente);
         $treatment = Treatment::create([
             'medicine_id'   =>  $request->medicina,
             'doses'         =>  $request->dosis,
             'duration'      =>  $request->duracion,
             'measure'       =>  $request->medida,
             'indications'   =>  $request->indicaciones,
+            'recipe_id'   =>  $crear_recipe->id,
             'branch_id'     =>  1,
         ]);
 
+        $crear_recipe->medicine()->attach($request->medicina);
+
+        if($itinerary->recipe_id == null){
+            $itinerary->recipe_id = $crear_recipe->id;
+            $itinerary->save();
+        }
+       
         $treatment->load('medicine');
         return response()->json($treatment);
     }
 
 
+    // ================================= Guardar diagnostico ======================================
     public function storeDiagnostic(Request $request, $id)
     {
         $patient = Patient::where('person_id', $id)->first();

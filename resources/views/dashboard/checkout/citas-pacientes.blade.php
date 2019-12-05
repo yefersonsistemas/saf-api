@@ -181,7 +181,7 @@
                                                     Imprimir recipe
                                                 </a>
                                                 @else
-                                                <a href="{{ route('doctor.crearRecipe',$itinerary->patient_id) }}" class="btn btn-info" type="button">
+                                                <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-info" type="button">
                                                     Generar Recetario
                                                 </a>
                                             @endif

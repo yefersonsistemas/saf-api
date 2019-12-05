@@ -20,12 +20,18 @@ class CreateTreatmentsTable extends Migration
             $table->string('duration');
             $table->string('indications');
             $table->unsignedBigInteger('medicine_id')->nullable();
+            $table->unsignedBigInteger('recipe_id')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('medicine_id')
             ->references('id')
             ->on('medicines')
+            ->onDelete('CASCADE');
+
+            $table->foreign('recipe_id')
+            ->references('id')
+            ->on('recipe')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')

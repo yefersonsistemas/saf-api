@@ -14,6 +14,7 @@ use App\Speciality;
 //use App\Procedure;
 use App\Traits\ImageFactory;
 use App\Treatment;
+use App\Medicine;
 
 class UsersTableSeeder extends Seeder
 {
@@ -131,7 +132,11 @@ class UsersTableSeeder extends Seeder
              * Tratamiento para el paciente
              * y su daignostico
              */
-            $treatment = Treatment::inRandomOrder()->first();
+            $medicine = factory(App\Medicine::class)->create();
+            $treatment = factory(App\Treatment::class)->create([
+                'medicine_id' => $medicine->id,
+            ]);
+            // $treatment = Treatment::inRandomOrder()->first();
             factory(App\Diagnostic::class)->create([
                 'employe_id' => $employe->id,
                 'patient_id' => $patient->id,
@@ -228,7 +233,11 @@ class UsersTableSeeder extends Seeder
                  * Tratamiento para el paciente
                  * y su diagnostico
                  */
-                $treatment = Treatment::inRandomOrder()->first();
+                $medicine = factory(App\Medicine::class)->create();
+                $treatment = factory(App\Treatment::class)->create([
+                    'medicine_id' => $medicine->id,
+                ]);
+                // $treatment = Treatment::inRandomOrder()->first();
                 factory(App\Diagnostic::class)->create([
                     'employe_id'    => $employe->id,
                     'patient_id'    => $patient->id,

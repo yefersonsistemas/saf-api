@@ -9,7 +9,7 @@ class Treatment extends Model
     protected $table = 'treatments';
 
     protected $fillable = [
-        'medicine_id', 'measure', 'doses', 'duration', 'branch_id', 'indications',
+        'medicine_id', 'recipe_id','measure', 'doses', 'duration', 'branch_id', 'indications',
     ];
 
     public function diagnostic()
@@ -19,6 +19,11 @@ class Treatment extends Model
 
     public function medicine()
     {
-        return $this->belongsTo('App\Medicine','medicine_id');
+        return $this->belongsTo('App\Medicine');
     }
+    public function recipe()
+    {
+        return $this->belongsTo('App\Recipe');
+    }
+
 }
