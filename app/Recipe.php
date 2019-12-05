@@ -24,7 +24,7 @@ class Recipe extends Model
 
     public function treatment ()
     {
-        return $this->belongsTo('App\Treatment');
+        return $this->hasMany('App\Treatment', 'recipe_id');
     }
 
     public function medicine()

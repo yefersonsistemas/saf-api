@@ -27,9 +27,8 @@ class Medicine extends Model
     }
 
     public function treatment (){
-        return $this->belongsTo('App\Treatment', 'medicine_id');
+        return $this->hasOne('App\Treatment', 'medicine_id');
     }
-
 
     public function recipe()
     {

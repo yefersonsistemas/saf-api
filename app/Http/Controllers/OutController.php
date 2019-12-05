@@ -27,6 +27,7 @@ use App\Procedure;
 use App\Recipe;
 use App\Speciality;
 use App\Diagnostic;
+use App\Treatment;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
 // use App\Procedure_billing;
@@ -350,14 +351,14 @@ class OutController extends Controller
     }
 
 
-
     //============================ imprimir recipe ============================
     public function imprimir_recipe(Request $request)
     {
         // dd($request->id);
         $datos = Itinerary::with('person','employe.person','exam')->where('recipe_id',$request->id)->first();
         // dd($datos);
-        $recipe = Recipe::with('patient', 'medicine.treatment','employe.person')->where('id', $request->id)->first();
+        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $request->id)->first();
+    //  $trate = Treatment::all();
         dd($recipe);
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe','datos'));
