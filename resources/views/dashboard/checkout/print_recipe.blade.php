@@ -95,7 +95,7 @@ main .descc{
 footer {
   color: #000000;
   width: 100%;
-  height: 70px;
+  height: 80px;
   position: absolute;
   bottom: 0;
   border-top: 1px solid #248b40;
@@ -162,13 +162,10 @@ float: right;
 
 .ancho{
   text-align:left;
-  border-bottom: 1px solid #000;  
-  /* padding-top: 0.5px;  */
+  border-bottom: 1px solid #000; 
   width: 400px;
   float: right;
   margin-top: 17px;
-  
-  /* padding-right: 15x; */
 }
 
 .an{
@@ -198,12 +195,8 @@ float: right;
 .ancho1{
   text-align:left;
   border-bottom: 1px solid #000;  
-  /* padding-top: 0.5px;  */
   width: 400px;
   float: right;
-  /* margin: 10px; */
-  
-  /* padding-right: 15x; */
 }
 
 .datos{
@@ -242,16 +235,16 @@ float: right;
     <footer class="clearfix">
       <div class="footer">
         <div class="an"><div class="an1"><span class="text_paciente">PACIENTE:  </span></div><div class="ancho"> <span class="datos"> {{ $recipe->patient->name }} {{ $recipe->patient->lastname }}</span> </div></div>
-        <br><div class="an"><div class="an1"><span class="text_paciente">EDAD:  </span></div><div class="ancho"> <span class="datos"> {{ $recipe->patient->name }} </span> </div></div>
+        <br><div class="an"><div class="an1"><span class="text_paciente">EDAD:  </span></div><div class="ancho"> <span class="datos"> {{ $paciente->age }} </span> </div></div>
         <br><div class="an"><div class="an1"><span class="text_paciente">DOCTOR:  </span></div><div class="ancho"> <span class="datos"> {{ $recipe->employe->person->name }} {{ $recipe->employe->person->lastname }} </span> </div></div>
-        <br><div class="an"><div class="an1"><span class="text_paciente">FECHA:  </span></div><div class="ancho"> <span class="datos"> {{ $recipe->patient->name }} </span> </div></div>
+        <br><div class="an"><div class="an1"><span class="text_paciente">FECHA:  </span></div><div class="ancho"> <span class="datos"> {{ $fecha }} </span> </div></div>
       </div>
 
       <div class="footer2">
         <br><div class="an2"><div class="an11"><span class="text_paciente">PACIENTE: </span></div><div class="ancho1"> <span class="datos"> {{ $recipe->patient->name }} {{ $recipe->patient->lastname }}</span> </div></div>
-        <br><div class="an2"><div class="an11"><span class="text_paciente">EDAD:  </span></div><div class="ancho1"> <span class="datos"> {{ $recipe->patient->name }} </span> </div></div>
+        <br><div class="an2"><div class="an11"><span class="text_paciente">EDAD:  </span></div><div class="ancho1"> <span class="datos"> {{ $paciente->age }} </span> </div></div>
         <br><div class="an2"><div class="an11"><span class="text_paciente">DOCTOR:  </span></div><div class="ancho1"> <span class="datos"> {{ $recipe->employe->person->name }} {{ $recipe->employe->person->lastname }} </span> </div></div>
-        <br><div class="an2"><div class="an11"><span class="text_paciente">FECHA:  </span></div><div class="ancho1"> <span class="datos"> {{ $recipe->patient->name }} </span> </div></div>  
+        <br><div class="an2"><div class="an11"><span class="text_paciente">FECHA:  </span></div><div class="ancho1"> <span class="datos"> {{ $fecha }} </span> </div></div>  
       </div>
 
     </footer>

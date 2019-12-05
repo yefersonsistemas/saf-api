@@ -3881,3 +3881,32 @@ span.titulos {
 textarea.letras {
     color: #000;
 }
+
+.heig{
+    height: 90px;;
+}
+
+.btn-hecho{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.btn-boo{
+    color:#fff;
+    background: #00506b;
+}
+
+.btn-boo:hover {
+    color:#fff;
+    /* background:#2C7BAF; */
+}
+
+.btn-gene{
+    color:#fff;
+    background: #00ad88;
+}
+
+.btn-gene:hover {
+    color:#fff;
+    background: #00ad88;
+}
