@@ -14,7 +14,7 @@
             @csrf 
         <div class="section-body py-3 row">
 
-            <div class="section-body py-3 col-8 ml-4 ">
+            <div class="section-body py-3 col-10 ml-5 ">
                 <div class="container">
                     <div class="tab-content">
                 
@@ -28,37 +28,45 @@
                             <div class="row clearfix">
                                 <div class="col-12">
                                     <div class="card">
-                                        <div class="card-header row">
+                                        {{-- <div class="card-header row">
                                             <div class="col-8">
                                                     <img src="{{ asset('assets\images\logo_factura.png') }}" class="w-100">
                                             </div>
                                             <div class="col-3 text-right"><p class="h66 text-right">#AB0017</p></div>
                                         
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="row my-8 pr4 pl-4 ">
+                                        {{-- <div class="row my-8 pr4 pl-4 ">
                                             <div class="col-12"> <span class="text"> Rif:</span></div>
                                             <div class="col-12"> <span class="text">Dirección:</span></div>
                                             <div class="col-12"> <span class="text">Telefono:</span></div>
 
                                         
-                                        </div>
+                                        </div> --}}
                                         <div class="card-body mt-0">
                                             <div class="row">
                                                 <div class="col-2">
                                                         <span class="h6 h66">Paciente:</span>
                                                 </div>
-                                                <div class="col-10">
-                                                    <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $itinerary->person->id }}" >
-
+                                               
+                                                  
+                                                        <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $itinerary->person->id }}" >
+                                                   
+                                                    <div class="col-2">
                                                     <span id="dni" class="text">{{ $itinerary->person->dni }}</span>
+                                                </div>
+
+                                                    <div class="col-4">
                                                     <span id="name" class="text">{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>
+                                                    </div>
+
+                                                    <div class="col-4">
                                                     <span id="phone" class="text">{{ $itinerary->person->phone }}</span><br>
                                                 </div>
-                                            </div>
+                                            </div><br>
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <span class="h6 h66">Doctor:</span>
+                                                    <span class="h6 h66">Medico tratante:</span>
                                                 </div>
                                                 <div class="col-10">
                                                     
@@ -196,7 +204,7 @@
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">{{ $total }}</td> 
                                                 </tr>
-                                                <tr class="bg-info text-light">
+                                                <tr class="bg-boo text-light">
                                                     <th class="text-center width35"></th>
                                                     <td colspan="4" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right" id="costo_total">{{ $total }}</td>
@@ -210,8 +218,8 @@
                             </div>
                         </div>
 
-                        <div class="row d-flex justify-content-center">
-                            <button type="submit" class="btn btn-info">Guardar</button>
+                        <div class="row d-flex justify-content-end">
+                            <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3">Guardar</button>
                         </div>
                     </div>                
                 </div>

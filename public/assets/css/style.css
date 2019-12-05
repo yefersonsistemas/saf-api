@@ -3910,3 +3910,19 @@ textarea.letras {
     color:#fff;
     background: #00ad88;
 }
+
+.bg-boo {
+    background:#00506b !important;
+}
+
+.bg-boo:hover {
+    background:#00506b !important;
+}
+
+table tr .bg-boo:hover {
+    background:#00506b;
+}
+
+th .factura{
+    color:#000;
+}
