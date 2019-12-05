@@ -177,7 +177,7 @@
                                         </div>
                                         <div class="col-2 d-flex justify-content-center">
                                             @if($itinerary->recipe_id != null)
-                                                <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-danger " type="button">
+                                                <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-danger " type="button">
                                                     Imprimir recipe
                                                 </a>
                                                 @else

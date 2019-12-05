@@ -352,16 +352,12 @@ class OutController extends Controller
 
 
     //============================ imprimir recipe ============================
-    public function imprimir_recipe(Request $request)
+    public function imprimir_recipe(Request $request, $id, $patient, $employe)
     {
-        // dd($request->id);
-        $datos = Itinerary::with('person','employe.person','exam')->where('recipe_id',$request->id)->first();
-        // dd($datos);
-        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $request->id)->first();
-    //  $trate = Treatment::all();
-        dd($recipe);
+        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
+        // dd($recipe);
 
-        $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe','datos'));
+        $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('recipe.pdf');
     }
