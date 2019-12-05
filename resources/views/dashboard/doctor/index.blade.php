@@ -82,16 +82,20 @@
                                     @foreach ($patients as $reservation)
                                     
                                     <tr class="event-click">
-                                        <td> {{ $reservation->patient_id }}</td>
+                                        <td scope="row">{{ $loop->iteration}}</td>
                                         <td>
+                                                @if (!empty($reservation->patient->image->path))
                                             <img class="img-thumbnail" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                            @else
+                                            <img src="" alt="" >
+                                            @endif
                                         </td>
                                         <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                         <td>{{ $reservation->patient->name }}</td>
                                         <td>{{ $reservation->patient->lastname }}</td>
                                         <td> {{ $reservation->description }}</td>
                                         <td> 
-                                            <a href="{{ route('doctor.show', $reservation) }}" class="badge badge-info btn p-2">
+                                            <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
                                                 {{ $reservation->patient->historyPatient->history_number }}
                                             </a>
                                         </td>

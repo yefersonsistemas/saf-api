@@ -832,11 +832,11 @@ textarea[cols] {
 }
 
 .ladymen input {
-    display: none;
+    display: none!important;
 }
 
 .ladymen label {
-    display: flex;
+    display: flex !important;
     cursor: pointer;
     width: 35px;
     height: 35px;
@@ -902,3 +902,29 @@ textarea[cols] {
 .custom-control-label::before {
     top: .1rem;
 }
+
+.wizard.vertical>.steps {
+    width: 20% !important;
+}
+
+.wizard.vertical>.content {
+    width: 80% !important;
+}
+
+.dni {
+    padding: 0 5px !important;
+}
+
+.wizard>.content>.body {
+    overflow-x: auto !important;
+}
+
+.wizard>.content {
+    background: #fff!important;
+}
+
+
+/* .wizard.vertical>.steps>ul>li a {
+    background: #9dc8e2 !important;
+    color: #fff !important;
+} */
