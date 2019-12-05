@@ -122,7 +122,8 @@
         </div>
 
       <!-- Modal -->
-        @foreach ($em as $employe) 
+    @foreach ($em as $employe)
+
       <div class="modal fade" id="{{ $employe->person->name }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -179,6 +180,7 @@
           </div>
         </div>
       </div>
+
       @endforeach
 
 @endsection

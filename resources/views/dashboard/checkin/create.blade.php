@@ -36,7 +36,7 @@
                                                                 </div>
                                                             <div class="card-header unborder">
                                                                 {{ $area->name}} <br>
-                                                                {{ $area->status }} 
+                                                                {{-- {{ $area->status }}  --}}
                                                             </div>
                                                         </div>
                                                     @else
@@ -56,7 +56,7 @@
                                                                     </div>
                                                                 <div class="card-header unborder">
                                                                     {{ $area->name}} <br>
-                                                                    {{ $area->status }} 
+                                                                    {{-- {{ $area->status }}  --}}
                                                                 </div>
                                                             </div>
                                                         @endif
@@ -140,8 +140,8 @@
         function searcharea() {
             $("input[name='searcharea']").click(function() {
                 var area = $(this).val();
-
                 console.log(area)
+                
                 $.ajax({
                         url: "{{ route('search.area') }}",
                         type: "POST",
@@ -210,7 +210,7 @@
         var employe = $("#searchemploye").val();
         var area = $("#searcharea").val();
 
-        console.log('ysbe',employe, area)
+        console.log('asignacion', area, employe)
         $.ajax({
                 url: "{{ route('checkin.assigment_area') }}",
                 type: "POST",

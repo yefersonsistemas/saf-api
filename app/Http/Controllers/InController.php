@@ -29,9 +29,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 class InController extends Controller
 {
      /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra todas las listas
+     * de pacientes
+     * 
      */
     public function index()
     {
@@ -46,14 +46,13 @@ class InController extends Controller
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
        
-        // dd($reservations->first()->patient->inputoutput->first());
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra las areas y medicos 
+     * disponibles en la vista 
+     * de asignar consultorio 
      */
     public function create()
     {
@@ -79,7 +78,12 @@ class InController extends Controller
        return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
-    public function search_history(Request $request){  //busca historia para la lista de in
+     /**
+     * 
+     * busca la historia desde la lista de check-in
+     * 
+     */
+    public function search_history(Request $request){  
         $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
                          ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
@@ -94,7 +98,14 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
-    public function guardar(Request $request)  //guarda registros de nuevos y editados en la historia del paciente
+     /**
+     * 
+     * guarda registros nuevos y editados 
+     * en la historia del paciente
+     * 
+     */
+
+    public function guardar(Request $request)  
     {
         //dd($request);
         $person = Person::where('dni', $request->dni)->first();
@@ -148,6 +159,12 @@ class InController extends Controller
         }
     }
 
+    /**
+     * 
+     * cambia estado del paciente
+     * cuando entra al consultorio
+     * 
+     */
     public function statusIn($registro)
     {
         $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
@@ -236,82 +253,35 @@ class InController extends Controller
 
     }
 
-
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * busca el area para la
+     * asignacion del consultorio
+     * 
      */
-    public function store(Request $request)
-    {
-        
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public static function search_area(Request $request)
     {
-        // dd($request);
-       $area = Area::Where('id', $request->id)->first(); 
-        // dd($area);
-        if ($area != null) {  //si existe
-            $areas= $area->name;
-            return response()->json([
-                'areas' => $areas,
-            ]);
-            
-        }else{  //caso de que no exista
-            return response()->json([
-                'message' => 'Consultorio no encontrado',
-            ]);
-        }
+        dd($request);
+        
+        $area = Area::Where('id', $request->id)->first(); 
+            // dd($area);
+            if ($area != null) {  //si existe
+                $areas= $area->name;
+                return response()->json([
+                    'areas' => $areas,
+                ]);
+                
+            }else{  //caso de que no exista
+                return response()->json([
+                    'message' => 'Consultorio no encontrado',
+                ]);
+            }
     }
 
-
+    /**
+     * busca el medico que sera asignado 
+     * a un consultorio
+     * 
+     */
     public static function search_medico(Request $request)
     {
         // dd($request);
@@ -330,6 +300,45 @@ class InController extends Controller
         }
     }
 
+    /**
+     *  
+     * guarda el consultorio
+     * asignado al medico
+     * 
+     */
+    public static function assigment_area(Request $request)
+    {
+        // dd($request);
+        $employe = $request->employe_id;
+        $area = $request->area_id;
+        
+        $existe = AreaAssigment::where('employe_id',$employe)->where('area_id', $area)->first();
+        
+        if(empty($existe)){
+        $areaAssigment = AreaAssigment::create([
+            'employe_id'  => $employe,
+            'area_id'     => $area,
+            'branch_id' => 1,
+            ]);
+            // return response()->json([
+            // 'asignado' => $areaAssigment,201
+            // ]);
+
+        }else{
+            return response()->json([
+                'asignado' => 'Consultorio ya asignado',202
+                ]);
+         }
+
+// return redirect()->route('checkin.index');
+    }
+        
+    /**
+     * 
+     * busca el horario que se muestra
+     * en lalista de medico
+     * 
+     */
     public static function horario(Request $request){
         // dd($request);
 
@@ -344,63 +353,5 @@ class InController extends Controller
                 'employe' => 202
             ]);
         }
-    }
- 
-
-    public static function assigment_area(Request $request) //asignacion de consultorio
-    {
-        // dd($request);
-        $e = $request->employe_id;
-        $a = $request->area_id;
-
-       $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
-
-       if(empty($existe)){
-        $areaAssigment = AreaAssigment::create([
-        'employe_id'  => $e,
-        'area_id'     => $a,
-        'branch_id' => 1,
-        ]);
-
-        return response()->json([
-            'asignado' => $areaAssigment,201
-        ]);
-         }else{
-            return response()->json([
-                'asignado' => 'Consultorio ya asignado',202
-            ]);
-         }
-       
-    }
-
-    public function update_area(Request $request)
-    {
-        $a = Area::find($request->id);
-
-        if (!empty($a)) {
-          
-            $a->status = 'ocupado';
-            $a->save();
-
-            // if ($a->save()){
-            //    return response()->json([
-            //         'message' => 'ocupado', 
-            //     ]);
-            // }
-        }
-    }
-
-
-    public function exams_previos(Request $request)
-    {
-        $p = Patient::where('id', $request->id)->first();
-
-        File::create([
-            'filiable_type' => 'Paciente',
-            'filiable_id' => $p->id,
-
-        ]);
-
-        $request->file('nombre del archivo')->store('Exams');
     }
 }
