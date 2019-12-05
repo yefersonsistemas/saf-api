@@ -308,7 +308,7 @@ class OutController extends Controller
                 $billing->save();
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
-            
+                // dd($todos);
                 $total = 0;
                 foreach($todos->procedure as $proce) { 
                     $total += $proce->price;
@@ -317,7 +317,7 @@ class OutController extends Controller
                 $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
  
                 if($cirugia->surgery != null){
-                     $total_cancelar = $cirugia->surgery->typesurgeries->cost + $todos->employe->doctor->price + $total;
+                    $total_cancelar = $cirugia->surgery->typesurgeries->cost + $todos->employe->doctor->price + $total;
                 }else{
                     $total_cancelar = $todos->employe->doctor->price + $total;
                 }

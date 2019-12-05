@@ -5,16 +5,11 @@
     <meta charset="utf-8">
     <title>Example 2</title>
     <link rel="stylesheet" href="style.css" media="all" />
-    <style>
-        @font-face {
+  <style>
+    
+  @font-face {
   font-family: SourceSansPro;
   src: url(SourceSansPro-Regular.ttf);
-}
-
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
 }
 
 a {
@@ -37,7 +32,108 @@ body {
 header {
   padding: 10px 0;
   margin-bottom: 20px;
-  border-bottom: 1px solid #AAAAAA;
+  border-bottom: 2px solid #00ad88;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: -15px;
+  /* margin-bottom: 20px; */
+  color: #000000;
+}
+
+
+table th,
+table td {
+  padding: 5px;
+  background: transparent;
+  border-left: none;
+}
+
+table th {
+  white-space: nowrap;        
+  font-weight: normal;
+  border-left: none;
+}
+
+table td {
+  text-align: right;
+  border-left: none;
+}
+
+footer {
+  color: #000000;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #000000; 
+  padding: 8px 0;
+  text-align: center;
+}
+
+table .desc {
+  text-align: center;
+  width: 480px;
+  background: transparent;
+  border-bottom: :#00ad88 solid 1px;
+}
+
+table .desc_titulo {
+  padding-left: 10px;
+  width: 480px;
+  background: transparent;
+  font-size:13px;
+  font-weight: bold;
+
+}
+
+table .total {
+  background: transparent;
+  color: #000000;
+  width: 100px;
+  text-align: center;
+  border-left: none;
+}
+
+table td.unit,
+table td.qty,
+table td.total {
+  font-size: 15px;
+}
+
+table tbody tr:last-child td {
+  border: none;
+  padding-bottom: 15px
+}
+
+table tfoot td {
+  padding: 10px 20px;
+  background: #FFFFFF;
+  border-bottom: none;
+  font-size: 15px;
+  white-space: nowrap; 
+  border-left: none;
+  color: #000000; 
+}
+
+table tfoot tr:first-child td {
+  border-top: none; 
+}
+
+table tfoot tr:last-child td {
+  color: #000000;
+  font-size: 15px;
+}
+
+table tfoot tr td:first-child {
+  border: none;
+}
+
+.no{
+  border:none;
 }
 
 #logo {
@@ -45,8 +141,11 @@ header {
   margin-top: 8px;
 }
 
-#logo img {
-  height: 70px;
+.logo {
+  margin-top: -40px;
+  height: 100px;
+  width: 480px;
+  margin-bottom: -20px;
 }
 
 #company {
@@ -61,134 +160,54 @@ header {
 
 #client {
   padding-left: 6px;
-  border-left: 6px solid #0087C3;
   float: left;
+  color:#000000;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 #client .to {
-  color: #777777;
+  color: #000000;
   font-weight: bold;
+  font-size: 16px;
 }
 
-h2.name {
-  font-size: 1.4em;
-  font-weight: normal;
-  margin: 0;
-  color: #000000
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 #invoice {
-  /* float: right; */
   text-align: right;
+  padding-left: 100px
 }
 
 #invoice h1 {
-  color: #0087C3;
-  font-size: 2.4em;
+  color: #000000;
+  font-size: 17px;
   line-height: 1em;
   font-weight: normal;
-  margin: 0  0 10px 0;
+  text-align: center;
+  margin-top:-17px;
+}
+
+#invoice h2 {
+  color: #000000;
+  font-size: 17px;
+  line-height: 1em;
+  font-weight: normal;
+  text-align: center;
+  margin-top: -5px;
 }
 
 #invoice .date {
-  font-size: 1.1em;
-  color: #000000;
+  font-size: 25px;
+  color: #0059b2;
+  margin-bottom: -20px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-bottom: 20px;
-}
-
-table th,
-table td {
-  padding: 20px;
-  background: #EEEEEE;
-  text-align: center;
-  border-bottom: 1px solid #FFFFFF;
-}
-
-table th {
-  white-space: nowrap;        
-  font-weight: normal;
-}
-
-table td {
-  text-align: right;
-}
-
-table td h3{
-  color: #000000;
-  font-size: 1.2em;
-  font-weight: normal;
-  margin: 0 0 0.2em 0;
-}
-
-/* table .no {
-  color: #000000;
-  font-size: 1.6em;
-  background: #E5E8E8;
-} */
-
-table .desc {
-  text-align: left;
-  width: 480px;
-  background: #00000;
-  
-}
-
-table .desc_titulo {
-  text-align: left;
-  width: 480px;
-  background: #00000;
-  font-size:14px;
-  font-weight: bold;
-  
-}
-
-table .total {
-  background: #00ad88;
-  color: #FFFFFF;
-  width: 100px;
-  text-align: center;
-}
-
-table td.unit,
-table td.qty,
-table td.total {
-  font-size: 1.2em;
-}
-
-table tbody tr:last-child td {
-  border: none;
-}
-
-table tfoot td {
-  padding: 10px 20px;
-  background: #FFFFFF;
-  border-bottom: none;
-  font-size: 1.0em;
-  white-space: nowrap; 
-  border-top: 1px solid #000000;
-  color: #000000; 
-}
-
-table tfoot tr:first-child td {
-  border-top: none; 
-}
-
-table tfoot tr:last-child td {
-  color: #000000;
-  font-size: 1.2em;
-  border-top: 1px solid #000000; 
-
-}
-
-table tfoot tr td:first-child {
-  border: none;
-}
 
 #thanks{
   font-size: 2em;
@@ -204,16 +223,6 @@ table tfoot tr td:first-child {
   font-size: 1.2em;
 }
 
-footer {
-  color: #777777;
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px solid #AAAAAA;
-  padding: 8px 0;
-  text-align: center;
-}
 
 .proces{
     padding-left: 20px;
@@ -221,96 +230,109 @@ footer {
 }
 
 .campo_titulo{
-    text-align: center;
+    padding-left: 10px; 
 }
 
 .space{
     margin-left:10px;
+}
+
+#doctor {
+  margin-left: 150px;
+  line-height: 15px;
+  color: #000000;
+  font-size: 12px;
 }
 /* 
 .titulo{
     font-weight: bold;
 } */
 
+.fondo{
+  position: absolute;
+  opacity: .1;
+  vertical-align: top;
+  width: 600px;
+  height: 100px;
+  margin-top: 143px;
+  margin-left: 50px;
+}
 
-
-    </style>
+</style>
 
     
   </head>
   <body>
     <header class="clearfix">
       <div id="logo">
-            {{-- <img src="{{ asset('assets\images\logo_factura.png') }}" class="w-100">     --}}
+        <img src="assets\images\Encabezado_Factura.svg" class="logo">    
       </div>
-      <div id="company">
-        <h2 class="name">Sinus And Face</h2>
-        <div>455 Foggy Heights, AZ 85004, US</div>
-        <div>(602) 519-0450</div>
-        <div><a href="mailto:company@example.com">company@example.com</a></div>
-      </div>
+
+      <div id="invoice">
+        <h1>Factura N°</h1>
+        <h2 class="nfactura">00000001</h2>
       </div>
     </header>
 
     <main>
+      <img src="assets/images/logo_factura.png" class="fondo">
+      
       <div id="details" class="clearfix">
         <div id="client">
-          <div class="to">Factura a Nombre de:</div>
-          <span class="name">Doc. de identidad:</span> <span class="text">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}</span><br>
-          <span class="name">Nombre y Apellido:</span>  <span class="text">{{ $todos->person->name }} {{ $todos->person->lastname }}</span><br>
-          <span class="name"><i class="fas fa-phone"></i></span>  <span class="text">{{ $todos->person->phone }}</span><br>
+          <div class="name"> 
+            <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">{{ $todos->person->name }} {{ $todos->person->lastname }}</span>
+          </div>
+          <div class="dni">
+            <span style="font-weight:bold">RNC/Cedula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}</span>
+          </div>
+          <div class="phone">
+            <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">{{ $todos->person->phone }}</span>
+          </div>
+          <div class="address">
+            <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px;text-transform:uppercase">{{ $todos->person->address }}</span>
+          </div>
         </div>
-        <div id="invoice">
-          <h1>Numero de factura</h1>
-          <div class="date">Facha: 01/06/2014</div>
-        </div>
+        <div id="doctor">
+            <div class="date">
+              Factura Emitida en la Fecha 01/06/2014 <br> 
+              En Santo Domnido, Republica Dominicana.<br>
+              <span style="font-weight:bold">Forma de Pago:</span>  {{ $todos->typepayment->name }}.
+            </div>
+            {{-- <div class="docname">
+              <span>Doctor/a:</span> <span class="text">{{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}</span>
+            </div>
+            </div>--}}
+        </div> 
       </div>
-
-      <div id="details" class="clearfix">
-            <div id="client">
-              <div class="to">Paciente:</div>
-              <span class="name">Doc. de identidad:</span>  <span id="dni" class="text">{{ $todos->patient->type_dni }} </span> <span id="dni" class="text">{{ $todos->patient->dni }}</span><br>
-              <span class="name">Nombre y Apellido:</span> <span id="name" class="text">{{ $todos->patient->name }} {{ $todos->patient->lastname }}</span><br>
-              <span class="name"><i class="fas fa-phone"></i></span>             <span id="phone" class="text">{{ $todos->patient->phone }}</span><br> 
-            </div>
-        </div>
-
-        <div id="details" class="clearfix">
-            <div id="client">
-                <div class="to">Médico tratante:</div>
-                <span class="name">Doc. de identidad:</span><span class="text"> {{ $todos->employe->person->type_dni }}</span> <span class="text">{{ $todos->employe->person->dni }}</span><br>
-                <span class="name">Nombre y Apellido:</span> <span class="text">{{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}</span><br>
-                <span class="name"><i class="fas fa-phone"></i></span><span class="text">{{ $todos->employe->person->phone }}</span><br> 
-            </div>
-        </div>
-
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th class="no"></th>
-            <th colaspan="6" class="campo_titulo">DESCRIPCIÓN</th>
-            <th colaspan="4" class="total">TOTAL</th>
+            <th colaspan="4" class="campo_titulo" style="border-top:#000000 solid 1px; 
+              border-bottom:#000000 solid 1px;text-align:left;">
+              Descripción</th>
+            
+            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;">Total</th>
           </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="no"></td>
-                <td class="desc_titulo">Consulta</td>
+              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente {{ $todos->patient->name }} {{ $todos->patient->lastname }} <br>
+                por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}.
+                </td>
                 <td class="total">{{ $todos->employe->doctor->price }}</td>
             </tr>
 
         @if($todos->procedure->first() != null)
             <tr>
-                <td class="no"></td>
-                <td class="desc_titulo">Procedimientos  </td>
-                <td class="total"></td>
+              <td class="desc_titulo">Procedimientos</td>
+              <td class="total"></td>
+              {{-- <td class="no"></td> --}}
             </tr>
             @foreach ($todos->procedure as $item)
             <tr class="proces">
-                <td class="no"></td>
                 <td class="desc">
 
-                    <span colspan="1" class="space "></span>{{ $item->name }}
+                    <span colspan="1" class="space"></span>{{ $item->name }}
                 </td>
             
                 <td class="total">{{ $item->price }}</td>
@@ -321,52 +343,42 @@ footer {
 
         @if($cirugia->surgery != null)
             <tr>
-                <td class="no"></td>
-                <td class="desc_titulo">Cirugía</td>
-                <td class="total"></td>
+              <td class="desc_titulo" style="text-align:left">Cirugía</td>
+              <td class="total"></td>
             </tr>
             <tr>
-                <td class="no"></td>
-                <td class="desc">
-                    {{ $cirugia->surgery->typesurgeries->name }}
+              <td class="desc" style="text-align:left;padding-left:10px">
+                  {{ $cirugia->surgery->typesurgeries->name }}
                 </td>
-                <td class="total" >{{ $cirugia->surgery->typesurgeries->cost }}</td>    
+                <td class="total" style="border-bottom:#000000 solid 1px;">{{ $cirugia->surgery->typesurgeries->cost }}</td>    
             </tr>
             @endif
             
-        </tbody>  
-     
-    
+        </tbody>      
         <tfoot>
         <tr>
-            <td colspan="1"></td>
-            <td colspan="1">SUBTOTAL</td>
-            <td>{{ $total_cancelar }}</td>
+          <td colspan="1" style="border-top:#000000 solid 1px;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
+          <td style="text-align:center;">{{ $total_cancelar }}</td>
           </tr>
           <tr>
-            <td colspan="1"></td>
-            <td colspan="1">TOTAL</td>
-            <td>{{ $total_cancelar }}</td>
+            
+            <td colspan="1" style="padding-top:-5px;">Total&nbsp;{{ $todos->typecurrency->name }}</td>
+            <td style="text-align:center;padding-top:-5px">{{ $total_cancelar }}</td>
           </tr>
+          <div style="font-size:11px; padding-top:200px">
+              <p style="border-top:#000000 solid 1px; text-align:center">S&F Sinus & Face Clinica - Academia Fundación, Consultorio: Calle Pdte. González #4, Clinica: El Vergel #27 C.P. 10107, Telefono:</p>   
+          </div>
         </tfoot>
 
       </table>
     </main>
-    <footer>
+    {{-- <footer>
       Invoice was created on a computer and is valid without the signature and seal.
-    </footer>
+    </footer> --}}
   </body>
 </html>
 
-
-
-
-
-
-
 {{-- 
-
-
 
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -376,14 +388,12 @@ footer {
 </head>
 <body>
     <div id="app">
-           
 
         <div class="section-body py-3 row">
 
             <div class="section-body py-3 col-8 ml-4 ">
                 <div class="container">
                     <div class="tab-content">
-             
 
                         <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                             <div class="row clearfix">
@@ -460,7 +470,6 @@ footer {
                                                             <td class="text-right" style="width: 1%">{{ $todos->employe->doctor->price }}</td>
                                                         </tbody>
 
-                                                           
                                                         <tbody style="border-bottom: 1px solid #000">
                                                             <th class="text-center width35"></th>
                                                             <th colspan="4">Procedimiento</th>
@@ -521,7 +530,6 @@ footer {
             </div>
 
         </div>
- 
 
         @section('scripts')
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
