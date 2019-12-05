@@ -86,7 +86,6 @@ table .desc_titulo {
   width: 480px;
   background: transparent;
   font-size:13px;
-  font-weight: bold;
 
 }
 
@@ -250,12 +249,12 @@ table tfoot tr td:first-child {
 
 .fondo{
   position: absolute;
-  opacity: .1;
+  opacity: .08;
   vertical-align: top;
-  width: 600px;
-  height: 100px;
-  margin-top: 143px;
-  margin-left: 50px;
+  width: 400px;
+  /* height: 100px; */
+  margin-top: 5px;
+  margin-left: 150px;  
 }
 
 </style>
@@ -275,7 +274,7 @@ table tfoot tr td:first-child {
     </header>
 
     <main>
-      <img src="assets/images/logo_factura.png" class="fondo">
+      <img src="assets/images/Isotipo_S&F.svg" class="fondo">
       
       <div id="details" class="clearfix">
         <div id="client">
@@ -365,17 +364,18 @@ table tfoot tr td:first-child {
             <td colspan="1" style="padding-top:-5px;">Total&nbsp;{{ $todos->typecurrency->name }}</td>
             <td style="text-align:center;padding-top:-5px">{{ $total_cancelar }}</td>
           </tr>
-          <div style="font-size:11px; padding-top:200px">
-              <p style="border-top:#000000 solid 1px; text-align:center">S&F Sinus & Face Clinica - Academia Fundación, Consultorio: Calle Pdte. González #4, Clinica: El Vergel #27 C.P. 10107, Telefono:</p>   
-          </div>
-        </tfoot>
-
-      </table>
-    </main>
-    {{-- <footer>
-      Invoice was created on a computer and is valid without the signature and seal.
-    </footer> --}}
-  </body>
+          <div style="font-size:11px; padding-top:215px;">
+            <p style="border-top:#000000 solid 1px; text-align:center; padding-top:5px;width:500px;margin-left:95px">
+              S&F Sinus & Face Clinica - Academia Fundación, <span style="font-weight:bold">Consultorio:
+              </span> Calle Pdte. González #4,<br> <span style="font-weight:bold">Clinica:</span> El Vergel #27 C.P. 10107, 
+              <span style="font-weight:bold">Telefono:</span> +1 (786) 544 43 16, 
+              <span style="font-weight:bold">Correo:</span> info@syfdominicana.com
+            </p>   
+        </div>
+      </tfoot>
+    </table>
+  </main>
+</body>
 </html>
 
 {{-- 
