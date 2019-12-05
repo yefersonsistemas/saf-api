@@ -40,7 +40,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   margin-top: -15px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   color: #000000;
 }
 
@@ -63,29 +63,15 @@ table td {
   border-left: none;
 }
 
-table td h3{
-  color: #000000;
-  font-size: 1.2em;
-  font-weight: normal;
-  margin: 0 0 0.2em 0;
-}
-
 footer {
   color: #000000;
   width: 100%;
   height: 30px;
   position: absolute;
   bottom: 0;
-  border-top: 1px solid #AAAAAA; 
+  border-top: 1px solid #000000; 
   padding: 8px 0;
   text-align: center;
-}
-
-h2.name {
-  font-size: 1.4em;
-  font-weight: normal;
-  margin: 0;
-  color: #000000
 }
 
 table .desc {
@@ -99,7 +85,7 @@ table .desc_titulo {
   padding-left: 10px;
   width: 480px;
   background: transparent;
-  font-size:14px;
+  font-size:13px;
   font-weight: bold;
 
 }
@@ -115,18 +101,19 @@ table .total {
 table td.unit,
 table td.qty,
 table td.total {
-  font-size: 1.2em;
+  font-size: 15px;
 }
 
 table tbody tr:last-child td {
   border: none;
+  padding-bottom: 15px
 }
 
 table tfoot td {
   padding: 10px 20px;
   background: #FFFFFF;
   border-bottom: none;
-  font-size: 1.0em;
+  font-size: 15px;
   white-space: nowrap; 
   border-left: none;
   color: #000000; 
@@ -138,7 +125,7 @@ table tfoot tr:first-child td {
 
 table tfoot tr:last-child td {
   color: #000000;
-  font-size: 1.2em;
+  font-size: 15px;
 }
 
 table tfoot tr td:first-child {
@@ -156,8 +143,8 @@ table tfoot tr td:first-child {
 
 .logo {
   margin-top: -40px;
-  height: 120px;
-  width: 520px;
+  height: 100px;
+  width: 480px;
   margin-bottom: -20px;
 }
 
@@ -176,8 +163,8 @@ table tfoot tr td:first-child {
   float: left;
   color:#000000;
   font-weight: normal;
-  font-size: 13px;
-  line-height: 15px
+  font-size: 12px;
+  line-height: 15px;
 }
 
 #client .to {
@@ -194,24 +181,25 @@ table tfoot tr td:first-child {
 
 #invoice {
   text-align: right;
-  margin-bottom: -5px;
+  padding-left: 100px
 }
 
 #invoice h1 {
   color: #000000;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 1em;
   font-weight: normal;
   text-align: center;
-  margin-top:-5px 
+  margin-top:-17px;
 }
 
 #invoice h2 {
   color: #000000;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 1em;
   font-weight: normal;
   text-align: center;
+  margin-top: -5px;
 }
 
 #invoice .date {
@@ -250,8 +238,10 @@ table tfoot tr td:first-child {
 }
 
 #doctor {
-  margin-left: 250px;
+  margin-left: 150px;
   line-height: 15px;
+  color: #000000;
+  font-size: 12px;
 }
 /* 
 .titulo{
@@ -260,10 +250,11 @@ table tfoot tr td:first-child {
 
 .fondo{
   position: absolute;
-  opacity: .2;
+  opacity: .1;
   vertical-align: top;
   width: 600px;
-  margin-top: 200px;
+  height: 100px;
+  margin-top: 143px;
   margin-left: 50px;
 }
 
@@ -280,54 +271,54 @@ table tfoot tr td:first-child {
       <div id="invoice">
         <h1>Factura N°</h1>
         <h2 class="nfactura">00000001</h2>
-        {{-- <div class="date">Fecha: 01/06/2014</div> --}}
       </div>
     </header>
 
     <main>
       <img src="assets/images/logo_factura.png" class="fondo">
+      
       <div id="details" class="clearfix">
         <div id="client">
           <div class="name"> 
-            <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:50px">{{ $todos->person->name }} {{ $todos->person->lastname }}</span>
+            <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">{{ $todos->person->name }} {{ $todos->person->lastname }}</span>
           </div>
           <div class="dni">
-            <span style="font-weight:bold">RNC/Cedula:</span><span class="text" style="margin-left:18px">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}</span>
+            <span style="font-weight:bold">RNC/Cedula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}</span>
           </div>
           <div class="phone">
-            <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px">{{ $todos->person->phone }}</span>
+            <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">{{ $todos->person->phone }}</span>
           </div>
           <div class="address">
-            <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px">{{ $todos->person->phone }}</span>
+            <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px;text-transform:uppercase">{{ $todos->person->address }}</span>
           </div>
         </div>
-        {{-- <div id="doctor">
-            <div class="docname">
+        <div id="doctor">
+            <div class="date">
+              Factura Emitida en la Fecha 01/06/2014 <br> 
+              En Santo Domnido, Republica Dominicana.<br>
+              <span style="font-weight:bold">Forma de Pago:</span>  {{ $todos->typepayment->name }}.
+            </div>
+            {{-- <div class="docname">
               <span>Doctor/a:</span> <span class="text">{{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}</span>
             </div>
-            <div class="docdni">
-              <span>Cedula:</span><span class="text"> {{ $todos->employe->person->type_dni }}</span> <span class="text">{{ $todos->employe->person->dni }}</span>
-            </div>
-            <div class="docphone">
-              <span>Telefono:</span><span class="text">{{ $todos->employe->person->phone }}</span>
-            </div>
-        </div> --}}
+            </div>--}}
+        </div> 
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
             <th colaspan="4" class="campo_titulo" style="border-top:#000000 solid 1px; 
               border-bottom:#000000 solid 1px;text-align:left;">
-              DESCRIPCIÓN</th>
-            <th class="no" style="border-top:#000000 solid 1px; border-bottom:#000000 solid 1px;"></th>
-            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;">TOTAL</th>
+              Descripción</th>
+            
+            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;">Total</th>
           </tr>
         </thead>
         <tbody>
             <tr>
-              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente: {{ $todos->patient->name }} {{ $todos->patient->lastname }}
+              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente {{ $todos->patient->name }} {{ $todos->patient->lastname }} <br>
+                por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}.
                 </td>
-                <td class="no"></td>
                 <td class="total">{{ $todos->employe->doctor->price }}</td>
             </tr>
 
@@ -335,11 +326,10 @@ table tfoot tr td:first-child {
             <tr>
               <td class="desc_titulo">Procedimientos</td>
               <td class="total"></td>
-              <td class="no"></td>
+              {{-- <td class="no"></td> --}}
             </tr>
             @foreach ($todos->procedure as $item)
             <tr class="proces">
-                <td class="no" ></td>
                 <td class="desc">
 
                     <span colspan="1" class="space"></span>{{ $item->name }}
@@ -355,13 +345,11 @@ table tfoot tr td:first-child {
             <tr>
               <td class="desc_titulo" style="text-align:left">Cirugía</td>
               <td class="total"></td>
-              <td class="no"></td>
             </tr>
             <tr>
               <td class="desc" style="text-align:left;padding-left:10px">
                   {{ $cirugia->surgery->typesurgeries->name }}
                 </td>
-                <td class="no"></td>
                 <td class="total" style="border-bottom:#000000 solid 1px;">{{ $cirugia->surgery->typesurgeries->cost }}</td>    
             </tr>
             @endif
@@ -369,22 +357,24 @@ table tfoot tr td:first-child {
         </tbody>      
         <tfoot>
         <tr>
-          <td colspan="1" style="border-top:#000000 solid 1px;"></td>
-          <td colspan="1" style="border-top:#000000 solid 1px">SUBTOTAL</td>
+          <td colspan="1" style="border-top:#000000 solid 1px;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
           <td style="text-align:center;">{{ $total_cancelar }}</td>
           </tr>
           <tr>
-            <td colspan="1"></td>
-            <td colspan="1">TOTAL</td>
-            <td style="text-align:center;">{{ $total_cancelar }}</td>
+            
+            <td colspan="1" style="padding-top:-5px;">Total&nbsp;{{ $todos->typecurrency->name }}</td>
+            <td style="text-align:center;padding-top:-5px">{{ $total_cancelar }}</td>
           </tr>
+          <div style="font-size:11px; padding-top:200px">
+              <p style="border-top:#000000 solid 1px; text-align:center">S&F Sinus & Face Clinica - Academia Fundación, Consultorio: Calle Pdte. González #4, Clinica: El Vergel #27 C.P. 10107, Telefono:</p>   
+          </div>
         </tfoot>
 
       </table>
     </main>
-    <footer>
+    {{-- <footer>
       Invoice was created on a computer and is valid without the signature and seal.
-    </footer>
+    </footer> --}}
   </body>
 </html>
 
