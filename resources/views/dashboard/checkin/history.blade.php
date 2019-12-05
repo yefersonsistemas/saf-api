@@ -196,10 +196,9 @@
                 </div>
             </div>
 
-            <div class="card p-4">
+            {{-- <div class="card p-4">
                 <label class="form-label">Exámenes</label>
                 <div class="form-control">
-                        {{-- <form id="fileupload" action="" method="POST" enctype="multipart/form-data"> --}}
                     <div class="row fileupload-buttonbar mt-4 ml-2">
                         <div>
                             <span class="btn btn-success fileinput-button">
@@ -244,9 +243,8 @@
                     <table role="presentation" class="table table-striped">
                         <tbody class="files"></tbody>
                     </table>
-                        {{-- </form> --}}
                 </div>
-            </div>
+            </div> --}}
 
             <div class="card p-4 d-flex justify-content-between">
                 <div class="row">
@@ -257,10 +255,10 @@
                                 @foreach ($disease as $enfermedades)
                                     <option value= {{ $enfermedades->id }}
                                         @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->disease->contains($enfermedades->name))
+                                            @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
                                             selected
-                                            @endif>
-                                        @endif
+                                            @endif
+                                        @endif>
                                     {{ $enfermedades->name }}</option>
                                 @endforeach
                             </select>
@@ -272,7 +270,12 @@
                         <div class="form-group multiselect_div">
                             <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
                                 @foreach ($medicine as $medicamentos)
-                                    <option value= {{ $medicamentos->id }}>{{ $medicamentos->name }}</option>
+                                    <option value= {{ $medicamentos->id }}
+                                        @if ($rs->patient->historyPatient != null)
+                                            @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                            selected
+                                            @endif
+                                        @endif>{{ $medicamentos->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -283,7 +286,12 @@
                         <div class="form-group multiselect_div">
                             <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
                                 @foreach ($allergy as $alergias)
-                                    <option value= {{ $alergias->id }}>{{ $alergias->name }}</option>
+                                    <option value= {{ $alergias->id }}
+                                        @if ($rs->patient->historyPatient != null)
+                                            @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
+                                            selected
+                                            @endif
+                                        @endif>{{ $alergias->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -302,7 +310,7 @@
             <div class="card p-4 row d-flex d-row justify-content-between">
                 <div class="card p-4">
                     <h5 class="text-center">Citas anteriores</h5>
-                    @foreach ($cites as $reservation)
+                    @forelse ($cites as $reservation)
                         <div class="card col-4 text-justify p-4 form-control mt-2">
                             <div>
                                 <label class="m-0 form-label">Doctor:</label>
@@ -324,7 +332,11 @@
                                 <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
                             </div>
                         </div> 
-                    @endforeach
+                    @empty
+                        <div>
+                            <label class="m-0 form-label">No posee Citas Anteriores</label>
+                        </div>
+                    @endforelse
                 </div>
             </div>
 
@@ -368,6 +380,9 @@
         $('#EditPatient').click(function() {
             $('#weight').removeAttr('disabled');
             $('#place').removeAttr('disabled');
+            $('#allergy').removeAttr('disabled');
+            $('#medicine').removeAttr('disabled');
+            $('#disease').removeAttr('disabled');
             $('#birthdate').removeAttr('disabled');
             $('#address').removeAttr('disabled');
             $('#genero1').removeAttr('disabled');

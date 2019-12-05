@@ -83,7 +83,7 @@ class InController extends Controller
         $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
                          ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
 
-        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
+        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
         //dd($cites);
 
         $disease = Disease::get();
@@ -91,7 +91,7 @@ class InController extends Controller
         $medicine = Medicine::get();
         $allergy = Allergy::get();
 
-        dd($rs->patient->historyPatient->allergy);
+        // dd($rs->patient->historyPatient->disease);
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }

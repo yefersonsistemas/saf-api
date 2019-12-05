@@ -354,6 +354,9 @@
                     $('.datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
+                        startDate: data.start,
+                        endDate: data.end,
+                        datesDisabled: data.diff,
                     });
                     $('#fecha').val();
                 })
