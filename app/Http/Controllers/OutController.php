@@ -27,6 +27,7 @@ use App\Procedure;
 use App\Recipe;
 use App\Speciality;
 use App\Diagnostic;
+use App\Treatment;
 use Carbon\Carbon;
 use App\Http\Requests\CreateVisitorRequest;
 // use App\Procedure_billing;
@@ -84,8 +85,6 @@ class OutController extends Controller
     {
         // dd($id);
         // dd($request);
-        // $patient = Patient::where('id', $id)->first();
-        // dd($patient);
 
         $itinerary = Itinerary::with('person')->where('patient_id', $id)->first();
         // dd($itinerary);
@@ -100,16 +99,15 @@ class OutController extends Controller
 
         foreach ($request->multiselect4 as $examen) {
             $diagnostico->exam()->attach($examen);
+            $examenes =  implode(',', $request->multiselect4);
         }
-        // dd($diagnostico);
-
-        // dd($itinerary);
-
+       
+        $itinerary->exam_id = $examenes;
+        $itinerary->save();
 
         //Para mostrar lista de citas de pacientes
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
-    //   dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -124,7 +122,6 @@ class OutController extends Controller
       
         Alert::success('Examen generado');
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
-        // return redirect()->back();
     }
 
     //====================== lista de cirugias ============================
@@ -149,11 +146,10 @@ class OutController extends Controller
     //============================ buscanco paciente ============================
     public function search_patient(Request $request){
 
-  
         if(!empty($request->dni)){ 
         
         $person = Person::where('dni', $request->dni)->first();
-    
+
         if(!empty($person)){
 
             $itinerary = Itinerary::where('patient_id', $person->id)->first();
@@ -161,7 +157,6 @@ class OutController extends Controller
 
                 $all = collect([]); //definiendo una coleccion|
                 $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
-
 
                 $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
 
@@ -357,12 +352,15 @@ class OutController extends Controller
 
 
     //============================ imprimir recipe ============================
-    public function imprimir_recipe(Request $request)
+    public function imprimir_recipe(Request $request, $id, $patient, $employe)
     {
-        $recipe = Recipe::with('patient','employe.person','medicine')->where('id', $request->id)->first();
-        // dd($recipe);
+        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
+        // dd($recipe);  
+        $paciente = Patient::where('person_id',$patient)->first(); 
+        $fecha = Carbon::now()->format('Y-d-m');
+        // dd($fecha);
 
-        $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe'));
+        $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe', 'paciente', 'fecha'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('recipe.pdf');
     }

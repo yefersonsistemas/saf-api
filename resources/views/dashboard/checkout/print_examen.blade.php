@@ -195,11 +195,19 @@ span .name{
 #details{
   text-align: center
 }
+
+.encabezado{
+  width: 100%;
+  margin-top: 10px;
+  height: 100px;
+}
     </style>
   </head>
   <body>
     <header class="clearfix">
-    <div id="logo">
+        <img src="assets/images/Encabezado_Factura.svg" class="encabezado">
+
+    {{-- <div id="logo">
         <img src="assets/images/Isotipo_S&F.svg">
         <div id="company" class="clearfix">
             <div>Sinus And Faces</div>
@@ -218,14 +226,7 @@ span .name{
                 <span class="name">Direcciòn:</i></span><span>{{ $datos->person->address }}</span><br>
                 <span class="name">Telefono:</i></span><span >{{ $datos->person->phone }}</span><br> 
             </div>
-            {{-- <div id="invoice">
-                <span class="name_titulo">Medico tratante:</span><br><br>
-                <span class="name">Doc. de identidad:</span> <span>{{ $datos->employe->person->type_dni }}</span> <span>{{ $datos->employe->person->dni }}</span><br>
-                <span class="name">Nombre y Apellido:</span> <span>{{ $datos->employe->person->name }} {{ $datos->employe->person->lastname }}</span><br>
-                <span class="name">Direcciòn:</i></span><span>{{ $datos->employe->person->address }}</span><br>
-                <span class="name">Telefono:</i></span><span >{{ $datos->employe->person->phone }}</span><br> 
-            </div> --}}
-        </div>
+        </div> --}}
 
     </header>
     <main>

@@ -29,8 +29,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('outside/{id}', 'OutController@statusOut')->name('checkout.statusOut'); // cambia estado depaciente a fuera del consultorio
 
 
-    Route::get('doctor/recipe/{patient}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
-    Route::post('doctor/recipe/{patient}','DoctorController@recipeStore')->name('recipe.store');
+    Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
+    Route::post('doctor/recipe/{patient}/{employe}','DoctorController@recipeStore')->name('recipe.store');
 
 
     Route::group(['middleware' => ['role:recepcion']], function () {
@@ -79,8 +79,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('imprimir', 'OutController@imprimir_factura')->name('checkout.imprimir_factura');           // mostrar factura
 
         Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
-        Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
-        // Route::get('out/recipe/{itinerary_id}','OutController@crearRecipe')->name('checkout.crearRecipe'); //crear recipe
+        Route::get('imprimir/recipe/{id}/{patient}/{employe}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
         Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
     });
@@ -91,10 +90,8 @@ Route::group(['middleware' => 'auth'], function (){
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
         Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
-        // Route::get('doctor/recipe/{patient}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
         Route::post('doctor/Referencia/{patient}','DoctorController@referenceStore')->name('reference.store');
-        // Route::post('doctor/recipe/{patient}','DoctorController@recipeStore')->name('recipe.store');
     });
 });

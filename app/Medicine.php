@@ -26,6 +26,10 @@ class Medicine extends Model
         return $this->belongsTo('App\Employe', 'employe_id');
     }
 
+    public function treatment (){
+        return $this->hasOne('App\Treatment', 'medicine_id');
+    }
+
     public function recipe()
     {
          return $this->belongsToMany('App\Recipe','recipe_medicine')

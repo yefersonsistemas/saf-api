@@ -177,6 +177,7 @@
 </script>
 
 <script>
+    // var medicinas[]= 0;
     $('#add').click(function () {
         medicina        = $("select[name='medicamento']").val();
         dosis           = $("input[name='dosis']").val();
@@ -197,7 +198,7 @@
 
     function ajax(medicina, dosis, medida, duracion, indicaciones) {
         $.ajax({
-                url: "{{ route('recipe.store', $paciente) }}",
+                url: "{{ route('recipe.store', [$paciente, $employe]) }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -210,6 +211,8 @@
             })
             .done(function(data) {
                 console.log(data);
+                	// medicinas[]= medicine_id;
+                    // console.log(medicinas)
                 Swal.fire({
                     title: 'Excelente!',
                     text: 'Medicina agregada',

@@ -251,8 +251,8 @@
                 })
                 .done(function(data) {               
                     console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-                    console.log('esto',data.encontrado[0].person);
-                    console.log('arreglo', data.procedureS);
+                    // console.log('esto',data.encontrado[0].person);
+                    // console.log('arreglo', data.procedureS);
 
                     if(data[0] == 202){   
                         console.log('si')                 //si no trae valores
@@ -283,31 +283,25 @@
         function disabled(data) {
 
             data_paciente = data.encontrado[0].person; //uasarla mas adelante
-
-            console.log("data_paciente", data_paciente);
-            // console.log("data_procedure", data.encontrado[0].procedure);
-
-            console.log("consulta", data.encontrado[0].employe.doctor.price);
-            console.log('jjj',data.encontrado[0].surgery);
-
-            console.log('ken',data.encontrado[0].person);
             
             // estas variables se usaran mas adelante para mostrar la factura generada
             id_patient = data.encontrado[0].person.id;
             id_employe = data.encontrado[0].employe.person.id; 
-            console.log('jaja',id_patient, id_employe);
+            // console.log('jaja',id_patient, id_employe);
 
             //------------- consulta --------------
-            if(data.encontrado[0].employe.doctor != null){
+            if(data.encontrado[0].doctor_id != null){
+
+                console.log('hoal');
                 price_consulta= data.encontrado[0].employe.doctor.price;
                 costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
-                console.log('consulta',costo_consulta);
                 consulta_html = '<th class="text-center width35"></th><th colspan="4">Consulta</th><td class="text-right">'+costo_consulta+'</td>';
                 $("#consulta").append(consulta_html);
             }
 
             //-------------------cirugia -------------
             if(data.encontrado[0].surgery != null){
+                console.log('cirugia');
                 nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
 
