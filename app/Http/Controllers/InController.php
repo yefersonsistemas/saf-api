@@ -58,7 +58,7 @@ class InController extends Controller
     public function create()
     {
         $areas = Area::with('typearea', 'image')->get();
-        //dd($areas);
+
         $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
         $em = collect([]);
         if ($employes->isNotEmpty()) {
@@ -72,7 +72,6 @@ class InController extends Controller
                             }
                         }
                     }
-                    
                 }
             }
         }
