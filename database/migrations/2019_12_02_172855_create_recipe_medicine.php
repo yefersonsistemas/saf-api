@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProcedureBillingTable extends Migration
+class CreateRecipeMedicine extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,20 @@ class CreateProcedureBillingTable extends Migration
      */
     public function up()
     {
-        Schema::create('procedure_billing', function (Blueprint $table) {
+        Schema::create('recipe_medicine', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('procedure_id');
-            $table->unsignedBigInteger('billing_id');
+            $table->unsignedBigInteger('recipe_id');
+            $table->unsignedBigInteger('medicine_id');
             $table->timestamps();
 
-            $table->foreign('procedure_id')
+            $table->foreign('recipe_id')
             ->references('id')
-            ->on('procedures')
+            ->on('recipe')
             ->onDelete('CASCADE');
 
-            
-            $table->foreign('billing_id')
+            $table->foreign('medicine_id')
             ->references('id')
-            ->on('billings')
+            ->on('medicines')
             ->onDelete('CASCADE');
 
         });
@@ -40,6 +39,6 @@ class CreateProcedureBillingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('procedure_billing');
+        Schema::dropIfExists('recipe_medicine');
     }
 }

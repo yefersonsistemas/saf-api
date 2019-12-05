@@ -208,7 +208,7 @@ class CitaController extends Controller
             $reservation->status = $data['type'];
             $reservation->save();
 
-            return redirect()->route('citas.index');
+            return redirect()->back();
         }else{
             Alert::error('No se puede '.$data['type'].' esta cita');
             return redirect()->back();
@@ -219,6 +219,8 @@ class CitaController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::with('patient','person','speciality')->find($id);
+        dd($reservation);
+        
         if (!is_null($reservation)) {
             $specialities = Speciality::with('employe.person')->get();
             return view('dashboard.reception.edit', compact('reservation','specialities'));
@@ -266,7 +268,7 @@ class CitaController extends Controller
                 'branch_id'         =>  1,
             ]);
             Alert::success('Cita actualizada exitosamente');
-            return redirect()->route('citas.index');
+            return redirect()->route('checkin.index');
         }
     }
 
@@ -294,8 +296,7 @@ class CitaController extends Controller
             'email2'        =>  'nullable',
             'phone2'        =>  'nullable'
         ]);
-            
-        // dd($data);
+
         $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
 
         $patient = Patient::create([

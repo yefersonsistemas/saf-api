@@ -107,7 +107,8 @@
 
 /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
 
-@-webkit-keyframes pulse {
+
+/* @-webkit-keyframes pulse {
     from {
         -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
@@ -140,7 +141,7 @@
 .pulse {
     -webkit-animation-name: pulse;
     animation-name: pulse;
-}
+} */
 
 @-webkit-keyframes rubberBand {
     from {
@@ -3756,8 +3757,76 @@ span.titulos {
 .tamano {
     /* width: 100%;
         height:150px; */
-    background: #000;
-}
+
+                background: #000;
+            }
+            
+            .tamano img {
+                width: 100%;
+                height: 100%;
+            }
+            
+            .with150 {
+                width: 100%;
+                height: 150px;
+            }
+            
+            .tama {
+                width: 100%;
+                height: 120px;
+            }
+            
+            .color {
+                color: #2185d0;
+            }
+            
+            .bg-azul {
+                background: #2185d0;
+            }
+            
+            .h4 {
+                font-size: 24px;
+                color: #000;
+            }
+            
+            .page-item:last-child .page-link:active {
+                color: #fff;
+                background: #00ba88;
+                box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+            }
+            
+            .event-click {
+                cursor: pointer;
+            }
+            
+            .img-thumbnail {
+                padding: 0;
+            }
+            
+            .scrolll {
+                overflow-y: auto;
+            }
+            
+            .scroll {
+                height: 300px;
+                ;
+            }
+
+            textarea.letras{
+                color:#000;
+            }
+
+            .borderF{
+                border-bottom: 2px solid #2185d0;
+                border-top:2px solid #2185d0;
+            }
+            .text{
+                font-size: 14px;
+            }
+
+            .h66{
+                font-weight: bold;
+            }
 
 .tamano img {
     width: 100%;
@@ -3807,5 +3876,8 @@ span.titulos {
 
 .scroll {
     height: 300px;
-    ;
+}
+
+textarea.letras {
+    color: #000;
 }

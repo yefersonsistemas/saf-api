@@ -17,9 +17,10 @@ class CreateItineraryTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('patient_id')->nullable();
             $table->unsignedBigInteger('employe_id')->nullable();
-            $table->json('procedure_id')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->string('procedure_id')->nullable();
             $table->unsignedBigInteger('surgery_id')->nullable();
-            $table->unsignedBigInteger('exam_id')->nullable();
+            $table->string('exam_id')->nullable();
             $table->unsignedBigInteger('recipe_id')->nullable();
             $table->unsignedBigInteger('reservation_id')->nullable();
             $table->unsignedBigInteger('branch_id')->nullable();
@@ -38,6 +39,11 @@ class CreateItineraryTable extends Migration
             ->on('employes')
             ->onDelete('CASCADE');
 
+            $table->foreign('doctor_id')
+            ->references('id')
+            ->on('doctors')
+            ->onDelete('CASCADE');
+
             $table->foreign('reservation_id')
             ->references('id')
             ->on('reservations')
@@ -49,10 +55,10 @@ class CreateItineraryTable extends Migration
             ->on('surgeries')
             ->onDelete('CASCADE');
             
-            $table->foreign('exam_id')
-            ->references('id')
-            ->on('exams')
-            ->onDelete('CASCADE');
+            // $table->foreign('exam_id')
+            // ->references('id')
+            // ->on('exams')
+            // ->onDelete('CASCADE');
 
             
             $table->foreign('recipe_id')

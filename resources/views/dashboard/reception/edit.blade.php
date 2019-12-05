@@ -7,6 +7,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
+
 @endsection
 
 @section('content')
@@ -117,7 +118,7 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary">Actualizar cita</button>
+            <button type="submit" class="btn btn-verdePastel">Actualizar cita</button>
         </div>
     </form>
 </div>

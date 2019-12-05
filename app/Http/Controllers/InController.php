@@ -9,7 +9,6 @@ Use App\Area;
 Use App\Billing;
 Use App\AreaAssigment;
 use App\Disease;
-use Carbon\Carbon;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Requests\CreateAreaAssigmentRequest;
 use App\Schedule;
@@ -21,6 +20,7 @@ use App\Reservation;
 use App\Patient;
 use App\Allergy;
 use App\Cite;
+use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
 //use App\Http\Controllers\CitaController;
@@ -35,16 +35,16 @@ class InController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $reservations = Reservation::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         
         // dd($reservations);
-        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
+        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         
-        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
+        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
         
-        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
+        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
-        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
        
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
@@ -75,7 +75,7 @@ class InController extends Controller
                 }
             }
         }
-       return view('dashboard.checkin.create', compact('areas', 'em'));
+    return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
      /**
@@ -85,15 +85,17 @@ class InController extends Controller
      */
     public function search_history(Request $request){  
         $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
-                         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
 
         $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
         //dd($cites);
 
         $disease = Disease::get();
-       
+    
         $medicine = Medicine::get();
         $allergy = Allergy::get();
+
+        dd($rs->patient->historyPatient->allergy);
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
@@ -105,57 +107,101 @@ class InController extends Controller
      * 
      */
 
-    public function guardar(Request $request)  
+
+    public function guardar(Request $request, $id)  //guarda registros de nuevos y editados en la historia del paciente
     {
-        //dd($request);
+
         $person = Person::where('dni', $request->dni)->first();
-        //dd($person);
-         $patient = Patient::where('person_id', $person->id)->first();
-        // dd($request);
-        
-        if (!is_null($patient)) {
-            if (!empty($request->disease)) {
-                foreach ($request->disease as $disease) {
-                    $di = Disease::find($disease);
-                    $patient->disease()->attach($di); 
-                }
+
+        // dd($person);
+
+        $reservation = Reservation::find($id);
+
+        if (!is_null($person)) {
+
+            if ($person->historyPatient == null) {
+                $data = $request->validate([
+                    'gender'        =>  'required',
+                    'place'         =>  'required',
+                    'birthdate'     =>  'required',
+                    'weight'        =>  'required',
+                    'occupation'    =>  'required',
+                    'profession'    =>  'required',
+                    'another_email' =>  'nullable',
+                    'another_phone' =>  'nullable'
+                ]);
+
+                $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
+
+                $patient = Patient::create([
+                    'history_number'=> $this->numberHistory(),
+                    'another_phone' =>  $data['another_phone'],
+                    'another_email' =>  $data['another_email'],
+                    'date'          =>  Carbon::now(),
+                    'reason'        =>  $reservation->description,
+                    'gender'        =>  $data['gender'],
+                    'age'           =>  $age,
+                    'person_id'     =>  $person->id,
+                    'place'         =>  $data['place'],
+                    'birthdate'     =>  Carbon::create($data['birthdate']),
+                    'weight'        =>  $data['weight'],
+                    'occupation'    =>  $data['occupation'],
+                    'profession'    =>  $data['profession'],
+                    'previous_surgery'  => $request->previous_surgery,
+                    'employe_id'    =>  $reservation->person->id,
+                    'branch_id'     =>  1,
+                ]);
             }
 
-            if (!empty($request->medicine)){
+            $patient = Patient::where('person_id', $person->id)->first();
 
-                foreach ($request->medicine as $medicine) {
-                    $me = Medicine::find($medicine);
-                    $patient->medicine()->attach($me); 
-                }
-            }
+            if ($person->historyPatient != null && $request->birthdate) {
 
-            if (!empty($request->allergy)){
+                $age = Carbon::create($request->birthdate)->diffInYears(Carbon::now());
 
-                foreach ($request->allergy as $allergy) {
-                    $al = Allergy::find($allergy);
-                    $patient->allergy()->attach($al); 
-                }
-            }
-
-            //dd($request);
-
-            if ($request->age != null ) {
-           
                 $patient->update([
-                    'age'               => $request->age,
-                    'weight'            => $request->weight,
-                    'address'           => $request->address,
-                    'phone'             => $request->phone,
-                    'occupation'        => $request->occupation,
-                    'profession'        => $request->profession,
-                    'another_phone'     => $request->another_phone,
-                    'another_email'     => $request->another_email,
+                    'history_number'=> $this->numberHistory(),
+                    'another_phone' =>  $request->another_phone,
+                    'another_email' =>  $request->another_email,
+                    'reason'        =>  $reservation->description,
+                    'gender'        =>  $request->gender,
+                    'age'           =>  $age,
+                    'place'         =>  $request->place,
+                    'birthdate'     =>  Carbon::create($request->birthdate),
+                    'weight'        =>  $request->weight,
+                    'occupation'    =>  $request->occupation,
+                    'profession'    =>  $request->profession,
                     'previous_surgery'  => $request->previous_surgery,
                 ]);
             }
-        
-            Alert::success('Guardado exitosamente');
-            return redirect()->route('checkin.index');
+
+           if (!is_null($patient)) {
+               if (!empty($request->disease)) {
+                   foreach ($request->disease as $disease) {
+                       $di = Disease::find($disease);
+                       $patient->disease()->attach($di); 
+                   }
+               }
+
+               if (!empty($request->medicine)){
+    
+                   foreach ($request->medicine as $medicine) {
+                       $me = Medicine::find($medicine);
+                       $patient->medicine()->attach($me); 
+                   }
+               }
+
+               if (!empty($request->allergy)){
+    
+                   foreach ($request->allergy as $allergy) {
+                       $al = Allergy::find($allergy);
+                       $patient->allergy()->attach($al); 
+                   }
+               }
+
+               Alert::success('Guardado exitosamente');
+               return redirect()->route('checkin.index');
+           }
         }
     }
 
@@ -175,7 +221,7 @@ class InController extends Controller
         $p = Patient::where('person_id', $paciente)->first();
             // dd($p);
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $doctor)->first();
-          
+        
         if (empty($io->inside)) {
             InputOutput::create([       
                 'person_id' =>  $paciente,  //paciente tratado
@@ -188,11 +234,11 @@ class InController extends Controller
         else{
             Alert::error('Paciente ya esta dentro');
             return redirect()->back();
-         };
+        };
 
-          $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
+        $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
         //  dd($reservation->patient->inputoutput);
-     
+    
         Alert::success('Paciente dentro');
         return redirect()->back();
 
@@ -253,31 +299,60 @@ class InController extends Controller
 
     }
 
-    /**
+
+    public function numberHistory()
+    {
+        $patient    = Patient::all()->last();
+        if ($patient == null) {
+            $number = 1;
+        } else {
+            $number = $patient->id + 1;
+        }
+
+        if (strlen($number) == 1) {
+            $history_number = 'P-000' . $number;
+        } elseif (strlen($number) == 2) {
+            $history_number = 'P-00' . $number;
+        } elseif (strlen($number) == 3) {
+            $history_number = 'P-0' . $number;
+        } else {
+            $history_number = 'P-' . $number;
+        }
+        return $history_number;
+    }
+
+    
+ 
+
+   
+    public function destroy($id)
+    {
+        //
+    }
+/**
      * busca el area para la
      * asignacion del consultorio
      * 
      */
     public static function search_area(Request $request)
     {
-        dd($request);
-        
+        // dd($request);
         $area = Area::Where('id', $request->id)->first(); 
-            // dd($area);
-            if ($area != null) {  //si existe
-                $areas= $area->name;
-                return response()->json([
-                    'areas' => $areas,
-                ]);
-                
-            }else{  //caso de que no exista
-                return response()->json([
-                    'message' => 'Consultorio no encontrado',
-                ]);
-            }
+        // dd($area);
+        if ($area != null) {  //si existe
+            $areas= $area->name;
+            return response()->json([
+                'areas' => $areas,
+            ]);
+            
+        }else{  //caso de que no exista
+            return response()->json([
+                'message' => 'Consultorio no encontrado',
+            ]);
+        }
     }
 
-    /**
+ /**
      * busca el medico que sera asignado 
      * a un consultorio
      * 
@@ -285,7 +360,7 @@ class InController extends Controller
     public static function search_medico(Request $request)
     {
         // dd($request);
-       $employe = Employe::with('person')->Where('id', $request->id)->first(); 
+        $employe = Employe::with('person')->Where('id', $request->id)->first(); 
         // dd($area);
         if ($employe != null) {  //si existe
             $employes= $employe->person->name;
@@ -300,38 +375,7 @@ class InController extends Controller
         }
     }
 
-    /**
-     *  
-     * guarda el consultorio
-     * asignado al medico
-     * 
-     */
-    public static function assigment_area(Request $request)
-    {
-        // dd($request);
-        $employe = $request->employe_id;
-        $area = $request->area_id;
-        
-        $existe = AreaAssigment::where('employe_id',$employe)->where('area_id', $area)->first();
-        
-        if(empty($existe)){
-        $areaAssigment = AreaAssigment::create([
-            'employe_id'  => $employe,
-            'area_id'     => $area,
-            'branch_id' => 1,
-            ]);
-            // return response()->json([
-            // 'asignado' => $areaAssigment,201
-            // ]);
 
-        }else{
-            return response()->json([
-                'asignado' => 'Consultorio ya asignado',202
-                ]);
-         }
-
-// return redirect()->route('checkin.index');
-    }
         
     /**
      * 
@@ -353,5 +397,73 @@ class InController extends Controller
                 'employe' => 202
             ]);
         }
+    }
+
+    /**
+     *  
+     * guarda el consultorio
+     * asignado al medico
+     * 
+     */
+  
+
+    public static function assigment_area(Request $request) //asignacion de consultorio
+    {
+        dd($request);
+        $e = $request->employe_id;
+        $a = $request->area_id;
+// si olsdoatos no estas vacios 
+    if($e != null && $a != null){
+        
+            $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
+
+        if(empty($existe)){
+            $areaAssigment = AreaAssigment::create([
+            'employe_id'  => $e,
+            'area_id'     => $a,
+            'branch_id' => 1,
+            ]);
+            return view('dashboard.checkin.index');
+            }else{
+                return response()->json([
+                    'error' => 'No se pudo asignar el consultorio',202
+                ]);
+            }
+        }else{
+            return response()->json([
+                'error' => 'Datos incompletos',202
+            ]);
+        }
+    }
+
+    public function update_area(Request $request)
+    {
+        $a = Area::find($request->id);
+
+        if (!empty($a)) {
+        
+            $a->status = 'ocupado';
+            $a->save();
+
+            // if ($a->save()){
+            //    return response()->json([
+            //         'message' => 'ocupado', 
+            //     ]);
+            // }
+        }
+    }
+
+
+    public function exams_previos(Request $request)
+    {
+        $p = Patient::where('id', $request->id)->first();
+
+        File::create([
+            'filiable_type' => 'Paciente',
+            'filiable_id' => $p->id,
+
+        ]);
+
+        $request->file('nombre del archivo')->store('Exams');
     }
 }

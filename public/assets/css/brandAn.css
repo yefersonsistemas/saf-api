@@ -879,3 +879,26 @@ textarea[cols] {
     color: #fff;
     box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
 }
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #00ba88;
+    background-color: #00ba88;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(0, 186, 136, .25);
+}
+
+.custom-control-label {
+    margin: 0 20px;
+    top: -0.9rem;
+}
+
+.custom-control-label::after {
+    top: .1rem;
+}
+
+.custom-control-label::before {
+    top: .1rem;
+}

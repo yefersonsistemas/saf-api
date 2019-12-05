@@ -121,29 +121,28 @@
             </div> 
         </div>
 
-      <!-- Modal -->
-    @foreach ($em as $employe)
-
-      <div class="modal fade" id="{{ $employe->person->name }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal -->
+        @foreach ($em as $employe) 
+    <div class="modal fade" id="{{ $employe->person->name }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+        <div class="modal-content">
             <div class="modal-header" style="text-align:center">
-              <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
+            </button>
             </div>
             <div class="modal-body">
                     
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-bordered table-sm" style="borde-radious: 5px">
                             <thead class="table-info">
-                              <tr>
+                            <tr>
                                 <th scope="col" style="text-align:center; color:black">Dias</th>
                                 <th scope="col" style="text-align:center; color:black">Turno</th>
-                              </tr>
+                            </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                            <tr>
                             @foreach ($employe->schedule as $item)
                                 @if ($item->day == 'monday')
                                 <td style="text-align:center">Lunes</td>
@@ -167,21 +166,18 @@
                                 <td style="text-align:center">Tarde</td>
                                 @endif
                                 
-                              </tr>
+                            </tr>
                             @endforeach
                             </tbody>
-                          </table>
-                    
+                        </table>    
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-             
-            </div>
-          </div>
         </div>
-      </div>
-
-      @endforeach
+    </div>
+@endforeach
 
 @endsection
 

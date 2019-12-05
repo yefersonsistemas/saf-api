@@ -3,6 +3,10 @@
 @section('cites','active')
 @section('all','active')
 
+@php
+    use Carbon\Carbon;
+@endphp
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
@@ -12,6 +16,7 @@
 @section('title','Todas las citas')
 
 @section('content')
+
 <style>
     .dataTables_filter label{
         color: #434a54;
@@ -20,46 +25,47 @@
         border: 2px solid #00506b;
     }
 </style>
+
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix">
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body">                                
-                            <h6>Total De Citas Agendadas</h6>
-                            <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
-                            {{-- <h5>$1,25,451.23</h5> --}}
-                        </div>
+                <div class="card">
+                    <div class="card-body">                                
+                        <h6>Total De Citas Agendadas</h6>
+                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
+                        {{-- <h5>$1,25,451.23</h5> --}}
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6>Total De Citas Del Mes</h6>
-                            <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
-                            {{-- <h5>$3,80,451.00</h5> --}}
-                        </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Total De Citas Del Mes</h6>
+                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
+                        {{-- <h5>$3,80,451.00</h5> --}}
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6>Citas Para Hoy</h6>
-                            <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
-                        </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Citas Para Hoy</h6>
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
+                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6>Atendidos Hoy</h6>
-                            <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">5</span></h3>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
-                        </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Atendidos Hoy</h6>
+                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">5</span></h3>
+                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
+            </div>
            
             {{-- Tabs de citas --}}
             <div class="col-md-12 mt-3">
@@ -89,26 +95,28 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
+                                        <th class="text-center">Historia</th>
                                         <th>Cedula</th>
                                         <th>Nombre</th>
-                                        <th>Apellido</th>
+                                        <th class="fecha">Fecha</th>
                                         <th>Doctor</th>
                                         <th>Esepcialidad</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">Historia</th>
                                         <th class="text-center">E/S</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
+                                        <th class="text-center">Historia</th>
                                         <th>Cedula</th>
                                         <th>Nombre</th>
-                                        <th>Apellido</th>
+                                        <th class="fecha">Fecha</th>
                                         <th>Doctor</th>
                                         <th>Esepcialidad</th>
+                                        <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">Historia</th>
                                         <th class="text-center">E/S</th>
                                     </tr>
                                 </tfoot>
@@ -117,31 +125,49 @@
                                         <tr>
                                             <td>
                                                 @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
                                                 <img src="" alt="" >
                                                 @endif
                                             </td>
+                                            <td class="text-center">
+                                                @if ($reservation->patient->historyPatient == null)
+                                                    <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                @else
+                                                    <a href="{{ route('checkin.history', $reservation->patient_id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                @endif
+                                            </td>
                                             <td>{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td>{{ $reservation->person->name }}</td>
+                                            <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
+                                            <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
+                                            <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
+                                            <td>
+                                                @if ($reservation->status == 'Aprobada')
+                                                    <span class="badge badge-success">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Cancelada')
+                                                    <span class="badge badge-danger">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Reprogramada')
+                                                    <span class="badge badge-secondary">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Suspendida')
+                                                    <span class="badge badge-warning">{{ $reservation->status }}</span>
+                                                @endif
+                                                @if ($reservation->status == 'Pendiente')
+                                                    <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
+                                                @endif
+                                            </td>
                                             
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
-                                            <td class="text-center">
-                                                @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
-                                                @else
-                                                   <a href="{{ route('checkin.history', $reservation->patient_id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
-                                                @endif
-                                            </td>
-                                            <td style="display: inline-block">
-                                                
+                                            
+                                            <td>  
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
                                                         <button href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success" disabled>E</button>
@@ -435,34 +461,37 @@
     </div>
 </div>
 
+{{-- modals --}}
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Paciente </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Paciente </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('reservation.status') }}">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="reservation_id" class="reservation_id">
+                        <input type="hidden" name="type" class="type">
+                        <label for="message-text" class="col-form-label">Motivo:</label>
+                        <textarea class="form-control" name="motivo" id="message-text"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
         </div>
-          <form method="POST" action="{{ route('checkin.status') }}">
-              @csrf
-              <div class="modal-body">
-                  <div class="form-group">
-                      <input type="hidden" name="reservation_id" class="reservation_id">
-                      <input type="hidden" name="type" class="type">
-                      <label for="message-text" class="col-form-label">Motivo:</label>
-                      <textarea class="form-control" name="motivo" id="message-text"></textarea>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="submit" class="btn btn-success">Guardar</button>
-              </div>
-          </form>
-      </div>
     </div>
-  </div>
-
+</div>
+  
+{{-- modals --}}
 @endsection
 
 @section('scripts')
@@ -476,11 +505,11 @@
             var id  = button.data('id');
             var type = button.data('type');
 
-            // if (type == 'Reprogramada') {
-            //     $('#fecha').html('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
-            //     $('.reservation_id').val(id);
-            //     $('.type').val(type);
-            // }
+            if (type == 'Reprogramada') {
+                $('#fecha').html('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
+                $('.reservation_id').val(id);
+                $('.type').val(type);
+            }
             insertDates(type, id);
             var modal = $(this);
             modal.find('.modal-title').text(recipient);

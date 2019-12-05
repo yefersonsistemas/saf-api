@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 @endsection
 
 @section('title','Todas las citas')
@@ -198,7 +199,7 @@
                                     @foreach($aprobadas as $reservation)
                                         <tr>
                                             <td>
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -207,7 +208,7 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-success">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
@@ -257,7 +258,7 @@
                                     @foreach ($canceladas as $reservation)
                                         <tr>
                                             <td>
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -315,7 +316,7 @@
                                     @foreach ($reprogramadas as $reservation)
                                         <tr>
                                             <td>
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -338,7 +339,7 @@
                                                 @endif
                                             </td>
                                             <td style="display: inline-block">
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
@@ -390,7 +391,7 @@
                                     @foreach ($suspendidas as $reservation)
                                         <tr>
                                             <td>
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -400,7 +401,7 @@
                                             <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
                                             </td>
                                             <td>
@@ -451,7 +452,7 @@
                                     @foreach ($pendientes as $reservation)
                                         <tr>
                                             <td>
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -461,9 +462,9 @@
                                             <td><span class="badge badge-secondary" style="background-color: #00506b;">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalReprogramadas" data-whatever="Reprogramar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Reprogramada">R</button>
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>  
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -488,7 +489,7 @@
 
 {{-- modals --}}
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -523,7 +524,6 @@
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
     <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
-    
 
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
@@ -560,6 +560,6 @@
             $('#reservation_id').val(id);
             $('#type').val(type);
         }
-
+     
     </script>
 @endsection

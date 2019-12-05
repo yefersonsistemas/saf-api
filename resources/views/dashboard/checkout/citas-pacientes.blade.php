@@ -85,77 +85,116 @@
                                         <div class="col-7">
                                             
                                                 <h2 class=" mb-0 p-0" >
-                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->name }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
-                                                {{ $itinerary->person->name }}       {{ $itinerary->person->lastname }}
+                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->type_dni }}{{ $itinerary->person->dni }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
+                                                        {{ $itinerary->person->name }}       {{ $itinerary->person->lastname }}
                                                 </button>
                                             </h2>
                                         </div>
                                   </div>
                                    
                                 </div>
-                                <div class="col-4 d-flex justify-content-end">
-                                    <a disabled href="" class="btn btn-secondary mr-2">E</a>
-                                    <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-secondary">S</a>
-                                </div>
-                              </div>
+                              
+
+                                <!--si ambos estan vacios-->
+                                @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <a disabled href="" disabled class="btn btn-secondary mr-2">E</a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" diabled class="btn btn-secondary">S</a>
+                                    </div>
+                                @endif
+
+                                <!--si fuera  estan vacios-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <a disabled href="" disabled class="btn btn-success mr-2">E</a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" diabled class="btn btn-secondary">S</a>
+                                    </div>
+                                @endif
+
+                                <!--si ambos tienen datos-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <a disabled href="" disabled class="btn btn-success mr-2">E</a>
+                                        <a href="" disabled class="btn btn-danger">S</a>
+                                    </div>
+                                @endif
+                            </div>
                           
                               <!--informacion del paciente reservacion y demas-->
-                              <div id="{{ $itinerary->person->name }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->dni }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="row card-body d-flex justify-content-lg-between">
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
                                             <div class="card-body">
-                                                <h5 class="card-title color_titulo">Medico tratante</h5>
-                                                <h6 class=" mb-2 text-muted"><span class="titulos">Nombre:<span>  {{ $itinerary->employe->person->name }}</h6> 
+                                                <h5 class="card-title color_titulo text-start">Medico tratante</h5>
+                                                <span class="titulos">Nombre:<span><span class=" mb-2 text-muted">  {{ $itinerary->employe->person->name }}</span> <br>
                                               
-                                                <h6 class=" mb-2 text-muted"><span class="titulos">Apellido:<span> {{ $itinerary->employe->person->lastname }}</h6>
-                            
-                                                {{-- <h6 class="mb-2 text-muted"><span class="titulos">Especialidad:<span> {{ $itinerary->speciality->name }}</h6> --}}
+                                                <span class="titulos">Apellido:<span> <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span>
                                             </div>
                                         
                                         </div> 
+                                     
                                         <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
-                                                <div class="card-body">
-                                                    <h5 class="card-title color_titulo">Posible cirugias</h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                                    {{-- <p class="card-text">{{ $itinerary->surgery->typesurgeries->name }}</p> --}}
-                                              
-                                                </div>
-                                            
-                                            </div> 
-                                            <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title color_titulo">Posibles procedimientos</h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                                        {{-- <p class="card-text">{{ $itinerary->procedure->name }}</p> --}}
-                                                  
-                                                    </div>
-                                                
-                                                </div> 
-                                       
-                                    
+                                            <div class="card-body">
+                                                <h5 class="card-title color_titulo">Posible cirugia</h5>
+                                                @if($itinerary->surgery != null)
+                                                <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $itinerary->surgery->typesurgeries->name }}</span><br>
+                                                <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
+                                                <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
+                                                <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
+                                                @else
+                                                <span class="mb-2 text-muted">Sin cirugia</span><br>
+                                                @endif
+                                            </div>                                            
+                                        </div> 
+                                      
+                                        <div class="card col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title color_titulo">Posibles procedimientos</h5>
+                                                @if ($itinerary->procedures != null)
+                                                <ul>
+                                                    @foreach ($itinerary->procedures as $proce)
+                                                       <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
+                                                    @endforeach
+                                                </ul>
+                                                @else
+                                                <span class="mb-2 text-muted">Sin procedimientos</span><br>
+                                                @endif
+                                            </div>                                                
+                                        </div> 
+                                    </div>
 
-
-                                </div>
-
-                                <div class="row card-body d-flex justify-content-between">
+                                    <div class="row card-body d-flex justify-content-between">
                                         <div class="col-5 d-flex justify-content-end">
-                                            <button class="btn btn-danger" type="button">
-                                            Imprimir examen
-                                            </button>
+                                            @if($itinerary->exam_id != null)
+                                                <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-danger" type="button">
+                                                Imprimir examen
+                                                </a>
+                                            @else
+                                                <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-info" type="button">
+                                                    Generar examen
+                                                </a>
+                                            @endif
                                         </div>
                                         <div class="col-2 d-flex justify-content-center">
-                                            <button class="btn btn-danger " type="button">
-                                                Imprimir recipe
-                                            </button>
+                                            @if($itinerary->recipe_id != null)
+                                                <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-danger " type="button">
+                                                    Imprimir recipe
+                                                </a>
+                                                @else
+                                                <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-info" type="button">
+                                                    Generar Recetario
+                                                </a>
+                                            @endif
+
                                         </div>
                                         <div class="col-5 d-flex justify-content-start">
-                                            <button class="btn btn-info" type="button">
-                                                generar cita
-                                            </button>
+                                            <a  class="btn btn-info" >
+                                                nueva cita
+                                            </a>
                                         </div>
+                                    </div>
                                 </div>
-                              </div>
-                            </div>
+                                </div>
                             @endforeach
                           </div>
                         

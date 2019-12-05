@@ -4,6 +4,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
+
 @endsection
 
 @section('content')
@@ -26,28 +28,30 @@
                             <input type="text" class="form-control" disabled="" name="history_number" placeholder="SF-0001">
                         </div>
                     </div> --}}
-                    <div class="col-md-5">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label class="form-label">Fecha</label>
-                            <input type="text" class="form-control" name="date" value="{{ $fecha }}">
+                            <input type="text" class="form-control border-0 " name="date" value="{{ $fecha }}" disabled="">
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Tipo DNI</label>
-                            <select class="form-control custom-select" name="type_dni" name="profession">
-                                <option value="V">V</option>
-                                <option value="E">E</option>
-                                <option value="J">J</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-2">
-                        <div class="form-group">
-                            <label class="form-label">DNI</label>
-                            <input type="text" class="form-control" placeholder="Nombre" value="{{ $reservation->patient->dni }}" name="dni">
+                            <label class="form-label">Documento de Identidad</label>
+                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                            <span class="input-group-text btn-turquesa"><i class="fa fa-id-card"></i></span>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <select class="form-control custom-select" name="type_dni" name="profession">
+                                                <option value="V">V</option>
+                                                <option value="E">E</option>
+                                                <option value="J">J</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Nombre" value="{{ $reservation->patient->dni }}" name="dni">
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-4">
@@ -62,37 +66,38 @@
                             <input type="text" name="lastname" class="form-control" placeholder="Apellido" value="{{ $reservation->patient->lastname }}">
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Correo Electrónico</label>
                             <input type="email" name="email" class="form-control" placeholder="Correo Electrónico" value="{{ $reservation->patient->email }}">
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Correo Electrónico 2</label>
                             <input type="email" name="email2" class="form-control" placeholder="Correo Electrónico">
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="form-label">Dirección</label>
-                            <input type="text" class="form-control" placeholder="Dirección" name="address" value="{{ $reservation->patient->address }}">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
+                  
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Teléfono</label>
                             <input type="text" name="phone" class="form-control" placeholder="Teléfono" value="{{ $reservation->patient->phone }}">
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Teléfono 2</label>
                             <input type="text" name="phone2" class="form-control" placeholder="Teléfono 2">
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3">
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Dirección</label>
+                                <input type="text" class="form-control" placeholder="Dirección" name="address" value="{{ $reservation->patient->address }}">
+                            </div>
+                        </div>
+                    <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Fecha de nacimiento</label>
                             <div class="input-group">
@@ -100,28 +105,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-5">
+                    <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Lugar de nacimiento</label>
                             <input type="text" name="place" class="form-control" placeholder="Lugar de nacimiento">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label">Genero</label>
-                            <select class="form-control custom-select" name="gender">
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-md-1 col-sm-3 text-center">
+                            <div class="form-group">
+                                    <label class="">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
+                                    <div class="form-check ladymen p-0">
+                                        <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
+                                            <input type="radio" id="genero1" name="gender" class="form-check-input"  value="Masculino">
+                                            <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
+                                            <input  type="radio" id="genero2" name="gender" class="form-check-input"  value="Femenino">
+                                            <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <div class="col-sm-6 col-md-1">
                         <div class="form-group">
                             <label class="form-label">Peso</label>
                             <input type="text" name="weight" class="form-control" placeholder="Peso">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Profesión</label>
                             <select class="form-control custom-select" name="profession">
@@ -161,13 +172,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Ocupación</label>
-                            <input type="text" name="occupation" class="form-control" placeholder="Peso">
+                            <input type="text" name="occupation" class="form-control" placeholder="Ocupación">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="form-group mb-0">
                             <label class="form-label">Motivo de la consulta</label>
                             <textarea rows="5" class="form-control" name="reason" placeholder="Motivo de la consulta"></textarea>
@@ -176,7 +187,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button type="submit" class="btn btn-primary">Crear Historia</button>
+                <button type="submit" class="btn btn-verdePastel">Crear Historia</button>
             </div>
         </form>
     </div>
