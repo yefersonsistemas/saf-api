@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
-        Route::post('patient/create/{patien}','CitaController@storeHistory')->name('patients.store');
+        Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
     });
 
      //======================= rutas para el usuario ckeckin ====================
@@ -82,9 +82,12 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('/', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
-        Route::get('doctor/diagnostico','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
-        Route::get('doctor/recipe','DoctorController@crearRecipe')->name('doctor.crearRecipe');
-        Route::get('doctor/Referencia','DoctorController@crearReferencia')->name('doctor.crearReferencia');
+        Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
+        Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
+        Route::get('doctor/recipe/{patient}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
+        Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
+        Route::post('doctor/Referencia/{patient}','DoctorController@referenceStore')->name('reference.store');
+        Route::post('doctor/recipe/{patient}','DoctorController@recipeStore')->name('recipe.store');
     });
 });

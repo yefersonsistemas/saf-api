@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\User;
 use App\Configuration;
@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\updatePersonalDatesRequest;
 use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 
 
 class ConfigurationController extends Controller

@@ -97,7 +97,7 @@ $(function() {
             }).on("click", "button.button-remove", function(e) {
                 e.preventDefault();
                 var $row = $(this).closest("tr");
-                swal({
+                Swal({
                     title: "Are you sure?",
                     text: "You will not be able to recover this imaginary file!",
                     type: "warning",

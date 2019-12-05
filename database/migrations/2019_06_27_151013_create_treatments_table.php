@@ -15,12 +15,18 @@ class CreateTreatmentsTable extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');  //nombre del medicamento
             $table->string('measure'); //medida ml, gr
             $table->string('doses');  //dosis
             $table->string('duration');
+            $table->string('indications');
+            $table->unsignedBigInteger('medicine_id')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
+
+            $table->foreign('medicine_id')
+            ->references('id')
+            ->on('medicines')
+            ->onDelete('CASCADE');
 
             $table->foreign('branch_id')
             ->references('id')

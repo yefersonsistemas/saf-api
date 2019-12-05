@@ -10,7 +10,7 @@
 
 @section('title','Diagnostico') 
 
-  @section('content')
+@section('content')
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix">
@@ -55,7 +55,8 @@
             </div>
             <div class="container">
                 <div class="col-lg-10 mx-auto">
-                    <form class="">
+                    <form class="" method="POST" action="{{ route('diagnostic.store', $patient) }}">
+                        @csrf
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Crear Diagnostico</h3>
@@ -75,20 +76,15 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
-                                            <label>Examenes</label>
-                                            <div class="form-group multiselect_div">
-                                                <select id="multiselect4-filter" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                    <option value="bootstrap">Bootstrap</option>
-                                                    <option value="bootstrap-marketplace">Bootstrap Marketplace</option>
-                                                    <option value="bootstrap-theme">Bootstrap Theme</option>
-                                                    <option value="html">HTML</option>
-                                                    <option value="html-template">HTML Template</option>
-                                                    <option value="wp-marketplace">WordPress Marketplace</option>
-                                                    <option value="wp-plugin">WordPress Plugin</option>
-                                                    <option value="wp-theme">WordPress Theme</option>
-                                                </select>
-                                            </div>
+                                        <label>Examenes</label>
+                                        <div class="form-group multiselect_div">
+                                            <select id="multiselect4-filter" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                                @foreach ($exams as $exam)
+                                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                    </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">Indicaciones</label>
@@ -102,12 +98,12 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
-                                            <label>Prox. Cita</label>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Proxima Cita">
-                                                </div>
+                                        <label>Prox. Cita</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input data-provide="datepicker" name="nextDate" data-date-autoclose="true" class="form-control" placeholder="Proxima Cita">
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +114,7 @@
                         </div>
                     </form>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </div>
