@@ -308,7 +308,7 @@ table tfoot tr td:first-child {
             <th colaspan="4" class="campo_titulo" style="border-top:#000000 solid 1px; 
               border-bottom:#000000 solid 1px;text-align:left; padding-right:20px; font-weight:bold">
               Descripción</th>
-            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;  font-weight:bold">Total</th>
+            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;  font-weight:bold; text-align:right; padding-right:15px">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -354,13 +354,13 @@ table tfoot tr td:first-child {
         </tbody>      
         <tfoot>
         <tr>
-          <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
-          <td style="text-align:center;">{{ $total_cancelar }}</td>
+          <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
+          <td style="text-align:right; padding-right:10px">{{ $total_cancelar }}</td>
         </tr>
         <tr>
             
             <td colspan="1" style="padding-top:-5px;  font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
-            <td style="text-align:center;padding-top:-5px">{{ $total_cancelar }}</td>
+            <td style="text-align:right;padding-top:-5px; padding-right:10px">{{ $total_cancelar }}</td>
         </tr>
         {{-- <div style="font-size:11px; padding-top:215px;">
           <p style="border-top:#000000 solid 1px; text-align:center; padding-top:5px;width:500px;margin-left:95px">
