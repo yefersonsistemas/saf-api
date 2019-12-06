@@ -55,14 +55,14 @@
                         <div class="row clearfix">
                             <div class="col-10 ml-5">
                                   
-
                                 <div class="card">
-                                        <div class="card-body row my-8  pl-4">
-                                                <div class="col-3"><h2>Facturación</h2> </div>
-                                               <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
-                                                    <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0"> {{ $fecha }}</span><br>
-                                                </div>                             
-                                            </div>
+                                    <div class="card-body row my-8  pl-4">
+                                        <div class="col-3"><h2>Facturación</h2></div>
+                                        <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
+                                            <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0"> {{ $fecha }}</span><br>
+                                        </div>                             
+                                    </div>
+
                                     <div class="card-body">
                                         <div class="row my-8">
                                             <div class="col-6">
@@ -79,8 +79,12 @@
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dnii"></span></div>
                                                </div>
                                                <div class="row ml-3">
-                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres/Apellidos:</span></div> <div class="col-md-6"><span id="name"></span>
-                                                    <span id="lastname"></span></div>
+                                                    <div class="col-md-5">
+                                                        <span style="font-weight:bold; ">Nombres/Apellidos:</span>
+                                                    </div> 
+                                                    <div class="col-md-6">
+                                                        <span id="name"></span><span id="lastname"></span>
+                                                    </div>
                                                 </div>
                                                 <div class="row ml-3">
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Telefono:</span></div><div class="col-md-6"><span id="phone"></span></div>
@@ -92,34 +96,37 @@
                                                 <div class="row ml-3">
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dniiD"></span></div>
                                                 </div>
-                                               <div class="row ml-3">
-                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres/Apellidos:</span></div> <div class="col-md-6"><span id="nameD"></span>
-                                                    <span id="lastnameD"></span></div>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-5">
+                                                        <span style="font-weight:bold; ">Nombres/Apellidos:</span>
+                                                    </div> 
+                                                    <div class="col-md-6">
+                                                        <span id="nameD"></span><span id="lastnameD"></span>
+                                                    </div>
                                                 </div>
                                                 <div class="row ml-3">
-                                                    <div class="col-md-5"><span style="font-weight:bold; ">Telefono:</span></div><div class="col-md-6"><span id="phoneD"></span></div>
+                                                    <div class="col-md-5">
+                                                        <span style="font-weight:bold; ">Telefono:</span>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <span id="phoneD"></span>
+                                                    </div>
                                                 </div>
                                             </div>
-
-
                                         </div><br><br>
                                         
                                         <div class="table-responsive push mt-3">
-
                                             <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
-                                                    {{-- <th class="text-center width35"></th> --}}
                                                     <td style="font-weight:bold" colspan="5" class="text-left pl-4 tett" >DESCRIPCION</td>
                                                     <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="consulta">
                                                 </tbody>
-                                                
-                                                 
+
                                                 <tbody style="border-bottom: 1px solid #000" id="procedure">
                                                 </tbody>
-                                                
                                                 <tbody id="columna">
                                                     
                                                 </tbody> 
@@ -137,15 +144,16 @@
                                                     <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
                                             </table>
+
                                             <div class="card-header d-flex justify-content-end col-13">
-                                            <div class="card-options">
-                                                <button type="submit" class="btn btn-boo" style="margin-right: -16px;"><i class="si si-printer"></i>Generar factura</button>
-                                            </div>
+                                                <div class="card-options">
+                                                    <button type="submit" class="btn btn-boo" style="margin-right: -16px;"><i class="si si-printer"></i>Generar factura</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -275,8 +283,6 @@
                 })
                 .done(function(data) {               
                     console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-                    // console.log('esto',data.encontrado[0].person);
-                    // console.log('arreglo', data.procedureS);
 
                     if(data[0] == 202){   
                         console.log('si')                 //si no trae valores
@@ -311,9 +317,8 @@
             // estas variables se usaran mas adelante para mostrar la factura generada
             id_patient = data.encontrado[0].person.id;
             id_employe = data.encontrado[0].employe.person.id; 
-            // console.log('jaja',id_patient, id_employe);
 
-            //------------- consulta --------------
+            //------------- consulta ---------------------
             if(data.encontrado[0].doctor_id != null){
 
                 console.log('hoal');
@@ -323,15 +328,13 @@
                 $("#consulta").append(consulta_html);
             }
 
-            //-------------------cirugia -------------
+            //-------------------cirugia -----------------
             if(data.encontrado[0].surgery != null){
                 console.log('cirugia');
                 nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
 
-                // titulo_cirugia= '<td class="text-center width35"></td><td colspan="4">Cirugía</td><td class="text-right" style="width: 4%"></td>';
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
-                // $("#cirugia_html").append(titulo_cirugia);
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
                 console.log('cirugia',costo_cirugia);
@@ -339,7 +342,6 @@
   
              // --------------------Procedures -------------
             if(data.procedureS != null){
-                // procedure = '<th class="text-center width35"></th><th colspan="4">Procedimiento</th><th class="text-right" style="width: 4%"></th>';
                 $("#procedure").append(procedure);
 
                 for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
