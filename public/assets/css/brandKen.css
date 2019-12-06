@@ -11,3 +11,8 @@
 .card-img:hover {
     box-shadow: 0 5px 10px 10px rgba(0, 0, 0, .255)!important;
 }
+
+.card-detalles .card-body img {
+    width: 200px;
+    vertical-align: top;
+}

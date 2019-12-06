@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandKen.css') }}">
+
 @endsection
 
 @section('title','Detalles de cirugía')
@@ -18,28 +20,15 @@
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
             <div class="container">
-                <div class="card">
-                        
-                        <div class="row card-body d-flex justify-content-lg-between mb-4" >
-                            <h5 class="col-12 ml-2 ">{{ $cirugias->typeSurgeries->name }}</h5>
-                                
-                            <div class="col-md-3 col-sm-12 col-lg-3 m-2" style="width: 18rem;">                               
-                                <div class="bg-indigo text-white">
-                                    <div class="card-body tama">
-                                        <img src="assets\images\pricing\plan1.svg" class="width150" >
-                                    </div>
-                                </div>                                             
-                            </div> 
-                            <div class="col-md-8 col-sm-12 col-lg-8" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h6 class="card-title color_titulo">Descripción</h6>
-                                    <p class="card-subtitle mb-2 text-muted">{{ $cirugias->typeSurgeries->description }}</p>
-                                    <div class="row d-flex justify-content-end">
-                                        <h6 class="card-title color_titulo mt-4 ">Costo: {{ $cirugias->typeSurgeries->cost }}</h6>
-                                    </div>
-                                </div>
-                            </div>                           
+                <div class="card card-detalles">
+                        <div class="card-header">
+                            <h5 class="card-title">{{ $cirugias->typeSurgeries->name }}</h5>
                         </div>
+                        <div class="card-body d-flex align-items-center justify-content-between pt-0">
+                                <img src="{{ asset('assets\images\cirugia.jfif') }}" class="card-img-top img-thumbnail" width="">
+                                    <p class="card-title m-0"><strong>Descripción: </strong>{{ $cirugias->typeSurgeries->description }}</p>
+                                    <p class="card-title m-0"><strong>Costo: </strong> {{ $cirugias->typeSurgeries->cost }} $</p>
+                            </div>
 
                     
                 </div>
