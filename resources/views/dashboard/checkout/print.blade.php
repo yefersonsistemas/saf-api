@@ -36,11 +36,11 @@ header {
 }
 
 table {
-  width: 100%;
+  width: 96%;
+  max-width: 96%;
   border-collapse: collapse;
   border-spacing: 0;
   margin-top: -15px;
-  /* margin-bottom: 20px; */
   color: #000000;
 }
 
@@ -232,10 +232,6 @@ table tfoot tr td:first-child {
     padding-left: 10px; 
 }
 
-.space{
-    margin-left:10px;
-}
-
 #doctor {
   margin-left: 150px;
   line-height: 15px;
@@ -309,13 +305,13 @@ table tfoot tr td:first-child {
             <th colaspan="4" class="campo_titulo" style="border-top:#000000 solid 1px; 
               border-bottom:#000000 solid 1px;text-align:left; padding-right:20px;">
               Descripción</th>
-            
-            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px; padding-right:20px;">Total</th>
+            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;">Total</th>
           </tr>
         </thead>
         <tbody>
             <tr>
-              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente {{ $todos->patient->name }} {{ $todos->patient->lastname }} <br>
+              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente <span style="font-weight:bold">
+                {{ $todos->patient->name }} {{ $todos->patient->lastname }}</span> <br>
                 por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}.
                 </td>
                 <td class="total">{{ $todos->employe->doctor->price }}</td>
@@ -323,15 +319,14 @@ table tfoot tr td:first-child {
 
         @if($todos->procedure->first() != null)
             <tr>
-              <td class="desc_titulo">Procedimientos</td>
+              <td class="desc_titulo" style="text-align:left;font-weight:bold">Procedimientos</td>
               <td class="total"></td>
               {{-- <td class="no"></td> --}}
             </tr>
             @foreach ($todos->procedure as $item)
             <tr class="proces">
-                <td class="desc">
-
-                    <span colspan="1" class="space"></span>{{ $item->name }}
+                <td class="desc" style="text-align:left; padding-left:10px">
+                    <span colspan="1"></span>{{ $item->name }}
                 </td>
             
                 <td class="total">{{ $item->price }}</td>
@@ -342,7 +337,7 @@ table tfoot tr td:first-child {
 
         @if($cirugia->surgery != null)
             <tr>
-              <td class="desc_titulo" style="text-align:left">Cirugía</td>
+              <td class="desc_titulo" style="text-align:left;font-weight:bold">Cirugía</td>
               <td class="total"></td>
             </tr>
             <tr>
@@ -358,20 +353,20 @@ table tfoot tr td:first-child {
         <tr>
           <td colspan="1" style="border-top:#000000 solid 1px;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
           <td style="text-align:center;">{{ $total_cancelar }}</td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
             
             <td colspan="1" style="padding-top:-5px;">Total&nbsp;{{ $todos->typecurrency->name }}</td>
             <td style="text-align:center;padding-top:-5px">{{ $total_cancelar }}</td>
-          </tr>
-          <div style="font-size:11px; padding-top:215px;">
-            <p style="border-top:#000000 solid 1px; text-align:center; padding-top:5px;width:500px;margin-left:95px">
-              S&F Sinus & Face Clinica - Academia Fundación, <span style="font-weight:bold">Consultorio:
-              </span> Calle Pdte. González #4,<br> <span style="font-weight:bold">Clinica:</span> El Vergel #27 C.P. 10107, 
-              <span style="font-weight:bold">Telefono:</span> +1 (786) 544 43 16, 
-              <span style="font-weight:bold">Correo:</span> info@syfdominicana.com
-            </p>   
-        </div>
+        </tr>
+        {{-- <div style="font-size:11px; padding-top:215px;">
+          <p style="border-top:#000000 solid 1px; text-align:center; padding-top:5px;width:500px;margin-left:95px">
+            S&F Sinus & Face Clinica - Academia Fundación, <span style="font-weight:bold">Consultorio:
+            </span> Calle Pdte. González #4,<br> <span style="font-weight:bold">Clinica:</span> El Vergel #27 C.P. 10107, 
+            <span style="font-weight:bold">Telefono:</span> +1 (786) 544 43 16, 
+            <span style="font-weight:bold">Correo:</span> info@syfdominicana.com
+          </p>   
+        </div> --}}
       </tfoot>
     </table>
   </main>
