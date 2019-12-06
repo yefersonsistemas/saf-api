@@ -36,11 +36,11 @@ header {
 }
 
 table {
-  width: 100%;
+  width: 96%;
+  max-width: 96%;
   border-collapse: collapse;
   border-spacing: 0;
   margin-top: -15px;
-  /* margin-bottom: 20px; */
   color: #000000;
 }
 
@@ -232,10 +232,6 @@ table tfoot tr td:first-child {
     padding-left: 10px; 
 }
 
-.space{
-    margin-left:10px;
-}
-
 #doctor {
   margin-left: 150px;
   line-height: 15px;
@@ -293,85 +289,87 @@ table tfoot tr td:first-child {
         </div>
         <div id="doctor">
             <div class="date">
-              Factura Emitida en la Fecha 01/06/2014 <br> 
+              Factura Emitida en la Fecha  {{ $fecha }}<br> 
               En Santo Domnido, Republica Dominicana.<br>
-              <span style="font-weight:bold">Forma de Pago:</span>  {{ $todos->typepayment->name }}.
+              {{-- <span style="font-weight:bold">Forma de Pago:</span>  {{ $todos->typepayment->name }}. --}}
             </div>
             {{-- <div class="docname">
               <span>Doctor/a:</span> <span class="text">{{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}</span>
             </div>
             </div>--}}
-        </div> 
+        </div> <br>
+        <div class="row">
+              <span style="font-weight:bold; font-size:13px; color:#000; margin-left:5px">Forma de Pago:</span><span style="color:#000">{{ $todos->typepayment->name }}. </span>
+        </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
             <th colaspan="4" class="campo_titulo" style="border-top:#000000 solid 1px; 
-              border-bottom:#000000 solid 1px;text-align:left; padding-right:20px;">
+              border-bottom:#000000 solid 1px;text-align:left; padding-right:20px; font-weight:bold">
               Descripción</th>
-            
-            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px; padding-right:20px;">Total</th>
+            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;  font-weight:bold">Total</th>
           </tr>
         </thead>
         <tbody>
             <tr>
-              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente {{ $todos->patient->name }} {{ $todos->patient->lastname }} <br>
+              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente <span style="font-weight:bold">
+                {{ $todos->patient->name }} {{ $todos->patient->lastname }}</span> <br>
                 por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}.
                 </td>
-                <td class="total">{{ $todos->employe->doctor->price }}</td>
+                <td class="total" style=" padding-right:10px; text-align:right;">{{ $todos->employe->doctor->price }}</td>
             </tr>
 
         @if($todos->procedure->first() != null)
-            <tr>
-              <td class="desc_titulo">Procedimientos</td>
-              <td class="total"></td>
+            {{-- <tr>
+              <td class="desc_titulo" style="text-align:left;font-weight:bold">Procedimientos</td>
+              <td class="total"></td> --}}
               {{-- <td class="no"></td> --}}
-            </tr>
+            {{-- </tr> --}}
             @foreach ($todos->procedure as $item)
             <tr class="proces">
-                <td class="desc">
-
-                    <span colspan="1" class="space"></span>{{ $item->name }}
+                <td class="desc" style="text-align:left; padding-left:10px">
+                    <span colspan="1"></span>Procedimiento {{ $item->name }}
                 </td>
             
-                <td class="total">{{ $item->price }}</td>
+                <td class="total" style=" padding-right:10px; text-align:right;">{{ $item->price }}</td>
             </tr>
             @endforeach
             @endif
         
 
         @if($cirugia->surgery != null)
-            <tr>
-              <td class="desc_titulo" style="text-align:left">Cirugía</td>
+            {{-- <tr>
+              <td class="desc_titulo" style="text-align:left;font-weight:bold">Cirugía</td>
               <td class="total"></td>
-            </tr>
+            </tr> --}}
             <tr>
               <td class="desc" style="text-align:left;padding-left:10px">
-                  {{ $cirugia->surgery->typesurgeries->name }}
+                  Cirugía {{ $cirugia->surgery->typesurgeries->name }}
                 </td>
-                <td class="total" style="border-bottom:#000000 solid 1px;">{{ $cirugia->surgery->typesurgeries->cost }}</td>    
+                <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">{{ $cirugia->surgery->typesurgeries->cost }}</td>    
             </tr>
             @endif
             
         </tbody>      
         <tfoot>
         <tr>
-          <td colspan="1" style="border-top:#000000 solid 1px;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
+          <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
           <td style="text-align:center;">{{ $total_cancelar }}</td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
             
-            <td colspan="1" style="padding-top:-5px;">Total&nbsp;{{ $todos->typecurrency->name }}</td>
+            <td colspan="1" style="padding-top:-5px;  font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
             <td style="text-align:center;padding-top:-5px">{{ $total_cancelar }}</td>
-          </tr>
-          <div style="font-size:11px; padding-top:215px;">
-            <p style="border-top:#000000 solid 1px; text-align:center; padding-top:5px;width:500px;margin-left:95px">
-              S&F Sinus & Face Clinica - Academia Fundación, <span style="font-weight:bold">Consultorio:
-              </span> Calle Pdte. González #4,<br> <span style="font-weight:bold">Clinica:</span> El Vergel #27 C.P. 10107, 
-              <span style="font-weight:bold">Telefono:</span> +1 (786) 544 43 16, 
-              <span style="font-weight:bold">Correo:</span> info@syfdominicana.com
-            </p>   
-        </div>
+        </tr>
+        {{-- <div style="font-size:11px; padding-top:215px;">
+          <p style="border-top:#000000 solid 1px; text-align:center; padding-top:5px;width:500px;margin-left:95px">
+            S&F Sinus & Face Clinica - Academia Fundación, <span style="font-weight:bold">Consultorio:
+            </span> Calle Pdte. González #4,<br> <span style="font-weight:bold">Clinica:</span> El Vergel #27 C.P. 10107, 
+            <span style="font-weight:bold">Telefono:</span> +1 (786) 544 43 16, 
+            <span style="font-weight:bold">Correo:</span> info@syfdominicana.com
+          </p>   
+        </div> --}}
       </tfoot>
     </table>
   </main>
