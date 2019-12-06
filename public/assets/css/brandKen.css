@@ -10,6 +10,4 @@
 
 .card-img:hover {
     box-shadow: 0 5px 10px 10px rgba(0, 0, 0, .255)!important;
-    animation: heartBeat 1s!important;
-    -webkit-animation: heartBeat 1s!important;
 }
