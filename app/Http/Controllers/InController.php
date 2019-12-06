@@ -57,8 +57,11 @@ class InController extends Controller
      */
     public function create()
     {
-        $areas = Area::with('typearea', 'image')->get();
-        //dd($areas);
+        $type_area = TypeArea::where('name','Consultorio')->first();
+        $areas = Area::with('typearea', 'image')->where('type_area_id',$type_area->id)->get();
+
+        // dd($areas);
+
         $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
         $em = collect([]);
         if ($employes->isNotEmpty()) {
@@ -72,36 +75,29 @@ class InController extends Controller
                             }
                         }
                     }
-                    
                 }
             }
         }
     return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
-    public function search_history(Request $request){  //busca historia para la lista de in
-        $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
+    public function search_history(Request $request, $id){  //busca historia para la lista de in
+        $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                          ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
 
-        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
-        //dd($cites);
+        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 
         $disease = Disease::get();
-    
         $medicine = Medicine::get();
         $allergy = Allergy::get();
-
-        dd($rs->patient->historyPatient->allergy);
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
     public function guardar(Request $request, $id)  //guarda registros de nuevos y editados en la historia del paciente
     {
-
         $person = Person::where('dni', $request->dni)->first();
 
-        // dd($person);
 
         $reservation = Reservation::find($id);
 
@@ -415,7 +411,7 @@ class InController extends Controller
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
-        dd($request);
+        // dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
 // si olsdoatos no estas vacios 
@@ -429,7 +425,9 @@ class InController extends Controller
             'area_id'     => $a,
             'branch_id' => 1,
             ]);
-            return view('dashboard.checkin.index');
+            return response()->json([
+                'message' => 'Consultorio asignado',202
+            ]);
             }else{
                 return response()->json([
                     'error' => 'No se pudo asignar el consultorio',202

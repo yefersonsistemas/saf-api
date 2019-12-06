@@ -85,7 +85,7 @@
                                         <div class="col-7">                                            
                                             <h2 class=" mb-0 p-0" >
                                             <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
-                                                    {{ $itinerary->person->name }} {{ $itinerary->person->lastname }}
+                                                    {{ $itinerary->person->name }} {{ $itinerary->person->lastname }} {{ $itinerary->person->type_dni }} {{ $itinerary->person->dni }}
                                             </button>
                                             </h2>
                                         </div>

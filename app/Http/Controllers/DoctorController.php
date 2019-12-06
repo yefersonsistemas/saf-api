@@ -280,12 +280,12 @@ class DoctorController extends Controller
     /**
      * 
      * Busca el horario del doctor y 
-     * retorna los dias que el tenga disponible
+     * retorna los dias que el no tenga disponible
      * 
      */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
         $employe = Employe::with('schedule')->where('id', $request->id)->first();
-
+        $available = collect([]);
         if (!is_null($employe)) {
             if (!is_null($employe->schedule)) {
                 foreach ($employe->schedule as $schedule) {
@@ -302,20 +302,42 @@ class DoctorController extends Controller
                     for ($j= 0; $j < 12; $j++) { 
                         $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
                         if ($citesToday < $quota[$i]) {
-                            $available[] = array(Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)->format('m/d/Y')); 
+                            $available->push((Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)));
+                            $prueba [] = array((Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)));
                         }
                         $date[$i] = $date[$i]->addWeek();
                     }
                 }
 
-                for ($i=0; $i < count($available) ; $i++) { 
-                    $availables[$i] = $available[$i][0];
+                $total = $available->first()->diffInDays($available->last());
+                $not = collect([]);
+                $min = Carbon::create($available->min()->year, $available->min()->month, $available->min()->day)->addDay();
+                
+                for ($i=0; $i <$total ; $i++) { 
+                    $not->push(Carbon::create($min->year, $min->month, $min->day));
+                    $min->addDay();
+                }
+
+                $diff = $not->diff($available);
+
+                $diff = $diff->map(function($d)
+                {
+                   return $d->format('m/d/Y'); 
+                });
+
+                foreach ($diff as $d) {
+                    $dates[] = $d;
                 }
 
                 return response()->json([
                     'employe'       => $employe,
-                    'available'     => $availables,
+                    'available'     => $available,
+                    'start'         => $available->min()->format('m/d/Y'),
+                    'end'           => $available->max()->format('m/d/Y'),
+                    'diff'          => $dates,
+                    'prueba'        => $prueba,
                 ]);
+
             }else{
                 return response()->json([
                     'message' => 'Medico sin horario',
