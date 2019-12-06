@@ -3926,3 +3926,66 @@ table tr .bg-boo:hover {
 th .factura{
     color:#000;
 }
+.todos{
+    border:2px solid #a1a1a1;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.todos:hover {
+    background:  #a1a1a1;
+    color:#fff;
+}
+
+.todos:active {
+    background:  #a1a1a1;
+    color:#fff;
+}
+
+.espera{
+    border:2px solid #FACC2E;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.espera:hover {
+    background: #FACC2E;
+    color:#fff;
+}
+
+.dentro{
+    border:2px solid #00ad88;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.dentro:hover {
+    background: #00ad88;
+    color:#fff;
+}
+
+.fuera{
+    border:2px solid #B40404;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.fuera:hover {
+    background: #B40404;
+    color:#fff;
+}
+
+.fuera:active {
+    background: #B40404;
+    color:#fff;
+}
+
+.btn-fuera {
+    color:#B40404;
+    font-weight: bold;
+    font-size: 20px;
+}
