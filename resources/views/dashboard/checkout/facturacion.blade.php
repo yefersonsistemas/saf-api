@@ -61,7 +61,7 @@
                                         <div class="card-body row my-8  pl-4">
                                                 <div class="col-3"><h2>Facturación</h2> </div>
                                                <div class="col-9 d-flex justify-content-end pr-3" style="color:#000" >
-                                                    <span class="h6 h66">Fecha:  </span><br> <span id="phone" class="text"></span><br>
+                                                    <span class="h6 h66">Fecha:  </span><br> <span class="text"> {{ $fecha }}</span><br>
                                                 </div>                             
                                             </div>
                                     <div class="card-body">
@@ -115,8 +115,8 @@
                                             <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     {{-- <th class="text-center width35"></th> --}}
-                                                    <th colspan="5" class="text-center">Descripción</th>
-                                                    <th class="text-right factura" style="width: 4%">Costo</th>
+                                                    <td style="font-weight:bold" colspan="5" class="text-center tett" >DESCRIPCION</td>
+                                                    <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="consulta">
