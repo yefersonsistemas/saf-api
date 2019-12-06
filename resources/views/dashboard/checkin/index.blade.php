@@ -134,7 +134,7 @@
                                                 @if ($reservation->patient->historyPatient == null)
                                                     <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
                                                 @else
-                                                    <a href="{{ route('checkin.history', $reservation->patient_id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                    <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
                                                 @endif
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -171,7 +171,7 @@
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
                                                         <button href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success" disabled>E</button>
-                                                        <a href="{{ route('checkout.statusOut', $reservation->patient_id ) }}"  class="btn btn-secondary">S</a>
+                                                        {{-- <a href="{{ route('checkout.statusOut', $reservation->patient_id ) }}"  class="btn btn-secondary">S</a> --}}
                                                     </div>
                                                 @endif
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside)  && !empty($reservation->patient->inputoutput->first()->outside))
@@ -183,7 +183,7 @@
                                                     @if($reservation->patient->inputoutput->isEmpty())
                                                     <div>
                                                         <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
-                                                        <button href="{{ route('checkout.statusOut', $reservation->patient_id ) }}" class="btn btn-secondary" disabled>S</button>
+                                                        {{-- <button href="{{ route('checkout.statusOut', $reservation->patient_id ) }}" class="btn btn-secondary" disabled>S</button> --}}
                                                     </div>
                                                 @endif
                                             </td>
