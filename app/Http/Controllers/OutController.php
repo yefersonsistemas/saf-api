@@ -308,6 +308,7 @@ class OutController extends Controller
                 $billing->type_payment_id = $request->tipo_pago;
                 $billing->type_currency = $request->tipo_moneda;
                 $billing->save();
+                $fecha = Carbon::now()->format('Y-m-d');
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
                 // dd($todos);
@@ -324,7 +325,7 @@ class OutController extends Controller
                     $total_cancelar = $todos->employe->doctor->price + $total;
                 }
 
-                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar'));
+                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha'));
 
                 return $pdf->stream('factura.pdf');
             }else{
