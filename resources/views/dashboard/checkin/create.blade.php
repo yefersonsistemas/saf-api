@@ -139,7 +139,7 @@
             $("input[name='searcharea']").click(function() {
                 var area = $(this).val();
 
-                console.log(area)
+                console.log('area paso 1',area)
                 $.ajax({
                         url: "{{ route('search.area') }}",
                         type: "POST",
@@ -173,7 +173,7 @@
             $("input[name='searchemploye']").click(function() {
                 var employe = $(this).val();
 
-                console.log(employe)
+                console.log('emp paso 1',employe)
                 $.ajax({
                         url: "{{ route('search.medico') }}",
                         type: "POST",
@@ -188,7 +188,7 @@
                             Swal.fire({
                                 title : 'Medico  seleccionado',
                                 text: data.employes,
-                            
+                                
                             })
                         }
                         if (!data){

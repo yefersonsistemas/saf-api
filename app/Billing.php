@@ -9,43 +9,48 @@ class Billing extends Model //facturacion
     protected $table = 'billings';
 
     protected $fillable = [ //saldo
-         'person_id', 'patient_id', 'employe_id', 'type_payment_id', 'type_currency_id', 'branch_id'
+        'person_id', 'patient_id', 'employe_id', 'type_payment_id', 'type_currency_id', 'branch_id'
     ];
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe', 'person_id');
+        return $this->belongsTo('App\Employe');
     }
 
-    public function patients()
+    public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Person', 'patient_id');
     }
 
-    public function payments()
+    public function payment()
     {
         return $this->belongsTo('App\Payment');
     }
 
-    public function procedures() //relacion con la tabla m:m 
+    public function doctor()
+    {
+        return $this->belongsTo('App\Doctor');
+    }
+
+    public function procedure() //relacion con la tabla m:m 
     {
         return $this->belongsToMany('App\Procedure','procedure_billing')
-       ->withPivot('procedure_id','id');
+        ->withPivot('procedure_id','id');
     }
 
     public function person()
     {
-        return $this->hasMany('App\Person');
+        return $this->belongsTo('App\Person', 'person_id');
     }
 
-    public function typepaymnets()
+    public function typepayment()
     {
-        return $this->hasmany('App\TypePayments');
+        return $this->belongsTo('App\TypePayment', 'type_payment_id');
     }
 
     public function typecurrency()
     {
-        return $this->hasmany('App\TypeCurrency');
+        return $this->belongsTo('App\TypeCurrency', 'type_currency');
     }
 
     public function branch()

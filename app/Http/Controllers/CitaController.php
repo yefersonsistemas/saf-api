@@ -219,6 +219,8 @@ class CitaController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::with('patient','person','speciality')->find($id);
+        dd($reservation);
+        
         if (!is_null($reservation)) {
             $specialities = Speciality::with('employe.person')->get();
             return view('dashboard.reception.edit', compact('reservation','specialities'));

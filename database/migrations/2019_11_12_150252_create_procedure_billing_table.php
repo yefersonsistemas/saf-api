@@ -17,7 +17,6 @@ class CreateProcedureBillingTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('procedure_id');
             $table->unsignedBigInteger('billing_id');
-            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('procedure_id')
@@ -31,10 +30,6 @@ class CreateProcedureBillingTable extends Migration
             ->on('billings')
             ->onDelete('CASCADE');
 
-            $table->foreign('branch_id')
-            ->references('id')
-            ->on('branch')
-            ->onDelete('CASCADE');
         });
     }
 

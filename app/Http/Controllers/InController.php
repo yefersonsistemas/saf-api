@@ -28,7 +28,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class InController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -78,7 +78,7 @@ class InController extends Controller
                 }
             }
         }
-       return view('dashboard.checkin.create', compact('areas', 'em'));
+    return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
     public function search_history(Request $request, $id){  //busca historia para la lista de in
@@ -88,7 +88,6 @@ class InController extends Controller
         $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 
         $disease = Disease::get();
-
         $medicine = Medicine::get();
         $allergy = Allergy::get();
 
@@ -200,7 +199,7 @@ class InController extends Controller
         $p = Patient::where('person_id', $paciente)->first();
             // dd($p);
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $doctor)->first();
-          
+        
         if (empty($io->inside)) {
             InputOutput::create([       
                 'person_id' =>  $paciente,  //paciente tratado
@@ -213,11 +212,11 @@ class InController extends Controller
         else{
             Alert::error('Paciente ya esta dentro');
             return redirect()->back();
-         };
+        };
 
-          $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
+        $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
         //  dd($reservation->patient->inputoutput);
-     
+    
         Alert::success('Paciente dentro');
         return redirect()->back();
 
@@ -359,7 +358,7 @@ class InController extends Controller
     public static function search_area(Request $request)
     {
         // dd($request);
-       $area = Area::Where('id', $request->id)->first(); 
+        $area = Area::Where('id', $request->id)->first(); 
         // dd($area);
         if ($area != null) {  //si existe
             $areas= $area->name;
@@ -378,7 +377,7 @@ class InController extends Controller
     public static function search_medico(Request $request)
     {
         // dd($request);
-       $employe = Employe::with('person')->Where('id', $request->id)->first(); 
+        $employe = Employe::with('person')->Where('id', $request->id)->first(); 
         // dd($area);
         if ($employe != null) {  //si existe
             $employes= $employe->person->name;
@@ -408,32 +407,35 @@ class InController extends Controller
             ]);
         }
     }
- 
+
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
-        // dd($request);
+        dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
+// si olsdoatos no estas vacios 
+    if($e != null && $a != null){
+        
+            $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
 
-       $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
-
-       if(empty($existe)){
-        $areaAssigment = AreaAssigment::create([
-        'employe_id'  => $e,
-        'area_id'     => $a,
-        'branch_id' => 1,
-        ]);
-
-        return response()->json([
-            'asignado' => $areaAssigment,201
-        ]);
-         }else{
-            return response()->json([
-                'asignado' => 'Consultorio ya asignado',202
+        if(empty($existe)){
+            $areaAssigment = AreaAssigment::create([
+            'employe_id'  => $e,
+            'area_id'     => $a,
+            'branch_id' => 1,
             ]);
-         }
-       
+            return view('dashboard.checkin.index');
+            }else{
+                return response()->json([
+                    'error' => 'No se pudo asignar el consultorio',202
+                ]);
+            }
+        }else{
+            return response()->json([
+                'error' => 'Datos incompletos',202
+            ]);
+        }
     }
 
     public function update_area(Request $request)
@@ -441,7 +443,7 @@ class InController extends Controller
         $a = Area::find($request->id);
 
         if (!empty($a)) {
-          
+        
             $a->status = 'ocupado';
             $a->save();
 

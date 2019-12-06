@@ -9,7 +9,7 @@ class Recipe extends Model
     protected $table = 'recipe';
 
     protected $fillable = [
-        'patient_id', 'employe_id', 'medicine_id', 'branch_id'
+        'patient_id', 'employe_id', 'branch_id'
     ];
 
     public function employe()
@@ -19,12 +19,20 @@ class Recipe extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Person', 'patient_id');
+    }
+
+    public function treatment ()
+    {
+        return $this->hasMany('App\Treatment', 'recipe_id');
     }
 
     public function medicine()
     {
-        return $this->belongsTo('App\Medicine');
+         return $this->belongsToMany('App\Medicine','recipe_medicine')
+                      ->withPivot('medicine_id','id');
     }
+
+
 
 }
