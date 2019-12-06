@@ -25,6 +25,7 @@ class CreateItineraryTable extends Migration
             $table->unsignedBigInteger('reservation_id')->nullable();
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->unsignedBigInteger('reference_id')->nullable();
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('diagnostic_id')->nullable();
 
             $table->timestamps();

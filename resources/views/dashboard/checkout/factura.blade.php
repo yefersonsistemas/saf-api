@@ -39,7 +39,7 @@
                                         <div class="card-body row my-8  pl-4">
                                             <div class="col-3"><h2>Factura</h2> </div>
                                            <div class="col-9 d-flex justify-content-end pr-3" style="color:#000" >
-                                                <span class="h6 h66">Fecha:  </span><br> <span id="phone" class="text"> {{ $fecha }}</span><br>
+                                                <span class="h6 h66">Fecha:  </span><br> <span id="" class="text"> {{ $fecha }}</span><br>
                                             </div>                             
                                         </div>
                                         <div class="card-body mt-0">

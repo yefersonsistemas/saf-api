@@ -258,6 +258,8 @@
         var data_paciente;
         var costo =0;
         var total =0;
+        var precio=0;
+        var process =0;
             
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
@@ -348,6 +350,16 @@
 
                 for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
                     costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
+                    console.log('cooo', costo_procedimientos);
+                    console.log('cooo', data.procedureS[i].price);
+                    // var process = 0;
+                    // var precio = 0;
+
+                    // process = data.procedureS[i].price;
+                    // console.log('proces',process);
+                    // var precio = process.toFixed(2);
+                    // console.log('precio',precio);
+
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
                     procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
@@ -360,6 +372,8 @@
             cu = parseInt(costo_consulta);
             ci = parseInt(costo_cirugia);
             p = parseInt(costo_procedimientos);
+            resul = Math.round(costo_procedimientos).toFixed(2);
+            console.log('kenwherly', resul);
             
             costo_total = cu + ci + p ;
             total = costo_total;
