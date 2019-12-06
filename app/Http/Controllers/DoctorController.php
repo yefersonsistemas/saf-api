@@ -20,6 +20,7 @@ use App\Itinerary;
 use App\Reference;
 use App\Speciality;
 use App\Treatment;
+use App\Recipe;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Disease;
 
@@ -114,6 +115,35 @@ class DoctorController extends Controller
     {
         //
     }
+    
+    // Para visualizar el Pago total del doctor
+    public function recordpago() {
+        $id=Auth::id();
+        $employe = Employe::with('person.user', 'doctor.typedoctor', 'patient')->where('person_id', $id)->first();
+        // dd($employe);
+        if ($employe->position->name != 'doctor' || !$employe->person->user->role('doctor')) {
+            return response()->json([
+                'message' => 'empleado no es medico',
+            ]);
+        }
+        
+        $inicio = Carbon::now()->startOfWeek(Carbon::MONDAY);
+        $fin = Carbon::now()->endOfWeek(Carbon::FRIDAY);
+        
+        $billing = Billing::with('procedures', 'patient')->where('employe_id', $employe->id)->whereBetween('created_at', [$inicio , $fin])->get();
+        // dd($billing);
+        $total = 0;
+        foreach($billing as $b){
+            foreach ($b->procedures as $procedure) {
+                $total += $procedure->price;
+            }
+        }
+
+        $pago = ((($employe->doctor->typedoctor->comission * $employe->doctor->price) * count($billing)) + $total);
+        // dd($id);
+
+        return view('dashboard.doctor.recordpago', compact('pago'));
+    }
 
     public function crearDiagnostico($id){
         $patient = Person::find($id);
@@ -121,9 +151,11 @@ class DoctorController extends Controller
         return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
     }
 
-    public function crearRecipe($paciente){
+    public function crearRecipe($paciente, $employe){
+
+        // dd($employe);
         $medicines = Medicine::all();
-        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
+        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente', 'employe'));
     }
 
     public function crearReferencia(Person $patient){
@@ -131,8 +163,11 @@ class DoctorController extends Controller
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
     }
 
+
+
     public function referenceStore(Request $request, $patient)
     {
+           
         $person = Person::with('historyPatient')->where('id',$patient)->first();
 
         $data = $request->validate([
@@ -158,22 +193,47 @@ class DoctorController extends Controller
         return redirect()->back();
     }
 
-    public function recipeStore(Request $request, $paciente)
+
+    // ================================= crear recipe y guardar medicinas con tratamientos ======================================
+    public function recipeStore(Request $request, $paciente, $employe)
     {
-        $paciente = Person::find($paciente);
+        $recipe = Recipe::with('patient','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
+       
+        $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
+
+        if($recipe == null){
+            $crear_recipe = Recipe::create([
+                'patient_id'   =>  $paciente,
+                'employe_id'   =>  $employe,
+                'branch_id'    =>  1,
+            ]);
+        }else{
+            $crear_recipe = $recipe;
+        }
+        // $paciente = Person::find($paciente);
         $treatment = Treatment::create([
             'medicine_id'   =>  $request->medicina,
             'doses'         =>  $request->dosis,
             'duration'      =>  $request->duracion,
             'measure'       =>  $request->medida,
             'indications'   =>  $request->indicaciones,
+            'recipe_id'   =>  $crear_recipe->id,
             'branch_id'     =>  1,
         ]);
 
+        $crear_recipe->medicine()->attach($request->medicina);
+
+        if($itinerary->recipe_id == null){
+            $itinerary->recipe_id = $crear_recipe->id;
+            $itinerary->save();
+        }
+       
         $treatment->load('medicine');
         return response()->json($treatment);
     }
 
+
+    // ================================= Guardar diagnostico ======================================
     public function storeDiagnostic(Request $request, $id)
     {
         $patient = Patient::where('person_id', $id)->first();
@@ -202,7 +262,6 @@ class DoctorController extends Controller
         Alert::success('diagnostico creado');
         return redirect()->back();
     }
-
 
     public function searchDoctor(Request $request)
     {

@@ -17,6 +17,11 @@ class TypeCurrency extends Model
         return $this->belongsTo('App\Payment');
     }
 
+    public function billing()
+    {
+        return $this->belongsTo('App\Billing', 'type_currency');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');

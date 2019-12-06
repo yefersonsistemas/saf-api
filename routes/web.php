@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('outside/{id}', 'OutController@statusOut')->name('checkout.statusOut'); // cambia estado depaciente a fuera del consultorio
 
 
+    Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
+    Route::post('doctor/recipe/{patient}/{employe}','DoctorController@recipeStore')->name('recipe.store');
+
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
     });
@@ -39,14 +43,14 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
         Route::POST('assigment/area', 'InController@assigment')->name('checkin.assigment');
         Route::post('search/area','InController@search_area')->name('search.area');  //revisa si el area esta ocupada
-        Route::post('search/medico','InController@search_medico')->name('search.medico');  //revisa si el area esta ocupada
+        Route::post('search/medico','InController@search_medico')->name('search.medico');  //busca los doctores
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente a dentro del consultorio
         Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
-        Route::POST('save', 'InController@guardar')->name('save.history');
+        Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
 
         // Recepcion
@@ -71,14 +75,13 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
 
+        Route::POST('registro', 'OutController@create_cliente')->name('checkout.person');           // mostrar factura
+        Route::post('imprimir', 'OutController@imprimir_factura')->name('checkout.imprimir_factura');           // mostrar factura
 
-        Route::POST('factura', 'OutController@create_factura')->name('checkout.factura');           // mostrar factura
-        Route::get('procedure', 'OutController@create_procedure')->name('checkout.procedure');  // mostrar factura
- 
-
-       
-     
-
+        Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
+        Route::get('imprimir/recipe/{id}/{patient}/{employe}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
+        Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
+        Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
@@ -87,10 +90,8 @@ Route::group(['middleware' => 'auth'], function (){
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
         Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
-        Route::get('doctor/recipe/{patient}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
         Route::post('doctor/Referencia/{patient}','DoctorController@referenceStore')->name('reference.store');
-        Route::post('doctor/recipe/{patient}','DoctorController@recipeStore')->name('recipe.store');
     });
 });

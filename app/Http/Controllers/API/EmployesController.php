@@ -301,7 +301,7 @@ class EmployesController extends Controller
         ]);
     }
 
-    //falta acomodar el rango de las fechas
+
     public function calculo_week(Request $request){  //clase A fija su precio para las consultas
         $employe = Employe::with('person.user', 'doctor.typedoctor')->where('person_id', $request->person_id)->first();
 

@@ -67,7 +67,12 @@ class Patient extends Model
         return $this->belongsTo('App\Branch');
     }
 
-     public function reservation()
+    public function billing()
+    {
+        return $this->belongsTo('App\Billing');
+    }
+
+    public function reservation()
     {
         return $this->belongsTo('App\Reservation');
     }

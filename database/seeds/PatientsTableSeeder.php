@@ -20,7 +20,7 @@ class PatientsTableSeeder extends Seeder
         Patient::truncate();
         $this->deleteDirectory(storage_path('/app/public/patient'));
 
-        factory(Patient::class,20)->create()->each(function ($patient) {
+        factory(Patient::class,5)->create()->each(function ($patient) {
             $this->to('person', $patient->id, 'App\Person');
 
             factory(App\Disease::class)->create();

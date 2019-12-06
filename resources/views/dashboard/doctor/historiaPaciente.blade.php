@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="col-md-6 text-right">
                                                 <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
-                                                <a href="{{ route('doctor.crearRecipe', $history->patient) }}" class="btn btn-azuloscuro">Recipe</a>
+                                                <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
                                                 <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
                                             </div>
                                         </div>
