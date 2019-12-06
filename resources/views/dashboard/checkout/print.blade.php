@@ -36,8 +36,8 @@ header {
 }
 
 table {
-  width: 96%;
-  max-width: 96%;
+  width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   margin-top: -15px;
