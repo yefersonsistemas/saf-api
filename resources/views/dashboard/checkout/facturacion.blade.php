@@ -32,7 +32,6 @@
                                     <a id="search"name="search" class="search btn btn-boo" style="color:#fff"><i class="icon-magnifier"></i></a>
                                 </div>
 
-
                                 <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                         @foreach ($procedimientos as $procedimiento)
@@ -403,7 +402,7 @@
               //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
               console.log('datos',data.procedure.name);
 
-                procedure_select='<tr><td colspan="5">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
+                procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
                 console.log('procedimiento seleccionado',procedure_select);
 
                 costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
@@ -412,7 +411,9 @@
                 console.log('ids',procedures_id);
                 console.log(costo_total)
                 $("#columna").append(procedure_select);
-                $('#costo_total').text(costo_total);
+                var resultado = costo_total.map(Math.round);
+                console.log('estod',resultado);
+                $('#costo_total').text(resultado);
                 $('#subtotal').text(costo_total);
                 total = costo_total;
                   
@@ -425,6 +426,20 @@
         //     var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
         //     console.log('estos son doble click ',procedure_id);
         //   });
+
+        function round(num, decimales = 2) {
+            var signo = (num >= 0 ? 1 : -1);
+            num = num * signo;
+            if (decimales === 0) //con 0 decimales
+                return signo * Math.round(num);
+            // round(x * 10 ^ decimales)
+            num = num.toString().split('e');
+            num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
+            // x * 10 ^ (-decimales)
+            num = num.toString().split('e');
+            return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
+        }
+
 
         }); //fin del documento
       </script>
