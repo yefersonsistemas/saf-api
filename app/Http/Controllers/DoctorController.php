@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Patient;
@@ -24,6 +22,7 @@ use App\Speciality;
 use App\Treatment;
 use App\Recipe;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Disease;
 
 class DoctorController extends Controller
 {
@@ -66,15 +65,21 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //doctor por reservacion con su diagnostico y razon de la cita
     public function show($id)
     {
         // dd($id);
         // $history = 
-        $history=Reservation::with('patient.historyPatient','person')->where('id',$id)
+        $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
-
-        // dd($history);
-        return view('dashboard.doctor.historiaPaciente', compact('history'));
+         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+                ->where('person_id', $id)->first();
+                // dd(  $cite);
+            // return response()->json([
+            //   'Patient' => $history,
+            // ]);
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite'));
     }
 
     /**

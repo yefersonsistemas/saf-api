@@ -34,12 +34,12 @@ class Reservation extends Model
         return $this->belongsTo('App\Person');
     }
 
-    public function patient()
+    public function patient()  //este es el paciente de la tabla persona que esta en la tabla de reservacion
     {
         return $this->belongsTo('App\Person');
     }
 
-    public function historyPatient()  //relacion con paciente
+    public function historyPatient()  //relacion con tabla paciente
     {
         return $this->belongsTo('App\Patient', 'person_id');
     }

@@ -317,17 +317,17 @@ class PatientController extends Controller
     // return view('dashboard.patients.recipe', compact('patient'));
   }
 
-  // public function record_cite(Request $request){
-  // $cite = Patient::with('person.reservationPatient.speciality', 'diagnostic.treatment')
-  //         ->where('person_id', $request->person_id)->first();
-  // // dd($cite->first()->person->reservationPatient->diagnostic($request->person_id));
+  public function record_cite(Request $request){
+  $cite = Patient::with('person.reservationPatient.speciality', 'diagnostic.treatment')
+          ->where('person_id', $request->person_id)->first();
+  // dd($cite->first()->person->reservationPatient->diagnostic($request->person_id));
   // $prueba = Reservation::find(1);
-  //     return response()->json([
-  //       'Reservation' => $prueba->diagnostic($request->person_id),
-  //       'Patient' => $cite,
-  //     ]);
+      return response()->json([
+        // 'Reservation' => $prueba->diagnostic($request->person_id),
+        'Patient' => $cite,
+      ]);
 
-  // }
+  }
 
   public function update_patient(Request $request)
   {
