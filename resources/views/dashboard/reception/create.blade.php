@@ -407,7 +407,7 @@
                     datesDisabled: data.available,
                     daysOfWeekDisabled: '0'
                 });
-                window.location.href = "{{ route('citas.index') }}";
+                window.location.href = "{{ route('checkin.index') }}";
             })
             .fail(function(data) {
                 console.log(data);

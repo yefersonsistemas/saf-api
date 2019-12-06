@@ -228,7 +228,7 @@
                 }
                 if(data[0] == 202){
                     Swal.fire({
-                        title : 'Consultorio ya ha sido asignado ',
+                        title : 'Consultorio asignado ',
                     })
                 }
                 })

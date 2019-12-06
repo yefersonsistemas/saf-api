@@ -411,7 +411,7 @@ class InController extends Controller
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
-        dd($request);
+        // dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
 // si olsdoatos no estas vacios 
@@ -425,7 +425,9 @@ class InController extends Controller
             'area_id'     => $a,
             'branch_id' => 1,
             ]);
-            return view('dashboard.checkin.index');
+            return response()->json([
+                'message' => 'Consultorio asignado',202
+            ]);
             }else{
                 return response()->json([
                     'error' => 'No se pudo asignar el consultorio',202
