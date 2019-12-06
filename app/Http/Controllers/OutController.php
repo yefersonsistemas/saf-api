@@ -207,7 +207,8 @@ class OutController extends Controller
     //============== buscando procedimiento y mostrando en la vista para generar factura==============
     public function create(){
         $procedimientos = Procedure::all();
-        return view('dashboard.checkout.facturacion', compact('procedimientos'));
+        $fecha = Carbon::now()->format('Y-m-d');
+        return view('dashboard.checkout.facturacion', compact('procedimientos','fecha'));
     }
 
 

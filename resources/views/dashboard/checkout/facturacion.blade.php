@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 @endsection
 
-@section('title','Facturación')
+@section('title','Proceso de facturación')
 
 @section('content')
     <form action="{{ route('checkout.guardar_factura') }}" method="POST">
@@ -55,12 +55,19 @@
                     <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                         <div class="row clearfix">
                             <div class="col-10 ml-5">
+                                  
+
                                 <div class="card">
-                                    
+                                        <div class="card-body row my-8  pl-4">
+                                                <div class="col-3"><h2>Facturación</h2> </div>
+                                               <div class="col-9 d-flex justify-content-end pr-3" style="color:#000" >
+                                                    <span class="h6 h66">Fecha:  </span><br> <span class="text"> {{ $fecha }}</span><br>
+                                                </div>                             
+                                            </div>
                                     <div class="card-body">
                                         <div class="row my-8">
                                             <div class="col-6">
-                                                <p class="h6"><i class="fa fa-user mr-2" style="font-size:18px"></i> PACIENTE</p>
+                                                <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>
                                                                         
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
@@ -69,21 +76,38 @@
                                                 <input id="total" type="hidden" name="total_cancelar" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
-                                               <span id="dnii"> </span><br>
-                                                <span id="name"></span>
-                                                <span id="lastname"></span><br>
-                                                <span id="phone"></span><br>
+                                               <div class="row ml-3">
+                                                    <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dnii"></span></div>
+                                               </div>
+                                               <div class="row ml-3">
+                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres y apellidos:</span></div> <div class="col-md-6"><span id="name"></span>
+                                                    <span id="lastname"></span></div>
+                                                </div>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-5"><span style="font-weight:bold; ">Telefono:</span></div><div class="col-md-6"><span id="phone"></span></div>
+                                               </div>
                                             </div>
-                                            <div class="col-6 text-right">
-                                                <p class="h6"><i class="fa fa-user-md mr-2" style="font-size:18px"></i> MEDICO TRATANTE</p>
-                                                <span id="dniiD"></span><br>
+
+                                            <div class="col-6 text-left">
+                                                <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i> MEDICO TRATANTE</p>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dniiD"></span></div>
+                                               </div>
+                                               <div class="row ml-3">
+                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres y apellidos:</span></div> <div class="col-md-6"><span id="nameD"></span>
+                                                    <span id="lastnameD"></span></div>
+                                                </div>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-5"><span style="font-weight:bold; ">Telefono:</span></div><div class="col-md-6"><span id="phoneD"></span></div>
+                                               </div>
+                                                {{-- <span id="dniiD"></span><br>
                                                 <span id="nameD"></span>
                                                 <span id="lastnameD"></span><br>
-                                                <span id="phoneD"></span><br>
+                                                <span id="phoneD"></span><br> --}}
                                             </div>
 
 
-                                        </div>
+                                        </div><br><br>
                                         
                                         <div class="table-responsive push mt-3">
 
@@ -91,8 +115,8 @@
                                             <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     {{-- <th class="text-center width35"></th> --}}
-                                                    <th colspan="5" class="text-center">Descripción</th>
-                                                    <th class="text-right factura" style="width: 4%">Costo</th>
+                                                    <td style="font-weight:bold" colspan="5" class="text-center tett" >DESCRIPCION</td>
+                                                    <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="consulta">
@@ -300,7 +324,7 @@
                 console.log('hoal');
                 price_consulta= data.encontrado[0].employe.doctor.price;
                 costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
-                consulta_html = '<th class="text-center width35"></th><th colspan="4">Consulta</th><td class="text-right">'+costo_consulta+'</td>';
+                consulta_html = '<td class="text-center width35"></td><td colspan="4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
                 $("#consulta").append(consulta_html);
             }
 
@@ -310,9 +334,9 @@
                 nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
 
-                titulo_cirugia= '<th class="text-center width35"></th><th colspan="4">Cirugía</th><th class="text-right" style="width: 4%"></th>';
-                cirugia='<tr><td></td><td colspan="4">'+nombre_cirugia+'<td class="text-right">'+costo_cirugia+'</td></tr>';
-                $("#cirugia_html").append(titulo_cirugia);
+                // titulo_cirugia= '<td class="text-center width35"></td><td colspan="4">Cirugía</td><td class="text-right" style="width: 4%"></td>';
+                cirugia='<tr><td></td > <td colspan="4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
+                // $("#cirugia_html").append(titulo_cirugia);
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
                 console.log('cirugia',costo_cirugia);
@@ -320,14 +344,14 @@
   
              // --------------------Procedures -------------
             if(data.procedureS != null){
-                procedure = '<th class="text-center width35"></th><th colspan="4">Procedimiento</th><th class="text-right" style="width: 4%"></th>';
+                // procedure = '<th class="text-center width35"></th><th colspan="4">Procedimiento</th><th class="text-right" style="width: 4%"></th>';
                 $("#procedure").append(procedure);
 
                 for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
                     costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
-                    procedure_select='<tr><td>   </td><td colspan="4">'+data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
+                    procedure_select='<tr><td>  </td><td colspan="4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
                     $("#columna").append(procedure_select);
                 }
             }

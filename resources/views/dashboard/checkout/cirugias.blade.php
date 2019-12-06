@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandKen.css') }}">
+
 @endsection
 
 @section('title','Cirugías')
@@ -71,32 +73,20 @@
                     <!----------------------------lista de cirugias hospitalarias----------------------------->
                
                         @foreach ($cirugias_hospitalarias as $hospitalarias)
-                        <div class=" row tab-pane fade show active" id="hospitalarias" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class=" row tab-pane fast animated bounceInRight show active" id="hospitalarias" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="col-lg-12">
                                 <div class=" mb-4 card ">
-                                        <div class="row card-body d-flex  justify-content-between">
+                                        <div class="row card-body d-flex justify-content-between">
                                     @forelse ($hospitalarias->typeSurgeries as $surgery)
 
                                     <div class="col-sm-12 col-lg-3 m-2">
-                                            <div class="card ">
-                                                <div class="card-body text-center p-2">
-                                                    
-                                                    <div class="card bg-azul text-white">
-                                                        <div class="card-body tama">
-                                                            <img src="assets\images\pricing\plan1.svg" class="width150" >
-                                                        </div>
+                                            <div class="card text-center card-img">
+                                                    <img src="assets\images\cirugia-hospitalaria.jpg" class="card-img-top img-thumbnail" alt="...">
+                                                    <div class="card-body">
+                                                      <h5 class="card-title" style="text-transform: none;">{{ $surgery->name }}</h5>
                                                     </div>
-                                                    <div class="d-flex align-items-center px-2 row" >
-                                                           
-                                                            <div class="col-12">
-                                                                <div>{{ $surgery->name }}</div>
-                                                            </div>
-                                                            <div class="ml-auto text-muted col-12">
-                                                                <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas</a>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
+                                                    <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="card-link card-footer btn btn-azuloscuro py-2">Ver más...</a>
+                                                  </div>
                                         </div>
                                 
                                     @empty
@@ -110,31 +100,20 @@
                 
                     <!----------------------------lista de cirugias ambulatorias----------------------------->
                       @foreach ($cirugias_ambulatorias as $ambulatorias)
-                        <div class=" row tab-pane fade show " id="ambulatorias" role="tabpanel" aria-labelledby="pills-profile-tab">
+                      
+                      <div class=" row tab-pane animated bounceInRight fast show " id="ambulatorias" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="col-lg-12">
                                 <div class="card mb-4">
-                                        <div class="row card-body d-flex  justify-content-between">
+                                        <div class="row card-body d-flex justify-content-between">
                                     @forelse ($ambulatorias->typeSurgeries as $surgery)
                                     <div class="col-sm-12 col-lg-3 m-2">
-                                        <div class="card ">
-                                            <div class="card-body text-center p-2">
-                                                
-                                                <div class="card bg-azul text-white">
-                                                    <div class="card-body tama">
-                                                        <img src="assets\images\pricing\plan1.svg" class="width150" >
+                                            <div class="card text-center card-img">
+                                                    <img src="assets\images\cirugia-abulatorira.jpg" class="card-img-top img-thumbnail" alt="...">
+                                                    <div class="card-body">
+                                                      <h5 class="card-title" style="text-transform: none;">{{ $surgery->name }}</h5>
                                                     </div>
-                                                </div>
-                                                <div class="d-flex align-items-center px-2 row">
-                                                       
-                                                        <div class="col-12"> 
-                                                            <div>{{ $surgery->name }}</div>
-                                                        </div>
-                                                        <div class="ml-auto text-muted col-12">
-                                                            <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="btn color">ver mas</a>
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                        </div>
+                                                    <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}" class="card-link card-footer btn btn-azuloscuro py-2">Ver más..</a>
+                                                  </div>
                                     </div>
 
                                     @empty

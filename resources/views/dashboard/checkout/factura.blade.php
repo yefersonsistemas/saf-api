@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
-@section('title','Facturación')
+@section('title','Proceso de facturación')
 
 @section('content')
     <form action="{{ route('checkout.imprimir_factura') }}" method="POST">
@@ -76,7 +76,7 @@
                                                 <div class="col-2">
                                                     <span class="text">{{ $itinerary->employe->person->phone }}</span><br>
                                                 </div>
-                                            </div><br>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-12 mt-2 d-flex justify-content-end">
                                                         <span>Selecciona persona a pagar</span>
@@ -171,25 +171,25 @@
                                                 </tbody>
                                                 @if($itinerary->employe->doctor != null)
                                                     <tbody style="border-bottom: 1px solid #000">
-                                                        <th class="text-center width35"></th>
-                                                        <th colspan="4">Consulta</th>
+                                                        <td class="text-center width35"></td>
+                                                        <td colspan="4">Consulta Médica</td>
                                                         <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
                                                     </tbody>
                                                 @endif
                                                            
                                                 @if($procedure != 0)
-                                                <tbody style="border-bottom: 1px solid #000">
-                                                    <th class="text-center width35"></th>
-                                                    <th colspan="4">Procedimientos</th>
-                                                    <th class="text-right" style="width: 4%"></th>
-                                                </tbody>
+                                                {{-- <tbody style="border-bottom: 1px solid #000">
+                                                    <td class="text-center width35"></td>
+                                                    <td colspan="4">Procedimientos</td>
+                                                    <td class="text-right" style="width: 4%"></td>
+                                                </tbody> --}}
                                                 
                                                 <tbody>
                                                     @foreach ($procedure as $item)
                                                     <tr>
                                                         <td class="text-center width35"></td>
                                                         <td colspan="4">
-                                                            <div class="text-muted">{{ $item->name }}</div>
+                                                            <div class="text-muted">Procedimiento {{ $item->name }}</div>
                                                         </td>
                                                     
                                                         <td class="text-right" style="width: 1%">{{ $item->price }}</td>
@@ -199,17 +199,17 @@
                                                 @endif
 
                                                 @if($itinerary->surgery != null)
-                                                <tbody style="border-bottom: 1px solid #000">
+                                                {{-- <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
                                                     <th colspan="4">Cirugía</th>
                                                     <th class="text-right" style="width: 4%"></th>
-                                                </tbody>
+                                                </tbody> --}}
                                                    
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-center width35"></td>
                                                         <td colspan="4">
-                                                            <div class="text-muted">{{ $itinerary->surgery->typesurgeries->name }}</div>
+                                                            <div class="text-muted">Cirugía {{ $itinerary->surgery->typesurgeries->name }}</div>
                                                         </td>
                                                         <td class="text-right" style="width: 1%">{{ $itinerary->surgery->typesurgeries->cost }}</td>
                                                     </tr>
