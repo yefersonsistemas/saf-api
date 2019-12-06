@@ -28,17 +28,9 @@
                             <div class="row clearfix">
                                 <div class="col-12">
                                     <div class="card">
-                                        {{-- <div class="card-header row">
-                                            <div class="col-8">
-                                                    <img src="{{ asset('assets\images\logo_factura.png') }}" class="w-100">
-                                            </div>
-                                            <div class="col-3 text-right"><p class="h66 text-right">#AB0017</p></div>
-                                        
-                                        </div> --}}
-
                                         <div class="card-body row my-8  pl-4">
                                             <div class="col-3"><h2>Factura</h2> </div>
-                                           <div class="col-9 d-flex justify-content-end pr-3" style="color:#000" >
+                                            <div class="col-9 d-flex justify-content-end pr-3" style="color:#000" >
                                                 <span class="h6 h66">Fecha:  </span><br> <span id="" class="text"> {{ $fecha }}</span><br>
                                             </div>                             
                                         </div>
