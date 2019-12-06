@@ -25,7 +25,7 @@
                         <div class="card">
                             <div class="card-body row">
                                 <div class="col-md-2 mt-2">
-                                        <h6>Buscar Paciente </h6>
+                                        <h6 style="font-weight:bold">Buscar Paciente </h6>
                                 </div>
                                 <div class="input-group col-md-5 d-flex justify-content-start" style="border:1px solid #fff">
                                     <input id="dni" type="text" class="form-control" maxlength="8" placeholder="Documento de identidad...">
@@ -411,9 +411,7 @@
                 console.log('ids',procedures_id);
                 console.log(costo_total)
                 $("#columna").append(procedure_select);
-                var resultado = costo_total.map(Math.round);
-                console.log('estod',resultado);
-                $('#costo_total').text(resultado);
+                $('#costo_total').text(costo_total);
                 $('#subtotal').text(costo_total);
                 total = costo_total;
                   
@@ -426,20 +424,6 @@
         //     var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
         //     console.log('estos son doble click ',procedure_id);
         //   });
-
-        function round(num, decimales = 2) {
-            var signo = (num >= 0 ? 1 : -1);
-            num = num * signo;
-            if (decimales === 0) //con 0 decimales
-                return signo * Math.round(num);
-            // round(x * 10 ^ decimales)
-            num = num.toString().split('e');
-            num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
-            // x * 10 ^ (-decimales)
-            num = num.toString().split('e');
-            return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
-        }
-
 
         }); //fin del documento
       </script>

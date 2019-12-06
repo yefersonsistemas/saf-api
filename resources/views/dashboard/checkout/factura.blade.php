@@ -50,15 +50,15 @@
                                                 <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $itinerary->person->id }}">
                                                    
                                                 <div class="col-2">
-                                                    <span id="dni" class="text form-control p-1 mt-0 text-center">{{ $itinerary->person->dni }}</span>
+                                                    <span id="dni" class="text form-control p-1 mt-0 text-left"><i class="fa fa-address-card"></i>&nbsp;&nbsp;{{ $itinerary->person->dni }}</span>
                                                 </div>
 
                                                 <div class="col-4">
-                                                    <span id="name" class="text form-control p-1 text-center">{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>
+                                                    <span id="name" class="text form-control p-1 text-left"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>
                                                 </div>
 
                                                 <div class="col-3">
-                                                    <span id="phone" class="text form-control p-1 text-center">{{ $itinerary->person->phone }}</span><br>
+                                                    <span id="phone" class="text form-control p-1 text-left"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ $itinerary->person->phone }}</span><br>
                                                 </div>
                                             </div>
 
@@ -68,15 +68,15 @@
                                                     <span class="h6 h66"><i class="fa fa-user-md mr-2" style="font-size:18px"></i>Medico tratante:</span>
                                                 </div>
                                                 <div class="col-2">
-                                                    <span class="text form-control p-1 text-center">{{ $itinerary->employe->person->dni }}</span>
+                                                    <span class="text form-control p-1 text-left"><i class="fa fa-address-card"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->dni }}</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <span class="text form-control p-1 text-center">{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span>
+                                                    <span class="text form-control p-1 text-left"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span>
                                                 </div>
                                                 <div class="col-3">
-                                                    <span class="text form-control p-1 text-center">{{ $itinerary->employe->person->phone }}</span><br>
+                                                    <span class="text form-control p-1 text-left"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->phone }}</span><br>
                                                 </div>
-                                            </div>
+                                            </div><br>
                                             <div class="row">
                                                 <div class="col-12 mt-2 d-flex justify-content-center">
                                                         <span class="h6 h66">Seleccione persona a cancelar</span>
@@ -101,21 +101,14 @@
                                                 <div class="col-3 mt-2">
                                                     <span class="h6 h66"><i class="fa fa-lock mr-2" style="font-size:18px"></i> Cancelado por:</span>
                                                 </div>
-                                                <div class="col-3 mt-2">
+                                                <div class="col-2 mt-2">
                                                     <span class="text form-control"><i class="fa fa-address-card"></i>&nbsp;&nbsp;<span id="dni_c" class="text" style="text-align:center"></span></span>
                                                 </div>
-                                                <div class="col-3 mt-2">
+                                                <div class="col-4 mt-2">
                                                     <span class="text form-control"><i class="fa fa-user"></i>&nbsp;&nbsp;<span id="name_c" class="text" style="text-align:center"></span><span id="lastname_c" class="text" style="text-align:center"></span></span>
                                                 </div>
                                                 <div class="col-3 mt-2">
                                                     <span class="text form-control"><i class="fa fa-phone"></i>&nbsp;&nbsp;<span id="phone_c" class="text" style="text-align:center"></span></span>
-                                                </div>
-                                                <div class="col-2 mt-2 ">
-                                                    <div class=" row">
-                                                        {{-- <div class="col-12 text-end"> --}}
-                                                        
-                                                        {{-- </div> --}}
-                                                    </div>
                                                 </div>
 
                                             </div>
