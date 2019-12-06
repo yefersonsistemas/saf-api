@@ -57,7 +57,10 @@ class InController extends Controller
      */
     public function create()
     {
-        $areas = Area::with('typearea', 'image')->get();
+        $type_area = TypeArea::where('name','Consultorio')->first();
+        $areas = Area::with('typearea', 'image')->where('type_area_id',$type_area->id)->get();
+
+        // dd($areas);
 
         $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
         $em = collect([]);
