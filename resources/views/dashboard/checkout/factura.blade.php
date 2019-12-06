@@ -50,38 +50,52 @@
                                                 <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $itinerary->person->id }}">
                                                    
                                                 <div class="col-2">
-                                                    <span id="dni" class="text form-control" style="text-align:center">{{ $itinerary->person->dni }}</span>
+                                                    <span id="dni" class="text form-control p-1 mt-0 text-center">{{ $itinerary->person->dni }}</span>
                                                 </div>
 
-                                                    <div class="col-3">
-                                                    <span id="name" class="text form-control" style="text-align:center">{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>
-                                                    </div>
-
-                                                    <div class="col-2">
-                                                    <span id="phone" class="text form-control" style="text-align:center">{{ $itinerary->person->phone }}</span><br>
+                                                <div class="col-4">
+                                                    <span id="name" class="text form-control p-1 text-center">{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>
                                                 </div>
 
-                                               
+                                                <div class="col-3">
+                                                    <span id="phone" class="text form-control p-1 text-center">{{ $itinerary->person->phone }}</span><br>
+                                                </div>
                                             </div>
+
+
                                             <div class="row">
                                                 <div class="col-3">
                                                     <span class="h6 h66"><i class="fa fa-user-md mr-2" style="font-size:18px"></i>Medico tratante:</span>
                                                 </div>
                                                 <div class="col-2">
-                                                    <span class="text form-control">{{ $itinerary->employe->person->dni }}</span>
+                                                    <span class="text form-control p-1 text-center">{{ $itinerary->employe->person->dni }}</span>
+                                                </div>
+                                                <div class="col-4">
+                                                    <span class="text form-control p-1 text-center">{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span>
                                                 </div>
                                                 <div class="col-3">
-                                                    <span class="text form-control">{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span>
-                                                </div>
-                                                <div class="col-2">
-                                                    <span class="text form-control">{{ $itinerary->employe->person->phone }}</span><br>
+                                                    <span class="text form-control p-1 text-center">{{ $itinerary->employe->person->phone }}</span><br>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-12 mt-2 d-flex justify-content-end">
-                                                        <span>Selecciona persona a pagar</span>
+                                                <div class="col-12 mt-2 d-flex justify-content-center">
+                                                        <span class="h6 h66">Seleccione persona a cancelar</span>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                    <div class="col-12 mt-2 d-flex justify-content-center">
+                                                        <div class="col-6 d-flex justify-content-end" >
+                                                                <a class="btn btn-boo " title="Paciente" style="color:#fff" id="paciente" name="paciente"> 
+                                                                    <i class="fa fa-user mr-2"></i> Paciente
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                    <a  class="btn btn-boo " title="Agregar cliente" style="color:#fff" data-toggle="modal" data-target="#otro"> 
+                                                                    <i class="fa fa-user-plus"></i> Otro cliente
+                                                                </a>
+                                                            </div>
+                                                    </div>
+                                                </div><br>
 
                                             <div class="row">
                                                     <div class="col-3 mt-2">
@@ -99,16 +113,7 @@
                                                     <div class="col-2 mt-2 ">
                                                         <div class=" row">
                                                             {{-- <div class="col-12 text-end"> --}}
-                                                                <div class="col-4 d-flex justify-content-end" >
-                                                                    <a class="btn btn-boo " title="Paciente" style="color:#fff" id="paciente" name="paciente"> 
-                                                                            <i class="fa fa-user mr-2"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-7">
-                                                                        <a  class="btn btn-boo " title="Agregar cliente" style="color:#fff" data-toggle="modal" data-target="#otro"> 
-                                                                        <i class="fa fa-user-plus"></i>
-                                                                    </a>
-                                                                </div>
+                                                                
                                                             {{-- </div> --}}
                                                         </div>
                                                     </div>
