@@ -239,6 +239,7 @@ class OutController extends Controller
 
             $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
 
+            $fecha = Carbon::now()->format('Y-m-d');
                     $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
                     $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
@@ -268,7 +269,7 @@ class OutController extends Controller
                     $procedure = 0;
                 }
 
-            return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','procedure','itinerary','crear_factura','total'));
+            return view('dashboard.checkout.factura', compact('tipo_moneda','fecha', 'tipo_pago','procedure','itinerary','crear_factura','total'));
         }else{
             Alert::error('No puede procesar la factura');
             return redirect()->back();

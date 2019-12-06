@@ -21,7 +21,7 @@
         <div class="section-body py-3">
             <div class="container-fluid">
                 <div class="row clearfix">
-                    <div class="col-lg-12">
+                    <div class="col-lg-10 ml-5">
                         <div class="card">
                             <div class="card-body row">
                                 <div class="col-md-2 mt-2">
@@ -54,13 +54,13 @@
                 
                     <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                         <div class="row clearfix">
-                            <div class="col-12">
+                            <div class="col-10 ml-5">
                                 <div class="card">
                                     
                                     <div class="card-body">
                                         <div class="row my-8">
                                             <div class="col-6">
-                                                <p class="h6">PACIENTE</p>
+                                                <p class="h6"><i class="fa fa-user mr-2" style="font-size:18px"></i> PACIENTE</p>
                                                                         
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
@@ -69,13 +69,13 @@
                                                 <input id="total" type="hidden" name="total_cancelar" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
-                                                <span id="dnii"> </span><br>
+                                               <span id="dnii"> </span><br>
                                                 <span id="name"></span>
                                                 <span id="lastname"></span><br>
                                                 <span id="phone"></span><br>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p class="h6">MEDICO TRATANTE</p>
+                                                <p class="h6"><i class="fa fa-user-md mr-2" style="font-size:18px"></i> MEDICO TRATANTE</p>
                                                 <span id="dniiD"></span><br>
                                                 <span id="nameD"></span>
                                                 <span id="lastnameD"></span><br>
@@ -130,7 +130,7 @@
                     </div>
                 </div>                
             </div>
-            <div class="card-header d-flex justify-content-end">
+            <div class="card-header d-flex justify-content-end ml-5 col-10">
                 <div class="card-options">
                     <button type="submit" class="btn btn-boo"><i class="si si-printer"></i>Generar factura</button>
                 </div>
