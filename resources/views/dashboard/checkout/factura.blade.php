@@ -98,30 +98,27 @@
                                                 </div><br>
 
                                             <div class="row">
-                                                    <div class="col-3 mt-2">
-                                                        <span class="h6 h66"><i class="fa fa-lock mr-2" style="font-size:18px"></i> Cancelado por:</span>
+                                                <div class="col-3 mt-2">
+                                                    <span class="h6 h66"><i class="fa fa-lock mr-2" style="font-size:18px"></i> Cancelado por:</span>
+                                                </div>
+                                                <div class="col-3 mt-2">
+                                                    <span class="text form-control"><i class="fa fa-address-card"></i>&nbsp;&nbsp;<span id="dni_c" class="text" style="text-align:center"></span></span>
+                                                </div>
+                                                <div class="col-3 mt-2">
+                                                    <span class="text form-control"><i class="fa fa-user"></i>&nbsp;&nbsp;<span id="name_c" class="text" style="text-align:center"></span><span id="lastname_c" class="text" style="text-align:center"></span></span>
+                                                </div>
+                                                <div class="col-3 mt-2">
+                                                    <span class="text form-control"><i class="fa fa-phone"></i>&nbsp;&nbsp;<span id="phone_c" class="text" style="text-align:center"></span></span>
+                                                </div>
+                                                <div class="col-2 mt-2 ">
+                                                    <div class=" row">
+                                                        {{-- <div class="col-12 text-end"> --}}
+                                                        
+                                                        {{-- </div> --}}
                                                     </div>
-                                                    <div class="col-2 mt-2">
-                                                        <span id="dni_c" class="text"></span>
-                                                    </div>
-                                                    <div class="col-3 mt-2">
-                                                        <span id="name_c"></span> <span id="lastname_c" class="text"></span>
-                                                    </div>
-                                                    <div class="col-2 mt-2">
-                                                        <span id="phone_c"></span><br>
-                                                    </div>
-                                                    <div class="col-2 mt-2 ">
-                                                        <div class=" row">
-                                                            {{-- <div class="col-12 text-end"> --}}
-                                                                
-                                                            {{-- </div> --}}
-                                                        </div>
-                                                    </div>
-
                                                 </div>
 
-                                               
-
+                                            </div>
                                             <div class="row mt-4">
                                                    
                                                 <div class="col-lg-6 col-md-6">
