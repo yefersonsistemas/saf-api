@@ -78,7 +78,7 @@ table .desc {
   text-align: center;
   width: 480px;
   background: transparent;
-  border-bottom: :#00ad88 solid 1px;
+  /* border-bottom: :#00ad88 solid 1px; */
 }
 
 table .desc_titulo {
@@ -307,10 +307,10 @@ table tfoot tr td:first-child {
         <thead>
           <tr>
             <th colaspan="4" class="campo_titulo" style="border-top:#000000 solid 1px; 
-              border-bottom:#000000 solid 1px;text-align:left;">
+              border-bottom:#000000 solid 1px;text-align:left; padding-right:20px;">
               Descripción</th>
             
-            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px;">Total</th>
+            <th colaspan="4" class="total" style="border-top:#000000 solid 1px;border-bottom:#000000 solid 1px; padding-right:20px;">Total</th>
           </tr>
         </thead>
         <tbody>
