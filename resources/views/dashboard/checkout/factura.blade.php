@@ -57,13 +57,13 @@
                                                 <div class="col-3">
                                                     <span class="h6 h66"><i class="fa fa-user-md mr-2" style="font-size:18px"></i>Medico tratante:</span>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <span class="text form-control p-1 text-left"><i class="fa fa-address-card"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->dni }}</span>
                                                 </div>
                                                 <div class="col-3">
                                                     <span class="text form-control p-1 text-left"><i class="fa fa-user-md"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <span class="text form-control p-1 text-left"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->phone }}</span><br>
                                                 </div>
                                             </div><br>
@@ -88,15 +88,15 @@
                                                 </div><br>
                                             <div class="row">
                                                 <div class="col-3 mt-2">
-                                                    <span class="h6 h66"><i class="fa fa-lock mr-2" style="font-size:18px"></i> Cancelado por:</span>
+                                                    <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> Cancelado por:</span>
                                                 </div>
-                                                <div class="col-2 mt-2">
+                                                <div class="col-3 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-address-card pl-1"></i>&nbsp;<span id="dni_c" class="text text-left"></span></span>
                                                 </div>
-                                                <div class="col-4 mt-2">
+                                                <div class="col-3 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-user pl-1"></i>&nbsp;<span id="name_c" class="text text-left"></span><span id="lastname_c" class="text text-left"></span></span>
                                                 </div>
-                                                <div class="col-2 mt-2">
+                                                <div class="col-3 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-phone pl-1"></i>&nbsp;<span id="phone_c" class="text text-left"></span></span>
                                                 </div>
                                             </div>

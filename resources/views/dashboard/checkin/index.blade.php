@@ -171,7 +171,7 @@
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
                                                         <button href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success" disabled>E</button>
-                                                        <a href="{{ route('checkout.statusOut', $reservation->patient_id ) }}"  class="btn btn-secondary">S</a>
+                                                        {{-- <a href="{{ route('checkout.statusOut', $reservation->patient_id ) }}"  class="btn btn-secondary">S</a> --}}
                                                     </div>
                                                 @endif
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside)  && !empty($reservation->patient->inputoutput->first()->outside))
@@ -183,7 +183,7 @@
                                                     @if($reservation->patient->inputoutput->isEmpty())
                                                     <div>
                                                         <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
-                                                        <button href="{{ route('checkout.statusOut', $reservation->patient_id ) }}" class="btn btn-secondary" disabled>S</button>
+                                                        {{-- <button href="{{ route('checkout.statusOut', $reservation->patient_id ) }}" class="btn btn-secondary" disabled>S</button> --}}
                                                     </div>
                                                 @endif
                                             </td>

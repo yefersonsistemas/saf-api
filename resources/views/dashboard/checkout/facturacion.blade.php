@@ -59,8 +59,8 @@
                                 <div class="card">
                                         <div class="card-body row my-8  pl-4">
                                                 <div class="col-3"><h2>Facturación</h2> </div>
-                                               <div class="col-9 d-flex justify-content-end pr-3" style="color:#000" >
-                                                    <span class="h6 h66">Fecha:  </span><br> <span class="text"> {{ $fecha }}</span><br>
+                                               <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
+                                                    <span class="h6 h66 pt-1 pr-10">Fecha:</span>&nbsp;<span class="text"> {{ $fecha }}</span><br>
                                                 </div>                             
                                             </div>
                                     <div class="card-body">
@@ -144,19 +144,19 @@
                                                     <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
                                             </table>
+                                            <div class="card-header d-flex justify-content-end col-13">
+                                            <div class="card-options">
+                                                <button type="submit" class="btn btn-boo" style="margin-right: -16px;"><i class="si si-printer"></i>Generar factura</button>
+                                            </div>
+                                            </div>
                                         </div>
-
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>                
-            </div>
-            <div class="card-header d-flex justify-content-end ml-5 col-10">
-                <div class="card-options">
-                    <button type="submit" class="btn btn-boo"><i class="si si-printer"></i>Generar factura</button>
-                </div>
             </div>
         </div>
     <form>
