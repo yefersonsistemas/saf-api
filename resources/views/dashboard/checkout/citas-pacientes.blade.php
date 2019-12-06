@@ -97,24 +97,24 @@
                                 <!--si ambos estan vacios-->
                                 @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a disabled href="" disabled class="btn  btn-hecho mr-2"><i class="icon-login"></i></a>
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" diabled class="btn btn-hecho"><i class="icon-logout"></i></a>
+                                        <a href="" class="btn btn-hecho mr-2"><i class="icon-login"></i></a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-logout"></i></a>
                                     </div>
                                 @endif
 
-                                <!--si fuera  estan vacios-->
+                                <!--si fuera esta vacios-->
                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a disabled href="" disabled class="btn btn-success mr-2">E</a>
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" diabled class="btn btn-secondary">S</a>
+                                        <a href="" disabled class="btn btn-dentro mr-2">E</a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-fuera">S</a>
                                     </div>
                                 @endif
 
                                 <!--si ambos tienen datos-->
                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a disabled href="" disabled class="btn btn-success mr-2">E</a>
-                                        <a href="" disabled class="btn btn-danger">S</a>
+                                        <a href="" disabled class="btn btn-dentro mr-2">E</a>
+                                        <a href="" disabled class="btn btn-fuera">S</a>
                                     </div>
                                 @endif
                             </div>

@@ -29,23 +29,10 @@ body {
   font-family: Arial;
 }
 
-/* main {
+ main {
   position: relative;
 }
 
-main:before{
-  content: "";
-  background-image: url("assets/images/Isotipo_S&F.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  top: 60px;
-  z-index: 0;
-  width: 100%;
-  height: 75%;
-  position: absolute;
-  opacity: .5;
-} */
 
 header {
   padding: 10px 0;
@@ -139,7 +126,7 @@ table .desc {
 
 table td {
   padding-left: 100px;
-  padding-top: 20px;
+  padding-top: 10px;
   text-align: center;
   font-size: 16px;
   /* margin-left: 20px;  */
@@ -152,6 +139,7 @@ table td.desc {
   vertical-align: top;
   border-left: 1px solid #a1a1a1;
 }
+
 
 #notices .notice {
   color: #5D6975;
@@ -195,14 +183,16 @@ span .name{
   text-align: right;
 }
 .imgfondo{
-  padding-top: 40px;
-  padding-left: 30px;
-  margin: 20px;
+  /* padding-top: 8px; */
+  padding-left: 50px;
+  /* margin: 20px; */
+  margin-left:50px;
+  margin-right: 20px;
   position: relative;
-  opacity: .1;
+  opacity: 0.05;
   background-position: center;
   vertical-align: top;
-  width: 80%
+  width: 60%
 }
 
 #details{
@@ -211,7 +201,7 @@ span .name{
 
 .encabezado{
   width: 100%;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   height: 100px;
 }
 
@@ -221,8 +211,8 @@ span .name{
 } */
 
 .logo {
-  margin-top: -20px;
-  height: 100px;
+  margin-top: -35px;
+  height: 120px;
   width: 590px;
   margin-bottom: -8px;
   margin-left: 40px;
@@ -231,7 +221,20 @@ span .name{
 .hh{
   border-bottom: 1px solid #00ad88;
 }
-    </style>
+
+.indi{
+  text-align: center;
+  color: #000000;
+  padding-top: 30px 
+}
+
+.indic{
+  text-align: left;
+  color: #000000;
+  padding-left: 0px;
+  padding-top: 10px;
+}
+</style>
   </head>
   <body>
     <header class="clearfix">
@@ -246,7 +249,7 @@ span .name{
     <table>
       <thead>
         <tr>
-          <th class="services">EXAMEN MEDICO</th>
+          <th class="services">Examen Medico</th>
           {{-- <th class="desc">INDICACIONES</th> --}}
         </tr>
         </thead>
@@ -258,15 +261,42 @@ span .name{
             </tr>
         @endforeach
         </tbody>
+        <tfoot>
+          <tr>
+            <th class="indi" >Indicaciones</th>
+          </tr>
+          <tr>
+            <td class="indic">
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
     </table>
     {{-- <div id="notices">
         <div>NOTICE:</div>
         <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
     </div> --}}
     </main>
-    <footer>
+    {{-- <footer>
     Invoice was created on a computer and is valid without the signature and seal.
-    </footer>
+    </footer> --}}
 </body>
 </html>
 

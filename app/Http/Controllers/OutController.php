@@ -239,6 +239,7 @@ class OutController extends Controller
 
             $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
 
+            $fecha = Carbon::now()->format('Y-m-d');
                     $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
                     $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
@@ -268,7 +269,7 @@ class OutController extends Controller
                     $procedure = 0;
                 }
 
-            return view('dashboard.checkout.factura', compact('tipo_moneda', 'tipo_pago','procedure','itinerary','crear_factura','total'));
+            return view('dashboard.checkout.factura', compact('tipo_moneda','fecha', 'tipo_pago','procedure','itinerary','crear_factura','total'));
         }else{
             Alert::error('No puede procesar la factura');
             return redirect()->back();
@@ -340,12 +341,11 @@ class OutController extends Controller
     public function imprimir_examen(Request $request)
     {
         $examen = explode(',', $request->id); // decodificando los prcocedimientos json
-
+        
         $datos = Itinerary::with('person','employe.person','exam')->where('exam_id',$request->id)->first();
         for ($i=0; $i < count($examen) ; $i++) { 
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
-
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
         return $pdf->stream('examen.pdf');
     }

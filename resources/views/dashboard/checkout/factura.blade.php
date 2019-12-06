@@ -14,7 +14,7 @@
             @csrf 
         <div class="section-body py-3 row">
 
-            <div class="section-body py-3 col-8 ml-4 ">
+            <div class="section-body py-3 col-10 ml-5 ">
                 <div class="container">
                     <div class="tab-content">
                 
@@ -28,76 +28,100 @@
                             <div class="row clearfix">
                                 <div class="col-12">
                                     <div class="card">
-                                        <div class="card-header row">
+                                        {{-- <div class="card-header row">
                                             <div class="col-8">
                                                     <img src="{{ asset('assets\images\logo_factura.png') }}" class="w-100">
                                             </div>
                                             <div class="col-3 text-right"><p class="h66 text-right">#AB0017</p></div>
                                         
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="row my-8 pr4 pl-4 ">
-                                            <div class="col-12"> <span class="text"> Rif:</span></div>
-                                            <div class="col-12"> <span class="text">Dirección:</span></div>
-                                            <div class="col-12"> <span class="text">Telefono:</span></div>
-
-                                        
+                                        <div class="card-body row my-8  pl-4">
+                                            <div class="col-3"><h2>Factura</h2> </div>
+                                           <div class="col-9 d-flex justify-content-end pr-3" style="color:#000" >
+                                                <span class="h6 h66">Fecha:  </span><br> <span id="phone" class="text"> {{ $fecha }}</span><br>
+                                            </div>                             
                                         </div>
                                         <div class="card-body mt-0">
                                             <div class="row">
-                                                <div class="col-2">
-                                                        <span class="h6 h66">Paciente:</span>
+                                                <div class="col-3">
+                                                        <span class="h6 h66"><i class="fa fa-user mr-2" style="font-size:18px"></i> Paciente</span>
                                                 </div>
-                                                <div class="col-10">
-                                                    <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $itinerary->person->id }}" >
-
+                                                <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $itinerary->person->id }}" >
+                                                   
+                                                <div class="col-2">
                                                     <span id="dni" class="text">{{ $itinerary->person->dni }}</span>
+                                                </div>
+
+                                                    <div class="col-3">
                                                     <span id="name" class="text">{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>
+                                                    </div>
+
+                                                    <div class="col-2">
                                                     <span id="phone" class="text">{{ $itinerary->person->phone }}</span><br>
                                                 </div>
+
+                                               
                                             </div>
                                             <div class="row">
-                                                <div class="col-2">
-                                                    <span class="h6 h66">Doctor:</span>
+                                                <div class="col-3">
+                                                    <span class="h6 h66"><i class="fa fa-user-md mr-2" style="font-size:18px"></i> Medico tratante:</span>
                                                 </div>
-                                                <div class="col-10">
-                                                    
+                                                <div class="col-2">
                                                     <span class="text">{{ $itinerary->employe->person->dni }}</span>
+                                                </div>
+                                                <div class="col-3">
                                                     <span class="text">{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span>
+                                                </div>
+                                                <div class="col-2">
                                                     <span class="text">{{ $itinerary->employe->person->phone }}</span><br>
                                                 </div>
                                             </div><br>
+                                            <div class="row">
+                                                <div class="col-12 mt-2 d-flex justify-content-end">
+                                                        <span>Selecciona persona a pagar</span>
+                                                </div>
+                                            </div>
 
                                             <div class="row">
-                                                    <div class="col-4">
-                                                        <span class="h6 h66">Cancelado por:</span>
+                                                    <div class="col-3 mt-2">
+                                                        <span class="h6 h66"><i class="fa fa-lock mr-2" style="font-size:18px"></i> Cancelado por:</span>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <span id="dni_c" class="text"></span>
-                                                        <span id="name_c"></span>
-                                                        <span id="lastname_c" class="text"></span>
+                                                    <div class="col-2 mt-2">
+                                                            <span id="dni_c" class="text"></span>
+                                                    </div>
+                                                    <div class="col-3 mt-2">
+                                                        <span id="name_c"></span> <span id="lastname_c" class="text"></span>
+                                                    </div>
+                                                    <div class="col-2 mt-2">
                                                         <span id="phone_c"></span><br>
+                                                    </div>
+                                                    <div class="col-2 mt-2 ">
+                                                        <div class=" row">
+                                                            {{-- <div class="col-12 text-end"> --}}
+                                                                <div class="col-4 d-flex justify-content-end" >
+                                                                    <a class="btn btn-boo " title="Paciente" style="color:#fff" id="paciente" name="paciente"> 
+                                                                            <i class="fa fa-user mr-2"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-7">
+                                                                        <a  class="btn btn-boo " title="Agregar cliente" style="color:#fff" data-toggle="modal" data-target="#otro"> 
+                                                                       <i class="fa fa-user-plus"></i>
+                                                                    </a>
+                                                                </div>
+                                                            {{-- </div> --}}
+                                                        </div>
                                                     </div>
 
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-6 text-end">
-                                                        <div class="row mt-1">
-                                                            <div class="ml-2 col-4"> Paciente</div> <a class="btn btn-primary" id="paciente" name="paciente">
-                                                            P
-                                                            </a>
-                                                        </div>
-                                                        <div class="row mt-2">
-                                                            <div class="ml-2 col-4"> Otro</div> <a  class="btn btn-primary"  data-toggle="modal" data-target="#otro">
-                                                                O
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div><br><br>
 
-                                            <div class="row">
+                                               
+
+                                            <div class="row mt-4">
+                                                   
                                                 <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group multiselect_div">
+                                                    <span class="h6 h66">Tipo de moneda:</span>
+                                                    <div class="form-group multiselect_div mt-2">
                                                         <select id="single-selection" name="tipo_moneda" class="multiselect multiselect-custom" style="display: none;">
                                                             @foreach ($tipo_moneda as $moneda)
                                                             <option value="{{ $moneda->id }}">{{ $moneda->name }}</option>
@@ -106,7 +130,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
-                                                        <div class="form-group multiselect_div">
+                                                        <span class="h6 h66">Tipo de pago:</span>
+                                                        <div class="form-group multiselect_div mt-2">
                                                             <select id="single-selection2" name="tipo_pago" class="multiselect multiselect-custom" style="display: none;">
                                                                 @foreach ($tipo_pago as $pago)
                                                                 <option value="{{ $pago->id }}">{{ $pago->name }}</option>
@@ -138,10 +163,10 @@
 
                                             <div class="table-responsive push">
                                             <div></div>
-                                        <table class="table table-bordered table-hover">
+                                        <table class="table table-bordered table-hover mt-5">
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     {{-- <th class="text-center width35"></th> --}}
-                                                    <th colspan="5" class="text-center">Nombre</th>
+                                                    <th colspan="5" class="text-center">Descripción</th>
                                                     <th class="text-right" style="width: 4%">Costo</th>
                                                 </tbody>
                                                 @if($itinerary->employe->doctor != null)
@@ -155,7 +180,7 @@
                                                 @if($procedure != 0)
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     <th class="text-center width35"></th>
-                                                    <th colspan="4">Procedimiento</th>
+                                                    <th colspan="4">Procedimientos</th>
                                                     <th class="text-right" style="width: 4%"></th>
                                                 </tbody>
                                                 
@@ -196,7 +221,7 @@
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">{{ $total }}</td> 
                                                 </tr>
-                                                <tr class="bg-info text-light">
+                                                <tr class="bg-boo text-light">
                                                     <th class="text-center width35"></th>
                                                     <td colspan="4" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right" id="costo_total">{{ $total }}</td>
@@ -210,8 +235,8 @@
                             </div>
                         </div>
 
-                        <div class="row d-flex justify-content-center">
-                            <button type="submit" class="btn btn-info">Guardar</button>
+                        <div class="row d-flex justify-content-end">
+                            <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3"> <i class="fa fa-print"> </i> Imprimir</button>
                         </div>
                     </div>                
                 </div>

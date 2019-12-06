@@ -21,16 +21,18 @@
         <div class="section-body py-3">
             <div class="container-fluid">
                 <div class="row clearfix">
-                    <div class="col-lg-12">
+                    <div class="col-lg-10 ml-5">
                         <div class="card">
                             <div class="card-body row">
-                                <div class="col-3 mt-2">
+                                <div class="col-md-2 mt-2">
                                         <h6>Buscar Paciente </h6>
                                 </div>
-                                <div class="input-group col-5">
-                                    <input id="dni" type="text" class="form-control" maxlength="8" placeholder="buscar paciente...">
-                                    <a id="search"name="search" class="search btn btn-info"><i class="icon-magnifier"></i></a>
+                                <div class="input-group col-md-5 d-flex justify-content-start" style="border:1px solid #fff">
+                                    <input id="dni" type="text" class="form-control" maxlength="8" placeholder="Documento de identidad...">
+                                    <a id="search"name="search" class="search btn btn-boo" style="color:#fff"><i class="icon-magnifier"></i></a>
                                 </div>
+
+
                                 <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                         @foreach ($procedimientos as $procedimiento)
@@ -46,19 +48,19 @@
         </div>
 
       
-        <div class="section-body py-3">
+        <div class="section-body">
             <div class="container">
                 <div class="tab-content">
                 
                     <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                         <div class="row clearfix">
-                            <div class="col-12">
+                            <div class="col-10 ml-5">
                                 <div class="card">
                                     
                                     <div class="card-body">
                                         <div class="row my-8">
                                             <div class="col-6">
-                                                <p class="h6">Paciente</p>
+                                                <p class="h6"><i class="fa fa-user mr-2" style="font-size:18px"></i> PACIENTE</p>
                                                                         
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
@@ -67,13 +69,13 @@
                                                 <input id="total" type="hidden" name="total_cancelar" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
-                                                <span id="dnii"> </span><br>
+                                               <span id="dnii"> </span><br>
                                                 <span id="name"></span>
                                                 <span id="lastname"></span><br>
                                                 <span id="phone"></span><br>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p class="h6">Doctor</p>
+                                                <p class="h6"><i class="fa fa-user-md mr-2" style="font-size:18px"></i> MEDICO TRATANTE</p>
                                                 <span id="dniiD"></span><br>
                                                 <span id="nameD"></span>
                                                 <span id="lastnameD"></span><br>
@@ -82,12 +84,15 @@
 
 
                                         </div>
+                                        
                                         <div class="table-responsive push mt-3">
-                                            <table class="table table-bordered table-hover">
+
+                                            
+                                            <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     {{-- <th class="text-center width35"></th> --}}
-                                                    <th colspan="5" class="text-center">Nombre</th>
-                                                    <th class="text-right" style="width: 4%">Costo</th>
+                                                    <th colspan="5" class="text-center">Descripción</th>
+                                                    <th class="text-right factura" style="width: 4%">Costo</th>
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="consulta">
@@ -110,8 +115,8 @@
                                                     <td colspan="4" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">0,00</td>
                                                 </tr>
-                                                <tr class="bg-info text-light">
-                                                    <th class="text-center width35"></th>
+                                                <tr class="bg-boo  text-light">
+                                                    <th class="text-center "></th>
                                                     <td colspan="4" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
@@ -125,9 +130,9 @@
                     </div>
                 </div>                
             </div>
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-end ml-5 col-10">
                 <div class="card-options">
-                    <button type="submit" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</button>
+                    <button type="submit" class="btn btn-boo"><i class="si si-printer"></i>Generar factura</button>
                 </div>
             </div>
         </div>
