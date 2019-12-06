@@ -3887,10 +3887,10 @@ textarea.letras {
 }
 
 .btn-hecho{
+    color: #000000 ;
     font-weight: bold;
     font-size: 20px;
 }
-
 .btn-boo{
     color:#fff;
     background: #00506b;

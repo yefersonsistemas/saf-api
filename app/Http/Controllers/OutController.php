@@ -341,12 +341,11 @@ class OutController extends Controller
     public function imprimir_examen(Request $request)
     {
         $examen = explode(',', $request->id); // decodificando los prcocedimientos json
-
+        
         $datos = Itinerary::with('person','employe.person','exam')->where('exam_id',$request->id)->first();
         for ($i=0; $i < count($examen) ; $i++) { 
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
-
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
         return $pdf->stream('examen.pdf');
     }

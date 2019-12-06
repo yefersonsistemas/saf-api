@@ -140,6 +140,7 @@ table td.desc {
   border-left: 1px solid #a1a1a1;
 }
 
+
 #notices .notice {
   color: #5D6975;
   font-size: 1.2em;
@@ -221,7 +222,19 @@ span .name{
   border-bottom: 1px solid #00ad88;
 }
 
-    </style>
+.indi{
+  text-align: center;
+  color: #000000;
+  padding-top: 30px 
+}
+
+.indic{
+  text-align: left;
+  color: #000000;
+  padding-left: 0px;
+  padding-top: 10px;
+}
+</style>
   </head>
   <body>
     <header class="clearfix">
@@ -236,7 +249,7 @@ span .name{
     <table>
       <thead>
         <tr>
-          <th class="services">EXAMEN MEDICO</th>
+          <th class="services">Examen Medico</th>
           {{-- <th class="desc">INDICACIONES</th> --}}
         </tr>
         </thead>
@@ -248,15 +261,42 @@ span .name{
             </tr>
         @endforeach
         </tbody>
+        <tfoot>
+          <tr>
+            <th class="indi" >Indicaciones</th>
+          </tr>
+          <tr>
+            <td class="indic">
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
     </table>
     {{-- <div id="notices">
         <div>NOTICE:</div>
         <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
     </div> --}}
     </main>
-    <footer>
+    {{-- <footer>
     Invoice was created on a computer and is valid without the signature and seal.
-    </footer>
+    </footer> --}}
 </body>
 </html>
 
