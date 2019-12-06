@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
-@section('title','Facturación')
+@section('title','Proceso de facturación')
 
 @section('content')
     <form action="{{ route('checkout.imprimir_factura') }}" method="POST">
