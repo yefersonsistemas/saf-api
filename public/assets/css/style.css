@@ -3886,28 +3886,14 @@ textarea.letras {
     height: 90px;;
 }
 
-.btn-dentro{
-    font-weight: bold;
-    font-size: 20px;
-    color: #28a745;
-}
-
-.btn-fuera{
-    font-weight: bold;
-    font-size: 20px;
-    color: #dc3545;
-}
-
-.btn-boo{
-    color:#fff;
-    background: #00506b;
-}
-
-.sd{
+.btn-hecho{
     color: #000000 ;
     font-weight: bold;
     font-size: 20px;
-    
+}
+.btn-boo{
+    color:#fff;
+    background: #00506b;
 }
 
 .btn-boo:hover {

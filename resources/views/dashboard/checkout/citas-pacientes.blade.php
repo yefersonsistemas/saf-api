@@ -97,8 +97,8 @@
                                 <!--si ambos estan vacios-->
                                 @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a href="" class="btn  btn-sd mr-2"><i class="icon-login"></i></a>
-                                        <button href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-secondary"><i class="icon-logout sd"></i></button>
+                                        <a href="" class="btn btn-hecho mr-2"><i class="icon-login"></i></a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-logout"></i></a>
                                     </div>
                                 @endif
 
@@ -106,7 +106,7 @@
                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
                                         <a href="" disabled class="btn btn-dentro mr-2">E</a>
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" diabled class="btn btn-fuera">S</a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-fuera">S</a>
                                     </div>
                                 @endif
 
