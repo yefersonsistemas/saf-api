@@ -171,13 +171,13 @@
                                         <table class="table table-bordered table-hover mt-5">
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     {{-- <th class="text-center width35"></th> --}}
-                                                    <th colspan="5" class="text-center">Descripción</th>
-                                                    <th class="text-right" style="width: 4%">Costo</th>
+                                                    <td colspan="5" class="text-left pl-4" style="font-weight:bold; ">DESCRIPCION</td>
+                                                    <td class="text-right" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
                                                 @if($itinerary->employe->doctor != null)
                                                     <tbody style="border-bottom: 1px solid #000">
-                                                        <td class="text-center width35"></td>
-                                                        <td colspan="4">Consulta Médica</td>
+                                                        {{-- <td class="text-center width35"></td> --}}
+                                                        <td colspan="5" class="text-left pl-4">Consulta Médica</td>
                                                         <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
                                                     </tbody>
                                                 @endif
@@ -192,8 +192,8 @@
                                                 <tbody>
                                                     @foreach ($procedure as $item)
                                                     <tr>
-                                                        <td class="text-center width35"></td>
-                                                        <td colspan="4">
+                                                        {{-- <td class="text-center width35"></td> --}}
+                                                        <td colspan="5" class="text-left pl-4">
                                                             <div class="text-muted">Procedimiento {{ $item->name }}</div>
                                                         </td>
                                                     
@@ -212,8 +212,8 @@
                                                    
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-center width35"></td>
-                                                        <td colspan="4">
+                                                        {{-- <td class="text-center width35"></td> --}}
+                                                        <td colspan="5" class="text-left pl-4">
                                                             <div class="text-muted">Cirugía {{ $itinerary->surgery->typesurgeries->name }}</div>
                                                         </td>
                                                         <td class="text-right" style="width: 1%">{{ $itinerary->surgery->typesurgeries->cost }}</td>
@@ -222,13 +222,13 @@
                                                 @endif
 
                                                 <tr>
-                                                    <th class="text-center width35"></th>
-                                                    <td colspan="4" class="font600 text-right">Subtotal</td>
+                                                    {{-- <th class="text-center width35"></th> --}}
+                                                    <td colspan="5" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">{{ $total }}</td> 
                                                 </tr>
                                                 <tr class="bg-boo text-light">
-                                                    <th class="text-center width35"></th>
-                                                    <td colspan="4" class="font700 text-right">Total a cancelar</td>
+                                                    {{-- <th class="text-center width35"></th> --}}
+                                                    <td colspan="5" class="font700 text-right ">Total a cancelar</td>
                                                     <td class="font700 text-right" id="costo_total">{{ $total }}</td>
                                                 </tr>
                                             </table>

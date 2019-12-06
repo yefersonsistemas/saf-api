@@ -115,7 +115,7 @@
                                             <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     {{-- <th class="text-center width35"></th> --}}
-                                                    <td style="font-weight:bold" colspan="5" class="text-center tett" >DESCRIPCION</td>
+                                                    <td style="font-weight:bold" colspan="5" class="text-left pl-4 tett" >DESCRIPCION</td>
                                                     <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
 
@@ -135,13 +135,13 @@
                                                 <tbody id="cirugia">
                                                 </tbody>                                             
                                                 <tr>
-                                                    <th class="text-center width35"></th>
-                                                    <td colspan="4" class="font600 text-right">Subtotal</td>
+                                                    {{-- <th class="text-center width35"></th> --}}
+                                                    <td colspan="5" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">0,00</td>
                                                 </tr>
                                                 <tr class="bg-boo  text-light">
-                                                    <th class="text-center "></th>
-                                                    <td colspan="4" class="font700 text-right">Total a cancelar</td>
+                                                    {{-- <th class="text-center "></th> --}}
+                                                    <td colspan="5" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
                                             </table>
@@ -324,7 +324,7 @@
                 console.log('hoal');
                 price_consulta= data.encontrado[0].employe.doctor.price;
                 costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
-                consulta_html = '<td class="text-center width35"></td><td colspan="4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
+                consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
                 $("#consulta").append(consulta_html);
             }
 
@@ -335,7 +335,7 @@
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
 
                 // titulo_cirugia= '<td class="text-center width35"></td><td colspan="4">Cirugía</td><td class="text-right" style="width: 4%"></td>';
-                cirugia='<tr><td></td > <td colspan="4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
+                cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 // $("#cirugia_html").append(titulo_cirugia);
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
@@ -351,7 +351,7 @@
                     costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
-                    procedure_select='<tr><td>  </td><td colspan="4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
+                    procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
                     $("#columna").append(procedure_select);
                 }
             }
@@ -403,7 +403,7 @@
               //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
               console.log('datos',data.procedure.name);
 
-                procedure_select='<tr><td></td><td colspan="4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
+                procedure_select='<tr><td colspan="5">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
                 console.log('procedimiento seleccionado',procedure_select);
 
                 costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
