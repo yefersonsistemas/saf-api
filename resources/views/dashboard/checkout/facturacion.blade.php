@@ -60,7 +60,7 @@
                                         <div class="card-body row my-8  pl-4">
                                                 <div class="col-3"><h2>Facturación</h2> </div>
                                                <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
-                                                    <span class="h6 h66 pt-1 pr-10">Fecha:</span>&nbsp;<span class="text"> {{ $fecha }}</span><br>
+                                                    <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0"> {{ $fecha }}</span><br>
                                                 </div>                             
                                             </div>
                                     <div class="card-body">
@@ -79,7 +79,7 @@
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dnii"></span></div>
                                                </div>
                                                <div class="row ml-3">
-                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres y apellidos:</span></div> <div class="col-md-6"><span id="name"></span>
+                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombre:</span></div> <div class="col-md-6"><span id="name"></span>
                                                     <span id="lastname"></span></div>
                                                 </div>
                                                 <div class="row ml-3">
@@ -93,7 +93,7 @@
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dniiD"></span></div>
                                                </div>
                                                <div class="row ml-3">
-                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres y apellidos:</span></div> <div class="col-md-6"><span id="nameD"></span>
+                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres:</span></div> <div class="col-md-6"><span id="nameD"></span>
                                                     <span id="lastnameD"></span></div>
                                                 </div>
                                                 <div class="row ml-3">
