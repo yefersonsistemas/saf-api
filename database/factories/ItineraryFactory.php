@@ -33,7 +33,7 @@ $factory->define(Itinerary::class, function (Faker $faker) {
         'exam_id' =>  $exam->id,
         'recipe_id' =>  $recipe->id,
         'reservation_id' =>  $reservation->id,
-        'status' =>  $faker->word, 
+        'status' =>  $faker->randomElement(['espera', 'dentro', 'fuera']),
         'branch_id' =>  $branchoffice->id,
     ];
 });
