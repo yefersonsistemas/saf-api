@@ -15,12 +15,17 @@ class TypeCurrenciesTableSeeder extends Seeder
         TypeCurrency::truncate();
 
         TypeCurrency::create([
-            'name'  => 'dolar',
+            'name'  => 'RD',
             'branch_id' => '1',
         ]);
 
         TypeCurrency::create([
-            'name'  => 'bolivar',
+            'name'  => 'USD',
+            'branch_id' => '1',
+        ]);
+
+        TypeCurrency::create([
+            'name'  => 'EUR',
             'branch_id' => '1',
         ]);
     }
