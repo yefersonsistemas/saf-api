@@ -36,8 +36,8 @@ header {
 }
 
 table {
-  width: 100%;
-  max-width: 100%;
+  width: 99%;
+  max-width: 99%;
   border-collapse: collapse;
   border-spacing: 0;
   margin-top: -15px;
@@ -275,16 +275,16 @@ table tfoot tr td:first-child {
       <div id="details" class="clearfix">
         <div id="client">
           <div class="name"> 
-            <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">{{ $todos->person->name }} {{ $todos->person->lastname }}</span>
+            <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">{{ $todos->person->name }} {{ $todos->person->lastname }}.</span>
           </div>
           <div class="dni">
-            <span style="font-weight:bold">RNC/Cedula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}</span>
+            <span style="font-weight:bold">RNC/Cedula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}.</span>
           </div>
           <div class="phone">
-            <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">{{ $todos->person->phone }}</span>
+            <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">{{ $todos->person->phone }}.</span>
           </div>
           <div class="address">
-            <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px;text-transform:uppercase">{{ $todos->person->address }}</span>
+            <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px;text-transform:uppercase">{{ $todos->person->address }}.</span>
           </div>
         </div>
         <div id="doctor">
