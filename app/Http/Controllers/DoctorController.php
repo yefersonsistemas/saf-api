@@ -73,13 +73,17 @@ class DoctorController extends Controller
         // $history = 
         $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
-         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+
+        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
                 ->where('person_id', $id)->first();
+
+        $exams = Exam::all();
+
                 // dd(  $cite);
             // return response()->json([
             //   'Patient' => $history,
             // ]);
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams'));
     }
 
     /**
