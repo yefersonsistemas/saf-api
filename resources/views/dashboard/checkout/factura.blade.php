@@ -62,7 +62,7 @@
                                             </div><br>
                                             <div class="row">
                                                 <div class="col-12 mt-2 d-flex justify-content-center">
-                                                        <span class="h6 h66">Seleccione persona a cancelar</span>
+                                                        <span class="h6 h66">Seleccione persona a pagar</span>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -81,7 +81,7 @@
                                             </div><br>
                                             <div class="row">
                                                 <div class="col-3 mt-2">
-                                                    <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> Cancelado por:</span>
+                                                    <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> pagado por:</span>
                                                 </div>
                                                 <div class="col-3 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-address-card pl-1"></i>&nbsp;<span id="dni_c" class="text text-left"></span></span>
@@ -197,7 +197,7 @@
                                                 </table>
                                             </div><br>
                                             <div class="row d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3"> <i class="fa fa-print"> </i> Imprimir</button>
+                                                <button target="_blank" type="submit" class="btn btn-boo pr-5 pl-5 mr-3"> <i class="fa fa-print"> </i> Imprimir</button>
                                             </div>
                                         </div>
                                     </div>
