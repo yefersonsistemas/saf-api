@@ -56,7 +56,6 @@
                             <div class="col-10 ml-5">
                                   
                                 <div class="card">
-
                                     <div class="card-body row my-8  pl-4">
                                         <div class="col-3"><h2>Facturación</h2></div>
                                         <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
@@ -109,6 +108,9 @@
                                                     </div>
 
                                               </div>
+
+                                                </div>
+
                                                 <div class="row ml-3">
                                                     <div class="col-md-5">
                                                         <span style="font-weight:bold; ">Telefono:</span>
