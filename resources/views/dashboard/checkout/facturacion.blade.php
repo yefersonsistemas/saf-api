@@ -79,7 +79,7 @@
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dnii"></span></div>
                                                </div>
                                                <div class="row ml-3">
-                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombre:</span></div> <div class="col-md-6"><span id="name"></span>
+                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombre/Apellidos:</span></div> <div class="col-md-6"><span id="name"></span>
                                                     <span id="lastname"></span></div>
                                                 </div>
                                                 <div class="row ml-3">
@@ -91,18 +91,14 @@
                                                 <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i> MEDICO TRATANTE</p>
                                                 <div class="row ml-3">
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dniiD"></span></div>
-                                               </div>
+                                                </div>
                                                <div class="row ml-3">
-                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres:</span></div> <div class="col-md-6"><span id="nameD"></span>
+                                                <div class="col-md-5"><span style="font-weight:bold; ">Nombres/Apellidos:</span></div> <div class="col-md-6"><span id="nameD"></span>
                                                     <span id="lastnameD"></span></div>
                                                 </div>
                                                 <div class="row ml-3">
                                                     <div class="col-md-5"><span style="font-weight:bold; ">Telefono:</span></div><div class="col-md-6"><span id="phoneD"></span></div>
-                                               </div>
-                                                {{-- <span id="dniiD"></span><br>
-                                                <span id="nameD"></span>
-                                                <span id="lastnameD"></span><br>
-                                                <span id="phoneD"></span><br> --}}
+                                                </div>
                                             </div>
 
 
@@ -110,7 +106,6 @@
                                         
                                         <div class="table-responsive push mt-3">
 
-                                            
                                             <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
                                                     {{-- <th class="text-center width35"></th> --}}
@@ -134,12 +129,10 @@
                                                 <tbody id="cirugia">
                                                 </tbody>                                             
                                                 <tr>
-                                                    {{-- <th class="text-center width35"></th> --}}
                                                     <td colspan="5" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">0,00</td>
                                                 </tr>
                                                 <tr class="bg-boo  text-light">
-                                                    {{-- <th class="text-center "></th> --}}
                                                     <td colspan="5" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
@@ -161,72 +154,73 @@
         </div>
     <form>
 
-            <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Registrar cliente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-        
-                        <div class="modal-body pr-5 pl-5 pt-4">
-                            <form>
-                                <div class="form-group">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                        </div>
-                                        <div class="input-group-prepend">
-                                            <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="">
-                                                <option value="V">V</option>
-                                                <option value="E">E</option>
-                                                <option value="J">J</option>
-                                            </select>
-                                        </div>
-                                        <input id="dniC" value="" type="text" class="form-control mr-2" maxlength="8" placeholder="Documento de Identidad" formControlName="dni" name="dni">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="nameC"  name="name" type="text" placeholder="Nombre" class="form-control" value="">
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="lastnameC" name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="phoneC" name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="emailC" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
-        
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <textarea id="direccionC" name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-        
-                        <div class="modal-footer">
-                        <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="registrar">Registrar</a>
-                        </div>
-                    </div>
-                    </div>
+
+    <!--Modal para registrar otro cliente-->
+    <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registrar cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
+                <div class="modal-body pr-5 pl-5 pt-4">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group ">
+                                <div class="input-group-prepend">
+                                </div>
+                                <div class="input-group-prepend">
+                                    <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="">
+                                        <option value="V">V</option>
+                                        <option value="E">E</option>
+                                        <option value="J">J</option>
+                                    </select>
+                                </div>
+                                <input id="dniC" value="" type="text" class="form-control mr-2" maxlength="8" placeholder="Documento de Identidad" formControlName="dni" name="dni">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="nameC"  name="name" type="text" placeholder="Nombre" class="form-control" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="lastnameC" name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="phoneC" name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="emailC" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <textarea id="direccionC" name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                    <a class="btn btn-primary" id="registrar">Registrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -258,6 +252,8 @@
         var data_paciente;
         var costo =0;
         var total =0;
+        var precio=0;
+        var process =0;
             
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
@@ -348,6 +344,16 @@
 
                 for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
                     costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
+                    console.log('cooo', costo_procedimientos);
+                    console.log('cooo', data.procedureS[i].price);
+                    // var process = 0;
+                    // var precio = 0;
+
+                    // process = data.procedureS[i].price;
+                    // console.log('proces',process);
+                    // var precio = process.toFixed(2);
+                    // console.log('precio',precio);
+
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
                     procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
@@ -360,6 +366,8 @@
             cu = parseInt(costo_consulta);
             ci = parseInt(costo_cirugia);
             p = parseInt(costo_procedimientos);
+            resul = Math.round(costo_procedimientos).toFixed(2);
+            console.log('kenwherly', resul);
             
             costo_total = cu + ci + p ;
             total = costo_total;

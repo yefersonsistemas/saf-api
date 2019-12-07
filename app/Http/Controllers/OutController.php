@@ -43,7 +43,6 @@ class OutController extends Controller
     {
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
-    //   dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -58,24 +57,13 @@ class OutController extends Controller
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
 
-    //====================== crear recipe ============================
-    public function crearRecipe($itinerary_id){
-        dd($itinerary_id);
-        $itinerary = Itinerary::with('employe.person', 'procedure','employe.doctor','reservation')->where('id', $itinerary_id)->first();
-
-        $medicines = Medicine::all();
-        return view('dashboard.doctor.crearRecipe', compact('medicines','paciente'));
-    }
 
       //====================== crear examen ============================
       public function crearExamen($patient_id){
 
         $patient = $patient_id;
-        // dd($patient);
-        // $patient = Patient::with('person')->where('person_id', $patient_id)->first();
         $exams = Exam::all();
-        // $diagnostico = Diagnostic::with('patient.person')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id',$patient->id)->first();
-
+       
         return view('dashboard.checkout.crearDiagnostico', compact('patient','exams'));
     }
 
@@ -83,19 +71,12 @@ class OutController extends Controller
      //====================== guardar examen ============================
     public function storeDiagnostic(Request $request, $id)
     {
-        // dd($id);
-        // dd($request);
-
         $itinerary = Itinerary::with('person')->where('patient_id', $id)->first();
-        // dd($itinerary);
-
+        
         $diagnostico = Diagnostic::with('patient.person')->where('id',$itinerary->diagnostic_id)->first();
-        //  dd($diagnostico);
 
         $diagnostico->indications = $request->indicaciones;
         $diagnostico->save();
-       
-        //  dd($diagnostico);
 
         foreach ($request->multiselect4 as $examen) {
             $diagnostico->exam()->attach($examen);
@@ -134,11 +115,11 @@ class OutController extends Controller
         return view('dashboard.checkout.cirugias', compact('cirugias_ambulatorias', 'cirugias_hospitalarias', 'clasificacion'));
     }
 
+
      //====================== detalles de las cirugias ============================
      public function cirugias_detalles(Request $request)
      {
         $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
-        // dd($request->id);
          return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
      }
 
@@ -231,7 +212,6 @@ class OutController extends Controller
     //============================================ guardar factura ========================================
     public function guardar_factura(Request $request)
     {
-        // dd($request);
         if($request->patient_id != null && $request->employe_id != null){
             
             $total = $request->total_cancelar; // el $total_cancelar viene de la funcion ajax y se muestra en la siguiente vista
@@ -241,34 +221,34 @@ class OutController extends Controller
             $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
 
             $fecha = Carbon::now()->format('Y-m-d');
-                    $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
+            $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
-                    $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
+            $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
 
-                    if($procedures_for != null && $procedures[0] != ''){ // Si es distinto de null
-                        $procedimientos= array_merge($procedures,$procedures_for);
+            if($procedures_for != null && $procedures[0] != ''){ // Si es distinto de null
+                $procedimientos= array_merge($procedures,$procedures_for);
 
-                    }elseif($procedures_for != null && $procedures[0] == ''){ 
-                        $procedimientos= $procedures_for;
-                       
-                    }else{ 
-                        $procedimientos = $procedures;
-                    }
+            }elseif($procedures_for != null && $procedures[0] == ''){ 
+                $procedimientos= $procedures_for;
+                
+            }else{ 
+                $procedimientos = $procedures;
+            }
 
-                $crear_factura = Billing::create([
-                    'patient_id'  => $itinerary->patient_id,
-                    'employe_id'     => $itinerary->employe_id,
-                    'branch_id' => 1,
-                ]);
-    
-                if($procedimientos[0] != ''){
-                    for ($i=0; $i < count($procedimientos) ; $i++) { 
-                        $procedure[] = Procedure::find($procedimientos[$i]);
-                        $crear_factura->procedure()->attach($procedure[$i]);
-                    }
-                }else{
-                    $procedure = 0;
+            $crear_factura = Billing::create([
+                'patient_id'  => $itinerary->patient_id,
+                'employe_id'     => $itinerary->employe_id,
+                'branch_id' => 1,
+            ]);
+
+            if($procedimientos[0] != ''){
+                for ($i=0; $i < count($procedimientos) ; $i++) { 
+                    $procedure[] = Procedure::find($procedimientos[$i]);
+                    $crear_factura->procedure()->attach($procedure[$i]);
                 }
+            }else{
+                $procedure = 0;
+            }
 
             return view('dashboard.checkout.factura', compact('tipo_moneda','fecha', 'tipo_pago','procedure','itinerary','crear_factura','total'));
         }else{
@@ -276,6 +256,7 @@ class OutController extends Controller
             return redirect()->back();
         }
     }
+
 
     //============================ registrando cliente ============================
     public function create_cliente(CreateVisitorRequest $request){
@@ -299,7 +280,6 @@ class OutController extends Controller
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
-        // dd($request);
         if($request->person_id != null){
             if($request->factura != null){
                 
@@ -311,7 +291,6 @@ class OutController extends Controller
                 $fecha = Carbon::now()->format('Y-m-d');
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
-                // dd($todos);
                 $total = 0;
                 foreach($todos->procedure as $proce) { 
                     $total += $proce->price;
@@ -357,10 +336,8 @@ class OutController extends Controller
     public function imprimir_recipe(Request $request, $id, $patient, $employe)
     {
         $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
-        // dd($recipe);  
         $paciente = Patient::where('person_id',$patient)->first(); 
         $fecha = Carbon::now()->format('Y-d-m');
-        // dd($fecha);
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe', 'paciente', 'fecha'));
         $pdf->setPaper('A4', 'landscape');
@@ -371,7 +348,6 @@ class OutController extends Controller
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {
-        // dd($patient_id);
         $patient = InputOutput::where('person_id', $patient_id)->first();
         $p = Patient::where('person_id', $patient->person_id)->first();
         $io = InputOutput::where('person_id', $p->person_id)->first();

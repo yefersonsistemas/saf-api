@@ -24,17 +24,10 @@
                             <div class="row clearfix">
                                 <div class="col-12">
                                     <div class="card">
-                                        {{-- <div class="card-header row">
-                                            <div class="col-8">
-                                                    <img src="{{ asset('assets\images\logo_factura.png') }}" class="w-100">
-                                            </div>
-                                            <div class="col-3 text-right"><p class="h66 text-right">#AB0017</p></div>
-                                        
-                                        </div> --}}
                                         <div class="card-body row my-8  pl-4">
                                             <div class="col-3"><h2>Factura</h2> </div>
                                             <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
-                                                <span class="h6 h66 pt-10 pr-10">Fecha:</span><span class="text form-control col-3" style="margin-bottom:50px"><i class="fa fa-calendar pl-20"></i> {{ $fecha }}</span><br>
+                                                <span class="h6 h66 pt-0 pr-10">Fecha:</span><span class="text col-3" style="margin-bottom:50px"><i class="fa fa-calendar pl-20"></i> {{ $fecha }}</span><br>
                                             </div>                             
                                         </div>
                                         <div class="card-body mt-0 " style="top:-50px">
@@ -73,19 +66,19 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                    <div class="col-12 mt-2 d-flex justify-content-center">
-                                                        <div class="col-6 d-flex justify-content-end" >
-                                                                <a class="btn btn-boo " title="Paciente" style="color:#fff" id="paciente" name="paciente"> 
-                                                                    <i class="fa fa-user mr-2"></i> Paciente
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                    <a  class="btn btn-boo " title="Agregar cliente" style="color:#fff" data-toggle="modal" data-target="#otro"> 
-                                                                    <i class="fa fa-user-plus"></i> Otro cliente
-                                                                </a>
-                                                            </div>
-                                                    </div>
-                                                </div><br>
+                                                <div class="col-12 mt-2 d-flex justify-content-center">
+                                                    <div class="col-6 d-flex justify-content-end" >
+                                                            <a class="btn btn-boo " title="Paciente" style="color:#fff" id="paciente" name="paciente"> 
+                                                                <i class="fa fa-user mr-2"></i> Paciente
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                                <a  class="btn btn-boo " title="Agregar cliente" style="color:#fff" data-toggle="modal" data-target="#otro"> 
+                                                                <i class="fa fa-user-plus"></i> Otro cliente
+                                                            </a>
+                                                        </div>
+                                                </div>
+                                            </div><br>
                                             <div class="row">
                                                 <div class="col-3 mt-2">
                                                     <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> Cancelado por:</span>
@@ -112,105 +105,104 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
-                                                        <span class="h6 h66">Tipo de pago:</span>
-                                                        <div class="form-group multiselect_div mt-2">
-                                                            <select id="single-selection2" name="tipo_pago" class="multiselect multiselect-custom" style="display: none;">
-                                                                @foreach ($tipo_pago as $pago)
-                                                                <option value="{{ $pago->id }}">{{ $pago->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
+                                                    <span class="h6 h66">Tipo de pago:</span>
+                                                    <div class="form-group multiselect_div mt-2">
+                                                        <select id="single-selection2" name="tipo_pago" class="multiselect multiselect-custom" style="display: none;">
+                                                            @foreach ($tipo_pago as $pago)
+                                                            <option value="{{ $pago->id }}">{{ $pago->name }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
+                                            </div>
                                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        ...
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                                        </div>
+                                                <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                     </div>
+                                                    <div class="modal-body">
+                                                    ...
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
                                                     </div>
                                                 </div>
+                                                </div>
+                                            </div>
                                             <div class="table-responsive push">
                                             <div></div>
-                                        <table class="table table-bordered table-hover mt-5">
-                                                <tbody style="border-bottom: 1px solid #000">
-                                                    {{-- <th class="text-center width35"></th> --}}
-                                                    <td colspan="5" class="text-left pl-4" style="font-weight:bold; ">DESCRIPCION</td>
-                                                    <td class="text-right" style="width: 4%; font-weight:bold">COSTO</td>
-                                                </tbody>
-                                                @if($itinerary->employe->doctor != null)
+                                                <table class="table table-bordered table-hover mt-5">
                                                     <tbody style="border-bottom: 1px solid #000">
-                                                        {{-- <td class="text-center width35"></td> --}}
-                                                        <td colspan="5" class="text-left pl-4">Consulta Médica</td>
-                                                        <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
+                                                        {{-- <th class="text-center width35"></th> --}}
+                                                        <td colspan="5" class="text-left pl-4" style="font-weight:bold; ">DESCRIPCION</td>
+                                                        <td class="text-right" style="width: 4%; font-weight:bold">COSTO</td>
                                                     </tbody>
-                                                @endif
-                                                @if($procedure != 0)
-                                                {{-- <tbody style="border-bottom: 1px solid #000">
-                                                    <td class="text-center width35"></td>
-                                                    <td colspan="4">Procedimientos</td>
-                                                    <td class="text-right" style="width: 4%"></td>
-                                                </tbody> --}}
-                                                <tbody>
-                                                    @foreach ($procedure as $item)
+                                                    @if($itinerary->employe->doctor != null)
+                                                        <tbody style="border-bottom: 1px solid #000">
+                                                            {{-- <td class="text-center width35"></td> --}}
+                                                            <td colspan="5" class="text-left pl-4">Consulta Médica</td>
+                                                            <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
+                                                        </tbody>
+                                                    @endif
+                                                    @if($procedure != 0)
+                                                    {{-- <tbody style="border-bottom: 1px solid #000">
+                                                        <td class="text-center width35"></td>
+                                                        <td colspan="4">Procedimientos</td>
+                                                        <td class="text-right" style="width: 4%"></td>
+                                                    </tbody> --}}
+                                                    <tbody>
+                                                        @foreach ($procedure as $item)
+                                                        <tr>
+                                                            {{-- <td class="text-center width35"></td> --}}
+                                                            <td colspan="5" class="text-left pl-4">
+                                                                <div class="text-muted">Procedimiento {{ $item->name }}</div>
+                                                            </td>
+                                                        
+                                                            <td class="text-right" style="width: 1%">{{ $item->price }}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody> 
+                                                    @endif
+                                                    @if($itinerary->surgery != null)
+                                                    {{-- <tbody style="border-bottom: 1px solid #000">
+                                                        <th class="text-center width35"></th>
+                                                        <th colspan="4">Cirugía</th>
+                                                        <th class="text-right" style="width: 4%"></th>
+                                                    </tbody> --}}
+                                                    <tbody>
+                                                        <tr>
+                                                            {{-- <td class="text-center width35"></td> --}}
+                                                            <td colspan="5" class="text-left pl-4">
+                                                                <div class="text-muted">Cirugía {{ $itinerary->surgery->typesurgeries->name }}</div>
+                                                            </td>
+                                                            <td class="text-right" style="width: 1%">{{ $itinerary->surgery->typesurgeries->cost }}</td>
+                                                        </tr>
+                                                    </tbody> 
+                                                    @endif
                                                     <tr>
-                                                        {{-- <td class="text-center width35"></td> --}}
-                                                        <td colspan="5" class="text-left pl-4">
-                                                            <div class="text-muted">Procedimiento {{ $item->name }}</div>
-                                                        </td>
-                                                    
-                                                        <td class="text-right" style="width: 1%">{{ $item->price }}</td>
+                                                        {{-- <th class="text-center width35"></th> --}}
+                                                        <td colspan="5" class="font600 text-right">Subtotal</td>
+                                                        <td class="text-right" id="subtotal">{{ $total }}</td> 
                                                     </tr>
-                                                    @endforeach
-                                                </tbody> 
-                                                @endif
-                                                @if($itinerary->surgery != null)
-                                                {{-- <tbody style="border-bottom: 1px solid #000">
-                                                    <th class="text-center width35"></th>
-                                                    <th colspan="4">Cirugía</th>
-                                                    <th class="text-right" style="width: 4%"></th>
-                                                </tbody> --}}
-                                                <tbody>
-                                                    <tr>
-                                                        {{-- <td class="text-center width35"></td> --}}
-                                                        <td colspan="5" class="text-left pl-4">
-                                                            <div class="text-muted">Cirugía {{ $itinerary->surgery->typesurgeries->name }}</div>
-                                                        </td>
-                                                        <td class="text-right" style="width: 1%">{{ $itinerary->surgery->typesurgeries->cost }}</td>
+                                                    <tr class="bg-boo text-light">
+                                                        {{-- <th class="text-center width35"></th> --}}
+                                                        <td colspan="5" class="font700 text-right ">Total a cancelar</td>
+                                                        <td class="font700 text-right" id="costo_total">{{ $total }}</td>
                                                     </tr>
-                                                </tbody> 
-                                                @endif
-                                                <tr>
-                                                    {{-- <th class="text-center width35"></th> --}}
-                                                    <td colspan="5" class="font600 text-right">Subtotal</td>
-                                                    <td class="text-right" id="subtotal">{{ $total }}</td> 
-                                                </tr>
-                                                <tr class="bg-boo text-light">
-                                                    {{-- <th class="text-center width35"></th> --}}
-                                                    <td colspan="5" class="font700 text-right ">Total a cancelar</td>
-                                                    <td class="font700 text-right" id="costo_total">{{ $total }}</td>
-                                                </tr>
-                                            </table>
+                                                </table>
+                                            </div><br>
+                                            <div class="row d-flex justify-content-end">
+                                                <button target="_blank"type="submit" class="btn btn-boo pr-5 pl-5 mr-3"> <i class="fa fa-print"> </i> Imprimir</button>
                                             </div>
-                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row d-flex justify-content-end">
-                            <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3"> <i class="fa fa-print"> </i> Imprimir</button>
                         </div>
                     </div>                
                 </div>
