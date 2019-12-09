@@ -10,7 +10,7 @@
 @section('title','Proceso de facturación')
 
 @section('content')
-    <form action="{{ route('checkout.imprimir_factura') }}" method="POST">
+    <form action="{{ route('checkout.imprimir_factura') }}" method="POST" target="_blank">
             @csrf 
         <div class="section-body py-3 row">
             <div class="section-body py-3 col-10 ml-5 ">
