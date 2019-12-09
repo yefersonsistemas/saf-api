@@ -76,14 +76,14 @@
         <div class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000" >
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('img\auth\black-doctor-9.jpg') }}" class="img-fluid item" alt="login page">
+                    <img src="{{ asset('img\auth\black-doctor-9_1023x789.jpg') }}" class="img-fluid item" alt="login page">
                     {{-- <div class="px-4 mt-4">
                         <h4>Fully Responsive</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     </div> --}}
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('img\auth\estetoscopio-doctor.jpg') }}" class="img-fluid item" alt="login page">
+                    <img src="{{ asset('img\auth\estetoscopio-doctor_1023x789.jpg') }}" class="img-fluid item" alt="login page">
                     {{-- <div class="px-4 mt-4">
                         <h4>Quality Code and Easy Customizability</h4>
                         <p>There are many variations of passages of Lorem Ipsum available.</p>
