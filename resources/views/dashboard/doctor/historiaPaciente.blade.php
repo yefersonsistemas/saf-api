@@ -297,7 +297,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-content plan-tab-content" id="pills-tabContent">
                                         <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                             <div class="col-lg-12 col-md-12">
                                                 <label>Examenes</label>
