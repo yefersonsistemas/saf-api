@@ -1,62 +1,60 @@
 @extends('dashboard.layouts.app')
 
- @section('doctor','active') 
+@section('doctor','active')
 
- @section('css')
- <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
- <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
- <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css') }}">
- <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
- <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
- <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
- <link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
 
 
 @endsection
 
-@section('title','Doctor') 
+@section('title','Doctor')
 
 @section('content')
-    <div class="section-body  py-4">
-        <div class="container-fluid">
-            <div class="row clearfix">
-                {{-- Contadores --}}
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body py-2">
-                            <h6>Total De Citas Agendadas</h6>
-                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
-                            {{--
+<div class="section-body  py-4">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            {{-- Contadores --}}
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body py-2">
+                        <h6>Total De Citas Agendadas</h6>
+                        <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
+                        {{--
                             <h5>$1,25,451.23</h5> --}}
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body py-2">
-                            <h6>Total De Citas Del Mes</h6>
-                            <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">750</span></h4>
-                            {{--
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body py-2">
+                        <h6>Total De Citas Del Mes</h6>
+                        <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">750</span></h4>
+                        {{--
                             <h5>$3,80,451.00</h5> --}}
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body py-2">
-                            <h6>Citas Para Hoy</h6>
-                            <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">25</span></h4>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span> --}}
-                        </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body py-2">
+                        <h6>Citas Para Hoy</h6>
+                        <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">25</span></h4>
+                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span> --}}
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <div class="card">
-                        <div class="card-body py-2">
-                            <h6>Atendidos Hoy</h6>
-                            <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">5</span></h4>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span> --}}
-                        </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body py-2">
+                        <h6>Atendidos Hoy</h6>
+                        <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">5</span></h4>
+                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span> --}}
                     </div>
                 </div>
             </div>
@@ -328,6 +326,7 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -368,7 +367,11 @@
             previous: "Anterior",
             loading: "Cargando ..."
         }
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> dfde842baacc0b972f3509c5570c5ce5c8509e28
         // onInit: function(event, currentIndex) {
         //     setButtonWavesEffect(event);
         // },

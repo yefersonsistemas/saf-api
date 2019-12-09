@@ -104,6 +104,7 @@
                                         <th>Status</th>
                                         <th>Acciones</th>
                                         <th class="text-center">E/S</th>
+                                        <th class="text-center">EC/SC</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -118,6 +119,7 @@
                                         <th>Status</th>
                                         <th>Acciones</th>
                                         <th class="text-center">E/S</th>
+                                        <th class="text-center">EC/SC</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -125,9 +127,9 @@
                                         <tr>
                                             <td>
                                                 @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
-                                                <img src="" alt="" >
+                                                    <img src="" alt="" >
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -166,24 +168,32 @@
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
-                                            
                                             <td>  
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
                                                         <button href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success" disabled>E</button>
-                                                        {{-- <a href="{{ route('checkout.statusOut', $reservation->patient_id ) }}"  class="btn btn-secondary">S</a> --}}
                                                     </div>
                                                 @endif
-                                                @if(!empty($reservation->patient->inputoutput->first()->inside)  && !empty($reservation->patient->inputoutput->first()->outside))
-                                                    <div>
-                                                        <button href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success" disabled>E</button>
-                                                        <button href="{{ route('checkout.statusOut', $reservation->patient_id ) }}"  class="btn btn-danger" disabled>S</button>
-                                                    </div>
-                                                    @endif
-                                                    @if($reservation->patient->inputoutput->isEmpty())
+                                                @if($reservation->patient->inputoutput->isEmpty())
                                                     <div>
                                                         <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
-                                                        {{-- <button href="{{ route('checkout.statusOut', $reservation->patient_id ) }}" class="btn btn-secondary" disabled>S</button> --}}
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            <td>  
+                                                @if(!empty($reservation->patient->inputoutput->first()->inside_office) || empty($reservation->patient->inputoutput->first()->inside))
+                                                    <div>
+                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</a>
+                                                    </div>
+                                                @endif
+                                                @if($reservation->patient->inputoutput->isNotEmpty() && empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) )
+                                                    <div>
+                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary segundo">E</a>
+                                                    </div>
+                                                @endif
+                                                @if($reservation->patient->inputoutput->isNotEmpty() && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
+                                                    <div>
+                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" disabled class="btn btn-success">E</a>
                                                     </div>
                                                 @endif
                                             </td>

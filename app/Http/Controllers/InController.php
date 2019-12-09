@@ -45,6 +45,8 @@ class InController extends Controller
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+
+        // dd($reservations);
        
         // dd($reservations->first()->patient->inputoutput->first());
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
@@ -78,7 +80,7 @@ class InController extends Controller
                 }
             }
         }
-    return view('dashboard.checkin.create', compact('areas', 'em'));
+        return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
     public function search_history(Request $request, $id){  //busca historia para la lista de in
@@ -97,7 +99,6 @@ class InController extends Controller
     public function guardar(Request $request, $id)  //guarda registros de nuevos y editados en la historia del paciente
     {
         $person = Person::where('dni', $request->dni)->first();
-
 
         $reservation = Reservation::find($id);
 
@@ -168,7 +169,7 @@ class InController extends Controller
                }
 
                if (!empty($request->medicine)){
-    
+
                    foreach ($request->medicine as $medicine) {
                        $me = Medicine::find($medicine);
                        $patient->medicine()->attach($me); 
@@ -176,7 +177,7 @@ class InController extends Controller
                }
 
                if (!empty($request->allergy)){
-    
+
                    foreach ($request->allergy as $allergy) {
                        $al = Allergy::find($allergy);
                        $patient->allergy()->attach($al); 
@@ -199,7 +200,7 @@ class InController extends Controller
         $p = Patient::where('person_id', $paciente)->first();
             // dd($p);
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $doctor)->first();
-        
+
         if (empty($io->inside)) {
             InputOutput::create([       
                 'person_id' =>  $paciente,  //paciente tratado
@@ -214,12 +215,29 @@ class InController extends Controller
             return redirect()->back();
         };
 
-        $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
-        //  dd($reservation->patient->inputoutput);
-    
         Alert::success('Paciente dentro');
         return redirect()->back();
+    }
 
+    public function insideOffice($id)
+    {
+        $reservation = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        // dd($reservation);
+        $paciente = $reservation->patient;
+        $doctor = $reservation->person;
+
+        $io = InputOutput::where('person_id', $paciente->id)->where('employe_id', $doctor->id)->first();
+
+        if (empty($io->inside_office)) {
+            $io->inside_office = 'dentro';
+            $io->save();
+        }else{
+            Alert::error('Paciente ya esta dentro del consultorio');
+            return redirect()->back();
+        }
+
+        Alert::success('Paciente dentro del consultorio');
+        return redirect()->back();
     }
     
     public function status(Request $request)
