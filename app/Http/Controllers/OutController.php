@@ -305,7 +305,7 @@ class OutController extends Controller
 
                 $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha'));
 
-                return $pdf->stream('factura.pdf');
+                return $pdf->stream('factura.pdf', array("Attachment" => false));
             }else{
                 Alert::error('No puede procesar la factura');
                 return redirect()->back();

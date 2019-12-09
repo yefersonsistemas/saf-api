@@ -187,18 +187,18 @@
                                             <i class="fa fa-print"></i> examen
                                             </a>
                                         @else
-                                            <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene" type="button">
+                                            <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene" type="button" >
                                                 Generar examen
                                             </a>
                                         @endif
                                     </div>
                                     <div class="col-2 d-flex justify-content-center">
                                         @if($itinerary->recipe_id != null)
-                                            <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo " type="button">
+                                            <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo " type="button" target="_blank">
                                                 <i class="fa fa-print"> </i> Recetario
                                             </a>
                                             @else
-                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
+                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button" target="_blank">
                                                 Generar Recetario
                                             </a>
                                         @endif
