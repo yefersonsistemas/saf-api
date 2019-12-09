@@ -26,22 +26,24 @@
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                         <thead>
                             <tr>
-                                    <th>Foto</th>
-                                    <th>Cedula</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Esepcialidad</th>
-                                    <th>Horario</th>
+                                <th>Foto</th>
+                                <th>Cedula</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Esepcialidad</th>
+                                <th>Horario</th>
+                                <th>Asistencia</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                    <th>Foto</th>
-                                    <th>Cedula</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Esepcialidad</th>
-                                    <th>Horario</th>
+                                <th>Foto</th>
+                                <th>Cedula</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Esepcialidad</th>
+                                <th>Horario</th>
+                                <th>Asistencia</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -66,6 +68,16 @@
                                     <input type="hidden" id="id" value="{{ $employe->person->id }}">
                                     <a class="btn btn-info"  data-toggle="modal" data-target="#{{ $employe->person->name }}{{ $employe->person->id }}">ver</a>
                                     </td>
+                                    <td>
+                                    @if($employe->assistance->first() != '')
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelado</button>
+                                   @endif
+
+                                   @if($employe->assistance->first() == '')
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelar</button>
+                                   @endif
+                                    </td>
+   
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -121,67 +133,123 @@
             </div> 
         </div>
 
+
+
+  
+
     <!-- Modal -->
-        @foreach ($em as $employe) 
-    <div class="modal fade" id="{{ $employe->person->name }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="text-align:center">
-            <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                    
-                    <table class="table table-bordered table-sm" style="borde-radious: 5px">
-                            <thead class="table-info">
-                            <tr>
-                                <th scope="col" style="text-align:center; color:black">Dias</th>
-                                <th scope="col" style="text-align:center; color:black">Turno</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            @foreach ($employe->schedule as $item)
-                                @if ($item->day == 'monday')
-                                <td style="text-align:center">Lunes</td>
-                                @endif
-                                @if ($item->day == 'tuesday')
-                                <td style="text-align:center">Martes</td>
-                                @endif
-                                @if ($item->day == 'wednesday')
-                                <td style="text-align:center">Miercoles</td>
-                                @endif
-                                @if ($item->day == 'thursday')
-                                <td style="text-align:center">Jueves</td>
-                                @endif
-                                @if ($item->day == 'friday')
-                                <td style="text-align:center">Viernes</td>
-                                @endif
-                                @if ($item->turn ==  'mañana')
-                                <td style="text-align:center">Mañana</td>
-                                @endif
-                                @if ($item->turn ==  'tarde')
-                                <td style="text-align:center">Tarde</td>
-                                @endif
-                                
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>    
+    @foreach ($em as $employe) 
+        <div class="modal fade" id="{{ $employe->person->name }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
+                <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                        
+                        <table class="table table-bordered table-sm" style="borde-radious: 5px">
+                                <thead class="table-info">
+                                <tr>
+                                    <th scope="col" style="text-align:center; color:black">Dias</th>
+                                    <th scope="col" style="text-align:center; color:black">Turno</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                @foreach ($employe->schedule as $item)
+                                    @if ($item->day == 'monday')
+                                    <td style="text-align:center">Lunes</td>
+                                    @endif
+                                    @if ($item->day == 'tuesday')
+                                    <td style="text-align:center">Martes</td>
+                                    @endif
+                                    @if ($item->day == 'wednesday')
+                                    <td style="text-align:center">Miercoles</td>
+                                    @endif
+                                    @if ($item->day == 'thursday')
+                                    <td style="text-align:center">Jueves</td>
+                                    @endif
+                                    @if ($item->day == 'friday')
+                                    <td style="text-align:center">Viernes</td>
+                                    @endif
+                                    @if ($item->turn ==  'mañana')
+                                    <td style="text-align:center">Mañana</td>
+                                    @endif
+                                    @if ($item->turn ==  'tarde')
+                                    <td style="text-align:center">Tarde</td>
+                                    @endif
+                                    
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>    
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
-    </div>
-@endforeach
+    @endforeach
+
+    <!--Modal de asistencia-->
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Doctor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="{{ route('checkin.asistencia') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" name="employe_id" class="employe_id">
+                                <label for="message-text" class="col-form-label">Motivo:</label>
+                                <textarea class="form-control" name="motivo" id="message-text"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
 
 @endsection
 
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+
+      <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var recipient = button.data('whatever'); // Extract info from data-* attributes
+            var id  = button.data('id');
+            console.log('recipiente', recipient)
+            console.log('id',id)
+
+            insertDates( id);
+            var modal = $(this);
+            modal.find('.modal-title').text(recipient);
+            $('.employe_id').val(id);
+
+        });
+
+        function insertDates( id){
+            $('#employe_id').val(id);
+        }
+    </script>
 @endsection

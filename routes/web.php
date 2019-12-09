@@ -49,9 +49,11 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::POST('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        Route::post('Doctor/asistencia', 'EmployesController@assistance')->name('checkin.asistencia');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
+ 
 
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
@@ -59,6 +61,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
+        
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
