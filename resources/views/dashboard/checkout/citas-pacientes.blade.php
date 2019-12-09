@@ -135,7 +135,7 @@
                                 <!--si ambos tienen datos-->
                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a href="" disabled class="btn btn-fuera"><i class="icon-login"></i></a>
+                                        <button href="" disabled class="btn btn-fuera"><i class="icon-login"></i></button>
                                     </div>
                                 @endif
                             </div>
