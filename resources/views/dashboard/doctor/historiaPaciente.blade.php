@@ -58,6 +58,7 @@
                     </div>
                 </div>
             </div>
+        </div>
 
             {{-- --------Step-----------}}
             <div class="row clearfix">
@@ -274,7 +275,7 @@
 
                                 <h2>Plan</h2>
                                 <section>
-                                    <ul style="list-style: none !important" class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    {{-- <ul style="list-style: none !important" class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" id="pills-examenes-tab" data-toggle="pill" href="#pills-examenes" role="tab" aria-controls="pills-examenes" aria-selected="true">Examenes</a>
                                         </li>
@@ -317,6 +318,36 @@
                                         <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
                                         <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
                                         <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
+                                    </div> --}}
+                                    <div id="example-tabs">
+                                        <h3>Keyboard</h3>
+                                        <section>
+                                            <p>What is needed to transform it to a tabs component? Not much. Just override some properties and done.</p>
+                                            <pre class="prettyprint linenums">
+                                    $("#wizard").steps({
+                                        // Disables the finish button (required if pagination is enabled)
+                                        enableFinishButton: false, 
+                                        // Disables the next and previous buttons (optional)
+                                        enablePagination: false, 
+                                        // Enables all steps from the begining
+                                        enableAllSteps: true, 
+                                        // Removes the number from the title
+                                        titleTemplate: "#title#" 
+                                    });
+                                    </pre>
+                                        </section>
+                                        <h3>Other demos</h3>
+                                        <section>
+                                            <p>Scroll down or up to see the other demos.</p>
+                                        </section>
+                                        <h3>Documentation</h3>
+                                        <section>
+                                            <p>For more information <a href="https://github.com/rstaib/jquery-steps/wiki">check out the documentation</a>!</p>
+                                        </section>
+                                        <h3>Download</h3>
+                                        <section>
+                                            <p>See on getting started!</p>
+                                        </section>
                                     </div>
                                 </section>
                             </div>
@@ -367,11 +398,6 @@
             previous: "Anterior",
             loading: "Cargando ..."
         }
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> dfde842baacc0b972f3509c5570c5ce5c8509e28
         // onInit: function(event, currentIndex) {
         //     setButtonWavesEffect(event);
         // },
@@ -379,6 +405,17 @@
         //     setButtonWavesEffect(event);
         // }
     });
+
+    $("#example-tabs").steps({
+    headerTag: "h3",
+    bodyTag: "section",
+    transitionEffect: "slideLeft",
+    enableFinishButton: false,
+    enablePagination: false,
+    enableAllSteps: true,
+    titleTemplate: "#title#",
+    cssClass: "tabcontrol"
+});
 
     function setButtonWavesEffect(event) {
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
