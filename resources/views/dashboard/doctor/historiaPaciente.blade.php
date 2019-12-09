@@ -275,26 +275,28 @@
 
                                 <h2>Plan</h2>
                                 <section>
-                                    {{-- <ul style="list-style: none !important" class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="pills-examenes-tab" data-toggle="pill" href="#pills-examenes" role="tab" aria-controls="pills-examenes" aria-selected="true">Examenes</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="pills-recetario-tab" data-toggle="pill" href="#pills-recetario" role="tab" aria-controls="pills-recetario" aria-selected="false">Recetario</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="pills-informe-tab" data-toggle="pill" href="#pills-informe" role="tab" aria-controls="pills-informe" aria-selected="false">Informe médico</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="pills-reposo-tab" data-toggle="pill" href="#pills-reposo" role="tab" aria-controls="pills-reposo" aria-selected="false">Reposo</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="pills-referencia-tab" data-toggle="pill" href="#pills-referencia" role="tab" aria-controls="pills-referencia" aria-selected="false">Referir a otro médico</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
-                                        </li>
-                                    </ul>
+                                    <div class="plan-steps">
+                                        <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="pills-examenes-tab" data-toggle="pill" href="#pills-examenes" role="tab" aria-controls="pills-examenes" aria-selected="true">Examenes</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-recetario-tab" data-toggle="pill" href="#pills-recetario" role="tab" aria-controls="pills-recetario" aria-selected="false">Recetario</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-informe-tab" data-toggle="pill" href="#pills-informe" role="tab" aria-controls="pills-informe" aria-selected="false">Informe médico</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-reposo-tab" data-toggle="pill" href="#pills-reposo" role="tab" aria-controls="pills-reposo" aria-selected="false">Reposo</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-referencia-tab" data-toggle="pill" href="#pills-referencia" role="tab" aria-controls="pills-referencia" aria-selected="false">Referir a otro médico</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <div class="tab-content" id="pills-tabContent">
                                         <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                             <div class="col-lg-12 col-md-12">
@@ -313,41 +315,11 @@
                                         <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">Reposo...</div>
                                         <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">Referencia...</div>
                                         <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">Proxima cita...</div>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
-                                        <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
-                                        <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
-                                    </div> --}}
-                                    <div id="example-tabs">
-                                        <h3>Keyboard</h3>
-                                        <section>
-                                            <p>What is needed to transform it to a tabs component? Not much. Just override some properties and done.</p>
-                                            <pre class="prettyprint linenums">
-                                    $("#wizard").steps({
-                                        // Disables the finish button (required if pagination is enabled)
-                                        enableFinishButton: false, 
-                                        // Disables the next and previous buttons (optional)
-                                        enablePagination: false, 
-                                        // Enables all steps from the begining
-                                        enableAllSteps: true, 
-                                        // Removes the number from the title
-                                        titleTemplate: "#title#" 
-                                    });
-                                    </pre>
-                                        </section>
-                                        <h3>Other demos</h3>
-                                        <section>
-                                            <p>Scroll down or up to see the other demos.</p>
-                                        </section>
-                                        <h3>Documentation</h3>
-                                        <section>
-                                            <p>For more information <a href="https://github.com/rstaib/jquery-steps/wiki">check out the documentation</a>!</p>
-                                        </section>
-                                        <h3>Download</h3>
-                                        <section>
-                                            <p>See on getting started!</p>
-                                        </section>
+                                        <div class="col-md-6 text-right">
+                                            <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
+                                            <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
+                                            <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
+                                        </div>
                                     </div>
                                 </section>
                             </div>
@@ -355,6 +327,20 @@
                     </div>
                 </div>
             </div>
+            <div id="step-tabs">
+                    <h3>Keyboard</h3>
+                    <section>
+                    </section>
+                    <h3>Other demos</h3>
+                    <section>
+                    </section>
+                    <h3>Documentation</h3>
+                    <section>
+                    </section>
+                    <h3>Download</h3>
+                    <section>
+                    </section>
+                </div>
         </div>
     </div>
 </div>
@@ -406,7 +392,7 @@
         // }
     });
 
-    $("#example-tabs").steps({
+    $("#step-tabs").steps({
     headerTag: "h3",
     bodyTag: "section",
     transitionEffect: "slideLeft",
