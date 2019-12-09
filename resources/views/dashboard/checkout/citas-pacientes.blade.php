@@ -86,16 +86,20 @@
                 <div class="accordion" id="accordionExample" id="todas" role="tabpanel" aria-labelledby="pills-home-tab">
                     @foreach ($itinerary as $itinerary)
 
-                        @if($itinerary->status == 'espera')
+                        @if($itinerary->status == 'dentro') <!--esta en espera-->
                         <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">
                         @endif
 
-                        @if($itinerary->status == 'dentro')
-                        <div class="card " style="border-radius:3px; border:2px solid #00ad88">
+                        @if($itinerary->status == 'dentro_office')<!--dentro del consultorio-->
+                        <div class="card" style="border-radius:3px; border:2px solid  #00ad88">
                         @endif
 
-                        @if($itinerary->status == 'fuera')
+                        @if($itinerary->status == 'fuera_office')<!--fuera del consultorio-->
                         <div class="card " style="border-radius:3px; border:2px solid #B40404">
+                        @endif
+
+                        @if($itinerary->status == 'fuera')<!--fuera de las instalaciones-->
+                        <div class="card " style="border-radius:3px; border:2px solid #ccc">
                         @endif
 
                             <div class="row card-header pl-5 pr-5 heig" id="headingOne" >
@@ -118,26 +122,40 @@
                                     </div>
                                 </div>
                                 
-                                <!--si ambos estan vacios-->
-                                @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                <!--es espera-->
+                                @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i></a>
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i>todos</a>
                                     </div>
                                 @endif
 
-                                <!--si fuera esta vacios-->
-                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                 <!--dentro de las instalaciones-->
+                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-fuera"><i class="icon-login"></i></a>
+                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-amarillo"><i class="icon-login"></i></button>
+                                    </div>
+                                 @endif
+
+                                <!--fuera del consultorio-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-inside-c"><i class="icon-login"></i></button>
                                     </div>
                                 @endif
 
-                                <!--si ambos tienen datos-->
-                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->outside))
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <button href="" disabled class="btn btn-fuera"><i class="icon-login"></i></button>
-                                    </div>
-                                @endif
+                                  <!--fuera del consultorio-->
+                                  @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                      <div class="col-4 d-flex justify-content-end">
+                                          <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside-c"><i class="icon-login"></i></a>
+                                      </div>
+                                  @endif
+
+                                    <!--fuera de las instalaciones-->
+                                    @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && !empty($itinerary->person->inputoutput->first()->outside))
+                                        <div class="col-4 d-flex justify-content-end">
+                                            <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside"><i class="icon-login"></i></button>
+                                        </div>
+                                    @endif
                             </div>
 
                                 <!--informacion del paciente reservacion y demas-->
