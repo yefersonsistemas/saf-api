@@ -135,6 +135,9 @@ footer {
     margin-top: 40px;
 }
 
+.conte{
+margin-top: -15px;
+}
 
 </style>
 </head>
@@ -157,12 +160,17 @@ footer {
                     <p>A quien pueda interesar.</p> 
                 </div>
                 <div class="contenido">
-                    <p>El Paciente indique el nombre del paciente, CI: indique la cédula del paciente, 
+                    <p>
+                        El Paciente indique el nombre del paciente, CI: indique la cédula del paciente, 
                         manifiesta que presenta: indique los síntomas presentados. 
                     </p><br>
-                    <p>En la evaluación de ingreso del (día/mes/año) se encontró: indique los hallazgos médico. 
+                    <p class="conte">
+                        En la evaluación de ingreso del (día/mes/año) se encontró: indique los hallazgos médico. 
                         concluyendo que el paciente posee Indique el diagnóstico, se indicó tratamiento médico.
-                    </p>
+                    </p><br>
+                    <p class="conte">
+                        Se indica reposo desde el (día/mes/año) hasta el (día/mes/año) debiendo ingresar el día (día/mes/año) 
+                    </p> 
                 </div>
                 <div class="fecha">
                     <h3>Constancia que se expide a petición de la persona interesada en Santo Domingo, día mes año.</h3>
