@@ -1,5 +1,9 @@
 
-
+<style>
+    .bg-indigo{
+        margin-top: 195px;
+    }
+</style>
 
 <div id="left-sidebar" class="sidebar">
     <div class="container">
@@ -59,9 +63,9 @@
                     </li>
                     {{-- <div class="col-lg-2 col-md-2"> --}}
                         <div class="card bg-indigo" style="background-color: #00506b;">
-                            <div class="card-header">
+                            {{-- <div class="card-header">
                                 <h3 class="card-title text-white">Fechas</h3>
-                            </div>
+                            </div> --}}
                             <div class="card-body text-center">
                                 <div class="inline-datepicker datepicker-reception fill_bg"></div>
                             </div>
@@ -73,7 +77,7 @@
                         
                         
                         @role('doctor')
-                        <li>
+                        {{-- <li>
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-lock"></i><span>Authentication</span></a>
                             <ul>
                                 <li><a href="login.html">Login</a></li>
@@ -82,7 +86,7 @@
                                 <li><a href="404.html">404 error</a></li>
                                 <li><a href="500.html">500 error</a></li>   
                             </ul>
-                        </li> 
+                        </li>  --}}
                         {{-- <li class="g_heading">Pages</li>
                         <li>
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Icons</span></a>

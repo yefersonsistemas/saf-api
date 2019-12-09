@@ -273,14 +273,12 @@
     }
 
     function enabled() {
-
-        $("#photo").empty();
-        $('#name').empty();
-        $('#lastname').empty();
-        $('#email').empty();
-        $('#address').empty();
-        $('#phone').empty();
-        $('#submit').empty();
+        $("#photo").val('');
+        $('#name').val('');
+        $('#lastname').val('');
+        $('#email').val('');
+        $('#address').val('');
+        $('#phone').val('');
 
         $("#photo").removeAttr('disabled');
         $(".dropify-wrapper").removeClass('disabled');
@@ -356,6 +354,10 @@
                     $('.datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
+                        startDate: data.start,
+                        endDate: data.end,
+                        daysOfWeekHighlighted: [0,6],
+                        datesDisabled: data.diff,
                     });
                     $('#fecha').val();
                 })
@@ -405,7 +407,7 @@
                     datesDisabled: data.available,
                     daysOfWeekDisabled: '0'
                 });
-                window.location.href = "{{ route('citas.index') }}";
+                window.location.href = "{{ route('checkin.index') }}";
             })
             .fail(function(data) {
                 console.log(data);
