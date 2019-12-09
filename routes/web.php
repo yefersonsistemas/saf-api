@@ -86,6 +86,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('imprimir/recipe/{id}/{patient}/{employe}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
         Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
+        Route::get('constancia','OutController@imprimir_constancia')->name('checkout.imprimir_constancia');
+        Route::get('reposo','OutController@imprimir_reposo')->name('checkout.imprimir_reposo');
+        Route::get('referencia','OutController@imprimir_referencia')->name('checkout.imprimir_referencia');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
