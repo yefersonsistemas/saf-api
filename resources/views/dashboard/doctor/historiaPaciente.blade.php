@@ -327,20 +327,6 @@
                     </div>
                 </div>
             </div>
-            <div id="step-tabs">
-                    <h3>Keyboard</h3>
-                    <section>
-                    </section>
-                    <h3>Other demos</h3>
-                    <section>
-                    </section>
-                    <h3>Documentation</h3>
-                    <section>
-                    </section>
-                    <h3>Download</h3>
-                    <section>
-                    </section>
-                </div>
         </div>
     </div>
 </div>
@@ -391,17 +377,6 @@
         //     setButtonWavesEffect(event);
         // }
     });
-
-    $("#step-tabs").steps({
-    headerTag: "h3",
-    bodyTag: "section",
-    transitionEffect: "slideLeft",
-    enableFinishButton: false,
-    enablePagination: false,
-    enableAllSteps: true,
-    titleTemplate: "#title#",
-    cssClass: "tabcontrol"
-});
 
     function setButtonWavesEffect(event) {
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
