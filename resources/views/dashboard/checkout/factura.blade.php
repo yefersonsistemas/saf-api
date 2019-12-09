@@ -31,6 +31,7 @@
                                             </div>                             
                                         </div>
                                         <div class="card-body mt-0 " style="top:-50px">
+                                        <!--Paciente-->
                                             <div class="row">
                                                 <div class="col-3">
                                                     <span class="h6 h66"><i class="fa fa-user mr-2" style="font-size:18px"></i>Paciente:</span>
@@ -46,6 +47,8 @@
                                                     <span id="phone" class="text form-control p-1 text-left"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ $itinerary->person->phone }}</span><br>
                                                 </div>
                                             </div>
+
+                                        <!--Medico tratante-->
                                             <div class="row">
                                                 <div class="col-3">
                                                     <span class="h6 h66"><i class="fa fa-user-md mr-2" style="font-size:18px"></i>Medico tratante:</span>
@@ -79,6 +82,7 @@
                                                         </div>
                                                 </div>
                                             </div><br>
+                                            <!--Persona a cancelar-->
                                             <div class="row">
                                                 <div class="col-3 mt-2">
                                                     <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> Pagado por:</span>
@@ -93,6 +97,8 @@
                                                     <span class="text form-control p-1"><i class="fa fa-phone pl-1"></i>&nbsp;<span id="phone_c" class="text text-left"></span></span>
                                                 </div>
                                             </div>
+
+                                            <!---->
                                             <div class="row mt-4">
                                                 <div class="col-lg-6 col-md-6">
                                                     <span class="h6 h66">Tipo de moneda:</span>

@@ -32,13 +32,13 @@
                                     <a id="search"name="search" class="search btn btn-boo" style="color:#fff"><i class="icon-magnifier"></i></a>
                                 </div>
 
-                                <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
+                                {{-- <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                         @foreach ($procedimientos as $procedimiento)
                                             <option value="{{ $procedimiento->id }}" >{{ $procedimiento->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>          
+                                </div>           --}}
                             </div>
                         </div>
                     </div>
@@ -327,7 +327,7 @@
             //------------- consulta ---------------------
             if(data.encontrado[0].doctor_id != null){
 
-console.log('consulta', data.encontrado[0].employe.doctor);
+                console.log('consulta', data.encontrado[0].employe.doctor);
                 costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
                 consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
                 $("#consulta").append(consulta_html);
@@ -363,8 +363,6 @@ console.log('consulta', data.encontrado[0].employe.doctor);
             cu = parseInt(costo_consulta);
             ci = parseInt(costo_cirugia);
             p = parseInt(costo_procedimientos);
-            // resul = Math.round(costo_procedimientos).toFixed(2);
-            // console.log('kenwherly', resul);
             
             costo_total = cu + ci + p ;
             total = costo_total;
@@ -423,11 +421,6 @@ console.log('consulta', data.encontrado[0].employe.doctor);
       
             });
           }); // fin de la funcion para agregar procedimientos
-
-        //   $("#select").dblclick(function){
-        //     var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
-        //     console.log('estos son doble click ',procedure_id);
-        //   });
 
         }); //fin del documento
       </script>
