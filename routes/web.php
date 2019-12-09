@@ -41,13 +41,14 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:IN']], function () {
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
-        Route::POST('assigment/area', 'InController@assigment')->name('checkin.assigment');
+        Route::post('assigment/area', 'InController@assigment')->name('checkin.assigment');
         Route::post('search/area','InController@search_area')->name('search.area');  //revisa si el area esta ocupada
         Route::post('search/medico','InController@search_medico')->name('search.medico');  //busca los doctores
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente a dentro del consultorio
+        Route::get('insideOffice/{id}', 'InController@insideOffice')->name('checkin.insideOffice'); // cambia estado depaciente a dentro del consultorio
         Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
-        Route::POST('create', 'InController@store')->name('checkin.store');
+        Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
