@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
          * Persona que sera el medico
          */
         $person = Person::create([
-            'type_dni' => 'V',
+            'type_dni' => 'N',
             'dni' => '12345679',
             'name' => 'NATALIA',
             'lastname' => 'NEIRA',
@@ -258,7 +258,7 @@ class UsersTableSeeder extends Seeder
 
 
         $person = Person::create([
-            'type_dni' => 'V',
+            'type_dni' => 'N',
             'dni' => '12345678',
             'name' => 'JOSE PASTOR',
             'lastname' => 'LINAREZ',
@@ -297,7 +297,7 @@ class UsersTableSeeder extends Seeder
         });
 
         $person = Person::create([
-            'type_dni' => 'V',
+            'type_dni' => 'N',
             'dni' => '12345675',
             'name' => 'ANDERLIN',
             'lastname' => 'RODRIGUEZ',
@@ -338,7 +338,7 @@ class UsersTableSeeder extends Seeder
         });
 
         $person = Person::create([
-            'type_dni' => 'V',
+            'type_dni' => 'N',
             'dni' => '12345672',
             'name' => 'ANA KARINA',
             'lastname' => 'COLOMBO',
@@ -380,7 +380,7 @@ class UsersTableSeeder extends Seeder
         });
 
         $person = Person::create([
-            'type_dni' => 'V',
+            'type_dni' => 'N',
             'dni' => '12345673',
             'name' => 'LIDIA',
             'lastname' => 'COLOMBO',

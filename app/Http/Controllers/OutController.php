@@ -326,8 +326,11 @@ class OutController extends Controller
         for ($i=0; $i < count($examen) ; $i++) { 
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
+        
+
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
-        return $pdf->stream('examen.pdf');
+        return $pdf->stream('examen.pdf' ,array('Attachment'=>0));
+        // $output = $pdf->output(); file_put_contents('examen.pdf', $output);
     }
 
 
