@@ -98,7 +98,7 @@
                                                 </div>
                                             </div>
 
-                                            <!---->
+                                            <!--tipo de moneda-->
                                             <div class="row mt-4">
                                                 <div class="col-lg-6 col-md-6">
                                                     <span class="h6 h66">Tipo de moneda:</span>
@@ -110,6 +110,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <!--tipo de pago-->
                                                 <div class="col-lg-6 col-md-6">
                                                     <span class="h6 h66">Tipo de pago:</span>
                                                     <div class="form-group multiselect_div mt-2">
@@ -121,27 +122,29 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!--Modal-->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        ...
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="modal-body">
-                                                    ...
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </div>
+
                                             <div class="table-responsive push">
-                                            <div></div>
                                                 <table class="table table-bordered table-hover mt-5">
                                                     <tbody style="border-bottom: 1px solid #000">
                                                         <td colspan="5" class="text-left pl-4" style="font-weight:bold; ">DESCRIPCION</td>
@@ -203,6 +206,7 @@
             </div>
         </div>
     </form>
+
     <!--modal-->
     <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -291,34 +295,34 @@
         }); //fin de la funcion clikea
         //=================== funcion para registrar al cliente================
         function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {
-                $.ajax({ 
-                    url: "{{ route('checkout.person') }}",  
-                    type: "POST",                            
-                    data: {
-                        _token: "{{ csrf_token() }}",        
-                        type_dni: tipo_dni,
-                        dni:dni,
-                        name:name,
-                        lastname:lastname,
-                        phone:phone,
-                        email:email,
-                        address:address,                           
-                    }
-                })
-                .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                    console.log('esto',data);
-                    if (data[0] == 201) {                       
-                        Swal.fire({
-                            title: 'Excelente!',
-                            text:  'Registro satisfactorio',
-                            type:  'success',
-                        })
-                        factura_cliente(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                    }
-                })
-                .fail(function(data) {
-                    console.log(data);
-                })
+            $.ajax({ 
+                url: "{{ route('checkout.person') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    type_dni: tipo_dni,
+                    dni:dni,
+                    name:name,
+                    lastname:lastname,
+                    phone:phone,
+                    email:email,
+                    address:address,                           
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[0] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  'Registro satisfactorio',
+                        type:  'success',
+                    })
+                    factura_cliente(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
         } // fin de la funcion que busca datos del paciente/doctor/procedimientos
         //================================== para porder mostrar en el documento html ==========================
         function factura_cliente(data) {

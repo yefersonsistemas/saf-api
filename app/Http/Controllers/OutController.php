@@ -316,7 +316,6 @@ class OutController extends Controller
         }
     }
 
-
     //============================ imprimir examen ============================
     public function imprimir_examen(Request $request)
     {
@@ -327,10 +326,8 @@ class OutController extends Controller
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
         
-
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
-        return $pdf->stream('examen.pdf' ,array('Attachment'=>0));
-        // $output = $pdf->output(); file_put_contents('examen.pdf', $output);
+        return $pdf->stream('examen.pdf');
     }
 
 
