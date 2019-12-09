@@ -127,9 +127,9 @@
                                         <tr>
                                             <td>
                                                 @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
-                                                <img src="" alt="" >
+                                                    <img src="" alt="" >
                                                 @endif
                                             </td>
                                             <td class="text-center">
