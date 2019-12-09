@@ -16,37 +16,27 @@
 <!-- Core css -->
 <link rel="stylesheet" href="..\assets\css\main.css">
 <link rel="stylesheet" href="assets\css\default.css">
+<link rel="stylesheet" href="..\assets\css\brandMaster.css">
 
 </head>
 <body class="font-opensans">
-<style>
-    img {
-        margin-top: 40px;
-        max-width: 50%;
-    }
-
-    .auth .auth_right img {
-        width: 1023px;
-        margin-top: 0px; 
-    }
-</style>
 
 <div class="auth">
     <div class="auth_left">
-        <div class="card">
-            <div class="text-center mb-5">
+        <div class="card border-0">
+            <div class="text-center mb-3">
                 <a class="header-brand" href="https://sinussystem.logotipomiami.com/login">
-                    <img src="{{ asset('img/logosinus.svg') }}" alt="">
+                    <img src="{{ asset('img/Imagotipo_S&F-NOV_Vertical-01.svg') }}" alt="">
                 </a>
             </div>
-            <div class="card-body">
-                <div class="card-title">Ingresa a tu cuenta</div>
+            <div class="card-body text-center">
+                <h5 class="card-title font-weight-bold">System Access</h5>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="form-group">
-                        <label for="email" class="form-label">{{ __('Correo Electrónico') }}</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        {{-- <label for="email" class="form-label">{{ __('Correo Electrónico') }}</label> --}}
+                        <input id="email" type="email" class="form-control bg-input-gris border-0 @error('email') is-invalid @enderror"  placeholder="User"name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -54,27 +44,27 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="password" class="form-label">{{ __('Contraseña') }}
+                        {{-- <label for="password" class="form-label">{{ __('Contraseña') }} --}}
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="float-right small">I forgot password</a>
+                                {{-- <a href="{{ route('password.request') }}" class="float-right small">Olvide mi clave</a> --}}
                             @endif
                         </label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <input id="password" type="password" class="form-control bg-input-gris border-0  @error('password') is-invalid @enderror" placeholder="Pass" name="password" required autocomplete="current-password">
                         @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" {{ old('remember') ? 'checked' : '' }}>
                             <span class="custom-control-label">Recordar</span>
                         </label>
-                    </div>
-                    <div class="form-footer">
-                        <button type="submit" class="btn btn-primary btn-block">
-                            {{ __('Iniciar Sesion') }}
+                    </div> --}}
+                    <div class="form-footer text-center">
+                        <button type="submit" class="btn btn-azuloscuro">
+                            {{ __('Open System') }}
                         </button>
                     </div>
                 </form>
@@ -83,17 +73,17 @@
     </div>
 
     <div class="auth_right">
-        <div class="carousel slide" data-ride="carousel" data-interval="3000">
+        <div class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000" >
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('img\auth\Login_1.jpg') }}" class="img-fluid" alt="login page">
+                    <img src="{{ asset('img\auth\black-doctor-9.jpg') }}" class="img-fluid item" alt="login page">
                     {{-- <div class="px-4 mt-4">
                         <h4>Fully Responsive</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     </div> --}}
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('img\auth\Login_2.jpg') }}" class="img-fluid" alt="login page">
+                    <img src="{{ asset('img\auth\estetoscopio-doctor.jpg') }}" class="img-fluid item" alt="login page">
                     {{-- <div class="px-4 mt-4">
                         <h4>Quality Code and Easy Customizability</h4>
                         <p>There are many variations of passages of Lorem Ipsum available.</p>

@@ -309,3 +309,119 @@ ul[role="tablist"] {
     color: #fff;
     cursor: default;
 }
+
+html,
+body,
+.carousel,
+.carousel-inner,
+.carousel-inner .item {
+    height: 100%;
+    width: 100%;
+}
+
+.auth .auth_right img {
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    margin-top: 0px;
+    height: 789px;
+    vertical-align: top;
+}
+
+.header-brand img {
+    margin-top: 40px;
+    max-width: 50%;
+}
+
+.bg-azuloscuro {
+    background: #00506b;
+}
+
+.bg-verdePastel {
+    background: #00ba88;
+}
+
+.btn-verdePastel {
+    color: #fff;
+    background: #00ba88;
+}
+
+.btn-azuloscuro {
+    color: #fff;
+    background: #00506b;
+}
+
+.btn-verdePastel:hover {
+    color: #fff;
+    background-color: #009e74;
+    border-color: #009e74;
+}
+
+.btn-azuloscuro:hover {
+    color: #fff;
+    background-color: #023e52;
+    border-color: #023e52;
+}
+
+.text-verdePastel {
+    color: #00ba88;
+}
+
+.text-azuloscuro {
+    color: #00506b;
+}
+
+.badge-verdePastel {
+    background: #00ba88;
+}
+
+.badge-azuloscuro {
+    background: #00506b;
+}
+
+.btn-outline-verdePastel {
+    color: #00ba88!important;
+    border-color: #00ba88;
+}
+
+.btn-outline-azuloscuro {
+    color: #00506b;
+    border-color: #00506b;
+}
+
+.bg-input-gris {
+    background: #e3e3e3 !important;
+}
+
+.bg-input-gris:focus {
+    border-color: #e3e3e3 !important;
+    box-shadow: 0 0 0 0.2rem rgba(77, 80, 82, .25) !important;
+}
+
+.btn-outline-azuloscuro:not(:disabled):not(.disabled).active,
+.btn-outline-azuloscuro:not(:disabled):not(.disabled):active,
+.show>.btn-outline-azuloscuro.dropdown-toggle {
+    color: #fff;
+    background-color: #00506b;
+    border-color: #00506b;
+}
+
+.btn-outline-verdePastel:not(:disabled):not(.disabled).active,
+.btn-outline-verdePastel:not(:disabled):not(.disabled):active,
+.show>.btn-outline-verdePastel.dropdown-toggle {
+    color: #fff!important;
+    background-color: #00ba88;
+    border-color: #00ba88;
+}
+
+.btn-outline-azuloscuro:hover {
+    color: #fff;
+    background-color: #00506b;
+    border-color: #00506b;
+}
+
+.btn-outline-verdePastel:hover {
+    color: #fff!important;
+    background-color: #00ba88;
+    border-color: #00ba88;
+}

@@ -17,7 +17,9 @@ class CreateInputoutputTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
             $table->string('inside')->nullable();
+            $table->string('inside_office')->nullable();
             $table->string('outside')->nullable();
+            $table->string('outside_office')->nullable();
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
