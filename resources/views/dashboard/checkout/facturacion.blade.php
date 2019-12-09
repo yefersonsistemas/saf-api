@@ -56,6 +56,7 @@
                             <div class="col-10 ml-5">
                                   
                                 <div class="card">
+
                                     <div class="card-body row my-8  pl-4">
                                         <div class="col-3"><h2>Facturación</h2></div>
                                         <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
@@ -108,9 +109,6 @@
                                                     </div>
 
                                               </div>
-
-                                                </div>
-
                                                 <div class="row ml-3">
                                                     <div class="col-md-5">
                                                         <span style="font-weight:bold; ">Telefono:</span>
@@ -318,6 +316,7 @@
 
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
+            console.log('hola');
 
             data_paciente = data.encontrado[0].person; //uasarla mas adelante
             
@@ -328,60 +327,48 @@
             //------------- consulta ---------------------
             if(data.encontrado[0].doctor_id != null){
 
-                console.log('hoal');
-                price_consulta= data.encontrado[0].employe.doctor.price;
+console.log('consulta', data.encontrado[0].employe.doctor);
                 costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
                 consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
                 $("#consulta").append(consulta_html);
+
             }
 
             //-------------------cirugia -----------------
             if(data.encontrado[0].surgery != null){
-                console.log('cirugia');
+                console.log('cirugia',data.encontrado[0].surgery)
                 nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
 
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
-                console.log('cirugia',costo_cirugia);
             }
   
              // --------------------Procedures -------------
             if(data.procedureS != null){
+                console.log('procedures', data.procedureS)
                 $("#procedure").append(procedure);
 
                 for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
                     costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
-                    console.log('cooo', costo_procedimientos);
-                    console.log('cooo', data.procedureS[i].price);
-                    // var process = 0;
-                    // var precio = 0;
-
-                    // process = data.procedureS[i].price;
-                    // console.log('proces',process);
-                    // var precio = process.toFixed(2);
-                    // console.log('precio',precio);
-
+                  
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
                     procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
                     $("#columna").append(procedure_select);
                 }
             }
-            
-            console.log(costo_procedimientos);
 
             cu = parseInt(costo_consulta);
             ci = parseInt(costo_cirugia);
             p = parseInt(costo_procedimientos);
-            resul = Math.round(costo_procedimientos).toFixed(2);
-            console.log('kenwherly', resul);
+            // resul = Math.round(costo_procedimientos).toFixed(2);
+            // console.log('kenwherly', resul);
             
             costo_total = cu + ci + p ;
             total = costo_total;
 
-            console.log('totallllllll',total);
             $('#total').val(costo_total);
             
 
