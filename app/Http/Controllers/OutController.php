@@ -304,8 +304,8 @@ class OutController extends Controller
                 }
 
                 $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha'));
-
-                return $pdf->stream('factura.pdf', array("Attachment" => false));
+                
+                return $pdf->stream('factura.pdf');
             }else{
                 Alert::error('No puede procesar la factura');
                 return redirect()->back();
@@ -329,7 +329,7 @@ class OutController extends Controller
         
 
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
-        return $pdf->stream('examen.pdf' ,array('Attachment'=>0));
+        return $pdf->stream('examen.pdf');
         // $output = $pdf->output(); file_put_contents('examen.pdf', $output);
     }
 
@@ -346,7 +346,23 @@ class OutController extends Controller
         return $pdf->stream('recipe.pdf');
     }
 
+    public function imprimir_constancia(){
 
+    $pdf = PDF::loadview('dashboard.checkout.print_constancia');
+    return $pdf->stream('constancia.pdf');
+    }
+
+    public function imprimir_referencia(){
+
+        $pdf = PDF::loadview('dashboard.checkout.print_referencia');
+        return $pdf->stream('referencia.pdf');
+    }
+
+    public function imprimir_reposo(){
+
+        $pdf = PDF::loadview('dashboard.checkout.print_reposo');
+        return $pdf->stream('reposo.pdf');
+    }
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {

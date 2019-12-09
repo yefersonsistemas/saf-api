@@ -29,7 +29,7 @@ body {
   font-family: Arial;
 }
 
- main {
+main {
   position: relative;
 }
 
@@ -249,7 +249,7 @@ span .name{
     <table>
       <thead>
         <tr>
-          <th class="services">Examen Medico</th>
+          <th class="services">Orden de Examen Medico</th>
           {{-- <th class="desc">INDICACIONES</th> --}}
         </tr>
         </thead>
