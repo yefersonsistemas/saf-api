@@ -350,11 +350,17 @@ class OutController extends Controller
         $patient = InputOutput::where('person_id', $patient_id)->first();
         $p = Patient::where('person_id', $patient->person_id)->first();
         $io = InputOutput::where('person_id', $p->person_id)->first();
+        $itinerary =  Itinerary::where('patient_id', $patient->person_id)->first();
 
         if (!empty($patient->inside) && empty($patient->outside)) {
           
             $patient->outside = 'fuera';
             $patient->save();
+
+            $itinerary->status = 'fuera';
+            $itinerary->save();
+
+
         }else{
             Alert::error('Paciente ya ha salido');
             return redirect()->back();
