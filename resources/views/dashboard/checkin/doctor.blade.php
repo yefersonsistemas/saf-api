@@ -64,18 +64,20 @@
                                         {{ $item->name }} <br>
                                     @endforeach
                                     </td>
+                                    <!--Ver horario del medico-->
                                     <td>
-                                    <input type="hidden" id="id" value="{{ $employe->person->id }}">
-                                    <a class="btn btn-info"  data-toggle="modal" data-target="#{{ $employe->person->name }}{{ $employe->person->id }}">ver</a>
+                                        <input type="hidden" id="id" value="{{ $employe->person->id }}">
+                                        <a class="btn btn-info"  data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}">ver</a>
                                     </td>
+                                    <!--Asistencia del medico-->
                                     <td>
-                                    @if($employe->assistance->first() != '')
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelado</button>
-                                   @endif
+                                        @if($employe->assistance->first() != '')
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelado</button>
+                                        @endif
 
-                                   @if($employe->assistance->first() == '')
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelar</button>
-                                   @endif
+                                        @if($employe->assistance->first() == '')
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelar</button>
+                                        @endif
                                     </td>
    
                                 </tr>
@@ -96,6 +98,7 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Esepcialidad</th>
+                                <th>Horario</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -105,6 +108,7 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Esepcialidad</th>
+                                <th>Horario</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -120,10 +124,14 @@
                                     <td>{{ $employe->person->dni }}</td>
                                     <td>{{ $employe->person->name }}</td>
                                     <td>{{ $employe->person->lastname }}</td>
-                                    <td>
+                                    <td>     <!--Especialidad-->
                                     @foreach ($employe->speciality as $item)
                                         {{ $item->name }} <br>
                                     @endforeach
+                                    </td>
+                                    <td>   <!--Ver horario del medico-->
+                                        <input type="hidden" id="id" value="{{ $employe->person->id }}">
+                                        <a class="btn btn-info"  data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}">ver</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -139,7 +147,7 @@
 
     <!-- Modal -->
     @foreach ($em as $employe) 
-        <div class="modal fade" id="{{ $employe->person->name }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="text-align:center">
@@ -158,32 +166,33 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                              
                                 <tr>
-                                @foreach ($employe->schedule as $item)
-                                    @if ($item->day == 'monday')
-                                    <td style="text-align:center">Lunes</td>
-                                    @endif
-                                    @if ($item->day == 'tuesday')
-                                    <td style="text-align:center">Martes</td>
-                                    @endif
-                                    @if ($item->day == 'wednesday')
-                                    <td style="text-align:center">Miercoles</td>
-                                    @endif
-                                    @if ($item->day == 'thursday')
-                                    <td style="text-align:center">Jueves</td>
-                                    @endif
-                                    @if ($item->day == 'friday')
-                                    <td style="text-align:center">Viernes</td>
-                                    @endif
-                                    @if ($item->turn ==  'mañana')
-                                    <td style="text-align:center">Mañana</td>
-                                    @endif
-                                    @if ($item->turn ==  'tarde')
-                                    <td style="text-align:center">Tarde</td>
-                                    @endif
-                                    
-                                </tr>
-                                @endforeach
+                                    @foreach ($employe->schedule as $item)
+                                        @if ($item->day == 'monday')
+                                        <td style="text-align:center">Lunes</td>
+                                        @endif
+                                        @if ($item->day == 'tuesday')
+                                        <td style="text-align:center">Martes</td>
+                                        @endif
+                                        @if ($item->day == 'wednesday')
+                                        <td style="text-align:center">Miercoles</td>
+                                        @endif
+                                        @if ($item->day == 'thursday')
+                                        <td style="text-align:center">Jueves</td>
+                                        @endif
+                                        @if ($item->day == 'friday')
+                                        <td style="text-align:center">Viernes</td>
+                                        @endif
+                                        @if ($item->turn ==  'mañana')
+                                        <td style="text-align:center">Mañana</td>
+                                        @endif
+                                        @if ($item->turn ==  'tarde')
+                                        <td style="text-align:center">Tarde</td>
+                                        @endif
+                                          </tr>
+                                    @endforeach
+                                
                                 </tbody>
                             </table>    
                         </div>
