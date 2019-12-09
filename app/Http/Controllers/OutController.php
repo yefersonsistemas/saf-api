@@ -37,7 +37,6 @@ use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
 {
-   
     //=================== listando los pacientes del dia ==================
     public function index()
     {
