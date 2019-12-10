@@ -35,7 +35,9 @@ class DoctorController extends Controller
     {
         $id=Auth::id();
         $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
-        return view('dashboard.doctor.index',compact('patients'));
+        $all = Reservation::with('patient.historyPatient')->where('person_id',$id )->get();
+        // dd($all);
+        return view('dashboard.doctor.index',compact('patients', 'todas', 'mensual', 'semanal'));
     }
 
     /**

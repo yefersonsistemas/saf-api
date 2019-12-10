@@ -125,7 +125,7 @@
                         </div>
                     </div>                
                 </div>
-                <div class="tab-pane fade show active" id="pills-week" role="tabpanel" aria-labelledby="pills-week-tab">
+                <div class="tab-pane fade" id="pills-week" role="tabpanel" aria-labelledby="pills-week-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -152,34 +152,12 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                        @foreach ($patients as $reservation)
-                                        
-                                        <tr class="event-click">
-                                            <td scope="row">{{ $loop->iteration}}</td>
-                                            <td>
-                                                    @if (!empty($reservation->patient->image->path))
-                                                <img class="img-thumbnail" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                @else
-                                                <img src="" alt="" >
-                                                @endif
-                                            </td>
-                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td> {{ $reservation->description }}</td>
-                                            <td> 
-                                                <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>                
                 </div>
-                <div class="tab-pane fade show active" id="pills-month" role="tabpanel" aria-labelledby="pills-month-tab">
+                <div class="tab-pane fade" id="pills-month" role="tabpanel" aria-labelledby="pills-month-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -206,34 +184,12 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                        @foreach ($patients as $reservation)
-                                        
-                                        <tr class="event-click">
-                                            <td scope="row">{{ $loop->iteration}}</td>
-                                            <td>
-                                                    @if (!empty($reservation->patient->image->path))
-                                                <img class="img-thumbnail" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                @else
-                                                <img src="" alt="" >
-                                                @endif
-                                            </td>
-                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td> {{ $reservation->description }}</td>
-                                            <td> 
-                                                <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>                
                 </div>
-                <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+                <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -260,28 +216,6 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                        @foreach ($patients as $reservation)
-                                        
-                                        <tr class="event-click">
-                                            <td scope="row">{{ $loop->iteration}}</td>
-                                            <td>
-                                                    @if (!empty($reservation->patient->image->path))
-                                                <img class="img-thumbnail" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                @else
-                                                <img src="" alt="" >
-                                                @endif
-                                            </td>
-                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td> {{ $reservation->description }}</td>
-                                            <td> 
-                                                <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
                                 </tbody>
                             </table>
                         </div>
