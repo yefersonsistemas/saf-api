@@ -254,7 +254,7 @@ table tfoot tr td:first-child {
   <body>
     <header class="clearfix">
       <div id="logo">
-        <img src="assets\images\Encabezado_Factura.svg" class="logo">    
+        <img src="assets/images/Encabezado_Factura.svg" class="logo">    
       </div>
 
       <div id="invoice">
