@@ -88,19 +88,23 @@
                     @foreach ($itinerary as $itinerary)
 
                         @if($itinerary->status == 'dentro') <!--esta en espera-->
-                        <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">
+                            <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">
                         @endif
 
                         @if($itinerary->status == 'dentro_office')<!--dentro del consultorio-->
-                        <div class="card" style="border-radius:3px; border:2px solid  #00ad88">
+                            <div class="card" style="border-radius:3px; border:2px solid  #00ad88">
                         @endif
 
                         @if($itinerary->status == 'fuera_office')<!--fuera del consultorio-->
-                        <div class="card " style="border-radius:3px; border:2px solid #B40404">
+                            <div class="card " style="border-radius:3px; border:2px solid #B40404">
                         @endif
 
                         @if($itinerary->status == 'fuera')<!--fuera de las instalaciones-->
-                        <div class="card " style="border-radius:3px; border:2px solid #ccc">
+                            <div class="card " style="border-radius:3px; border:2px solid #ccc">
+                        @endif
+
+                        @if($itinerary->status == '')<!--fuera de las instalaciones-->
+                            <div class="card " style="border-radius:3px; border:2px solid #000">
                         @endif
 
                             <div class="row card-header pl-5 pr-5 heig" id="headingOne" >
@@ -122,11 +126,12 @@
                                         </div>
                                     </div>
                                 </div>
+                            
                                 
                                 <!--es espera-->
                                 @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i>todos</a>
+                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i></button>
                                     </div>
                                 @endif
 
