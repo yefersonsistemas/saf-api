@@ -15,7 +15,7 @@ class CreateTypePaymentsTable extends Migration
     {
         Schema::create('type_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('name', ['Efectivo', 'Punto_de_Venta', 'Transferencia', 'Seguro_Social']);
+            $table->enum('name', ['Efectivo', 'Punto_de_Venta', 'Transferencia', 'Seguro']);
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 

@@ -10,7 +10,7 @@
 @section('title','Proceso de facturación')
 
 @section('content')
-    <form action="{{ route('checkout.imprimir_factura') }}" method="POST">
+    <form action="{{ route('checkout.imprimir_factura') }}" method="POST" target="_blank">
             @csrf 
         <div class="section-body py-3 row">
             <div class="section-body py-3 col-10 ml-5 ">
@@ -31,6 +31,7 @@
                                             </div>                             
                                         </div>
                                         <div class="card-body mt-0 " style="top:-50px">
+                                        <!--Paciente-->
                                             <div class="row">
                                                 <div class="col-3">
                                                     <span class="h6 h66"><i class="fa fa-user mr-2" style="font-size:18px"></i>Paciente:</span>
@@ -46,6 +47,8 @@
                                                     <span id="phone" class="text form-control p-1 text-left"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ $itinerary->person->phone }}</span><br>
                                                 </div>
                                             </div>
+
+                                        <!--Medico tratante-->
                                             <div class="row">
                                                 <div class="col-3">
                                                     <span class="h6 h66"><i class="fa fa-user-md mr-2" style="font-size:18px"></i>Medico tratante:</span>
@@ -79,9 +82,10 @@
                                                         </div>
                                                 </div>
                                             </div><br>
+                                            <!--Persona a cancelar-->
                                             <div class="row">
                                                 <div class="col-3 mt-2">
-                                                    <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> pagado por:</span>
+                                                    <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> Pagado por:</span>
                                                 </div>
                                                 <div class="col-3 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-address-card pl-1"></i>&nbsp;<span id="dni_c" class="text text-left"></span></span>
@@ -93,6 +97,8 @@
                                                     <span class="text form-control p-1"><i class="fa fa-phone pl-1"></i>&nbsp;<span id="phone_c" class="text text-left"></span></span>
                                                 </div>
                                             </div>
+
+                                            <!--tipo de moneda-->
                                             <div class="row mt-4">
                                                 <div class="col-lg-6 col-md-6">
                                                     <span class="h6 h66">Tipo de moneda:</span>
@@ -104,6 +110,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <!--tipo de pago-->
                                                 <div class="col-lg-6 col-md-6">
                                                     <span class="h6 h66">Tipo de pago:</span>
                                                     <div class="form-group multiselect_div mt-2">
@@ -115,50 +122,44 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!--Modal-->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        ...
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="modal-body">
-                                                    ...
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </div>
+
                                             <div class="table-responsive push">
-                                            <div></div>
                                                 <table class="table table-bordered table-hover mt-5">
                                                     <tbody style="border-bottom: 1px solid #000">
-                                                        {{-- <th class="text-center width35"></th> --}}
                                                         <td colspan="5" class="text-left pl-4" style="font-weight:bold; ">DESCRIPCION</td>
                                                         <td class="text-right" style="width: 4%; font-weight:bold">COSTO</td>
                                                     </tbody>
                                                     @if($itinerary->employe->doctor != null)
                                                         <tbody style="border-bottom: 1px solid #000">
-                                                            {{-- <td class="text-center width35"></td> --}}
                                                             <td colspan="5" class="text-left pl-4">Consulta Médica</td>
                                                             <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
                                                         </tbody>
                                                     @endif
                                                     @if($procedure != 0)
-                                                    {{-- <tbody style="border-bottom: 1px solid #000">
-                                                        <td class="text-center width35"></td>
-                                                        <td colspan="4">Procedimientos</td>
-                                                        <td class="text-right" style="width: 4%"></td>
-                                                    </tbody> --}}
                                                     <tbody>
                                                         @foreach ($procedure as $item)
                                                         <tr>
-                                                            {{-- <td class="text-center width35"></td> --}}
                                                             <td colspan="5" class="text-left pl-4">
                                                                 <div class="text-muted">Procedimiento {{ $item->name }}</div>
                                                             </td>
@@ -169,14 +170,8 @@
                                                     </tbody> 
                                                     @endif
                                                     @if($itinerary->surgery != null)
-                                                    {{-- <tbody style="border-bottom: 1px solid #000">
-                                                        <th class="text-center width35"></th>
-                                                        <th colspan="4">Cirugía</th>
-                                                        <th class="text-right" style="width: 4%"></th>
-                                                    </tbody> --}}
                                                     <tbody>
                                                         <tr>
-                                                            {{-- <td class="text-center width35"></td> --}}
                                                             <td colspan="5" class="text-left pl-4">
                                                                 <div class="text-muted">Cirugía {{ $itinerary->surgery->typesurgeries->name }}</div>
                                                             </td>
@@ -185,19 +180,17 @@
                                                     </tbody> 
                                                     @endif
                                                     <tr>
-                                                        {{-- <th class="text-center width35"></th> --}}
                                                         <td colspan="5" class="font600 text-right">Subtotal</td>
                                                         <td class="text-right" id="subtotal">{{ $total }}</td> 
                                                     </tr>
                                                     <tr class="bg-boo text-light">
-                                                        {{-- <th class="text-center width35"></th> --}}
                                                         <td colspan="5" class="font700 text-right ">Total a cancelar</td>
                                                         <td class="font700 text-right" id="costo_total">{{ $total }}</td>
                                                     </tr>
                                                 </table>
                                             </div><br>
                                             <div class="row d-flex justify-content-end">
-                                                <button target="_blank" type="submit" class="btn btn-boo pr-5 pl-5 mr-3"> <i class="fa fa-print"> </i> Imprimir</button>
+                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="newDoc()"> <i class="fa fa-print"> </i> Imprimir</button>
                                             </div>
                                         </div>
                                     </div>
@@ -213,6 +206,7 @@
             </div>
         </div>
     </form>
+
     <!--modal-->
     <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -301,34 +295,34 @@
         }); //fin de la funcion clikea
         //=================== funcion para registrar al cliente================
         function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {
-                $.ajax({ 
-                    url: "{{ route('checkout.person') }}",  
-                    type: "POST",                            
-                    data: {
-                        _token: "{{ csrf_token() }}",        
-                        type_dni: tipo_dni,
-                        dni:dni,
-                        name:name,
-                        lastname:lastname,
-                        phone:phone,
-                        email:email,
-                        address:address,                           
-                    }
-                })
-                .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                    console.log('esto',data);
-                    if (data[0] == 201) {                       
-                        Swal.fire({
-                            title: 'Excelente!',
-                            text:  'Registro satisfactorio',
-                            type:  'success',
-                        })
-                        factura_cliente(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                    }
-                })
-                .fail(function(data) {
-                    console.log(data);
-                })
+            $.ajax({ 
+                url: "{{ route('checkout.person') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    type_dni: tipo_dni,
+                    dni:dni,
+                    name:name,
+                    lastname:lastname,
+                    phone:phone,
+                    email:email,
+                    address:address,                           
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[0] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  'Registro satisfactorio',
+                        type:  'success',
+                    })
+                    factura_cliente(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
         } // fin de la funcion que busca datos del paciente/doctor/procedimientos
         //================================== para porder mostrar en el documento html ==========================
         function factura_cliente(data) {
@@ -358,4 +352,9 @@
         }); //fin de la funcion clikea
     }); //fin del documento
         </script>
+        {{-- <script type="text/javascript">
+        function newDoc {
+            window.location('{{ route("checkout.index") }}','_blank');
+        };
+        </script> --}}
 @endsection

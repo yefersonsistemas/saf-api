@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(TypeCurrency::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
     return [
-        'name'        => $faker->word,
+        'name'        => $faker->randomElement(['RD', 'USD', 'EUR']),
         'branch_id'   => $branchoffice->id,
     ];
 });

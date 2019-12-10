@@ -67,9 +67,7 @@
             <div class="container">
 
                 <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="todos active pt-0 pb-0 pr-4 pl-4"  id="pills-home-tab" data-toggle="pill" href="#todos" role="tab" aria-controls="todos" aria-selected="true">Todos</a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="espera pt-0 pb-0 pr-4 pl-4" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="true"> <i class="icon-clock"></i>&nbsp; En espera</a>
                     </li>
@@ -79,6 +77,9 @@
                     <li class="nav-item">
                         <a class="fuera pt-0 pb-0 pr-4 pl-4" id="pills-contact-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera del consultorio</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="todos active pt-0 pb-0 pr-4 pl-4"  id="pills-home-tab" data-toggle="pill" href="#todos" role="tab" aria-controls="todos" aria-selected="true">Fuera de las instalaciones</a>
+                    </li>
                 </ul><br>
 
                 <!---->
@@ -86,16 +87,24 @@
                 <div class="accordion" id="accordionExample" id="todas" role="tabpanel" aria-labelledby="pills-home-tab">
                     @foreach ($itinerary as $itinerary)
 
-                        @if($itinerary->status == 'espera')
-                        <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">
+                        @if($itinerary->status == 'dentro') <!--esta en espera-->
+                            <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">
                         @endif
 
-                        @if($itinerary->status == 'dentro')
-                        <div class="card " style="border-radius:3px; border:2px solid #00ad88">
+                        @if($itinerary->status == 'dentro_office')<!--dentro del consultorio-->
+                            <div class="card" style="border-radius:3px; border:2px solid  #00ad88">
                         @endif
 
-                        @if($itinerary->status == 'fuera')
-                        <div class="card " style="border-radius:3px; border:2px solid #B40404">
+                        @if($itinerary->status == 'fuera_office')<!--fuera del consultorio-->
+                            <div class="card " style="border-radius:3px; border:2px solid #B40404">
+                        @endif
+
+                        @if($itinerary->status == 'fuera')<!--fuera de las instalaciones-->
+                            <div class="card " style="border-radius:3px; border:2px solid #ccc">
+                        @endif
+
+                        @if($itinerary->status == '')<!--fuera de las instalaciones-->
+                            <div class="card " style="border-radius:3px; border:2px solid #000">
                         @endif
 
                             <div class="row card-header pl-5 pr-5 heig" id="headingOne" >
@@ -117,27 +126,42 @@
                                         </div>
                                     </div>
                                 </div>
+                            
                                 
-                                <!--si ambos estan vacios-->
-                                @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                <!--es espera-->
+                                @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i></a>
+                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i></button>
                                     </div>
                                 @endif
 
-                                <!--si fuera esta vacios-->
-                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside))
+                                 <!--dentro de las instalaciones-->
+                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-fuera"><i class="icon-login"></i></a>
+                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-amarillo"><i class="icon-login"></i></button>
+                                    </div>
+                                 @endif
+
+                                <!--fuera del consultorio-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-inside-c"><i class="icon-login"></i></button>
                                     </div>
                                 @endif
 
-                                <!--si ambos tienen datos-->
-                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->outside))
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <a href="" disabled class="btn btn-fuera"><i class="icon-login"></i></a>
-                                    </div>
-                                @endif
+                                  <!--fuera del consultorio-->
+                                  @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                      <div class="col-4 d-flex justify-content-end">
+                                          <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside-c"><i class="icon-login"></i></a>
+                                      </div>
+                                  @endif
+
+                                    <!--fuera de las instalaciones-->
+                                    @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && !empty($itinerary->person->inputoutput->first()->outside))
+                                        <div class="col-4 d-flex justify-content-end">
+                                            <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside"><i class="icon-login"></i></button>
+                                        </div>
+                                    @endif
                             </div>
 
                                 <!--informacion del paciente reservacion y demas-->
@@ -181,20 +205,20 @@
                                 </div>
 
                                 <div class="row card-body d-flex justify-content-between" >
-                                    <div class="col-5 d-flex justify-content-end">
+                                    <div class="col-2 d-flex justify-content-end">
                                         @if($itinerary->exam_id != null)
-                                            <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo" type="button">
-                                            <i class="fa fa-print"></i> examen
+                                            <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo" type="button" target="_blank">
+                                            <i class="fa fa-print"></i> Examen
                                             </a>
                                         @else
-                                            <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene" type="button">
-                                                Generar examen
+                                            <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene" type="button" >
+                                                Generar Examen
                                             </a>
                                         @endif
                                     </div>
                                     <div class="col-2 d-flex justify-content-center">
                                         @if($itinerary->recipe_id != null)
-                                            <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo " type="button">
+                                            <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo " type="button" target="_blank">
                                                 <i class="fa fa-print"> </i> Recetario
                                             </a>
                                             @else
@@ -203,22 +227,51 @@
                                             </a>
                                         @endif
                                     </div>
-
-                                    <div class="col-5 d-flex justify-content-start">
+                                    <div class="col-2 d-flex justify-content-center">
+                                        @if($itinerary->recipe_id != null)
+                                            <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo " type="button" target="_blank">
+                                                <i class="fa fa-print"> </i> Constancia
+                                            </a>
+                                            @else
+                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
+                                                Generar Constancia
+                                            </a>
+                                        @endif
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        @if($itinerary->recipe_id != null)
+                                            <a href="{{ route('checkout.imprimir_referencia') }}" class="btn btn-boo " type="button" target="_blank">
+                                                <i class="fa fa-print"> </i> Referencia
+                                            </a>
+                                            @else
+                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
+                                                Generar Referencia
+                                            </a>
+                                        @endif
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        @if($itinerary->recipe_id != null)
+                                            <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo " type="button" target="_blank">
+                                                <i class="fa fa-print"> </i> Reposo
+                                            </a>
+                                            @else
+                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
+                                                Generar Reposo
+                                            </a>
+                                        @endif
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-start">
                                         <a  href="" class="btn btn-gene" >
-                                                <i class="fa fa-calendar-plus-o"></i> Cita
+                                            <i class="fa fa-calendar-plus-o"></i> Cita
                                         </a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     @endforeach
                     </div>
-
-
                 </div>
-             </div>
+            </div>
         </div>
     </div>
 
