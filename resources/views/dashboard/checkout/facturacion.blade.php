@@ -78,7 +78,12 @@
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
                                                <div class="row ml-3">
-                                                    <div class="col-md-12 col-lg-5 col-sm-12"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dnii"></span></div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold; ">Doc. de identidad:</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="dnii"></span>
+                                                    </div>
                                                </div>
                                                <div class="row ml-3">
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
@@ -102,7 +107,12 @@
                                             <div class="col-lg-6 col-md-12 col-sm-12 text-left">
                                                 <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i> MEDICO TRATANTE</p>
                                                 <div class="row ml-3">
-                                                    <div class="col-md-12 col-lg-5 col-sm-12"><span style="font-weight:bold; ">Doc. de identidad:</span></div><div class="col-md-6"><span id="dniiD"></span></div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold; ">Doc. de identidad:</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="dniiD"></span>
+                                                    </div>
                                                 </div>
 
                                                 <div class="row ml-3">
@@ -345,7 +355,7 @@
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
 
   
-                console.log('decimales', $data);
+                // console.log('decimales', $data);
 
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
