@@ -316,7 +316,6 @@ class OutController extends Controller
         }
     }
 
-
     //============================ imprimir examen ============================
     public function imprimir_examen(Request $request)
     {
@@ -327,10 +326,8 @@ class OutController extends Controller
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
         
-
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
         return $pdf->stream('examen.pdf');
-        // $output = $pdf->output(); file_put_contents('examen.pdf', $output);
     }
 
 
@@ -369,11 +366,17 @@ class OutController extends Controller
         $patient = InputOutput::where('person_id', $patient_id)->first();
         $p = Patient::where('person_id', $patient->person_id)->first();
         $io = InputOutput::where('person_id', $p->person_id)->first();
+        $itinerary =  Itinerary::where('patient_id', $patient->person_id)->first();
 
         if (!empty($patient->inside) && empty($patient->outside)) {
           
             $patient->outside = 'fuera';
             $patient->save();
+
+            $itinerary->status = 'fuera';
+            $itinerary->save();
+
+
         }else{
             Alert::error('Paciente ya ha salido');
             return redirect()->back();

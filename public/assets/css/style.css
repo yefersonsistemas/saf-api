@@ -3989,3 +3989,48 @@ th .factura{
     font-weight: bold;
     font-size: 20px;
 }
+
+
+.btn-amarillo{
+    background:#FACC2E;
+    color:#fff;
+    font-weight: bold;
+}
+
+.btn-amarillo:hover{
+    background:#FACC2E;
+    color:#fff;
+    font-weight: bold;
+}
+
+.btn-inside-c{
+
+    background:#00ad88;
+    color:#fff;
+}
+
+.btn-inside-c:hover{
+    background:#00ad88;
+    color:#fff;
+}
+
+.btn-outside-c{
+    background: #B40404;
+    color:#fff;
+}
+
+.btn-outside-c:hover{
+    background: #B40404;
+    color:#fff;
+  
+}
+
+.btn-outside{
+    background: #ccc;
+    color:#fff;
+}
+
+.btn-outside:hover{
+    background: #ccc;
+    color:#fff;
+}

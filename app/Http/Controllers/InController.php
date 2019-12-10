@@ -20,6 +20,7 @@ use App\Reservation;
 use App\Patient;
 use App\Allergy;
 use App\Cite;
+use App\Assistance;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -316,6 +317,7 @@ class InController extends Controller
         }
         return $history_number;
     }
+
 
     /**
      * Store a newly created resource in storage.

@@ -168,32 +168,56 @@
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
+
                                             <td>  
-                                                @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
-                                                    <div>
-                                                        <button href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success" disabled>E</button>
-                                                    </div>
-                                                @endif
-                                                @if($reservation->patient->inputoutput->isEmpty())
+                                                 <!--Si no a llegado a las instalaciones-->
+                                                 @if($reservation->patient->inputoutput->isEmpty())
                                                     <div>
                                                         <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
                                                     </div>
                                                 @endif
+
+                                                <!--Si esta dentro de las instalaciones-->
+                                                @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
+                                                    <div>
+                                                        <button disabled href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success">E</button>
+                                                    </div>
+                                                @endif
+
+                                                <!--Si ya se fue de las instalaciones-->
+                                                @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside))
+                                                    <div>
+                                                        <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero" disabled>E</button>
+                                                    </div>
+                                                @endif   
                                             </td>
+
                                             <td>  
-                                                @if(!empty($reservation->patient->inputoutput->first()->inside_office) || empty($reservation->patient->inputoutput->first()->inside))
+                                                <!--Si no ha llegado a las instalaciones-->
+                                                @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
                                                     <div>
-                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</a>
+                                                        <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</button>
                                                     </div>
                                                 @endif
-                                                @if($reservation->patient->inputoutput->isNotEmpty() && empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) )
+
+                                                <!--Si esta en espera-->
+                                                @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
                                                     <div>
-                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary segundo">E</a>
+                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero">E</a>
                                                     </div>
                                                 @endif
-                                                @if($reservation->patient->inputoutput->isNotEmpty() && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
+
+                                                <!--Si esta dentro del consultorio-->
+                                                @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->outside_office))
                                                     <div>
-                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" disabled class="btn btn-success">E</a>
+                                                        <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-success primero">E</button>
+                                                    </div>
+                                                 @endif
+
+                                                 <!--Si salio del consultorio-->
+                                                 @if(!empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office))
+                                                    <div>
+                                                        <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero">E</button>
                                                     </div>
                                                 @endif
                                             </td>
