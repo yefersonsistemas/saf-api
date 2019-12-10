@@ -280,7 +280,6 @@ class OutController extends Controller
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
-        // dd($request);
         if($request->person_id != null){
             if($request->factura != null){
                 
