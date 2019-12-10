@@ -317,23 +317,23 @@ class OutController extends Controller
         }
     }
 
-    //============================ imprimir examen ============================
+    //============================ imprimir examen ============================ (listo)
     public function imprimir_examen(Request $request)
     {
-        $examen = explode(',', $request->id); // decodificando los prcocedimientos json
-        
-        $datos = Itinerary::with('person','employe.person','exam')->where('exam_id',$request->id)->first();
+        $datos = Itinerary::with('person','employe.person', 'exam')->where('id', $request->id)->first();
+        $examen = explode(',', $datos->exam_id); // decodificando los prcocedimientos json
+   
         for ($i=0; $i < count($examen) ; $i++) { 
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
-        
+
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
         return $pdf->stream('examen.pdf');
     }
 
 
     //============================ imprimir recipe ============================
-    public function imprimir_recipe(Request $request, $id, $patient, $employe)
+    public function imprimir_recipe($id, $patient, $employe)
     {
         $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
         $paciente = Patient::where('person_id',$patient)->first(); 
