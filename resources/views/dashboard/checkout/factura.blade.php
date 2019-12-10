@@ -190,7 +190,7 @@
                                                 </table>
                                             </div><br>
                                             <div class="row d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="newDoc()"> <i class="fa fa-print"> </i> Imprimir</button>
+                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="redirect()"> <i class="fa fa-print"> </i> Imprimir</button>
                                             </div>
                                         </div>
                                     </div>
@@ -351,10 +351,12 @@
             // }
         }); //fin de la funcion clikea
     }); //fin del documento
-        </script>
-        {{-- <script type="text/javascript">
-        function newDoc {
-            window.location('{{ route("checkout.index") }}','_blank');
+
+    </script>
+    <script>
+      
+        function redirect() {
+            window.location ='{{ route("checkout.index") }}', '_blank';
         };
-        </script> --}}
+    </script>
 @endsection
