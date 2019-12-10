@@ -343,23 +343,31 @@ class OutController extends Controller
         return $pdf->stream('recipe.pdf');
     }
 
+
+    //============================ imprimir constancia ============================
     public function imprimir_constancia(){
 
     $pdf = PDF::loadview('dashboard.checkout.print_constancia');
     return $pdf->stream('constancia.pdf');
     }
 
+
+    //============================ imprimir referencia ============================
     public function imprimir_referencia(){
 
         $pdf = PDF::loadview('dashboard.checkout.print_referencia');
         return $pdf->stream('referencia.pdf');
     }
 
+
+    //============================ imprimir reposo ============================
     public function imprimir_reposo(){
 
         $pdf = PDF::loadview('dashboard.checkout.print_reposo');
         return $pdf->stream('reposo.pdf');
     }
+
+    
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {

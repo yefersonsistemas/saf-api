@@ -26,10 +26,24 @@ main {
     position: relative;
 }
 
+footer {
+    color: #5D6975;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #C1CED9;
+    padding: 8px 0;
+    text-align: center;
+}
 
 header {
     padding: 10px 0;
     margin-bottom: 30px;
+}
+
+span{
+    font-weight: bold;
 }
 
 .titulo{
@@ -62,16 +76,6 @@ header {
     color: #000000;
 }
 
-footer {
-    color: #5D6975;
-    width: 100%;
-    height: 30px;
-    position: absolute;
-    bottom: 0;
-    border-top: 1px solid #C1CED9;
-    padding: 8px 0;
-    text-align: center;
-}
 
 .imgfondo{
     /* padding-top: 8px; */
@@ -152,14 +156,17 @@ footer {
                     <p>A quien pueda interesar.</p> 
                 </div>
                 <div class="contenido">
-                    <p>Quien suscribe, médico tratante, certifica que examinó a: indique el nombre del paciente CI: 
-                        indique la cédula del paciente quien presenta: indique el diagnósticos.  
-                        Se le indicó tratamiento y reposo por (x) días a partir de la presente fecha (día/mes/año) 
-                        debiendo volver a control el día (día/mes/año). 
+                    <p>
+                        Quien suscribe, <span>medico tratante</span>, certifica que examinó a: <span>indique el nombre del paciente</span> 
+                        Cedula:<span>indique la cédula del paciente</span> quien presenta:<span>indique el diagnósticos</span>.  
+                        Se le indicó tratamiento y reposo por<span>(x) días</span> a partir de la presente fecha<span>(día/mes/año)</span> 
+                        debiendo volver a control el día<span>(día/mes/año)</span>. 
                     </p>
                 </div>
                 <div class="fecha">
-                    <p>Constancia que se expide a petición de la persona interesada en Santo Domingo, <span>(día/mes/año)</span>.</p>
+                    <p>
+                        Constancia que se expide a petición de la persona interesada en Santo Domingo, <span>(día/mes/año)</span>.
+                    </p>
                 </div>
                 <div class="att">
                     <p>Atentamente.-</p>
