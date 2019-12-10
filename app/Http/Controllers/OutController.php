@@ -37,7 +37,6 @@ use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
 {
-   
     //=================== listando los pacientes del dia ==================
     public function index()
     {
@@ -305,7 +304,7 @@ class OutController extends Controller
                 }
 
                 $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha'));
-
+                
                 return $pdf->stream('factura.pdf');
             }else{
                 Alert::error('No puede procesar la factura');
@@ -317,7 +316,6 @@ class OutController extends Controller
         }
     }
 
-
     //============================ imprimir examen ============================
     public function imprimir_examen(Request $request)
     {
@@ -327,6 +325,7 @@ class OutController extends Controller
         for ($i=0; $i < count($examen) ; $i++) { 
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
+        
         $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
         return $pdf->stream('examen.pdf');
     }
@@ -344,18 +343,40 @@ class OutController extends Controller
         return $pdf->stream('recipe.pdf');
     }
 
+    public function imprimir_constancia(){
 
+    $pdf = PDF::loadview('dashboard.checkout.print_constancia');
+    return $pdf->stream('constancia.pdf');
+    }
+
+    public function imprimir_referencia(){
+
+        $pdf = PDF::loadview('dashboard.checkout.print_referencia');
+        return $pdf->stream('referencia.pdf');
+    }
+
+    public function imprimir_reposo(){
+
+        $pdf = PDF::loadview('dashboard.checkout.print_reposo');
+        return $pdf->stream('reposo.pdf');
+    }
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)
     {
         $patient = InputOutput::where('person_id', $patient_id)->first();
         $p = Patient::where('person_id', $patient->person_id)->first();
         $io = InputOutput::where('person_id', $p->person_id)->first();
+        $itinerary =  Itinerary::where('patient_id', $patient->person_id)->first();
 
         if (!empty($patient->inside) && empty($patient->outside)) {
           
             $patient->outside = 'fuera';
             $patient->save();
+
+            $itinerary->status = 'fuera';
+            $itinerary->save();
+
+
         }else{
             Alert::error('Paciente ya ha salido');
             return redirect()->back();

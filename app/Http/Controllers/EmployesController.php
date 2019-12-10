@@ -13,6 +13,7 @@ Use App\Visitor;
 use App\Billing;
 use App\Assistance;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EmployesController extends Controller
 {
@@ -75,33 +76,31 @@ class EmployesController extends Controller
     } 
 
     public function assistance(Request $request) //control de asistencia del medico de los dias q no asiste
-    {
-        $data = $request->validate([
-            'employe_id' => 'required',
-        ]);
+    {     
+        if($request->motivo != null){
+            $date = Carbon::now()->format('Y-m-d');
 
-        $date = Carbon::now()->format('Y-m-d');
+            $asistencia = Assistance::where('employe_id', $request->employe_id)
+                                ->whereDate('created_at', $date)->get();
 
-        $cites = Assistance::where('employe_id', $request->employe_id)
-                            ->whereDate('created_at', $date)->get();
+            if ($asistencia->isEmpty()) {
+                Assistance::create([
+                    'employe_id' => $request->employe_id,
+                    'status' => $request->motivo,
+                    'branch_id' => 1
+                ]);
 
-        if ($cites->isEmpty()) {
-            Assistance::create([
-                'employe_id' => $data['employe_id'],
-                'status' => 'No asistio',
-                'branch_id' => 1
-            ]);
-
-            return response()->json([
-                'message' => 'Medico no asistio el dia de hoy',
-            ]);
+                Alert::success('Asistencia medica cancelada exitosamente');
+                return redirect()->back();
+            
+            }else{
+                Alert::error('Ya ha sido registrado como inasistente');
+                return redirect()->back();
+            }
         }else{
-            return response()->json([
-                'message' => 'Ya ha sido registrado como inasistente',
-            ]);
+            Alert::error('Debe ingresar el motivo de inasistencia');
+            return redirect()->back();
         }
-
-
     }
 
     public function doctor_on_day()//medicos del dia
