@@ -257,8 +257,8 @@
 
                                             <!--REFERENCIA-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                @if($itinerary->referencia_id != null)
-                                                    <a href="{{ route('checkout.imprimir_referencia') }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                @if($itinerary->reference_id != null)
+                                                    <a href="{{ route('checkout.imprimir_referencia', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Referencia
                                                     </a>
                                                     @else
@@ -275,9 +275,9 @@
                                                         <i class="fa fa-print"> </i> Reposo
                                                     </a>
                                                     @else
-                                                    <a href="" class="btn btn-gene abarca text-start" type="button">
+                                                    <button href="" class="btn btn-gene abarca text-start" disabled>
                                                         <i class="fa fa-plus-circle"></i> Reposo
-                                                    </a>
+                                                    </button>
                                                 @endif
                                             </div>
 

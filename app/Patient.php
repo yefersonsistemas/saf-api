@@ -82,6 +82,11 @@ class Patient extends Model
         return $this->belongsTo('App\Exam');
     }
 
+    public function reference()
+    {
+        return $this->belongsTo('App\Reference');
+    }
+
     public function employe()
     {
         return $this->belongsTo('App\Employe');

@@ -27,6 +27,11 @@ class Speciality extends Model
         return $this->belongsToMany('App\Course');
     }
 
+    public function reference()
+    {
+        return $this->belongsTo('App\Reference');
+    }
+
     public function patients()
     {
         return $this->hasMany('App\Patient');
