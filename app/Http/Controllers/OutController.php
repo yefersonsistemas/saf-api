@@ -318,9 +318,9 @@ class OutController extends Controller
     }
 
     //============================ imprimir examen ============================ (listo)
-    public function imprimir_examen(Request $request)
+    public function imprimir_examen($id)
     {
-        $datos = Itinerary::with('person','employe.person', 'exam')->where('id', $request->id)->first();
+        $datos = Itinerary::with('person','employe.person', 'exam')->where('id', $id)->first();
         $examen = explode(',', $datos->exam_id); // decodificando los prcocedimientos json
    
         for ($i=0; $i < count($examen) ; $i++) { 
