@@ -190,7 +190,7 @@
                                                 </table>
                                             </div><br>
                                             <div class="row d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="redirect()"> <i class="fa fa-print"> </i> Imprimir</button>
+                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" id="redireccion"> <i class="fa fa-print"> </i> Imprimir</button>
                                             </div>
                                         </div>
                                     </div>
@@ -350,6 +350,14 @@
             $('#person_id').val(id); 
             // }
         }); //fin de la funcion clikea
+
+        $("#redireccion").click(function() {
+            console.log('hola');
+            // setTimeout(window.location='/facturacion');        
+            window.location.href = '/facturacion';
+            // window.location ='{{ route("checkout.facturacion") }}', '_blank';   
+        }); 
+
     }); //fin del documento
 
     </script>

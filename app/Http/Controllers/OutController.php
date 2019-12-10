@@ -280,6 +280,7 @@ class OutController extends Controller
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
+        // dd($request);
         if($request->person_id != null){
             if($request->factura != null){
                 
@@ -365,7 +366,6 @@ class OutController extends Controller
         $itinerary = Itinerary::with('person','employe.person','reference')->where('id',$id)->first();
 
         $referencia = Reference::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->reference_id)->first();
-        dd($referencia);
 
         $pdf = PDF::loadview('dashboard.checkout.print_referencia', compact('reference'));
         return $pdf->stream('referencia.pdf');
