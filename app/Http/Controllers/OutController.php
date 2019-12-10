@@ -354,14 +354,14 @@ class OutController extends Controller
 
 
     //============================ imprimir referencia ============================
-    public function imprimir_referencia(Request $request){
-        // $referencia = explode($request->id);
-        $data = Itinerary::with('person','employe.person','reference')->where('reference_id',$request->id)->first();
-        // for ($i=0; $i < count($referencia); $i++) { 
-        //     $referencia[] = Reference::find($referencia[$i]);
-        // }
-        dd($data);
-        $pdf = PDF::loadview('dashboard.checkout.print_referencia');
+    public function imprimir_referencia($id){
+        
+        $itinerary = Itinerary::with('person','employe.person','reference')->where('id',$id)->first();
+
+        $referencia = Reference::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->reference_id)->first();
+        // dd($referencia);
+
+        $pdf = PDF::loadview('dashboard.checkout.print_referencia', compact('reference'));
         return $pdf->stream('referencia.pdf');
     }
 

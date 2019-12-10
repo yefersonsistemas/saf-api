@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
         Route::get('constancia','OutController@imprimir_constancia')->name('checkout.imprimir_constancia'); // imprimir constancia
         Route::get('reposo','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
-        Route::get('referencia','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
+        Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {

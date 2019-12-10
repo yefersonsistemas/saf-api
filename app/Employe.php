@@ -79,6 +79,11 @@ class Employe extends Model
         return $this->belongsTo('App\Branch');
     }
     
+    // public function reference()
+    // {
+    //     return $this->belongsTo('App\Reference');
+    // }
+
     public function typedoctor()
     {
         return $this->belongsTo('App\TypeDoctor');
