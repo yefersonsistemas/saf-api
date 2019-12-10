@@ -348,14 +348,18 @@ class OutController extends Controller
     //============================ imprimir constancia ============================
     public function imprimir_constancia(){
 
-    $pdf = PDF::loadview('dashboard.checkout.print_constancia');
-    return $pdf->stream('constancia.pdf');
+        // $itinerary = Itinerary::with('person','employe.person','constancy')->where('id',$id)->first();
+
+        // $constancia = Constancy::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->constancy_id)->first();
+
+        $pdf = PDF::loadview('dashboard.checkout.print_constancia');
+        return $pdf->stream('constancia.pdf');
     }
 
 
     //============================ imprimir referencia ============================
     public function imprimir_referencia($id){
-        
+
         $itinerary = Itinerary::with('person','employe.person','reference')->where('id',$id)->first();
 
         $referencia = Reference::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->reference_id)->first();
@@ -368,6 +372,10 @@ class OutController extends Controller
 
     //============================ imprimir reposo ============================
     public function imprimir_reposo(){
+
+        // $itinerary = Itinerary::with('person','employe.person','rest')->where('id',$id)->first();
+
+        // $constancia = Rest::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->rest_id)->first();
 
         $pdf = PDF::loadview('dashboard.checkout.print_reposo');
         return $pdf->stream('reposo.pdf');
