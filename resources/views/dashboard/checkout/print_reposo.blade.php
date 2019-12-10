@@ -2,12 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Examenes</title>
+    <title>Reposo Medico</title>
     <style>
     .clearfix:after {
     content: "";
     display: table;
     clear: both;
+}
+
+footer {
+    color: #5D6975;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #C1CED9;
+    padding: 8px 0;
+    text-align: center;
 }
 
 body {
@@ -30,6 +41,10 @@ main {
 header {
     padding: 10px 0;
     margin-bottom: 30px;
+}
+
+span{
+    font-weight: bold;
 }
 
 .titulo{
@@ -62,29 +77,13 @@ header {
     color: #000000;
 }
 
-/* #notices .notice {
-    color: #5D6975;
-    font-size: 1.2em;
-} */
-
-footer {
-    color: #5D6975;
-    width: 100%;
-    height: 30px;
-    position: absolute;
-    bottom: 0;
-    border-top: 1px solid #C1CED9;
-    padding: 8px 0;
-    text-align: center;
-}
-
 .imgfondo{
     /* padding-top: 8px; */
     padding-left: 50px;
     margin-top: 150px;
     margin-left:10px;
     position: relative;
-    opacity: 0.1;
+    opacity: 0.05;
     background-position: center;
     vertical-align: top;
     width: 80%;
@@ -143,9 +142,8 @@ margin-top: -15px;
 </head>
 <body>
     <header class="clearfix">
-        {{-- <img src="assets/images/Encabezado_Factura.svg" class="encabezado"> --}}
         <div class="hh">
-        <img src="assets\images\Encabezado_Factura.svg" class="logo">   
+        <img src="assets/images/Encabezado_Factura.svg" class="logo">   
         </div>
     </header>
     <main>
@@ -161,35 +159,30 @@ margin-top: -15px;
                 </div>
                 <div class="contenido">
                     <p>
-                        El Paciente indique el nombre del paciente, CI: indique la cédula del paciente, 
-                        manifiesta que presenta: indique los síntomas presentados. 
+                        El Paciente<span>indique el nombre del paciente</span>, Cedula:<span>indique la cédula del paciente</span>, 
+                        manifiesta que presenta:<span>indique los síntomas presentados</span>. 
                     </p><br>
                     <p class="conte">
-                        En la evaluación de ingreso del (día/mes/año) se encontró: indique los hallazgos médico. 
-                        concluyendo que el paciente posee Indique el diagnóstico, se indicó tratamiento médico.
+                        En la evaluación de ingreso del<span>(día/mes/año)</span> se encontró:<span>indique los hallazgos médico</span>. 
+                        concluyendo que el paciente posee<span>Indique el diagnóstico</span>, se indicó tratamiento médico.
                     </p><br>
                     <p class="conte">
-                        Se indica reposo desde el (día/mes/año) hasta el (día/mes/año) debiendo ingresar el día (día/mes/año) 
+                        Se indica reposo desde el<span>(día/mes/año)</span> hasta el<span>(día/mes/año)</span> debiendo ingresar el día<span>(día/mes/año)</span>. 
                     </p> 
                 </div>
                 <div class="fecha">
-                    <h3>Constancia que se expide a petición de la persona interesada en Santo Domingo, día mes año.</h3>
+                    <p>
+                        Constancia que se expide a petición de la persona interesada en Santo Domingo,<span>(día/mes/año)</span>.
+                    </p>
                 </div>
                 <div class="att">
-                    <h3>Atentamente.-</h3>
+                    <p>Atentamente.-</p>
                 </div>
                 <div class="doctor">
                     <p>Dr. Nombre del Doctor</p><br>
                     <p>Especialidad Médica</p>
                 </div>
-                {{-- <div class="especialidad">
-                    <h3>Especialidad Médica</h3>
-                </div> --}}
             </div>
-    {{-- <div id="notices">
-        <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-    </div> --}}
     </main>
     <footer>
         Dr. Nombre del Doctor, Especialidad Médica, CI: XXXX, M.S.A.S: YYYY, Email: xyz@xyz.com
