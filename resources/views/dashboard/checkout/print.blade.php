@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Example 2</title>
+    <title>Factura</title>
     <link rel="stylesheet" href="style.css" media="all" />
   <style>
     
@@ -254,7 +254,7 @@ table tfoot tr td:first-child {
   <body>
     <header class="clearfix">
       <div id="logo">
-        <img src="assets\images\Encabezado_Factura.svg" class="logo">    
+        <img src="assets/images/Encabezado_Factura.svg" class="logo">    
       </div>
 
       <div id="invoice">

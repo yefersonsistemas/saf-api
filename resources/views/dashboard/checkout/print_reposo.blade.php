@@ -143,7 +143,7 @@ margin-top: -15px;
 <body>
     <header class="clearfix">
         <div class="hh">
-        <img src="assets\images\Encabezado_Factura.svg" class="logo">   
+        <img src="assets/images/Encabezado_Factura.svg" class="logo">   
         </div>
     </header>
     <main>

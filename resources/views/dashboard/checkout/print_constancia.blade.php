@@ -141,7 +141,7 @@ span{
     <header class="clearfix">
         {{-- <img src="assets/images/Encabezado_Factura.svg" class="encabezado"> --}}
         <div class="hh">
-        <img src="assets\images\Encabezado_Factura.svg" class="logo">   
+        <img src="assets/images/Encabezado_Factura.svg" class="logo">   
         </div>
     </header>
     <main>
