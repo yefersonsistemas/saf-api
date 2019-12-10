@@ -360,12 +360,13 @@ class OutController extends Controller
     //============================ imprimir referencia ============================
     public function imprimir_referencia($id){
 
-        $itinerary = Itinerary::with('person','employe.person','reference')->where('id',$id)->first();
-
+        $itinerary = Itinerary::with('person','employe.person','reference','diagnostic')->where('id',$id)->first();
+        
         $referencia = Reference::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->reference_id)->first();
-        dd($referencia);
 
-        $pdf = PDF::loadview('dashboard.checkout.print_referencia', compact('reference'));
+        $fecha = Carbon::now()->format('Y/m/d');
+
+        $pdf = PDF::loadview('dashboard.checkout.print_referencia', compact('referencia','fecha','itinerary'));
         return $pdf->stream('referencia.pdf');
     }
 
