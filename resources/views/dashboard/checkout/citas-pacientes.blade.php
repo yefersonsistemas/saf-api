@@ -205,6 +205,7 @@
                                 </div>
 
                                 <div class="row card-body d-flex justify-content-between" >
+                                    <!--EXAMEN-->
                                     <div class="col-2 d-flex justify-content-end">
                                         @if($itinerary->exam_id != null)
                                             <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo" type="button" target="_blank">
@@ -216,6 +217,8 @@
                                             </a>
                                         @endif
                                     </div>
+
+                                    <!--RECETARIO-->
                                     <div class="col-2 d-flex justify-content-center">
                                         @if($itinerary->recipe_id != null)
                                             <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo " type="button" target="_blank">
@@ -227,39 +230,47 @@
                                             </a>
                                         @endif
                                     </div>
+
+                                    <!--CONSTANCIA-->
                                     <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->recipe_id != null)
+                                        @if($itinerary->constancia_id != null)
                                             <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo " type="button" target="_blank">
                                                 <i class="fa fa-print"> </i> Constancia
                                             </a>
                                             @else
-                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
+                                            <a href="{{ route('doctor.crearConstancia',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
                                                 Generar Constancia
                                             </a>
                                         @endif
                                     </div>
+
+                                    <!--REFERENCIA-->
                                     <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->recipe_id != null)
+                                        @if($itinerary->referencia_id != null)
                                             <a href="{{ route('checkout.imprimir_referencia') }}" class="btn btn-boo " type="button" target="_blank">
                                                 <i class="fa fa-print"> </i> Referencia
                                             </a>
                                             @else
-                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
+                                            <a href="{{ route('doctor.crearReferencia',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
                                                 Generar Referencia
                                             </a>
                                         @endif
                                     </div>
+
+                                    <!--REPOSO-->
                                     <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->recipe_id != null)
+                                        @if($itinerary->reposo_id != null)
                                             <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo " type="button" target="_blank">
                                                 <i class="fa fa-print"> </i> Reposo
                                             </a>
                                             @else
-                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
+                                            <a href="{{ route('doctor.crearReposo',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
                                                 Generar Reposo
                                             </a>
                                         @endif
                                     </div>
+
+                                    <!--CITA-->
                                     <div class="col-2 d-flex justify-content-start">
                                         <a  href="" class="btn btn-gene" >
                                             <i class="fa fa-calendar-plus-o"></i> Cita
