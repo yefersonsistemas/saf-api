@@ -154,11 +154,11 @@ ul[role="tablist"] {
 .datepicker .prev,
 .datepicker tfoot tr th {
     cursor: pointer;
-    transition: ease .6s all;
-    -webkit-transition: ease .6s all;
-    -moz-transition: ease .6s all;
-    -ms-transition: ease .6s all;
-    -o-transition: ease .6s all;
+    transition: ease .5s all;
+    -webkit-transition: ease .5s all;
+    -moz-transition: ease .5s all;
+    -ms-transition: ease .5s all;
+    -o-transition: ease .5s all;
 }
 
 .datepicker table tr td span.focused,
@@ -168,20 +168,20 @@ ul[role="tablist"] {
 }
 
 .datepicker table tr td span {
-    transition: ease .6s all;
-    -webkit-transition: ease .6s all;
-    -moz-transition: ease .6s all;
-    -ms-transition: ease .6s all;
-    -o-transition: ease .6s all;
+    transition: ease .5s all;
+    -webkit-transition: ease .5s all;
+    -moz-transition: ease .5s all;
+    -ms-transition: ease .5s all;
+    -o-transition: ease .5s all;
 }
 
 .datepicker table tr td,
 .datepicker table tr th {
-    transition: ease .6s all;
-    -webkit-transition: ease .6s all;
-    -moz-transition: ease .6s all;
-    -ms-transition: ease .6s all;
-    -o-transition: ease .6s all;
+    transition: ease .5s all;
+    -webkit-transition: ease .5s all;
+    -moz-transition: ease .5s all;
+    -ms-transition: ease .5s all;
+    -o-transition: ease .5s all;
     animation: bounceIn 1s;
     -webkit-animation: bounceIn 1s;
 }
@@ -425,3 +425,23 @@ body,
     background-color: #00ba88;
     border-color: #00ba88;
 }
+
+.datepicker table tr td.highlighted.disabled,
+.datepicker table tr td.highlighted.disabled:active {
+    background: #e3e3e3;
+    color: #777;
+}
+
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+    background: #e3e3e3;
+    color: #777;
+    cursor: default;
+}
+
+
+/* 
+.datepicker table tr td {
+    background: #00506b;
+    color: #fff
+} */
