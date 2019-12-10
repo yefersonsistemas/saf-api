@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Examenes</title>
+    <title>Constancia Medica</title>
     <style>
     .clearfix:after {
     content: "";
@@ -62,11 +62,6 @@ header {
     color: #000000;
 }
 
-/* #notices .notice {
-    color: #5D6975;
-    font-size: 1.2em;
-} */
-
 footer {
     color: #5D6975;
     width: 100%;
@@ -84,7 +79,7 @@ footer {
     margin-top: 150px;
     margin-left:10px;
     position: relative;
-    opacity: 0.1;
+    opacity: 0.05;
     background-position: center;
     vertical-align: top;
     width: 80%;
@@ -154,33 +149,26 @@ footer {
 
             <div class="content">
                 <div class="interes"> 
-                    <h2>A quien pueda interesar.</h2> 
+                    <p>A quien pueda interesar.</p> 
                 </div>
                 <div class="contenido">
-                    <h3>Quien suscribe, médico tratante, certifica que examinó a: indique el nombre del paciente CI: 
+                    <p>Quien suscribe, médico tratante, certifica que examinó a: indique el nombre del paciente CI: 
                         indique la cédula del paciente quien presenta: indique el diagnósticos.  
                         Se le indicó tratamiento y reposo por (x) días a partir de la presente fecha (día/mes/año) 
                         debiendo volver a control el día (día/mes/año). 
-                    </h3>
+                    </p>
                 </div>
                 <div class="fecha">
-                    <h3>Constancia que se expide a petición de la persona interesada en Santo Domingo, día mes año.</h3>
+                    <p>Constancia que se expide a petición de la persona interesada en Santo Domingo, <span>(día/mes/año)</span>.</p>
                 </div>
                 <div class="att">
-                    <h3>Atentamente.-</h3>
+                    <p>Atentamente.-</p>
                 </div>
                 <div class="doctor">
-                    <h3>Dr. Nombre del Doctor</h3><br>
-                    <h3>Especialidad Médica</h3>
+                    <p>Dr. Nombre del Doctor</p><br>
+                    <p>Especialidad Médica</p>
                 </div>
-                {{-- <div class="especialidad">
-                    <h3>Especialidad Médica</h3>
-                </div> --}}
             </div>
-    {{-- <div id="notices">
-        <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-    </div> --}}
     </main>
     <footer>
         Dr. Nombre del Doctor, Especialidad Médica, CI: XXXX, M.S.A.S: YYYY, Email: xyz@xyz.com
