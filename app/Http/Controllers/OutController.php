@@ -332,11 +332,13 @@ class OutController extends Controller
     }
 
 
-    //============================ imprimir recipe ============================
-    public function imprimir_recipe($id, $patient, $employe)
+    //============================ imprimir recipe ============================(listo)
+    public function imprimir_recipe($id)
     {
-        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
-        $paciente = Patient::where('person_id',$patient)->first(); 
+        $itinerary = Itinerary::with('person','employe.person', 'recipe')->where('id', $id)->first();
+        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $itinerary->recipe_id)->where('patient_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+        
+        $paciente = Patient::where('person_id',$itinerary->patient_id)->first(); //para buscar la edad
         $fecha = Carbon::now()->format('Y-d-m');
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe', 'paciente', 'fecha'));
