@@ -81,8 +81,6 @@
                         <a class="todos active pt-0 pb-0 pr-4 pl-4"  id="pills-home-tab" data-toggle="pill" href="#todos" role="tab" aria-controls="todos" aria-selected="true">Fuera de las instalaciones</a>
                     </li>
                 </ul><br>
-
-                <!---->
                   
                 <div class="accordion" id="accordionExample" id="todas" role="tabpanel" aria-labelledby="pills-home-tab">
                     @foreach ($itinerary as $itinerary)
@@ -103,13 +101,15 @@
                             <div class="card " style="border-radius:3px; border:2px solid #ccc">
                         @endif
 
-                        @if($itinerary->status == '')<!--fuera de las instalaciones-->
+                        @if($itinerary->status == '')<!--si no ha llegado a las instalaciones-->
                             <div class="card " style="border-radius:3px; border:2px solid #000">
                         @endif
 
                             <div class="row card-header pl-5 pr-5 heig" id="headingOne" >
+
                                 <div class="col-8">
                                     <div class="row">
+                                        <!--Imagen del paciente-->
                                         <div class="col-3">
                                             @if (!empty($itinerary->person->image->path))
                                             <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt="">
@@ -117,6 +117,7 @@
                                             <img src="" alt="">
                                             @endif
                                         </div>
+                                        <!--Nombre del paciente-->
                                         <div class="col-7">                                            
                                             <h2 class=" mb-0 p-0" >
                                             <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
@@ -149,25 +150,27 @@
                                     </div>
                                 @endif
 
-                                  <!--fuera del consultorio-->
-                                  @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
-                                      <div class="col-4 d-flex justify-content-end">
-                                          <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside-c"><i class="icon-login"></i></a>
-                                      </div>
-                                  @endif
+                                <!--fuera del consultorio-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside-c"><i class="icon-login"></i></a>
+                                    </div>
+                                @endif
 
-                                    <!--fuera de las instalaciones-->
-                                    @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && !empty($itinerary->person->inputoutput->first()->outside))
-                                        <div class="col-4 d-flex justify-content-end">
-                                            <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside"><i class="icon-login"></i></button>
-                                        </div>
-                                    @endif
+                                <!--fuera de las instalaciones-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && !empty($itinerary->person->inputoutput->first()->outside))
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside"><i class="icon-login"></i></button>
+                                    </div>
+                                @endif
                             </div>
 
-                                <!--informacion del paciente reservacion y demas-->
+                            <!--informacion del paciente reservacion y demas-->
                             <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="col-md-12 col-lg-9 col-sm-12">
                                     <div class="row card-body d-flex justify-content-lg-between">
+
+                                        <!--Medico tratente-->
                                         <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                             <div class="card-body row">
                                                 <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
@@ -175,6 +178,7 @@
                                             </div>
                                         </div>  
                                             
+                                        <!--Posibles cirugias-->
                                         <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posible cirugia</h5>
@@ -189,6 +193,7 @@
                                             </div>                                            
                                         </div> 
                                             
+                                        <!--Posibles procedimientos-->
                                         <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posibles procedimientos</h5>
@@ -207,6 +212,7 @@
                                     </div>
                                 </div>
 
+                                <!--Acciones-->
                                 <div class="col-md-12 col-lg-3 col-sm-12">
                                     <div class="row d-flex justify-content-end" style="width: 18rem;">
                                         <div class="card-body">
@@ -222,6 +228,7 @@
                                                     </a>
                                                 @endif
                                             </div>
+
                                             <!--RECETARIO-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
                                                 @if($itinerary->recipe_id != null)
@@ -235,7 +242,7 @@
                                                 @endif
                                             </div>
 
-                                              <!--CONSTANCIA-->
+                                            <!--CONSTANCIA-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
                                                 @if($itinerary->constancia_id != null)
                                                     <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
@@ -248,7 +255,7 @@
                                                 @endif
                                             </div>
 
-                                                <!--REFERENCIA-->
+                                            <!--REFERENCIA-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
                                                 @if($itinerary->referencia_id != null)
                                                     <a href="{{ route('checkout.imprimir_referencia') }}" class="btn btn-boo abarca" type="button" target="_blank">
