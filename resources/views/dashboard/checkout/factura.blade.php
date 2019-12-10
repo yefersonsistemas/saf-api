@@ -11,55 +11,55 @@
 
 @section('content')
     <form action="{{ route('checkout.imprimir_factura') }}" method="POST" target="_blank">
-            @csrf 
+        @csrf 
         <div class="section-body py-3 row">
             <div class="section-body py-3 col-10 ml-5 ">
                 <div class="container">
                     <div class="tab-content">
-                    <!-----------------------Campos ocultoss---------------------->
-                    <input id="person_id" type="hidden" name="person_id" value="" >
-                    <input type="hidden" name="factura" value="{{ $crear_factura->id }}" >
-                    <!-------------------- fin de Campos ocultoss------------------>
+                        <!-----------------------Campos ocultoss---------------------->
+                        <input id="person_id" type="hidden" name="person_id" value="" >
+                        <input type="hidden" name="factura" value="{{ $crear_factura->id }}" >
+                        <!-------------------- fin de Campos ocultoss------------------>
                         <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                             <div class="row clearfix">
-                                <div class="col-12">
+                                <div class="col-md-12 col-lg-12 col-sm-12">
                                     <div class="card">
                                         <div class="card-body row my-8  pl-4">
-                                            <div class="col-3"><h2>Factura</h2> </div>
-                                            <div class="col-9 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
-                                                <span class="h6 h66 pt-0 pr-10">Fecha:</span><span class="text col-3" style="margin-bottom:50px"><i class="fa fa-calendar pl-20"></i> {{ $fecha }}</span><br>
+                                            <div class="col-lg-4 col-md-4 col-sm-12"><h2>Factura</h2> </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
+                                                <span class="h6 h66 pt-0 pr-10">Fecha:</span><span class="text col-lg-4 col-md-7 col-sm-12" style="margin-bottom:50px"><i class="fa fa-calendar pl-20"></i> {{ $fecha }}</span><br>
                                             </div>                             
                                         </div>
                                         <div class="card-body mt-0 " style="top:-50px">
                                         <!--Paciente-->
                                             <div class="row">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-12 col-sm-12 mb-2">
                                                     <span class="h6 h66"><i class="fa fa-user mr-2" style="font-size:18px"></i>Paciente:</span>
                                                 </div>
                                                 <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $itinerary->person->id }}">
-                                                <div class="col-3 pr-10">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 pr-10 mb-2">
                                                     <span id="dni" class="text form-control p-1 mt-0 text-left"><i class="fa fa-address-card"></i>&nbsp;&nbsp;{{ $itinerary->person->dni }}</span>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 mb-2">
                                                     <span id="name" class="text form-control p-1 text-left"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 mb-2">
                                                     <span id="phone" class="text form-control p-1 text-left"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ $itinerary->person->phone }}</span><br>
                                                 </div>
                                             </div>
 
                                         <!--Medico tratante-->
                                             <div class="row">
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-12 col-sm-12 mb-2">
                                                     <span class="h6 h66"><i class="fa fa-user-md mr-2" style="font-size:18px"></i>Medico tratante:</span>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 pr-10 mb-2">
                                                     <span class="text form-control p-1 text-left"><i class="fa fa-address-card"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->dni }}</span>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 pr-10 mb-2">
                                                     <span class="text form-control p-1 text-left"><i class="fa fa-user-md"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 pr-10 mb-2">
                                                     <span class="text form-control p-1 text-left"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ $itinerary->employe->person->phone }}</span><br>
                                                 </div>
                                             </div><br>
@@ -84,16 +84,16 @@
                                             </div><br>
                                             <!--Persona a cancelar-->
                                             <div class="row">
-                                                <div class="col-3 mt-2">
+                                                <div class="col-lg-3 col-md-12 col-sm-12 mb-2 mt-2">
                                                     <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> Pagado por:</span>
                                                 </div>
-                                                <div class="col-3 mt-2">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-address-card pl-1"></i>&nbsp;<span id="dni_c" class="text text-left"></span></span>
                                                 </div>
-                                                <div class="col-3 mt-2">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-user pl-1"></i>&nbsp;<span id="name_c" class="text text-left"></span><span id="lastname_c" class="text text-left"></span></span>
                                                 </div>
-                                                <div class="col-3 mt-2">
+                                                <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-phone pl-1"></i>&nbsp;<span id="phone_c" class="text text-left"></span></span>
                                                 </div>
                                             </div>
