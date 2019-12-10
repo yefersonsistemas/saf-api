@@ -8,6 +8,7 @@ Use App\Specilaity;
 Use App\Employe;
 Use App\Area;
 Use App\Billing;
+Use App\Reference;
 Use App\Schedules;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Controllers\CitaController;
@@ -353,8 +354,13 @@ class OutController extends Controller
 
 
     //============================ imprimir referencia ============================
-    public function imprimir_referencia(){
-
+    public function imprimir_referencia(Request $request){
+        // $referencia = explode($request->id);
+        $data = Itinerary::with('person','employe.person','reference')->where('reference_id',$request->id)->first();
+        // for ($i=0; $i < count($referencia); $i++) { 
+        //     $referencia[] = Reference::find($referencia[$i]);
+        // }
+        dd($data);
         $pdf = PDF::loadview('dashboard.checkout.print_referencia');
         return $pdf->stream('referencia.pdf');
     }
@@ -377,7 +383,6 @@ class OutController extends Controller
         $itinerary =  Itinerary::where('patient_id', $patient->person_id)->first();
 
         if (!empty($patient->inside) && empty($patient->outside)) {
-          
             $patient->outside = 'fuera';
             $patient->save();
 
