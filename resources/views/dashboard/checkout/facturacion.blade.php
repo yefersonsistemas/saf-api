@@ -313,7 +313,6 @@
         } // fin de la funcion que busca datos del paciente/doctor/procedimientos
 
 
-
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
             console.log('hola');
@@ -339,6 +338,9 @@
                 console.log('cirugia',data.encontrado[0].surgery)
                 nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
+
+  
+                console.log('decimales', $data);
 
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);

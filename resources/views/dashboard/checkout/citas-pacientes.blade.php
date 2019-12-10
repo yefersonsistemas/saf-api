@@ -165,46 +165,127 @@
                             </div>
 
                                 <!--informacion del paciente reservacion y demas-->
-                            <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" class="collapse " style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="row card-body d-flex justify-content-lg-between">
-                                    <div class="col-md-12 col-sm-12 col-lg-12  mb-2 p-0" style="width: 18rem;">
-                                        <div class="card-body row">
-                                            <div class="col-md-3"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
-                                            <div class="col-md-6"><span class="text-muted">  {{ $itinerary->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $itinerary->employe->person->phone }}</span></div>
-                                        </div>
-                                    </div> 
-                                    
-                                    <div class="card col-md-5 col-sm-12 col-lg-5 m-2" style="width: 18rem;">
-                                        <div class="card-body">
-                                            <h5 class="card-title color_titulo">Posible cirugia</h5>
-                                            @if($itinerary->surgery != null)
-                                            <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $itinerary->surgery->typesurgeries->name }}</span><br>
-                                            <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
-                                            <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
-                                            <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
-                                            @else
-                                            <span class="mb-2 text-muted">Sin cirugia</span><br>
-                                            @endif
-                                        </div>                                            
-                                    </div> 
-                                    
-                                    <div class="card col-md-5 col-sm-12 col-lg-5 m-2" style="width: 18rem;">
-                                        <div class="card-body">
-                                            <h5 class="card-title color_titulo">Posibles procedimientos</h5>
-                                            @if ($itinerary->procedures != null)
-                                            <ul>
-                                                @foreach ($itinerary->procedures as $proce)
-                                                    <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
-                                                @endforeach
-                                            </ul>
-                                            @else
-                                            <span class="mb-2 text-muted">Sin procedimientos</span><br>
-                                            @endif
-                                        </div>                                                
-                                    </div> 
+                            <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="col-md-12 col-lg-9 col-sm-12">
+                                    <div class="row card-body d-flex justify-content-lg-between">
+                                        <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                            <div class="card-body row">
+                                                <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
+                                                <div class="col-md-8"><span class="text-muted">  {{ $itinerary->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $itinerary->employe->person->phone }}</span></div>
+                                            </div>
+                                        </div>  
+                                            
+                                        <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title color_titulo">Posible cirugia</h5>
+                                                @if($itinerary->surgery != null)
+                                                <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $itinerary->surgery->typesurgeries->name }}</span><br>
+                                                <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
+                                                <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
+                                                <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
+                                                @else
+                                                <span class="mb-2 text-muted">Sin cirugia</span><br>
+                                                @endif
+                                            </div>                                            
+                                        </div> 
+                                            
+                                        <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title color_titulo">Posibles procedimientos</h5>
+                                                @if ($itinerary->procedures != null)
+                                                <ul>
+                                                    @foreach ($itinerary->procedures as $proce)
+                                                        <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
+                                                    @endforeach
+                                                </ul>
+                                                @else
+                                                <span class="mb-2 text-muted">Sin procedimientos</span><br>
+                                                @endif
+                                            </div>                                                
+                                        </div> 
+        
+                                    </div>
                                 </div>
 
-                                <div class="row card-body d-flex justify-content-between" >
+                                <div class="col-md-12 col-lg-3 col-sm-12">
+                                    <div class="row d-flex justify-content-end" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <!--EXAMEN-->
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                                @if($itinerary->exam_id != null)
+                                                    <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                    <i class="fa fa-print"></i> Examen
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene abarca" type="button" >
+                                                        Generar Examen
+                                                    </a>
+                                                @endif
+                                            </div>
+                                            <!--RECETARIO-->
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                                @if($itinerary->recipe_id != null)
+                                                    <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                        <i class="fa fa-print"> </i> Recetario
+                                                    </a>
+                                                    @else
+                                                    <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene abarca" type="button">
+                                                        Generar Recetario
+                                                    </a>
+                                                @endif
+                                            </div>
+
+                                              <!--CONSTANCIA-->
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                                @if($itinerary->constancia_id != null)
+                                                    <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                        <i class="fa fa-print"> </i> Constancia
+                                                    </a>
+                                                    @else
+                                                    <a href="" class="btn btn-gene abarca" type="button">
+                                                        <i class="fa fa-plus-circle"></i>  Constancia
+                                                    </a>
+                                                @endif
+                                            </div>
+
+                                                <!--REFERENCIA-->
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                                @if($itinerary->referencia_id != null)
+                                                    <a href="{{ route('checkout.imprimir_referencia') }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                        <i class="fa fa-print"> </i> Referencia
+                                                    </a>
+                                                    @else
+                                                    <a href="" class="btn btn-gene abarca" type="button">
+                                                        <i class="fa fa-plus-circle"></i> Referencia
+                                                    </a>
+                                                @endif
+                                            </div>
+
+                                            <!--REPOSO-->
+                                            <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-5">
+                                                @if($itinerary->reposo_id != null)
+                                                    <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                                        <i class="fa fa-print"> </i> Reposo
+                                                    </a>
+                                                    @else
+                                                    <a href="" class="btn btn-gene abarca text-start" type="button">
+                                                        <i class="fa fa-plus-circle"></i> Reposo
+                                                    </a>
+                                                @endif
+                                            </div>
+
+                                            <!--CITA-->
+                                            <div class="col-lg-7 col-md-12 col-sm-12 mb-2 d-flex justify-content-end ml-5 text-start">
+                                                <a  href="" class="btn btn-gene abarca text-start" >
+                                                    <i class="fa fa-calendar-plus-o"></i> Cita
+                                                </a>
+                                            </div>
+                                        </div>                                                
+                                    </div>
+                                </div>
+                             </div>
+
+                                {{-- <div class="row card-body d-flex justify-content-between" >
                                     <!--EXAMEN-->
                                     <div class="col-2 d-flex justify-content-end">
                                         @if($itinerary->exam_id != null)
@@ -238,8 +319,8 @@
                                                 <i class="fa fa-print"> </i> Constancia
                                             </a>
                                             @else
-                                            <a href="{{ route('doctor.crearConstancia',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
-                                                Generar Constancia
+                                            <a href="" class="btn btn-gene" type="button">
+                                                <i class="fa fa-plus-circle"></i>  Constancia
                                             </a>
                                         @endif
                                     </div>
@@ -251,8 +332,8 @@
                                                 <i class="fa fa-print"> </i> Referencia
                                             </a>
                                             @else
-                                            <a href="{{ route('doctor.crearReferencia',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
-                                                Generar Referencia
+                                            <a href="" class="btn btn-gene" type="button">
+                                                <i class="fa fa-plus-circle"></i> Referencia
                                             </a>
                                         @endif
                                     </div>
@@ -264,8 +345,8 @@
                                                 <i class="fa fa-print"> </i> Reposo
                                             </a>
                                             @else
-                                            <a href="{{ route('doctor.crearReposo',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
-                                                Generar Reposo
+                                            <a href="" class="btn btn-gene" type="button">
+                                                <i class="fa fa-plus-circle"></i> Reposo
                                             </a>
                                         @endif
                                     </div>
@@ -276,8 +357,9 @@
                                             <i class="fa fa-calendar-plus-o"></i> Cita
                                         </a>
                                     </div>
-                                </div>
-                            </div>
+                                </div> --}}
+
+                            {{-- </div> --}}
                         </div>
                     @endforeach
                     </div>
