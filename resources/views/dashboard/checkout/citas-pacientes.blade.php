@@ -217,7 +217,7 @@
                                     <div class="row d-flex justify-content-end" style="width: 18rem;">
                                         <div class="card-body">
                                             <!--EXAMEN-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->exam_id != null)
                                                     <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                     <i class="fa fa-print"></i> Examen
@@ -230,7 +230,7 @@
                                             </div>
 
                                             <!--RECETARIO-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->recipe_id != null)
                                                     <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Recetario
@@ -243,7 +243,7 @@
                                             </div>
 
                                             <!--CONSTANCIA-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->constancia_id != null)
                                                     <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Constancia
@@ -256,7 +256,7 @@
                                             </div>
 
                                             <!--REFERENCIA-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-5">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->referencia_id != null)
                                                     <a href="{{ route('checkout.imprimir_referencia') }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Referencia
@@ -269,7 +269,7 @@
                                             </div>
 
                                             <!--REPOSO-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-5">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                 @if($itinerary->reposo_id != null)
                                                     <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Reposo
@@ -282,7 +282,7 @@
                                             </div>
 
                                             <!--CITA-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 mb-2 d-flex justify-content-end ml-5 text-start">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 mb-2 ml-3">
                                                 <a  href="" class="btn btn-gene abarca text-start" >
                                                     <i class="fa fa-calendar-plus-o"></i> Cita
                                                 </a>
