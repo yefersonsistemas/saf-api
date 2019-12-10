@@ -445,3 +445,12 @@ body,
     background: #00506b;
     color: #fff
 } */
+
+.assigment .card-header,
+.assigment .card-body {
+    padding: 10px;
+}
+
+.assigment .card-title {
+    margin-bottom: 15px;
+}
