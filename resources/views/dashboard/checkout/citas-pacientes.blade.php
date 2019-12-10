@@ -275,7 +275,7 @@
                                                         <i class="fa fa-print"> </i> Reposo
                                                     </a>
                                                     @else
-                                                    <button href="" class="btn btn-gene abarca text-start" d>
+                                                    <button href="" class="btn btn-gene abarca text-start" disabled>
                                                         <i class="fa fa-plus-circle"></i> Reposo
                                                     </button>
                                                 @endif
