@@ -187,7 +187,7 @@
                                                 <!--Si ya se fue de las instalaciones-->
                                                 @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
-                                                        <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero" disabled>E</button>
+                                                        <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-danger primero" disabled>E</button>
                                                     </div>
                                                 @endif   
                                             </td>
@@ -217,7 +217,7 @@
                                                  <!--Si salio del consultorio-->
                                                  @if(!empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office))
                                                     <div>
-                                                        <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero">E</button>
+                                                        <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-danger primero">E</button>
                                                     </div>
                                                 @endif
                                             </td>
