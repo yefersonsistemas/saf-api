@@ -437,37 +437,14 @@
                                                             <div class="card-body">
                                                                 <h3 class="card-title">Datos del Médico</h3>
                                                                 <div class="row">
-                                                                    {{-- <div class="col-md-4">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label">Documento de Identidad:</label>
-                                                                            <div class="input-group ">
-                                                                                <div class="input-group-prepend col-md-3 p-0">
-                                                                                    <input type="text" class="form-control input-group-text bg-white border-0" placeholder="Tipo de documento" name="type_dni" disabled value="{{ $history->patient->type_dni }}">
-                                                                                </div>
-                                                                                <input type="text" class="form-control bg-white border-0" placeholder="Documento de Identidad" name="dni" disabled value="{{ $history->patient->dni }}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4 col-sm-6">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label">Nombre:</label>
-                                                                            <input type="text" class="form-control border-0 bg-white" disabled placeholder="Nombre" value="{{ $history->patient->name }}" name="name">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6 col-md-4">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label">Apellido:</label>
-                                                                            <input type="text" class="form-control border-0 bg-white" disabled placeholder="lastname" value="{{ $history->patient->lastname }}">
-                                                                        </div>
-                                                                    </div> --}}
                                                                     <div class="col-sm-6 col-md-4">
                                                                         <label class="form-label" >Especialidad:</label>
-                                                                        {{-- <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                        <select class="form-control custom-select" name="speciality" id="speciality">
                                                                             <option value="0" >Seleccione</option>
                                                                             @foreach ($specialities as $speciality)
                                                                                 <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
                                                                             @endforeach
-                                                                        </select> --}}
+                                                                        </select>
                                                                     </div>
                                                                     <div class="col-md-8">
                                                                         <div class="form-group" style=" margin-top:8px;">
@@ -580,7 +557,7 @@
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
 
-    //=================================para el recipe============================
+    //================================= Para el recipe============================
     $('#add').click(function () {
         console.log('hola');
         medicina        = $("select[name='medicamento']").val();
@@ -593,14 +570,11 @@
         reservacion         = $("input[id='reservacion']").val();
 
         ajax(medicina, dosis, medida, duracion, indicaciones, reservacion);
-        // ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe);
 
         validacion(medicina, dosis, medida, duracion, reservacion);
-
     });
 
     function validacion (medicina, dosis, medida, duracion, reservacion){
-
     }
 
     function ajax(medicina, dosis, medida, duracion, indicaciones, reservacion){
@@ -634,6 +608,50 @@
     function addRow(data) {
         $('#addRow').append('<tr class="gradeA"> <td>'+data.medicine.name+'</td> <td>'+data.doses+'</td> <td>'+data.measure+'</td> <td>'+data.duration+'</td> <td>'+data.indications+'</td> <td class="actions"> <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden=""><i class="icon-drawer" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden=""><i class="icon-close" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>');
     }
+
+
+    //======================Referenci medica=========================
+    $("#speciality").change(function() {
+        var speciality = $(this).val();
+        $.ajax({
+                url: "{{ route('search.medic') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: speciality,
+                }
+            })
+            .done(function(data) {
+                console.log(data);
+                cargarMedicos(data);
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+    });
+
+    function cargarMedicos(data) {
+        $('#medicoInterno').empty();
+        for (let i = 0; i < data.length; i++) {
+            console.log(data[i].employe.length);
+            console.log(data[i].employe);
+            for (let j = 0; j < data[i].employe.length; j++) {
+                console.log(data[i].employe[j].id);
+                $('#medicoInterno').append(`<option value="${data[i].employe[j].id}">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</option>`);
+            }
+        }
+    }
+
+    $('#doctorExterno').click(function () {
+        console.log($('#medicoExterno').attr("disabled"))
+        if ($('#medicoExterno').attr("disabled") == 'disabled') {
+            $('#medicoExterno').removeAttr('disabled');
+            $('#medicoInterno').attr('disabled', true);
+        }
+        if ($('#medicoExterno').attr("disabled") == 'undefined') {
+            $('#medicoExterno').attr('disabled', true);
+        }
+    });
 
 </script>
 @endsection

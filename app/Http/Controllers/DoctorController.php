@@ -70,8 +70,9 @@ class DoctorController extends Controller
     public function show($id)
     {
         // dd($id);
-        // $history = 
         $medicines = Medicine::all();
+        $specialities = Speciality::all();
+
         $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
@@ -84,7 +85,7 @@ class DoctorController extends Controller
             // return response()->json([
             //   'Patient' => $history,
             // ]);
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities'));
     }
 
     /**
@@ -172,7 +173,7 @@ class DoctorController extends Controller
 
     public function referenceStore(Request $request, $patient)
     {
-           
+        //    dd($request);}
         $person = Person::with('historyPatient')->where('id',$patient)->first();
 
         $data = $request->validate([
@@ -188,7 +189,8 @@ class DoctorController extends Controller
             'doctor'        =>  $request->doctorExterno,
         ]);
         
-        $itinerary = Itinerary::where('patient_id', $person->historyPatient->id)->first();
+        $itinerary = Itinerary::where('patient_id', $person->id)->first();
+        // dd($itinerary);
         if (!is_null($itinerary)) {
             $itinerary->reference_id = $reference->id;
             $itinerary->save();
