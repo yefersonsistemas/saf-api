@@ -19,7 +19,7 @@ class Treatment extends Model
 
     public function medicine()
     {
-        return $this->hasMany('App\Medicine');
+        return $this->belongsTo('App\Medicine');
     }
 
     public function recipe()

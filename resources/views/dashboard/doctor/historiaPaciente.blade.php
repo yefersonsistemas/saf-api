@@ -194,6 +194,7 @@
                                                     <label for="" class="m-0">Dr.(a) </label>
                                                     <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
                                                     <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
+                                                    <input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
 
                                                     <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
                                                     <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
@@ -300,7 +301,8 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="tab-content plan-tab-content" id="pills-tabContent">
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <!--Examen-->
                                         <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                             <div class="col-lg-12 col-md-12">
                                                 <label>Examenes</label>
@@ -315,7 +317,6 @@
                                         </div>
                                         <!--Recetario-->
                                         <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
-                                     
                                             <div class="row clearfix">
                                                 <div class="col-lg-12 mx-auto">
                                                     <div class="card">
@@ -369,12 +370,8 @@
                                                                 <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
                                                             </button>                            
                                                         </div>
-
-                                                        
                                                     </div>
                                                 </div>
-                                            {{-- </div> --}}
-                                            {{-- <div class="container"> --}}
                                                 <div class="col-lg-12 mx-auto">
                                                     <div class="card">
                                                             <div class="row">
@@ -414,7 +411,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- </div> --}}
                                         </div>
 
                                         <!--Informe medico-->
@@ -439,9 +435,9 @@
                                                         @csrf
                                                         <div class="card">
                                                             <div class="card-body">
-                                                                <h3 class="card-title">Datos del Paciente</h3>
+                                                                <h3 class="card-title">Datos del Médico</h3>
                                                                 <div class="row">
-                                                                    <div class="col-md-4">
+                                                                    {{-- <div class="col-md-4">
                                                                         <div class="form-group">
                                                                             <label class="form-label">Documento de Identidad:</label>
                                                                             <div class="input-group ">
@@ -463,7 +459,7 @@
                                                                             <label class="form-label">Apellido:</label>
                                                                             <input type="text" class="form-control border-0 bg-white" disabled placeholder="lastname" value="{{ $history->patient->lastname }}">
                                                                         </div>
-                                                                    </div>
+                                                                    </div> --}}
                                                                     <div class="col-sm-6 col-md-4">
                                                                         <label class="form-label" >Especialidad:</label>
                                                                         {{-- <select class="form-control custom-select" name="speciality" id="speciality">
@@ -499,11 +495,11 @@
                                                                     </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
+                                                                    <button type="submit" class="btn btn-azuloscuro pr-4 pl-4">Generar</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="card-footer text-center">
-                                                                <button type="submit" class="btn btn-azuloscuro">Generar</button>
-                                                            </div>
-                                                        
+                                                           
                                                         </div>
                                                     </form>
                                                 </div>
@@ -594,28 +590,20 @@
         indicaciones    = $("textarea[name='indicaciones']").val();
         patient        = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
+        reservacion         = $("input[id='reservacion']").val();
 
-        console.log(medicina)
-        console.log(dosis)
-        console.log(medida)
-        console.log(duracion)
-        console.log(indicaciones)
+        ajax(medicina, dosis, medida, duracion, indicaciones, reservacion);
+        // ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe);
 
-        console.log('paciente',patient)
-        console.log('empleado',employe)
-
-        ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe);
-
-        validacion(medicina, dosis, medida, duracion, patient, employe);
+        validacion(medicina, dosis, medida, duracion, reservacion);
 
     });
 
-    function validacion (medicina, dosis, medida, duracion, patient, employe){
+    function validacion (medicina, dosis, medida, duracion, reservacion){
 
     }
 
-    function ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe) {
-        console.log('hola', patient, employe, medicina, dosis, medida, duracion, indicaciones)
+    function ajax(medicina, dosis, medida, duracion, indicaciones, reservacion){
         $.ajax({
                 url: "{{ route('recipe.store') }}",
                 type: "POST",
@@ -626,8 +614,7 @@
                     medida : medida, 
                     duracion: duracion,
                     indicaciones: indicaciones,
-                    patient: patient,
-                    employe: employe,
+                    reservacion: reservacion,
                 }
             })
             .done(function(data) {
