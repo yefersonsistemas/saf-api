@@ -34,8 +34,13 @@ class DoctorController extends Controller
     public function index()
     {
         $id=Auth::id();
-        $patients = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
-        return view('dashboard.doctor.index',compact('patients'));
+        $today = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
+        $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
+
+        $date = Carbon::now();
+        $week = Reservation::with('patient.historyPatient')->where('person_id',$id)->whereBetween('date', [$date->startOfWeek()->format('Y-m-d'), $date->endOfWeek()->format('Y-m-d')])->get();
+        return view('dashboard.doctor.index', compact('today','month', 'all', 'week'));
     }
 
     /**

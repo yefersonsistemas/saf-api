@@ -300,7 +300,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-content plan-tab-content" id="pills-tabContent">
                                         <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                             <div class="col-lg-12 col-md-12">
                                                 <label>Examenes</label>
@@ -512,11 +512,11 @@
                                         
                                         <!--Proxima cita-->
                                         <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">Proxima cita...</div>
-                                        {{-- <div class="col-md-6 text-right">
-                                            <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
-                                            <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
-                                            <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
-                                        </div> --}}
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
+                                        <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
+                                        <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
                                     </div>
                                 </section>
                             </div>
