@@ -110,6 +110,11 @@ ul[role="tablist"] {
     color: #fff;
 }
 
+.assigment .imagecheck-image:last-child {
+    width: auto;
+    height: auto;
+}
+
 .imagecheck-image:last-child {
     width: auto;
     height: 190px;
@@ -124,9 +129,16 @@ ul[role="tablist"] {
     max-height: 190px;
 }
 
+.assigment .imagecheck-figure {
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .imagecheck-figure:before {
     color: #00505b;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .datepicker-dropdown {
@@ -527,4 +539,8 @@ body,
     flex-direction: row;
     justify-content: start;
     margin-top: 20px;
+}
+
+.disabled:hover .imagecheck-image {
+    opacity: .64!important;
 }
