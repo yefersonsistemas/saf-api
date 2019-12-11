@@ -27,8 +27,8 @@
                                             <th class="text-center">Horario</th>
                                             <th class="text-center">Asistencia</th>
                                         </tr>
-                                        </thead>
-                                        <tfoot>
+                                    </thead>
+                                    <tfoot>
                                         <tr>
                                             <th>Foto</th>
                                             <th>Cedula</th>
@@ -38,44 +38,44 @@
                                             <th class="text-center">Horario</th>
                                             <th class="text-center">Asistencia</th>
                                         </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            @foreach($em as $employe)
-                                            <tr>
-                                                <td>
-                                                    @if (!empty($employe->image->path))
-                                                    <img src="{{ Storage::url($employe->image->path) }}" alt="">
-                                                    @else
-                                                    <img src="" alt="" >
-                                                    @endif
-                                                </td>
-                                                <td>{{ $employe->person->dni }}</td>
-                                                <td>{{ $employe->person->name }}</td>
-                                                <td>{{ $employe->person->lastname }}</td>
-                                                <td>
-                                                @foreach ($employe->speciality as $item)
-                                                    {{ $item->name }} <br>
-                                                @endforeach
-                                                </td>
-                                                <!--Ver horario del medico-->
-                                                <td class="d-flex justify-content-center">
-                                                    <input type="hidden" id="id" value="{{ $employe->person->id }}">
-                                                    <a href="" class="btn btn-info"  style="color:#fff; font-weight:bold;" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fe fe-eye"></i></a>
-                                                </td>
-                                                <!--Asistencia del medico-->
-                                                <td class=" justify-content-center text-center">
-                                                    @if($employe->assistance->first() != '')
-                                                        <p>Cancelado</p>
-                                                    @endif
-
-                                                    @if($employe->assistance->first() == '')
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}"><i class="fa fa-close"></i></button>
-                                                    @endif
-                                                </td>
-            
-                                            </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach($em as $employe)
+                                        <tr>
+                                            <td>
+                                                @if (!empty($employe->image->path))
+                                                <img src="{{ Storage::url($employe->image->path) }}" alt="">
+                                                @else
+                                                <img src="" alt="" >
+                                                @endif
+                                            </td>
+                                            <td>{{ $employe->person->dni }}</td>
+                                            <td>{{ $employe->person->name }}</td>
+                                            <td>{{ $employe->person->lastname }}</td>
+                                            <td>
+                                            @foreach ($employe->speciality as $item)
+                                                {{ $item->name }} <br>
                                             @endforeach
-                                        </tbody>
+                                            </td>
+                                            <!--Ver horario del medico-->
+                                            <td class="d-flex justify-content-center">
+                                                <input type="hidden" id="id" value="{{ $employe->person->id }}">
+                                                <a href="" class="btn btn-info"  style="color:#fff; font-weight:bold;" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fe fe-eye"></i></a>
+                                            </td>
+                                            <!--Asistencia del medico-->
+                                            <td class=" justify-content-center text-center">
+                                                @if($employe->assistance->first() != '')
+                                                    <p>Cancelado</p>
+                                                @endif
+
+                                                @if($employe->assistance->first() == '')
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}"><i class="fa fa-close"></i></button>
+                                                @endif
+                                            </td>
+        
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>  

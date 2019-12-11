@@ -9,33 +9,33 @@
 @section('title','Todos los Medicos')
 
 @section('content')
-<div class="section-body py-3">
-    <div class="container-fluid">
-        <div class=" p-4">
-            <div class="col-lg-12">
-                <div class="table-responsive mb-4 ">
-                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Cedula</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Esepcialidad</th>
-                                <th class="text-center">Horario</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Cedula</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Esepcialidad</th>
-                                <th class="text-center">Horario</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
+    <div class="section-body py-3">
+        <div class="container-fluid">
+            <div class=" p-4">
+                <div class="col-lg-12">
+                    <div class="table-responsive mb-4 ">
+                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <thead>
+                                <tr>
+                                    <th>Foto</th>
+                                    <th>Cedula</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Esepcialidad</th>
+                                    <th class="text-center">Horario</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Foto</th>
+                                    <th>Cedula</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Esepcialidad</th>
+                                    <th class="text-center">Horario</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
                                 @foreach ($e as $employe)
                                 <tr>
                                     <td>
@@ -59,12 +59,12 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div> 
+                            </tbody>
+                        </table>
+                     </div>
+                </div> 
+            </div>
         </div>
-
     </div>
 
     <!-- Modal -->
@@ -118,14 +118,10 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
-                    </div>
                 </div>
+            </div>
         </div>
     @endforeach
-
-
-
-
 @endsection
 
 @section('scripts')
