@@ -23,12 +23,15 @@ $factory->define(Diagnostic::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
 
     return [
-        'patient_id'  => $patient->id,
-        'description' => $faker->sentence(8),
-        'reason'      => $faker->sentence(5),
-        'treatment_id' => $treatment->id,
-        'indications' => $faker->sentence(5),
-        'employe_id'  => $employes->random()->id,
-        'branch_id'   => $branchoffice->id,
+        'patient_id'        => $patient->id,
+        'description'       => $faker->sentence(8),
+        'reason'            => $faker->sentence(5),
+        'enfermedad_actual' => $faker->sentence(8),
+        'examen_fisico'     => $faker->sentence(8),
+        'reason'            => $faker->sentence(5),
+        'treatment_id'      => $treatment->id,
+        'indications'       => $faker->sentence(5),
+        'employe_id'        => $employes->random()->id,
+        'branch_id'         => $branchoffice->id,
     ];
 });

@@ -222,7 +222,7 @@
                                             <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                 <h5 class="card-title text-white">Enfermedades</h5>
                                             </div>
-                                            <div id="collapseOne" class="collapse card-body list-group" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div  class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
                                                 @foreach ( $history->historyPatient->disease as $disease )
                                                     <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
                                                 @endforeach
@@ -513,9 +513,10 @@
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 <script src="{{ asset('assets\css\brandAn.js') }}"></script>
 
-<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
-<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+
+<script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
+<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
 <script>
     $('#multiselect4-filter').multiselect({
@@ -611,6 +612,22 @@
 
 
     //======================Referenci medica=========================
+      
+    $('input[name="tipoMedico"]').on('click',function(){
+
+        if ($('#interno').is(':checked')) {
+            $('#medicoExterno').attr('disabled', 'disabled');
+            $('#medicoInterno').removeAttr('disabled');
+            $('#medicoExterno').val(null);
+        }
+
+        if($('#externo').is(':checked')){
+            $('#medicoInterno').attr('disabled', 'disabled');
+            $('#medicoInterno').val(null);
+            $('#medicoExterno').removeAttr('disabled');
+        }
+    })
+
     $("#speciality").change(function() {
         var speciality = $(this).val();
         $.ajax({
