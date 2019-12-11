@@ -372,6 +372,15 @@ body,
     }
 }
 
+@media screen and (max-width: 430px) {
+    .auth .auth_right {
+        display: none;
+    }
+    .auth .auth_left {
+        width: 100%;
+    }
+}
+
 .header-brand img {
     margin-top: 40px;
     max-width: 50%;
