@@ -44,42 +44,6 @@
                                                     </div>
                                                 @else
                                                     @if ($area->typearea->name == 'Consultorio' && $area->status == 'ocupado')
-<<<<<<< HEAD
-                                                        {{-- <div class="card card-citas-md col-3 m-4 " style="background:dimgray">
-                                                                <div class="col-6 col-sm-4 mt-4" width="500px" height="auto">
-                                                                    <label class="imagecheck mb-3" >
-                                                                        <input name="area" id="area" type="radio" value=" {{ $area->id}}" class="imagecheck-input" disabled>
-                                                                        @if (!empty($area->image->path))
-                                                                        <figure class="imagecheck-figure">
-                                                                            <img src={{ Storage::url($area->image->path) }} alt="" >
-                                                                        </figure>
-                                                                        @else
-                                                                        <img src="" alt="" >
-                                                                        @endif
-                                                                    </label>
-                                                                </div>
-                                                            <div class="card-header unborder">
-                                                                {{ $area->name}} <br>
-                                                                {{ $area->status }} 
-                                                            </div>
-                                                        </div> --}}
-                                                        <div class="col-6 col-sm-4">
-                                                            <label class="imagecheck mb-3">
-                                                                <div class="card max-card text-center assigment" style="background:dimgray">
-                                                                    <div class="card-header text-center ">
-                                                                        <input name="searcharea" id="searcharea" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
-                                                                        @if (!empty($area->image->path))
-                                                                            <figure class="imagecheck-figure border-0">
-                                                                                <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image max-img">
-                                                                            </figure>
-                                                                        @else
-                                                                            <figure class="imagecheck-figure border-0">
-                                                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image max-img">
-                                                                            </figure>
-                                                                        @endif
-                                                                    </div>
-                                                                    <div class="card-body">
-=======
                                                         <div class="col-md-2 mx-3">
                                                             <label class="imagecheck m-0 disabled">
                                                             <div class="card assigment">
@@ -94,7 +58,6 @@
                                                                     </figure>
                                                                     @endif
                                                                     <div class="card-body text-center" style="background:dimgray">
->>>>>>> 5f5725178c117946967bef45bbac1c5389054dc0
                                                                         <h5 class="card-title font-weight-bold">{{ $area->name}} </h5>
                                                                         <h5 class="card-subtitle"><span class="badge badge-light text-dark">{{ $area->status }}</span> </h5>
                                                                     </div>
@@ -140,8 +103,6 @@
                                                                     <li class="list-group-item">{{ $item->name }}</li>
                                                                     @endforeach
                                                                 </ul>
-<<<<<<< HEAD
-=======
                                                             </div>
                                                         </div>
                                                     </div>
@@ -172,15 +133,11 @@
                                                                     <li class="list-group-item">{{ $item->name }}</li>
                                                                     @endforeach
                                                                 </ul>
->>>>>>> 5f5725178c117946967bef45bbac1c5389054dc0
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-<<<<<<< HEAD
-=======
                                                 </label>
->>>>>>> 5f5725178c117946967bef45bbac1c5389054dc0
                                             </div>
                                         @endforeach
                                     </div>
