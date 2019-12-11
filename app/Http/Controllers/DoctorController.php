@@ -202,9 +202,9 @@ class DoctorController extends Controller
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
     public function recipeStore(Request $request)
     {
-        // dd($request->employe);
+        // dd($request);
         $recipe = Recipe::with('patient','employe.person')->where('patient_id', $request->patient)->where('employe_id', $request->employe)->first();
-    //    dd($recipe);
+
         $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $request->patient)->where('employe_id', $request->employe)->first();
 
         if($recipe == null){
@@ -217,8 +217,6 @@ class DoctorController extends Controller
             $crear_recipe = $recipe;
         }
 
-        // dd($crear_recipe);
-        // dd($crear_recipe);
         // $paciente = Person::find($paciente);
         $treatment = Treatment::create([
             'medicine_id'   =>  $request->medicina,
@@ -233,16 +231,15 @@ class DoctorController extends Controller
         // dd($treatment);
         $crear_recipe->medicine()->attach($request->medicina);
 
-        // dd($treatment);
         if($itinerary->recipe_id == null){
             $itinerary->recipe_id = $crear_recipe->id;
             $itinerary->save();
         }
-       
-        $treatment->load('medicine');
-        
 
-        return response()->json($treatment);
+       $treatments = Treatment::with('medicine')->where('id', $treatment->id)->first();
+        // $treatment->load('medicine');
+
+        return response()->json($treatments);
     }
 
 

@@ -590,15 +590,6 @@
         patient        = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
 
-        console.log(medicina)
-        console.log(dosis)
-        console.log(medida)
-        console.log(duracion)
-        console.log(indicaciones)
-
-        console.log('paciente',patient)
-        console.log('empleado',employe)
-
         ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe);
 
         validacion(medicina, dosis, medida, duracion, patient, employe);
@@ -609,8 +600,7 @@
 
     }
 
-    function ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe) {
-        console.log('hola', patient, employe, medicina, dosis, medida, duracion, indicaciones)
+    function ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe){
         $.ajax({
                 url: "{{ route('recipe.store') }}",
                 type: "POST",
