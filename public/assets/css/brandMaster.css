@@ -541,6 +541,14 @@ body,
     margin-top: 20px;
 }
 
+.assigment .card-body {
+    border-radius: 0 5px;
+    -webkit-border-radius: 0 5px;
+    -moz-border-radius: 0 5px;
+    -ms-border-radius: 0 5px;
+    -o-border-radius: 0 5px;
+}
+
 .disabled:hover .imagecheck-image {
     opacity: .64!important;
 }

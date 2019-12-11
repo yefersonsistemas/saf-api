@@ -28,7 +28,7 @@
                                                                 <input name="searcharea" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
                                                                 @if (!empty($area->image->path))
                                                                 <figure class="imagecheck-figure border-0">
-                                                                    <img src={{ asset('assets/images/sm/default.jpg') }} alt="" class="imagecheck-image w-auto">
+                                                                    <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image w-auto">
                                                                 </figure>
                                                                 @else
                                                                 <figure class="imagecheck-figure border-0">
@@ -50,7 +50,7 @@
                                                                     <input name="searcharea" id="searcharea" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
                                                                     @if (!empty($area->image->path))
                                                                     <figure class="imagecheck-figure border-0">
-                                                                        <img src={{ asset('assets/images/sm/default.jpg') }} alt="" class="imagecheck-image w-auto">
+                                                                        <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image w-auto">
                                                                     </figure>
                                                                     @else
                                                                     <figure class="imagecheck-figure border-0">
