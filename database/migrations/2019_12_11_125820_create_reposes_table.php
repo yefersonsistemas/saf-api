@@ -17,7 +17,7 @@ class CreateReposesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('employe_id');
-            $table->text('description');
+            $table->longtext('description');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 

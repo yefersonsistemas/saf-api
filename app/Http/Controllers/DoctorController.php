@@ -22,6 +22,7 @@ use App\Speciality;
 use App\Treatment;
 use App\Recipe;
 use App\Repose;
+use App\ReportMedico;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Disease;
 
@@ -207,6 +208,7 @@ class DoctorController extends Controller
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
     public function recipeStore(Request $request)
     {
+        // dd($request);
         $itinerary = Itinerary::with('person','employe.person','reservation')->where('reservation_id', $request->reservacion)->first();
 
         if($itinerary->recipe_id == null){
@@ -249,21 +251,24 @@ class DoctorController extends Controller
     // ================================= Guardar diagnostico ======================================
     public function storeDiagnostic(Request $request)
     {
-        dd($request);
+        // dd($request);
 
         $reposo = Repose::create([
             'patient_id'        =>  $request->patient_id,
             'employe_id'        =>  $request->employe_id,
-            'description'       =>  $request->reposo,
-            'branch_id'         =>  1,
+            'description'       =>  $request->reposop,
+            'branch_id'         =>  1
         ]);
 
+        // dd($reposo);
         $reporte = ReportMedico::create([
             'patient_id'        =>  $request->patient_id,
             'employe_id'        =>  $request->employe_id,
             'description'       =>  $request->reporte_medico,
-            'branch_id'         =>  1,
+            'branch_id'         =>  1
         ]);
+
+        dd($reporte);
 
         // $patient = Patient::where('person_id', $id)->first();
         $diagnostic = Diagnostic::create([

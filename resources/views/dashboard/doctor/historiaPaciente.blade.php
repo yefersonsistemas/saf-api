@@ -112,8 +112,9 @@
 
                                 <!--body-->
                                 <div class="card-body">
-                                    <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST">
-                                        @csrf
+                                    <div id="wizard_vertical">
+                                    {{-- <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST">
+                                        @csrf --}}
                                         <input type="hidden" name="patient_id" value="{{ $history->patient_id }}"> 
                                         <input type="hidden" name="employe_id" value="{{ $history->person_id }}"> 
                                         <h2>Información Personal</h2>
@@ -416,9 +417,9 @@
                                                                                 </div>
                                                                             </div>
                                                                     </div>
-                                                                <div class="card-footer text-center">
+                                                                {{-- <div class="card-footer text-center">
                                                                     <button type="submit" class="btn btn-azuloscuro">Generar</button>
-                                                                </div>
+                                                                </div> --}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -434,7 +435,7 @@
                                                 <!--Reposo-->
                                                 <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
                                                     <section>
-                                                        <textarea name="reposo" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                        <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
                                                     </section>  
                                                 </div>
                                             
@@ -498,7 +499,8 @@
                                                 <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">Proxima cita...</div>
                                             </div>
                                         </section>
-                                    </form>
+                                    {{-- </form> --}}
+                                    </div>
                                 </div>
                                 <!--Fin del body-->
                         </div>
@@ -553,20 +555,19 @@
             previous: "Anterior",
             loading: "Cargando ..."
         },
-        onFinished: function (event, currentIndex)
-        {
-            var form = $(this);
+        // onFinished: function (event, currentIndex)
+        // {
+        //     var form = $(this);
 
-            // Submit form input
 
-            form.submit();
-        },
-        onInit: function(event, currentIndex) {
-            setButtonWavesEffect(event);
-        },
-        onStepChanged: function(event, currentIndex, priorIndex) {
-            setButtonWavesEffect(event);
-        }
+        //     form.submit();
+        // },
+        // onInit: function(event, currentIndex) {
+        //     setButtonWavesEffect(event);
+        // },
+        // onStepChanged: function(event, currentIndex, priorIndex) {
+        //     setButtonWavesEffect(event);
+        // }
     });
 
     function setButtonWavesEffect(event) {

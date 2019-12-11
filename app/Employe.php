@@ -29,6 +29,11 @@ class Employe extends Model
         return $this->belongsTo('App\Person');
     }
     
+    public function repose()
+    {
+        return $this->hasMany('App\Repose', 'employe_id');
+    }
+
     public function user()
     {
         return $this->hasOneThrough('App\User','App\Person');
