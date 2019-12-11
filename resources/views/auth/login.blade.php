@@ -74,7 +74,7 @@
 
     <div class="auth_right">
         <div class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000" >
-            <div class="carousel-inner">
+            <div class="carousel-inner" id="carousel">
                 <div class="carousel-item active item img-item-1">
                     {{-- <img src="{{ asset('img\auth\black-doctor-9_1023x789.jpg') }}" class="img-fluid item" alt="login page"> --}}
                     {{-- <div class="px-4 mt-4">
@@ -168,4 +168,25 @@
         </div>
     </div>
 </div> --}}
+
+<script>
+
+$(document).ready(function(){
+
+    var banner = {
+		padre: $('#carousel')
+	};
+	
+	// Funcion para calcular el alto que tendran los contenedores padre
+	var altoBanner = function(){
+		var alto = banner.padre.children('.carousel-item').outerHeight();
+		banner.padre.css({
+			'height': alto + 'px'
+		});
+	}
+
+
+    altoBanner();
+});
+</script>
 

@@ -324,13 +324,22 @@ body,
     background-position: center;
     background-size: cover;
     margin-top: 0px;
-    height: 789px;
+    /* height: 789px; */
     vertical-align: top;
 }
 
 .auth_right .carousel-inner>div {
     max-height: 789px;
     height: 789px;
+    vertical-align: top;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.auth_right .carousel-inner {
+    position: relative;
+    width: 100%;
 }
 
 .img-item-1 {
