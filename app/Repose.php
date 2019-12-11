@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Repose extends Model
 {
-    protected $table = 'repose';
+    protected $table = 'reposes';
 
     protected $fillable = [
-        'patient_id', 'employe_id','branch_id'
+        'patient_id', 'employe_id','description','branch_id'
     ];
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->hasOne('App\Person');
     }
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->hasOne('App\Employe');
     }
 
 }

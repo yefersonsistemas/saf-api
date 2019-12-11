@@ -21,6 +21,8 @@ use App\Reference;
 use App\Speciality;
 use App\Treatment;
 use App\Recipe;
+use App\Repose;
+use App\ReportMedico;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Disease;
 
@@ -209,6 +211,7 @@ class DoctorController extends Controller
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
     public function recipeStore(Request $request)
     {
+        // dd($request);
         $itinerary = Itinerary::with('person','employe.person','reservation')->where('reservation_id', $request->reservacion)->first();
 
         if($itinerary->recipe_id == null){
@@ -249,17 +252,39 @@ class DoctorController extends Controller
 
 
     // ================================= Guardar diagnostico ======================================
-    public function storeDiagnostic(Request $request, $id)
+    public function storeDiagnostic(Request $request)
     {
-        $patient = Patient::where('person_id', $id)->first();
         // dd($request);
+
+        $reposo = Repose::create([
+            'patient_id'        =>  $request->patient_id,
+            'employe_id'        =>  $request->employe_id,
+            'description'       =>  $request->reposop,
+            'branch_id'         =>  1
+        ]);
+
+        // dd($reposo);
+        $reporte = ReportMedico::create([
+            'patient_id'        =>  $request->patient_id,
+            'employe_id'        =>  $request->employe_id,
+            'description'       =>  $request->reporte_medico,
+            'branch_id'         =>  1
+        ]);
+
+        dd($reporte);
+
+        // $patient = Patient::where('person_id', $id)->first();
         $diagnostic = Diagnostic::create([
-            'patient_id'    =>  $patient->id,
-            'description'   =>  $request->description,
-            'reason'        =>  $request->razon,
-            'indications'   =>  $request->indicaciones,
-            'employe_id'    =>  $patient->employe_id,
-            'branch_id'     =>  1,
+            'patient_id'        =>  $request->patient_id,
+            'description'       =>  $request->description,
+            'reason'            =>  $request->razon,
+            'enfermedad_actual' =>  $request->enfermedad_actual,
+            'examen_fisico'     =>  $request->examen_fisico,
+            'report_medico_id'  =>  $reporte->id,
+            'repose_id'         =>  $repose->id,
+            'indications'       =>  $request->indicaciones,
+            'employe_id'        =>  $request->employe_id,
+            'branch_id'         =>  1,
         ]);
 
         foreach ($request->multiselect4 as $examen) {
@@ -277,6 +302,36 @@ class DoctorController extends Controller
         Alert::success('diagnostico creado');
         return redirect()->back();
     }
+
+       // ================================= Guardar diagnostico ======================================
+    //    public function storeDiagnostic(Request $request, $id)
+    //    {
+   
+    //        $patient = Patient::where('person_id', $id)->first();
+    //        $diagnostic = Diagnostic::create([
+    //            'patient_id'    =>  $patient->id,
+    //            'description'   =>  $request->description,
+    //            'reason'        =>  $request->razon,
+    //            'indications'   =>  $request->indicaciones,
+    //            'employe_id'    =>  $patient->employe_id,
+    //            'branch_id'     =>  1,
+    //        ]);
+   
+    //        foreach ($request->multiselect4 as $examen) {
+    //            $diagnostic->exam()->attach($examen);
+    //        }
+   
+    //        $itinerary = Itinerary::where('patient_id', $patient->id)->first();
+           
+    //        if (!is_null($itinerary)) {
+    //            $itinerary->diagnostic_id = $diagnostic->id;
+    //            $itinerary->save();
+    //        }
+   
+   
+    //        Alert::success('diagnostico creado');
+    //        return redirect()->back();
+    //    }
 
     public function searchDoctor(Request $request)
     {
@@ -364,4 +419,7 @@ class DoctorController extends Controller
             ]);
         }
     }
+
+
+
 }

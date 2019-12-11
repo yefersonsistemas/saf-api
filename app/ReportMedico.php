@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReportMedico extends Model
 {
-    protected $table = 'reportMedico';
+    protected $table = 'reportMedicos';
 
     protected $fillable = [
         'patient_id', 'employe_id' ,'branch_id', 'diagnostic_id'

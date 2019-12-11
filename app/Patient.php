@@ -59,7 +59,7 @@ class Patient extends Model
 
     public function repose()
     {
-        return $this->belongsTo('App\Repose');
+        return $this->hasOne ('App\Repose', 'patient_id');
     }
 
     public function doctor()
