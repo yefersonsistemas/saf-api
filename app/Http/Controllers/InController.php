@@ -208,6 +208,7 @@ class InController extends Controller
         }
     }
 
+
     public function statusIn($registro)
     {
         $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
