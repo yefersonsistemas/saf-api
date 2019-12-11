@@ -168,6 +168,7 @@ class OutController extends Controller
                     for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
                         $procedureS[] = Procedure::find($procedures[$i]);
                     }
+                    
                     $all->push($procedureS);  // colocando los procedimientos en colas ordenados
                 }else{
                     $procedureS = null;
