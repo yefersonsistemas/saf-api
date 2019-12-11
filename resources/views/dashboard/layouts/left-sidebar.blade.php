@@ -68,7 +68,7 @@
                 @role('doctor')
                     <li class="g_heading">Doctor</li>
                     <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
-                    <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li>
+                    {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                 @endrole
                     {{-- FIN DEL MODULO DE LOS DOCTORES --}}
                      

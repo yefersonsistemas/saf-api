@@ -194,13 +194,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
                                 </div>
-                               
                             </div>
                             
                         </div>
-                       
                     </div>                
                 </div>
             </div>
@@ -354,7 +351,6 @@
 
     </script>
     <script>
-      
         function redirect() {
             window.location ='{{ route("checkout.index") }}', '_blank';
         };
