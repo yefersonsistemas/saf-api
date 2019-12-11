@@ -8,7 +8,7 @@
 <div id="header_top" class="header_top dark">
     <div class="container">
         <div class="hleft">
-            <a class="header-brand" href="index.html">
+            <a class="header-brand" href="{{ route('home') }}">
                 <img src="{{ asset('img/logosinusblanco.svg') }}" alt="">
             </a>
             <div class="dropdown">
