@@ -212,7 +212,7 @@
             type: 'success',
             allowOutsideClick:false,
             confirmButtonColor: '#3085d6',
-            confirmButtonText: '<a href="{{ route('reservations.create') }}" style="color:#fff">OK</a>'
+            confirmButtonText: '<a href="{{ route('checkin.index') }}" style="color:#fff">OK</a>'
             }).then((result) => {
             if (result.value) {
             }
