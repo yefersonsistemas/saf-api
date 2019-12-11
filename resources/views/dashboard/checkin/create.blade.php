@@ -176,19 +176,19 @@
         },
             onInit: function(event, currentIndex) {
                 setButtonWavesEffect(event);
-                // searcharea(); // llamando al metodo para buscar consultorio
+                searcharea(); // llamando al metodo para buscar consultorio
             },
             onStepChanged: function(event, currentIndex, priorIndex) {
                 setButtonWavesEffect(event);
-                // searchemploye(); // llamando al metodo para buscar empleado
+                searchemploye(); // llamando al metodo para buscar empleado
             },
-            onFinished: function(event, currentIndex) {
-                var form = $(this);
+            // onFinished: function(event, currentIndex) {
+            //     var form = $(this);
 
-            // Submit form input
+            // // Submit form input
 
-            form.submit();
-            }   
+            // form.submit();
+            // }   
             
         });
 
@@ -203,31 +203,31 @@
                 var area = $(this).val();
 
                 console.log('area paso 1',area)
-                // $.ajax({
-                //         url: "{{ route('search.area') }}",
-                //         type: "POST",
-                //         data: {
-                //             _token: "{{ csrf_token() }}",
-                //             id: area
-                //         }
-                //     })
-                //     .done(function(data) {
-                //         if (data) {
-                //             console.log(data)
-                //             Swal.fire({
-                //                 title : 'consultorio seleccionado',
-                //                 text:  data.areas
-                //             })
-                //         }
-                //         if (!data) {
-                //             Swal.fire({
-                //                 text: 'Consultorio ocupado',
-                //             })
-                //         }
-                //     })
-                //     .fail(function(data) {
-                //         console.log(data);
-                //     })
+                $.ajax({
+                        url: "{{ route('search.area') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: area
+                        }
+                    })
+                    .done(function(data) {
+                        if (data) {
+                            console.log(data)
+                            Swal.fire({
+                                title : 'consultorio seleccionado',
+                                text:  data.areas
+                            })
+                        }
+                        if (!data) {
+                            Swal.fire({
+                                text: 'Consultorio ocupado',
+                            })
+                        }
+                    })
+                    .fail(function(data) {
+                        console.log(data);
+                    })
             });
         }
 
@@ -237,32 +237,32 @@
                 var employe = $(this).val();
 
                 console.log('emp paso 1',employe)
-                // $.ajax({
-                //         url: "{{ route('search.medico') }}",
-                //         type: "POST",
-                //         data: {
-                //             _token: "{{ csrf_token() }}",
-                //             id: employe
-                //         }
-                //     })
-                //     .done(function(data) {
-                //         if (data) {
-                //             console.log(data)
-                //             Swal.fire({
-                //                 title : 'Medico  seleccionado',
-                //                 text: data.employes,
+                $.ajax({
+                        url: "{{ route('search.medico') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: employe
+                        }
+                    })
+                    .done(function(data) {
+                        if (data) {
+                            console.log(data)
+                            Swal.fire({
+                                title : 'Medico  seleccionado',
+                                text: data.employes,
                                 
-                //             })
-                //         }
-                //         if (!data){
-                //             Swal.fire({
-                //                 text: 'Medico con consultorio asignado',
-                //             })
-                //         }
-                //     })
-                //     .fail(function(data) {
-                //         console.log(data);
-                //     })
+                            })
+                        }
+                        if (!data){
+                            Swal.fire({
+                                text: 'Medico con consultorio asignado',
+                            })
+                        }
+                    })
+                    .fail(function(data) {
+                        console.log(data);
+                    })
             });
         }
 
@@ -272,32 +272,32 @@
             var area = $("#searcharea").val();
 
             console.log('ysbe',employe, area)
-            // $.ajax({
-            //         url: "{{ route('checkin.assigment_area') }}",
-            //         type: "POST",
-            //         data: {
-            //             _token: "{{ csrf_token() }}",
-            //             employe_id : employe,
-            //             area_id: area,
-            //         }
-            //     })
-            //     .done(function(data) {
-            //         if(data[0] == 201){
-            //         console.log('asignado',data.asignado.area_id, data.asignado.employe_id) ;
-            //         Swal.fire({
-            //             title : 'Consultorio asignado',
-            //             text: data.areaAssigment.employe_id,
-            //         })
-            //     }
-            //     if(data[0] == 202){
-            //         Swal.fire({
-            //             title : 'Consultorio asignado ',
-            //         })
-            //     }
-            //     })
-            //     .fail(function(data) {
-            //         console.log(data);
-            //     })
+            $.ajax({
+                    url: "{{ route('checkin.assigment_area') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        employe_id : employe,
+                        area_id: area,
+                    }
+                })
+                .done(function(data) {
+                    if(data[0] == 201){
+                    console.log('asignado',data.asignado.area_id, data.asignado.employe_id) ;
+                    Swal.fire({
+                        title : 'Consultorio asignado',
+                        text: data.areaAssigment.employe_id,
+                    })
+                }
+                if(data[0] == 202){
+                    Swal.fire({
+                        title : 'Consultorio asignado ',
+                    })
+                }
+                })
+                .fail(function(data) {
+                    console.log(data);
+                })
         }
     </script>
     
