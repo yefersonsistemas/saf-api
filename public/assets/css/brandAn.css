@@ -934,7 +934,7 @@ textarea[cols] {
     display: inline-block;
     width: 100%;
     height: 35em;
-    overflow: hidden;
+    overflow: auto;
     border-top: 1px solid #00506b;
     padding-top: 20px;
 }

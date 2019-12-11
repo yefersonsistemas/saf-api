@@ -192,6 +192,9 @@
                                                 <label class="m-0 form-label">Medico Tratante:</label>
                                                 <div class="input-group d-flex flex-row align-items-center">
                                                     <label for="" class="m-0">Dr.(a) </label>
+                                                    <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
+                                                    <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
+
                                                     <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
                                                     <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
                                                 </div>
@@ -310,16 +313,210 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">Recetario...</div>
-                                        <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">Informe medico...</div>
-                                        <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">Reposo...</div>
-                                        <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">Referencia...</div>
+                                        <!--Recetario-->
+                                        <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
+                                     
+                                            <div class="row clearfix">
+                                                <div class="col-lg-12 mx-auto">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h3 class="card-title">Agregar Medicamento</h3>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Medicamento</label>
+                                                                        <select class="form-control custom-select" name="medicamento">
+                                                                            <option value="0">Seleccione</option>
+                                                                            @foreach ($medicines as $medicine)
+                                                                                <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Dosis</label>
+                                                                        <input type="text" class="form-control" name="dosis" placeholder="3">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Medida</label>
+                                                                        <select name="medida" class="form-control custom-select">
+                                                                            <option value="0">Seleccione</option>
+                                                                            <option value="CC">CC</option>
+                                                                            <option value="G">G</option>
+                                                                            <option value="ML">ML</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Duracion</label>
+                                                                        <input type="text" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group mb-0">
+                                                                <label class="form-label">Indicaciones</label>
+                                                                <textarea rows="5" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button class="btn btn-azuloscuro mb-15" id="add" type="button">
+                                                                <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
+                                                            </button>                            
+                                                        </div>
+
+                                                        
+                                                    </div>
+                                                </div>
+                                            {{-- </div> --}}
+                                            {{-- <div class="container"> --}}
+                                                <div class="col-lg-12 mx-auto">
+                                                    <div class="card">
+                                                            <div class="row">
+                                                                    <div class="card-body">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Medicamento Seleccionado</th>
+                                                                                        <th>Dosis</th>
+                                                                                        <th>Medidas</th>
+                                                                                        <th>Duracion</th>
+                                                                                        <th>Indicaciones</th>
+                                                                                        <th>Acciones</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tfoot>
+                                                                                    <tr>
+                                                                                        <th>Medicamento Seleccionado</th>
+                                                                                        <th>Dosis</th>
+                                                                                        <th>Medidas</th>
+                                                                                        <th>Duracion</th>
+                                                                                        <th>Indicaciones</th>
+                                                                                        <th>Acciones</th>
+                                                                                    </tr>
+                                                                                </tfoot>
+                                                                                <tbody id="addRow">
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                            </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="submit" class="btn btn-azuloscuro">Generar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- </div> --}}
+                                        </div>
+
+                                        <!--Informe medico-->
+                                        <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
+                                            <section>
+                                                <textarea name="fisicExam" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            </section>    
+                                        </div>
+                                        
+                                        <!--Reposo-->
+                                        <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
+                                            <section>
+                                                <textarea name="fisicExam" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            </section>  
+                                        </div>
+                                       
+                                        <!--Referencia-->
+                                        <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
+                                            <div class="container">
+                                                <div class="col-lg-12 mx-auto">
+                                                    <form class="" method="POST" action="{{ route('reference.store', $history->patient_id) }}">
+                                                        @csrf
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h3 class="card-title">Datos del Paciente</h3>
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Documento de Identidad:</label>
+                                                                            <div class="input-group ">
+                                                                                <div class="input-group-prepend col-md-3 p-0">
+                                                                                    <input type="text" class="form-control input-group-text bg-white border-0" placeholder="Tipo de documento" name="type_dni" disabled value="{{ $history->patient->type_dni }}">
+                                                                                </div>
+                                                                                <input type="text" class="form-control bg-white border-0" placeholder="Documento de Identidad" name="dni" disabled value="{{ $history->patient->dni }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Nombre:</label>
+                                                                            <input type="text" class="form-control border-0 bg-white" disabled placeholder="Nombre" value="{{ $history->patient->name }}" name="name">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Apellido:</label>
+                                                                            <input type="text" class="form-control border-0 bg-white" disabled placeholder="lastname" value="{{ $history->patient->lastname }}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4">
+                                                                        <label class="form-label" >Especialidad:</label>
+                                                                        {{-- <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                            <option value="0" >Seleccione</option>
+                                                                            @foreach ($specialities as $speciality)
+                                                                                <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                                                                            @endforeach
+                                                                        </select> --}}
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="form-group" style=" margin-top:8px;">
+                                                                                <div class="custom-controls-stacked d-flex justify-content-between">
+                                                                                    <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                        <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
+                                                                                        <span class="custom-control-label">Medico Interno</span>
+                                                                                        <select class="form-control custom-select" name="doctor" id="medicoInterno">
+                                                                                                <option>Medico Interno</option>
+                                                                                        </select>
+                                                                                    </label>
+                                                                                    <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                        <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
+                                                                                        <span class="custom-control-label">Medico Externo</span>
+                                                                                        <input type="text" id="medicoExterno" class="form-control"  placeholder="" name="doctorExterno" >
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <div class="col-lg-12 col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Razon</label>
+                                                                            <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer text-center">
+                                                                <button type="submit" class="btn btn-azuloscuro">Generar</button>
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!--Proxima cita-->
                                         <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">Proxima cita...</div>
-                                        <div class="col-md-6 text-right">
+                                        {{-- <div class="col-md-6 text-right">
                                             <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
                                             <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
                                             <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </section>
                             </div>
@@ -342,6 +539,10 @@
 <script src="{{ asset('assets\js\page\summernote.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 <script src="{{ asset('assets\css\brandAn.js') }}"></script>
+
+<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
+<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
+<script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
 <script>
     $('#multiselect4-filter').multiselect({
@@ -381,6 +582,70 @@
     function setButtonWavesEffect(event) {
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
+    }
+
+    //=================================para el recipe============================
+    $('#add').click(function () {
+        console.log('hola');
+        medicina        = $("select[name='medicamento']").val();
+        dosis           = $("input[name='dosis']").val();
+        medida          = $("select[name='medida']").val();
+        duracion        = $("input[name='duracion']").val();
+        indicaciones    = $("textarea[name='indicaciones']").val();
+        patient        = $("input[id='patient']").val();
+        employe         = $("input[id='employe']").val();
+
+        console.log(medicina)
+        console.log(dosis)
+        console.log(medida)
+        console.log(duracion)
+        console.log(indicaciones)
+
+        console.log('paciente',patient)
+        console.log('empleado',employe)
+
+        ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe);
+
+        validacion(medicina, dosis, medida, duracion, patient, employe);
+
+    });
+
+    function validacion (medicina, dosis, medida, duracion, patient, employe){
+
+    }
+
+    function ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe) {
+        console.log('hola', patient, employe, medicina, dosis, medida, duracion, indicaciones)
+        $.ajax({
+                url: "{{ route('recipe.store') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    medicina : medicina, 
+                    dosis: dosis, 
+                    medida : medida, 
+                    duracion: duracion,
+                    indicaciones: indicaciones,
+                    patient: patient,
+                    employe: employe,
+                }
+            })
+            .done(function(data) {
+                console.log(data);
+                Swal.fire({
+                    title: 'Excelente!',
+                    text: 'Medicina agregada',
+                    type: 'success',
+                })
+                addRow(data);
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+    }
+
+    function addRow(data) {
+        $('#addRow').append('<tr class="gradeA"> <td>'+data.medicine.name+'</td> <td>'+data.doses+'</td> <td>'+data.measure+'</td> <td>'+data.duration+'</td> <td>'+data.indications+'</td> <td class="actions"> <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden=""><i class="icon-drawer" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden=""><i class="icon-close" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>');
     }
 
 </script>

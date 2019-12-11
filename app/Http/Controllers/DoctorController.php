@@ -71,6 +71,7 @@ class DoctorController extends Controller
     {
         // dd($id);
         // $history = 
+        $medicines = Medicine::all();
         $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
@@ -83,7 +84,7 @@ class DoctorController extends Controller
             // return response()->json([
             //   'Patient' => $history,
             // ]);
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines'));
     }
 
     /**
@@ -199,21 +200,25 @@ class DoctorController extends Controller
 
 
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
-    public function recipeStore(Request $request, $paciente, $employe)
+    public function recipeStore(Request $request)
     {
-        $recipe = Recipe::with('patient','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
-       
-        $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
+        // dd($request->employe);
+        $recipe = Recipe::with('patient','employe.person')->where('patient_id', $request->patient)->where('employe_id', $request->employe)->first();
+    //    dd($recipe);
+        $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $request->patient)->where('employe_id', $request->employe)->first();
 
         if($recipe == null){
             $crear_recipe = Recipe::create([
-                'patient_id'   =>  $paciente,
-                'employe_id'   =>  $employe,
+                'patient_id'   =>  $request->patient,
+                'employe_id'   =>  $request->employe,
                 'branch_id'    =>  1,
             ]);
         }else{
             $crear_recipe = $recipe;
         }
+
+        // dd($crear_recipe);
+        // dd($crear_recipe);
         // $paciente = Person::find($paciente);
         $treatment = Treatment::create([
             'medicine_id'   =>  $request->medicina,
@@ -225,14 +230,18 @@ class DoctorController extends Controller
             'branch_id'     =>  1,
         ]);
 
+        // dd($treatment);
         $crear_recipe->medicine()->attach($request->medicina);
 
+        // dd($treatment);
         if($itinerary->recipe_id == null){
             $itinerary->recipe_id = $crear_recipe->id;
             $itinerary->save();
         }
        
         $treatment->load('medicine');
+        
+
         return response()->json($treatment);
     }
 

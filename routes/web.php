@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
     Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
-    Route::post('doctor/recipe/{patient}/{employe}','DoctorController@recipeStore')->name('recipe.store');
+    Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
 
 
     Route::group(['middleware' => ['role:recepcion']], function () {
