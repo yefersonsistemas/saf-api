@@ -50,7 +50,8 @@
                             {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                         </ul>
                         <li>
-                            <a href="{{ route('checkin.doctor') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
+                            <a href="{{ route('checkin.doctor') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos del día</span></a>
+                            <a href="{{ route('checkin.doctor_todos') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Todos los médicos</span></a>
                             {{-- <ul>
                                 <li><a href="{{ route('checkin.doctor') }}">Del dia</a></li>
                                 <li><a href="">Todos</a></li>

@@ -113,10 +113,12 @@
                                 <!--body-->
                                 <div class="card-body">
                                     <div id="wizard_vertical">
-                                    {{-- <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST">
-                                        @csrf --}}
+                                    {{-- <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST"> --}}
+                                        @csrf
                                         <input type="hidden" name="patient_id" value="{{ $history->patient_id }}"> 
                                         <input type="hidden" name="employe_id" value="{{ $history->person_id }}"> 
+                                        <input type="hidden" name="razon" value="{{ $history->description }}"> 
+
                                         <h2>Información Personal</h2>
                                         <section class="card mr-4 ml-4">
                                             <div class="row">
@@ -224,7 +226,7 @@
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad_actual" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="enfermedad" id="" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -387,35 +389,35 @@
                                                         <div class="col-lg-12 mx-auto">
                                                             <div class="card">
                                                                     <div class="row">
-                                                                            <div class="card-body">
-                                                                                <div class="table-responsive">
-                                                                                    <table class="table table-hover table-vcenter table-striped"
-                                                                                        cellspacing="0" id="addrowExample">
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>Medicamento Seleccionado</th>
-                                                                                                <th>Dosis</th>
-                                                                                                <th>Medidas</th>
-                                                                                                <th>Duracion</th>
-                                                                                                <th>Indicaciones</th>
-                                                                                                <th>Acciones</th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tfoot>
-                                                                                            <tr>
-                                                                                                <th>Medicamento Seleccionado</th>
-                                                                                                <th>Dosis</th>
-                                                                                                <th>Medidas</th>
-                                                                                                <th>Duracion</th>
-                                                                                                <th>Indicaciones</th>
-                                                                                                <th>Acciones</th>
-                                                                                            </tr>
-                                                                                        </tfoot>
-                                                                                        <tbody id="addRow">
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </div>
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-vcenter table-striped"
+                                                                                    cellspacing="0" id="addrowExample">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Medicamento Seleccionado</th>
+                                                                                            <th>Dosis</th>
+                                                                                            <th>Medidas</th>
+                                                                                            <th>Duracion</th>
+                                                                                            <th>Indicaciones</th>
+                                                                                            <th>Acciones</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tfoot>
+                                                                                        <tr>
+                                                                                            <th>Medicamento Seleccionado</th>
+                                                                                            <th>Dosis</th>
+                                                                                            <th>Medidas</th>
+                                                                                            <th>Duracion</th>
+                                                                                            <th>Indicaciones</th>
+                                                                                            <th>Acciones</th>
+                                                                                        </tr>
+                                                                                    </tfoot>
+                                                                                    <tbody id="addRow">
+                                                                                    </tbody>
+                                                                                </table>
                                                                             </div>
+                                                                        </div>
                                                                     </div>
                                                                 {{-- <div class="card-footer text-center">
                                                                     <button type="submit" class="btn btn-azuloscuro">Generar</button>
@@ -428,7 +430,7 @@
                                                 <!--Informe medico-->
                                                 <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
                                                     <section>
-                                                        <textarea name="reporte_medico" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                        <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
                                                     </section>    
                                                 </div>
                                                 
