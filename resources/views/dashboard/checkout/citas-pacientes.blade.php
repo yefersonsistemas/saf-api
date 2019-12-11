@@ -244,14 +244,14 @@
 
                                             <!--CONSTANCIA-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                @if($itinerary->constancia_id != null)
+                                                @if($itinerary->constancy_id != null)
                                                     <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                        <i class="fa fa-print"> </i> Constancia
+                                                        <i class="fa fa-print"> </i>Constancia
                                                     </a>
-                                                    @else
+                                                    {{-- @else
                                                     <a href="" class="btn btn-gene abarca" type="button">
-                                                        <i class="fa fa-plus-circle"></i>  Constancia
-                                                    </a>
+                                                        <i class="fa fa-plus-circle"></i>Constancia
+                                                    </a> --}}
                                                 @endif
                                             </div>
 
@@ -261,23 +261,23 @@
                                                     <a href="{{ route('checkout.imprimir_referencia', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Referencia
                                                     </a>
-                                                    @else
+                                                    {{-- @else
                                                     <a href="" class="btn btn-gene abarca" type="button">
                                                         <i class="fa fa-plus-circle"></i> Referencia
-                                                    </a>
+                                                    </a> --}}
                                                 @endif
                                             </div>
 
                                             <!--REPOSO-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                @if($itinerary->reposo_id != null)
+                                                @if($itinerary->rest_id != null)
                                                     <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Reposo
                                                     </a>
-                                                    @else
+                                                    {{-- @else
                                                     <button href="" class="btn btn-gene abarca text-start" disabled>
                                                         <i class="fa fa-plus-circle"></i> Reposo
-                                                    </button>
+                                                    </button> --}}
                                                 @endif
                                             </div>
 

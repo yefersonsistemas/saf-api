@@ -61,15 +61,16 @@ span{
     margin-bottom: 10px;
     margin-left: 20px;
     margin-top:-490px;
-    font-size: 14px;
+    font-size: 18px;
     padding-top: 15px;
     letter-spacing: 1px;
     color: #000000;
+    font-weight: bold;
 }
 
 .contenido {
     text-align: left;
-    font-size: 14px;
+    font-size: 15px;
     margin-left: 20px;
     margin-top: 20px;
     letter-spacing: 1px;
@@ -110,8 +111,8 @@ span{
 .doctor{
     text-align: center;
     color: #000000;
-    font-size: 14px;
-    margin-top: 100px;
+    font-size: 15px;
+    margin-top: 120px;
     line-height: 2px;
     letter-spacing: 1px;
 }
@@ -119,7 +120,7 @@ span{
 .fecha{
     text-align: left;
     color: #000000;
-    font-size: 14px;
+    font-size: 15px;
     margin-left: 20px;
     letter-spacing: 1px;
     margin-top: 20px;
@@ -128,7 +129,7 @@ span{
 .att{
     text-align: left;
     margin-left: 20px;
-    font-size: 14px;
+    font-size: 15px;
     color: #000000;
     letter-spacing: 1px;
     margin-top: 40px;
@@ -160,25 +161,24 @@ margin-top: -15px;
                 <div class="contenido">
                     <p>
                         El Paciente <span>{{ $referencia->patient->name }} {{ $referencia->patient->lastname }}</span>, 
-                        Portador del documento de identidad:<span>{{ $referencia->patient->type_dni }} {{ $referencia->patient->dni }}</span>, 
-                        manifiesta que presenta: <span>{{ $itinerary->diagnostic->description }}</span>. 
+                        Portador del documento de identidad:<span>{{$referencia->patient->type_dni}} {{$referencia->patient->dni}}</span>, 
+                        manifiesta que presenta: <span>{{$referencia->reason}}.</span> 
                     </p><br>
                     <p class="conte">
-                        La presente solicitud, se debe <span>{{ $referencia->reason }}</span>, Por este motivo se recurre a la atención 
-                        inmediata de el Doctor/a<span>{{ $referencia->doctor }}</span>. 
+                        La presente solicitud, es para recurrir a la atención medica del Doctor/a<span>{{$referencia->doctor}}.</span> 
                     </p> 
                 </div>
                 <div class="fecha">
                     <p>
-                        Constancia que se expide a petición de la persona interesada en Santo Domingo,<span>{{ $fecha }}</span>.
+                        Constancia que se expide a petición de la persona interesada en Santo Domingo,<span>{{ $fecha }}.</span>
                     </p>
                 </div>
                 <div class="att">
                     <p>Atentamente.-</p>
                 </div>
                 <div class="doctor">
-                    <p>Dr/a.{{ $referencia->employe->person->name }} {{ $referencia->employe->person->lastname }} </p><br>
-                    <p>Especialista en {{ $referencia->speciality->name }}</p>
+                    <p>Dr/a.{{ $referencia->employe->person->name }} {{ $referencia->employe->person->lastname }}.</p><br>
+                    <p>Especialista en {{ $referencia->speciality->name }}.</p>
                 </div>
             </div>
     </main>
