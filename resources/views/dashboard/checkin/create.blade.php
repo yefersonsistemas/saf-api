@@ -154,10 +154,10 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
                                                             <div id="accordion">
-                                                                <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                                <div class="card-header bg-azuloscuro" id="heading{{ $employe->person->id }}" data-toggle="collapse" data-target="#collapse{{ $employe->person->id }}" aria-expanded="false" aria-controls="collapse{{ $employe->person->id }}">
                                                                         <h5 class="card-title text-white">Detalles...</h5>
                                                                 </div>
-                                                                <div class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+                                                                <div class="collapse card-body list-group" id="collapse{{ $employe->person->id }}" aria-labelledby="heading{{ $employe->person->id }}" data-parent="#accordion">
                                                                     @foreach ($employe->speciality as $item)
                                                                     <li class="list-group-item">{{ $item->name }}</li>
                                                                     @endforeach
