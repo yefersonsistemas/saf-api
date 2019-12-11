@@ -68,7 +68,7 @@
     </div>
 
     <!-- Modal -->
-    {{-- @foreach ($em as $employe) 
+    @foreach ($e as $employe) 
         <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -88,7 +88,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                              
+                                
                                 <tr>
                                     @foreach ($employe->schedule as $item)
                                         @if ($item->day == 'monday')
@@ -112,7 +112,7 @@
                                         @if ($item->turn ==  'tarde')
                                         <td style="text-align:center">Tarde</td>
                                         @endif
-                                          </tr>
+                                            </tr>
                                     @endforeach
                                 
                                 </tbody>
@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>
-    @endforeach --}}
+    @endforeach
 
 
 
