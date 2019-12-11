@@ -35,7 +35,7 @@
                                                                     <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                                                 </figure>
                                                                 @endif
-                                                                <div class="card-body text-center" style="background:darkturquoise">
+                                                                <div class="card-body text-center bg-verdePastel">
                                                                     <h5 class="card-title font-weight-bold">{{ $area->name}} </h5>
                                                                     <h5 class="card-subtitle"><span class="badge badge-light text-dark">{{ $area->status }}</span></h5>
                                                                 </div>
@@ -57,7 +57,7 @@
                                                                         <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                                                     </figure>
                                                                     @endif
-                                                                    <div class="card-body text-center" style="background:dimgray">
+                                                                    <div class="card-body text-center" style="background:#9aa0ac">
                                                                         <h5 class="card-title font-weight-bold">{{ $area->name}} </h5>
                                                                         <h5 class="card-subtitle"><span class="badge badge-light text-dark">{{ $area->status }}</span> </h5>
                                                                     </div>
@@ -75,56 +75,24 @@
                                 <div class="card-body">
                                     <div class="row gutters-sm d-row d-flex justify-content-start">
                                         @foreach ($em as $employe)
-                                            {{-- <div class="col-6 col-sm-4">
-                                                <div class="card max-card text-center assigment doctor">
-                                                    <div class="card-header text-center d-flex flex-row justify-content-center">
-                                                        <label class="imagecheck mb-3">
-                                                                <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
-                                                                @if (!empty($area->image->path))
-                                                                <figure class="imagecheck-figure border-0">
-                                                                    <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image max-img">
-                                                                </figure>
-                                                            @else
-                                                                <figure class="imagecheck-figure border-0">
-                                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image max-img">
-                                                                </figure>
-                                                                @endif
-                                                        </label>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
-                                                        <div id="accordion">
-                                                            <div class="card-header bg-azuloscuro position-relative" id="heading{{ $employe->person->id }}" data-toggle="collapse" data-target="#collapse{{ $employe->person->id }}" aria-expanded="false" aria-controls="collapse{{ $employe->person->id }}">
-                                                                    <h6 class="text-white m-0"><i class="fa fa-eye"></i> Detalles...</h6>
-                                                            </div>
-                                                            <div class="collapse card-body list-group position-absolute py-0" id="collapse{{ $employe->person->id }}" aria-labelledby="heading{{ $employe->person->id }}" data-parent="#accordion">
-                                                                <ul class="list-group">
-                                                                    @foreach ($employe->speciality as $item)
-                                                                    <li class="list-group-item">{{ $item->name }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
                                             <div class="col-md-2 mx-3">
-                                                <label class="imagecheck m-0">
                                                 <div class="card assigment doctor">
-                                                    <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
-                                                    @if (!empty($area->image->path))
-                                                    <figure class="imagecheck-figure border-0">
-                                                        <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image w-auto">
-                                                    </figure>
-                                                    @else
-                                                    <figure class="imagecheck-figure border-0">
-                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
-                                                    </figure>
-                                                    @endif
-                                                    <div class="card-body text-center" style="background:darkturquoise">
+                                                    <label class="imagecheck m-0">
+                                                        <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
+                                                        @if (!empty($area->image->path))
+                                                        <figure class="imagecheck-figure border-0">
+                                                            <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image w-auto">
+                                                        </figure>
+                                                        @else
+                                                        <figure class="imagecheck-figure border-0">
+                                                            <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                        </figure>
+                                                        @endif
+                                                    </label>
+                                                    <div class="card-body text-center bg-verdePastel">
                                                         <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
                                                         <div id="accordion">
-                                                            <div class="card-header bg-azuloscuro position-relative" id="heading{{ $employe->person->id }}" data-toggle="collapse" data-target="#collapse{{ $employe->person->id }}" aria-expanded="false" aria-controls="collapse{{ $employe->person->id }}">
+                                                            <div class="btn btn-azuloscuro position-relative" id="heading{{ $employe->person->id }}" data-toggle="collapse" data-target="#collapse{{ $employe->person->id }}" aria-expanded="false" aria-controls="collapse{{ $employe->person->id }}">
                                                                     <h6 class="text-white m-0"><i class="fa fa-eye"></i> Detalles...</h6>
                                                             </div>
                                                             <div class="collapse card-body list-group position-absolute py-0" id="collapse{{ $employe->person->id }}" aria-labelledby="heading{{ $employe->person->id }}" data-parent="#accordion">
@@ -137,7 +105,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </label>
                                             </div>
                                         @endforeach
                                     </div>
