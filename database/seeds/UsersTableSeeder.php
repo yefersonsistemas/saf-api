@@ -422,6 +422,53 @@ class UsersTableSeeder extends Seeder
             ])->assignRole('OUT');
         });
 
+        /* 
+         * Crea un usuario
+         * con el rol director
+         */
+
+        $person = Person::create([
+            'type_dni' => 'N',
+            'dni' => '10848123',
+            'name' => 'JUAN',
+            'lastname' => 'CORTEZ',
+            'address' => 'el vallecito',
+            'phone' => '0412 1501234',
+            'email' => 'administrador@sinusandface.com',
+            'branch_id' => '1',
+        ]);
+
+
+        $position = factory(App\Position::class)->create([
+            'name' => 'director',
+        ]);
+
+        $employe = factory(App\Employe::class)->create([
+            'person_id' => $person->id,
+            'position_id' => $position->id
+        ]);
+        $this->to('employes', $employe->id, 'App\Employe');
+
+        factory(User::class)->create([
+            'email' => 'administrador@sinusandface.com',
+            'person_id' => $person->id,
+
+        ])->givePermissionTo()->assignRole('director');
+
+
+        factory(Person::class)->create()->each(function ($person) use ($position) {
+            factory(App\Employe::class)->create([
+                'person_id' => $person->id,
+                'position_id' => $position->id
+            ]);
+            factory(App\User::class)->create([
+                'email' => $person->email,
+                'person_id' => $person->id
+            ])->assignRole('director');
+        });
+
+        
+
         // $position = factory(App\Position::class)->create([
         //     'name' => 'logistica',
         // ]);

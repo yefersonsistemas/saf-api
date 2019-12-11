@@ -38,8 +38,6 @@
                 @endrole
 
 
-
-
                 @role('IN')
                     <li class="g_heading">Check-IN</li>                      
                     <li class="@yield('cites')">
@@ -73,7 +71,7 @@
                     {{-- </div> --}}
                 @endrole
                         
-                        
+                  
                         
                         
                         @role('doctor')
@@ -150,13 +148,6 @@
                     
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
                     <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
@@ -165,6 +156,8 @@
                     <li><a href="{{ route('checkout.facturacion') }}"><i class="icon-calendar"></i><span>Facturación</span></a></li><br><br>
                     <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                 @endrole
+
+                
                   
     
                 

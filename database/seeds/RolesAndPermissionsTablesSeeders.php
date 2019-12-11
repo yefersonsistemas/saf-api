@@ -22,6 +22,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
 
         //Roles de usuarios
         //$role = Role::create(['name' => 'administrador']); por si existira
+        Role::create(['name' => 'director']);
         Role::create(['name' => 'seguridad']);
         Role::create(['name' => 'recepcion']);
         Role::create(['name' => 'IN']);
@@ -48,7 +49,6 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Permission::create(['name' => 'Recibir notificacion de paciente candidato a cirugia']);
         
         //Permisos  del rol doctor
-        // Permission::create(['name' => 'ver lista de pacientes']);
         Permission::create(['name' => 'crear historia de paciente']);
         Permission::create(['name' => 'crear diagnostico']);
         Permission::create(['name' => 'elegir examenes a realizar']);
@@ -78,7 +78,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         //Permisos  del rol admon
         Permission::create(['name' => 'ver cuentas por pagar']);
         Permission::create(['name' => 'ver cuentas por cobrar']);
-        // Permission::create(['name' => 'Crear reporte']);
+
 
         /* por si existira 
         $role->givePermissionTo(Permission::all());
