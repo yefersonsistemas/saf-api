@@ -301,6 +301,7 @@
                                         </ul>
                                     </div>
                                     <div class="tab-content" id="pills-tabContent">
+                                        <!--Examen-->
                                         <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                             <div class="col-lg-12 col-md-12">
                                                 <label>Examenes</label>
@@ -315,7 +316,6 @@
                                         </div>
                                         <!--Recetario-->
                                         <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
-                                     
                                             <div class="row clearfix">
                                                 <div class="col-lg-12 mx-auto">
                                                     <div class="card">
@@ -369,12 +369,8 @@
                                                                 <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
                                                             </button>                            
                                                         </div>
-
-                                                        
                                                     </div>
                                                 </div>
-                                            {{-- </div> --}}
-                                            {{-- <div class="container"> --}}
                                                 <div class="col-lg-12 mx-auto">
                                                     <div class="card">
                                                             <div class="row">
@@ -414,7 +410,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- </div> --}}
                                         </div>
 
                                         <!--Informe medico-->
@@ -439,9 +434,9 @@
                                                         @csrf
                                                         <div class="card">
                                                             <div class="card-body">
-                                                                <h3 class="card-title">Datos del Paciente</h3>
+                                                                <h3 class="card-title">Datos del Médico</h3>
                                                                 <div class="row">
-                                                                    <div class="col-md-4">
+                                                                    {{-- <div class="col-md-4">
                                                                         <div class="form-group">
                                                                             <label class="form-label">Documento de Identidad:</label>
                                                                             <div class="input-group ">
@@ -463,7 +458,7 @@
                                                                             <label class="form-label">Apellido:</label>
                                                                             <input type="text" class="form-control border-0 bg-white" disabled placeholder="lastname" value="{{ $history->patient->lastname }}">
                                                                         </div>
-                                                                    </div>
+                                                                    </div> --}}
                                                                     <div class="col-sm-6 col-md-4">
                                                                         <label class="form-label" >Especialidad:</label>
                                                                         {{-- <select class="form-control custom-select" name="speciality" id="speciality">
@@ -499,11 +494,11 @@
                                                                     </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
+                                                                    <button type="submit" class="btn btn-azuloscuro pr-4 pl-4">Generar</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="card-footer text-center">
-                                                                <button type="submit" class="btn btn-azuloscuro">Generar</button>
-                                                            </div>
-                                                        
+                                                           
                                                         </div>
                                                     </form>
                                                 </div>
