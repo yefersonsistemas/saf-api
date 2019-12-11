@@ -14,7 +14,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="wizard_horizontal" method="POST" action="" class="card">
+                        <form id="wizard_horizontal" method="POST" action="" class="card assigmt">
                             @csrf 
                             <h2>Seleccionar consultorio</h2>
                             <section>
@@ -154,13 +154,15 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
                                                             <div id="accordion">
-                                                                <div class="card-header bg-azuloscuro" id="heading{{ $employe->person->id }}" data-toggle="collapse" data-target="#collapse{{ $employe->person->id }}" aria-expanded="false" aria-controls="collapse{{ $employe->person->id }}">
-                                                                        <h5 class="card-title text-white">Detalles...</h5>
+                                                                <div class="card-header bg-azuloscuro position-relative" id="heading{{ $employe->person->id }}" data-toggle="collapse" data-target="#collapse{{ $employe->person->id }}" aria-expanded="false" aria-controls="collapse{{ $employe->person->id }}">
+                                                                        <h6 class="text-white m-0"><i class="fa fa-eye"></i> Detalles...</h6>
                                                                 </div>
-                                                                <div class="collapse card-body list-group" id="collapse{{ $employe->person->id }}" aria-labelledby="heading{{ $employe->person->id }}" data-parent="#accordion">
-                                                                    @foreach ($employe->speciality as $item)
-                                                                    <li class="list-group-item">{{ $item->name }}</li>
-                                                                    @endforeach
+                                                                <div class="collapse card-body list-group position-absolute py-0" id="collapse{{ $employe->person->id }}" aria-labelledby="heading{{ $employe->person->id }}" data-parent="#accordion">
+                                                                    <ul class="list-group">
+                                                                        @foreach ($employe->speciality as $item)
+                                                                        <li class="list-group-item">{{ $item->name }}</li>
+                                                                        @endforeach
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
