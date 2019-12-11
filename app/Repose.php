@@ -9,7 +9,7 @@ class Repose extends Model
     protected $table = 'repose';
 
     protected $fillable = [
-        'patient_id', 'employe_id','branch_id'
+        'patient_id', 'employe_id','description','branch_id'
     ];
 
     public function patient()
