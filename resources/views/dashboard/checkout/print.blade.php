@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Example 2</title>
+    <title>Factura</title>
     <link rel="stylesheet" href="style.css" media="all" />
   <style>
     

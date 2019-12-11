@@ -75,7 +75,9 @@ class DoctorController extends Controller
     public function show($id)
     {
         // dd($id);
-        // $history = 
+        $medicines = Medicine::all();
+        $specialities = Speciality::all();
+
         $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
@@ -88,7 +90,7 @@ class DoctorController extends Controller
             // return response()->json([
             //   'Patient' => $history,
             // ]);
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities'));
     }
 
     /**
@@ -176,7 +178,7 @@ class DoctorController extends Controller
 
     public function referenceStore(Request $request, $patient)
     {
-           
+        //    dd($request);}
         $person = Person::with('historyPatient')->where('id',$patient)->first();
 
         $data = $request->validate([
@@ -192,7 +194,8 @@ class DoctorController extends Controller
             'doctor'        =>  $request->doctorExterno,
         ]);
         
-        $itinerary = Itinerary::where('patient_id', $person->historyPatient->id)->first();
+        $itinerary = Itinerary::where('patient_id', $person->id)->first();
+        // dd($itinerary);
         if (!is_null($itinerary)) {
             $itinerary->reference_id = $reference->id;
             $itinerary->save();
@@ -204,21 +207,27 @@ class DoctorController extends Controller
 
 
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
-    public function recipeStore(Request $request, $paciente, $employe)
+    public function recipeStore(Request $request)
     {
-        $recipe = Recipe::with('patient','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
-       
-        $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
+        $itinerary = Itinerary::with('person','employe.person','reservation')->where('reservation_id', $request->reservacion)->first();
 
-        if($recipe == null){
-            $crear_recipe = Recipe::create([
-                'patient_id'   =>  $paciente,
-                'employe_id'   =>  $employe,
+        if($itinerary->recipe_id == null){
+            
+            // crear el recipe
+            $crear_recipe = Recipe::create([               
+                'patient_id'   =>  $itinerary->patient_id,
+                'employe_id'   =>  $itinerary->employe_id,
                 'branch_id'    =>  1,
             ]);
+
+            //actualiza el campo de recipe en itinerary
+            $itinerary->recipe_id = $crear_recipe->id;     
+            $itinerary->save();
+
         }else{
-            $crear_recipe = $recipe;
+            $crear_recipe = Recipe::where('id', $itinerary->recipe_id)->first();
         }
+
         // $paciente = Person::find($paciente);
         $treatment = Treatment::create([
             'medicine_id'   =>  $request->medicina,
@@ -226,19 +235,16 @@ class DoctorController extends Controller
             'duration'      =>  $request->duracion,
             'measure'       =>  $request->medida,
             'indications'   =>  $request->indicaciones,
-            'recipe_id'   =>  $crear_recipe->id,
+            'recipe_id'     =>  $crear_recipe->id,
             'branch_id'     =>  1,
         ]);
-
+  
         $crear_recipe->medicine()->attach($request->medicina);
 
-        if($itinerary->recipe_id == null){
-            $itinerary->recipe_id = $crear_recipe->id;
-            $itinerary->save();
-        }
-       
-        $treatment->load('medicine');
-        return response()->json($treatment);
+        $treatments = Treatment::with('medicine')->where('id', $treatment->id)->first();
+        // $treatment->load('medicine');
+
+        return response()->json($treatments);
     }
 
 

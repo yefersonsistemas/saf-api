@@ -32,8 +32,8 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Esepcialidad</th>
-                                <th>Horario</th>
-                                <th>Asistencia</th>
+                                <th class="text-center">Horario</th>
+                                <th class="text-center">Asistencia</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -43,8 +43,8 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Esepcialidad</th>
-                                <th>Horario</th>
-                                <th>Asistencia</th>
+                                <th class="text-center">Horario</th>
+                                <th class="text-center">Asistencia</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -66,18 +66,18 @@
                                         @endforeach
                                     </td>
                                     <!--Ver horario del medico-->
-                                    <td>
+                                    <td class="d-flex justify-content-center">
                                         <input type="hidden" id="id" value="{{ $employe->person->id }}">
-                                        <a class="btn btn-info"  data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}">ver</a>
+                                        <a href="" class="btn btn-info"  style="color:#fff; font-weight:bold;" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fe fe-eye"></i></a>
                                     </td>
                                     <!--Asistencia del medico-->
-                                    <td>
+                                    <td class=" justify-content-center text-center">
                                         @if($employe->assistance->first() != '')
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelado</button>
+                                            <p>Cancelado</p>
                                         @endif
 
                                         @if($employe->assistance->first() == '')
-                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}">Cancelar</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}"><i class="fa fa-close"></i></button>
                                         @endif
                                     </td>
                                 </tr>
@@ -98,7 +98,7 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Esepcialidad</th>
-                                <th>Horario</th>
+                                <th class="text-center">Horario</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -108,7 +108,7 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Esepcialidad</th>
-                                <th>Horario</th>
+                                <th class="text-center">Horario</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -129,9 +129,9 @@
                                         {{ $item->name }} <br>
                                     @endforeach
                                     </td>
-                                    <td>   <!--Ver horario del medico-->
+                                    <td class="d-flex justify-content-center">   <!--Ver horario del medico-->
                                         <input type="hidden" id="id" value="{{ $employe->person->id }}">
-                                        <a class="btn btn-info"  data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}">ver</a>
+                                        <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fe fe-eye"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

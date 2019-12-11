@@ -36,7 +36,6 @@
                     <div class="card-body">
                         <h6>Reservaciones confirmadas</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
-                        {{-- <h5>$1,25,451.23</h5> --}}
                     </div>
                 </div>
             </div>
@@ -45,7 +44,6 @@
                     <div class="card-body">
                         <h6>Pacientes por entrar</h6>
                         <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
-                        {{-- <h5>$3,80,451.00</h5> --}}
                     </div>
                 </div>
             </div>
@@ -54,7 +52,6 @@
                     <div class="card-body">
                         <h6>Pacientes atendidos</h6>
                         <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
-                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
             </div>
@@ -73,72 +70,70 @@
                             href="#hospitalarias" role="tab" aria-controls="hospitalarias"
                             aria-selected="false">Hospitalarias</a>
                     </li>
-
                 </ul>
 
                 <div class="tab-content" id="pills-tabContent">
-                    <!----------------------------lista de cirugias hospitalarias----------------------------->
-
-                    @foreach ($cirugias_hospitalarias as $hospitalarias)
-                    <div class=" row tab-pane fast animated bounceInRight show active" id="hospitalarias"
-                        role="tabpanel" aria-labelledby="pills-home-tab">
-                        <div class="col-lg-12">
-                            <div class=" mb-4 card ">
-                                <div class="row card-body d-flex justify-content-between">
-                                    @forelse ($hospitalarias->typeSurgeries as $surgery)
-
-                                    <div class="col-sm-12 col-lg-3 m-2">
-                                        <div class="card text-center card-img">
-                                            <img src="assets\images\cirugia-hospitalaria.jpg"
-                                                class="card-img-top img-thumbnail" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title" style="text-transform: none;">
-                                                    {{ $surgery->name }}</h5>
-                                            </div>
-                                            <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}"
-                                                class="card-link card-footer btn btn-azuloscuro py-2">Ver más...</a>
-                                        </div>
-                                    </div>
-
-                                    @empty
-                                    <h3>NO hay nada</h3>
-                                    @endforelse
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
 
                     <!----------------------------lista de cirugias ambulatorias----------------------------->
                     @foreach ($cirugias_ambulatorias as $ambulatorias)
-
-                    <div class=" row tab-pane animated bounceInRight fast show " id="ambulatorias" role="tabpanel"
-                        aria-labelledby="pills-profile-tab">
-                        <div class="col-lg-12">
-                            <div class="card mb-4">
-                                <div class="row card-body d-flex justify-content-between">
-                                    @forelse ($ambulatorias->typeSurgeries as $surgery)
-                                    <div class="col-sm-12 col-lg-3 m-2">
-                                        <div class="card text-center card-img">
-                                            <img src="assets\images\cirugia-abulatorira.jpg"
-                                                class="card-img-top img-thumbnail" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title" style="text-transform: none;">
-                                                    {{ $surgery->name }}</h5>
+                        <div class=" row tab-pane animated bounceInRight fast show active" id="ambulatorias" role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div class="col-lg-12">
+                                <div class="card mb-4">
+                                    <div class="row card-body d-flex justify-content-between">
+                                        @forelse ($ambulatorias->typeSurgeries as $surgery)
+                                        <div class="col-sm-12 col-lg-3 m-2">
+                                            <div class="card text-center card-img">
+                                                <img src="assets\images\cirugia-abulatorira.jpg"
+                                                    class="card-img-top img-thumbnail" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title" style="text-transform: none;">
+                                                        {{ $surgery->name }}</h5>
+                                                </div>
+                                                <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}"
+                                                    class="card-link card-footer btn btn-azuloscuro py-2">Ver más..</a>
                                             </div>
-                                            <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}"
-                                                class="card-link card-footer btn btn-azuloscuro py-2">Ver más..</a>
                                         </div>
-                                    </div>
 
-                                    @empty
-                                    <h3>NO hay nada</h3>
-                                    @endforelse
+                                        @empty
+                                        <h3>NO hay nada</h3>
+                                        @endforelse
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
+
+                    <!----------------------------lista de cirugias hospitalarias----------------------------->
+                    @foreach ($cirugias_hospitalarias as $hospitalarias)
+                        <div class=" row tab-pane fast animated bounceInRight show" id="hospitalarias"
+                            role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="col-lg-12">
+                                <div class=" mb-4 card ">
+                                    <div class="row card-body d-flex justify-content-between">
+                                        @forelse ($hospitalarias->typeSurgeries as $surgery)
+                                            <div class="col-sm-12 col-lg-3 m-2">
+                                                <div class="card text-center card-img">
+                                                    <img src="assets\images\cirugia-hospitalaria.jpg"
+                                                        class="card-img-top img-thumbnail" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title" style="text-transform: none;">
+                                                            {{ $surgery->name }}</h5>
+                                                    </div>
+                                                    <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}"
+                                                        class="card-link card-footer btn btn-azuloscuro py-2">Ver más...</a>
+                                                </div>
+                                            </div>
+                                        @empty
+                                        <h3>NO hay nada</h3>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+        
 
 
 

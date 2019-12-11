@@ -57,6 +57,11 @@ class Patient extends Model
         return $this->belongsToMany('App\Allergy');
     }
 
+    public function repose()
+    {
+        return $this->belongsTo('App\Repose');
+    }
+
     public function doctor()
     {
         return $this->belongsTo('App\User', 'doctor_id');
@@ -80,6 +85,11 @@ class Patient extends Model
     public function exam()
     {
         return $this->belongsTo('App\Exam');
+    }
+
+    public function reference()
+    {
+        return $this->belongsTo('App\Reference');
     }
 
     public function employe()
