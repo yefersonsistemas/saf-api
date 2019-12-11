@@ -34,6 +34,11 @@ class Employe extends Model
         return $this->hasMany('App\Repose', 'employe_id');
     }
 
+    public function reportMedico()
+    {
+        return $this->hasMany('App\ReportMedico', 'employe_id');
+    }
+
     public function user()
     {
         return $this->hasOneThrough('App\User','App\Person');

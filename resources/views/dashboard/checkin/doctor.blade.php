@@ -10,17 +10,17 @@
 @section('title','Medicos del dia')
 
 @section('content')
-    <div class="col-md-12 mt-3">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item col-md-2">
-                <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Del dia</a>
-            </li>
-            <li class="nav-item col-md-2">
-                <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Todos</a>
-            </li>
-        </ul>
-    </div>
-    <div class="tab-content mx-auto" id="pills-tabContent">
+{{-- <div class="col-md-12 mt-3">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item col-md-2">
+            <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Del dia</a>
+        </li>
+        <li class="nav-item col-md-2">
+            <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Todos</a>
+        </li>
+    </ul>
+</div> --}}
+<div class="tab-content mx-auto" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="col-lg-12">
                 <div class="table-responsive mb-4">
@@ -87,7 +87,7 @@
                 </div>
             </div>  
         </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        {{-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div class="col-lg-12">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -139,8 +139,9 @@
                     </table>
                 </div>
             </div> 
-        </div>
-    </div>
+        </div> --}}
+
+
 
     <!-- Modal -->
     @foreach ($em as $employe) 

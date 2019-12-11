@@ -264,29 +264,32 @@ class DoctorController extends Controller
         ]);
 
         // dd($reposo);
+        // $reporte = ReportMedico::all();
+        // dd($reporte);
         $reporte = ReportMedico::create([
             'patient_id'        =>  $request->patient_id,
             'employe_id'        =>  $request->employe_id,
-            'description'       =>  $request->reporte_medico,
+            'descripction'      =>  $request->reporte,
             'branch_id'         =>  1
         ]);
 
-        dd($reporte);
+        // dd($reporte);
 
         // $patient = Patient::where('person_id', $id)->first();
         $diagnostic = Diagnostic::create([
             'patient_id'        =>  $request->patient_id,
-            'description'       =>  $request->description,
+            'description'       =>  $request->diagnostic,
             'reason'            =>  $request->razon,
-            'enfermedad_actual' =>  $request->enfermedad_actual,
+            'enfermedad_actual' =>  $request->enfermedad,
             'examen_fisico'     =>  $request->examen_fisico,
             'report_medico_id'  =>  $reporte->id,
-            'repose_id'         =>  $repose->id,
+            'repose_id'         =>  $reposo->id,
             'indications'       =>  $request->indicaciones,
             'employe_id'        =>  $request->employe_id,
             'branch_id'         =>  1,
         ]);
 
+        dd($diagnostic);
         foreach ($request->multiselect4 as $examen) {
             $diagnostic->exam()->attach($examen);
         }
