@@ -194,6 +194,7 @@
                                                     <label for="" class="m-0">Dr.(a) </label>
                                                     <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
                                                     <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
+                                                    <input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
 
                                                     <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
                                                     <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
@@ -589,18 +590,20 @@
         indicaciones    = $("textarea[name='indicaciones']").val();
         patient        = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
+        reservacion         = $("input[id='reservacion']").val();
 
-        ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe);
+        ajax(medicina, dosis, medida, duracion, indicaciones, reservacion);
+        // ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe);
 
-        validacion(medicina, dosis, medida, duracion, patient, employe);
+        validacion(medicina, dosis, medida, duracion, reservacion);
 
     });
 
-    function validacion (medicina, dosis, medida, duracion, patient, employe){
+    function validacion (medicina, dosis, medida, duracion, reservacion){
 
     }
 
-    function ajax(medicina, dosis, medida, duracion, indicaciones, patient, employe){
+    function ajax(medicina, dosis, medida, duracion, indicaciones, reservacion){
         $.ajax({
                 url: "{{ route('recipe.store') }}",
                 type: "POST",
@@ -611,8 +614,7 @@
                     medida : medida, 
                     duracion: duracion,
                     indicaciones: indicaciones,
-                    patient: patient,
-                    employe: employe,
+                    reservacion: reservacion,
                 }
             })
             .done(function(data) {
