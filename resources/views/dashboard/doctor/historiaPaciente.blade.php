@@ -218,7 +218,7 @@
                                             <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                 <h5 class="card-title text-white">Enfermedades</h5>
                                             </div>
-                                            <div id="collapseOne" class="collapse card-body list-group" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div  class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
                                                 @foreach ( $history->historyPatient->disease as $disease )
                                                     <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
                                                 @endforeach

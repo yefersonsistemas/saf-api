@@ -25,7 +25,7 @@
     <div class="auth_left">
         <div class="card border-0">
             <div class="text-center mb-3">
-                <a class="header-brand" href="https://sinussystem.logotipomiami.com/login">
+                <a class="header-brand logo-login" href="https://sinussystem.logotipomiami.com/login">
                     <img src="{{ asset('img/Imagotipo_S&F-NOV_Vertical-01.svg') }}" alt="">
                 </a>
             </div>
@@ -168,7 +168,6 @@
         </div>
     </div>
 </div> --}}
-
 <script>
 
 $(document).ready(function(){
@@ -184,9 +183,11 @@ $(document).ready(function(){
 			'height': alto + 'px'
 		});
 	}
-
-
     altoBanner();
+    $(window).resize(function(){
+		altoBanner();
+	});
 });
 </script>
+    
 

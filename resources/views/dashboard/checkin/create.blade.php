@@ -14,7 +14,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="wizard_horizontal" method="POST" action="" class="card">
+                        <form id="wizard_horizontal" method="POST" action="" class="card assigmt">
                             @csrf 
                             <h2>Seleccionar consultorio</h2>
                             <section>
@@ -136,11 +136,11 @@
                                                 </div>
                                             </div> --}}
                                             <div class="col-6 col-sm-4">
-                                                <label class="imagecheck mb-3">
-                                                    <div class="card max-card text-center assigment">
-                                                        <div class="card-header text-center ">
-                                                            <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
-                                                            @if (!empty($area->image->path))
+                                                <div class="card max-card text-center assigment doctor">
+                                                    <div class="card-header text-center d-flex flex-row justify-content-center">
+                                                        <label class="imagecheck mb-3">
+                                                                <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
+                                                                @if (!empty($area->image->path))
                                                                 <figure class="imagecheck-figure border-0">
                                                                     <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image max-img">
                                                                 </figure>
@@ -148,18 +148,25 @@
                                                                 <figure class="imagecheck-figure border-0">
                                                                     <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image max-img">
                                                                 </figure>
-                                                            @endif
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
-                                                            <ul class="list-group">
-                                                                @foreach ($employe->speciality as $item)
-                                                                <li class="list-group-item">{{ $item->name }}</li>
-                                                                @endforeach
-                                                            </ul>
+                                                                @endif
+                                                        </label>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
+                                                        <div id="accordion">
+                                                            <div class="card-header bg-azuloscuro position-relative" id="heading{{ $employe->person->id }}" data-toggle="collapse" data-target="#collapse{{ $employe->person->id }}" aria-expanded="false" aria-controls="collapse{{ $employe->person->id }}">
+                                                                    <h6 class="text-white m-0"><i class="fa fa-eye"></i> Detalles...</h6>
+                                                            </div>
+                                                            <div class="collapse card-body list-group position-absolute py-0" id="collapse{{ $employe->person->id }}" aria-labelledby="heading{{ $employe->person->id }}" data-parent="#accordion">
+                                                                <ul class="list-group">
+                                                                    @foreach ($employe->speciality as $item)
+                                                                    <li class="list-group-item">{{ $item->name }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </label>
+                                                </div>
                                             </div>
                                         @endforeach
                                     </div>

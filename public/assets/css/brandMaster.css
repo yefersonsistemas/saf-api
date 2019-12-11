@@ -328,8 +328,13 @@ body,
     vertical-align: top;
 }
 
+.carousel {
+    overflow: hidden;
+    z-index: 1000;
+    position: relative;
+}
+
 .auth_right .carousel-inner>div {
-    max-height: 789px;
     height: 789px;
     vertical-align: top;
     width: 100%;
@@ -354,7 +359,29 @@ body,
     background-size: cover;
 }
 
-.header-brand img {
+@media screen and (max-width: 1024px) {
+    .auth .auth_right {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .auth .auth_right {
+        width: 380px;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .auth .auth_right {
+        display: none;
+    }
+    .auth .auth_left {
+        width: 100%;
+    }
+}
+
+.logo-login img {
     margin-top: 40px;
     max-width: 50%;
 }
@@ -483,4 +510,21 @@ body,
 
 .wizard>.content>.body ul {
     list-style: none!important;
+}
+
+.doctor .card-body .position-absolute {
+    width: 100%;
+    right: 0px;
+    z-index: 1;
+}
+
+.doctor .card-body .position-absolute ul {
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, .50);
+}
+
+.assigmt ul[role="tablist"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-top: 20px;
 }
