@@ -183,9 +183,10 @@ $(document).ready(function(){
 			'height': alto + 'px'
 		});
 	}
-
-
     altoBanner();
+    $(window).resize(function(){
+		altoBanner();
+	});
 });
 </script>
     
