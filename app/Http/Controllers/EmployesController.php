@@ -124,42 +124,14 @@ class EmployesController extends Controller
             }
         }
 
-        //dd($em);
-        
-        $e = collect([]);
-        if ($employes->isNotEmpty()) {
-            foreach($employes as $employe){
-                if ($employe->position->name == 'doctor' && $employe->person->user->role('doctor')) {
-                    $e->push($employe);
-                }
-            }
-            }
-            return view('dashboard.checkin.doctor', compact('em', 'e'));
+         return view('dashboard.checkin.doctor', compact('em'));
     }
 
     public function doctor_on_todos()//todos los medicos
     {
-        // dd($id);
+ 
         $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule')->get();
-        // $em = collect([]);
-        // if ($employes->isNotEmpty()) {
-        //     foreach ($employes as $employe) {
-        //         if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
-        //             if ($employe->schedule->isNotEmpty()) {
-        //                 $dia = strtolower(Carbon::now()->locale('en')->dayName);
-        //                 foreach ($employe->schedule as $schedule) {
-        //                     if ($schedule->day == $dia) {
-        //                         $em->push($employe);
-        //                     }
-        //                 }
-        //             }
-                    
-        //         }
-        //     }
-        // }
-
-        //dd($em);
-        
+   
         $e = collect([]);
         if ($employes->isNotEmpty()) {
             foreach($employes as $employe){

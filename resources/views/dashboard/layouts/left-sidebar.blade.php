@@ -50,26 +50,23 @@
                             <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
                             {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                         </ul>
+
                         <li>
-                            <a href="{{ route('checkin.doctor') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos del día</span></a>
-                            <a href="{{ route('checkin.doctor_todos') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Todos los médicos</span></a>
-                            {{-- <ul>
-                                <li><a href="{{ route('checkin.doctor') }}">Del dia</a></li>
-                                <li><a href="">Todos</a></li>
-                            </ul> --}}
+                            <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Médicos</span></a>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('checkin.doctor') }}">Medicos del día</a>                                   
+                                </li>
+                                <li>
+                                    <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('checkin.create') }}">Asignar Consultorio</a>
+                                </li>
+                            </ul>
                         </li>
-                                
-                        <li>
-                            <a href="{{ route('checkin.create') }}" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Asignar Consultorio</span></a>
-                        </li>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Medicos</span></a>
-                        <ul>
-                            <li class="@yield('doctor')"><a href="{{ route('checkin.doctor') }}">Medicos</a></li>
-                            <li class="@yield('asignar')"><a href="{{ route('checkin.create') }}">Asignar Consultorio</a></li>
-                        </ul>
-                    </li>     
+
+                    </li> 
                     <div class="card bg-indigo" style="background-color: #00506b;">
                         <div class="card-body text-center">
                             <div class="inline-datepicker datepicker-reception fill_bg"></div>

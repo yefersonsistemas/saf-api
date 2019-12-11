@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 @endsection
-
+@section('title','Asignar Consultorio')
 
 @section('content')
 <div class="section-body">
