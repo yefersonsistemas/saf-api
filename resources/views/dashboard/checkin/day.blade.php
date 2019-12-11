@@ -70,7 +70,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <th class="text-center">Historia</th>
-                                <th>Cedula</th>
+                                <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th>Doctor</th>
                                 <th>Esepcialidad</th>
@@ -83,7 +83,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <th class="text-center">Historia</th>
-                                <th>Cedula</th>
+                                <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th>Doctor</th>
                                 <th>Esepcialidad</th>

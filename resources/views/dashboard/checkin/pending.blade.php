@@ -74,7 +74,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <th class="text-center">Historia</th>
-                                <th>Cedula</th>
+                                <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>
@@ -88,7 +88,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <th class="text-center">Historia</th>
-                                <th>Cedula</th>
+                                <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>

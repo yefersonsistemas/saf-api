@@ -96,7 +96,7 @@
                                     <tr>
                                         <th>Foto</th>
                                         <th class="text-center">Historia</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th class="fecha">Fecha</th>
                                         <th>Doctor</th>
@@ -111,7 +111,7 @@
                                     <tr>
                                         <th>Foto</th>
                                         <th class="text-center">Historia</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th class="fecha">Fecha</th>
                                         <th>Doctor</th>
@@ -235,7 +235,7 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
@@ -248,7 +248,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
@@ -302,7 +302,7 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
@@ -315,7 +315,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
@@ -367,7 +367,7 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
@@ -380,7 +380,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
@@ -432,7 +432,7 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
@@ -445,7 +445,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>

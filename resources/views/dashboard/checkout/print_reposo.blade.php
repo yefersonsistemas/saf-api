@@ -159,7 +159,7 @@ margin-top: -15px;
                 </div>
                 <div class="contenido">
                     <p>
-                        El Paciente<span>indique el nombre del paciente</span>, Cedula:<span>indique la cédula del paciente</span>, 
+                        El Paciente<span>indique el nombre del paciente</span>, Cédula:<span>indique la cédula del paciente</span>, 
                         manifiesta que presenta:<span>indique los síntomas presentados</span>. 
                     </p><br>
                     <p class="conte">
