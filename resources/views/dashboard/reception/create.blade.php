@@ -180,6 +180,15 @@
         headerTag: 'h2',
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
+        labels: {
+            cancel: "Cancelar",
+            current: "Paso actual:",
+            pagination: "Paginación",
+            finish: "Finalizar",
+            next: "Siguiente",
+            previous: "Anterior",
+            loading: "Cargando ..."
+        },
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
@@ -197,10 +206,16 @@
         onFinished: function(event, currentIndex) {
             crear();
             Swal.fire({
-                title: 'Excelente!',
-                text: 'Cita Agendada Exitosamente!',
-                type: 'success',
-            });
+            title: 'Cita Agendada!',
+            text: "Click OK para cerrar!!",
+            type: 'success',
+            allowOutsideClick:false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '<a href="{{ route('checkin.index') }}" style="color:#fff">OK</a>'
+            }).then((result) => {
+            if (result.value) {
+            }
+            })
         }
     });
 
@@ -303,8 +318,8 @@
                 })
                 .done(function(data) {
                     Swal.fire({
-                        title: 'Excelente!',
-                        text: 'Especialidad con medicos',
+                        title: 'Realizado!',
+                        text: 'Click en OK para continuar',
                         type: 'success',
                     });
                     $('#speciality').val(data[0].id);
@@ -345,8 +360,8 @@
                     console.log('Doctores:',data);
                     console.log('Fechas disponibles de los Doctores',data.available);
                     Swal.fire({
-                        title: 'Excelente!',
-                        text: 'Medico Seleccionado',
+                        title: 'Médico seleccionado!',
+                        text: 'Click en OK para continuar',
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);
