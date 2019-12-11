@@ -53,6 +53,21 @@ class InController extends Controller
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
+    public function day()
+    {
+        
+    }
+
+    public function approved()
+    {
+        # code...
+    }
+
+    public function pending()
+    {
+        # code...
+    }
+
     /**
      * Show the form for creating a new resource.
      *
