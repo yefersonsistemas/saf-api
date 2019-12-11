@@ -11,7 +11,7 @@
 |
 */
 Route::get('/', function() {
-    return view('welcome');
+    return redirect()->route('login');
 })->name('welcome');
 
 Auth::routes();
@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
     Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
-    Route::post('doctor/recipe/{patient}/{employe}','DoctorController@recipeStore')->name('recipe.store');
+    Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
 
 
     Route::group(['middleware' => ['role:recepcion']], function () {
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:IN']], function () {
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
-        Route::POST('assigment/area', 'InController@assigment')->name('checkin.assigment');
+        Route::post('assigment/area', 'InController@assigment')->name('checkin.assigment');
         Route::post('search/area','InController@search_area')->name('search.area');  //revisa si el area esta ocupada
 <<<<<<< HEAD
         Route::post('search/medico','InController@search_medico')->name('search.medico');  //revisa si el medico esta ocupado
@@ -49,14 +49,20 @@ Route::group(['middleware' => 'auth'], function (){
 =======
         Route::post('search/medico','InController@search_medico')->name('search.medico');  //busca los doctores
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente a dentro del consultorio
+<<<<<<< HEAD
 >>>>>>> 9c9e1d629043a3fe2330cdda05ceacf54c947faa
+=======
+        Route::get('insideOffice/{id}', 'InController@insideOffice')->name('checkin.insideOffice'); // cambia estado depaciente a dentro del consultorio
+>>>>>>> 33d981afbfaf4510354599a851fb7c543e9f67e9
         Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
-        Route::POST('create', 'InController@store')->name('checkin.store');
+        Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        Route::post('Doctor/asistencia', 'EmployesController@assistance')->name('checkin.asistencia');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
+ 
 
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
@@ -64,6 +70,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
+        
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
@@ -87,6 +94,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
         Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
+        Route::get('constancia','OutController@imprimir_constancia')->name('checkout.imprimir_constancia'); // imprimir constancia
+        Route::get('reposo','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
+        Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {

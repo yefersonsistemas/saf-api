@@ -15,7 +15,7 @@ class CreatePersonsTable extends Migration
     {
         Schema::create('persons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type_dni', ['V', 'E', 'J']);
+            $table->enum('type_dni', ['N', 'E']);
             $table->string('dni');
             $table->string('name');
             $table->string('lastname');

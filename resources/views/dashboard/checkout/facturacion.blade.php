@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 @endsection
 
-@section('title','Facturación')
+@section('title','Proceso de facturación')
 
 @section('content')
     <form action="{{ route('checkout.guardar_factura') }}" method="POST">
@@ -21,23 +21,24 @@
         <div class="section-body py-3">
             <div class="container-fluid">
                 <div class="row clearfix">
-                    <div class="col-lg-12">
+                    <div class="col-lg-10 col-md-10 col-sm-10 ml-5">
                         <div class="card">
                             <div class="card-body row">
-                                <div class="col-3 mt-2">
-                                        <h6>Buscar Paciente </h6>
+                                <div class="col-md-4 col-lg-3 mt-2">
+                                        <h6 style="font-weight:bold">Buscar Paciente </h6>
                                 </div>
-                                <div class="input-group col-5">
-                                    <input id="dni" type="text" class="form-control" maxlength="8" placeholder="buscar paciente...">
-                                    <a id="search"name="search" class="search btn btn-info"><i class="icon-magnifier"></i></a>
+                                <div class="input-group col-lg-9 col-md-8 d-flex justify-content-end" style="border:1px solid #fff">
+                                    <input id="dni" type="text" class="form-control" maxlength="8" placeholder="Documento de identidad...">
+                                    <a id="search"name="search" class="search btn btn-boo" style="color:#fff"><i class="icon-magnifier"></i></a>
                                 </div>
-                                <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
+
+                                {{-- <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                         @foreach ($procedimientos as $procedimiento)
                                             <option value="{{ $procedimiento->id }}" >{{ $procedimiento->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>          
+                                </div>           --}}
                             </div>
                         </div>
                     </div>
@@ -46,19 +47,28 @@
         </div>
 
       
-        <div class="section-body py-3">
+        <div class="section-body">
             <div class="container">
                 <div class="tab-content">
                 
                     <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                         <div class="row clearfix">
-                            <div class="col-12">
+                            <div class="col-lg-10  col-md-10 col-sm-10 ml-5">
+                                  
                                 <div class="card">
-                                    
+
+                                    <div class="card-body row my-8  pl-4">
+                                        <div class="col-lg-4 col-md-5 col-sm-12"><h2>Facturación</h2></div>
+                                        <div class="col-lg-8 col-md-7 col-sm-12 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
+                                            <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0"> {{ $fecha }}</span><br>
+                                        </div>                             
+                                    </div>
+
                                     <div class="card-body">
                                         <div class="row my-8">
-                                            <div class="col-6">
-                                                <p class="h6">Paciente</p>
+                                            <!--Paciente-->
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>
                                                                         
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
@@ -67,36 +77,76 @@
                                                 <input id="total" type="hidden" name="total_cancelar" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
-                                                <span id="dnii"> </span><br>
-                                                <span id="name"></span>
-                                                <span id="lastname"></span><br>
-                                                <span id="phone"></span><br>
-                                            </div>
-                                            <div class="col-6 text-right">
-                                                <p class="h6">Doctor</p>
-                                                <span id="dniiD"></span><br>
-                                                <span id="nameD"></span>
-                                                <span id="lastnameD"></span><br>
-                                                <span id="phoneD"></span><br>
+                                               <div class="row ml-3">
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold; ">Doc. de identidad:</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="dnii"></span>
+                                                    </div>
+                                               </div>
+                                               <div class="row ml-3">
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold;">Nombres/Apellidos:</span>
+                                                    </div> 
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="name"></span><span id="lastname"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold; ">Telefono:</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="phone"></span>
+                                                    </div>
+                                               </div><br>
                                             </div>
 
+                                            <!--Medico tratante-->
+                                            <div class="col-lg-6 col-md-12 col-sm-12 text-left">
+                                                <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i> MEDICO TRATANTE</p>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold; ">Doc. de identidad:</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="dniiD"></span>
+                                                    </div>
+                                                </div>
 
-                                        </div>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold; ">Nombres/Apellidos:</span>
+                                                    </div> 
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="nameD"></span><span id="lastnameD"></span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row ml-3">
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span style="font-weight:bold; ">Telefono:</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                                        <span id="phoneD"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><br><br>
+                                        
                                         <div class="table-responsive push mt-3">
-                                            <table class="table table-bordered table-hover">
+                                            <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
-                                                    {{-- <th class="text-center width35"></th> --}}
-                                                    <th colspan="5" class="text-center">Nombre</th>
-                                                    <th class="text-right" style="width: 4%">Costo</th>
+                                                    <td style="font-weight:bold" colspan="5" class="text-left pl-4 tett" >DESCRIPCION</td>
+                                                    <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="consulta">
                                                 </tbody>
-                                                
-                                                 
+
                                                 <tbody style="border-bottom: 1px solid #000" id="procedure">
                                                 </tbody>
-                                                
                                                 <tbody id="columna">
                                                     
                                                 </tbody> 
@@ -106,99 +156,99 @@
                                                 <tbody id="cirugia">
                                                 </tbody>                                             
                                                 <tr>
-                                                    <th class="text-center width35"></th>
-                                                    <td colspan="4" class="font600 text-right">Subtotal</td>
+                                                    <td colspan="5" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">0,00</td>
                                                 </tr>
-                                                <tr class="bg-info text-light">
-                                                    <th class="text-center width35"></th>
-                                                    <td colspan="4" class="font700 text-right">Total a cancelar</td>
+                                                <tr class="bg-boo  text-light">
+                                                    <td colspan="5" class="font700 text-right">Total a cancelar</td>
                                                     <td class="font700 text-right" id="costo_total">0,00</td>
                                                 </tr>
                                             </table>
-                                        </div>
 
+                                            <div class="card-header d-flex justify-content-end col-13">
+                                                <div class="card-options">
+                                                    <button type="submit" class="btn btn-boo" style="margin-right: -16px;"><i class="si si-printer"></i>Generar factura</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>                
             </div>
-            <div class="card-header">
-                <div class="card-options">
-                    <button type="submit" class="btn btn-primary"><i class="si si-printer"></i>Generar factura</button>
-                </div>
-            </div>
         </div>
     <form>
 
-            <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Registrar cliente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-        
-                        <div class="modal-body pr-5 pl-5 pt-4">
-                            <form>
-                                <div class="form-group">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                        </div>
-                                        <div class="input-group-prepend">
-                                            <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="">
-                                                <option value="V">V</option>
-                                                <option value="E">E</option>
-                                                <option value="J">J</option>
-                                            </select>
-                                        </div>
-                                        <input id="dniC" value="" type="text" class="form-control mr-2" maxlength="8" placeholder="Documento de Identidad" formControlName="dni" name="dni">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="nameC"  name="name" type="text" placeholder="Nombre" class="form-control" value="">
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="lastnameC" name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="phoneC" name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <input id="emailC" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
-        
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <div class="col">
-                                        <textarea id="direccionC" name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-        
-                        <div class="modal-footer">
-                        <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="registrar">Registrar</a>
-                        </div>
-                    </div>
-                    </div>
+
+    <!--Modal para registrar otro cliente-->
+    <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registrar cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
+                <div class="modal-body pr-5 pl-5 pt-4">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group ">
+                                <div class="input-group-prepend">
+                                </div>
+                                <div class="input-group-prepend">
+                                    <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="">
+                                        <option value="V">V</option>
+                                        <option value="E">E</option>
+                                        <option value="J">J</option>
+                                    </select>
+                                </div>
+                                <input id="dniC" value="" type="text" class="form-control mr-2" maxlength="8" placeholder="Documento de Identidad" formControlName="dni" name="dni">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="nameC"  name="name" type="text" placeholder="Nombre" class="form-control" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="lastnameC" name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="phoneC" name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <input id="emailC" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <textarea id="direccionC" name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                    <a class="btn btn-primary" id="registrar">Registrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -230,6 +280,8 @@
         var data_paciente;
         var costo =0;
         var total =0;
+        var precio=0;
+        var process =0;
             
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
@@ -251,8 +303,6 @@
                 })
                 .done(function(data) {               
                     console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-                    // console.log('esto',data.encontrado[0].person);
-                    // console.log('arreglo', data.procedureS);
 
                     if(data[0] == 202){   
                         console.log('si')                 //si no trae valores
@@ -278,56 +328,54 @@
         } // fin de la funcion que busca datos del paciente/doctor/procedimientos
 
 
-
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
+            console.log('hola');
 
             data_paciente = data.encontrado[0].person; //uasarla mas adelante
             
             // estas variables se usaran mas adelante para mostrar la factura generada
             id_patient = data.encontrado[0].person.id;
             id_employe = data.encontrado[0].employe.person.id; 
-            // console.log('jaja',id_patient, id_employe);
 
-            //------------- consulta --------------
+            //------------- consulta ---------------------
             if(data.encontrado[0].doctor_id != null){
 
-                console.log('hoal');
-                price_consulta= data.encontrado[0].employe.doctor.price;
+                console.log('consulta', data.encontrado[0].employe.doctor);
                 costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
-                consulta_html = '<th class="text-center width35"></th><th colspan="4">Consulta</th><td class="text-right">'+costo_consulta+'</td>';
+                consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
                 $("#consulta").append(consulta_html);
+
             }
 
-            //-------------------cirugia -------------
+            //-------------------cirugia -----------------
             if(data.encontrado[0].surgery != null){
-                console.log('cirugia');
+                console.log('cirugia',data.encontrado[0].surgery)
                 nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
                 costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
 
-                titulo_cirugia= '<th class="text-center width35"></th><th colspan="4">Cirugía</th><th class="text-right" style="width: 4%"></th>';
-                cirugia='<tr><td></td><td colspan="4">'+nombre_cirugia+'<td class="text-right">'+costo_cirugia+'</td></tr>';
-                $("#cirugia_html").append(titulo_cirugia);
+  
+                // console.log('decimales', $data);
+
+                cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
-                console.log('cirugia',costo_cirugia);
             }
   
              // --------------------Procedures -------------
             if(data.procedureS != null){
-                procedure = '<th class="text-center width35"></th><th colspan="4">Procedimiento</th><th class="text-right" style="width: 4%"></th>';
+                console.log('procedures', data.procedureS)
                 $("#procedure").append(procedure);
 
                 for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
                     costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
+                  
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
-                    procedure_select='<tr><td>   </td><td colspan="4">'+data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
+                    procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
                     $("#columna").append(procedure_select);
                 }
             }
-            
-            console.log(costo_procedimientos);
 
             cu = parseInt(costo_consulta);
             ci = parseInt(costo_cirugia);
@@ -336,7 +384,6 @@
             costo_total = cu + ci + p ;
             total = costo_total;
 
-            console.log('totallllllll',total);
             $('#total').val(costo_total);
             
 
@@ -374,7 +421,7 @@
               //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
               console.log('datos',data.procedure.name);
 
-                procedure_select='<tr><td></td><td colspan="4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
+                procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
                 console.log('procedimiento seleccionado',procedure_select);
 
                 costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
@@ -391,11 +438,6 @@
       
             });
           }); // fin de la funcion para agregar procedimientos
-
-        //   $("#select").dblclick(function){
-        //     var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
-        //     console.log('estos son doble click ',procedure_id);
-        //   });
 
         }); //fin del documento
       </script>

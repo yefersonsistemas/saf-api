@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Patient;
@@ -24,6 +22,7 @@ use App\Speciality;
 use App\Treatment;
 use App\Recipe;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Disease;
 
 class DoctorController extends Controller
 {
@@ -66,15 +65,26 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //doctor por reservacion con su diagnostico y razon de la cita
     public function show($id)
     {
         // dd($id);
         // $history = 
-        $history=Reservation::with('patient.historyPatient','person')->where('id',$id)
+        $medicines = Medicine::all();
+        $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        // dd($history);
-        return view('dashboard.doctor.historiaPaciente', compact('history'));
+        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+                ->where('person_id', $id)->first();
+
+        $exams = Exam::all();
+
+                // dd(  $cite);
+            // return response()->json([
+            //   'Patient' => $history,
+            // ]);
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines'));
     }
 
     /**
@@ -190,21 +200,25 @@ class DoctorController extends Controller
 
 
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
-    public function recipeStore(Request $request, $paciente, $employe)
+    public function recipeStore(Request $request)
     {
-        $recipe = Recipe::with('patient','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
-       
-        $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $paciente)->where('employe_id', $employe)->first();
+        // dd($request->employe);
+        $recipe = Recipe::with('patient','employe.person')->where('patient_id', $request->patient)->where('employe_id', $request->employe)->first();
+    //    dd($recipe);
+        $itinerary = Itinerary::with('person','employe.person')->where('patient_id', $request->patient)->where('employe_id', $request->employe)->first();
 
         if($recipe == null){
             $crear_recipe = Recipe::create([
-                'patient_id'   =>  $paciente,
-                'employe_id'   =>  $employe,
+                'patient_id'   =>  $request->patient,
+                'employe_id'   =>  $request->employe,
                 'branch_id'    =>  1,
             ]);
         }else{
             $crear_recipe = $recipe;
         }
+
+        // dd($crear_recipe);
+        // dd($crear_recipe);
         // $paciente = Person::find($paciente);
         $treatment = Treatment::create([
             'medicine_id'   =>  $request->medicina,
@@ -216,14 +230,18 @@ class DoctorController extends Controller
             'branch_id'     =>  1,
         ]);
 
+        // dd($treatment);
         $crear_recipe->medicine()->attach($request->medicina);
 
+        // dd($treatment);
         if($itinerary->recipe_id == null){
             $itinerary->recipe_id = $crear_recipe->id;
             $itinerary->save();
         }
        
         $treatment->load('medicine');
+        
+
         return response()->json($treatment);
     }
 
@@ -275,12 +293,12 @@ class DoctorController extends Controller
     /**
      * 
      * Busca el horario del doctor y 
-     * retorna los dias que el tenga disponible
+     * retorna los dias que el no tenga disponible
      * 
      */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
         $employe = Employe::with('schedule')->where('id', $request->id)->first();
-
+        $available = collect([]);
         if (!is_null($employe)) {
             if (!is_null($employe->schedule)) {
                 foreach ($employe->schedule as $schedule) {
@@ -297,20 +315,42 @@ class DoctorController extends Controller
                     for ($j= 0; $j < 12; $j++) { 
                         $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
                         if ($citesToday < $quota[$i]) {
-                            $available[] = array(Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)->format('m/d/Y')); 
+                            $available->push((Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)));
+                            $prueba [] = array((Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)));
                         }
                         $date[$i] = $date[$i]->addWeek();
                     }
                 }
 
-                for ($i=0; $i < count($available) ; $i++) { 
-                    $availables[$i] = $available[$i][0];
+                $total = $available->first()->diffInDays($available->last());
+                $not = collect([]);
+                $min = Carbon::create($available->min()->year, $available->min()->month, $available->min()->day)->addDay();
+                
+                for ($i=0; $i <$total ; $i++) { 
+                    $not->push(Carbon::create($min->year, $min->month, $min->day));
+                    $min->addDay();
+                }
+
+                $diff = $not->diff($available);
+
+                $diff = $diff->map(function($d)
+                {
+                   return $d->format('m/d/Y'); 
+                });
+
+                foreach ($diff as $d) {
+                    $dates[] = $d;
                 }
 
                 return response()->json([
                     'employe'       => $employe,
-                    'available'     => $availables,
+                    'available'     => $available,
+                    'start'         => $available->min()->format('m/d/Y'),
+                    'end'           => $available->max()->format('m/d/Y'),
+                    'diff'          => $dates,
+                    'prueba'        => $prueba,
                 ]);
+
             }else{
                 return response()->json([
                     'message' => 'Medico sin horario',

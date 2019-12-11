@@ -3881,3 +3881,160 @@ span.titulos {
 textarea.letras {
     color: #000;
 }
+
+.heig{
+    height: 90px;;
+}
+
+.btn-hecho{
+    color: #000000 ;
+    font-weight: bold;
+    font-size: 20px;
+}
+.btn-boo{
+    color:#fff;
+    background: #00506b;
+}
+
+.btn-boo:hover {
+    color:#fff;
+    /* background:#2C7BAF; */
+}
+
+.btn-gene{
+    color:#fff;
+    background: #00ad88;
+}
+
+.btn-gene:hover {
+    color:#fff;
+    background: #00ad88;
+}
+
+.bg-boo {
+    background:#00506b !important;
+}
+
+.bg-boo:hover {
+    background:#00506b !important;
+}
+
+table tr .bg-boo:hover {
+    background:#00506b;
+}
+
+th .factura{
+    color:#000;
+}
+.todos{
+    border:2px solid #a1a1a1;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.todos:hover {
+    background:  #a1a1a1;
+    color:#fff;
+}
+
+.todos:active {
+    background:  #a1a1a1;
+    color:#fff;
+}
+
+.espera{
+    border:2px solid #FACC2E;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.espera:hover {
+    background: #FACC2E;
+    color:#fff;
+}
+
+.dentro{
+    border:2px solid #00ad88;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.dentro:hover {
+    background: #00ad88;
+    color:#fff;
+}
+
+.fuera{
+    border:2px solid #B40404;
+    background: #fff;
+    color:#000;
+    border-radius: 5px;
+}
+
+.fuera:hover {
+    background: #B40404;
+    color:#fff;
+}
+
+.fuera:active {
+    background: #B40404;
+    color:#fff;
+}
+
+.btn-fuera {
+    color:#B40404;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.btn-amarillo{
+    background:#FACC2E;
+    color:#fff;
+    font-weight: bold;
+}
+
+.btn-amarillo:hover{
+    background:#FACC2E;
+    color:#fff;
+    font-weight: bold;
+}
+
+.btn-inside-c{
+
+    background:#00ad88;
+    color:#fff;
+}
+
+.btn-inside-c:hover{
+    background:#00ad88;
+    color:#fff;
+}
+
+.btn-outside-c{
+    background: #B40404;
+    color:#fff;
+}
+
+.btn-outside-c:hover{
+    background: #B40404;
+    color:#fff;
+  
+}
+
+.btn-outside{
+    background: #ccc;
+    color:#fff;
+}
+
+.btn-outside:hover{
+    background: #ccc;
+    color:#fff;
+}
+
+.abarca{
+    width: 100%;
+}

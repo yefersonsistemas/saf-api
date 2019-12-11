@@ -29,23 +29,10 @@ body {
   font-family: Arial;
 }
 
-/* main {
+main {
   position: relative;
 }
 
-main:before{
-  content: "";
-  background-image: url("assets/images/Isotipo_S&F.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  top: 60px;
-  z-index: 0;
-  width: 100%;
-  height: 75%;
-  position: absolute;
-  opacity: .5;
-} */
 
 header {
   padding: 10px 0;
@@ -118,21 +105,31 @@ table td {
 }
 
 table th {
-  padding: 5px 20px;
-  border-bottom: 1px solid #a1a1a1;
+  padding: 0px;
+  /* border-bottom: 1px solid #a1a1a1; */
   white-space: nowrap;        
   font-weight: normal;
+  font-size: 20px;
 }
 
 table .service,
+table .desc {
+  text-align: left;
+  color: #000000;
+}
+
+table .services,
 table .desc {
   text-align: center;
   color: #000000;
 }
 
 table td {
-  padding: 20px;
+  padding-left: 100px;
+  padding-top: 10px;
   text-align: center;
+  font-size: 16px;
+  /* margin-left: 20px;  */
 }
 
 table td.service{
@@ -142,6 +139,7 @@ table td.desc {
   vertical-align: top;
   border-left: 1px solid #a1a1a1;
 }
+
 
 #notices .notice {
   color: #5D6975;
@@ -185,46 +183,64 @@ span .name{
   text-align: right;
 }
 .imgfondo{
+  /* padding-top: 8px; */
+  padding-left: 50px;
+  /* margin: 20px; */
+  margin-left:50px;
+  margin-right: 20px;
   position: relative;
-  opacity: .2;
+  opacity: 0.05;
   background-position: center;
   vertical-align: top;
-  width: 100%
+  width: 60%
 }
 
 #details{
   text-align: center
 }
-    </style>
+
+.encabezado{
+  width: 100%;
+  /* margin-top: 10px; */
+  height: 100px;
+}
+
+/* #logo {
+  float: left;
+  margin-top: 8px;
+} */
+
+.logo {
+  margin-top: -35px;
+  height: 120px;
+  width: 590px;
+  margin-bottom: -8px;
+  margin-left: 40px;
+}
+
+.hh{
+  border-bottom: 1px solid #00ad88;
+}
+
+.indi{
+  text-align: center;
+  color: #000000;
+  padding-top: 30px 
+}
+
+.indic{
+  text-align: left;
+  color: #000000;
+  padding-left: 0px;
+  padding-top: 10px;
+}
+</style>
   </head>
   <body>
     <header class="clearfix">
-    <div id="logo">
-        <img src="assets/images/Isotipo_S&F.svg">
-        <div id="company" class="clearfix">
-            <div>Sinus And Faces</div>
-            <div>Dirección</div>
-            <div>Numéros Telefonicos de la Empresa</div>
-            <div>Correo de la Empresa</div>
-        </div>
-    </div>
-        <h1>Examen a Realizar</h1>
-
-        <div id="details" class="clearfix">
-            <div id="client">
-                <span class="name_titulo">Paciente:</span><br><br>
-                <span class="name">Doc. de identidad:</span> <span>{{ $datos->person->type_dni }}</span> <span>{{ $datos->person->dni }}</span><br>
-                <span class="name">Nombre:</span> <span>{{ $datos->person->name }} {{ $datos->person->lastname }}</span><br>
-                <span class="name">Direcciòn:</i></span><span>{{ $datos->person->address }}</span><br>
-                <span class="name">Telefono:</i></span><span >{{ $datos->person->phone }}</span><br> 
-            </div>
-            {{-- <div id="invoice">
-                <span class="name_titulo">Medico tratante:</span><br><br>
-                <span class="name">Doc. de identidad:</span> <span>{{ $datos->employe->person->type_dni }}</span> <span>{{ $datos->employe->person->dni }}</span><br>
-                <span class="name">Nombre y Apellido:</span> <span>{{ $datos->employe->person->name }} {{ $datos->employe->person->lastname }}</span><br>
-                <span class="name">Direcciòn:</i></span><span>{{ $datos->employe->person->address }}</span><br>
-                <span class="name">Telefono:</i></span><span >{{ $datos->employe->person->phone }}</span><br> 
-            </div> --}}
+        {{-- <img src="assets/images/Encabezado_Factura.svg" class="encabezado"> --}}
+        <div class="hh">
+        <img src="assets/images/Encabezado_Factura.svg" class="logo">   
         </div>
 
     </header>
@@ -233,27 +249,54 @@ span .name{
     <table>
       <thead>
         <tr>
-          <th class="service">EXAMEN</th>
-          <th class="desc">INDICACIONES</th>
+          <th class="services">Orden de Examen Medico</th>
+          {{-- <th class="desc">INDICACIONES</th> --}}
         </tr>
         </thead>
         <tbody>
         @foreach ($examenes as $item)
             <tr>
-              <td class="service">{{ $item->name }}</td>
-              <td class="desc">Sin indicaciòn</td>
+              <td class="service"><li>{{ $item->name }}</li></td>
+              {{-- <td class="desc">Sin indicaciòn</td> --}}
             </tr>
         @endforeach
         </tbody>
+        <tfoot>
+          <tr>
+            <th class="indi" >Indicaciones</th>
+          </tr>
+          <tr>
+            <td class="indic">
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+              <div style="border-bottom: 1px solid #000;">
+                <span>.</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
     </table>
     {{-- <div id="notices">
         <div>NOTICE:</div>
         <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
     </div> --}}
     </main>
-    <footer>
+    {{-- <footer>
     Invoice was created on a computer and is valid without the signature and seal.
-    </footer>
+    </footer> --}}
 </body>
 </html>
 

@@ -20,6 +20,7 @@ use App\Reservation;
 use App\Patient;
 use App\Allergy;
 use App\Cite;
+use App\Assistance;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -45,6 +46,8 @@ class InController extends Controller
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+
+        // dd($reservations);
        
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
@@ -56,8 +59,11 @@ class InController extends Controller
      */
     public function create()
     {
-        $areas = Area::with('typearea', 'image')->get();
-        //dd($areas);
+        $type_area = TypeArea::where('name','Consultorio')->first();
+        $areas = Area::with('typearea', 'image')->where('type_area_id',$type_area->id)->get();
+
+        // dd($areas);
+
         $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
         $em = collect([]);
         if ($employes->isNotEmpty()) {
@@ -71,31 +77,26 @@ class InController extends Controller
                             }
                         }
                     }
-                    
                 }
             }
         }
-    return view('dashboard.checkin.create', compact('areas', 'em'));
+        return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
-     /**
+      /**
      * 
      * busca la historia desde la lista de check-in
      * 
      */
-    public function search_history(Request $request){  
-        $rs = Reservation::with('patient.historyPatient')->where('patient_id', $request->patient_id)
+    public function search_history(Request $request, $id){ 
+        $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                          ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
 
-        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->where('patient_id', $request->patient_id)->get();
-        //dd($cites);
+        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 
         $disease = Disease::get();
-    
         $medicine = Medicine::get();
         $allergy = Allergy::get();
-
-        dd($rs->patient->historyPatient->allergy);
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
@@ -110,10 +111,7 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  //guarda registros de nuevos y editados en la historia del paciente
     {
-
         $person = Person::where('dni', $request->dni)->first();
-
-        // dd($person);
 
         $reservation = Reservation::find($id);
 
@@ -184,7 +182,7 @@ class InController extends Controller
                }
 
                if (!empty($request->medicine)){
-    
+
                    foreach ($request->medicine as $medicine) {
                        $me = Medicine::find($medicine);
                        $patient->medicine()->attach($me); 
@@ -192,7 +190,7 @@ class InController extends Controller
                }
 
                if (!empty($request->allergy)){
-    
+
                    foreach ($request->allergy as $allergy) {
                        $al = Allergy::find($allergy);
                        $patient->allergy()->attach($al); 
@@ -221,7 +219,7 @@ class InController extends Controller
         $p = Patient::where('person_id', $paciente)->first();
             // dd($p);
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $doctor)->first();
-        
+
         if (empty($io->inside)) {
             InputOutput::create([       
                 'person_id' =>  $paciente,  //paciente tratado
@@ -236,12 +234,29 @@ class InController extends Controller
             return redirect()->back();
         };
 
-        $reservation = Reservation::whereDate('date', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->first();
-        //  dd($reservation->patient->inputoutput);
-    
         Alert::success('Paciente dentro');
         return redirect()->back();
+    }
 
+    public function insideOffice($id)
+    {
+        $reservation = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        // dd($reservation);
+        $paciente = $reservation->patient;
+        $doctor = $reservation->person;
+
+        $io = InputOutput::where('person_id', $paciente->id)->where('employe_id', $doctor->id)->first();
+
+        if (empty($io->inside_office)) {
+            $io->inside_office = 'dentro';
+            $io->save();
+        }else{
+            Alert::error('Paciente ya esta dentro del consultorio');
+            return redirect()->back();
+        }
+
+        Alert::success('Paciente dentro del consultorio');
+        return redirect()->back();
     }
     
     public function status(Request $request)
@@ -321,8 +336,51 @@ class InController extends Controller
         return $history_number;
     }
 
-    
- 
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
    
     public function destroy($id)
@@ -409,7 +467,7 @@ class InController extends Controller
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
-        dd($request);
+        // dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
 // si olsdoatos no estas vacios 
@@ -423,7 +481,9 @@ class InController extends Controller
             'area_id'     => $a,
             'branch_id' => 1,
             ]);
-            return view('dashboard.checkin.index');
+            return response()->json([
+                'message' => 'Consultorio asignado',202
+            ]);
             }else{
                 return response()->json([
                     'error' => 'No se pudo asignar el consultorio',202

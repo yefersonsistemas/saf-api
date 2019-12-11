@@ -10,7 +10,7 @@ $factory->define(Person::class, function (Faker $faker) {
     $branchoffice = Branch::inRandomOrder()->first();
    
     return [
-        'type_dni' => $faker->randomElement(['V', 'E', 'J']),
+        'type_dni' => $faker->randomElement(['N', 'E']),
         'dni' => $faker->numberBetween(10000000, 30000000),
         'name' => $faker->firstName,
         'lastname'=> $faker->lastName,
