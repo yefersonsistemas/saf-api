@@ -328,8 +328,13 @@ body,
     vertical-align: top;
 }
 
+.carousel {
+    overflow: hidden;
+    z-index: 1000;
+    position: relative;
+}
+
 .auth_right .carousel-inner>div {
-    max-height: 789px;
     height: 789px;
     vertical-align: top;
     width: 100%;
@@ -352,6 +357,19 @@ body,
     background-image: url('/img/auth/estetoscopio-doctor_1023x789.jpg');
     background-position: center;
     background-size: cover;
+}
+
+@media screen and (max-width: 1024px) {
+    .auth .auth_right {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .auth .auth_right {
+        width: 380px;
+        display: block;
+    }
 }
 
 .header-brand img {
