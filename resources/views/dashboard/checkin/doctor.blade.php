@@ -7,7 +7,6 @@
 @endsection
 
 @section('title','Medicos del dia')
-@section('title','Medicos del dia')
 
 @section('content')
     <div class="section-body py-3">
@@ -170,15 +169,10 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 54d56834d3d85bd73452f61035f1987797e5955b
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+  
 
       <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
