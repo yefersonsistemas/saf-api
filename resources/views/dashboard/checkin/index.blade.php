@@ -139,7 +139,7 @@
                                                     <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
                                                 @endif
                                             </td>
-                                            <td>{{ $reservation->patient->dni }}</td>
+                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
                                             <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                             <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
@@ -268,7 +268,7 @@
                                                 <img src="" alt="" >
                                                 @endif
                                             </td>
-                                            <td>{{ $reservation->patient->dni }}</td>
+                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>
@@ -329,13 +329,13 @@
                                     @foreach ($canceladas as $reservation)
                                         <tr>
                                             <td>
-                                                    @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                @if (!empty($reservation->patient->image->path))
+                                                    <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
-                                                <img src="" alt="" >
+                                                    <img src="" alt="" >
                                                 @endif
                                             </td>
-                                            <td>{{ $reservation->patient->dni }}</td>
+                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>
@@ -400,7 +400,7 @@
                                                 <img src="" alt="" >
                                                 @endif
                                             </td>
-                                            <td>{{ $reservation->patient->dni }}</td>
+                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>
@@ -465,7 +465,7 @@
                                                 <img src="" alt="" >
                                                 @endif
                                             </td>
-                                            <td>{{ $reservation->patient->dni }}</td>
+                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>

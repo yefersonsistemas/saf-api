@@ -7,6 +7,7 @@
 @endsection
 
 @section('title','Medicos del dia')
+@section('title','Medicos del dia')
 
 @section('content')
 <div class="col-md-12 mt-3">

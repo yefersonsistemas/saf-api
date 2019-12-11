@@ -115,7 +115,7 @@
                                             <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
                                         @endif
                                     </td>
-                                    <td>{{ $reservation->patient->dni }}</td>
+                                    <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                     <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
                                     <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                     <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>

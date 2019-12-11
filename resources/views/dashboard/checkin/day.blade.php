@@ -109,7 +109,7 @@
                                             <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
                                         @endif
                                     </td>
-                                    <td>{{ $reservation->patient->dni }}</td>
+                                    <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                     <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
                                     <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
                                     <td>{{ $reservation->speciality->name }}</td>
