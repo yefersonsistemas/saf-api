@@ -33,7 +33,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $id=Auth::id();
+        $id= Auth::id();
         $today = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();

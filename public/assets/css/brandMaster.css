@@ -324,8 +324,34 @@ body,
     background-position: center;
     background-size: cover;
     margin-top: 0px;
+    /* height: 789px; */
+    vertical-align: top;
+}
+
+.auth_right .carousel-inner>div {
+    max-height: 789px;
     height: 789px;
     vertical-align: top;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.auth_right .carousel-inner {
+    position: relative;
+    width: 100%;
+}
+
+.img-item-1 {
+    background-image: url('/img/auth/black-doctor-9_1023x789.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.img-item-2 {
+    background-image: url('/img/auth/estetoscopio-doctor_1023x789.jpg');
+    background-position: center;
+    background-size: cover;
 }
 
 .header-brand img {
@@ -445,3 +471,16 @@ body,
     background: #00506b;
     color: #fff
 } */
+
+.assigment .card-header,
+.assigment .card-body {
+    padding: 10px;
+}
+
+.assigment .card-title {
+    margin-bottom: 15px;
+}
+
+.wizard>.content>.body ul {
+    list-style: none!important;
+}
