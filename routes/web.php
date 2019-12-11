@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function (){
 
      //======================= rutas para el usuario ckeckin ====================
     Route::group(['middleware' => ['role:IN']], function () {
+        Route::get('cite/day', 'InController@day')->name('checkin.day');
+        Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
+        Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
         Route::post('assigment/area', 'InController@assigment')->name('checkin.assigment');
@@ -90,6 +93,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('constancia','OutController@imprimir_constancia')->name('checkout.imprimir_constancia'); // imprimir constancia
         Route::get('reposo','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
+        Route::get('informe','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {

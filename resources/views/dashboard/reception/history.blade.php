@@ -40,17 +40,16 @@
                         <div class="form-group">
                             <label class="form-label">Documento de Identidad</label>
                             <div class="input-group">
-                                    <div class="input-group-prepend">
-                                            <span class="input-group-text btn-turquesa"><i class="fa fa-id-card"></i></span>
-                                        </div>
-                                        <div class="input-group-prepend">
-                                            <select class="form-control custom-select" name="type_dni" name="profession">
-                                                <option value="V">V</option>
-                                                <option value="E">E</option>
-                                                <option value="J">J</option>
-                                            </select>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="Nombre" value="{{ $reservation->patient->dni }}" name="dni">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text btn-turquesa"><i class="fa fa-id-card"></i></span>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <select class="form-control custom-select" name="type_dni" name="profession">
+                                        <option value="N">N</option>
+                                        <option value="E">E</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Nombre" value="{{ $reservation->patient->dni }}" name="dni">
                             </div>
                         </div>
                     </div>
@@ -112,20 +111,20 @@
                         </div>
                     </div>
                     <div class="col-md-1 col-sm-3 text-center">
-                            <div class="form-group">
-                                    <label class="">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
-                                    <div class="form-check ladymen p-0">
-                                        <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
-                                            <input type="radio" id="genero1" name="gender" class="form-check-input"  value="Masculino">
-                                            <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-                                            <input  type="radio" id="genero2" name="gender" class="form-check-input"  value="Femenino">
-                                            <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
-                                        </div>
-                                    </div>
+                        <div class="form-group">
+                            <label class="">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
+                            <div class="form-check ladymen p-0">
+                                <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
+                                    <input type="radio" id="genero1" name="gender" class="form-check-input"  value="Masculino">
+                                    <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
+                                    <input  type="radio" id="genero2" name="gender" class="form-check-input"  value="Femenino">
+                                    <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                     <div class="col-sm-6 col-md-1">
                         <div class="form-group">
                             <label class="form-label">Peso</label>

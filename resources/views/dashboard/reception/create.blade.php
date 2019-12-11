@@ -33,12 +33,11 @@
                                                             <div class="input-group-prepend">
                                                                 <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
                                                                     <option value="0">...</option>
-                                                                    <option value="V">V</option>
+                                                                    <option value="N">N</option>
                                                                     <option value="E">E</option>
-                                                                    <option value="J">J</option>
                                                                 </select>
                                                             </div>
-                                                            <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="DNI" value="">
+                                                            <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cedula" value="">
                                                             <input type="hidden" name="newPerson" id="newPerson">
                                                             <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
                                                                     class="fa fa-search"></i></button>

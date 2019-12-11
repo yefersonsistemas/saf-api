@@ -10,7 +10,7 @@
                 <div class="card-header">Citas de pacientes</div>
 
                 <div class="card-body">
-                  
+                
                 </div>
             </div>
         </div>
@@ -136,12 +136,12 @@
                                     </div>
                                 @endif
 
-                                 <!--dentro de las instalaciones-->
-                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                <!--dentro de las instalaciones-->
+                                @if(!empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
                                         <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-amarillo"><i class="icon-login"></i></button>
                                     </div>
-                                 @endif
+                                @endif
 
                                 <!--fuera del consultorio-->
                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
@@ -244,14 +244,14 @@
 
                                             <!--CONSTANCIA-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                @if($itinerary->constancia_id != null)
+                                                @if($itinerary->constancy_id != null)
                                                     <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                        <i class="fa fa-print"> </i> Constancia
+                                                        <i class="fa fa-print"> </i>Constancia
                                                     </a>
-                                                    @else
+                                                    {{-- @else
                                                     <a href="" class="btn btn-gene abarca" type="button">
-                                                        <i class="fa fa-plus-circle"></i>  Constancia
-                                                    </a>
+                                                        <i class="fa fa-plus-circle"></i>Constancia
+                                                    </a> --}}
                                                 @endif
                                             </div>
 
@@ -261,36 +261,49 @@
                                                     <a href="{{ route('checkout.imprimir_referencia', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Referencia
                                                     </a>
-                                                    @else
+                                                    {{-- @else
                                                     <a href="" class="btn btn-gene abarca" type="button">
                                                         <i class="fa fa-plus-circle"></i> Referencia
-                                                    </a>
+                                                    </a> --}}
                                                 @endif
                                             </div>
 
                                             <!--REPOSO-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                @if($itinerary->reposo_id != null)
+                                                @if($itinerary->rest_id != null)
                                                     <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Reposo
+                                                    </a>
+                                                    {{-- @else
+                                                    <button href="" class="btn btn-gene abarca text-start" disabled>
+                                                        <i class="fa fa-plus-circle"></i> Reposo
+                                                    </button> --}}
+                                                @endif
+                                            </div>
+
+                                            <!--INFORME-->
+                                            {{-- <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                @if($itinerary->rest_id != null)
+                                                    <a href="{{ route('checkout.imprimir_informe') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                                        <i class="fa fa-print"> </i> Informe
                                                     </a>
                                                     @else
                                                     <button href="" class="btn btn-gene abarca text-start" disabled>
                                                         <i class="fa fa-plus-circle"></i> Reposo
                                                     </button>
                                                 @endif
-                                            </div>
+                                            </div> --}}
 
                                             <!--CITA-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 mb-2 ml-3">
+                                            {{-- <div class="col-lg-7 col-md-12 col-sm-12 mb-2 ml-3">
                                                 <a  href="" class="btn btn-gene abarca text-start" >
                                                     <i class="fa fa-calendar-plus-o"></i> Cita
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                         </div>                                                
                                     </div>
                                 </div>
-                             </div>
+                            </div>
 
                                 {{-- <div class="row card-body d-flex justify-content-between" >
                                     <!--EXAMEN-->
