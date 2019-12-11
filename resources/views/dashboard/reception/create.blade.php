@@ -207,11 +207,16 @@
         onFinished: function(event, currentIndex) {
             crear();
             Swal.fire({
-                title: 'Cita Agendada!',
-                text: 'Click OK para cerrar!',
-                type: 'success',
-
-            });
+            title: 'Cita Agendada!',
+            text: "Click OK para cerrar!!",
+            type: 'success',
+            allowOutsideClick:false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '<a href="{{ route('reservations.create') }}" style="color:#fff">OK</a>'
+            }).then((result) => {
+            if (result.value) {
+            }
+            })
         }
     });
 
