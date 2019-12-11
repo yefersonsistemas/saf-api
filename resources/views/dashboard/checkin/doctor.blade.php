@@ -112,29 +112,29 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                                @foreach ($e as $employe)
+                            @foreach ($e as $employe)
                                 <tr>
                                     <td>
                                         @if (!empty($employe->image->path))
-                                        <img src="{{ Storage::url($employe->image->path) }}" alt="">
+                                            <img src="{{ Storage::url($employe->image->path) }}" alt="">
                                         @else
-                                        <img src="" alt="" >
+                                            <img src="" alt="" >
                                         @endif
                                     </td>
                                     <td>{{ $employe->person->dni }}</td>
                                     <td>{{ $employe->person->name }}</td>
                                     <td>{{ $employe->person->lastname }}</td>
                                     <td>     <!--Especialidad-->
-                                    @foreach ($employe->speciality as $item)
-                                        {{ $item->name }} <br>
-                                    @endforeach
+                                        @foreach ($employe->speciality as $item)
+                                            {{ $item->name }} <br>
+                                        @endforeach
                                     </td>
                                     <td class="d-flex justify-content-center">   <!--Ver horario del medico-->
                                         <input type="hidden" id="id" value="{{ $employe->person->id }}">
                                         <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fe fe-eye"></i></a>
                                     </td>
                                 </tr>
-                                @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -162,8 +162,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    @foreach ($employe->schedule as $item)
+                                @foreach ($employe->schedule as $item)
+                                    <tr>
                                         @if ($item->day == 'monday')
                                         <td style="text-align:center">Lunes</td>
                                         @endif
@@ -185,8 +185,8 @@
                                         @if ($item->turn ==  'tarde')
                                         <td style="text-align:center">Tarde</td>
                                         @endif
-                                    @endforeach
-                                </tr>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>    
                     </div>
@@ -199,36 +199,32 @@
     @endforeach
 
     <!--Modal de asistencia-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Doctor</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form method="POST" action="{{ route('checkin.asistencia') }}">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <input type="hidden" name="employe_id" class="employe_id">
-                                <label for="message-text" class="col-form-label">Motivo:</label>
-                                <textarea class="form-control" name="motivo" id="message-text"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-success">Guardar</button>
-                        </div>
-                    </form>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Doctor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <form method="POST" action="{{ route('checkin.asistencia') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="employe_id" class="employe_id">
+                            <label for="message-text" class="col-form-label">Motivo:</label>
+                            <textarea class="form-control" name="motivo" id="message-text"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-
-
-
+    </div>
 @endsection
 
 @section('scripts')
