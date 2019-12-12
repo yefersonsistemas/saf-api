@@ -158,7 +158,7 @@ span{
                 <div class="contenido">
                     <p>
                         Quien suscribe, <span>medico tratante</span>, certifica que examinó a: <span>indique el nombre del paciente</span> 
-                        Cedula:<span>indique la cédula del paciente</span> quien presenta:<span>indique el diagnósticos</span>.  
+                        Cédula:<span>indique la cédula del paciente</span> quien presenta:<span>indique el diagnósticos</span>.  
                         Se le indicó tratamiento y reposo por<span>(x) días</span> a partir de la presente fecha<span>(día/mes/año)</span> 
                         debiendo volver a control el día<span>(día/mes/año)</span>. 
                     </p>

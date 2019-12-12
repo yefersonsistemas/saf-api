@@ -74,7 +74,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <th class="text-center">Historia</th>
-                                <th>Cedula</th>
+                                <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>
@@ -88,7 +88,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <th class="text-center">Historia</th>
-                                <th>Cedula</th>
+                                <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>
@@ -101,7 +101,7 @@
                         <tbody>
                             @foreach ($pending as $reservation)
                                 <tr>
-                                    <td>
+                                    <td style="text-align: center;">
                                         @if (!empty($reservation->patient->image->path))
                                             <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                         @else

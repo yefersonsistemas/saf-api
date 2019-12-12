@@ -37,7 +37,7 @@
                                                                     <option value="E">E</option>
                                                                 </select>
                                                             </div>
-                                                            <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cedula" value="">
+                                                            <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
                                                             <input type="hidden" name="newPerson" id="newPerson">
                                                             <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
                                                                     class="fa fa-search"></i></button>

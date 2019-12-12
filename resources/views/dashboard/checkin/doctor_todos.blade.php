@@ -18,7 +18,7 @@
                             <thead>
                                 <tr>
                                     <th>Foto</th>
-                                    <th>Cedula</th>
+                                    <th>Cédula</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Esepcialidad</th>
@@ -28,7 +28,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Foto</th>
-                                    <th>Cedula</th>
+                                    <th>Cédula</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Esepcialidad</th>
