@@ -89,10 +89,24 @@
                                     </td>
                                     <td>
                                         <div class="container text-center" id="ID_element_0">
-                                            <a class="btn btn-danger state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
-                                            <a class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
-                                            <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @if($reservation->patient->inputoutput->isEmpty())
+                                                <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                                <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
+                                            @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
+                                                <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                                <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
+                                            @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
+                                                <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
                                         </div>
                                     <td>  
                                         {{-- <!--Si no a llegado a las instalaciones-->
@@ -226,39 +240,4 @@
             $('#type').val(type);
         }
     </script>
-
-	<script>
-		function entradas(value, value2) {
-			var state = value; //el estado del objeto
-			var stateInt = parseInt(state); //se convierte el valor anterior en integer para posteriores validaciones
-			var id= value2; // el ID del contenedor en el que se encuentra el boton
-			console.log('click '+state+', '+id); //Se valida que se está alcanzando al objeto que se está haciendo click
-
-			//Se valida primero si se está haciendo click en el primer estado
-			if(stateInt<=0){
-				$('#'+id+' .state_'+state).addClass('btn-success');
-				$('#'+id+' .state_'+state).removeClass('btn-danger');
-				$('#'+id+' .state_'+state).prop("disabled", true);
-				console.log('Se ha cumplido el estado '+ state+', '+id);
-			}else{
-				//A partir de estado 1, se valida si el estado anterior se cumplió, para esto se toma la clase btn-danger, si no se ha cumplido, se bloquea la función y se puede mandar una alerta.
-				if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-danger')){
-					console.log('click '+state+', '+id+': No puedes ejecutar esta accion hasta que el paso anterior se halla cumplido');
-				//Por el contrario, si el estado anterior se ha cumplido, se procede a ejecutar la función
-				}else if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-success')){
-					$('#'+id+' .state_'+state).addClass('btn-success');
-					$('#'+id+' .state_'+state).removeClass('btn-danger');
-					$('#'+id+' .state_'+state).prop("disabled", true);
-					console.log('Se ha cumplido el estado '+ state+', '+id);	
-				}
-			}
-			/*
-			Resumen de la funcion
-			- La funcion obtiene el estado y el id del contenedor de dicho estado
-			- La funcion valida que se cumpla un paso a la vez sin que se pueda saltar un paso
-			- La funcion remueve la class btn-danger y agrega la funcion btn-success para cambiar el color del objeto
-			- La funcion desabilita la funcion cumplida para que no pueda volver a ser ejecutada.
-			*/
-		};
-	</script>
 @endsection

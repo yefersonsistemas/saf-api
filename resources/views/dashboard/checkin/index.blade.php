@@ -101,7 +101,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">Entradas</th>
+                                        {{-- <th class="text-center">Entradas</th> --}}
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -114,7 +114,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">Entradas</th>
+                                        {{-- <th class="text-center">Entradas</th> --}}
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -165,7 +165,7 @@
                                             </td>
 
                                             <td>
-                                                <div class="row">
+                                                {{-- <div class="row">
                                                     <div class="col-3"> <button class="btn btn-danger stad state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%;">E</button></div>
                                                     <div class="col-3">                                                    
                                                         <button class="btn btn-danger state state_1 P-0" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%">E</button>
@@ -176,7 +176,7 @@
                                                     <div class="col-3">
                                                         <button class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%">S</button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <!--Si no a llegado a las instalaciones-->
                                                 {{-- @if($reservation->patient->inputoutput->isEmpty())
