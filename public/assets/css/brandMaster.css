@@ -158,9 +158,13 @@ ul[role="tablist"] {
     color: #fff;
 }
 
+.assigment {
+    box-shadow: 0 1px 8px 1px rgba(0, 0, 0, .30) !important;
+}
+
 .assigment .imagecheck-image:last-child {
-    width: auto;
-    height: auto;
+    width: 150px;
+    height: 150px;
 }
 
 .imagecheck-image:last-child {
