@@ -112,8 +112,8 @@
 
                                 <!--body-->
                                 <div class="card-body">
-                                    <div id="wizard_vertical">
-                                    {{-- <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST"> --}}
+                                    {{-- <div id="wizard_vertical"> --}}
+                                    <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="patient_id" value="{{ $history->patient_id }}"> 
                                         <input type="hidden" name="employe_id" value="{{ $history->person_id }}"> 
@@ -501,7 +501,7 @@
                                                 <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">Proxima cita...</div>
                                             </div>
                                         </section>
-                                    {{-- </form> --}}
+                                    </form>
                                     </div>
                                 </div>
                                 <!--Fin del body-->
@@ -557,19 +557,19 @@
             previous: "Anterior",
             loading: "Cargando ..."
         },
-        // onFinished: function (event, currentIndex)
-        // {
-        //     var form = $(this);
+        onFinished: function (event, currentIndex)
+        {
+            var form = $(this);
 
 
-        //     form.submit();
-        // },
-        // onInit: function(event, currentIndex) {
-        //     setButtonWavesEffect(event);
-        // },
-        // onStepChanged: function(event, currentIndex, priorIndex) {
-        //     setButtonWavesEffect(event);
-        // }
+            form.submit();
+        },
+        onInit: function(event, currentIndex) {
+            setButtonWavesEffect(event);
+        },
+        onStepChanged: function(event, currentIndex, priorIndex) {
+            setButtonWavesEffect(event);
+        }
     });
 
     function setButtonWavesEffect(event) {

@@ -1,4 +1,8 @@
-@extends('dashboard.layouts.app') @section('cites','active') @section('newCite','active') @section('title','Crear una nueva cita') @section('css')
+@extends('dashboard.layouts.app') 
+@section('cites','active') 
+@section('newCite','active') 
+@section('title','Crear una nueva cita')
+@section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
@@ -6,7 +10,7 @@
 
 @endsection @section('content')
 
-<div class="section-body">
+<div class=" py-4">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -86,34 +90,19 @@
                             </section>
                             <h2>Elegir Especialidad</h2>
                             <section>
-                                <div class="row justify-content-between">
+                                <div class="row justify-content-between align-items-center justify-content-sm-center">
                                     @foreach ($specialities as $speciality)
-                                    {{-- <div class="col-6 col-sm-4">
-                                            <label class="imagecheck mb-3">
-                                                <div class="card max-card text-center">
-                                                    <div class="card-header text-center ">
-                                                            <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                                        <figure class="imagecheck-figure border-0">
-                                                            <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image max-img">
-                                                        </figure>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ $speciality->name }}</h5>
-                                                    </div>
-                                                </div>
-                                            </label>
-                                        </div> --}}
-                                        <div class="col-lg-2 mx-lg-3 col-md-4 col-xs-6 col-6 mx-sm-0">
+                                        <div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                             <label class="imagecheck m-0">
-                                            <div class="card assigment">
+                                            <div class="card assigment bg-grisinus">
                                                     <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
                                                     @if (!empty($speciality->image->path))
-                                                    <figure class="imagecheck-figure border-0">
-                                                        <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                    <figure class="imagecheck-figure border-0 text-center">
+                                                        <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image m-auto">
                                                     </figure>
                                                     @else
-                                                    <figure class="imagecheck-figure border-0">
-                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    <figure class="imagecheck-figure border-0 text-center">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image m-auto">
                                                     </figure>
                                                     @endif
                                                     <div class="card-body text-center">
@@ -340,16 +329,14 @@
         $('#medicos').empty();
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
-                // $('#medicos').append('<div class="col-sm-4"> <div class="card" style="width: 18rem;"> <img src="{{ Storage::url(' + data[i].employe[j].image.path + ') }}" class="card-img-top" alt="..."> <div class="card-body"> <h5 class="card-title">' + data[i].employe[j].person.name + '</h5><a href="#" class="btn btn-primary"><input type="radio" name="doctor" value="' + data[i].employe[j].id + '" id=""></a> </div> </div> </div>');
-                    // $('#medicos').append(`<div class="col-6 col-sm-4"><label class="imagecheck mb-3"><div class="card max-card text-center"><div class="card-header text-center "><input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input"><figure class="imagecheck-figure border-0"><img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image max-img"></figure></div><div class="card-body"><h5 class="card-title">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname} </h5></div></div></label></div>`);
-                    $('#medicos').append(`<div class="col-lg-2 mx-lg-3 col-md-4 col-xs-6 col-6 mx-sm-0">
+                    $('#medicos').append(`<div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                             <label class="imagecheck m-0">
                                             <div class="card assigment">
                                                     <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
-                                                    <figure class="imagecheck-figure border-0">
-                                                        <img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image w-auto">
+                                                    <figure class="imagecheck-figure border-0 text-center">
+                                                        <img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                     </figure>
-                                                    <div class="card-body text-center">
+                                                    <div class="card-body text-center bg-grisinus">
                                                         <h6 class="font-weight-bold">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</h6>
                                                     </div>
                                                 </div>

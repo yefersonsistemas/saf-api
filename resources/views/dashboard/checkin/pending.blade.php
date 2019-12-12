@@ -52,7 +52,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Citas Para Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $citasDelDia }}</span></h3>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Atendidos Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">5</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
@@ -73,47 +73,45 @@
                         <thead>
                             <tr>
                                 <th>Foto</th>
-                                <th class="text-center">Historia</th>
                                 <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>
                                 <th>Esepcialidad</th>
                                 <th>Acciones</th>
-                                <th class="text-center">E/S</th>
-                                <th class="text-center">EC/SC</th>
+                                {{-- <th class="text-center">E/S</th>
+                                <th class="text-center">EC/SC</th> --}}
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>Foto</th>
-                                <th class="text-center">Historia</th>
                                 <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>
                                 <th>Esepcialidad</th>
                                 <th>Acciones</th>
-                                <th class="text-center">E/S</th>
-                                <th class="text-center">EC/SC</th>
+                                {{-- <th class="text-center">E/S</th>
+                                <th class="text-center">EC/SC</th> --}}
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach ($pending as $reservation)
                                 <tr>
-                                    <td style="text-align: center;">
+                                    <td style="text-align: center; font-size:10px">
                                         @if (!empty($reservation->patient->image->path))
                                             <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                         @else
                                             <img src="" alt="" >
                                         @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if ($reservation->patient->historyPatient == null)
-                                            <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
-                                        @else
-                                            <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
-                                        @endif
+                                        <div class="text-center">
+                                            @if ($reservation->patient->historyPatient == null)
+                                                <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                            @else
+                                                <a href="{{ route('checkin.history', $reservation->id) }}"> Ver Historia</a>
+                                            @endif
+                                        </div>
                                     </td>
                                     <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                     <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
@@ -128,7 +126,7 @@
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                     </td>
 
-                                    <td>  
+                                    {{-- <td>  
                                         <!--Si no a llegado a las instalaciones-->
                                         @if($reservation->patient->inputoutput->isEmpty())
                                             <div>
@@ -179,7 +177,7 @@
                                                 <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero">E</button>
                                             </div>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
