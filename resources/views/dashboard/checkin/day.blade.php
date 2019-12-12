@@ -89,8 +89,8 @@
                                     </td>
                                     <td>
                                         <div class="container text-center" id="ID_element_0">
-                                            <button class="btn btn-danger state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></button>
-                                            <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></button>
+                                            <a class="btn btn-danger state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                            <a class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
                                             <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                         </div>
