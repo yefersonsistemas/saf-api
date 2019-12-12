@@ -127,13 +127,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end">
-                                    <button class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                    <button class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                    <button class="btn btn-danger state state_2" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" ></button>
-                                    <button class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" ></button>
-                                </div>
-                                {{-- <!--es espera-->
+                                
+                                {{-- <div class="col-4 d-flex justify-content-end">
+                                    <div class="col-1 pl-1"> 
+                                        <button type="button" class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%;">E</button>
+                                    </div>
+                                    <div class="col-1 pl-1">
+                                        <button type="button" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%;">E</button>
+                                    </div>
+                                    <div class="col-1 pl-1">
+                                        <button type="button" class="btn btn-danger state state_2" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')"  style="border-radius:50%;">S</button>
+                                    </div>
+                                    <div class="col-1 pl-1">
+                                        <button type="button" class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')"  style="border-radius:50%;">S</button>
+                                    </div>
+                                </div> --}}
+                                <!--es espera-->
                                 @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
                                         <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i></button>
@@ -157,6 +166,9 @@
                                 <!--fuera del consultorio-->
                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
+                                        <button href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-success" disabled><i class="icon-login"></i></button>
+                                        <button href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-success" disabled><i class="icon-login"></i></button>
+                                        <button href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-danger" disabled><i class="icon-login"></i></button>
                                         <a href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside-c"><i class="icon-login"></i></a>
                                     </div>
                                 @endif
@@ -164,9 +176,26 @@
                                 <!--fuera de las instalaciones-->
                                 @if(!empty($itinerary->person->inputoutput->first()->inside)  && !empty($itinerary->person->inputoutput->first()->inside_office)  && !empty($itinerary->person->inputoutput->first()->outside_office) && !empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
-                                        <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside"><i class="icon-login"></i></button>
+                                        <div class="row d-flex justify-content-end">
+                                            <div class="col-3">
+                                                <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-success" style="padding-left:10px">
+                                                <i class="icon-login"></i></button>
+                                            </div>
+                                            <div class="col-3 pl-1">
+                                                <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-success" style="padding-left:10px">
+                                                <i class="icon-login"></i></button>
+                                            </div>
+                                            <div class="col-3">
+                                                <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-danger" style="padding-left:10px">
+                                                <i class="icon-login"></i></button>
+                                            </div>
+                                            <div class="col-3 pl-1">
+                                                <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-danger" style="padding-left:10px">
+                                                <i class="icon-login"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
-                                @endif --}}
+                                @endif
                             </div>
 
                             <!--informacion del paciente reservacion y demas-->
@@ -397,4 +426,31 @@
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+    <script>
+        function entradas(value, value2) {
+            var state = value; //el estado del objeto
+            var stateInt = parseInt(state); //se convierte el valor anterior en integer para posteriores validaciones
+            var id= value2; // el ID del contenedor en el que se encuentra el boton
+            console.log('click '+state+', '+id); //Se valida que se está alcanzando al objeto que se está haciendo click
+
+            //Se valida primero si se está haciendo click en el primer estado
+            if(stateInt<=0){
+                $('#'+id+' .state_'+state).addClass('btn-success');
+                $('#'+id+' .state_'+state).removeClass('btn-danger');
+                $('#'+id+' .state_'+state).prop("disabled", true);
+                console.log('Se ha cumplido el estado '+ state+', '+id);
+            }else{
+                //A partir de estado 1, se valida si el estado anterior se cumplió, para esto se toma la clase btn-danger, si no se ha cumplido, se bloquea la función y se puede mandar una alerta.
+                if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-danger')){
+                    console.log('click '+state+', '+id+': No puedes ejecutar esta accion hasta que el paso anterior se halla cumplido');
+                //Por el contrario, si el estado anterior se ha cumplido, se procede a ejecutar la función
+                }else if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-success')){
+                    $('#'+id+' .state_'+state).addClass('btn-success');
+                    $('#'+id+' .state_'+state).removeClass('btn-danger');
+                    $('#'+id+' .state_'+state).prop("disabled", true);
+                    console.log('Se ha cumplido el estado '+ state+', '+id);
+                }
+            }
+        };
+    </script>
 @endsection

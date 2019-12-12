@@ -276,7 +276,7 @@ class OutController extends Controller
         ]);
     }
 
-     
+
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
@@ -297,7 +297,7 @@ class OutController extends Controller
                 }
 
                 $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
- 
+
                 if($cirugia->surgery != null){
                     $total_cancelar = $cirugia->surgery->typesurgeries->cost + $todos->employe->doctor->price + $total;
                 }else{
@@ -305,8 +305,10 @@ class OutController extends Controller
                 }
 
                 $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha'));
-                
+            
+                // Alert::success('Factura generarda exitosamente!');
                 return $pdf->stream('factura.pdf');
+
             }else{
                 Alert::error('No puede procesar la factura');
                 return redirect()->back();

@@ -310,8 +310,8 @@
                 console.log('esto',data);
                 if (data[0] == 201) {                       
                     Swal.fire({
-                        title: 'Excelente!',
-                        text:  'Registro satisfactorio',
+                        title: 'Cliente Registrado!',
+                        text:  'Click en OK para continuar',
                         type:  'success',
                     })
                     factura_cliente(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
@@ -347,6 +347,8 @@
             $('#person_id').val(id); 
             // }
         }); //fin de la funcion clikea
+
+      
     }); //fin del documento
 
     </script>
