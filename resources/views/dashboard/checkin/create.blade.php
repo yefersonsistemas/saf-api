@@ -22,7 +22,7 @@
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($areas as $area)
                                                 @if ($area->typearea->name == 'Consultorio' && $area->status == 'desocupado')
-                                                    <div class="col-md-3 col-lg-2 ml-1 mb-2 col-sm-3">
+                                                    <div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                         <label class="imagecheck m-0">
                                                         <div class="card assigment">
                                                                 <input name="searcharea" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
@@ -44,7 +44,7 @@
                                                     </div>
                                                 @else
                                                     @if ($area->typearea->name == 'Consultorio' && $area->status == 'ocupado')
-                                                        <div class="col-md-3 col-lg-2 col-sm-3">
+                                                        <div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                             <label class="imagecheck m-0 disabled">
                                                             <div class="card assigment">
                                                                     <input name="searcharea" id="searcharea" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
@@ -78,7 +78,7 @@
                                 <div class="card-body">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
-                                            <div class="col-lg-2 col-md-3 col-sm-3 -1">
+                                            <div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                 <div class="card assigment doctor " >
                                                     <label class="imagecheck m-0">
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
