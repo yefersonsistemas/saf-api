@@ -12,11 +12,9 @@ class ClassificationSurgery extends Model
         'name', 'description', 'branch_id'
     ];
 
-
     // pertenece a 
     public function typesurgeries()
     {
-        return $this->hasMany('App\TypeSurgery','classification_surgery_id');
+        return $this->hasMany('App\Typesurgery','classification_surgery_id');
     }
-
 }

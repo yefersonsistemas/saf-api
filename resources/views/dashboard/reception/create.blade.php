@@ -33,12 +33,11 @@
                                                             <div class="input-group-prepend">
                                                                 <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
                                                                     <option value="0">...</option>
-                                                                    <option value="V">V</option>
+                                                                    <option value="N">N</option>
                                                                     <option value="E">E</option>
-                                                                    <option value="J">J</option>
                                                                 </select>
                                                             </div>
-                                                            <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cedula" value="">
+                                                            <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
                                                             <input type="hidden" name="newPerson" id="newPerson">
                                                             <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
                                                                     class="fa fa-search"></i></button>
@@ -191,7 +190,8 @@
             finish: "Finalizar",
             next: "Siguiente",
             previous: "Anterior",
-            loading: "Cargando ..."},
+            loading: "Cargando ..."
+        },
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
@@ -209,10 +209,16 @@
         onFinished: function(event, currentIndex) {
             crear();
             Swal.fire({
-                title: 'Excelente!',
-                text: 'Cita Agendada Exitosamente!',
-                type: 'success',
-            });
+            title: 'Cita Agendada!',
+            text: "Click OK para cerrar!!",
+            type: 'success',
+            allowOutsideClick:false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '<a href="{{ route('checkin.index') }}" style="color:#fff">OK</a>'
+            }).then((result) => {
+            if (result.value) {
+            }
+            })
         }
     });
 
@@ -315,8 +321,8 @@
                 })
                 .done(function(data) {
                     Swal.fire({
-                        title: 'Excelente!',
-                        text: 'Especialidad con medicos',
+                        title: 'Realizado!',
+                        text: 'Click en OK para continuar',
                         type: 'success',
                     });
                     $('#speciality').val(data[0].id);
@@ -370,8 +376,8 @@
                     console.log('Doctores:',data);
                     console.log('Fechas disponibles de los Doctores',data.available);
                     Swal.fire({
-                        title: 'Excelente!',
-                        text: 'Medico Seleccionado',
+                        title: 'Médico seleccionado!',
+                        text: 'Click en OK para continuar',
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);

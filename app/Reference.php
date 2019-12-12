@@ -12,7 +12,19 @@ class Reference extends Model
         'patient_id', 'specialitie_id', 'employe_id', 'doctor', 'reason' 
     ];
 
+    public function patient()
+    {
+        return $this->belongsTo('App\Person');
+    }
 
-
+    public function employe()
+    {
+        return $this->belongsTo('App\Employe');
+    }
+    
+    public function speciality()
+    {
+        return $this->belongsTo('App\Speciality','specialitie_id');
+    }
 
 }

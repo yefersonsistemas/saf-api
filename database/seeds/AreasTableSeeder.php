@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Area;
+use App\TypeArea;
 use App\Traits\ImageFactory;
 
 class AreasTableSeeder extends Seeder
@@ -17,21 +18,61 @@ class AreasTableSeeder extends Seeder
     {
         Area::truncate();
         $this->deleteDirectory(storage_path('/app/public/area'));
-        factory(Area::class, 20)->create()->each(function($area)
+        factory(Area::class,10)->create()->each(function($area)
         {
             $this->to('area', $area->id, 'App\Area');
         });
 
+        $type = factory(TypeArea::class)->create([
+            'name' => 'Consultorio',
+        ]);
+
         factory(Area::class)->create([
             'name'          => 'consultorio 1',
+            'type_area_id' =>  $type->id,
         ]);
 
         factory(Area::class)->create([
             'name'          => 'consultorio 2',
+            'type_area_id' =>  $type->id,
         ]);
 
         factory(Area::class)->create([
             'name'          => 'consultorio 3',
+            'type_area_id' =>  $type->id,
+        ]);
+        factory(Area::class)->create([
+            'name'          => 'consultorio 4',
+            'type_area_id' =>  $type->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 5',
+            'type_area_id' =>  $type->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 6',
+            'type_area_id' =>  $type->id,
+        ]);
+        factory(Area::class)->create([
+            'name'          => 'consultorio 7',
+            'type_area_id' =>  $type->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 8',
+            'type_area_id' =>  $type->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 9',
+            'type_area_id' =>  $type->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 10',
+            'type_area_id' =>  $type->id,
         ]);
         
     }

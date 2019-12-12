@@ -124,8 +124,14 @@ class EmployesController extends Controller
             }
         }
 
-        //dd($em);
-        
+         return view('dashboard.checkin.doctor', compact('em'));
+    }
+
+    public function doctor_on_todos()//todos los medicos
+    {
+ 
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule')->get();
+   
         $e = collect([]);
         if ($employes->isNotEmpty()) {
             foreach($employes as $employe){
@@ -134,8 +140,9 @@ class EmployesController extends Controller
                 }
             }
             }
-            return view('dashboard.checkin.doctor', compact('em', 'e'));
+            return view('dashboard.checkin.doctor_todos', compact('e'));
     }
+
 
     /**
      * Show the form for creating a new resource.

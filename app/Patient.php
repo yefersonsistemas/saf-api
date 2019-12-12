@@ -57,6 +57,16 @@ class Patient extends Model
         return $this->belongsToMany('App\Allergy');
     }
 
+    public function repose()
+    {
+        return $this->hasOne ('App\Repose', 'patient_id');
+    }
+
+    public function reportMedico()
+    {
+        return $this->hasMany('App\ReportMedico', 'patient_id');
+    }
+
     public function doctor()
     {
         return $this->belongsTo('App\User', 'doctor_id');
@@ -80,6 +90,11 @@ class Patient extends Model
     public function exam()
     {
         return $this->belongsTo('App\Exam');
+    }
+
+    public function reference()
+    {
+        return $this->belongsTo('App\Reference');
     }
 
     public function employe()

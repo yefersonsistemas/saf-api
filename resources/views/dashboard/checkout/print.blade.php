@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Example 2</title>
+    <title>Factura</title>
     <link rel="stylesheet" href="style.css" media="all" />
   <style>
     
@@ -272,7 +272,7 @@ table tfoot tr td:first-child {
             <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">{{ $todos->person->name }} {{ $todos->person->lastname }}.</span>
           </div>
           <div class="dni">
-            <span style="font-weight:bold">RNC/Cedula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}.</span>
+            <span style="font-weight:bold">RNC/Cédula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}.</span>
           </div>
           <div class="phone">
             <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">{{ $todos->person->phone }}.</span>
