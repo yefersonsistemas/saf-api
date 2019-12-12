@@ -81,7 +81,7 @@
                         <a class="todos active pt-0 pb-0 pr-4 pl-4"  id="pills-home-tab" data-toggle="pill" href="#todos" role="tab" aria-controls="todos" aria-selected="true">Fuera de las instalaciones</a>
                     </li>
                 </ul><br>
-                  
+
                 <div class="accordion" id="accordionExample" id="todas" role="tabpanel" aria-labelledby="pills-home-tab">
                     @foreach ($itinerary as $itinerary)
 
@@ -127,9 +127,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            
-                                
-                                <!--es espera-->
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                    <button class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                    <button class="btn btn-danger state state_2" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" ></button>
+                                    <button class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" ></button>
+                                </div>
+                                {{-- <!--es espera-->
                                 @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                                     <div class="col-4 d-flex justify-content-end">
                                         <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" disabled class="btn btn-hecho"><i class="icon-login"></i></button>
@@ -162,7 +166,7 @@
                                     <div class="col-4 d-flex justify-content-end">
                                         <button disabled href="{{ route('checkout.statusOut', $itinerary->patient_id ) }}" class="btn btn-outside"><i class="icon-login"></i></button>
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
 
                             <!--informacion del paciente reservacion y demas-->

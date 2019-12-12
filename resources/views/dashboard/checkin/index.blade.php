@@ -66,7 +66,6 @@
                     </div>
                 </div>
             </div>
-           
             {{-- Tabs de citas --}}
             <div class="col-md-12 mt-3">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -103,8 +102,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">E/S</th>
-                                        <th class="text-center">EC/SC</th>
+                                        <th class="text-center">Entradas</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -118,8 +116,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">E/S</th>
-                                        <th class="text-center">EC/SC</th>
+                                        <th class="text-center">Entradas</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -169,58 +166,71 @@
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
 
-                                            <td>  
-                                                 <!--Si no a llegado a las instalaciones-->
-                                                 @if($reservation->patient->inputoutput->isEmpty())
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-3"> <button class="btn btn-danger stad state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%;">E</button></div>
+                                                    <div class="col-3">                                                    
+                                                        <button class="btn btn-danger state state_1 P-0" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%">E</button>
+                                                    </div>
+                                                    <div class="col-3">                                                
+                                                        <button class="btn btn-danger state state_2" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%">S</button>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <button class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%">S</button>
+                                                    </div>
+                                                </div>
+
+                                                <!--Si no a llegado a las instalaciones-->
+                                                {{-- @if($reservation->patient->inputoutput->isEmpty())
                                                     <div>
                                                         <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
                                                     </div>
-                                                @endif
+                                                @endif --}}
 
                                                 <!--Si esta dentro de las instalaciones-->
-                                                @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
+                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
                                                         <button disabled href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success">E</button>
                                                     </div>
-                                                @endif
+                                                @endif --}}
 
                                                 <!--Si ya se fue de las instalaciones-->
-                                                @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside))
+                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside))
                                                     <div>
                                                         <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-danger primero" disabled>E</button>
                                                     </div>
-                                                @endif   
+                                                @endif    --}}
                                             </td>
 
-                                            <td>  
+                                            {{-- <td>   --}}
                                                 <!--Si no ha llegado a las instalaciones-->
-                                                @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
+                                                {{-- @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
                                                     <div>
                                                         <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</button>
                                                     </div>
-                                                @endif
+                                                @endif --}}
 
                                                 <!--Si esta en espera-->
-                                                @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
+                                                {{-- @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
                                                     <div>
                                                         <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero">E</a>
                                                     </div>
-                                                @endif
+                                                @endif --}}
 
                                                 <!--Si esta dentro del consultorio-->
-                                                @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->outside_office))
+                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->outside_office))
                                                     <div>
                                                         <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-success primero">E</button>
                                                     </div>
-                                                 @endif
+                                                @endif --}}
 
-                                                 <!--Si salio del consultorio-->
-                                                 @if(!empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office))
+                                                <!--Si salio del consultorio-->
+                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office))
                                                     <div>
                                                         <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-danger primero">E</button>
                                                     </div>
-                                                @endif
-                                            </td>
+                                                @endif --}}
+                                            {{-- </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -507,14 +517,14 @@
                 </button>
             </div>
             <form method="POST" action="{{ route('reservation.status') }}">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="hidden" name="reservation_id" class="reservation_id">
-                        <input type="hidden" name="type" class="type">
-                        <label for="message-text" class="col-form-label">Motivo:</label>
-                        <textarea class="form-control" name="motivo" id="message-text"></textarea>
-                    </div>
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="reservation_id" class="reservation_id">
+                            <input type="hidden" name="type" class="type">
+                            <label for="message-text" class="col-form-label">Motivo:</label>
+                            <textarea class="form-control" name="motivo" id="message-text"></textarea>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -524,13 +534,14 @@
         </div>
     </div>
 </div>
-  
+
 {{-- modals --}}
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\js\jquery-3.4.1.min.js') }}"></script>
 
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
@@ -568,5 +579,33 @@
             $('#type').val(type);
         }
 
+    </script>
+
+    <script> //script del cambio de estado
+        function entradas(value, value2) {
+            var state = value; //el estado del objeto
+            var stateInt = parseInt(state); //se convierte el valor anterior en integer para posteriores validaciones
+            var id= value2; // el ID del contenedor en el que se encuentra el boton
+            console.log('click '+state+', '+id); //Se valida que se está alcanzando al objeto que se está haciendo click
+
+            //Se valida primero si se está haciendo click en el primer estado
+            if(stateInt<=0){
+                $('#'+id+' .state_'+state).addClass('btn-success');
+                $('#'+id+' .state_'+state).removeClass('btn-danger');
+                $('#'+id+' .state_'+state).prop("disabled", true);
+                console.log('Se ha cumplido el estado '+ state+', '+id);
+            }else{
+                //A partir de estado 1, se valida si el estado anterior se cumplió, para esto se toma la clase btn-danger, si no se ha cumplido, se bloquea la función y se puede mandar una alerta.
+                if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-danger')){
+                    console.log('click '+state+', '+id+': No puedes ejecutar esta accion hasta que el paso anterior se halla cumplido');
+                //Por el contrario, si el estado anterior se ha cumplido, se procede a ejecutar la función
+                }else if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-success')){
+                    $('#'+id+' .state_'+state).addClass('btn-success');
+                    $('#'+id+' .state_'+state).removeClass('btn-danger');
+                    $('#'+id+' .state_'+state).prop("disabled", true);
+                    console.log('Se ha cumplido el estado '+ state+', '+id);
+                }
+            }
+        };
     </script>
 @endsection
