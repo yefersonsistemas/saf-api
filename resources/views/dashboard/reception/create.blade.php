@@ -190,8 +190,7 @@
             finish: "Finalizar",
             next: "Siguiente",
             previous: "Anterior",
-            loading: "Cargando ..."
-        },
+            loading: "Cargando ..."},
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
@@ -252,7 +251,7 @@
                         title: 'Error!',
                         text: 'Paciente no encontrado',
                         type: 'error',
-                    })a
+                    })
                     enabled();
                 }
                 if (data[0] == 201) {
