@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
-@section('title','Medicos del dia')
+@section('title','Médicos del dia')
 
 @section('content')
     <div class="section-body py-3">
