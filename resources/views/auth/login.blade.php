@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="..\assets\css\brandMaster.css">
 
 </head>
-<body class="font-opensans">
+<body class="font-opensans overflow-hidden">
 
 <div class="auth">
     <div class="auth_left">
