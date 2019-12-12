@@ -79,7 +79,7 @@
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
                                             <div class="col-lg-2 col-md-3 col-sm-3 -1">
-                                                <div class="card assigment doctor " style="height: 50px; ">
+                                                <div class="card assigment doctor " >
                                                     <label class="imagecheck m-0">
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
                                                         {{-- @if (!empty($area->image->path))

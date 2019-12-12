@@ -252,7 +252,7 @@
                         title: 'Error!',
                         text: 'Paciente no encontrado',
                         type: 'error',
-                    })
+                    })a
                     enabled();
                 }
                 if (data[0] == 201) {

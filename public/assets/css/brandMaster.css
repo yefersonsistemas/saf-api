@@ -163,8 +163,8 @@ ul[role="tablist"] {
 }
 
 .assigment .imagecheck-image:last-child {
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: auto;
 }
 
 .imagecheck-image:last-child {
