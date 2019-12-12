@@ -24,7 +24,7 @@
 
 <div class="section-body  py-4">
     <div class="container-fluid">
-        <div class="row clearfix d-flex justify-content-lg-around">
+        <div class="row clearfix ">
             {{-- Contadores --}}
             {{-- <div class="col-lg-3 col-md-6 col-sm-12 "> --}}
                 {{-- <div class="card">
