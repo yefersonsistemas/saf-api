@@ -55,7 +55,7 @@
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Médicos</span></a>
                             <ul>
                                 <li>
-                                    <a href="{{ route('checkin.doctor') }}">Medicos del día</a>                                   
+                                    <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                   
                                 </li>
                                 <li>
                                     <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
