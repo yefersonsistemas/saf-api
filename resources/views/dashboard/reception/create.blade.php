@@ -82,18 +82,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--
-                                        <div class="card-footer text-right">
-                                            <button type="submit" id="submit" class="btn btn-success" disabled>Registrar paciente</button>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </section>
                             <h2>Elegir Especialidad</h2>
                             <section>
-                                <div class="row">
+                                <div class="row justify-content-between">
                                     @foreach ($specialities as $speciality)
-                                    <div class="col-6 col-sm-4">
+                                    {{-- <div class="col-6 col-sm-4">
                                             <label class="imagecheck mb-3">
                                                 <div class="card max-card text-center">
                                                     <div class="card-header text-center ">
@@ -107,19 +103,26 @@
                                                     </div>
                                                 </div>
                                             </label>
+                                        </div> --}}
+                                        <div class="col-lg-2 mx-lg-3 col-md-4 col-xs-6 col-6 mx-sm-0">
+                                            <label class="imagecheck m-0">
+                                            <div class="card assigment">
+                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
+                                                    @if (!empty($speciality->image->path))
+                                                    <figure class="imagecheck-figure border-0">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @else
+                                                    <figure class="imagecheck-figure border-0">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @endif
+                                                    <div class="card-body text-center bg-verdePastel">
+                                                        <h6 class="font-weight-bold">{{ $speciality->name }}</h6>
+                                                    </div>
+                                                </div>
+                                            </label>
                                         </div>
-                                        
-                                        
-                                    {{-- <div class="col-sm-4">
-                                        <div class="card" style="width: 18rem;">
-                                            <img src="{{ Storage::url($speciality->image->path) }}" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <p class="card-text">{{ $speciality->description }}</p>
-                                                <a href="#" class="btn btn-primary"><input type="radio" name="speciality"
-                                                        value="{{ $speciality->id }}" id=""></a>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     @endforeach
                                     <input type="hidden" name="speciality" id="speciality">
                                 </div>
@@ -181,6 +184,14 @@
         headerTag: 'h2',
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
+        labels: {
+            cancel: "Cancelar",
+            current: "Paso actual:",
+            pagination: "Paginación",
+            finish: "Finalizar",
+            next: "Siguiente",
+            previous: "Anterior",
+            loading: "Cargando ..."},
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
