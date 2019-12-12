@@ -22,7 +22,7 @@
                                     <div class="row gutters-sm d-row d-flex justify-content-lg-between">
                                         @foreach ($areas as $area)
                                                 @if ($area->typearea->name == 'Consultorio' && $area->status == 'desocupado')
-                                                    <div class="col-md-2 col-lg-2 ml-1">
+                                                    <div class="col-md-2 col-lg-2 ml-1 mb-2 col-sm-3">
                                                         <label class="imagecheck m-0">
                                                         <div class="card assigment">
                                                                 <input name="searcharea" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
@@ -44,7 +44,7 @@
                                                     </div>
                                                 @else
                                                     @if ($area->typearea->name == 'Consultorio' && $area->status == 'ocupado')
-                                                        <div class="col-md-2 col-lg-2">
+                                                        <div class="col-md-2 col-lg-2 col-sm-3">
                                                             <label class="imagecheck m-0 disabled">
                                                             <div class="card assigment">
                                                                     <input name="searcharea" id="searcharea" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
