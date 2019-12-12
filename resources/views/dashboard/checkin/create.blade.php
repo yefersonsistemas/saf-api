@@ -178,12 +178,14 @@
                             Swal.fire({
                                 title : 'Realizado!',
                                 text: 'Click en OK para continuar!',
+                                type: 'success',
                                 // text:  data.areas
                             })
                         }
                         if (!data) {
                             Swal.fire({
                                 text: 'Consultorio ocupado',
+                                type: 'error',
                             })
                         }
                     })
@@ -213,6 +215,7 @@
                             Swal.fire({
                                 title : 'Médico Seleccionado',
                                 text: 'Click en OK para continuar!',
+                                type: 'success',
                                 // text: data.employes,
                                 
                             })
@@ -220,6 +223,7 @@
                         if (!data){
                             Swal.fire({
                                 text: 'Medico con consultorio asignado',
+                                type: 'error',
                             })
                         }
                     })
@@ -250,6 +254,7 @@
                     Swal.fire({
                         title : 'Consultorio asignado!',
                         text: 'Click OK para cerrar!',
+                        type: 'success',
                         // text: data.areaAssigment.employe_id,
                     })
                 }
