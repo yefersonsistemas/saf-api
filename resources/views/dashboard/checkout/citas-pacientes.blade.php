@@ -58,7 +58,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Pacientes atendidos</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>                             
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>                             
                     </div>
                 </div>
             </div>
@@ -128,10 +128,43 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                    <button class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                    <button class="btn btn-danger state state_2" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" ></button>
-                                    <button class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" ></button>
+                                    <div class="container text-center" id="ID_element_0">
+                                        @if($itinerary->person->inputoutput->isEmpty())
+                                            <button class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                        @endif
+
+                                        @if(!empty($itinerary->person->inputoutput->first()->inside) && empty($itinerary->person->inputoutput->first()->inside_office) && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                        @endif
+
+                                        @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                        @endif
+
+                                        @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
+                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <a class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                        @endif
+
+                                        @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && !empty($itinerary->person->inputoutput->first()->outside))
+                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                        @endif
+
+                                    </div>
                                 </div>
                                 {{-- <!--es espera-->
                                 @if(empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->inside_office)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
@@ -187,12 +220,12 @@
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posible cirugia</h5>
                                                 @if($itinerary->surgery != null)
-                                                <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $itinerary->surgery->typesurgeries->name }}</span><br>
-                                                <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
-                                                <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
-                                                <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
+                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted">{{ $itinerary->surgery->typesurgeries->name }}</span><br>
+                                                    <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
+                                                    <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
+                                                    <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
                                                 @else
-                                                <span class="mb-2 text-muted">Sin cirugia</span><br>
+                                                    <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                 @endif
                                             </div>                                            
                                         </div> 
@@ -202,13 +235,13 @@
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posibles procedimientos</h5>
                                                 @if ($itinerary->procedures != null)
-                                                <ul>
-                                                    @foreach ($itinerary->procedures as $proce)
-                                                        <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
-                                                    @endforeach
-                                                </ul>
+                                                    <ul>
+                                                        @foreach ($itinerary->procedures as $proce)
+                                                            <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
+                                                        @endforeach
+                                                    </ul>
                                                 @else
-                                                <span class="mb-2 text-muted">Sin procedimientos</span><br>
+                                                    <span class="mb-2 text-muted">Sin procedimientos</span><br>
                                                 @endif
                                             </div>                                                
                                         </div> 
