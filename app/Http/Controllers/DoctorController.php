@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\redirect;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\Medicine;
@@ -23,9 +24,10 @@ use App\Treatment;
 use App\Recipe;
 use App\Repose;
 use App\ReportMedico;
+// use App\Redirect;
+
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Disease;
-use App\Redirect;
 
 class DoctorController extends Controller
 {
@@ -257,71 +259,74 @@ class DoctorController extends Controller
     {
         // dd($request);
 
-        if($request->reposop != null){
-        //-------- crear reposo ---------
-        $reposo = Repose::create([
-            'patient_id'        =>  $request->patient_id,
-            'employe_id'        =>  $request->employe_id,
-            'description'       =>  $request->reposop, 
-            'branch_id'         =>  1
-        ]);
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
-        $reposo_id = $reposo->id;
+        if(is_null($itinerary)){
+
+            if($request->reposop != null){
+            //-------- crear reposo ---------
+            $reposo = Repose::create([
+                'patient_id'        =>  $request->patient_id,
+                'employe_id'        =>  $request->employe_id,
+                'description'       =>  $request->reposop, 
+                'branch_id'         =>  1
+            ]);
+
+            $reposo_id = $reposo->id;
+            $itinerary->repose_id = $reposo_id;
+            $itinerary->save();
+
+            }else{
+                $reposo_id = null;
+            }
+
+            // dd($reposo);
+    
+            if($request->reporte != null){
+            //------- crear informe medico -------
+            $reporte = ReportMedico::create([
+                'patient_id'        =>  $request->patient_id,
+                'employe_id'        =>  $request->employe_id,
+                'descripction'      =>  $request->reporte,
+                'branch_id'         =>  1
+            ]);
+
+            $reporte_id = $reporte->id;
+            $itinerary->report_medico_id = $reporte_id;
+            $itinerary->save();
+            }else{
+                $reporte_id = null;
+            }
+            // dd($reporte);
+
+            // ------ guardando diagnostico ------
+            $diagnostic = Diagnostic::create([
+                'patient_id'        =>  $request->patient_id, //esta
+                'description'       =>  $request->diagnostic,  //esta
+                'reason'            =>  $request->razon, //esta
+                'enfermedad_actual' =>  $request->enfermedad_actual, //esta
+                'examen_fisico'     =>  $request->examen_fisico,//esta
+                'report_medico_id'  =>  $reporte_id, //esta
+                'repose_id'         =>  $reposo_id,  //esta
+                'indications'       =>  $request->indicaciones, //esta
+                'employe_id'        =>  $request->employe_id, //esta
+                'branch_id'         =>  1,
+            ]);
+
+
+            // foreach ($request->multiselect4 as $examen) {
+            //     $diagnostic->exam()->attach($examen);
+            // }
+
+            // dd($itinerary);
+         
+            Alert::success('Diagnostico creado exitosamente!');
+            return redirect()->route('doctor.index');
 
         }else{
-            $reposo_id = null;
+            Alert::error('No se pudo generar su diagnostico!');
+            return redirect()->back();
         }
-
-        // dd($reposo);
-  
-        if($request->reporte != null){
-        //------- crear informe medico -------
-        $reporte = ReportMedico::create([
-            'patient_id'        =>  $request->patient_id,
-            'employe_id'        =>  $request->employe_id,
-            'descripction'      =>  $request->reporte,
-            'branch_id'         =>  1
-        ]);
-
-        $reporte_id = $reporte->id;
-
-        }else{
-            $reporte_id = null;
-        }
-        // dd($reporte);
-
-        // ------ guardando diagnostico ------
-        $diagnostic = Diagnostic::create([
-            'patient_id'        =>  $request->patient_id, //esta
-            'description'       =>  $request->diagnostic,  //esta
-            'reason'            =>  $request->razon, //esta
-            'enfermedad_actual' =>  $request->enfermedad_actual, //esta
-            'examen_fisico'     =>  $request->examen_fisico,//esta
-            'report_medico_id'  =>  $reporte_id, //esta
-            'repose_id'         =>  $reposo_id,  //esta
-            'indications'       =>  $request->indicaciones, //esta
-            'employe_id'        =>  $request->employe_id, //esta
-            'branch_id'         =>  1,
-        ]);
-
-
-        // dd($diagnostic);
-
-        // foreach ($request->multiselect4 as $examen) {
-        //     $diagnostic->exam()->attach($examen);
-        // }
-
-        // $itinerary = Itinerary::where('patient_id', $patient->id)->first();
-        
-        // if (!is_null($itinerary)) {
-        //     $itinerary->diagnostic_id = $diagnostic->id;
-        //     $itinerary->save();
-        // }
-
-
-        // Alert::success('Diagnostico creado exitosamente!');
-        // return route('doctor.index');
-        return Redirect::to('doctor.index')->with('notice', 'Tarea guardada correctamente.');
     }
 
        // ================================= Guardar diagnostico ======================================

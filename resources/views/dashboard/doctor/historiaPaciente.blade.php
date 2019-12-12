@@ -118,6 +118,7 @@
                                         <input type="hidden" name="patient_id" value="{{ $history->patient_id }}"> 
                                         <input type="hidden" name="employe_id" value="{{ $history->person_id }}"> 
                                         <input type="hidden" name="razon" value="{{ $history->description }}"> 
+                                        <input type="hidden" name="reservacion_id" value="{{ $history->id }}"> 
 
                                         <h2>Información Personal</h2>
                                         <section class="card mr-4 ml-4">
