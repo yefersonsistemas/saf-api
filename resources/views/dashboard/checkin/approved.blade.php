@@ -73,7 +73,6 @@
                         <thead>
                             <tr>
                                 <th>Foto</th>
-                                <th class="text-center">Historia</th>
                                 <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
@@ -87,7 +86,6 @@
                         <tfoot>
                             <tr>
                                 <th>Foto</th>
-                                <th class="text-center">Historia</th>
                                 <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
@@ -107,13 +105,13 @@
                                         @else
                                             <img src="" alt="" >
                                         @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if ($reservation->patient->historyPatient == null)
-                                            <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
-                                        @else
-                                            <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
-                                        @endif
+                                        <div class="text-center">
+                                            @if ($reservation->patient->historyPatient == null)
+                                                <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                            @else
+                                                <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                            @endif
+                                        </div>
                                     </td>
                                     <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                     <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>

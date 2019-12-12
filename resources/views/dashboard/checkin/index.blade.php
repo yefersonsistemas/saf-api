@@ -95,7 +95,6 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
-                                        <th class="text-center">Historia</th>
                                         <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th class="fecha">Fecha</th>
@@ -110,7 +109,6 @@
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
-                                        <th class="text-center">Historia</th>
                                         <th>Cédula</th>
                                         <th>Nombre</th>
                                         <th class="fecha">Fecha</th>
@@ -131,13 +129,13 @@
                                                 @else
                                                     <img src="" alt="" >
                                                 @endif
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($reservation->patient->historyPatient == null)
-                                                    <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
-                                                @else
-                                                    <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
-                                                @endif
+                                                <div class="text-center">
+                                                    @if ($reservation->patient->historyPatient == null)
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                    @else
+                                                        <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                    @endif
+                                                </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
@@ -242,7 +240,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -255,7 +252,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -267,6 +263,13 @@
                                                 @else
                                                 <img src="" alt="" >
                                                 @endif
+                                                <div class="text-center">
+                                                    @if ($reservation->patient->historyPatient == null)
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                    @else
+                                                        <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                    @endif
+                                                </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -278,13 +281,6 @@
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
-                                            </td>
-                                            <td>
-                                                @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
-                                                @else
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                @endif
                                             </td>
                                         </tr>
                                     @empty
@@ -309,7 +305,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -322,7 +317,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -334,6 +328,13 @@
                                                 @else
                                                     <img src="" alt="" >
                                                 @endif
+                                                <div class="text-center">
+                                                    @if ($reservation->patient->historyPatient == null)
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                    @else
+                                                        <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                    @endif
+                                                </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -345,13 +346,6 @@
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
-                                            </td>
-                                            <td>
-                                                @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
-                                                @else
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -374,7 +368,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -387,7 +380,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -399,6 +391,13 @@
                                                 @else
                                                 <img src="" alt="" >
                                                 @endif
+                                                <div class="text-center">
+                                                    @if ($reservation->patient->historyPatient == null)
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                    @else
+                                                        <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                    @endif
+                                                </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -410,13 +409,6 @@
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
-                                            </td>
-                                            <td>
-                                                @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
-                                                @else
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -439,7 +431,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -452,7 +443,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th>Historia</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -464,6 +454,13 @@
                                                 @else
                                                 <img src="" alt="" >
                                                 @endif
+                                                <div class="text-center">
+                                                    @if ($reservation->patient->historyPatient == null)
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                    @else
+                                                        <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                    @endif
+                                                </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -475,13 +472,6 @@
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
-                                            </td>
-                                            <td>
-                                                @if ($reservation->patient->historyPatient == null)
-                                                    <a href="" class="btn btn-success">Generar</a>
-                                                @else
-                                                    {{ $reservation->patient->historyPatient->history_number }}
-                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
