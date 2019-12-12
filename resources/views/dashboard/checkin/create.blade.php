@@ -76,10 +76,10 @@
                             <h2>Seleccionar médico</h2>
                             <section>
                                 <div class="card-body">
-                                    <div class="row gutters-sm d-row d-flex justify-content-start">
+                                    <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
-                                            <div class="col-md-2 mx-3">
-                                                <div class="card assigment doctor">
+                                            <div class="col-lg-2 col-md-3 col-sm-3 -1">
+                                                <div class="card assigment doctor " style="height: 50px; ">
                                                     <label class="imagecheck m-0">
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
                                                         {{-- @if (!empty($area->image->path))
@@ -176,8 +176,9 @@
                         if (data) {
                             console.log(data)
                             Swal.fire({
-                                title : 'consultorio seleccionado',
-                                text:  data.areas
+                                title : 'Realizado!',
+                                text: 'Click en OK para continuar!',
+                                // text:  data.areas
                             })
                         }
                         if (!data) {
@@ -210,8 +211,9 @@
                         if (data) {
                             console.log(data)
                             Swal.fire({
-                                title : 'Medico  seleccionado',
-                                text: data.employes,
+                                title : 'Médico Seleccionado',
+                                text: 'Click en OK para continuar!',
+                                // text: data.employes,
                                 
                             })
                         }
@@ -246,13 +248,14 @@
                     if(data[0] == 201){
                     console.log('asignado',data.asignado.area_id, data.asignado.employe_id) ;
                     Swal.fire({
-                        title : 'Consultorio asignado',
-                        text: data.areaAssigment.employe_id,
+                        title : 'Consultorio asignado!',
+                        text: 'Click OK para cerrar!',
+                        // text: data.areaAssigment.employe_id,
                     })
                 }
                 if(data[0] == 202){
                     Swal.fire({
-                        title : 'Consultorio asignado ',
+                        title : 'Consultorio asignado',
                     })
                 }
                 })
