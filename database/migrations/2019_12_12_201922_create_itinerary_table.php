@@ -71,7 +71,6 @@ class CreateItineraryTable extends Migration
             ->on('references')
             ->onDelete('CASCADE');
 
-
             $table->foreign('report_medico_id')
             ->references('id')
             ->on('report_medicos')
