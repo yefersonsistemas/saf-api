@@ -23,8 +23,8 @@ class TypeAreasTableSeeder extends Seeder
             $this->to('typearea', $type->id, 'App\TypeArea');
         });
 
-        factory(TypeArea::class)->create([
-            'name'     => 'Consultorio',
-        ]);
+        // factory(TypeArea::class)->create([
+        //     'name'     => 'Consultorio',
+        // ]);
     }
 }

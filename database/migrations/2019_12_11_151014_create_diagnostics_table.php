@@ -18,7 +18,11 @@ class CreateDiagnosticsTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->longText('description')->nullable();
             $table->longText('reason')->nullable();
+            $table->text('enfermedad_actual');
+            $table->text('examen_fisico');
             $table->unsignedBigInteger('treatment_id')->nullable();
+            $table->unsignedBigInteger('report_medico_id')->nullable();
+            $table->unsignedBigInteger('repose_id')->nullable();
             $table->longText('indications')->nullable();
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('branch_id');
@@ -38,6 +42,16 @@ class CreateDiagnosticsTable extends Migration
                 ->references('id')
                 ->on('employes')
                 ->onDelete('CASCADE');
+
+            $table->foreign('report_medico_id')
+            ->references('id')
+            ->on('report_medicos')
+            ->onDelete('CASCADE');
+            
+            $table->foreign('repose_id')
+            ->references('id')
+            ->on('reposes')
+            ->onDelete('CASCADE');
 
             $table->foreign('branch_id')
                 ->references('id')

@@ -30,7 +30,8 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        $position = Position::all();
+        $position = Position::where('name', 'doctor')->first();
+        // dd( $position);
         $speciality = Speciality::all();
         return view('dashboard.director.created', compact('position', 'speciality'));
     }
@@ -43,6 +44,8 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+        
         $data = $request->validate([
             'name' => 'required',
             'type_dni'  => 'required',
@@ -71,10 +74,12 @@ class DirectorController extends Controller
             'branch_id' => 1
         ]);
 
-        if (!empty($request->speciality)) {
-            foreach ($request->speciality as $speciality) {
-                $especialidad = Speciality::find($speciality);
-                $employe->speciality()->attach($especialidad); 
+        if (!is_null($employe)) {
+            if (!empty($request->speciality)) {
+                foreach ($request->speciality as $speciality) {
+                    $especialidad = Speciality::find($speciality);
+                    $employe->speciality()->attach($especialidad); 
+                }
             }
         }
           

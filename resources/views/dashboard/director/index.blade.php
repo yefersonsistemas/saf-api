@@ -1,6 +1,10 @@
 @extends('dashboard.layouts.app')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+
 @endsection
 
 @section('title','Lista de empleados')
@@ -63,4 +67,10 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+
 @endsection

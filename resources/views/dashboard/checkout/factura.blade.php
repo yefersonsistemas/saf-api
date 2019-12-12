@@ -194,13 +194,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
                                 </div>
-                               
                             </div>
                             
                         </div>
-                       
                     </div>                
                 </div>
             </div>
@@ -353,10 +350,9 @@
     }); //fin del documento
 
     </script>
-    <script>
-      
+    {{-- <script>
         function redirect() {
             window.location ='{{ route("checkout.index") }}', '_blank';
         };
-    </script>
+    </script> --}}
 @endsection

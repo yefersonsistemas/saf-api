@@ -347,7 +347,19 @@ class OutController extends Controller
         return $pdf->stream('recipe.pdf');
     }
 
+    //============================ imprimir referencia ============================
+    public function imprimir_referencia($id){
 
+        $itinerary = Itinerary::with('person','employe.person','reference','diagnostic')->where('id',$id)->first();
+        
+        $referencia = Reference::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->reference_id)->first();
+
+        $fecha = Carbon::now()->format('Y/m/d');
+
+        $pdf = PDF::loadview('dashboard.checkout.print_referencia', compact('referencia','fecha','itinerary'));
+        return $pdf->stream('referencia.pdf');
+    }
+    
     //============================ imprimir constancia ============================
     public function imprimir_constancia(){
 
@@ -358,19 +370,6 @@ class OutController extends Controller
         $pdf = PDF::loadview('dashboard.checkout.print_constancia');
         return $pdf->stream('constancia.pdf');
     }
-
-
-    //============================ imprimir referencia ============================
-    public function imprimir_referencia($id){
-
-        $itinerary = Itinerary::with('person','employe.person','reference')->where('id',$id)->first();
-
-        $referencia = Reference::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->reference_id)->first();
-
-        $pdf = PDF::loadview('dashboard.checkout.print_referencia', compact('reference'));
-        return $pdf->stream('referencia.pdf');
-    }
-
 
     //============================ imprimir reposo ============================
     public function imprimir_reposo(){
@@ -383,6 +382,16 @@ class OutController extends Controller
         return $pdf->stream('reposo.pdf');
     }
 
+     //============================ imprimir informe ============================
+    public function imprimir_informe(){
+
+        // $itinerary = Itinerary::with('person','employe.person','rest')->where('id',$id)->first();
+
+        // $constancia = Rest::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->rest_id)->first();
+
+        $pdf = PDF::loadview('dashboard.checkout.print_informe');
+        return $pdf->stream('informe.pdf');
+    }
     
     //============================ cambiar a estado fuera ============================
     public function statusOut($patient_id)

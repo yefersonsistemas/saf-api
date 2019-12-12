@@ -62,7 +62,7 @@
                         <div class="col-lg-8">
                             <div class="form-group">
                                 <label class="form-label"> Correo Electronico </label>
-                                <input type="email" placeholder="name@example.com" placeholder="Correo electronico" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input type="email" placeholder="name@example.com" class="form-control" name="email" value="{{ old('email') }}" required>
                             </div>
                         </div>
                     
@@ -94,8 +94,8 @@
                                 <input type="file" name="image" required>
                             </div>
                             <div class="row">
-                                <button type="submit" class="btn btn-success mr-2 pr-4 pl-4" >Enviar</button>
-                                <button type="reset" class="btn btn-primary mr-2 pr-4 pl-4">Limpiar</button>
+                                <button type="submit" class="btn btn-success mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
+                                <button type="reset" class="btn btn-dark mr-2 pr-4 pl-4">Limpiar</button>
                             {{-- <a href="{{route('employe.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a> --}}
                             </div>
                     </div>

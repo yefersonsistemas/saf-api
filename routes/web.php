@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function (){
 
      //======================= rutas para el usuario ckeckin ====================
     Route::group(['middleware' => ['role:IN']], function () {
+        Route::get('cite/day', 'InController@day')->name('checkin.day');
+        Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
+        Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
         Route::post('assigment/area', 'InController@assigment')->name('checkin.assigment');
@@ -50,6 +53,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        Route::get('list/todos', 'EmployesController@doctor_on_todos')->name('checkin.doctor_todos');
         Route::post('Doctor/asistencia', 'EmployesController@assistance')->name('checkin.asistencia');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
@@ -89,6 +93,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('constancia','OutController@imprimir_constancia')->name('checkout.imprimir_constancia'); // imprimir constancia
         Route::get('reposo','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
+        Route::get('informe','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
@@ -108,7 +113,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('/doctor', 'DirectorController@store')->name('doctor.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
-        // Route::get('create', 'SpecialityController@create')->name('speciality.create');
+        // Route::get('speciality/create', 'SpecialityController@create')->name('speciality.create');
         // Route::POST('/speciality', 'SpecialityController@store')->name('speciality.store');
     });
 });

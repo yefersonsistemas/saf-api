@@ -26,9 +26,8 @@
                     <div class="form-group">
                         <label class="form-label">Tipo DNI</label>
                         <select name="type_dni" disabled class="form-control" id="type_dni">
-                            <option {{ ($reservation->patient->type_dni == 'V' ? 'selected' :'') }} value="V">V</option>
+                            <option {{ ($reservation->patient->type_dni == 'N' ? 'selected' :'') }} value="N">N</option>
                             <option {{ ($reservation->patient->type_dni == 'E' ? 'selected' :'') }} value="E">E</option>
-                            <option {{ ($reservation->patient->type_dni == 'J' ? 'selected' :'') }} value="J">J</option>
                         </select>
                     </div>
                 </div>
@@ -209,10 +208,12 @@
             fecha = new Date(2019, 10, 29);
             fecha2 = new Date(2019, 10, 30);
             console.log(fecha);
-            $('#datepicker').datepicker({
+            $('.datepicker').datepicker({
                 todayHighlight: true,
                 language: 'es',
                 startDate: new Date(2019,10,25),
+                daysOfWeekHighlighted: [0,6],
+                datesDisabled: data.diff,
             });
         }
 
