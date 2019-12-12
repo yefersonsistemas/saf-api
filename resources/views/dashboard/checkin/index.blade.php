@@ -257,7 +257,7 @@
                                 <tbody>
                                     @forelse ($aprobadas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
@@ -267,7 +267,7 @@
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
                                                     @else
-                                                        <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                        <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
                                                     @endif
                                                 </div>
                                             </td>
