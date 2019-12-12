@@ -1,4 +1,8 @@
-@extends('dashboard.layouts.app') @section('cites','active') @section('newCite','active') @section('title','Crear una nueva cita') @section('css')
+@extends('dashboard.layouts.app') 
+@section('cites','active') 
+@section('newCite','active') 
+@section('title','Crear una nueva cita')
+@section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
@@ -6,7 +10,7 @@
 
 @endsection @section('content')
 
-<div class="section-body">
+<div class=" py-4">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
