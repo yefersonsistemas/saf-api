@@ -186,26 +186,33 @@ class DoctorController extends Controller
         //    dd($request);
         $person = Person::with('historyPatient')->where('id',$request->patient)->first();
 
-        if(($request->speciality != null && $request->reason != null) && ($request->doctor != null || $request->doctor != null)){
+        if($request->doctor != null  || $request->doctorExterno != null){
 
-            $reference = Reference::create([
-                'patient_id'    =>  $person->id,
-                'specialitie_id'    =>  $request['speciality'],
-                'reason'        =>  $request['reason'],
-                'employe_id'    =>  $request->doctor,
-                'doctor'        =>  $request->doctorExterno,
-            ]);
+            if($request->speciality != null && $request->reason != null){
 
-            $itinerary = Itinerary::where('patient_id', $person->id)->first();
-            if (!is_null($itinerary)) {
-                $itinerary->reference_id = $reference->id;
-                $itinerary->save();
+                $reference = Reference::create([
+                    'patient_id'    =>  $person->id,
+                    'specialitie_id'    =>  $request['speciality'],
+                    'reason'        =>  $request['reason'],
+                    'employe_id'    =>  $request->doctor,
+                    'doctor'        =>  $request->doctorExterno,
+                ]);
+
+                $itinerary = Itinerary::where('patient_id', $person->id)->first();
+                if (!is_null($itinerary)) {
+                    $itinerary->reference_id = $reference->id;
+                    $itinerary->save();
+                }
+
+                return response()->json([
+                    'reference' => 'Médico referido',201
+                ]);
+            }else{
+                return response()->json([
+                    'reference' => 'Datos incompletos',202
+                ]);
             }
-
-            return response()->json([
-                'reference' => 'Médico referido',201
-            ]);
-        }else{
+        }{
             return response()->json([
                 'reference' => 'Datos incompletos',202
             ]);
@@ -216,7 +223,6 @@ class DoctorController extends Controller
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
     public function recipeStore(Request $request)
     {
-        // dd($request);
         $itinerary = Itinerary::with('person','employe.person','reservation')->where('reservation_id', $request->reservacion)->first();
 
         if($itinerary->recipe_id == null){
@@ -263,7 +269,8 @@ class DoctorController extends Controller
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
-        if(is_null($itinerary)){
+        // dd($itinerary);
+        if($itinerary != null){
 
             if($request->reposop != null){
             //-------- crear reposo ---------
