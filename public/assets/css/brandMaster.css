@@ -124,7 +124,7 @@ ul[role="tablist"] {
 /* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
 
 .wizard>.content>.body::-webkit-scrollbar-thumb:hover {
-    background: #b3b3b3;
+    background: #00ba88;
     box-shadow: 0 0 2px 1px rgba(0, 107, 136, 0.2);
 }
 
@@ -148,7 +148,7 @@ ul[role="tablist"] {
 
 .wizard>.content>.body::-webkit-scrollbar-track:hover,
 .wizard>.content>.body::-webkit-scrollbar-track:active {
-    background: #d4d4d4;
+    background: #75d8bd;
 }
 
 .wizard>.steps .done a,
