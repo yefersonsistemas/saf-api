@@ -82,15 +82,18 @@
                                                 <div class="card assigment doctor">
                                                     <label class="imagecheck m-0">
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
-                                                        @if (!empty($area->image->path))
+                                                        {{-- @if (!empty($area->image->path))
                                                         <figure class="imagecheck-figure border-0">
                                                             <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image w-auto">
                                                         </figure>
-                                                        @else
+                                                        @else --}}
                                                         <figure class="imagecheck-figure border-0">
-                                                            <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                            <img src="{{ asset('assets/images/doctor.jpg') }}" alt="" class="imagecheck-image w-auto">
                                                         </figure>
-                                                        @endif
+                                                        {{-- <figure class="imagecheck-figure border-0">
+                                                            <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                        </figure> --}}
+                                                        {{-- @endif --}}
                                                     </label>
                                                     <div class="card-body text-center" style="background:#EEEBEB">
                                                         <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
