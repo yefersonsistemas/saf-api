@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    Copyright © 2019 <a target="_blank" href="https://www.jaksoluciones.com">Jak Solucines</a>.
+                    {{-- Copyright © 2019 <a target="_blank" href="https://www.jaksoluciones.com">Jak Solucines</a>. --}}
                 </div>
                 <div class="col-md-6 col-sm-12 text-md-right">
                     {{-- <ul class="list-inline mb-0">
