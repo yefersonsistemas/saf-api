@@ -180,34 +180,36 @@ class DoctorController extends Controller
     }
 
 
-
-    public function referenceStore(Request $request, $patient)
+    // ================================= referir doctor ======================================
+    public function referenceStore(Request $request)
     {
-        //    dd($request);}
-        $person = Person::with('historyPatient')->where('id',$patient)->first();
+        //    dd($request);
+        $person = Person::with('historyPatient')->where('id',$request->patient)->first();
 
-        $data = $request->validate([
-            'speciality'        =>  'required',
-            'reason'            =>  'required',
-        ]);
+        if(($request->speciality != null && $request->reason != null) && ($request->doctor != null || $request->doctor != null)){
 
-        $reference = Reference::create([
-            'patient_id'    =>  $person->id,
-            'specialitie_id'    =>  $data['speciality'],
-            'reason'        =>  $data['reason'],
-            'employe_id'    =>  $request->doctor,
-            'doctor'        =>  $request->doctorExterno,
-        ]);
-        
-        $itinerary = Itinerary::where('patient_id', $person->id)->first();
-        // dd($itinerary);
-        if (!is_null($itinerary)) {
-            $itinerary->reference_id = $reference->id;
-            $itinerary->save();
+            $reference = Reference::create([
+                'patient_id'    =>  $person->id,
+                'specialitie_id'    =>  $request['speciality'],
+                'reason'        =>  $request['reason'],
+                'employe_id'    =>  $request->doctor,
+                'doctor'        =>  $request->doctorExterno,
+            ]);
+
+            $itinerary = Itinerary::where('patient_id', $person->id)->first();
+            if (!is_null($itinerary)) {
+                $itinerary->reference_id = $reference->id;
+                $itinerary->save();
+            }
+
+            return response()->json([
+                'reference' => 'Médico referido',201
+            ]);
+        }else{
+            return response()->json([
+                'reference' => 'Datos incompletos',202
+            ]);
         }
-
-        Alert::success('Referencia Creada');
-        return redirect()->back();
     }
 
 
