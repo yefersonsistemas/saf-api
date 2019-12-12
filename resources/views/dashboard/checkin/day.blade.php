@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
-@section('title','Citas de hoy')
+@section('title','Citas para hoy:25 | Atendidos Hoy:5')
 
 @section('content')
 
@@ -24,44 +24,7 @@
 
 <div class="section-body  py-4">
     <div class="container-fluid">
-        <div class="row clearfix d-flex justify-content-lg-around">
-            {{-- Contadores --}}
-            {{-- <div class="col-lg-3 col-md-6 col-sm-12 "> --}}
-                {{-- <div class="card">
-                    <div class="card-body">                                
-                        <h6>Total De Citas Agendadas</h6>
-                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
-                        {{-- <h5>$1,25,451.23</h5> --}}
-                    {{-- </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 ">
-                <div class="card">
-                    <div class="card-body">
-                        <h6>Total De Citas Del Mes</h6>
-                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3> --}}
-                        {{-- <h5>$3,80,451.00</h5> --}}
-                    {{-- </div>
-                </div>
-            </div>  --}}
-            <div class="col-lg-3 col-md-6 col-sm-12 ">
-                <div class="card">
-                    <div class="card-body">
-                        <h6>Citas Para Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
-                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 ">
-                <div class="card">
-                    <div class="card-body">
-                        <h6>Atendidos Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">5</span></h3>
-                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
-                    </div>
-                </div>
-            </div>
+        <div class="row clearfix ">
 
             <div class="col-lg-12">
                 <div class="table-responsive mb-4">
