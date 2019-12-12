@@ -252,7 +252,7 @@
                                             <!--EXAMEN-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->exam_id != null)
-                                                    <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                    <a href="{{ route('checkout.imprimir_examen', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                     <i class="fa fa-print"></i> Examen
                                                     </a>
                                                 @else
@@ -265,7 +265,7 @@
                                             <!--RECETARIO-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->recipe_id != null)
-                                                    <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                    <a href="{{ route('checkout.imprimir_recipe', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Recetario
                                                     </a>
                                                     @else

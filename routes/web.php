@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
     Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
-    Route::post('doctor/recipe/{patient}/{employe}','DoctorController@recipeStore')->name('recipe.store');
+    Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
 
 
     Route::group(['middleware' => ['role:recepcion']], function () {
@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function (){
 
      //======================= rutas para el usuario ckeckin ====================
     Route::group(['middleware' => ['role:IN']], function () {
+        Route::get('cite/day', 'InController@day')->name('checkin.day');
+        Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
+        Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
         Route::get('cite', 'InController@index')->name('checkin.index');
         Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
         Route::post('assigment/area', 'InController@assigment')->name('checkin.assigment');
@@ -50,6 +53,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        Route::get('list/todos', 'EmployesController@doctor_on_todos')->name('checkin.doctor_todos');
         Route::post('Doctor/asistencia', 'EmployesController@assistance')->name('checkin.asistencia');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
@@ -83,7 +87,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('imprimir', 'OutController@imprimir_factura')->name('checkout.imprimir_factura');           // mostrar factura
 
         Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
-        Route::get('imprimir/recipe/{id}/{patient}/{employe}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
+        Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
         Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
         Route::get('constancia','OutController@imprimir_constancia')->name('checkout.imprimir_constancia'); // imprimir constancia

@@ -57,6 +57,16 @@ class Patient extends Model
         return $this->belongsToMany('App\Allergy');
     }
 
+    public function repose()
+    {
+        return $this->hasOne ('App\Repose', 'patient_id');
+    }
+
+    public function reportMedico()
+    {
+        return $this->hasMany('App\ReportMedico', 'patient_id');
+    }
+
     public function doctor()
     {
         return $this->belongsTo('App\User', 'doctor_id');

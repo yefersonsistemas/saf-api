@@ -18,7 +18,7 @@
 }
 
 .page .section-body {
-    margin-top: 26px;
+    margin-top: 0px;
 }
 
 .centrado {
@@ -81,7 +81,7 @@ ul[role="tablist"] {
     background: #fff;
     display: block;
     margin: 0.5em;
-    min-height: 35em;
+    min-height: 33em;
     overflow: hidden;
     position: relative;
     width: auto;
@@ -100,7 +100,55 @@ ul[role="tablist"] {
     width: 100%;
     height: 100%;
     padding: 2.5%;
-    overflow-y: auto;
+    overflow: scroll;
+}
+
+.wizard>.content>.body::-webkit-scrollbar {
+    width: 8px;
+    /* Tamaño del scroll en vertical */
+    height: 8px;
+    /* Tamaño del scroll en horizontal */
+    display: block;
+    /* Ocultar scroll */
+}
+
+
+/* * Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+.wizard>.content>.body::-webkit-scrollbar-thumb {
+    background: #00ba88;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+
+.wizard>.content>.body::-webkit-scrollbar-thumb:hover {
+    background: #00ba88;
+    box-shadow: 0 0 2px 1px rgba(0, 107, 136, 0.2);
+}
+
+
+/* Cambiamos el fondo cuando esté en active */
+
+.wizard>.content>.body::-webkit-scrollbar-thumb:active {
+    background-color: #00506b;
+}
+
+
+/* * Ponemos un color de fondo y redondeamos las esquinas del track */
+
+.wizard>.content>.bodyr::-webkit-scrollbar-track {
+    background: #00ba88;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo cuando esté en active o hover */
+
+.wizard>.content>.body::-webkit-scrollbar-track:hover,
+.wizard>.content>.body::-webkit-scrollbar-track:active {
+    background: #75d8bd;
 }
 
 .wizard>.steps .done a,
@@ -108,6 +156,15 @@ ul[role="tablist"] {
 .wizard>.steps .done a:active {
     background: #00ba88;
     color: #fff;
+}
+
+.assigment {
+    box-shadow: 0 1px 8px 1px rgba(0, 0, 0, .30) !important;
+}
+
+.assigment .imagecheck-image:last-child {
+    width: auto;
+    height: auto;
 }
 
 .imagecheck-image:last-child {
@@ -124,9 +181,16 @@ ul[role="tablist"] {
     max-height: 190px;
 }
 
+.assigment .imagecheck-figure {
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .imagecheck-figure:before {
     color: #00505b;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .datepicker-dropdown {
@@ -154,11 +218,11 @@ ul[role="tablist"] {
 .datepicker .prev,
 .datepicker tfoot tr th {
     cursor: pointer;
-    transition: ease .6s all;
-    -webkit-transition: ease .6s all;
-    -moz-transition: ease .6s all;
-    -ms-transition: ease .6s all;
-    -o-transition: ease .6s all;
+    transition: ease .5s all;
+    -webkit-transition: ease .5s all;
+    -moz-transition: ease .5s all;
+    -ms-transition: ease .5s all;
+    -o-transition: ease .5s all;
 }
 
 .datepicker table tr td span.focused,
@@ -168,20 +232,20 @@ ul[role="tablist"] {
 }
 
 .datepicker table tr td span {
-    transition: ease .6s all;
-    -webkit-transition: ease .6s all;
-    -moz-transition: ease .6s all;
-    -ms-transition: ease .6s all;
-    -o-transition: ease .6s all;
+    transition: ease .5s all;
+    -webkit-transition: ease .5s all;
+    -moz-transition: ease .5s all;
+    -ms-transition: ease .5s all;
+    -o-transition: ease .5s all;
 }
 
 .datepicker table tr td,
 .datepicker table tr th {
-    transition: ease .6s all;
-    -webkit-transition: ease .6s all;
-    -moz-transition: ease .6s all;
-    -ms-transition: ease .6s all;
-    -o-transition: ease .6s all;
+    transition: ease .5s all;
+    -webkit-transition: ease .5s all;
+    -moz-transition: ease .5s all;
+    -ms-transition: ease .5s all;
+    -o-transition: ease .5s all;
     animation: bounceIn 1s;
     -webkit-animation: bounceIn 1s;
 }
@@ -324,11 +388,64 @@ body,
     background-position: center;
     background-size: cover;
     margin-top: 0px;
-    height: 789px;
+    /* height: 789px; */
     vertical-align: top;
 }
 
-.header-brand img {
+.carousel {
+    overflow: hidden;
+    z-index: 1000;
+    position: relative;
+}
+
+.auth_right .carousel-inner>div {
+    height: 789px;
+    vertical-align: top;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.auth_right .carousel-inner {
+    position: relative;
+    width: 100%;
+}
+
+.img-item-1 {
+    background-image: url('/img/auth/black-doctor-9_1023x789.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.img-item-2 {
+    background-image: url('/img/auth/estetoscopio-doctor_1023x789.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+@media screen and (max-width: 1024px) {
+    .auth .auth_right {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .auth .auth_right {
+        width: 380px;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .auth .auth_right {
+        display: none;
+    }
+    .auth .auth_left {
+        width: 100%;
+    }
+}
+
+.logo-login img {
     margin-top: 40px;
     max-width: 50%;
 }
@@ -424,4 +541,66 @@ body,
     color: #fff!important;
     background-color: #00ba88;
     border-color: #00ba88;
+}
+
+.datepicker table tr td.highlighted.disabled,
+.datepicker table tr td.highlighted.disabled:active {
+    background: #e3e3e3;
+    color: #777;
+}
+
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+    background: #e3e3e3;
+    color: #777;
+    cursor: default;
+}
+
+
+/* 
+.datepicker table tr td {
+    background: #00506b;
+    color: #fff
+} */
+
+.assigment .card-header,
+.assigment .card-body {
+    padding: 10px;
+}
+
+.assigment .card-title {
+    margin-bottom: 15px;
+}
+
+.wizard>.content>.body ul {
+    list-style: none!important;
+}
+
+.doctor .card-body .position-absolute {
+    width: 100%;
+    right: 0px;
+    z-index: 1;
+}
+
+.doctor .card-body .position-absolute ul {
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, .50);
+}
+
+.assigmt ul[role="tablist"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-top: 20px;
+}
+
+.assigment .card-body {
+    border-radius: 0px 0px 5px 5px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    -ms-border-radius: 0px 0px 5px 5px;
+    -o-border-radius: 0px 0px 5px 5px;
+}
+
+.disabled:hover .imagecheck-image {
+    opacity: .64!important;
 }

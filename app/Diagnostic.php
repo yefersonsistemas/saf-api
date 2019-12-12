@@ -9,7 +9,7 @@ class Diagnostic extends Model
     protected $table = 'diagnostics';
 
     protected $fillable = [
-        'patient_id', 'description', 'reason', 'treatment_id', 'indications', 'employe_id', 'branch_id'
+        'patient_id', 'description', 'reason', 'treatment_id', 'indications', 'enfermedad_actual', 'examen_fisico', 'employe_id', 'report_medico_id', 'repose_id', 'branch_id'
     ];
 
     public function patient()
@@ -20,6 +20,16 @@ class Diagnostic extends Model
     public function payment()
     {
         return $this->hasOne('App\Payment');
+    }
+
+    public function repose()
+    {
+        return $this->belongsTo('App\Repose');
+    }
+
+    public function reportMedico()
+    {
+        return $this->belongsTo('App\ReportMedico');
     }
 
     public function employe()
