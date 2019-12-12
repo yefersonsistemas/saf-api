@@ -60,9 +60,9 @@
                                                                         <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                                                     </figure> --}}
                                                                     {{-- @endif --}}
-                                                                    <div class="card-body text-center" style="background:#EEEBEB" >
-                                                                        <h5 class="card-title font-weight-bold">{{ $area->name}} </h5>
-                                                                        <h5 class="card-subtitle"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h5>
+                                                                    <div class="card-body text-center bg-grisinus">
+                                                                        <h6 class="card-title font-weight-bold">{{ $area->name}} </h6>
+                                                                        <h6 class="card-subtitle"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6>
                                                                     </div>
                                                                 </div>
                                                             </label>
@@ -95,8 +95,8 @@
                                                         </figure> --}}
                                                         {{-- @endif --}}
                                                     </label>
-                                                    <div class="card-body text-center" style="background:#EEEBEB">
-                                                        <h5 class="card-title font-weight-bold">{{ $employe->person->name}} {{ $employe->person->lastname}}</h5>
+                                                    <div class="card-body text-center bg-grisinus">
+                                                        <h6 class="card-title font-weight-bold m-0">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
                                                     </div>
                                                 </div>
                                             </div>
