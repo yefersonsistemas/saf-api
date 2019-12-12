@@ -101,4 +101,14 @@ Route::group(['middleware' => 'auth'], function (){
         Route::resource('doctor', 'DoctorController');
         Route::post('doctor/Referencia/{patient}','DoctorController@referenceStore')->name('reference.store');
     });
+
+    Route::group(['middleware' => ['role:director']], function(){
+        Route::get('', 'DirectorController@index')->name('employe.index');
+        Route::get('doctor/create', 'DirectorController@create')->name('doctor.create');
+        Route::POST('/doctor', 'DirectorController@store')->name('doctor.store');
+        Route::get('create', 'EmployesController@create')->name('employe.create');
+        Route::POST('/employe', 'EmployesController@store')->name('employe.store');
+        // Route::get('create', 'SpecialityController@create')->name('speciality.create');
+        // Route::POST('/speciality', 'SpecialityController@store')->name('speciality.store');
+    });
 });

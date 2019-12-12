@@ -12,6 +12,7 @@ use App\Reservation;
 Use App\Visitor;
 use App\Billing;
 use App\Assistance;
+use App\Image;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -144,7 +145,8 @@ class EmployesController extends Controller
      */
     public function create()
     {
-        //
+        $position = Position::all();
+        return view('dashboard.director.createE', compact('position'));
     }
 
     /**
@@ -155,6 +157,7 @@ class EmployesController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->validate([
             'name' => 'required',
             'type_dni'  => 'required',
@@ -164,6 +167,7 @@ class EmployesController extends Controller
             'email' =>  'required',
             'address'   => 'required',
             'position_id'   => 'required',
+            // 'path' => 'required',
         ]);
 
         $person = Person::create([
@@ -183,9 +187,19 @@ class EmployesController extends Controller
             'branch_id' => 1
         ]);
 
-        return response()->json([
-            'message' => 'Empleado creado',
+        
+        $image= Image::create([
+            'path'   => $request->image,
+            'imageable_type' => 'App\Employe',
+            'imageable_id' => $employe->id,
+            'branch_id' => 1
         ]);
+
+
+        return redirect()->route('employe.index');
+        // return response()->json([
+        //     'message' => 'Empleado creado',
+        // ]);
     }
 
     public function positions()

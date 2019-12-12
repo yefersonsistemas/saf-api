@@ -157,7 +157,22 @@
                     <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                 @endrole
 
-                
+
+
+
+                @role('director')
+                    <li class="g_heading">Director</li> 
+                    <li class="@yield('cites')">
+                        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-plus-circle"></i><span>Registrar Personal</span></a>
+                        <ul>
+                            <li><a href="{{ route('employe.create') }}"><i class="fa fa-user-plus"></i>Empleado</a></li>
+                            <li><a href="{{ route('doctor.create') }}"><i class="fa fa-user-md"></i>Doctor</a></li>
+                        </ul>
+                        
+                        <li><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>Lista de Empleados</a></li>
+                        <li><a href=""><i class="fa fa-plus-circle"></i>Registrar Especialidad</a></li>
+                    </li>
+                @endrole
                   
     
                 

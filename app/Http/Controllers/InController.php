@@ -109,7 +109,7 @@ class InController extends Controller
      */
 
 
-    public function guardar(Request $request, $id)  //guarda registros de nuevos y editados en la historia del paciente
+    public function guardar(Request $request, $id)  
     {
         $person = Person::where('dni', $request->dni)->first();
 

@@ -59,7 +59,6 @@
                                                                 {{-- {{ $area->status }}  --}}
                                                             </div>
                                                         </div>
-<<<<<<< HEAD
                                                     @else
                                                         @if ($area->typearea->name == 'Consultorio' && $area->status == 'ocupado')
                                                             <div class="card card-citas-md col-3 m-4 " style="background:dimgray">
@@ -81,8 +80,6 @@
                                                                 </div>
                                                             </div>
                                                         @endif
-=======
->>>>>>> 33d981afbfaf4510354599a851fb7c543e9f67e9
                                                     @endif
                                                 @endif
                                         @endforeach
@@ -232,16 +229,6 @@
             var employe = $("#searchemploye").val();
             var area = $("#searcharea").val();
 
-<<<<<<< HEAD
-        console.log('asignacion', area, employe)
-        $.ajax({
-                url: "{{ route('checkin.assigment_area') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    employe_id : employe,
-                    area_id: area,
-=======
             console.log('ysbe',employe, area)
             $.ajax({
                     url: "{{ route('checkin.assigment_area') }}",
@@ -264,7 +251,6 @@
                     Swal.fire({
                         title : 'Consultorio asignado ',
                     })
->>>>>>> 33d981afbfaf4510354599a851fb7c543e9f67e9
                 }
                 })
                 .fail(function(data) {

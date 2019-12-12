@@ -453,21 +453,11 @@ class UsersTableSeeder extends Seeder
             'email' => 'administrador@sinusandface.com',
             'person_id' => $person->id,
 
-        ])->givePermissionTo()->assignRole('director');
-
-
-        factory(Person::class)->create()->each(function ($person) use ($position) {
-            factory(App\Employe::class)->create([
-                'person_id' => $person->id,
-                'position_id' => $position->id
-            ]);
-            factory(App\User::class)->create([
-                'email' => $person->email,
-                'person_id' => $person->id
-            ])->assignRole('director');
-        });
-
-        
+        ])->givePermissionTo('registrar empleado')
+        ->givePermissionTo('ver empleados')
+        ->givePermissionTo('registrar doctor')
+        ->givePermissionTo('registrar especialidad')
+        ->assignRole('director');
 
         // $position = factory(App\Position::class)->create([
         //     'name' => 'logistica',
