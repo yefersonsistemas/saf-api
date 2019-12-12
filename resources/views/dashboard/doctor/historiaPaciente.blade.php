@@ -472,7 +472,7 @@
                                                                                             <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                                 <span class="custom-control-label">Médico Externo</span>
-                                                                                                <input type="text" id="medicoExterno" class="form-control"  placeholder="" name="doctorExterno" >
+                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="" name="doctorExterno" >
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
