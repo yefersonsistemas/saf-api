@@ -18,8 +18,8 @@ class CreateDiagnosticsTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->longText('description')->nullable();
             $table->longText('reason')->nullable();
-            $table->text('enfermedad_actual');
-            $table->text('examen_fisico');
+            $table->text('enfermedad_actual')->nullable();
+            $table->text('examen_fisico')->nullable();
             $table->unsignedBigInteger('treatment_id')->nullable();
             $table->unsignedBigInteger('report_medico_id')->nullable();
             $table->unsignedBigInteger('repose_id')->nullable();

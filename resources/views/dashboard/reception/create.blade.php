@@ -1,4 +1,8 @@
-@extends('dashboard.layouts.app') @section('cites','active') @section('newCite','active') @section('title','Crear una nueva cita') @section('css')
+@extends('dashboard.layouts.app') 
+@section('cites','active') 
+@section('newCite','active') 
+@section('title','Crear una nueva cita')
+@section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
@@ -6,7 +10,7 @@
 
 @endsection @section('content')
 
-<div class="section-body">
+<div class=" py-4">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -81,18 +85,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--
-                                        <div class="card-footer text-right">
-                                            <button type="submit" id="submit" class="btn btn-success" disabled>Registrar paciente</button>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </section>
                             <h2>Elegir Especialidad</h2>
                             <section>
-                                <div class="row">
+                                <div class="row justify-content-between">
                                     @foreach ($specialities as $speciality)
-                                    <div class="col-6 col-sm-4">
+                                    {{-- <div class="col-6 col-sm-4">
                                             <label class="imagecheck mb-3">
                                                 <div class="card max-card text-center">
                                                     <div class="card-header text-center ">
@@ -106,26 +106,33 @@
                                                     </div>
                                                 </div>
                                             </label>
+                                        </div> --}}
+                                        <div class="col-lg-2 mx-lg-3 col-md-4 col-xs-6 col-6 mx-sm-0">
+                                            <label class="imagecheck m-0">
+                                            <div class="card assigment">
+                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
+                                                    @if (!empty($speciality->image->path))
+                                                    <figure class="imagecheck-figure border-0">
+                                                        <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @else
+                                                    <figure class="imagecheck-figure border-0">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @endif
+                                                    <div class="card-body text-center">
+                                                        <h6 class="font-weight-bold">{{ $speciality->name }}</h6>
+                                                    </div>
+                                                </div>
+                                            </label>
                                         </div>
-                                        
-                                        
-                                    {{-- <div class="col-sm-4">
-                                        <div class="card" style="width: 18rem;">
-                                            <img src="{{ Storage::url($speciality->image->path) }}" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <p class="card-text">{{ $speciality->description }}</p>
-                                                <a href="#" class="btn btn-primary"><input type="radio" name="speciality"
-                                                        value="{{ $speciality->id }}" id=""></a>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     @endforeach
                                     <input type="hidden" name="speciality" id="speciality">
                                 </div>
                             </section>
                             <h2>Elegir Medico</h2>
                             <section>
-                                <div class="row" id="medicos">
+                                <div class="row justify-content-between" id="medicos">
                                 </div>
                                 <input type="hidden" name="doctor" id="doctor">
         
@@ -187,8 +194,7 @@
             finish: "Finalizar",
             next: "Siguiente",
             previous: "Anterior",
-            loading: "Cargando ..."
-        },
+            loading: "Cargando ..."},
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
@@ -339,7 +345,20 @@
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
                 // $('#medicos').append('<div class="col-sm-4"> <div class="card" style="width: 18rem;"> <img src="{{ Storage::url(' + data[i].employe[j].image.path + ') }}" class="card-img-top" alt="..."> <div class="card-body"> <h5 class="card-title">' + data[i].employe[j].person.name + '</h5><a href="#" class="btn btn-primary"><input type="radio" name="doctor" value="' + data[i].employe[j].id + '" id=""></a> </div> </div> </div>');
-                    $('#medicos').append(`<div class="col-6 col-sm-4"><label class="imagecheck mb-3"><div class="card max-card text-center"><div class="card-header text-center "><input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input"><figure class="imagecheck-figure border-0"><img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image max-img"></figure></div><div class="card-body"><h5 class="card-title">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname} </h5></div></div></label></div>`);
+                    // $('#medicos').append(`<div class="col-6 col-sm-4"><label class="imagecheck mb-3"><div class="card max-card text-center"><div class="card-header text-center "><input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input"><figure class="imagecheck-figure border-0"><img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image max-img"></figure></div><div class="card-body"><h5 class="card-title">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname} </h5></div></div></label></div>`);
+                    $('#medicos').append(`<div class="col-lg-2 mx-lg-3 col-md-4 col-xs-6 col-6 mx-sm-0">
+                                            <label class="imagecheck m-0">
+                                            <div class="card assigment">
+                                                    <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
+                                                    <figure class="imagecheck-figure border-0">
+                                                        <img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    <div class="card-body text-center">
+                                                        <h6 class="font-weight-bold">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</h6>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>`);
             }
         }
     }

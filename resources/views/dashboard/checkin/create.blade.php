@@ -19,10 +19,10 @@
                             <h2>Seleccionar consultorio</h2>
                             <section>
                                 <div class="card-body">
-                                    <div class="row gutters-sm d-row d-flex justify-content-lg-between">
+                                    <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($areas as $area)
                                                 @if ($area->typearea->name == 'Consultorio' && $area->status == 'desocupado')
-                                                    <div class="col-md-2 col-lg-2 ml-1 mb-2 col-sm-3">
+                                                    <div class="col-md-3 col-lg-2 ml-1 mb-2 col-sm-3">
                                                         <label class="imagecheck m-0">
                                                         <div class="card assigment">
                                                                 <input name="searcharea" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
@@ -44,7 +44,7 @@
                                                     </div>
                                                 @else
                                                     @if ($area->typearea->name == 'Consultorio' && $area->status == 'ocupado')
-                                                        <div class="col-md-2 col-lg-2 col-sm-3">
+                                                        <div class="col-md-3 col-lg-2 col-sm-3">
                                                             <label class="imagecheck m-0 disabled">
                                                             <div class="card assigment">
                                                                     <input name="searcharea" id="searcharea" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
@@ -76,10 +76,10 @@
                             <h2>Seleccionar médico</h2>
                             <section>
                                 <div class="card-body">
-                                    <div class="row gutters-sm d-row d-flex justify-content-start">
+                                    <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
-                                            <div class="col-md-2 mx-3">
-                                                <div class="card assigment doctor">
+                                            <div class="col-lg-2 col-md-3 col-sm-3 -1">
+                                                <div class="card assigment doctor " >
                                                     <label class="imagecheck m-0">
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
                                                         {{-- @if (!empty($area->image->path))
@@ -176,13 +176,16 @@
                         if (data) {
                             console.log(data)
                             Swal.fire({
-                                title : 'consultorio seleccionado',
-                                text:  data.areas
+                                title : 'Realizado!',
+                                text: 'Click en OK para continuar!',
+                                type: 'success',
+                                // text:  data.areas
                             })
                         }
                         if (!data) {
                             Swal.fire({
                                 text: 'Consultorio ocupado',
+                                type: 'error',
                             })
                         }
                     })
@@ -210,14 +213,17 @@
                         if (data) {
                             console.log(data)
                             Swal.fire({
-                                title : 'Medico  seleccionado',
-                                text: data.employes,
+                                title : 'Médico Seleccionado',
+                                text: 'Click en OK para continuar!',
+                                type: 'success',
+                                // text: data.employes,
                                 
                             })
                         }
                         if (!data){
                             Swal.fire({
                                 text: 'Medico con consultorio asignado',
+                                type: 'error',
                             })
                         }
                     })
@@ -246,13 +252,15 @@
                     if(data[0] == 201){
                     console.log('asignado',data.asignado.area_id, data.asignado.employe_id) ;
                     Swal.fire({
-                        title : 'Consultorio asignado',
-                        text: data.areaAssigment.employe_id,
+                        title : 'Consultorio asignado!',
+                        text: 'Click OK para cerrar!',
+                        type: 'success',
+                        // text: data.areaAssigment.employe_id,
                     })
                 }
                 if(data[0] == 202){
                     Swal.fire({
-                        title : 'Consultorio asignado ',
+                        title : 'Consultorio asignado',
                     })
                 }
                 })
