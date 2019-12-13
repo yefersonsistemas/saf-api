@@ -54,11 +54,13 @@ class InController extends Controller
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
+    //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
-        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         return view('dashboard.checkin.day', compact('day'));
     }
+
 
     public function approved()
     {
@@ -221,10 +223,7 @@ class InController extends Controller
 
         $busqueda = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         // dd($busqueda);
-        $busqueda->approved = 'aprobado';
-        $busqueda->save();
-        // dd($busqueda);
-        // 
+    
         $paciente = $busqueda->patient_id;
         $doctor = $busqueda->person_id; // en tabla person
         $employe = Employe::where('person_id', $doctor)->first();
@@ -237,7 +236,7 @@ class InController extends Controller
         
         // dd($employe);
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $employe->id)->first();
-// dd($io);
+        // dd($io);
         if ($io == null) {
             
             $inputOutput= InputOutput::create([       

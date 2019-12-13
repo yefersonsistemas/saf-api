@@ -86,7 +86,8 @@ class UsersTableSeeder extends Seeder
         ]);
         $clase = factory(App\Doctor::class)->create([
             'employe_id' => $employe->id,
-            'type_doctor_id' => $type->id
+            'type_doctor_id' => $type->id,
+            'price' => 50000
         ]);
 
         /**
