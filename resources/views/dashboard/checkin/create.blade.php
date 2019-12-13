@@ -80,24 +80,24 @@
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
                                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                                <div class="card assigment doctor " >
-                                                    <label class="imagecheck m-0">
+                                                <div class="card assigment doctor" >
+                                                    <label class="imagecheck m-0" >
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
                                                         {{-- @if (!empty($area->image->path))
                                                         <figure class="imagecheck-figure border-0">
                                                             <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image">
                                                         </figure>
                                                         @else --}}
-                                                        <figure class="imagecheck-figure border-0">
-                                                            <img src="{{ asset('assets/images/doctor.jpg') }}" alt="" class="imagecheck-image">
+                                                        <figure class="imagecheck-figure border-0" style="max-height: 120px; width:170px;">
+                                                            <img  width="100%" height="100%" src="{{ asset('assets/images/doctor.jpg') }}" alt="" class="imagecheck-image">
                                                         </figure>
                                                         {{-- <figure class="imagecheck-figure border-0">
                                                             <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                         </figure> --}}
                                                         {{-- @endif --}}
                                                     </label>
-                                                    <div class="card-body text-center bg-grisinus">
-                                                        <h6 class="card-title font-weight-bold m-0">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
+                                                    <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
+                                                        <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
                                                     </div>
                                                 </div>
                                             </div>
