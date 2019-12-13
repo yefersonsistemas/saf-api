@@ -159,28 +159,24 @@ margin-top: -15px;
                 </div>
                 <div class="contenido">
                     <p>
-                        El Paciente<span>indique el nombre del paciente</span>, Cédula:<span>indique la cédula del paciente</span>, 
-                        manifiesta que presenta:<span>indique los síntomas presentados</span>. 
+                        El Paciente <span>{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>, Portador del documento de identidad: 
+                        <span>{{ $itinerary->person->type_dni }} {{ $itinerary->person->dni }}</span>, manifiesta que presenta: <span>indique los síntomas presentados</span>. 
                     </p><br>
                     <p class="conte">
-                        En la evaluación de ingreso del<span>(día/mes/año)</span> se encontró:<span>indique los hallazgos médico</span>. 
-                        concluyendo que el paciente posee<span>Indique el diagnóstico</span>, se indicó tratamiento médico.
-                    </p><br>
-                    <p class="conte">
-                        Se indica reposo desde el<span>(día/mes/año)</span> hasta el<span>(día/mes/año)</span> debiendo ingresar el día<span>(día/mes/año)</span>. 
-                    </p> 
+                    {{ $reposo->description }}
+                    </p>
                 </div>
                 <div class="fecha">
                     <p>
-                        Constancia que se expide a petición de la persona interesada en Santo Domingo,<span>(día/mes/año)</span>.
+                        Constancia que se expide a petición de la persona interesada en Santo Domingo,<span>{{ $fecha }}</span>.
                     </p>
                 </div>
                 <div class="att">
                     <p>Atentamente.-</p>
                 </div>
                 <div class="doctor">
-                    <p>Dr. Nombre del Doctor</p><br>
-                    <p>Especialidad Médica</p>
+                    <p>Dr.{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</p><br>
+                    {{-- <p>{{ $itinerary->employe-> }}</p> --}}
                 </div>
             </div>
     </main>
