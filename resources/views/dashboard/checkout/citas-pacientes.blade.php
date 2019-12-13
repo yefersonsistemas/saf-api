@@ -256,7 +256,7 @@
                                             <!--EXAMEN-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->exam_id != null)
-                                                    <a href="{{ route('checkout.imprimir_examen', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                    <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                     <i class="fa fa-print"></i> Examen
                                                     </a>
                                                 @else
@@ -269,7 +269,7 @@
                                             <!--RECETARIO-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->recipe_id != null)
-                                                    <a href="{{ route('checkout.imprimir_recipe', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                    <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Recetario
                                                     </a>
                                                     @else
@@ -307,8 +307,8 @@
 
                                             <!--REPOSO-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                @if($itinerary->rest_id != null)
-                                                    <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                                @if($itinerary->repose_id != null)
+                                                    <a href="{{ route('checkout.imprimir_reposo', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Reposo
                                                     </a>
                                                     {{-- @else
@@ -341,82 +341,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                                {{-- <div class="row card-body d-flex justify-content-between" >
-                                    <!--EXAMEN-->
-                                    <div class="col-2 d-flex justify-content-end">
-                                        @if($itinerary->exam_id != null)
-                                            <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo" type="button" target="_blank">
-                                            <i class="fa fa-print"></i> Examen
-                                            </a>
-                                        @else
-                                            <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene" type="button" >
-                                                Generar Examen
-                                            </a>
-                                        @endif
-                                    </div>
-
-                                    <!--RECETARIO-->
-                                    <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->recipe_id != null)
-                                            <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo " type="button" target="_blank">
-                                                <i class="fa fa-print"> </i> Recetario
-                                            </a>
-                                            @else
-                                            <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene" type="button">
-                                                Generar Recetario
-                                            </a>
-                                        @endif
-                                    </div>
-
-                                    <!--CONSTANCIA-->
-                                    <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->constancia_id != null)
-                                            <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo " type="button" target="_blank">
-                                                <i class="fa fa-print"> </i> Constancia
-                                            </a>
-                                            @else
-                                            <a href="" class="btn btn-gene" type="button">
-                                                <i class="fa fa-plus-circle"></i>  Constancia
-                                            </a>
-                                        @endif
-                                    </div>
-
-                                    <!--REFERENCIA-->
-                                    <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->referencia_id != null)
-                                            <a href="{{ route('checkout.imprimir_referencia') }}" class="btn btn-boo " type="button" target="_blank">
-                                                <i class="fa fa-print"> </i> Referencia
-                                            </a>
-                                            @else
-                                            <a href="" class="btn btn-gene" type="button">
-                                                <i class="fa fa-plus-circle"></i> Referencia
-                                            </a>
-                                        @endif
-                                    </div>
-
-                                    <!--REPOSO-->
-                                    <div class="col-2 d-flex justify-content-center">
-                                        @if($itinerary->reposo_id != null)
-                                            <a href="{{ route('checkout.imprimir_reposo') }}" class="btn btn-boo " type="button" target="_blank">
-                                                <i class="fa fa-print"> </i> Reposo
-                                            </a>
-                                            @else
-                                            <a href="" class="btn btn-gene" type="button">
-                                                <i class="fa fa-plus-circle"></i> Reposo
-                                            </a>
-                                        @endif
-                                    </div>
-
-                                    <!--CITA-->
-                                    <div class="col-2 d-flex justify-content-start">
-                                        <a  href="" class="btn btn-gene" >
-                                            <i class="fa fa-calendar-plus-o"></i> Cita
-                                        </a>
-                                    </div>
-                                </div> --}}
-
-                            {{-- </div> --}}
                         </div>
                     @endforeach
                     </div>
@@ -430,4 +354,31 @@
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+    <script>
+        function entradas(value, value2) {
+            var state = value; //el estado del objeto
+            var stateInt = parseInt(state); //se convierte el valor anterior en integer para posteriores validaciones
+            var id= value2; // el ID del contenedor en el que se encuentra el boton
+            console.log('click '+state+', '+id); //Se valida que se está alcanzando al objeto que se está haciendo click
+
+            //Se valida primero si se está haciendo click en el primer estado
+            if(stateInt<=0){
+                $('#'+id+' .state_'+state).addClass('btn-success');
+                $('#'+id+' .state_'+state).removeClass('btn-danger');
+                $('#'+id+' .state_'+state).prop("disabled", true);
+                console.log('Se ha cumplido el estado '+ state+', '+id);
+            }else{
+                //A partir de estado 1, se valida si el estado anterior se cumplió, para esto se toma la clase btn-danger, si no se ha cumplido, se bloquea la función y se puede mandar una alerta.
+                if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-danger')){
+                    console.log('click '+state+', '+id+': No puedes ejecutar esta accion hasta que el paso anterior se halla cumplido');
+                //Por el contrario, si el estado anterior se ha cumplido, se procede a ejecutar la función
+                }else if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-success')){
+                    $('#'+id+' .state_'+state).addClass('btn-success');
+                    $('#'+id+' .state_'+state).removeClass('btn-danger');
+                    $('#'+id+' .state_'+state).prop("disabled", true);
+                    console.log('Se ha cumplido el estado '+ state+', '+id);
+                }
+            }
+        };
+    </script>
 @endsection
