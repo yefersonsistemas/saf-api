@@ -373,6 +373,10 @@ class OutController extends Controller
     //============================ imprimir reposo ============================
     public function imprimir_reposo($id){
         // dd($id);
+        
+        $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('speciality')->first();
+        // dd($especialidad);
+        
         $itinerary = Itinerary::with('person','employe.person','repose')->where('id',$id)->first();
         // dd($itinerary);
         $reposo = Repose::where('id', $itinerary->repose_id)->first();
