@@ -15,7 +15,7 @@
             <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                 <div class="card p-4">
 
-                    <div class="row d-flex justify-content-center">
+                    <div class="row d-flex justify-content-between">
                         <div class="form-group col-lg-3 col-md-3">
                             <label class="form-label">Imagen</label>
                             <div class=" mb-2">
@@ -23,17 +23,17 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-9 col-md-9 d-flex justify-content-center">
+                        <div class="col-lg-9 col-md-7 d-flex justify-content-between">
                             <div class="row">
 
-                                <div class="col-lg-6 col-md-6">
+                                <div class="col-lg-6 ">
                                     <div class="form-group">
                                         <label class="form-label">Nombre</label>
                                         <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ old('name') }}" required>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-label">Servicio</label>
                                         <select name="service_id" id="id" class="custom-select input-group-text bg-white form-control">
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12">
+                                <div class="col-lg-12">
                                     <div class="form-group"> 
                                         <label class="form-label">Descripción</label>
                                         <input type="text" class="form-control" placeholder="Descripción" name="description" value="{{ old('description') }}" required>
