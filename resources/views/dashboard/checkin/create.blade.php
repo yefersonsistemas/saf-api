@@ -29,41 +29,41 @@
                                                                 <input name="searcharea" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
                                                                 {{-- @if (!empty($area->image->path))
                                                                 <figure class="imagecheck-figure border-0">
-                                                                    <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image w-auto">
+                                                                    <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image">
                                                                 </figure>
                                                                 @else --}}
                                                                 <figure class="imagecheck-figure border-0">
-                                                                    <img src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                                    <img src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image">
                                                                 </figure>
                                                                 {{-- @endif --}}
                                                                 <div class="card-body text-center" style="background:#EEEBEB;">
-                                                                    <h5 class="card-title font-weight-bold">{{ $area->name}} </h5>
-                                                                    <h5 class="card-subtitle"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-1" style="color:#fff">{{ $area->status }}</span></h5>
+                                                                    <h6 class="font-weight-bold">{{ $area->name}} </h6>
+                                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-1" style="color:#fff">{{ $area->status }}</span></h6>
                                                                 </div>
                                                             </div>
                                                         </label>
                                                     </div>
                                                 @else
                                                     @if ($area->typearea->name == 'Consultorio' && $area->status == 'ocupado')
-                                                        <div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
+                                                        <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                             <label class="imagecheck m-0 disabled">
                                                             <div class="card assigment">
                                                                     <input name="searcharea" id="searcharea" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
                                                                     {{-- @if (!empty($area->image->path))
                                                                     <figure class="imagecheck-figure border-0">
-                                                                        <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image w-auto">
+                                                                        <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image">
                                                                     </figure>
                                                                     @else --}}
                                                                     <figure class="imagecheck-figure border-0">
-                                                                        <img src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                                        <img src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image">
                                                                     </figure>
                                                                     {{-- <figure class="imagecheck-figure border-0">
-                                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                                     </figure> --}}
                                                                     {{-- @endif --}}
                                                                     <div class="card-body text-center bg-grisinus">
-                                                                        <h6 class="card-title font-weight-bold">{{ $area->name}} </h6>
-                                                                        <h6 class="card-subtitle"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6>
+                                                                        <h6 class=" font-weight-bold">{{ $area->name}} </h6>
+                                                                        <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6>
                                                                     </div>
                                                                 </div>
                                                             </label>
@@ -79,20 +79,20 @@
                                 <div class="card-body">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
-                                            <div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
+                                            <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                 <div class="card assigment doctor " >
                                                     <label class="imagecheck m-0">
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
                                                         {{-- @if (!empty($area->image->path))
                                                         <figure class="imagecheck-figure border-0">
-                                                            <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image w-auto">
+                                                            <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image">
                                                         </figure>
                                                         @else --}}
                                                         <figure class="imagecheck-figure border-0">
-                                                            <img src="{{ asset('assets/images/doctor.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                            <img src="{{ asset('assets/images/doctor.jpg') }}" alt="" class="imagecheck-image">
                                                         </figure>
                                                         {{-- <figure class="imagecheck-figure border-0">
-                                                            <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                            <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                         </figure> --}}
                                                         {{-- @endif --}}
                                                     </label>
