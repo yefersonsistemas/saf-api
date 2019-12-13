@@ -6,7 +6,7 @@
 </style>
 
 <div id="left-sidebar" class="sidebar">
-    <div class="container">
+    <div class="container mt--20">
         <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[0]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
@@ -73,20 +73,19 @@
                         </div>
                     </div>
                 @endrole
-                             
+
                 @role('doctor')
                     <li class="g_heading">Doctor</li>
                     <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
                     {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                 @endrole
-                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}
-                     
+                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}                     
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
-                    <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
-                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="icon-home"></i><span>Cirugias</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Pacientes del dia</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugias</span></a></li>                        
                 
-                    <li><a href="{{ route('checkout.facturacion') }}"><i class="icon-calendar"></i><span>Facturación</span></a></li><br><br>
+                    <li><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
                     <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                 @endrole
             </ul>
