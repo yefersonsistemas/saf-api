@@ -160,12 +160,15 @@ ul[role="tablist"] {
 
 .assigment {
     box-shadow: 0 1px 8px 1px rgba(0, 0, 0, .30) !important;
-    /* width: 150px; */
+    width: 100%;
+    max-width: 150px;
 }
 
 .assigment .imagecheck-image:last-child {
-    width: 150px;
-    height: 150px!important;
+    width: 100% !important;
+    height: 110px!important;
+    max-width: 150px !important;
+    max-height: 150px !important;
 }
 
 .imagecheck-image:last-child {

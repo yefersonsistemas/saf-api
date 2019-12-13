@@ -105,7 +105,7 @@
                                         </div>
                                     </label>
                                 </div> --}}
-                                <div class="col-lg-2 mx-lg-3 col-md-4 col-xs-6 col-6 mx-sm-0">
+                                <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
                                     <div class="card assigment">
                                             <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
@@ -340,7 +340,7 @@
         $('#medicos').empty();
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
-                    $('#medicos').append(`<div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
+                    $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                             <label class="imagecheck m-0">
                                             <div class="card assigment">
                                                     <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
