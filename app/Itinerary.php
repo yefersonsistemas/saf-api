@@ -14,7 +14,7 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
     ];
 
     protected $fillable = [
-        'patient_id', 'employe_id','doctor_id', 'status', 'procedure_id', 'surgery_id', 'exam_id', 'recipe_id', 'reservation_id', 'branch_id', 'reference_id','diagnostic_id', 'repose_id'
+        'patient_id', 'employe_id','doctor_id', 'status','procedure_id', 'surgery_id', 'exam_id', 'recipe_id', 'reservation_id', 'branch_id', 'reference_id','diagnostic_id', 'repose_id'
     ];
 
     // protected $irinerary = 'itinerary';
