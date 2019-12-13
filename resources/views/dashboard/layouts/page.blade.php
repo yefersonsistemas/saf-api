@@ -1,6 +1,6 @@
 <div id="page_top" class="section-body">
     <div class="container">
-        <div class="page-header">
+        <div class="page-header pt-0">
             <div class="left">
                 <h1 class="page-title">@yield('title')</h1>                      
             </div>

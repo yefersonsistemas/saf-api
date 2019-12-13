@@ -13,30 +13,30 @@
 @section('title','Historia Medica')
 
 @section('content')
-
-    <div class="card p-4">
+    <div class="container mt-25">
         <div class="card p-4">
-            <h5 class="text-center">Datos de la cita</h5>
+            <div class="card p-4">
+                <h5 class="text-center">Datos de la cita</h5>
 
-            <div class="row mt-4 mb-2">
-                <div class="col-4">
-                    <label class="m-0 form-label">Fecha:</label>
-                    <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
-                </div>
+                <div class="row mt-4 mb-2">
+                    <div class="col-4">
+                        <label class="m-0 form-label">Fecha:</label>
+                        <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
+                    </div>
 
-                <div class="col-4">
-                    <label class="m-0 form-label">Médico tratante:</label>
-                    <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
-                </div>
+                    <div class="col-4">
+                        <label class="m-0 form-label">Médico tratante:</label>
+                        <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
+                    </div>
 
-                <div class="col-4">
-                    <label class="m-0 form-label">Razón:</label>
-                    <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
+                    <div class="col-4">
+                        <label class="m-0 form-label">Razón:</label>
+                        <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="container">
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4">
             @csrf

@@ -55,9 +55,7 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="container">
+            <div class="container mt--15">
                 {{-- Tabs de citas --}}
                 <ul class=" row nav nav-pills mb-3 d-flex justify-content-start mt-4" id="pills-tab" role="tablist">
                     <li class="nav-item">
@@ -71,9 +69,7 @@
                             aria-selected="false">Hospitalarias</a>
                     </li>
                 </ul>
-
                 <div class="tab-content" id="pills-tabContent">
-
                     <!----------------------------lista de cirugias ambulatorias----------------------------->
                     @foreach ($cirugias_ambulatorias as $ambulatorias)
                         <div class=" row tab-pane animated bounceInRight fast show active" id="ambulatorias" role="tabpanel"
@@ -94,7 +90,6 @@
                                                     class="card-link card-footer btn btn-azuloscuro py-2">Ver más..</a>
                                             </div>
                                         </div>
-
                                         @empty
                                         <h3>NO hay nada</h3>
                                         @endforelse
@@ -132,15 +127,8 @@
                             </div>
                         </div>
                     @endforeach
-
-        
-
-
-
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

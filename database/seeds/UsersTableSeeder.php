@@ -15,6 +15,9 @@ use App\Speciality;
 use App\Traits\ImageFactory;
 use App\Treatment;
 use App\Medicine;
+use App\TypeDoctor;
+use App\Doctor;
+
 
 class UsersTableSeeder extends Seeder
 {
@@ -29,6 +32,8 @@ class UsersTableSeeder extends Seeder
         Schedule::truncate();
         Patient::truncate();
         Diagnostic::truncate();
+        TypeDoctor::truncate();
+        Doctor::truncate();
         Reservation::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
         $this->deleteDirectory(storage_path('/app/public/patient'));
@@ -70,6 +75,20 @@ class UsersTableSeeder extends Seeder
             'position_id' => $position->id
         ]);
         $this->to('employes', $employe->id, 'App\Employe');
+        
+         /**
+         * clase de medico
+         * 
+         */
+
+        $type = factory(App\TypeDoctor::class)->create([
+            'name' => 'Clase A',
+        ]);
+        $clase = factory(App\Doctor::class)->create([
+            'employe_id' => $employe->id,
+            'type_doctor_id' => $type->id,
+            'price' => 50000
+        ]);
 
         /**
          * Especialidades para el medico
@@ -109,7 +128,18 @@ class UsersTableSeeder extends Seeder
         /**
          * Personas que seran los pacientes
          */
-        $persons = factory(Person::class, 5)->create()->each(function ($person) use ($employe) {
+
+        $person = Person::create([
+            'type_dni' => 'N',
+            'dni' => '14184036',
+            'name' => 'MARIA',
+            'lastname' => 'SUAREZ',
+            'address' => 'la mata',
+            'phone' => '04121501501',
+            'email' => '    mariaS@gmail.com',
+            'branch_id' => '1',
+        ]);
+
             $this->to('person', $person->id, 'App\Person');
             /**
              * Registro de la historia medica
@@ -152,7 +182,160 @@ class UsersTableSeeder extends Seeder
                 'schedule_id'    => $employe->schedule->first()->id,
                 'specialitie_id' => $employe->speciality->first()->id,
             ]);
-        });
+
+            $person = Person::create([
+                'type_dni' => 'N',
+                'dni' => '14184037',
+                'name' => 'CARLOS',
+                'lastname' => 'PEREZ',
+                'address' => 'la Velas',
+                'phone' => '04121501502',
+                'email' => 'carlosperez@hotmail.com',
+                'branch_id' => '1',
+            ]);
+    
+                $this->to('person', $person->id, 'App\Person');
+                /**
+                 * Registro de la historia medica
+                 * con su fotografia
+                 */
+                $patient = factory(App\Patient::class)->create([
+                    'person_id' => $person->id,
+                    'employe_id' => $employe->id
+                ]);
+                    
+                /**
+                 * Enfermedades del paciente
+                 */
+                for ($i=0; $i < rand(1,5) ; $i++) { 
+                    $disease = Disease::inRandomOrder()->first();
+                    $disease->patient()->attach($patient->id);
+                }
+    
+                /**
+                 * Tratamiento para el paciente
+                 * y su daignostico
+                 */
+                $medicine = factory(App\Medicine::class)->create();
+                $treatment = factory(App\Treatment::class)->create([
+                    'medicine_id' => $medicine->id,
+                ]);
+                // $treatment = Treatment::inRandomOrder()->first();
+                factory(App\Diagnostic::class)->create([
+                    'employe_id' => $employe->id,
+                    'patient_id' => $patient->id,
+                    'treatment_id' => $treatment->id
+                ]);
+    
+                /**
+                 * Registro de la reservacion
+                 */
+                factory(App\Reservation::class)->create([
+                    'patient_id'     => $person->id,
+                    'person_id'      => $employe->id,
+                    'schedule_id'    => $employe->schedule->first()->id,
+                    'specialitie_id' => $employe->speciality->first()->id,
+                ]);
+
+                $person = Person::create([
+                    'type_dni' => 'N',
+                    'dni' => '14184038',
+                    'name' => 'LUPE',
+                    'lastname' => 'PARRA',
+                    'address' => 'la minta',
+                    'phone' => '04121501504',
+                    'email' => 'lupeparra@gmail.com',
+                    'branch_id' => '1',
+                ]);
+        
+                    $this->to('person', $person->id, 'App\Person');
+                    /**
+                     * Registro de la historia medica
+                     * con su fotografia
+                     */
+                    $patient = factory(App\Patient::class)->create([
+                        'person_id' => $person->id,
+                        'employe_id' => $employe->id
+                    ]);
+                        
+                    /**
+                     * Enfermedades del paciente
+                     */
+                    for ($i=0; $i < rand(1,5) ; $i++) { 
+                        $disease = Disease::inRandomOrder()->first();
+                        $disease->patient()->attach($patient->id);
+                    }
+        
+                    /**
+                     * Tratamiento para el paciente
+                     * y su daignostico
+                     */
+                    $medicine = factory(App\Medicine::class)->create();
+                    $treatment = factory(App\Treatment::class)->create([
+                        'medicine_id' => $medicine->id,
+                    ]);
+                    // $treatment = Treatment::inRandomOrder()->first();
+                    factory(App\Diagnostic::class)->create([
+                        'employe_id' => $employe->id,
+                        'patient_id' => $patient->id,
+                        'treatment_id' => $treatment->id
+                    ]);
+        
+                    /**
+                     * Registro de la reservacion
+                     */
+                    factory(App\Reservation::class)->create([
+                        'patient_id'     => $person->id,
+                        'person_id'      => $employe->id,
+                        'schedule_id'    => $employe->schedule->first()->id,
+                        'specialitie_id' => $employe->speciality->first()->id,
+                    ]);
+        
+
+        // $persons = factory(Person::class, 5)->create()->each(function ($person) use ($employe) {
+        //     $this->to('person', $person->id, 'App\Person');
+        //     /**
+        //      * Registro de la historia medica
+        //      * con su fotografia
+        //      */
+        //     $patient = factory(App\Patient::class)->create([
+        //         'person_id' => $person->id,
+        //         'employe_id' => $employe->id
+        //     ]);
+                
+        //     /**
+        //      * Enfermedades del paciente
+        //      */
+        //     for ($i=0; $i < rand(1,5) ; $i++) { 
+        //         $disease = Disease::inRandomOrder()->first();
+        //         $disease->patient()->attach($patient->id);
+        //     }
+
+        //     /**
+        //      * Tratamiento para el paciente
+        //      * y su daignostico
+        //      */
+        //     $medicine = factory(App\Medicine::class)->create();
+        //     $treatment = factory(App\Treatment::class)->create([
+        //         'medicine_id' => $medicine->id,
+        //     ]);
+        //     // $treatment = Treatment::inRandomOrder()->first();
+        //     factory(App\Diagnostic::class)->create([
+        //         'employe_id' => $employe->id,
+        //         'patient_id' => $patient->id,
+        //         'treatment_id' => $treatment->id
+        //     ]);
+
+        //     /**
+        //      * Registro de la reservacion
+        //      */
+        //     factory(App\Reservation::class)->create([
+        //         'patient_id'     => $person->id,
+        //         'person_id'      => $employe->id,
+        //         'schedule_id'    => $employe->schedule->first()->id,
+        //         'specialitie_id' => $employe->speciality->first()->id,
+        //     ]);
+        // });
 
 
         /**
@@ -160,7 +343,7 @@ class UsersTableSeeder extends Seeder
          * manera automatica se crean primero 
          * las 10 personas que seran los medicos
          */
-        factory(Person::class, 10)->create()->each(function ($person) use ($position) {
+        factory(Person::class, 3)->create()->each(function ($person) use ($position) {
             /**
              * Por cada persona se
              * registra en la tabla de los
@@ -171,6 +354,15 @@ class UsersTableSeeder extends Seeder
                 'position_id' => $position->id
             ]);
             $this->to('employes', $employe->id, 'App\Employe');
+
+            $type = factory(App\TypeDoctor::class)->create([
+                'name' => 'Clase B',
+            ]);
+            $clase = factory(App\Doctor::class)->create([
+                'employe_id' => $employe->id,
+                'type_doctor_id' => $type->id,
+                'price' => 40000
+            ]);
 
             /**
              * Especialidades para el medico
@@ -210,7 +402,226 @@ class UsersTableSeeder extends Seeder
             /**
              * Personas que seran los pacientes
              */
-            $persons = factory(Person::class, 5)->create()->each(function ($person) use ($employe) {
+            $persons = factory(Person::class, 3)->create()->each(function ($person) use ($employe) {
+                /**
+                 * Registro de la historia medica
+                 * con su fotografia
+                 */
+                $patient = factory(Patient::class)->create([
+                    'person_id' => $person->id,
+                    'employe_id' => $employe->id
+                ]);
+                $this->to('person', $person->id, 'App\Person');
+                    
+                /**
+                 * Enfermedades del paciente
+                 */
+                for ($i=0; $i < rand(1,5) ; $i++) { 
+                    $disease = Disease::inRandomOrder()->first();
+                    $disease->patient()->attach($patient->id);
+                }
+
+                /**
+                 * Tratamiento para el paciente
+                 * y su diagnostico
+                 */
+                $medicine = factory(App\Medicine::class)->create();
+                $treatment = factory(App\Treatment::class)->create([
+                    'medicine_id' => $medicine->id,
+                ]);
+                // $treatment = Treatment::inRandomOrder()->first();
+                factory(App\Diagnostic::class)->create([
+                    'employe_id'    => $employe->id,
+                    'patient_id'    => $patient->id,
+                    'treatment_id'  => $treatment->id
+                ]);
+
+                /**
+                 * Registro de la reservacion
+                 */
+                factory(App\Reservation::class)->create([
+                    'patient_id'     => $person->id,
+                    'person_id'      => $employe->id,
+                    'schedule_id'    => $employe->schedule->first()->id,
+                    'specialitie_id' => $employe->speciality->first()->id,
+                ]);
+            });
+        });
+
+         /**
+         * Registro de 10 usuarios medicos de 
+         * manera automatica se crean primero 
+         * las 10 personas que seran los medicos
+         */
+        factory(Person::class, 3)->create()->each(function ($person) use ($position) {
+            /**
+             * Por cada persona se
+             * registra en la tabla de los
+             * empleados, con su imagen
+             */
+            $employe = factory(App\Employe::class)->create([
+                'person_id' => $person->id,
+                'position_id' => $position->id
+            ]);
+            $this->to('employes', $employe->id, 'App\Employe');
+
+            $type = factory(App\TypeDoctor::class)->create([
+                'name' => 'Clase A',
+            ]);
+            $clase = factory(App\Doctor::class)->create([
+                'employe_id' => $employe->id,
+                'type_doctor_id' => $type->id
+            ]);
+
+            /**
+             * Especialidades para el medico
+             * y sus procedimientos
+             */
+            $num = rand(1,3);
+            for ($i=0; $i < $num ; $i++) { 
+                $speciality = Speciality::inRandomOrder()->first();
+                $speciality->employe()->attach($employe->id);
+                foreach ($speciality->procedures as $procedure) {
+                    $procedure->employe()->attach($employe->id);
+                }
+            }
+
+            /**
+             * se crea el usuario
+             * del empleado
+             */
+            factory(User::class)->create([
+                'email'     => $person->email,
+                'person_id' => $person->id,
+            ])->givePermissionTo('ver lista de pacientes')
+                ->givePermissionTo('crear historia de paciente')
+                ->givePermissionTo('crear diagnostico')
+                ->givePermissionTo('elegir examenes a realizar')
+                ->givePermissionTo('elegir procedimientos a realizar')
+                ->givePermissionTo('crear recipe')
+                ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
+
+            /**
+             * Se crea el horario del medico
+             */
+            $schedule = factory(Schedule::class, rand(1,3))->create([
+                'employe_id' => $employe->id
+            ]);
+
+            /**
+             * Personas que seran los pacientes
+             */
+            $persons = factory(Person::class, 3)->create()->each(function ($person) use ($employe) {
+                /**
+                 * Registro de la historia medica
+                 * con su fotografia
+                 */
+                $patient = factory(Patient::class)->create([
+                    'person_id' => $person->id,
+                    'employe_id' => $employe->id
+                ]);
+                $this->to('person', $person->id, 'App\Person');
+                    
+                /**
+                 * Enfermedades del paciente
+                 */
+                for ($i=0; $i < rand(1,5) ; $i++) { 
+                    $disease = Disease::inRandomOrder()->first();
+                    $disease->patient()->attach($patient->id);
+                }
+
+                /**
+                 * Tratamiento para el paciente
+                 * y su diagnostico
+                 */
+                $medicine = factory(App\Medicine::class)->create();
+                $treatment = factory(App\Treatment::class)->create([
+                    'medicine_id' => $medicine->id,
+                ]);
+                // $treatment = Treatment::inRandomOrder()->first();
+                factory(App\Diagnostic::class)->create([
+                    'employe_id'    => $employe->id,
+                    'patient_id'    => $patient->id,
+                    'treatment_id'  => $treatment->id
+                ]);
+
+                /**
+                 * Registro de la reservacion
+                 */
+                factory(App\Reservation::class)->create([
+                    'patient_id'     => $person->id,
+                    'person_id'      => $employe->id,
+                    'schedule_id'    => $employe->schedule->first()->id,
+                    'specialitie_id' => $employe->speciality->first()->id,
+                ]);
+            });
+        });
+
+         /**
+         * Registro de 10 usuarios medicos de 
+         * manera automatica se crean primero 
+         * las 10 personas que seran los medicos
+         */
+        factory(Person::class, 3)->create()->each(function ($person) use ($position) {
+            /**
+             * Por cada persona se
+             * registra en la tabla de los
+             * empleados, con su imagen
+             */
+            $employe = factory(App\Employe::class)->create([
+                'person_id' => $person->id,
+                'position_id' => $position->id
+            ]);
+            $this->to('employes', $employe->id, 'App\Employe');
+
+            $type = factory(App\TypeDoctor::class)->create([
+                'name' => 'Clase C',
+            ]);
+            $clase = factory(App\Doctor::class)->create([
+                'employe_id' => $employe->id,
+                'type_doctor_id' => $type->id,
+                'price' => 20000
+            ]);
+
+            /**
+             * Especialidades para el medico
+             * y sus procedimientos
+             */
+            $num = rand(1,3);
+            for ($i=0; $i < $num ; $i++) { 
+                $speciality = Speciality::inRandomOrder()->first();
+                $speciality->employe()->attach($employe->id);
+                foreach ($speciality->procedures as $procedure) {
+                    $procedure->employe()->attach($employe->id);
+                }
+            }
+
+            /**
+             * se crea el usuario
+             * del empleado
+             */
+            factory(User::class)->create([
+                'email'     => $person->email,
+                'person_id' => $person->id,
+            ])->givePermissionTo('ver lista de pacientes')
+                ->givePermissionTo('crear historia de paciente')
+                ->givePermissionTo('crear diagnostico')
+                ->givePermissionTo('elegir examenes a realizar')
+                ->givePermissionTo('elegir procedimientos a realizar')
+                ->givePermissionTo('crear recipe')
+                ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
+
+            /**
+             * Se crea el horario del medico
+             */
+            $schedule = factory(Schedule::class, rand(1,3))->create([
+                'employe_id' => $employe->id
+            ]);
+
+            /**
+             * Personas que seran los pacientes
+             */
+            $persons = factory(Person::class, 3)->create()->each(function ($person) use ($employe) {
                 /**
                  * Registro de la historia medica
                  * con su fotografia

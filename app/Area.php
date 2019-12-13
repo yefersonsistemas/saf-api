@@ -24,7 +24,7 @@ class Area extends Model //deptos
 
     public function areaassigment()
     {
-        return $this->belongsTo('App\AreaAssigment');
+        return $this->hasOne('App\AreaAssigment', 'area_id');
     }
 
     public function employe()

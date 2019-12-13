@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <form id="wizard_horizontal" method="POST" action="" class="card assigmt pr-4 pl-4">
+                <form id="wizard_horizontal" method="POST" action="" class="card assigmt pr-4 pl-4 mt-20">
                     @csrf 
                     <h2>Seleccionar consultorio</h2>
                     <section>

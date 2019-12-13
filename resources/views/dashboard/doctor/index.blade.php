@@ -98,13 +98,13 @@
                                 </tfoot>
                                 <tbody>
                                     @foreach ($today as $reservation)
-                                        <tr class="event-click">
+                                        <tr class="event-click" style="height:40px;">
                                             <td scope="row">{{ $loop->iteration}}</td>
-                                            <td>
+                                            <td style="height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
-                                                    <img class="img-thumbnail" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    <img class="img-thumbnail" whidth="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
-                                                    <img src="" alt="" >
+                                                    <img src="" alt="" whidth="100%" height="100%">
                                                 @endif
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>

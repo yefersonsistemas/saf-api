@@ -81,7 +81,7 @@ class Employe extends Model
     
     public function areaassigment()
     {
-        return $this->belongsTo('App\AreaAssigment');
+        return $this->hasOne('App\AreaAssigment', 'employe_id');
     }
     
     public function branch()
