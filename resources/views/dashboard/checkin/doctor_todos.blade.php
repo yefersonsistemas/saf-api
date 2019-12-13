@@ -12,7 +12,7 @@
     <div class="section-body py-3">
         <div class="container-fluid">
             <div class=" p-4">
-                <div class="col-lg-12">
+                <div class="col-lg-12 mt--15">
                     <div class="table-responsive mb-4 ">
                         <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                             <thead>

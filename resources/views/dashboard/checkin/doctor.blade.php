@@ -14,7 +14,7 @@
             <div class=" p-4">
                 <div class="tab-content mx-auto" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <div class="col-lg-12">
+                        <div class="col-lg-12 mt--35">
                             <div class="table-responsive mb-4">
                                 <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                     <thead>

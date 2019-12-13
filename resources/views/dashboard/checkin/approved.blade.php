@@ -66,8 +66,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-12">
+            
+            <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                         <thead>
