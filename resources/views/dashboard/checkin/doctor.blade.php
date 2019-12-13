@@ -26,6 +26,7 @@
                                             <th>Esepcialidad</th>
                                             <th class="text-center">Horario</th>
                                             <th class="text-center">Asistencia</th>
+                                            <th class="text-center">Consultorio</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -37,6 +38,7 @@
                                             <th>Esepcialidad</th>
                                             <th class="text-center">Horario</th>
                                             <th class="text-center">Asistencia</th>
+                                            <th class="text-center">Consultorio</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -72,6 +74,9 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}"><i class="fa fa-close"></i></button>
                                                 @endif
                                             </td>
+
+                                            <!--Nombre del consultorio-->
+                                            <td class="text-center">Consultorio</td>
         
                                         </tr>
                                         @endforeach

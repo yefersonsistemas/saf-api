@@ -219,22 +219,19 @@ class InController extends Controller
 
         // dd($registro);
         // $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
-        // dd($busqueda);
-
+      
         $busqueda = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         // dd($busqueda);
     
         $paciente = $busqueda->patient_id;
         $doctor = $busqueda->person_id; // en tabla person
         $employe = Employe::where('person_id', $doctor)->first();
-        // dd($employe);
         $doctos = Doctor::where('employe_id',$employe->id)->first();
 
 
         $p = Patient::where('person_id', $paciente)->first();
             // dd($p);
-        
-        // dd($employe);
+
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $employe->id)->first();
         // dd($io);
         if ($io == null) {
