@@ -113,7 +113,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('/doctor', 'DirectorController@store')->name('doctor.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
-        // Route::get('speciality/create', 'SpecialityController@create')->name('speciality.create');
-        // Route::POST('/speciality', 'SpecialityController@store')->name('speciality.store');
+        Route::get('speciality/create', 'SpecialityController@create')->name('speciality.create');
+        Route::POST('/speciality', 'SpecialityController@store')->name('speciality.store');
     });
 });

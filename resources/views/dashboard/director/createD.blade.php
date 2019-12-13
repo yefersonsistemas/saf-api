@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <form action="{{route('doctor.store')}}" method='POST' class="row d-flex justify-content-center">
             @csrf
-                <div class="card p-4 mt-4 col-lg-12 col-md-12 col-sm-12">
+                <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                     <div class="card p-4">
 
                         <div class="row d-flex justify-content-between">
@@ -29,18 +29,18 @@
                             <div class="col-lg-9 col-md-7 d-flex justify-content-between">
                                <div class="row">
                                     <div class="form-group col-lg-4">
-                                            <label class="form-label">Documento de Identidad</label>
-                                            <div class="input-group ">
-                                                <div class="input-group-prepend">
-                                                    <select name="type_dni" class="custom-select input-group-text form-control" value=" {{ old('type_dni') }}" required>
-                                                        <option value="0">...</option>
-                                                        <option value="N">N</option>
-                                                        <option value="E">E</option>
-                                                    </select>
-                                                </div>
-                                                <input type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
+                                        <label class="form-label">Documento de Identidad</label>
+                                        <div class="input-group ">
+                                            <div class="input-group-prepend">
+                                                <select name="type_dni" class="custom-select input-group-text form-control" value=" {{ old('type_dni') }}" required>
+                                                    <option value="0">...</option>
+                                                    <option value="N">N</option>
+                                                    <option value="E">E</option>
+                                                </select>
                                             </div>
+                                            <input type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
                                         </div>
+                                    </div>
                                         
                                         <div class="col-lg-4 ">
                                             <div class="form-group">
@@ -70,7 +70,6 @@
                                                     <input type="text" class="form-control" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
                                                 </div>
                                             </div>
-                                        {{-- </div> --}}
                                             
                                         
                                         <div class="col-lg-4">
@@ -87,14 +86,6 @@
                     
                         <div class="col-lg-6">
                             <div class="form-group">
-                                {{-- <label class="form-label">Cargo</label>
-                                <select name="position_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                    <option value="0">Ninguna selección</option>
-                                    @foreach ($position as $position)
-                                    <option value={{$position->id}}>{{$position->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
                             <label class="form-label">Cargo </label>
                                 <input type="hidden"  name="position_id" value="{{$position->id}}">
                                 <input type="text" class="form-control" name="position_id" value="{{$position->name = 'doctor'}}" disabled>
@@ -112,14 +103,7 @@
                                 </select>
                             </div>
                         </div>
-
-                        {{-- <div class="col-lg-4">
-                            <label class="form-label">Foto</label>
-                            <input type="file" name="image">
-                        </div> --}}
-
                     </div>
-                </div>
 
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -145,10 +129,10 @@
 {{-- style="color:#00ad88" turquesa --}}
 
 @section('scripts')
-<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
-<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
+<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
 <script>
     $('#speciality').multiselect({

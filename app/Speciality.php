@@ -9,7 +9,7 @@ class Speciality extends Model
     protected $table = 'specialities';
 
     protected $fillable = [
-        'name', 'description', 'branch_id'
+        'name', 'description', 'service_id','branch_id'
     ];
 
     public function image()

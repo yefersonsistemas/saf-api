@@ -6,6 +6,8 @@ use App\Speciality;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Employe;
+use App\Service;
+use App\Image;
 
 class SpecialityController extends Controller
 {
@@ -26,7 +28,8 @@ class SpecialityController extends Controller
      */
     public function create()
     {
-        
+        $servicio = Service::get();
+        return view('dashboard.director.speciality', compact('servicio'));
     }
 
     /**
@@ -37,24 +40,36 @@ class SpecialityController extends Controller
      */
     public function store(Request $request)
     {
-        $doctor = Employe::find($request->doctor);
+        // $doctor = Employe::find($request->doctor);
+        // dd($request);
 
         $data =  $request->validate([
             'name'   => 'required',
             'description' => 'required',
+            'service_id'  => 'required',
         ]);
 
         $speciality =  Speciality::create([
-                'name'            => $data['name'],
-                'description'     => $request['description'],
-                'branch_id'       => 1
-            ]);
-
-        $doctor->speciality()->attach($speciality->id);
-        
-        return response()->json([
-            'message' => 'Especialidad creada satisfactoriamente',
+            'name'            => $data['name'],
+            'description'     => $data['description'],
+            'service_id'      => $request->service_id,
+            'branch_id'       => 1
         ]);
+
+        $image= Image::create([
+            'path'   => $request->image,
+            'imageable_type' => 'App\Speciality',
+            'imageable_id' => $speciality->id,
+            'branch_id' => 1
+        ]);
+
+        return redirect()->back();
+
+        // $doctor->speciality()->attach($speciality->id);
+        
+        // return response()->json([
+        //     'message' => 'Especialidad creada satisfactoriamente',
+        // ]);
     }
 
     /**
