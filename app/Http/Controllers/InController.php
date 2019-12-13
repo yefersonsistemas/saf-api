@@ -20,7 +20,9 @@ use App\Reservation;
 use App\Patient;
 use App\Allergy;
 use App\Cite;
+use App\Doctor;
 use App\Assistance;
+use App\Itinerary;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -53,7 +55,7 @@ class InController extends Controller
 
     public function day()
     {
-        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         return view('dashboard.checkin.day', compact('day'));
     }
 
@@ -220,53 +222,90 @@ class InController extends Controller
         }
     }
 
-    /**
-     * 
-     * cambia estado del paciente
-     * cuando entra al consultorio
-     * 
-     */
-    public function statusIn($registro)
+
+    //======================== para indicar que el paciente entro a las instalacion ===============
+    public function statusIn($id)
     {
-        $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
+
+        // dd($registro);
+        // $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
         // dd($busqueda);
+
+        $busqueda = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        // dd($busqueda);
+        $busqueda->approved = 'aprobado';
+        $busqueda->save();
+        // dd($busqueda);
+        // 
         $paciente = $busqueda->patient_id;
-        $doctor = $busqueda->person_id;
+        $doctor = $busqueda->person_id; // en tabla person
+        $employe = Employe::where('person_id', $doctor)->first();
+        // dd($employe);
+        $doctos = Doctor::where('employe_id',$employe->id)->first();
+
 
         $p = Patient::where('person_id', $paciente)->first();
             // dd($p);
-        $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $doctor)->first();
-
-        if (empty($io->inside)) {
-            InputOutput::create([       
+        
+        // dd($employe);
+        $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $employe->id)->first();
+// dd($io);
+        if ($io == null) {
+            
+            $inputOutput= InputOutput::create([       
                 'person_id' =>  $paciente,  //paciente tratado
                 'inside' => 'dentro',
                 'outside' => null,
-                'employe_id' =>  $doctor,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'employe_id' =>  $employe->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
                 'branch_id' => 1,
             ]);
+            // dd($inputOutput);
+
+            // dd($doctos);
+            $itinerary = Itinerary::create([
+                'patient_id' =>  $paciente,  //paciente tratado
+                'employe_id' => $employe->id,               
+                'doctor_id' => $doctos->id,
+                'reservation_id' =>  $busqueda->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'status' => 'dentro',
+                'branch_id' => 1,
+            ]);
+
+            // dd($itinerary);
+            
         }
         else{
             Alert::error('Paciente ya esta dentro');
             return redirect()->back();
         };
 
-        Alert::success('Paciente dentro');
+        Alert::success('Paciente dentro de las instalaciones');
         return redirect()->back();
     }
 
+    //========================= dentro del consultorio =================
     public function insideOffice($id)
     {
+        // dd($id);
         $reservation = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        // $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
         // dd($reservation);
-        $paciente = $reservation->patient;
-        $doctor = $reservation->person;
 
-        $io = InputOutput::where('person_id', $paciente->id)->where('employe_id', $doctor->id)->first();
+        $paciente = $reservation->patient_id;
+        $doctor = $reservation->person_id;
+
+        $employe = Employe::where('person_id', $doctor)->first();
+        // dd($employe);
+
+        $io = InputOutput::where('person_id', $paciente)->where('employe_id', $employe->id)->first();
+        $itinerary = Itinerary::where('reservation_id', $reservation->id)->first();
+        $itinerary->status = 'dentro_office';
+        $itinerary->save();
 
         if (empty($io->inside_office)) {
             $io->inside_office = 'dentro';
             $io->save();
+            // dd($io);
         }else{
             Alert::error('Paciente ya esta dentro del consultorio');
             return redirect()->back();
@@ -276,6 +315,7 @@ class InController extends Controller
         return redirect()->back();
     }
     
+
     public function status(Request $request)
     {
         $data = $request->validate([

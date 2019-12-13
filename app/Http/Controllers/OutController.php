@@ -9,6 +9,7 @@ Use App\Employe;
 Use App\Area;
 Use App\Billing;
 Use App\Reference;
+Use App\Repose;
 Use App\Schedules;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Controllers\CitaController;
@@ -277,7 +278,6 @@ class OutController extends Controller
         ]);
     }
 
-     
     //============================ imprimir factura ============================
     public function imprimir_factura(Request $request)
     {
@@ -298,7 +298,7 @@ class OutController extends Controller
                 }
 
                 $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
- 
+
                 if($cirugia->surgery != null){
                     $total_cancelar = $cirugia->surgery->typesurgeries->cost + $todos->employe->doctor->price + $total;
                 }else{
@@ -318,28 +318,28 @@ class OutController extends Controller
         }
     }
 
-    //============================ imprimir examen ============================ (listo)
-    public function imprimir_examen($id)
+    //============================ imprimir examen ============================
+    public function imprimir_examen(Request $request)
     {
-        $datos = Itinerary::with('person','employe.person', 'exam')->where('id', $id)->first();
-        $examen = explode(',', $datos->exam_id); // decodificando los prcocedimientos json
-   
+        $examen = explode(',', $request->id); // decodificando los prcocedimientos json
+        
+        $datos = Itinerary::with('person','employe.person','exam')->where('exam_id',$request->id)->first();
         for ($i=0; $i < count($examen) ; $i++) { 
             $examenes[] = Exam::find($examen[$i]); //buscando datos de cada examen
         }
 
-        $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos'));
+        $fecha = Carbon::now()->format('Y-m-d');
+
+        $pdf = PDF::loadView('dashboard.checkout.print_examen', compact('examenes', 'datos','fecha'));
         return $pdf->stream('examen.pdf');
     }
 
 
-    //============================ imprimir recipe ============================(listo)
-    public function imprimir_recipe($id)
+    //============================ imprimir recipe ============================
+    public function imprimir_recipe(Request $request, $id, $patient, $employe)
     {
-        $itinerary = Itinerary::with('person','employe.person', 'recipe')->where('id', $id)->first();
-        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $itinerary->recipe_id)->where('patient_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-        
-        $paciente = Patient::where('person_id',$itinerary->patient_id)->first(); //para buscar la edad
+        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
+        $paciente = Patient::where('person_id',$patient)->first(); 
         $fecha = Carbon::now()->format('Y-d-m');
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe', 'paciente', 'fecha'));
@@ -372,13 +372,14 @@ class OutController extends Controller
     }
 
     //============================ imprimir reposo ============================
-    public function imprimir_reposo(){
-
-        // $itinerary = Itinerary::with('person','employe.person','rest')->where('id',$id)->first();
-
-        // $constancia = Rest::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->rest_id)->first();
-
-        $pdf = PDF::loadview('dashboard.checkout.print_reposo');
+    public function imprimir_reposo($id){
+        // dd($id);
+        $itinerary = Itinerary::with('person','employe.person','repose')->where('id',$id)->first();
+        // dd($itinerary);
+        $reposo = Repose::where('id', $itinerary->repose_id)->first();
+        // dd($reposo);
+        $fecha = Carbon::now()->format('Y/m/d');
+        $pdf = PDF::loadview('dashboard.checkout.print_reposo', compact('itinerary','reposo', 'fecha'));
         return $pdf->stream('reposo.pdf');
     }
 
@@ -394,27 +395,26 @@ class OutController extends Controller
     }
     
     //============================ cambiar a estado fuera ============================
-    public function statusOut($patient_id)
+    public function statusOut($itinerary_id)
     {
-        $patient = InputOutput::where('person_id', $patient_id)->first();
-        $p = Patient::where('person_id', $patient->person_id)->first();
-        $io = InputOutput::where('person_id', $p->person_id)->first();
-        $itinerary =  Itinerary::where('patient_id', $patient->person_id)->first();
+        $itinerary =  Itinerary::where('id', $itinerary_id)->first();
+        $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+        // dd($io);
 
-        if (!empty($patient->inside) && empty($patient->outside)) {
-            $patient->outside = 'fuera';
-            $patient->save();
+        $itinerary->status = 'fuera';
+        $itinerary->save();
 
-            $itinerary->status = 'fuera';
-            $itinerary->save();
-
-
+        if (empty($io->outside)) {
+            $io->outside = 'fuera';
+            $io->save();
+            // dd($io);
         }else{
-            Alert::error('Paciente ya ha salido');
+            Alert::error('Paciente ya esta dentro del consultorio');
             return redirect()->back();
         }
 
-        Alert::success('Paciente fuera');
+
+        Alert::success('Paciente fuera de las instalaciones');
         return redirect()->back();
     }
 

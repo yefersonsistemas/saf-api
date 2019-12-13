@@ -91,7 +91,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
         Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
         Route::get('constancia','OutController@imprimir_constancia')->name('checkout.imprimir_constancia'); // imprimir constancia
-        Route::get('reposo','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
+        Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
         Route::get('informe','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
     });
@@ -104,7 +104,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
-        Route::post('doctor/Referencia/{patient}','DoctorController@referenceStore')->name('reference.store');
+        Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 
     Route::group(['middleware' => ['role:director']], function(){
