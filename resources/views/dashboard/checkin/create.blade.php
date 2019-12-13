@@ -28,7 +28,7 @@
                                                         <div class="card assigment">
                                                                 <input name="searcharea" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
                                                                 {{-- @if (!empty($area->image->path))
-                                                                <figure class="imagecheck-figure border-0">
+                                                                <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                                     <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image">
                                                                 </figure>
                                                                 @else --}}
@@ -50,14 +50,14 @@
                                                             <div class="card assigment">
                                                                     <input name="searcharea" id="searcharea" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
                                                                     {{-- @if (!empty($area->image->path))
-                                                                    <figure class="imagecheck-figure border-0">
+                                                                    <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                                         <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image">
                                                                     </figure>
                                                                     @else --}}
                                                                     <figure class="imagecheck-figure border-0"  style="max-height: 100px; width:170px;">
                                                                         <img width="100%" height="100%" src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image">
                                                                     </figure>
-                                                                    {{-- <figure class="imagecheck-figure border-0">
+                                                                    {{-- <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                                         <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                                     </figure> --}}
                                                                     {{-- @endif --}}
@@ -84,14 +84,14 @@
                                                     <label class="imagecheck m-0" >
                                                         <input name="searchemploye" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
                                                         {{-- @if (!empty($area->image->path))
-                                                        <figure class="imagecheck-figure border-0">
+                                                        <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                             <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image">
                                                         </figure>
                                                         @else --}}
-                                                        <figure class="imagecheck-figure border-0" style="max-height: 120px; width:170px;">
+                                                        <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                             <img  width="100%" height="100%" src="{{ asset('assets/images/doctor.jpg') }}" alt="" class="imagecheck-image">
                                                         </figure>
-                                                        {{-- <figure class="imagecheck-figure border-0">
+                                                        {{-- <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                             <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                         </figure> --}}
                                                         {{-- @endif --}}

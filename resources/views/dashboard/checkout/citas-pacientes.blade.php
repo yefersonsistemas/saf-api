@@ -259,10 +259,6 @@
                                                     <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                     <i class="fa fa-print"></i> Examen
                                                     </a>
-                                                @else
-                                                    <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene abarca" type="button" >
-                                                        Generar Examen
-                                                    </a>
                                                 @endif
                                             </div>
 
@@ -272,25 +268,17 @@
                                                     <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Recetario
                                                     </a>
-                                                    @else
-                                                    <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene abarca" type="button">
-                                                        Generar Recetario
-                                                    </a>
                                                 @endif
                                             </div>
 
                                             <!--CONSTANCIA-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
+                                            {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->constancy_id != null)
                                                     <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i>Constancia
                                                     </a>
-                                                    {{-- @else
-                                                    <a href="" class="btn btn-gene abarca" type="button">
-                                                        <i class="fa fa-plus-circle"></i>Constancia
-                                                    </a> --}}
                                                 @endif
-                                            </div>
+                                            </div> --}}
 
                                             <!--REFERENCIA-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
@@ -298,10 +286,6 @@
                                                     <a href="{{ route('checkout.imprimir_referencia', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Referencia
                                                     </a>
-                                                    {{-- @else
-                                                    <a href="" class="btn btn-gene abarca" type="button">
-                                                        <i class="fa fa-plus-circle"></i> Referencia
-                                                    </a> --}}
                                                 @endif
                                             </div>
 
@@ -311,25 +295,17 @@
                                                     <a href="{{ route('checkout.imprimir_reposo', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Reposo
                                                     </a>
-                                                    {{-- @else
-                                                    <button href="" class="btn btn-gene abarca text-start" disabled>
-                                                        <i class="fa fa-plus-circle"></i> Reposo
-                                                    </button> --}}
                                                 @endif
                                             </div>
 
                                             <!--INFORME-->
-                                            {{-- <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                @if($itinerary->rest_id != null)
-                                                    <a href="{{ route('checkout.imprimir_informe') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                @if($itinerary->report_medico_id != null)
+                                                    <a href="{{ route('checkout.imprimir_informe', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Informe
                                                     </a>
-                                                    @else
-                                                    <button href="" class="btn btn-gene abarca text-start" disabled>
-                                                        <i class="fa fa-plus-circle"></i> Reposo
-                                                    </button>
                                                 @endif
-                                            </div> --}}
+                                            </div>
 
                                             <!--CITA-->
                                             {{-- <div class="col-lg-7 col-md-12 col-sm-12 mb-2 ml-3">
