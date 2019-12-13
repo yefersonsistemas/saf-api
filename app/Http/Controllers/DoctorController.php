@@ -24,6 +24,7 @@ use App\Treatment;
 use App\Recipe;
 use App\Repose;
 use App\ReportMedico;
+use App\InputOutput;
 // use App\Redirect;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -39,7 +40,8 @@ class DoctorController extends Controller
     public function index()
     {
         $id= Auth::id();
-        $today = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $empleado = Employe::where('id', $id)->first();
+        $today = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -180,41 +182,49 @@ class DoctorController extends Controller
     }
 
 
-
-    public function referenceStore(Request $request, $patient)
+    // ================================= referir doctor ======================================
+    public function referenceStore(Request $request)
     {
-        //    dd($request);}
-        $person = Person::with('historyPatient')->where('id',$patient)->first();
+        //    dd($request);
+        $person = Person::with('historyPatient')->where('id',$request->patient)->first();
 
-        $data = $request->validate([
-            'speciality'        =>  'required',
-            'reason'            =>  'required',
-        ]);
+        if($request->doctor != null  || $request->doctorExterno != null){
 
-        $reference = Reference::create([
-            'patient_id'    =>  $person->id,
-            'specialitie_id'    =>  $data['speciality'],
-            'reason'        =>  $data['reason'],
-            'employe_id'    =>  $request->doctor,
-            'doctor'        =>  $request->doctorExterno,
-        ]);
-        
-        $itinerary = Itinerary::where('patient_id', $person->id)->first();
-        // dd($itinerary);
-        if (!is_null($itinerary)) {
-            $itinerary->reference_id = $reference->id;
-            $itinerary->save();
+            if($request->speciality != null && $request->reason != null){
+
+                $reference = Reference::create([
+                    'patient_id'    =>  $person->id,
+                    'specialitie_id'    =>  $request['speciality'],
+                    'reason'        =>  $request['reason'],
+                    'employe_id'    =>  $request->doctor,
+                    'doctor'        =>  $request->doctorExterno,
+                ]);
+
+                $itinerary = Itinerary::where('patient_id', $person->id)->first();
+                if (!is_null($itinerary)) {
+                    $itinerary->reference_id = $reference->id;
+                    $itinerary->save();
+                }
+
+                return response()->json([
+                    'reference' => 'Médico referido',201
+                ]);
+            }else{
+                return response()->json([
+                    'reference' => 'Datos incompletos',202
+                ]);
+            }
+        }{
+            return response()->json([
+                'reference' => 'Datos incompletos',202
+            ]);
         }
-
-        Alert::success('Referencia Creada');
-        return redirect()->back();
     }
 
 
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
     public function recipeStore(Request $request)
     {
-        // dd($request);
         $itinerary = Itinerary::with('person','employe.person','reservation')->where('reservation_id', $request->reservacion)->first();
 
         if($itinerary->recipe_id == null){
@@ -261,7 +271,17 @@ class DoctorController extends Controller
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
-        if(is_null($itinerary)){
+        $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+        // dd($io);
+        // dd($io);
+        if (empty($io->outside_office)) {
+            $io->outside_office = 'fuera';
+            $io->save();
+            // dd($io);
+        }
+
+        // dd($itinerary);
+        if($itinerary != null){
 
             if($request->reposop != null){
             //-------- crear reposo ---------
@@ -274,6 +294,7 @@ class DoctorController extends Controller
 
             $reposo_id = $reposo->id;
             $itinerary->repose_id = $reposo_id;
+            $itinerary->status = 'fuera_office';
             $itinerary->save();
 
             }else{
@@ -293,6 +314,7 @@ class DoctorController extends Controller
 
             $reporte_id = $reporte->id;
             $itinerary->report_medico_id = $reporte_id;
+            $itinerary->status = 'fuera_office';
             $itinerary->save();
             }else{
                 $reporte_id = null;

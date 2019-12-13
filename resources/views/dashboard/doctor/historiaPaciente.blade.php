@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
 
-
 @endsection
 
 @section('title','Doctor')
@@ -381,9 +380,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer text-right">
-                                                                    <button class="btn btn-azuloscuro mb-15" id="add" type="button">
+                                                                    <a class="btn btn-azuloscuro mb-15 text-white" id="add">
                                                                         <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
-                                                                    </button>                            
+                                                                    </a>                            
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -444,13 +443,12 @@
                                             
                                                 <!--Referencia-->
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
-                                                    <div class="container">
-                                                        <div class="col-lg-12 mx-auto">
-                                                            <form class="" method="POST" action="{{ route('reference.store', $history->patient_id) }}">
-                                                                @csrf
-                                                                <div class="card">
-                                                                    <div class="card-body">
-                                                                        <h3 class="card-title">Datos del Médico</h3>
+                                                    <div class="container mt-2 p-0">
+                                                        <div class="col-lg-12 mx-auto m-0 ">
+                                                                <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
+                                                                <div class="card mr-0 ml-0">
+                                                                    <div class="card-body m-0">
+                                                                        {{-- <h3 class="card-title">Datos del Médico</h3> --}}
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
@@ -466,15 +464,15 @@
                                                                                         <div class="custom-controls-stacked d-flex justify-content-between">
                                                                                             <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
-                                                                                                <span class="custom-control-label">Medico Interno</span>
+                                                                                                <span class="custom-control-label">Médico Interno</span>
                                                                                                 <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                        <option>Medico Interno</option>
+                                                                                                        <option value="null">Médico Interno</option>
                                                                                                 </select>
                                                                                             </label>
                                                                                             <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
-                                                                                                <span class="custom-control-label">Medico Externo</span>
-                                                                                                <input type="text" id="medicoExterno" class="form-control"  placeholder="" name="doctorExterno" >
+                                                                                                <span class="custom-control-label">Médico Externo</span>
+                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="" name="doctorExterno" >
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -488,18 +486,22 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-                                                                            <button type="submit" class="btn btn-azuloscuro pr-4 pl-4">Generar</button>
+                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar</a>
                                                                         </div>
                                                                     </div>
-                                                                
                                                                 </div>
-                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                                 <!--Proxima cita-->
-                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">Proxima cita...</div>
+                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                    <div class="container">
+                                                        <div class="col-lg-12 mx-auto">
+                                                            Proxima cita...
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </section>
                                     </form>
@@ -529,7 +531,8 @@
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
-<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
+
+
 
 <script>
     $('#multiselect4-filter').multiselect({
@@ -589,6 +592,7 @@
         patient        = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
         reservacion         = $("input[id='reservacion']").val();
+        // console.log(reservacion)
 
         ajax(medicina, dosis, medida, duracion, indicaciones, reservacion);
 
@@ -631,7 +635,7 @@
     }
 
 
-    //======================Referenci medica=========================
+    //======================Referencia medica=========================
       
     $('input[name="tipoMedico"]').on('click',function(){
 
@@ -667,6 +671,7 @@
             })
     });
 
+    //cargar medicos
     function cargarMedicos(data) {
         $('#medicoInterno').empty();
         for (let i = 0; i < data.length; i++) {
@@ -689,6 +694,65 @@
             $('#medicoExterno').attr('disabled', true);
         }
     });
+
+    $('#referir').click(function () {
+        // console.log('referir');
+        var speciality = $("#speciality").val(); 
+        var reason = $("#reason").val(); 
+        var doctor = $("#medicoInterno").val(); 
+        var doctorExterno = $("#medicoExterno").val(); 
+        var patient = $("#patient").val();   
+        console.log('espe',speciality);
+        console.log('reason',reason);
+        console.log('d',doctor);
+        console.log('d e',doctorExterno);
+        console.log('patient',patient);
+
+        ajax(speciality, reason, doctor, doctorExterno, patient);                          
+        // console.log('espe',especialidad);                  
+        // ajax(dni); 
+       
+    });
+
+    function ajax(speciality, reason, doctor, doctorExterno, patient) {
+        $.ajax({ 
+            url: "{{ route('reference.store') }}",   //definiendo ruta
+            type: "POST",                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                speciality:speciality,
+                reason:reason,
+                doctor:doctor,
+                doctorExterno:doctorExterno,
+                patient:patient, 
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+
 
 </script>
 @endsection

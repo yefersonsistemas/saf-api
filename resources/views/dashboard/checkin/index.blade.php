@@ -52,7 +52,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Citas Para Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">25</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $citasDelDia }}</span></h3>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Atendidos Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">5</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">Entradas</th>
+                                        {{-- <th class="text-center">Entradas</th> --}}
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -114,7 +114,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">Entradas</th>
+                                        {{-- <th class="text-center">Entradas</th> --}}
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -165,9 +165,8 @@
                                             </td>
 
                                             <td>
-                                                <div class="row">
-                                                    <div class="col-3"> 
-                                                        <button type="button" class="btn btn-danger stad state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%;">E</button></div>
+                                                {{-- <div class="row">
+                                                    <div class="col-3"> <button class="btn btn-danger stad state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%;">E</button></div>
                                                     <div class="col-3">                                                    
                                                         <button type="button" class="btn btn-danger state state_1 P-0" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%">E</button>
                                                     </div>
@@ -177,7 +176,7 @@
                                                     <div class="col-3">
                                                         <button type="button" class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%">S</button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <!--Si no a llegado a las instalaciones-->
                                                 {{-- @if($reservation->patient->inputoutput->isEmpty())
@@ -268,7 +267,7 @@
                                 <tbody>
                                     @forelse ($aprobadas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
@@ -278,7 +277,7 @@
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
                                                     @else
-                                                        <a href="{{ route('checkin.history', $reservation->id) }}"> {{ $reservation->patient->historyPatient->history_number }}</a>
+                                                        <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
                                                     @endif
                                                 </div>
                                             </td>
@@ -333,7 +332,7 @@
                                 <tbody>
                                     @foreach ($canceladas as $reservation)
                                         <tr>
-                                            <td style="text-align: center;">
+                                            <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
                                                     <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
@@ -396,7 +395,7 @@
                                 <tbody>
                                     @foreach ($reprogramadas as $reservation)
                                         <tr>
-                                            <td style="text-align: center;">
+                                            <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
@@ -459,7 +458,7 @@
                                 <tbody>
                                     @foreach ($suspendidas as $reservation)
                                         <tr>
-                                            <td style="text-align: center;">
+                                            <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else

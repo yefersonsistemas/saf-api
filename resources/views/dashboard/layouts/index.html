@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Entradas</title>
+	<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="bootstrap-4.3.1-dist/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
+	<style type="text/css">
+		.state{width: auto; height: auto; border-radius: 5px;}
+	</style>
+	<script>
+		function entradas(value, value2) {
+			var state = value; //el estado del objeto
+			var stateInt = parseInt(state); //se convierte el valor anterior en integer para posteriores validaciones
+			var id= value2; // el ID del contenedor en el que se encuentra el boton
+			console.log('click '+state+', '+id); //Se valida que se está alcanzando al objeto que se está haciendo click
+
+			//Se valida primero si se está haciendo click en el primer estado
+			if(stateInt<=0){
+				$('#'+id+' .state_'+state).addClass('btn-success');
+				$('#'+id+' .state_'+state).removeClass('btn-danger');
+				$('#'+id+' .state_'+state).prop("disabled", true);
+				console.log('Se ha cumplido el estado '+ state+', '+id);
+			}else{
+				//A partir de estado 1, se valida si el estado anterior se cumplió, para esto se toma la clase btn-danger, si no se ha cumplido, se bloquea la función y se puede mandar una alerta.
+				if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-danger')){
+					console.log('click '+state+', '+id+': No puedes ejecutar esta accion hasta que el paso anterior se halla cumplido');
+				//Por el contrario, si el estado anterior se ha cumplido, se procede a ejecutar la función
+				}else if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-success')){
+					$('#'+id+' .state_'+state).addClass('btn-success');
+					$('#'+id+' .state_'+state).removeClass('btn-danger');
+					$('#'+id+' .state_'+state).prop("disabled", true);
+					console.log('Se ha cumplido el estado '+ state+', '+id);	
+				}
+			}
+			/*
+			Resumen de la funcion
+			- La funcion obtiene el estado y el id del contenedor de dicho estado
+			- La funcion valida que se cumpla un paso a la vez sin que se pueda saltar un paso
+			- La funcion remueve la class btn-danger y agrega la funcion btn-success para cambiar el color del objeto
+			- La funcion desabilita la funcion cumplida para que no pueda volver a ser ejecutada.
+			*/
+		};
+	</script>
+</head>
+<body>
+	<!--
+	Como funciona?
+	- Los estados funcionan dentro de un contenedor con el ID del paciente en este caso.
+	- Se creó un nuevo atributo llamado state, el cual tiene el número que sirve para identificar que paso se está cumpliendo.
+	- La clase .state lleva los estilos de los botones.
+	- La clase .state+numero de estado (ej: state_0) sirve para identificar al objeto en la funcion entradas().
+	- Se añadió onClick con la funcion entradas() para ejecutar las funciones necesarias
+		- A la función se le envían 2 parámetros, el state del objeto y el ID del contenedior en el que se encuentra, esto para que no se modifiquen estados de otros IDs y por ende de otros pacientes.
+	-->
+	<div class="container text-center" id="ID_element_0">
+<button class="btn btn-danger state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></button>
+<button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></button>
+<button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')"></button>
+<button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')"></button>
+	</div>
+	
+</body>
+</html>

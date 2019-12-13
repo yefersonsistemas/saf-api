@@ -394,27 +394,26 @@ class OutController extends Controller
     }
     
     //============================ cambiar a estado fuera ============================
-    public function statusOut($patient_id)
+    public function statusOut($itinerary_id)
     {
-        $patient = InputOutput::where('person_id', $patient_id)->first();
-        $p = Patient::where('person_id', $patient->person_id)->first();
-        $io = InputOutput::where('person_id', $p->person_id)->first();
-        $itinerary =  Itinerary::where('patient_id', $patient->person_id)->first();
+        $itinerary =  Itinerary::where('id', $itinerary_id)->first();
+        $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+        // dd($io);
 
-        if (!empty($patient->inside) && empty($patient->outside)) {
-            $patient->outside = 'fuera';
-            $patient->save();
+        $itinerary->status = 'fuera';
+        $itinerary->save();
 
-            $itinerary->status = 'fuera';
-            $itinerary->save();
-
-
+        if (empty($io->outside)) {
+            $io->outside = 'fuera';
+            $io->save();
+            // dd($io);
         }else{
-            Alert::error('Paciente ya ha salido');
+            Alert::error('Paciente ya esta dentro del consultorio');
             return redirect()->back();
         }
 
-        Alert::success('Paciente fuera');
+
+        Alert::success('Paciente fuera de las instalaciones');
         return redirect()->back();
     }
 
