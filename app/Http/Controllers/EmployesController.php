@@ -12,6 +12,7 @@ use App\Reservation;
 Use App\Visitor;
 use App\Billing;
 use App\Assistance;
+use App\AreaAssigment;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -103,10 +104,13 @@ class EmployesController extends Controller
         }
     }
 
-    public function doctor_on_day()//medicos del dia
+    //======================== Medicos del dia ===========================
+    public function doctor_on_day()
     {
         // dd($id);
-        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule')->get();
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule','areaassigment.area')->get();
+        $a = AreaAssigment::first();
+        // dd($employes);
         $em = collect([]);
         if ($employes->isNotEmpty()) {
             foreach ($employes as $employe) {
