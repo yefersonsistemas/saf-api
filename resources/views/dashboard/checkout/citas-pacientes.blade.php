@@ -259,10 +259,10 @@
                                                     <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                     <i class="fa fa-print"></i> Examen
                                                     </a>
-                                                @else
+                                                {{-- @else
                                                     <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene abarca" type="button" >
                                                         Generar Examen
-                                                    </a>
+                                                    </a> --}}
                                                 @endif
                                             </div>
 
@@ -272,10 +272,10 @@
                                                     <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Recetario
                                                     </a>
-                                                    @else
+                                                    {{-- @else
                                                     <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene abarca" type="button">
                                                         Generar Recetario
-                                                    </a>
+                                                    </a> --}}
                                                 @endif
                                             </div>
 
