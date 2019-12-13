@@ -13,6 +13,6 @@ class DoctorTableSeeder extends Seeder
     public function run()
     {
         Doctor::truncate();
-        factory(Doctor::class, 20)->create();
+        //factory(Doctor::class, 20)->create();
     }
 }

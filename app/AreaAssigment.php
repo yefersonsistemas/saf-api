@@ -17,7 +17,7 @@ class AreaAssigment extends Model //area asignada
         return $this->belongsTo('App\Employe');
     }
 
-    public function areas()
+    public function area()
     {
         return $this->belongsTo('App\Area');
     }

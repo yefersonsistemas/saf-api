@@ -44,7 +44,7 @@
                                 <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th>Doctor</th>
-                                <th>Esepcialidad</th>
+                                <th>Especialidad</th>
                                 <th>Acciones</th>
                                 <th class="text-center">E/S</th>
                                 {{-- <th class="text-center">EC/SC</th> --}}
@@ -56,7 +56,7 @@
                                 <th>Cédula</th>
                                 <th>Nombre</th>
                                 <th>Doctor</th>
-                                <th>Esepcialidad</th>
+                                <th>Especialidad</th>
                                 <th>Acciones</th>
                                 <th class="text-center">E/S</th>
                                 {{-- <th class="text-center">EC/SC</th> --}}
@@ -64,12 +64,12 @@
                         </tfoot>
                         <tbody>
                             @foreach ($day as $reservation)
-                                <tr>
-                                    <td style="text-align: center; font-size:10px;">
+                                <tr style="height:40px;">
+                                    <td style="text-align: center; font-size:10px; height:40px;">
                                         @if (!empty($reservation->patient->image->path))
-                                            <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                            <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                         @else
-                                            <img src="" alt="" >
+                                            <img src="" alt="" width="100%" height="100%">
                                         @endif
                                         <div class="text-center">
                                             @if ($reservation->patient->historyPatient == null)

@@ -98,12 +98,12 @@
                         </tfoot>
                         <tbody>
                             @foreach ($approved as $reservation)
-                                <tr>
-                                    <td style="text-align: center; font-size:10px">
+                                <tr style="height:40px;">
+                                    <td style="text-align: center; font-size:10px; height:40px;">
                                         @if (!empty($reservation->patient->image->path))
-                                            <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                            <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                         @else
-                                            <img src="" alt="" >
+                                            <img src="" alt="" width="100%" height="100%">
                                         @endif
                                         <div class="text-center">
                                             @if ($reservation->patient->historyPatient == null)
