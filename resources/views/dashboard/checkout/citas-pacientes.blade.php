@@ -64,7 +64,7 @@
             </div>
 
             <!--lista de reservaciones confirmadas-->
-            <div class="container">
+            <div class="container mt--15">
 
                 <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end" id="pills-tab" role="tablist">
                     

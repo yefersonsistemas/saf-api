@@ -67,7 +67,7 @@
                 </div>
             </div>
             {{-- Tabs de citas --}}
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-10">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
                         <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Todas</a>
