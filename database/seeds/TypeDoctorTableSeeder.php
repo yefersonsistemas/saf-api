@@ -29,6 +29,6 @@ class TypeDoctorTableSeeder extends Seeder
             'comission'     => '0.75',
         ]);
 
-        factory(TypeDoctor::class, 20)->create();
+        // factory(TypeDoctor::class, 20)->create();
     }
 }

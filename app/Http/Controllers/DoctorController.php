@@ -24,6 +24,7 @@ use App\Treatment;
 use App\Recipe;
 use App\Repose;
 use App\ReportMedico;
+use App\InputOutput;
 // use App\Redirect;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -39,7 +40,8 @@ class DoctorController extends Controller
     public function index()
     {
         $id= Auth::id();
-        $today = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $empleado = Employe::where('id', $id)->first();
+        $today = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -269,6 +271,15 @@ class DoctorController extends Controller
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
+        $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+        // dd($io);
+        // dd($io);
+        if (empty($io->outside_office)) {
+            $io->outside_office = 'fuera';
+            $io->save();
+            // dd($io);
+        }
+
         // dd($itinerary);
         if($itinerary != null){
 
@@ -283,6 +294,7 @@ class DoctorController extends Controller
 
             $reposo_id = $reposo->id;
             $itinerary->repose_id = $reposo_id;
+            $itinerary->status = 'fuera_office';
             $itinerary->save();
 
             }else{
@@ -302,6 +314,7 @@ class DoctorController extends Controller
 
             $reporte_id = $reporte->id;
             $itinerary->report_medico_id = $reporte_id;
+            $itinerary->status = 'fuera_office';
             $itinerary->save();
             }else{
                 $reporte_id = null;
