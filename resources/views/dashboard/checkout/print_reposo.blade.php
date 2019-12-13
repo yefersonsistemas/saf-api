@@ -163,7 +163,7 @@ margin-top: -15px;
                         <span>{{ $itinerary->person->type_dni }} {{ $itinerary->person->dni }}</span>, manifiesta que presenta: <span>indique los síntomas presentados</span>. 
                     </p><br>
                     <p class="conte">
-                    {{ $reposo->description }}
+                    {{ $itinerary->repose->description }}
                     </p>
                 </div>
                 <div class="fecha">

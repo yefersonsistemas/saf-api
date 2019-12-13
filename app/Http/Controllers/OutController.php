@@ -27,6 +27,7 @@ use App\Surgery;
 use App\ClassificationSurgery;
 use App\Procedure;
 use App\Recipe;
+use App\ReportMedico;
 use App\Speciality;
 use App\Diagnostic;
 use App\Treatment;
@@ -39,7 +40,7 @@ use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class OutController extends Controller
 {
-    //=================== listando los pacientes del dia ==================
+    //=================== listando los pacientes del dia ================== (listo)
     public function index()
     {
         $procedures_id = array();
@@ -60,7 +61,7 @@ class OutController extends Controller
     }
 
 
-      //====================== crear examen ============================
+      //====================== crear examen ============================ (listo)
       public function crearExamen($patient_id){
 
         $patient = $patient_id;
@@ -70,7 +71,7 @@ class OutController extends Controller
     }
 
 
-     //====================== guardar examen ============================
+     //====================== guardar examen ============================ (listo)
     public function storeDiagnostic(Request $request, $id)
     {
         $itinerary = Itinerary::with('person')->where('patient_id', $id)->first();
@@ -107,7 +108,7 @@ class OutController extends Controller
         return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
     }
 
-    //====================== lista de cirugias ============================
+    //====================== lista de cirugias ============================ (listo)
     public function index_cirugias()
     {
         $cirugias_ambulatorias = ClassificationSurgery::with('typeSurgeries')->where('name','ambulatoria')->get();
@@ -118,7 +119,7 @@ class OutController extends Controller
     }
 
 
-     //====================== detalles de las cirugias ============================
+     //====================== detalles de las cirugias ============================ (listo)
      public function cirugias_detalles(Request $request)
      {
         $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
@@ -126,7 +127,7 @@ class OutController extends Controller
      }
 
 
-    //============================ buscanco paciente ============================
+    //============================ buscanco paciente ============================ (listo)
     public function search_patient(Request $request){
 
         if(!empty($request->dni)){ 
@@ -187,7 +188,7 @@ class OutController extends Controller
     }
 
  
-    //============== buscando procedimiento y mostrando en la vista para generar factura==============
+    //============== buscando procedimiento y mostrando en la vista para generar factura============== (listo)
     public function create(){
         $procedimientos = Procedure::all();
         $fecha = Carbon::now()->format('Y-m-d');
@@ -195,7 +196,7 @@ class OutController extends Controller
     }
 
 
-    //============================ buscando procedimiento ============================
+    //============================ buscando procedimiento ============================ (listo)
     public function search_procedure($procedure_id){
 
         $data_procedure = Procedure::where('id', $procedure_id)->first();
@@ -211,7 +212,7 @@ class OutController extends Controller
         }
     }
 
-    //============================================ guardar factura ========================================
+    //============================================ guardar factura ======================================== (listo)
     public function guardar_factura(Request $request)
     {
         if($request->patient_id != null && $request->employe_id != null){
@@ -260,7 +261,7 @@ class OutController extends Controller
     }
 
 
-    //============================ registrando cliente ============================
+    //============================ registrando cliente ============================ (listo)
     public function create_cliente(CreateVisitorRequest $request){
         $person = Person::create([
             'type_dni'    => $request->type_dni,
@@ -278,7 +279,7 @@ class OutController extends Controller
         ]);
     }
 
-    //============================ imprimir factura ============================
+    //============================ imprimir factura ============================ (listo)
     public function imprimir_factura(Request $request)
     {
         if($request->person_id != null){
@@ -318,7 +319,7 @@ class OutController extends Controller
         }
     }
 
-    //============================ imprimir examen ============================
+    //============================ imprimir examen ============================ (listo)
     public function imprimir_examen(Request $request)
     {
         $examen = explode(',', $request->id); // decodificando los prcocedimientos json
@@ -335,7 +336,7 @@ class OutController extends Controller
     }
 
 
-    //============================ imprimir recipe ============================
+    //============================ imprimir recipe ============================ (listo)
     public function imprimir_recipe(Request $request, $id, $patient, $employe)
     {
         $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
@@ -347,7 +348,7 @@ class OutController extends Controller
         return $pdf->stream('recipe.pdf');
     }
 
-    //============================ imprimir referencia ============================
+    //============================ imprimir referencia ============================ (listo)
     public function imprimir_referencia($id){
 
         $itinerary = Itinerary::with('person','employe.person','reference','diagnostic')->where('id',$id)->first();
@@ -361,43 +362,47 @@ class OutController extends Controller
     }
     
     //============================ imprimir constancia ============================
-    public function imprimir_constancia(){
+    public function imprimir_constancia($id){
 
-        // $itinerary = Itinerary::with('person','employe.person','constancy')->where('id',$id)->first();
+        $itinerary = Itinerary::with('person','employe.person','constancy')->where('id',$id)->first();
+        $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
+        ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
+        ->where('id', $itinerary->reservation_id )->first();      
+        $fecha = Carbon::now()->format('Y/m/d');
 
-        // $constancia = Constancy::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->constancy_id)->first();
 
-        $pdf = PDF::loadview('dashboard.checkout.print_constancia');
+        $pdf = PDF::loadview('dashboard.checkout.print_constancia', compact('itinerary','especialidad',fecha ));
         return $pdf->stream('constancia.pdf');
     }
 
-    //============================ imprimir reposo ============================
+    //============================ imprimir reposo ============================ (listo)
     public function imprimir_reposo($id){
        
         $itinerary = Itinerary::with('person','employe.person','repose')->where('id',$id)->first();
         $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
         ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
-        ->where('id', $itinerary->reservation_id )->first();
-        // dd($especialidad->speciality->name);
-        $reposo = Repose::where('id', $itinerary->repose_id)->first();
-      
+        ->where('id', $itinerary->reservation_id )->first();      
         $fecha = Carbon::now()->format('Y/m/d');
-        $pdf = PDF::loadview('dashboard.checkout.print_reposo', compact('itinerary','reposo', 'fecha', 'especialidad'));
+
+        $pdf = PDF::loadview('dashboard.checkout.print_reposo', compact('itinerary', 'fecha', 'especialidad'));
         return $pdf->stream('reposo.pdf');
     }
 
-     //============================ imprimir informe ============================
-    public function imprimir_informe(){
 
-        // $itinerary = Itinerary::with('person','employe.person','rest')->where('id',$id)->first();
+    //============================ imprimir informe ============================ (listo)
+    public function imprimir_informe($id){
 
-        // $constancia = Rest::with('patient', 'employe.person', 'speciality')->where('id', $itinerary->rest_id)->first();
-
-        $pdf = PDF::loadview('dashboard.checkout.print_informe');
+        $itinerary = Itinerary::with('person','employe.person','report_medico')->where('id',$id)->first();
+        $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
+        ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
+        ->where('id', $itinerary->reservation_id )->first();
+        $fecha = Carbon::now()->format('Y/m/d');
+  
+        $pdf = PDF::loadview('dashboard.checkout.print_informe', compact('itinerary', 'especialidad', 'fecha'));
         return $pdf->stream('informe.pdf');
     }
     
-    //============================ cambiar a estado fuera ============================
+    //============================ cambiar a estado fuera ============================ (listo)
     public function statusOut($itinerary_id)
     {
         $itinerary =  Itinerary::where('id', $itinerary_id)->first();
