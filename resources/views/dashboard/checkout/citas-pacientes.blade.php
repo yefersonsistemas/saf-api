@@ -105,14 +105,14 @@
                             <div class="card " style="border-radius:3px; border:2px solid #000">
                         @endif
 
-                            <div class="row card-header pl-5 pr-5 heig" id="headingOne" >
+                            <div class="row card-header pl-5 pr-5 heig" id="headingOne">
 
                                 <div class="col-lg-8 col-md-8">
                                     <div class="row">
                                         <!--Imagen del paciente-->
-                                        <div class="col-3">
+                                        <div class="col-3" style="max-height: 100px; ">
                                             @if (!empty($itinerary->person->image->path))
-                                            <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt="">
+                                            <img class="rounded circle" width="100%" height="100%"  src="{{ Storage::url($itinerary->person->image->path) }}" alt="">
                                             @else
                                             <img src="" alt="">
                                             @endif
