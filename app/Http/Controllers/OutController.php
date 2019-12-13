@@ -44,6 +44,7 @@ class OutController extends Controller
     {
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
+        // dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -372,16 +373,16 @@ class OutController extends Controller
 
     //============================ imprimir reposo ============================
     public function imprimir_reposo($id){
-        // dd($id);
-        
-        // $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
-        // dd(value);
+       
         $itinerary = Itinerary::with('person','employe.person','repose')->where('id',$id)->first();
-        // dd($itinerary);
+        $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
+        ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
+        ->where('id', $itinerary->reservation_id )->first();
+        // dd($especialidad->speciality->name);
         $reposo = Repose::where('id', $itinerary->repose_id)->first();
-        // dd($reposo);
+      
         $fecha = Carbon::now()->format('Y/m/d');
-        $pdf = PDF::loadview('dashboard.checkout.print_reposo', compact('itinerary','reposo', 'fecha'));
+        $pdf = PDF::loadview('dashboard.checkout.print_reposo', compact('itinerary','reposo', 'fecha', 'especialidad'));
         return $pdf->stream('reposo.pdf');
     }
 

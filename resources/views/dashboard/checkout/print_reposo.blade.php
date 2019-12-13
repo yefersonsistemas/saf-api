@@ -176,7 +176,7 @@ margin-top: -15px;
                 </div>
                 <div class="doctor">
                     <p>Dr.{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</p><br>
-                    {{-- <p>{{ $itinerary->employe-> }}</p> --}}
+                    <p>{{ $especialidad->speciality->name }}</p>
                 </div>
             </div>
     </main>
