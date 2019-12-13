@@ -166,9 +166,9 @@ ul[role="tablist"] {
 
 .assigment .imagecheck-image:last-child {
     width: 150px !important;
-    height: 150px!important;
+    height: auto!important;
     max-width: 150px !important;
-    max-height: 150px !important;
+    /* max-height: 150px !important; */
 }
 
 .imagecheck-image:last-child {
