@@ -13,6 +13,6 @@ class ItineraryTableSeeder extends Seeder
     public function run()
     {
         Itinerary::truncate();
-        factory(Itinerary::class, 5)->create();
+       // factory(Itinerary::class, 5)->create();
     }
 }
