@@ -127,58 +127,7 @@
                                             @endif
 
                                         </div>
-                                    <td>  
-                                        {{-- <!--Si no a llegado a las instalaciones-->
-                                        @if($reservation->patient->inputoutput->isEmpty())
-                                            <div>
-                                                <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
-                                            </div>
-                                        @endif
-
-                                        <!--Si esta dentro de las instalaciones-->
-                                        @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
-                                            <div>
-                                                <button disabled href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success">E</button>
-                                            </div>
-                                        @endif
-
-                                        <!--Si ya se fue de las instalaciones-->
-                                        @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside))
-                                            <div>
-                                                <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero" disabled>E</button>
-                                            </div>
-                                        @endif    --}}
                                     </td>
-
-                                    {{-- <td>  
-                                        <!--Si no ha llegado a las instalaciones-->
-                                        @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
-                                            <div>
-                                                <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</button>
-                                            </div>
-                                        @endif
-
-                                        <!--Si esta en espera-->
-                                        @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
-                                            <div>
-                                                <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero">E</a>
-                                            </div>
-                                        @endif
-
-                                        <!--Si esta dentro del consultorio-->
-                                        @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->outside_office))
-                                            <div>
-                                                <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-success primero">E</button>
-                                            </div>
-                                            @endif
-
-                                            <!--Si salio del consultorio-->
-                                            @if(!empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office))
-                                            <div>
-                                                <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero">E</button>
-                                            </div>
-                                        @endif
-                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
