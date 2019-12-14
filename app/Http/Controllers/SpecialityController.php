@@ -55,15 +55,17 @@ class SpecialityController extends Controller
             'service_id'      => $request->service_id,
             'branch_id'       => 1
         ]);
+        $image = $request->file('image');
+        $path = $image->store('public/speciality');  //se guarda en la carpeta public
+        $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en especialidad
+        $image = new Image;
+        $image->path = $path;
+        $image->imageable_type = "App\Speciality";
+        $image->imageable_id = $speciality->id;
+        $image->branch_id = 1;
+        $image->save();
 
-        $image= Image::create([
-            'path'   => $request->image,
-            'imageable_type' => 'App\Speciality',
-            'imageable_id' => $speciality->id,
-            'branch_id' => 1
-        ]);
-
-        return redirect()->back();
+        return redirect()->back()->withSuccess('Registro agregado correctamente');
 
         // $doctor->speciality()->attach($speciality->id);
         

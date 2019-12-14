@@ -4,12 +4,12 @@
 
 @endsection
 
-@section('title','Registro de Cargos')
+@section('title','Registro de Alergias en los Pacientes')
 
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{ route('position.store') }}" method='POST' class="row d-flex justify-content-center">
+        <form action="{{ route('allergy.store') }}" method='POST' class="row d-flex justify-content-center">
             @csrf
 
             <div class="card p-4 col-lg-12 col-md-12 col-sm-12">

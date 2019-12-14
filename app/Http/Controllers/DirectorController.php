@@ -83,12 +83,15 @@ class DirectorController extends Controller
             }
         }
           
-        $image= Image::create([
-            'path'   => $request->image,
-            'imageable_type' => 'App\Employe',
-            'imageable_id' => $employe->id,
-            'branch_id' => 1
-        ]);
+        $image = $request->file('image');
+        $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
+        $path = str_replace('public/', '', $path);
+        $image = new Image;
+        $image->path = $path;
+        $image->imageable_type = "App\Employe";
+        $image->imageable_id = $employe->id;
+        $image->branch_id = 1;
+        $image->save();
 
 
         return redirect()->route('employe.index');

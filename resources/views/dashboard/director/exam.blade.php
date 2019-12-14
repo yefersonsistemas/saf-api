@@ -9,7 +9,7 @@
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{ route('position.store') }}" method='POST' class="row d-flex justify-content-center">
+        <form action="{{ route('exam.store') }}" method='POST' class="row d-flex justify-content-center">
             @csrf
 
             <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
