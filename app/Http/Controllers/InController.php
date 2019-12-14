@@ -31,10 +31,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class InController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     /**
+     * Muestra todas las listas
+     * de pacientes
+     * 
      */
     public function index()
     {
@@ -50,7 +50,6 @@ class InController extends Controller
 
         // dd($reservations);
        
-        // dd($reservations->first()->patient->inputoutput->first());
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
@@ -75,9 +74,9 @@ class InController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra las areas y medicos 
+     * disponibles en la vista 
+     * de asignar consultorio 
      */
     public function create()
     {
@@ -105,7 +104,12 @@ class InController extends Controller
         return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
-    public function search_history(Request $request, $id){  //busca historia para la lista de in
+      /**
+     * 
+     * busca la historia desde la lista de check-in
+     * 
+     */
+    public function search_history(Request $request, $id){ 
         $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                          ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
 
@@ -118,7 +122,15 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
-    public function guardar(Request $request, $id)  //guarda registros de nuevos y editados en la historia del paciente
+     /**
+     * 
+     * guarda registros nuevos y editados 
+     * en la historia del paciente
+     * 
+     */
+
+
+    public function guardar(Request $request, $id)  
     {
         $person = Person::where('dni', $request->dni)->first();
 
@@ -423,17 +435,16 @@ class InController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         //
     }
-
+/**
+     * busca el area para la
+     * asignacion del consultorio
+     * 
+     */
     public static function search_area(Request $request)
     {
         // dd($request);
@@ -452,7 +463,11 @@ class InController extends Controller
         }
     }
 
-
+ /**
+     * busca el medico que sera asignado 
+     * a un consultorio
+     * 
+     */
     public static function search_medico(Request $request)
     {
         // dd($request);
@@ -471,6 +486,14 @@ class InController extends Controller
         }
     }
 
+
+        
+    /**
+     * 
+     * busca el horario que se muestra
+     * en lalista de medico
+     * 
+     */
     public static function horario(Request $request){
         // dd($request);
 
@@ -487,6 +510,13 @@ class InController extends Controller
         }
     }
 
+    /**
+     *  
+     * guarda el consultorio
+     * asignado al medico
+     * 
+     */
+  
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
