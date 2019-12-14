@@ -377,7 +377,7 @@ class OutController extends Controller
 
     //============================ imprimir reposo ============================ (listo)
     public function imprimir_reposo($id){
-       
+
         $itinerary = Itinerary::with('person','employe.person','repose')->where('id',$id)->first();
         $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
         ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
@@ -393,11 +393,12 @@ class OutController extends Controller
     public function imprimir_informe($id){
 
         $itinerary = Itinerary::with('person','employe.person','report_medico')->where('id',$id)->first();
+        // dd($itinerary);
         $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
         ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
         ->where('id', $itinerary->reservation_id )->first();
         $fecha = Carbon::now()->format('Y/m/d');
-  
+
         $pdf = PDF::loadview('dashboard.checkout.print_informe', compact('itinerary', 'especialidad', 'fecha'));
         return $pdf->stream('informe.pdf');
     }

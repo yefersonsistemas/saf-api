@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Reposo Medico</title>
+    <title>Informe Medico</title>
     <style>
     .clearfix:after {
     content: "";
@@ -160,10 +160,11 @@ margin-top: -15px;
                 <div class="contenido">
                     <p>
                         El Paciente <span>{{ $itinerary->person->name }} {{ $itinerary->person->lastname }}</span>, Portador del documento de identidad: 
-                        <span>{{ $itinerary->person->type_dni }} {{ $itinerary->person->dni }}</span>, manifiesta que presenta: <span>indique los síntomas presentados</span>. 
+                        <span>{{ $itinerary->person->type_dni }} {{ $itinerary->person->dni }}</span>,el cual acudio para ser tratado de sintomas de una 
+                        o más padencias que le aqueja, en el examen fisico y/o de laboratorio se observo lo siguiente:  
                     </p><br>
                     <p class="conte">
-                    {{ $itinerary->repose->description }}
+                    {{ strip_tags($itinerary->repose->description) }}
                     </p>
                 </div>
                 <div class="fecha">
@@ -176,12 +177,12 @@ margin-top: -15px;
                 </div>
                 <div class="doctor">
                     <p>Dr.{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</p><br>
-                    <p>{{ $especialidad->speciality->name }}</p>
+                    <p>Especialista en {{ $especialidad->speciality->name }}</p>
                 </div>
             </div>
     </main>
     <footer>
-        Dr. Nombre del Doctor, Especialidad Médica, CI: XXXX, M.S.A.S: YYYY, Email: xyz@xyz.com
+        Dr.{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }} - Especialista en {{ $especialidad->speciality->name }} - Email: {{ $itinerary->employe->person->email }}
     </footer>   
     </body>
 </html>
