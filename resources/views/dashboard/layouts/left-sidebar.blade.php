@@ -79,11 +79,13 @@
                     <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
                     {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                 @endrole
-                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}                     
+                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}       
+                                  
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
-                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Pacientes del dia</span></a></li>                        
-                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugias</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Pacientes del día</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
+                    {{-- <li class=""><a href="{{ route('checkout.index_procedimientos') }}"><i class="fa fa-hospital-o"></i><span>Procedimientos</span></a></li>                         --}}
                 
                     <li><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
                     <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
