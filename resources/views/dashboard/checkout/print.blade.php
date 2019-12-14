@@ -306,7 +306,7 @@ table tfoot tr td:first-child {
                 {{ $todos->patient->name }} {{ $todos->patient->lastname }}</span> <br>
                 por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}.
                 </td>
-                <td class="total" style=" padding-right:10px; text-align:right;">{{ $todos->employe->doctor->price }}</td>
+                <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($todos->employe->doctor->price,2) }}</td>
             </tr>
 
           @if($todos->procedure->first() != null)
@@ -316,7 +316,7 @@ table tfoot tr td:first-child {
                       <span colspan="1"></span>Procedimiento {{ $item->name }}
                   </td>
               
-                  <td class="total" style=" padding-right:10px; text-align:right;">{{ $item->price }}</td>
+                  <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($item->price,2) }}</td>
               </tr>
               @endforeach
               @endif
@@ -326,7 +326,7 @@ table tfoot tr td:first-child {
                 <td class="desc" style="text-align:left;padding-left:10px">
                     Cirugía {{ $cirugia->surgery->typesurgeries->name }}
                   </td>
-                  <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">{{ $cirugia->surgery->typesurgeries->cost }}</td>    
+                  <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">{{ number_format($cirugia->surgery->typesurgeries->cost,2) }}</td>    
               </tr>
               @endif
             
@@ -334,11 +334,11 @@ table tfoot tr td:first-child {
         <tfoot>
         <tr>
           <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
-          <td style="text-align:right; padding-right:10px">{{ $total_cancelar }}</td>
+          <td style="text-align:right; padding-right:10px">{{ number_format($total_cancelar,2) }}</td>
         </tr>        <tr>
             
             <td colspan="1" style="padding-top:-5px;  font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
-            <td style="text-align:right;padding-top:-5px; padding-right:10px">{{ $total_cancelar }}</td>
+            <td style="text-align:right;padding-top:-5px; padding-right:10px">{{ number_format($total_cancelar,2) }}</td>
         </tr>
       </tfoot>
     </table>

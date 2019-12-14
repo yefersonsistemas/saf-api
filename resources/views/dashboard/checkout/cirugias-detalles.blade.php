@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-md-12  col-lg-9 col-sm-12 text-justify">
                                 <p class="card-title m-0"><strong>Descripción: </strong>{{ $cirugias->typeSurgeries->description }}</p><br>
-                                <p class="card-title m-0"><strong>Costo: </strong> {{ $cirugias->typeSurgeries->cost }} $</p>
+                                <p class="card-title m-0"><strong>Costo: </strong> {{ number_format($cirugias->typeSurgeries->cost,2) }} $</p>
                             </div>
                         </div>
                     </div>
