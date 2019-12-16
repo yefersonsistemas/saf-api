@@ -9,11 +9,10 @@
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
-<style type="text/css"> button[data-original-title="Code View"]{ display: none; }</style>
-<style type="text/css"> button[data-original-title="Video"]{ display: none; }</style>
-<style type="text/css"> button[data-original-title="Picture"]{ display: none; }</style>
-<style type="text/css"> button[data-original-title="Link (CTRL+K)"]{ display: none; }</style>
-<style type="text/css"> button[data-original-title="Help"]{ display: none; }</style>
+<style type="text/css"> button[data-original-title="Code View"], button[data-original-title="Video"], 
+button[data-original-title="Picture"], button[data-original-title="Link (CTRL+K)"],
+button[data-original-title="Help"]{ display: none; }
+</style>
 @endsection
 
 @section('title','Doctor')
