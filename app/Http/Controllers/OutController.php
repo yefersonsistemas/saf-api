@@ -281,9 +281,11 @@ class OutController extends Controller
         ]);
     }
 
+
     //============================ imprimir factura ============================ (listo)
     public function imprimir_factura(Request $request)
     {
+     
         if($request->person_id != null){
             if($request->factura != null){
                 
@@ -292,6 +294,7 @@ class OutController extends Controller
                 $billing->type_payment_id = $request->tipo_pago;
                 $billing->type_currency = $request->tipo_moneda;
                 $billing->save();
+
                 $fecha = Carbon::now()->format('Y-m-d');
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
