@@ -230,7 +230,7 @@
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote" id="summernote"></textarea>
+                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -270,7 +270,7 @@
 
                                         <h2>Examen Fisico</h2>
                                         <section class="ml-4">
-                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
+                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Estudios complementarios</h2>
@@ -292,7 +292,7 @@
 
                                         <h2>Diagnostico</h2>
                                         <section class="ml-4">
-                                            <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
+                                            <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Plan</h2>
@@ -535,20 +535,6 @@
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
-
-{{-- <script>
-$('.summernote').summernote({
-toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']]
-]
-});
-</script> --}}
 
 <script>
     $('#multiselect4-filter').multiselect({
