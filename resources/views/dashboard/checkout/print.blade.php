@@ -259,7 +259,7 @@ table tfoot tr td:first-child {
 
       <div id="invoice">
         <h1>Factura N°</h1>
-        <h2 class="nfactura">00000001</h2>
+        <h2 class="nfactura">{{ $num_factura }}</h2>
       </div>
     </header>
 

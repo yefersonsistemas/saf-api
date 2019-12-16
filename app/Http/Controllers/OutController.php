@@ -311,7 +311,9 @@ class OutController extends Controller
                     $total_cancelar = $todos->employe->doctor->price + $total;
                 }
 
-                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha'));
+                $num_factura = str_pad($billing->id, 5, '0', STR_PAD_LEFT);
+
+                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha', 'num_factura'));
                 
                 return $pdf->stream('factura.pdf');
             }else{
@@ -375,7 +377,6 @@ class OutController extends Controller
         ->where('id', $itinerary->reservation_id )->first();      
         $fecha = Carbon::now()->format('Y/m/d');
 
-
         $pdf = PDF::loadview('dashboard.checkout.print_constancia', compact('itinerary','especialidad',fecha ));
         return $pdf->stream('constancia.pdf');
     }
@@ -386,7 +387,8 @@ class OutController extends Controller
         $itinerary = Itinerary::with('person','employe.person','repose')->where('id',$id)->first();
         $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
         ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
-        ->where('id', $itinerary->reservation_id )->first();      
+        ->where('id', $itinerary->reservation_id )->first();
+        
         $fecha = Carbon::now()->format('Y/m/d');
 
         $pdf = PDF::loadview('dashboard.checkout.print_reposo', compact('itinerary', 'fecha', 'especialidad'));
@@ -403,7 +405,7 @@ class OutController extends Controller
         ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
         ->where('id', $itinerary->reservation_id )->first();
         $fecha = Carbon::now()->format('Y/m/d');
-
+        
         $pdf = PDF::loadview('dashboard.checkout.print_informe', compact('itinerary', 'especialidad', 'fecha'));
         return $pdf->stream('informe.pdf');
     }
