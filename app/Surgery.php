@@ -45,11 +45,11 @@ class Surgery extends Model
                     ->withPivot('patient_id','id');
     }
 
-    public function procedure() //relacion  con la tabla m:m 
-    {
-        return $this->belongsToMany('App\Procedure','procedure_surgery')
-       ->withPivot('procedure_id','id');
-    }
+    // public function procedure() //relacion  con la tabla m:m 
+    // {
+    //     return $this->belongsToMany('App\Procedure','procedure_surgery')
+    //    ->withPivot('procedure_id','id');
+    // }
 
     public function hospitalization()
     {

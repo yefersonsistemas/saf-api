@@ -32,5 +32,11 @@ class Typesurgery extends Model //tipos de cirugias
         return $this->belongsTo('App\Branch');
     }
 
+    public function procedure() //relacion  con la tabla m:m 
+    {
+        return $this->belongsToMany('App\Procedure','procedure_surgery')
+       ->withPivot('procedure_id','id');
+    }
+
     
 }

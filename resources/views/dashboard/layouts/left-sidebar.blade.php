@@ -85,7 +85,7 @@
                     {{-- <li class=""><a href="{{ route('checkout.index_procedimientos') }}"><i class="fa fa-hospital-o"></i><span>Procedimientos</span></a></li>                         --}}
                 
                     <li><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
-                    <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
+                    {{-- <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li> --}}
                 @endrole
 
 
