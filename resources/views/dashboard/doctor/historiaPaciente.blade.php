@@ -226,7 +226,7 @@
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
+                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote" id="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -266,7 +266,7 @@
 
                                         <h2>Examen Fisico</h2>
                                         <section class="ml-4">
-                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
                                         </section>
 
                                         <h2>Estudios complementarios</h2>
@@ -288,7 +288,7 @@
 
                                         <h2>Diagnostico</h2>
                                         <section class="ml-4">
-                                            <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
                                         </section>
 
                                         <h2>Plan</h2>
@@ -533,21 +533,16 @@
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
 {{-- <script>
-$('#summernote').summernote({
-    toolbar: [
-        ['style', ['style']],
-    // ['font', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-    ['fontname', ['fontname']],
+$('.summernote').summernote({
+toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['font', ['strikethrough', 'superscript', 'subscript']],
     ['fontsize', ['fontsize']],
     ['color', ['color']],
     ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']],
-    ['table', ['table']],
-    ['insert', ['link', 'picture', 'hr']],
-    ['view', ['fullscreen'/*, 'codeview' */]],   // remove codeview button
-    ['help', ['help']]
-    ],
+    ['height', ['height']]
+]
 });
 </script> --}}
 
@@ -653,7 +648,7 @@ $('#summernote').summernote({
 
 
     //======================Referencia medica=========================
-      
+
     $('input[name="tipoMedico"]').on('click',function(){
 
         if ($('#interno').is(':checked')) {
@@ -728,7 +723,6 @@ $('#summernote').summernote({
         ajax(speciality, reason, doctor, doctorExterno, patient);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
-       
     });
 
     function ajax(speciality, reason, doctor, doctorExterno, patient) {
