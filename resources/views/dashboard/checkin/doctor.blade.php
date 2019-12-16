@@ -58,13 +58,10 @@
                                             <td class="d-flex justify-content-center">     <!--Especialidad-->
                                                 <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-eye"></i></a>
                                             </td>
-                                            {{-- @foreach ($employe->speciality as $item)
-                                                {{ $item->name }} <br>
-                                            @endforeach --}}
                                             <!--Ver horario del medico-->
                                             <td class=" justify-content-center text-center">
                                                 <input type="hidden" id="id" value="{{ $employe->person->id }}">
-                                                <a href="" class="btn btn-info"  style="color:#fff; font-weight:bold;" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fe fe-eye"></i></a>
+                                                <a href="" class="btn btn-info"  style="color:#fff; font-weight:bold;" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fa fa-eye"></i></a>
                                             </td>
                                             <!--Asistencia del medico-->
                                             <td class=" justify-content-center text-center">
@@ -134,61 +131,61 @@
             </div>
         @endforeach
 
-    <!-- Modal para ver horario-->
-    @foreach ($em as $employe) 
-        <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="text-align:center">
-                    <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-bordered table-sm" style="borde-radious: 5px">
-                            <thead class="table-info">
-                                <tr>
-                                    <th scope="col" style="text-align:center; color:black">Dias</th>
-                                    <th scope="col" style="text-align:center; color:black">Turno</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employe->schedule as $item)
+        <!-- Modal para ver horario-->
+        @foreach ($em as $employe) 
+            <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center">
+                        <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-sm" style="borde-radious: 5px">
+                                <thead class="table-info">
                                     <tr>
-                                        @if ($item->day == 'monday')
-                                        <td style="text-align:center">Lunes</td>
-                                        @endif
-                                        @if ($item->day == 'tuesday')
-                                        <td style="text-align:center">Martes</td>
-                                        @endif
-                                        @if ($item->day == 'wednesday')
-                                        <td style="text-align:center">Miercoles</td>
-                                        @endif
-                                        @if ($item->day == 'thursday')
-                                        <td style="text-align:center">Jueves</td>
-                                        @endif
-                                        @if ($item->day == 'friday')
-                                        <td style="text-align:center">Viernes</td>
-                                        @endif
-                                        @if ($item->turn ==  'mañana')
-                                        <td style="text-align:center">Mañana</td>
-                                        @endif
-                                        @if ($item->turn ==  'tarde')
-                                        <td style="text-align:center">Tarde</td>
-                                        @endif
+                                        <th scope="col" style="text-align:center; color:black">Dias</th>
+                                        <th scope="col" style="text-align:center; color:black">Turno</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>    
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </thead>
+                                <tbody>
+                                    @foreach ($employe->schedule as $item)
+                                        <tr>
+                                            @if ($item->day == 'monday')
+                                            <td style="text-align:center">Lunes</td>
+                                            @endif
+                                            @if ($item->day == 'tuesday')
+                                            <td style="text-align:center">Martes</td>
+                                            @endif
+                                            @if ($item->day == 'wednesday')
+                                            <td style="text-align:center">Miercoles</td>
+                                            @endif
+                                            @if ($item->day == 'thursday')
+                                            <td style="text-align:center">Jueves</td>
+                                            @endif
+                                            @if ($item->day == 'friday')
+                                            <td style="text-align:center">Viernes</td>
+                                            @endif
+                                            @if ($item->turn ==  'mañana')
+                                            <td style="text-align:center">Mañana</td>
+                                            @endif
+                                            @if ($item->turn ==  'tarde')
+                                            <td style="text-align:center">Tarde</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
 
     <!--Modal de asistencia-->
         
