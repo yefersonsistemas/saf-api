@@ -23,7 +23,7 @@
                                             <th>Cédula</th>
                                             <th>Nombre</th>
                                             <th>Apellido</th>
-                                            <th>Especialidad</th>
+                                            <th class="text-center">Especialidad</th>
                                             <th class="text-center">Horario</th>
                                             <th class="text-center">Asistencia</th>
                                             <th class="text-center">Consultorio</th>
@@ -55,14 +55,14 @@
                                             <td>{{ $employe->person->name }}</td>
                                             <td>{{ $employe->person->lastname }}</td>
                                             
-                                            <td class="justify-content-center">     <!--Especialidad-->
+                                            <td class="d-flex justify-content-center">     <!--Especialidad-->
                                                 <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-eye"></i></a>
                                             </td>
                                             {{-- @foreach ($employe->speciality as $item)
                                                 {{ $item->name }} <br>
                                             @endforeach --}}
                                             <!--Ver horario del medico-->
-                                            <td class="d-flex justify-content-center">
+                                            <td class=" justify-content-center text-center">
                                                 <input type="hidden" id="id" value="{{ $employe->person->id }}">
                                                 <a href="" class="btn btn-info"  style="color:#fff; font-weight:bold;" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fe fe-eye"></i></a>
                                             </td>
@@ -116,7 +116,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="text-align:center">
-                            <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Especialidad</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
