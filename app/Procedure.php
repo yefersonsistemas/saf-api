@@ -9,7 +9,7 @@ class Procedure extends Model
     protected $table = 'procedures';
 
     protected $fillable = [
-        'name', 'description', 'price', 'branch_id'
+        'name', 'description', 'price', 'speciality_id', 'branch_id'
     ];
 
     public function person()
@@ -55,9 +55,9 @@ class Procedure extends Model
                     ->withPivot('patient_id','id');
     }
 
-    public function surgery() 
+    public function typesurgeries()
     {
-        return $this->belongsToMany('App\Surgery','procedure_surgery')
-       ->withPivot('surgery_id','id');
+        return $this->belongsToMany('App\Typesurgery','procedure_surgery')
+       ->withPivot('type_surgery_id','id');
     }
 }

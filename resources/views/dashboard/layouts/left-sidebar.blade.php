@@ -6,7 +6,7 @@
 </style>
 
 <div id="left-sidebar" class="sidebar">
-    <div class="container">
+    <div class="container mt--20">
         <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[0]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
@@ -34,8 +34,6 @@
                         </div>
                     </div>
                 @endrole
-
-
 
 
                 @role('IN')
@@ -73,22 +71,54 @@
                         </div>
                     </div>
                 @endrole
-                             
                 @role('doctor')
                     <li class="g_heading">Doctor</li>
                     <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
                     {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                 @endrole
-                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}
-                     
+                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}       
+                                  
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
-                    <li class=""><a href="{{ route('checkout.index') }}"><i class="icon-home"></i><span>Pacientes del dia</span></a></li>                        
-                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="icon-home"></i><span>Cirugias</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Pacientes del día</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
+                    {{-- <li class=""><a href="{{ route('checkout.index_procedimientos') }}"><i class="fa fa-hospital-o"></i><span>Procedimientos</span></a></li>                         --}}
                 
-                    <li><a href="{{ route('checkout.facturacion') }}"><i class="icon-calendar"></i><span>Facturación</span></a></li><br><br>
-                    <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
+                    <li><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
+                    {{-- <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li> --}}
                 @endrole
+
+
+
+
+                @role('director')
+                    <li class="g_heading">Director</li> 
+                    <li><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>Lista de Empleados</a></li>
+                    <li><a href=""><i class="fa fa-eye"></i>Lista de Registros</a></li>
+                    
+                    <li class="@yield('cites')">
+                        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-plus-circle"></i><span>Registrar</span></a>
+                        <ul>
+                            <li><a href="{{ route('position.create') }}"><i class="fa fa-black-tie"></i>Cargo</a></li>
+                            <li><a href="{{ route('service.create') }}"><i class="fa fa-ambulance"></i>Servicio</a></li>
+                            <li><a href="{{ route('speciality.create') }}"><i class="fa fa-flask"></i>Especialidad</a></li>
+                            <li><a href="{{ route('employe.create') }}"><i class="fa fa-user-plus"></i>Empleado</a></li>
+                            <li><a href="{{ route('doctor.create') }}"><i class="fa fa-user-md"></i>Doctor</a></li>
+                            <li><a href="{{ route('procedure.create') }}"><i class="fa fa-hotel"></i>Procedimiento</a></li>
+                            <li><a href="{{ route('surgery.create') }}"><i class="fa fa-medkit"></i>Cirugias</a></li>
+                            <li><a href="{{ route('allergy.create') }}"><i class=""></i>Alergias</a></li>
+                            <li><a href="{{ route('disease.create') }}"><i class="fa fa-heartbeat"></i>Enfermedades</a></li>
+                            <li><a href="{{ route('medicine.create') }}"><i class="fa fa-eyedropper"></i>Medicina</a></li>
+                            <li><a href="{{ route('exam.create') }}"><i class="fa fa-file-text"></i>Exámenes</a></li>
+                            <li><a href="{{ route('type-area.create') }}"><i class="fe fe-home"></i>Tipo de Area</a></li>
+                            <li><a href="{{ route('consultorio.create') }}"><i class="icon-home"></i>Area</a></li>
+                        </ul>
+                        
+                    </li>
+                @endrole
+                  
+    
+                
             </ul>
         </nav>
     </div>

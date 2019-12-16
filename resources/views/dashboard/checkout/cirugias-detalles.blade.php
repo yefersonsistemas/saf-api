@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-md-12  col-lg-9 col-sm-12 text-justify">
                                 <p class="card-title m-0"><strong>Descripción: </strong>{{ $cirugias->typeSurgeries->description }}</p><br>
-                                <p class="card-title m-0"><strong>Costo: </strong> {{ $cirugias->typeSurgeries->cost }} $</p>
+                                <p class="card-title m-0"><strong>Costo: </strong> {{ number_format($cirugias->typeSurgeries->cost,2) }} $</p>
                             </div>
                         </div>
                     </div>
@@ -41,9 +41,11 @@
                         <li class="nav-item">
                             <a class="nav-link btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#equipos" role="tab" aria-controls="equipos" aria-selected="false">Equipos quirugícos</a>
                         </li>
+                        @if($tipo_cirugia == 2)
                         <li class="nav-item">
                             <a class="nav-link btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#hospitalizacion" role="tab" aria-controls="hospitalizacion" aria-selected="false">Hospitalización</a>
                         </li>
+                        @endif
                     </ul>
 
                     <!--Para mostrar procedimientos quwe incluye la cirugia-->
@@ -123,6 +125,7 @@
                         </div>
 
                         <!--Lo que incluye la hospitalizacion-->
+                        @if($tipo_cirugia == 2)
                         <div class=" row tab-pane fade show" id="hospitalizacion" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <div class="mt-2">
                                 <div class="row mt-4">                                        
@@ -136,6 +139,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

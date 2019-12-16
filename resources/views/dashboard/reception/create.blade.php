@@ -105,21 +105,21 @@
                                         </div>
                                     </label>
                                 </div> --}}
-                                <div class="col-lg-2 mx-lg-3 col-md-4 col-xs-6 col-6 mx-sm-0">
+                                <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
                                     <div class="card assigment">
                                             <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
                                             @if (!empty($speciality->image->path))
-                                            <figure class="imagecheck-figure border-0">
-                                                <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                            <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px; ">
+                                                <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @else
                                             <figure class="imagecheck-figure border-0">
                                                 <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @endif
-                                            <div class="card-body text-center">
-                                                <h6 class="font-weight-bold">{{ $speciality->name }}</h6>
+                                            <div class="card-body text-center pt-4" style="height:70px; width:170px">
+                                                <h6 class="font-weight-bold" style="font-size:15px">{{ $speciality->name }}</h6>
                                             </div>
                                         </div>
                                     </label>
@@ -213,7 +213,7 @@
             type: 'success',
             allowOutsideClick:false,
             confirmButtonColor: '#3085d6',
-            confirmButtonText: '<a href="{{ route('checkin.index') }}" style="color:#fff">OK</a>'
+            confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
             }).then((result) => {
             if (result.value) {
             }
@@ -340,19 +340,20 @@
         $('#medicos').empty();
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
-                $('#medicos').append(`<div class="col-lg-2 mx-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
+                $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                         <div class="card assigment">
                                                 <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
-                                                <figure class="imagecheck-figure border-0 text-center">
-                                                    <img src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
+                                                <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
+                                                    <img width="100%" height="100%" src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                 </figure>
-                                                <div class="card-body text-center bg-grisinus">
-                                                    <h6 class="font-weight-bold">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</h6>
+                                                <div class="card-body text-center bg-grisinus pt-4" style="height:70px; width:170px">
+                                                    <h6 class="font-weight-bold" style="font-size:15px">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</h6>
                                                 </div>
                                             </div>
-                                        </label>
-                                    </div>`);
+                                        </div>
+                                    </label>
+                                </div>`);
             }
         }
     }

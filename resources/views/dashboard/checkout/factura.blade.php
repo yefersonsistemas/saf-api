@@ -153,7 +153,7 @@
                                                     @if($itinerary->employe->doctor != null)
                                                         <tbody style="border-bottom: 1px solid #000">
                                                             <td colspan="5" class="text-left pl-4">Consulta Médica</td>
-                                                            <td class="text-right" style="width: 1%">{{ $itinerary->employe->doctor->price }}</td>
+                                                            <td class="text-right" style="width: 1%">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
                                                         </tbody>
                                                     @endif
                                                     @if($procedure != 0)
@@ -164,7 +164,7 @@
                                                                 <div class="text-muted">Procedimiento {{ $item->name }}</div>
                                                             </td>
                                                         
-                                                            <td class="text-right" style="width: 1%">{{ $item->price }}</td>
+                                                            <td class="text-right" style="width: 1%">{{ number_format($item->price,2) }}</td>
                                                         </tr>
                                                         @endforeach
                                                     </tbody> 
@@ -175,17 +175,17 @@
                                                             <td colspan="5" class="text-left pl-4">
                                                                 <div class="text-muted">Cirugía {{ $itinerary->surgery->typesurgeries->name }}</div>
                                                             </td>
-                                                            <td class="text-right" style="width: 1%">{{ $itinerary->surgery->typesurgeries->cost }}</td>
+                                                            <td class="text-right" style="width: 1%">{{ number_format($itinerary->surgery->typesurgeries->cost, 2) }}</td>
                                                         </tr>
                                                     </tbody> 
                                                     @endif
                                                     <tr>
                                                         <td colspan="5" class="font600 text-right">Subtotal</td>
-                                                        <td class="text-right" id="subtotal">{{ $total }}</td> 
+                                                        <td class="text-right" id="subtotal">{{ number_format($total,2) }}</td> 
                                                     </tr>
                                                     <tr class="bg-boo text-light">
                                                         <td colspan="5" class="font700 text-right ">Total a cancelar</td>
-                                                        <td class="font700 text-right" id="costo_total">{{ $total }}</td>
+                                                        <td class="font700 text-right" id="costo_total">{{ number_format($total,2) }}</td>
                                                     </tr>
                                                 </table>
                                             </div><br>
@@ -279,6 +279,10 @@
         </script>
         <script>
     $(document).ready(function(){
+        function financial(x) {
+            return Number.parseFloat(x).toFixed(2);
+        }
+
         // ==================== ejecuta cuando se clikea el boton de registrar otro =====================
         $("#registrar").click(function() {
             var tipo_dni = $("#tipo_dniC").val(); 

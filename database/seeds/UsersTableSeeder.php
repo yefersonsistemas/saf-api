@@ -17,6 +17,10 @@ use App\Treatment;
 use App\Medicine;
 use App\TypeDoctor;
 use App\Doctor;
+use App\Typesurgery;
+use App\Procedure;
+use App\ClassificationSurgery;
+
 
 
 class UsersTableSeeder extends Seeder
@@ -35,6 +39,9 @@ class UsersTableSeeder extends Seeder
         TypeDoctor::truncate();
         Doctor::truncate();
         Reservation::truncate();
+        Typesurgery::truncate();
+        Procedure::truncate();
+        ClassificationSurgery::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
         $this->deleteDirectory(storage_path('/app/public/patient'));
         //Procedure::truncate();
@@ -90,18 +97,64 @@ class UsersTableSeeder extends Seeder
             'price' => 50000
         ]);
 
+        $clasificacion = factory(App\ClassificationSurgery::class)->create([
+            'name' => 'hospitalaria',
+            'description' => 'con hospitalizacion'
+        ]);
+
+
+        //creando cirugia
+        $cirugia = factory(App\Typesurgery::class)->create([
+            'name' => 'Endoscópica SENOS PARANASALES',
+            'duration' => 3,
+            'cost' => 77258.00,
+            'description' => 'Es un procedimiento para abrir
+                            los pasajes de la nariz y los senos paranasales. Se realiza para tratar infecciones de los
+                            senos a largo plazo (crónicas).',
+            'classification_surgery_id' => $clasificacion->id
+        ]);
+
+        //creando especialidad
+        $especialidad = factory(App\Speciality::class)->create([
+            'name' => 'Otorrinolaringología',
+            'description' => 'Médico entrenado en el manejo y tratamiento,
+                            tanto médico como quirúrgico, de pacientes con enfermedades y alteraciones
+                            del oído, nariz, garganta y estructuras relacionadas de la cabeza y del cuello.',
+            'service_id' => 1
+        ]);
+
+        //relacion de especialidad con el medico
+        $especialidad->employe()->attach($employe->id);
+
+        //creando procedimiento
+        $procedimiento = factory(App\Procedure::class)->create([
+            'name' => 'Septoplastia endoscópica',
+            'description' => 'La septoplastía es uno de los procedimientos quirúrgicos 
+                                más frecuentes en otorrinolaringología, cuya principal
+                                indicación es la presencia de desviación septal nasal 
+                                significativa',
+            'price' => 2500,
+            'speciality_id' => $especialidad->id
+        ]);
+
+        //relacion de la cirugia con el procedimiento
+        $procedimiento->typesurgery()->attach($cirugia->id);
+        // $->Type_surgery()->attach($procedimiento->id);
+
+
+
         /**
          * Especialidades para el medico
          * y sus procedimientos
          */
-        $num = rand(1,3);
-        for ($i=0; $i < $num ; $i++) { 
-            $speciality = Speciality::inRandomOrder()->first();
-            $speciality->employe()->attach($employe->id);
-            foreach ($speciality->procedures as $procedure) {
-                $procedure->employe()->attach($employe->id);
-            }
-        }
+        // $num = rand(1,3);
+        // for ($i=0; $i < $num ; $i++) { 
+        //     $speciality = Speciality::inRandomOrder()->first();
+        //     $speciality->employe()->attach($employe->id);
+        //     foreach ($speciality->procedures as $procedure) {
+        //         $procedure->employe()->attach($employe->id);
+        //     }
+        // }
 
         /**
          * se crea el usuario
@@ -832,6 +885,43 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $person->id
             ])->assignRole('OUT');
         });
+
+        /* 
+         * Crea un usuario
+         * con el rol director
+         */
+
+        $person = Person::create([
+            'type_dni' => 'N',
+            'dni' => '10848123',
+            'name' => 'JUAN',
+            'lastname' => 'CORTEZ',
+            'address' => 'el vallecito',
+            'phone' => '0412 1501234',
+            'email' => 'administrador@sinusandface.com',
+            'branch_id' => '1',
+        ]);
+
+
+        $position = factory(App\Position::class)->create([
+            'name' => 'director',
+        ]);
+
+        $employe = factory(App\Employe::class)->create([
+            'person_id' => $person->id,
+            'position_id' => $position->id
+        ]);
+        $this->to('employes', $employe->id, 'App\Employe');
+
+        factory(User::class)->create([
+            'email' => 'administrador@sinusandface.com',
+            'person_id' => $person->id,
+
+        ])->givePermissionTo('registrar empleado')
+        ->givePermissionTo('ver empleados')
+        ->givePermissionTo('registrar doctor')
+        ->givePermissionTo('registrar especialidad')
+        ->assignRole('director');
 
         // $position = factory(App\Position::class)->create([
         //     'name' => 'logistica',

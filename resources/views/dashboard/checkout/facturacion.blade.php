@@ -282,11 +282,16 @@
         var total =0;
         var precio=0;
         var process =0;
+
+        function financial(x) {
+            return Number.parseFloat(x).toFixed(2);
+        }
             
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
             var dni = $("#dni").val();          //asignando el valor que se ingresa en el campo
             console.log(dni);                   //mostrando en consola
+            
             ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
 
@@ -342,7 +347,8 @@
             if(data.encontrado[0].doctor_id != null){
 
                 console.log('consulta', data.encontrado[0].employe.doctor);
-                costo_consulta= data.encontrado[0].employe.doctor.price; //costo de la consulta
+                costo_consulta= financial(data.encontrado[0].employe.doctor.price); //costo de la consulta
+                console.log(costo_consulta);
                 consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
                 $("#consulta").append(consulta_html);
 
@@ -352,7 +358,7 @@
             if(data.encontrado[0].surgery != null){
                 console.log('cirugia',data.encontrado[0].surgery)
                 nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
-                costo_cirugia= data.encontrado[0].surgery.typesurgeries.cost;
+                costo_cirugia= financial(data.encontrado[0].surgery.typesurgeries.cost);
 
   
                 // console.log('decimales', $data);
@@ -368,20 +374,22 @@
                 $("#procedure").append(procedure);
 
                 for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
-                    costo_procedimientos += Number(data.procedureS[i].price);     // suma el precio de cada procedimiento
+                    costo = financial(data.procedureS[i].price);
+                    costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
                   
+                   
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
-                    procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+data.procedureS[i].price+'</td></tr>';
+                    procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
                     $("#columna").append(procedure_select);
                 }
             }
 
-            cu = parseInt(costo_consulta);
-            ci = parseInt(costo_cirugia);
-            p = parseInt(costo_procedimientos);
+            cu = parseFloat(costo_consulta);
+            ci = parseFloat(costo_cirugia);
+            p = parseFloat(costo_procedimientos);
             
-            costo_total = cu + ci + p ;
+            costo_total = cu + ci + p;
             total = costo_total;
 
             $('#total').val(costo_total);
@@ -392,8 +400,8 @@
             $('#employe_id').val(id_employe);
             $('#procedure_id').val(procedures_id);
 
-            $('#costo_total').text(costo_total);
-            $('#subtotal').text(costo_total);
+            $('#costo_total').text(financial(costo_total));
+            $('#subtotal').text(financial(costo_total));
             $('#dnii').text(data.encontrado[0].person.dni); 
             $('#name').text(data.encontrado[0].person.name);
             $('#lastname').text(data.encontrado[0].person.lastname);

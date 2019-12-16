@@ -13,6 +13,7 @@ Use App\Visitor;
 use App\Billing;
 use App\Assistance;
 use App\AreaAssigment;
+use App\Image;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -155,7 +156,8 @@ class EmployesController extends Controller
      */
     public function create()
     {
-        //
+        $position = Position::all();
+        return view('dashboard.director.createE', compact('position'));
     }
 
     /**
@@ -166,6 +168,7 @@ class EmployesController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->validate([
             'name' => 'required',
             'type_dni'  => 'required',
@@ -194,9 +197,18 @@ class EmployesController extends Controller
             'branch_id' => 1
         ]);
 
-        return response()->json([
-            'message' => 'Empleado creado',
-        ]);
+        
+        $image = $request->file('image');
+        $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
+        $path = str_replace('public/', '', $path);
+        $image = new Image;
+        $image->path = $path;
+        $image->imageable_type = "App\Employe";
+        $image->imageable_id = $employe->id;
+        $image->branch_id = 1;
+        $image->save();
+
+        return redirect()->route('employe.index');
     }
 
     public function positions()
@@ -378,7 +390,6 @@ class EmployesController extends Controller
                     'doctor' => $doctor,
                 ]);   
             }
-
         }
     }
 }

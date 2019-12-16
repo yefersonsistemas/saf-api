@@ -66,18 +66,18 @@
             <!--lista de reservaciones confirmadas-->
             <div class="container mt--15">
 
-                <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end "  id="pills-tab" role="tablist">
                     
-                    <li class="nav-item">
+                    <li class="nav-item mb-1">
                         <a class="espera pt-0 pb-0 pr-4 pl-4" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="true"> <i class="icon-clock"></i>&nbsp; En espera</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-1">
                         <a class="dentro pt-0 pb-0 pr-4 pl-4" id="pills-profile-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del consultorio</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-1">
                         <a class="fuera pt-0 pb-0 pr-4 pl-4" id="pills-contact-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera del consultorio</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-1">
                         <a class="todos active pt-0 pb-0 pr-4 pl-4"  id="pills-home-tab" data-toggle="pill" href="#todos" role="tab" aria-controls="todos" aria-selected="true">Fuera de las instalaciones</a>
                     </li>
                 </ul><br>
@@ -105,14 +105,14 @@
                             <div class="card " style="border-radius:3px; border:2px solid #000">
                         @endif
 
-                            <div class="row card-header pl-5 pr-5 heig" id="headingOne" >
+                            <div class="row card-header pl-5 pr-5 heig" id="headingOne">
 
-                                <div class="col-8">
+                                <div class="col-lg-8 col-md-8">
                                     <div class="row">
                                         <!--Imagen del paciente-->
-                                        <div class="col-3">
+                                        <div class="col-3" style="max-height: 100px; ">
                                             @if (!empty($itinerary->person->image->path))
-                                            <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($itinerary->person->image->path) }}" alt="">
+                                            <img class="rounded circle" width="100%" height="100%"  src="{{ Storage::url($itinerary->person->image->path) }}" alt="">
                                             @else
                                             <img src="" alt="">
                                             @endif
@@ -127,41 +127,41 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end">
-                                    <div class="container text-center" id="ID_element_0">
+                                <div class=" col-lg-4 col-md-4 ">
+                                    <div class="d-flex justify-content-end container text-center mt-2 pt-1" id="ID_element_0">
                                         @if($itinerary->person->inputoutput->isEmpty())
-                                            <button class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                         @endif
 
                                         @if(!empty($itinerary->person->inputoutput->first()->inside) && empty($itinerary->person->inputoutput->first()->inside_office) && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
-                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_1 mr-1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                         @endif
 
                                         @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside)  && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
-                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                         @endif
 
                                         @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
-                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-success state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <a href="{{ route ('checkout.statusOut', $itinerary->id) }}" class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                            <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <a href="{{ route ('checkout.statusOut', $itinerary->id) }}" class="btn btn-danger state state_3 mr-1" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
                                         @endif
 
                                         @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && !empty($itinerary->person->inputoutput->first()->outside))
-                                            <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-success state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            <button class="btn btn-success state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state  mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            <button class="btn btn-success state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                         @endif
 
                                     </div>
@@ -259,10 +259,6 @@
                                                     <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                     <i class="fa fa-print"></i> Examen
                                                     </a>
-                                                @else
-                                                    <a href="{{ route('checkout.crear_examen', $itinerary->patient_id) }}" class="btn btn-gene abarca" type="button" >
-                                                        Generar Examen
-                                                    </a>
                                                 @endif
                                             </div>
 
@@ -272,25 +268,17 @@
                                                     <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Recetario
                                                     </a>
-                                                    @else
-                                                    <a href="{{ route('doctor.crearRecipe',[$itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-gene abarca" type="button">
-                                                        Generar Recetario
-                                                    </a>
                                                 @endif
                                             </div>
 
                                             <!--CONSTANCIA-->
-                                            <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
+                                            {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->constancy_id != null)
                                                     <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i>Constancia
                                                     </a>
-                                                    {{-- @else
-                                                    <a href="" class="btn btn-gene abarca" type="button">
-                                                        <i class="fa fa-plus-circle"></i>Constancia
-                                                    </a> --}}
                                                 @endif
-                                            </div>
+                                            </div> --}}
 
                                             <!--REFERENCIA-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
@@ -298,10 +286,6 @@
                                                     <a href="{{ route('checkout.imprimir_referencia', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Referencia
                                                     </a>
-                                                    {{-- @else
-                                                    <a href="" class="btn btn-gene abarca" type="button">
-                                                        <i class="fa fa-plus-circle"></i> Referencia
-                                                    </a> --}}
                                                 @endif
                                             </div>
 
@@ -311,25 +295,17 @@
                                                     <a href="{{ route('checkout.imprimir_reposo', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Reposo
                                                     </a>
-                                                    {{-- @else
-                                                    <button href="" class="btn btn-gene abarca text-start" disabled>
-                                                        <i class="fa fa-plus-circle"></i> Reposo
-                                                    </button> --}}
                                                 @endif
                                             </div>
 
                                             <!--INFORME-->
-                                            {{-- <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                @if($itinerary->rest_id != null)
-                                                    <a href="{{ route('checkout.imprimir_informe') }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                            <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                @if($itinerary->report_medico_id != null)
+                                                    <a href="{{ route('checkout.imprimir_informe', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Informe
                                                     </a>
-                                                    @else
-                                                    <button href="" class="btn btn-gene abarca text-start" disabled>
-                                                        <i class="fa fa-plus-circle"></i> Reposo
-                                                    </button>
                                                 @endif
-                                            </div> --}}
+                                            </div>
 
                                             <!--CITA-->
                                             {{-- <div class="col-lg-7 col-md-12 col-sm-12 mb-2 ml-3">

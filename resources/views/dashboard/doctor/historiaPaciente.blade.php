@@ -226,7 +226,7 @@
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="enfermedad" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -532,7 +532,24 @@
 
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
-
+{{-- <script>
+$('#summernote').summernote({
+    toolbar: [
+        ['style', ['style']],
+    // ['font', ['bold', 'italic', 'underline', 'clear']],
+    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+    ['fontname', ['fontname']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']],
+    ['table', ['table']],
+    ['insert', ['link', 'picture', 'hr']],
+    ['view', ['fullscreen'/*, 'codeview' */]],   // remove codeview button
+    ['help', ['help']]
+    ],
+});
+</script> --}}
 
 <script>
     $('#multiselect4-filter').multiselect({
