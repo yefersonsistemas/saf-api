@@ -24,6 +24,7 @@
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Cargo</th>
+                                    <th>Acción</th>
                                     {{-- <th>Esepcialidad</th> --}}
                                 </tr>
                             </thead>
@@ -34,6 +35,7 @@
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Cargo</th>
+                                    <th>Acción</th>
                                     {{-- <th>Esepcialidad</th> --}}
                                 </tr>
                             </tfoot>
@@ -51,6 +53,10 @@
                                         <td>{{ $employe->person->name }}</td>
                                         <td>{{ $employe->person->lastname }}</td>
                                         <td>{{ $employe->position->name }}</td>
+                                        <td>
+                                            <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                            <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
+                                        </td>
                                         {{-- <td>
                                             @if ( $employe->position->name == 'doctor')
                                                 @foreach ($employe->speciality as $speciality)

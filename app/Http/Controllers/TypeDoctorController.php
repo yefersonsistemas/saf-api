@@ -71,7 +71,10 @@ class TypeDoctorController extends Controller
      */
     public function edit($id)
     {
-        //
+        // dd($id);
+        $type = TypeDoctor::find($id);
+        // dd($type);
+        return view('dashboard.director.clase-edit', compact('type'));
     }
 
     /**
@@ -81,9 +84,15 @@ class TypeDoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+         $type = TypeDoctor::find($request->id);
+        
+         $type->name = $request->name;
+         $type->comission = $request->comission;
+         $type->update();
+ 
+        return redirect()->route('all.register')->withSuccess('Registro modificado'); 
     }
 
     /**
