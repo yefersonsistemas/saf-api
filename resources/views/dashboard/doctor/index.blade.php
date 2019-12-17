@@ -77,7 +77,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -88,7 +88,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -113,7 +113,7 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                             </td>
                                         </tr>
@@ -130,7 +130,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -141,7 +141,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -166,7 +166,7 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                             </td>
                                         </tr>
@@ -183,7 +183,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -194,7 +194,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -219,7 +219,7 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                             </td>
                                         </tr>
@@ -236,7 +236,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -247,7 +247,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -272,7 +272,7 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                             </td>
                                         </tr>
