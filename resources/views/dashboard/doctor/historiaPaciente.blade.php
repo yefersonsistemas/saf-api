@@ -324,11 +324,12 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="col-lg-12 col-md-12">
                                                         <label>Examenes</label>
                                                         <div class="form-group multiselect_div">
-                                                            <select id="multiselect4-filter" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                                            <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                                                 @foreach ($exams as $exam)
                                                                     <option value="{{ $exam->id }}">{{ $exam->name }}</option>
                                                                 @endforeach
                                                             </select>
+                                                            <span></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -536,7 +537,7 @@ button[data-original-title="Help"]{ display: none; }
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
 <script>
-    $('#multiselect4-filter').multiselect({
+    $('#select').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -696,6 +697,12 @@ button[data-original-title="Help"]{ display: none; }
         }
     });
 
+    $("#select").change(function(){
+            var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura 
+            console.log('estos son ', exam_id);
+            console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+    });
+
     $('#referir').click(function () {
         // console.log('referir');
         var speciality = $("#speciality").val(); 
@@ -751,8 +758,6 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
-
-
-
 </script>
+
 @endsection
