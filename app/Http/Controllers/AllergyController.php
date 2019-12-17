@@ -85,9 +85,9 @@ class AllergyController extends Controller
         // dd($request);
         $allergy = Allergy::find($request->id);
         
-        $allergy = $request->name;
-        $allergy->update($allergy);
-        dd($allergy);
+        $allergy->name = $request->name;
+        $allergy->update();
+        // dd($allergy);
 
        return redirect()->back()->withSuccess('Registro modificado'); 
     }
