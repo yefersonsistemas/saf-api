@@ -335,7 +335,6 @@
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -396,7 +395,6 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-warning">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
                                             </td>
@@ -460,7 +458,6 @@
                                             <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
                                             </td>
                                         </tr>
