@@ -26,4 +26,5 @@ class Doctor extends Model //clase de doctor
     {
         return $this->belongsTo('App\Branch');
     }
+    
 }

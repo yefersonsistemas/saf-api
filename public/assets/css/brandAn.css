@@ -946,7 +946,7 @@ textarea[cols] {
     display: inline-block;
     border: 1px solid transparent;
     margin: 1;
-    padding: 10px 25px;
+    padding: 10px 20px;
     text-decoration: none;
     margin-top: 4px;
     transition: ease all .4s;

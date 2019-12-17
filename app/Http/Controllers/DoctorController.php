@@ -9,6 +9,7 @@ use App\Exam;
 use App\Diagnostic;
 use App\Procedure;
 use App\Surgery;
+use App\Typesurgery;
 use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
@@ -85,11 +86,13 @@ class DoctorController extends Controller
         // dd($id);
         $medicines = Medicine::all();
         $specialities = Speciality::all();
+        $cirugias = Typesurgery::all();
+        // dd($cirugias);
 
         $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment','cirugias')
                 ->where('person_id', $id)->first();
 
         $exams = Exam::all();
@@ -181,7 +184,6 @@ class DoctorController extends Controller
         $specialities = Speciality::all();
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
     }
-
 
     // ================================= referir doctor ======================================
     public function referenceStore(Request $request)

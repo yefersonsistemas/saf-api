@@ -520,8 +520,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <label>Cirugias</label>
                                                                     <div class="form-group multiselect_div">
                                                                         <select id="selectsurgy" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                                            @foreach ($exams as $exam)
-                                                                                <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                                                            @foreach ($cirugias as $cirugia)
+                                                                                <option value="{{ $cirugia->id }}">{{ $cirugia->name }}</option>
                                                                             @endforeach
                                                                         </select>
                                                                         <span></span>

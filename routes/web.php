@@ -105,6 +105,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
+        Route::get('cirugiasC','DoctorController@cirugias')->name('doctor.cirugias');
     });
 
     Route::group(['middleware' => ['role:director']], function(){
