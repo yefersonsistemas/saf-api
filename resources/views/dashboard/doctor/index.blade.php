@@ -82,7 +82,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
 
                                     </tr>
@@ -95,7 +95,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
 
                                     </tr>
@@ -184,7 +184,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
                                     </tr>
                                 </thead>
@@ -196,7 +196,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
                                     </tr>
                                 </tfoot>
@@ -284,7 +284,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
                                     </tr>
                                 </thead>
@@ -296,7 +296,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
                                     </tr>
                                 </tfoot>
@@ -383,7 +383,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
                                     </tr>
                                 </thead>
@@ -395,7 +395,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Motivo</th>
-                                        <th>Estado</th>
+                                        <th>Status</th>
                                         <th>Historia</th>
                                     </tr>
                                 </tfoot>
