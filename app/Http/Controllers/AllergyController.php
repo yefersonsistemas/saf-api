@@ -40,7 +40,7 @@ class AllergyController extends Controller
             'name' => 'required',
         ]);
 
-        $person = Allergy::create([
+        $allergy = Allergy::create([
             'name' => $data['name'],
             'branch_id' => 1
         ]);
@@ -89,7 +89,7 @@ class AllergyController extends Controller
         $allergy->update();
         // dd($allergy);
 
-       return redirect()->back()->withSuccess('Registro modificado'); 
+       return redirect()->route('all.register')->withSuccess('Registro modificado'); 
     }
 
     /**

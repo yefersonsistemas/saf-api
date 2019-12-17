@@ -100,7 +100,7 @@
                                             <td>{{ $position->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -131,7 +131,7 @@
                                             <td>{{ $service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -168,7 +168,7 @@
                                             <td>{{ $speciality->service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -208,7 +208,7 @@
                                             <td>{{ $procedure->speciality->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -282,7 +282,7 @@
                                             <td>{{ $allergy->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('allergy.edit', $allergy->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -313,7 +313,7 @@
                                             <td>{{ $disease->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -344,7 +344,7 @@
                                             <td>{{ $medicine->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -409,7 +409,7 @@
                                             <td>{{ $type->description }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -446,7 +446,7 @@
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -479,8 +479,8 @@
                                             <td>{{ $clase->name }}</td>
                                             <td>{{ $clase->comission }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="{{route('clase.edit', $clase->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -517,7 +517,7 @@
                                             <td>{{ $doctor->price }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -548,7 +548,7 @@
                                             <td>{{ $payment->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
