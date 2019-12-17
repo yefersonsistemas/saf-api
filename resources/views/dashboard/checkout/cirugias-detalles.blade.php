@@ -62,21 +62,21 @@
                                                             <tr>                                                                    
                                                                 <th>Nombre</th>
                                                                 <th>Descripción</th>
-                                                                <th>Precio</th>
+                                                                {{-- <th>Precio</th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
                                                             <tr>
                                                                 <th>Nombre</th>
                                                                 <th>Descripción</th>
-                                                                <th>Precio</th>
+                                                                {{-- <th>Precio</th> --}}
                                                             </tr>
                                                         </tfoot>
                                                         @foreach ($cirugias->procedure as $procedure)
                                                         <tbody>
                                                             <td>{{ $procedure->name }}</td>
                                                             <td>{{ $procedure->description }}</td>
-                                                            <td>{{ $procedure->price }}</td>
+                                                            {{-- <td>{{ $procedure->price }}</td> --}}
                                                         </tbody> 
                                                         @endforeach
                                                     </table>

@@ -115,6 +115,7 @@ class UsersTableSeeder extends Seeder
             'description' => 'Es un procedimiento para abrir
                             los pasajes de la nariz y los senos paranasales. Se realiza para tratar infecciones de los
                             senos a largo plazo (crónicas).',
+            'day_hospitalization' => '1 dia',
             'classification_surgery_id' => $clasificacion->id,
             'branch_id' => '1',
         ]);

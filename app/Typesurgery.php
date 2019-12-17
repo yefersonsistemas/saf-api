@@ -9,7 +9,7 @@ class Typesurgery extends Model //tipos de cirugias
     protected $table = 'type_surgeries';
 
     protected $fillable = [ 
-        'name', 'duration', 'cost', 'description', 'classification_surgery_id', 'branch_id'
+        'name', 'duration', 'cost', 'description', 'day_hospitalization','classification_surgery_id', 'branch_id'
     ];
 
     public function employe()
