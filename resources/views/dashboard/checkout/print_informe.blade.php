@@ -164,7 +164,7 @@ margin-top: -15px;
                         en el examen fisico y/o de laboratorio se observo lo siguiente: 
                     </p><br>
                     <p class="conte">
-                    {{ strip_tags($itinerary->report_medico->descripction) }}
+                    {{ html_entity_decode(strip_tags($itinerary->report_medico->descripction)) }}
                     </p>
                 </div>
                 <div class="fecha">

@@ -53,7 +53,7 @@
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Médicos</span></a>
                             <ul>
                                 <li>
-                                    <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                   
+                                    {{--<a href="{{ route('checkin.doctor') }}">Médicos del día</a>--}}
                                 </li>
                                 <li>
                                     <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
@@ -77,7 +77,7 @@
                     {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                 @endrole
                     {{-- FIN DEL MODULO DE LOS DOCTORES --}}       
-                                  
+                
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
                     <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Pacientes del día</span></a></li>                        
@@ -94,16 +94,18 @@
                 @role('director')
                     <li class="g_heading">Director</li> 
                     <li><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>Lista de Empleados</a></li>
-                    <li><a href=""><i class="fa fa-eye"></i>Lista de Registros</a></li>
+                    <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>Lista de Registros</a></li>
                     
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-plus-circle"></i><span>Registrar</span></a>
                         <ul>
                             <li><a href="{{ route('position.create') }}"><i class="fa fa-black-tie"></i>Cargo</a></li>
+                            <li><a href="{{ route('clase.create') }}"><i class=""></i>Clase del Doctor</a></li>
                             <li><a href="{{ route('service.create') }}"><i class="fa fa-ambulance"></i>Servicio</a></li>
                             <li><a href="{{ route('speciality.create') }}"><i class="fa fa-flask"></i>Especialidad</a></li>
                             <li><a href="{{ route('employe.create') }}"><i class="fa fa-user-plus"></i>Empleado</a></li>
                             <li><a href="{{ route('doctor.create') }}"><i class="fa fa-user-md"></i>Doctor</a></li>
+                            <li><a href="{{ route('price.create') }}"><i class=""></i>Precio de consulta</a></li>
                             <li><a href="{{ route('procedure.create') }}"><i class="fa fa-hotel"></i>Procedimiento</a></li>
                             <li><a href="{{ route('surgery.create') }}"><i class="fa fa-medkit"></i>Cirugias</a></li>
                             <li><a href="{{ route('allergy.create') }}"><i class=""></i>Alergias</a></li>
@@ -111,13 +113,12 @@
                             <li><a href="{{ route('medicine.create') }}"><i class="fa fa-eyedropper"></i>Medicina</a></li>
                             <li><a href="{{ route('exam.create') }}"><i class="fa fa-file-text"></i>Exámenes</a></li>
                             <li><a href="{{ route('type-area.create') }}"><i class="fe fe-home"></i>Tipo de Area</a></li>
-                            <li><a href="{{ route('consultorio.create') }}"><i class="icon-home"></i>Area</a></li>
+                            <li><a href="{{ route('consultorio.create') }}"><i class="icon-home"></i>Consultorio</a></li>
+                            <li><a href="{{ route('payment.create') }}"><i class=""></i>Tipos de pagos</a></li>
                         </ul>
                         
                     </li>
                 @endrole
-                  
-    
                 
             </ul>
         </nav>

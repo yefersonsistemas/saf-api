@@ -9,7 +9,10 @@
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
-
+<style type="text/css"> button[data-original-title="Code View"], button[data-original-title="Video"], 
+button[data-original-title="Picture"], button[data-original-title="Link (CTRL+K)"],
+button[data-original-title="Help"]{ display: none; }
+</style>
 @endsection
 
 @section('title','Doctor')
@@ -226,7 +229,7 @@
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
+                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -321,11 +324,12 @@
                                                     <div class="col-lg-12 col-md-12">
                                                         <label>Examenes</label>
                                                         <div class="form-group multiselect_div">
-                                                            <select id="multiselect4-filter" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                                            <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                                                 @foreach ($exams as $exam)
                                                                     <option value="{{ $exam->id }}">{{ $exam->name }}</option>
                                                                 @endforeach
                                                             </select>
+                                                            <span></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -532,27 +536,8 @@
 
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
-{{-- <script>
-$('#summernote').summernote({
-    toolbar: [
-        ['style', ['style']],
-    // ['font', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-    ['fontname', ['fontname']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']],
-    ['table', ['table']],
-    ['insert', ['link', 'picture', 'hr']],
-    ['view', ['fullscreen'/*, 'codeview' */]],   // remove codeview button
-    ['help', ['help']]
-    ],
-});
-</script> --}}
-
 <script>
-    $('#multiselect4-filter').multiselect({
+    $('#select').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -653,7 +638,7 @@ $('#summernote').summernote({
 
 
     //======================Referencia medica=========================
-      
+
     $('input[name="tipoMedico"]').on('click',function(){
 
         if ($('#interno').is(':checked')) {
@@ -712,6 +697,12 @@ $('#summernote').summernote({
         }
     });
 
+    $("#select").change(function(){
+            var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura 
+            console.log('estos son ', exam_id);
+            console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+    });
+
     $('#referir').click(function () {
         // console.log('referir');
         var speciality = $("#speciality").val(); 
@@ -728,7 +719,6 @@ $('#summernote').summernote({
         ajax(speciality, reason, doctor, doctorExterno, patient);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
-       
     });
 
     function ajax(speciality, reason, doctor, doctorExterno, patient) {
@@ -768,8 +758,6 @@ $('#summernote').summernote({
             console.log(data);
         })
     } // fin de la funcion
-
-
-
 </script>
+
 @endsection

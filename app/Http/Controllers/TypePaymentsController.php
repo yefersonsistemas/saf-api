@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\TypeArea;
-use App\Image;
-use App\Area;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\TypePayment;
 
-class AreasController extends Controller
+class TypePaymentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,8 +24,7 @@ class AreasController extends Controller
      */
     public function create()
     {
-        $type = TypeArea::get();
-        return view('dashboard.director.area', compact('type'));
+        return view('dashboard.director.type-payment');
     }
 
     /**
@@ -40,26 +36,13 @@ class AreasController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required',
-            'type_area_id' => 'required'
-        
+            'name' => 'required'
         ]);
 
-        $area = Area::create([
+        $payments = TypePayment::create([
             'name' => $data['name'],
-            'type_area_id' => $request->type_area_id,
             'branch_id' => 1
         ]);
-
-        $image = $request->file('image');
-        $path = $image->store('public/Areas');  
-        $path = str_replace('public/', '', $path);
-        $image = new Image;
-        $image->path = $path;
-        $image->imageable_type = "App\Area";
-        $image->imageable_id = $area->id;
-        $image->branch_id = 1;
-        $image->save();
 
         return redirect()->back()->withSuccess('Registro creado correctamente');
     }
@@ -83,10 +66,7 @@ class AreasController extends Controller
      */
     public function edit($id)
     {
-         // dd($allergy);
-        $area = Area::find($id);
-        dd($area);
-        return view('dashboard.director.area-edit', compact('area'));
+        //
     }
 
     /**
@@ -111,14 +91,4 @@ class AreasController extends Controller
     {
         //
     }
-
-    public function list_area(){
-        $a = Area::all();
-
-        return response()->json([
-            'area' => $a,
-        ]);
-    }
-
-    
 }

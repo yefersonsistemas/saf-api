@@ -160,7 +160,8 @@ span{
                         Quien suscribe, <span>medico tratante</span>, certifica que examinó a: <span>indique el nombre del paciente</span> 
                         Cédula:<span>indique la cédula del paciente</span> quien presenta:<span>indique el diagnósticos</span>.  
                         Se le indicó tratamiento y reposo por<span>(x) días</span> a partir de la presente fecha<span>(día/mes/año)</span> 
-                        debiendo volver a control el día<span>(día/mes/año)</span>. 
+                        debiendo volver a control el día<span>(día/mes/año)</span>.
+                        {{-- html_entity_decode(strip_tags($itinerary->repose->description)) --}}
                     </p>
                 </div>
                 <div class="fecha">

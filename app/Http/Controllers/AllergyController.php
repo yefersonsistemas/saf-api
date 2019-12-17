@@ -40,7 +40,7 @@ class AllergyController extends Controller
             'name' => 'required',
         ]);
 
-        $person = Allergy::create([
+        $allergy = Allergy::create([
             'name' => $data['name'],
             'branch_id' => 1
         ]);
@@ -65,9 +65,12 @@ class AllergyController extends Controller
      * @param  \App\Allergy  $allergy
      * @return \Illuminate\Http\Response
      */
-    public function edit(Allergy $allergy)
+    public function edit($id)
     {
-        //
+        // dd($allergy);
+        $allergy = Allergy::find($id);
+        // dd($allergy);
+        return view('dashboard.director.allergy-edit', compact('allergy'));
     }
 
     /**
@@ -77,9 +80,16 @@ class AllergyController extends Controller
      * @param  \App\Allergy  $allergy
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Allergy $allergy)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        $allergy = Allergy::find($request->id);
+        
+        $allergy->name = $request->name;
+        $allergy->update();
+        // dd($allergy);
+
+       return redirect()->route('all.register')->withSuccess('Registro modificado'); 
     }
 
     /**

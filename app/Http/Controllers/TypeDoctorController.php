@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\TypeArea;
-use App\Image;
-use App\Area;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\TypeDoctor;
 
-class AreasController extends Controller
+class TypeDoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,8 +24,7 @@ class AreasController extends Controller
      */
     public function create()
     {
-        $type = TypeArea::get();
-        return view('dashboard.director.area', compact('type'));
+        return view('dashboard.director.clase');
     }
 
     /**
@@ -39,27 +35,19 @@ class AreasController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'type_area_id' => 'required'
+           // dd($request);
         
+           $data = $request->validate([
+            'name' => 'required',
+            'comission'  => 'required',
+         
         ]);
 
-        $area = Area::create([
+        $type = TypeDoctor::create([
             'name' => $data['name'],
-            'type_area_id' => $request->type_area_id,
+            'comission'  => $data['comission'],
             'branch_id' => 1
         ]);
-
-        $image = $request->file('image');
-        $path = $image->store('public/Areas');  
-        $path = str_replace('public/', '', $path);
-        $image = new Image;
-        $image->path = $path;
-        $image->imageable_type = "App\Area";
-        $image->imageable_id = $area->id;
-        $image->branch_id = 1;
-        $image->save();
 
         return redirect()->back()->withSuccess('Registro creado correctamente');
     }
@@ -83,10 +71,10 @@ class AreasController extends Controller
      */
     public function edit($id)
     {
-         // dd($allergy);
-        $area = Area::find($id);
-        dd($area);
-        return view('dashboard.director.area-edit', compact('area'));
+        // dd($id);
+        $type = TypeDoctor::find($id);
+        // dd($type);
+        return view('dashboard.director.clase-edit', compact('type'));
     }
 
     /**
@@ -96,9 +84,15 @@ class AreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+         $type = TypeDoctor::find($request->id);
+        
+         $type->name = $request->name;
+         $type->comission = $request->comission;
+         $type->update();
+ 
+        return redirect()->route('all.register')->withSuccess('Registro modificado'); 
     }
 
     /**
@@ -111,14 +105,4 @@ class AreasController extends Controller
     {
         //
     }
-
-    public function list_area(){
-        $a = Area::all();
-
-        return response()->json([
-            'area' => $a,
-        ]);
-    }
-
-    
 }

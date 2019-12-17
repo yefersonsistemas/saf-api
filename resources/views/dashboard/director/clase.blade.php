@@ -4,12 +4,12 @@
 
 @endsection
 
-@section('title','Registro de Procedimientos')
+@section('title','Registro Clase del Doctor')
 
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{route('procedure.store')}}" method='POST' class="row d-flex justify-content-center">
+        <form action="{{route('clase.store')}}" method='POST' class="row d-flex justify-content-center">
             @csrf
             <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                 <div class="card p-4">
@@ -24,30 +24,10 @@
 
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group"> 
-                                <label class="form-label">Descripción</label>
-                                <input type="text" class="form-control" placeholder="Descripción" name="description" value="{{ old('description') }}" required>
+                                <label class="form-label">Comisión</label>
+                                <input type="text"  class="form-control" placeholder="Comisión" name="comission" value="{{ old('price') }}" required>
                             </div>
                         </div> 
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group"> 
-                                <label class="form-label">Precio</label>
-                                <input type="text"  class="form-control" placeholder="Precio" name="price" value="{{ old('price') }}" required>
-                            </div>
-                        </div> 
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Especialidad</label>
-                                <select name="speciality_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                    <option value="0">Ninguna selección</option>
-                                    @foreach ($speciality as $speciality)
-                                    <option value={{$speciality->id}}>{{$speciality->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
            

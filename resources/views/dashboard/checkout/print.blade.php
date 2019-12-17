@@ -334,10 +334,10 @@ table tfoot tr td:first-child {
         <tfoot>
         <tr>
           <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
-          <td style="text-align:right; padding-right:10px">{{ number_format($total_cancelar,2) }}</td>
-        </tr>        <tr>
-            
-            <td colspan="1" style="padding-top:-5px;  font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
+          <td style="text-align:right; padding-right:10px; border-top:#000000 solid 1px;">{{ number_format($total_cancelar,2) }}</td>
+        </tr>        
+        <tr>
+            <td colspan="1" style="padding-top:-5px; font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
             <td style="text-align:right;padding-top:-5px; padding-right:10px">{{ number_format($total_cancelar,2) }}</td>
         </tr>
       </tfoot>
