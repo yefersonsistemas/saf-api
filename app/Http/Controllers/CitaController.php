@@ -223,6 +223,7 @@ class CitaController extends Controller
         
         if (!is_null($reservation)) {
             $specialities = Speciality::with('employe.person')->get();
+            // dd($specialities);
             return view('dashboard.reception.edit', compact('reservation','specialities'));
         }else{
             Alert::error('Cita no encontrada!');
