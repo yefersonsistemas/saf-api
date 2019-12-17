@@ -30,13 +30,16 @@
                                         <select name="type_dni" disabled class="form-control" id="type_dni">
                                             <option {{ ($reservation->patient->type_dni == 'N' ? 'selected' :'') }} value="N">N</option>
                                             <option {{ ($reservation->patient->type_dni == 'E' ? 'selected' :'') }} value="E">E</option>
+                                            <input type="hidden" name="type_dni" value="{{ $reservation->patient->type_dni }}">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                     <div class="form-group">
                                         <label class="form-label">DNI</label>
+                                        <input type="hidden" name="habilitado" id="habilitado" value="">
                                         <input type="number" name="dni" id="dni" disabled class="form-control" value="{{ $reservation->patient->dni }}">
+                                        <input type="hidden" name="dni" value="{{ $reservation->patient->dni }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -44,30 +47,35 @@
                                         <label class="form-label">Nombre</label>
                                         <input type="text" class="form-control" name="name"
                                         id="name" disabled="" value="{{ $reservation->patient->name }}">
+                                        <input type="hidden" name="name" value="{{ $reservation->patient->name }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Apellido</label>
                                         <input type="text" disabled class="form-control" id="lastname" name="lastname" placeholder="Username" value="{{ $reservation->patient->lastname }}">
+                                        <input type="hidden" name="lastname" value="{{ $reservation->patient->lastname }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Correo Electrónico</label>
                                         <input type="email" disabled class="form-control" id="email" name="email" placeholder="Email" value="{{ $reservation->patient->email }}">
+                                        {{-- <input type="hidden" name="email" value="{{ $reservation->patient->email }}"> --}}
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Teléfono</label>
                                         <input type="text" disabled id="phone" name="phone" class="form-control" value="{{ $reservation->patient->phone }}">
+                                        {{-- <input type="hidden" name="phone" value="{{ $reservation->patient->phone }}"> --}}
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-12">
                                     <div class="form-group">
                                         <label class="form-label">Dirección</label>
                                         <input type="text" disabled id="address" name="address" class="form-control" value="{{ $reservation->patient->address }}">
+                                        {{-- <input type="hidden" name="address" value="{{ $reservation->patient->address }}"> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -142,6 +150,8 @@
             $('#address').removeAttr('disabled');
             $('#email').removeAttr('disabled');
             $('#phone').removeAttr('disabled');
+            $valor="habilitado";
+            $('#habilitado').val($valor);
         });
 
         $('#newMedic').click(function() {
@@ -150,28 +160,11 @@
             $('#date').removeAttr('disabled');
         });
 
+        // buscando medicos mediante la especialidad
         $("#speciality").change(function() {
             var speciality = $(this).val();
-            ajaxSpeciality(speciality);
+            ajaxSpeciality(speciality); 
         });
-
-        function ajaxMedico(doctor){
-            $.ajax({
-                url: "{{ route('search.schedule') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: doctor,
-                }
-            })
-            .done(function(data) {
-                console.log(data);
-                cargarDate(data);
-            })
-            .fail(function(data) {
-                console.log(data);
-            })
-        }
 
         function ajaxSpeciality(speciality){
             $.ajax({
@@ -190,6 +183,7 @@
             })
         }
 
+        //cargando medicos
         function cargarMedicos(data) {
             $('#newDoctor').empty();
             $('#newDoctor').html('<label class="form-label">Médico</label><select class="form-control custom-select" name="person_id" id="doctor1"> <option value=""> Seleccione </option> </select>');
@@ -205,6 +199,41 @@
             });
         }
 
+
+        $("#doctor").change(function() {
+            var doctor = $(this).val();
+            ajaxMedico(doctor); 
+        });
+
+         //buscando horario del medico
+        function ajaxMedico(doctor){
+            $.ajax({
+                url: "{{ route('search.schedule') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: doctor,
+                }
+            })
+            .done(function(data) {
+                console.log(data);
+                // $('.datepicker').datepicker({
+                //         todayHighlight: true,
+                //         language: 'es',
+                //         startDate: data.start,
+                //         endDate: data.end,
+                //         daysOfWeekHighlighted: [0,6],
+                //         datesDisabled: data.diff,
+                //     });
+                cargarDate(data);
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+       
+    
+        //cargando horario
         function cargarDate(data){
             console.log(data.available);
             $('#newDate').empty();
@@ -215,16 +244,20 @@
             $('.datepicker').datepicker({
                 todayHighlight: true,
                 language: 'es',
-                startDate: new Date(2019,10,25),
+                startDate: data.start,
+                endDate: data.end,
                 daysOfWeekHighlighted: [0,6],
-                datesDisabled: data.diff,
+               
             });
+
         }
 
         $('#fecha').datepicker({
             todayHighlight: true,
             language: 'es',
-            startDate: new Date(2019,10,25),
+            startDate: data.start,
+            endDate: data.end,
+            datesDisabled: data.diff,
         });
 
     </script>
