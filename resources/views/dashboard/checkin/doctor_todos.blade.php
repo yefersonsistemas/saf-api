@@ -21,8 +21,8 @@
                                     <th>Cédula</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
-                                    <th class="text-center">Esepcialidad</th>
-                                    <th class="text-start">Horario</th>
+                                    <th class="text-center">Especialidad</th>
+                                    <th class="text-center">Horario</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -31,8 +31,8 @@
                                     <th>Cédula</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
-                                    <th class="text-center">Esepcialidad</th>
-                                    <th class="text-start">Horario</th>
+                                    <th class="text-center">Especialidad</th>
+                                    <th class="text-center">Horario</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -51,9 +51,9 @@
                                     <td class="d-flex justify-content-center">     <!--Especialidad-->
                                        <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-eye"></i></a>
                                     </td>
-                                    <td class="justify-content-center">   <!--Ver horario del medico-->
+                                    <td class="justify-content-center text-center">   <!--Ver horario del medico-->
                                         <input type="hidden" id="id" value="{{ $employe->person->id }}">
-                                        <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fa fa-eye"></i></a>
+                                        <a class="btn btn-info"  style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -71,7 +71,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="text-align:center">
-                        <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Especialidad</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

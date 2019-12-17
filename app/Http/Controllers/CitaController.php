@@ -253,14 +253,14 @@ class CitaController extends Controller
                 $cite->person_id  = $request->person_id;
                 $cite->save();
             }
-            if ($request->fecha != null) {
-                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
-                // dd($cite->person->employe);
-                $schedule = Schedule::where('employe_id', $cite->person->employe->id)->where('day', $dia)->first();
-                $cite->date       = Carbon::create($request->fecha);
-                $cite->reschedule = Carbon::now();
-                $cite->schedule_id = $schedule->id;
-            }
+            // if ($request->fecha != null) {
+            //     $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
+            //     // dd($cite->person->employe);
+            //     $schedule = Schedule::where('employe_id', $cite->person->employe->id)->where('day', $dia)->first();
+            //     $cite->date       = Carbon::create($request->fecha);
+            //     $cite->reschedule = Carbon::now();
+            //     $cite->schedule_id = $schedule->id;
+            // }
             $cite->save();
             Cite::create([
                 'reservation_id'    =>  $cite->id,

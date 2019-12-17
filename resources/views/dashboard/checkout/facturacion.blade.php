@@ -400,8 +400,8 @@
             $('#employe_id').val(id_employe);
             $('#procedure_id').val(procedures_id);
 
-            $('#costo_total').text(costo_total);
-            $('#subtotal').text(costo_total);
+            $('#costo_total').text(financial(costo_total));
+            $('#subtotal').text(financial(costo_total));
             $('#dnii').text(data.encontrado[0].person.dni); 
             $('#name').text(data.encontrado[0].person.name);
             $('#lastname').text(data.encontrado[0].person.lastname);

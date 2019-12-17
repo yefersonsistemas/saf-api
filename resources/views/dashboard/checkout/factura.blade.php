@@ -181,11 +181,11 @@
                                                     @endif
                                                     <tr>
                                                         <td colspan="5" class="font600 text-right">Subtotal</td>
-                                                        <td class="text-right" id="subtotal">{{ $total }}</td> 
+                                                        <td class="text-right" id="subtotal">{{ number_format($total,2) }}</td> 
                                                     </tr>
                                                     <tr class="bg-boo text-light">
                                                         <td colspan="5" class="font700 text-right ">Total a cancelar</td>
-                                                        <td class="font700 text-right" id="costo_total">{{ $total }}</td>
+                                                        <td class="font700 text-right" id="costo_total">{{ number_format($total,2) }}</td>
                                                     </tr>
                                                 </table>
                                             </div><br>

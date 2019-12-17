@@ -28,10 +28,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('search/doctor/schedule','DoctorController@search_schedule')->name('search.schedule');
     Route::get('outside/{id}', 'OutController@statusOut')->name('checkout.statusOut'); // cambia estado depaciente a fuera del consultorio
 
-
     Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
     Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
-
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
@@ -59,7 +57,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
  
-
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
@@ -78,15 +75,13 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('index', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
-        Route::get('cirugias/detalles/{id}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de cirugias
+        Route::get('cirugias/detalles/{id}/{cirugia}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de cirugias
         Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');           // para generar factura
         Route::post('search/patient','OutController@search_patient')->name('checkout.patient');    // buscar paciente    
         Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
-
         Route::POST('registro', 'OutController@create_cliente')->name('checkout.person');           // mostrar factura
         Route::post('imprimir', 'OutController@imprimir_factura')->name('checkout.imprimir_factura');           // mostrar factura
-
         Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
         Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');

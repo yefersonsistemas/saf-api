@@ -340,19 +340,20 @@
         $('#medicos').empty();
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
-                    $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                            <label class="imagecheck m-0">
-                                            <div class="card assigment">
-                                                    <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
-                                                    <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
-                                                        <img width="100%" height="100%" src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
-                                                    </figure>
-                                                    <div class="card-body text-center bg-grisinus pt-4" style="height:70px; width:170px">
-                                                        <h6 class="font-weight-bold" style="font-size:15px">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</h6>
-                                                    </div>
+                $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
+                                        <label class="imagecheck m-0">
+                                        <div class="card assigment">
+                                                <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
+                                                <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
+                                                    <img width="100%" height="100%" src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
+                                                </figure>
+                                                <div class="card-body text-center bg-grisinus pt-4" style="height:70px; width:170px">
+                                                    <h6 class="font-weight-bold" style="font-size:15px">${data[i].employe[j].person.name} ${data[i].employe[j].person.lastname}</h6>
                                                 </div>
-                                            </label>
-                                        </div>`);
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>`);
             }
         }
     }

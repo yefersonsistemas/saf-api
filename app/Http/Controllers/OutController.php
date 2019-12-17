@@ -120,10 +120,12 @@ class OutController extends Controller
 
 
      //====================== detalles de las cirugias ============================ (listo)
-     public function cirugias_detalles(Request $request)
+     public function cirugias_detalles($id, $cirugia)
      {
-        $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $request->id)->first();
-         return view('dashboard.checkout.cirugias-detalles', compact('cirugias'));
+        $tipo_cirugia = $cirugia;
+        $cirugias = TypeSurgery::with('classification','procedure','equipment')->where('id', $id)->first();
+        // dd($cirugias);
+        return view('dashboard.checkout.cirugias-detalles', compact('cirugias', 'tipo_cirugia'));
      }
 
 
@@ -280,9 +282,11 @@ class OutController extends Controller
         ]);
     }
 
+
     //============================ imprimir factura ============================ (listo)
     public function imprimir_factura(Request $request)
     {
+     
         if($request->person_id != null){
             if($request->factura != null){
                 
@@ -291,6 +295,7 @@ class OutController extends Controller
                 $billing->type_payment_id = $request->tipo_pago;
                 $billing->type_currency = $request->tipo_moneda;
                 $billing->save();
+
                 $fecha = Carbon::now()->format('Y-m-d');
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
@@ -307,7 +312,9 @@ class OutController extends Controller
                     $total_cancelar = $todos->employe->doctor->price + $total;
                 }
 
-                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha'));
+                $num_factura = str_pad($billing->id, 5, '0', STR_PAD_LEFT);
+
+                $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha', 'num_factura'));
                 
                 return $pdf->stream('factura.pdf');
             }else{
@@ -371,7 +378,6 @@ class OutController extends Controller
         ->where('id', $itinerary->reservation_id )->first();      
         $fecha = Carbon::now()->format('Y/m/d');
 
-
         $pdf = PDF::loadview('dashboard.checkout.print_constancia', compact('itinerary','especialidad',fecha ));
         return $pdf->stream('constancia.pdf');
     }
@@ -382,7 +388,8 @@ class OutController extends Controller
         $itinerary = Itinerary::with('person','employe.person','repose')->where('id',$id)->first();
         $especialidad = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))
         ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
-        ->where('id', $itinerary->reservation_id )->first();      
+        ->where('id', $itinerary->reservation_id )->first();
+        
         $fecha = Carbon::now()->format('Y/m/d');
 
         $pdf = PDF::loadview('dashboard.checkout.print_reposo', compact('itinerary', 'fecha', 'especialidad'));
@@ -399,7 +406,7 @@ class OutController extends Controller
         ->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')
         ->where('id', $itinerary->reservation_id )->first();
         $fecha = Carbon::now()->format('Y/m/d');
-
+        
         $pdf = PDF::loadview('dashboard.checkout.print_informe', compact('itinerary', 'especialidad', 'fecha'));
         return $pdf->stream('informe.pdf');
     }

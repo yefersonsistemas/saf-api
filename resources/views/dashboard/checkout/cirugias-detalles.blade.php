@@ -21,15 +21,15 @@
                 <div class="container">
                     <div class="card card-detalles">
                         <div class="card-header">
-                            <h5 class="card-title">{{ $cirugias->typeSurgeries->name }}</h5>
+                            <h5 class="card-title">{{ $cirugias->name }}</h5>
                         </div>
                         <div class="card-body row d-flex align-items-center justify-content-between pt-0">
                             <div class="col-md-12 col-lg-3 col-sm-12 mb-4">
                                 <img src="{{ asset('assets\images\cirugia.jfif') }}" class="card-img-top img-thumbnail" width="">
                             </div>
                             <div class="col-md-12  col-lg-9 col-sm-12 text-justify">
-                                <p class="card-title m-0"><strong>Descripción: </strong>{{ $cirugias->typeSurgeries->description }}</p><br>
-                                <p class="card-title m-0"><strong>Costo: </strong> {{ number_format($cirugias->typeSurgeries->cost,2) }} $</p>
+                                <p class="card-title m-0"><strong>Descripción: </strong>{{ $cirugias->description }}</p><br>
+                                <p class="card-title m-0"><strong>Costo: </strong> {{ number_format($cirugias->cost,2) }} $</p>
                             </div>
                         </div>
                     </div>
@@ -41,9 +41,11 @@
                         <li class="nav-item">
                             <a class="nav-link btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#equipos" role="tab" aria-controls="equipos" aria-selected="false">Equipos quirugícos</a>
                         </li>
+                        @if($tipo_cirugia == 2)
                         <li class="nav-item">
                             <a class="nav-link btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#hospitalizacion" role="tab" aria-controls="hospitalizacion" aria-selected="false">Hospitalización</a>
                         </li>
+                        @endif
                     </ul>
 
                     <!--Para mostrar procedimientos quwe incluye la cirugia-->
@@ -60,21 +62,21 @@
                                                             <tr>                                                                    
                                                                 <th>Nombre</th>
                                                                 <th>Descripción</th>
-                                                                <th>Precio</th>
+                                                                {{-- <th>Precio</th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
                                                             <tr>
                                                                 <th>Nombre</th>
                                                                 <th>Descripción</th>
-                                                                <th>Precio</th>
+                                                                {{-- <th>Precio</th> --}}
                                                             </tr>
                                                         </tfoot>
                                                         @foreach ($cirugias->procedure as $procedure)
                                                         <tbody>
                                                             <td>{{ $procedure->name }}</td>
                                                             <td>{{ $procedure->description }}</td>
-                                                            <td>{{ $procedure->price }}</td>
+                                                            {{-- <td>{{ $procedure->price }}</td> --}}
                                                         </tbody> 
                                                         @endforeach
                                                     </table>
@@ -107,12 +109,12 @@
                                                                 <th>Descripción</th>
                                                             </tr>
                                                         </tfoot>
-                                                        @foreach ($cirugias->equipment as $equipment)
+                                                       @foreach ($cirugias->equipment as $equipment)
                                                         <tbody>
                                                             <td>{{ $equipment->name }}</td>
                                                             <td>{{ $equipment->description }}</td>
                                                         </tbody>
-                                                        @endforeach
+                                                        @endforeach 
                                                     </table>
                                                 </div>
                                             </div> 
@@ -123,19 +125,21 @@
                         </div>
 
                         <!--Lo que incluye la hospitalizacion-->
+                        @if($tipo_cirugia == 2)
                         <div class=" row tab-pane fade show" id="hospitalizacion" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <div class="mt-2">
                                 <div class="row mt-4">                                        
                                     <div class="col-md-12 col-sm-12 col-lg-12 m-2" style="width: 18rem;">
                                         <div class="tab-content" id="pills-tabContent">  
                                             <div class="col-lg-12 card p-5 text-justify" >
-                                                <p>{{ $cirugias->hospitalization->description }}</p>
+                                                {{-- <p>{{ $cirugias->hospitalization->description }}</p> --}}
                                             </div> 
                                         </div>     
                                     </div>                         
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
