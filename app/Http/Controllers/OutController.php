@@ -123,8 +123,9 @@ class OutController extends Controller
      public function cirugias_detalles($id, $cirugia)
      {
         $tipo_cirugia = $cirugia;
-        $cirugias = Surgery::with('typeSurgeries', 'procedure', 'equipment', 'hospitalization')->where('type_surgery_id', $id)->first();
-         return view('dashboard.checkout.cirugias-detalles', compact('cirugias', 'tipo_cirugia'));
+        $cirugias = TypeSurgery::with('classification','procedure','equipment')->where('id', $id)->first();
+        // dd($cirugias);
+        return view('dashboard.checkout.cirugias-detalles', compact('cirugias', 'tipo_cirugia'));
      }
 
 

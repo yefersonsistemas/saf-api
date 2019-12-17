@@ -24,7 +24,7 @@ class Typesurgery extends Model //tipos de cirugias
     
     public function classification()
     {
-        return $this->belongsTo('App\ClassificationSurgery');
+        return $this->belongsTo('App\ClassificationSurgery','classification_surgery_id');
     }
 
     public function branch()
@@ -36,6 +36,12 @@ class Typesurgery extends Model //tipos de cirugias
     {
         return $this->belongsToMany('App\Procedure','procedure_surgery')
        ->withPivot('procedure_id','id');
+    }
+
+    public function equipment() //relacion  con la tabla m:m 
+    {
+        return $this->belongsToMany('App\Equipment','equipment_surgery')
+       ->withPivot('equipment_id','id');
     }
 
     

@@ -15,9 +15,9 @@ class CreateProcedureSurgeryTable extends Migration
     {
         Schema::create('procedure_surgery', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('type_surgery_id');
+            $table->unsignedBigInteger('typesurgery_id');
             $table->unsignedBigInteger('procedure_id');
-            $table->unsignedBigInteger('branch_id');
+            // $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('procedure_id')
@@ -25,15 +25,15 @@ class CreateProcedureSurgeryTable extends Migration
             ->on('procedures')
             ->onDelete('CASCADE');
             
-            $table->foreign('type_surgery_id')
+            $table->foreign('typesurgery_id')
             ->references('id')
             ->on('type_surgeries')
             ->onDelete('CASCADE');
 
-            $table->foreign('branch_id')
-            ->references('id')
-            ->on('branch')
-            ->onDelete('CASCADE');
+            // $table->foreign('branch_id')
+            // ->references('id')
+            // ->on('branch')
+            // ->onDelete('CASCADE');
         });
     }
 
