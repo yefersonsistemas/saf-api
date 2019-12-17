@@ -924,12 +924,7 @@ textarea[cols] {
 }
 
 
-/* .wizard.vertical>.steps>ul>li a {
-    background: #9dc8e2 !important;
-    color: #fff !important;
-} */
-
-.plan-tab-content {
+/* .plan-tab-content {
     position: relative;
     display: inline-block;
     width: 100%;
@@ -937,12 +932,12 @@ textarea[cols] {
     overflow: auto;
     border-top: 1px solid #00506b;
     padding-top: 20px;
-}
+} */
 
 .plan-steps>ul {
     position: relative;
-    margin: 6px 0 0 0;
-    top: 1px;
+    margin: 0 0 20px 0 !important;
+    /* margin: 6px 0 0 0; */
     z-index: 1;
 }
 
@@ -961,35 +956,38 @@ textarea[cols] {
     -o-transition: ease all .4s;
 }
 
-.plan-steps>ul>li {
+
+/* .plan-steps>ul>li {
     float: left;
     margin: 5px 2px 0 0!important;
     padding: 1px;
-}
+} */
 
-.plan-steps .nav-pills .nav-link {
+
+/* .plan-steps .nav-pills .nav-link {
     border-radius: 5px 5px 0px 0px;
     -webkit-border-radius: 5px 5px 0px 0px;
     -moz-border-radius: 5px 5px 0px 0px;
     -ms-border-radius: 5px 5px 0px 0px;
     -o-border-radius: 5px 5px 0px 0px;
-}
+} */
 
 .plan-steps .nav-pills .nav-link.active,
 .plan-steps .nav-pills .show>.nav-link {
-    background: #fff !important;
-    border: 1px solid #00506b;
-    border-bottom: 0 none;
-    padding: 15px 30px 10px 30px!important;
+    /* background: #fff !important; */
+    /* border: 1px solid #00506b; */
+    /* border-bottom: 0 none; */
+    /* padding: 15px 30px 10px 30px!important; */
     /* padding: 0 0 1px 0; */
-    margin-top: 0;
-    color: #00506b!important;
-    font-weight: bold;
+    /* margin-top: 0; */
+    color: #fff!important;
+    /* font-weight: bold; */
 }
 
-.plan-steps>ul>li>a:hover {
+
+/* .plan-steps>ul>li>a:hover {
     background: rgba(0, 80, 107, .25);
     border: 1px solid #00506b;
-    /* border-bottom: 0 none; */
+    border-bottom: 0 none;
     color: #00506b!important;
-}
+} */
