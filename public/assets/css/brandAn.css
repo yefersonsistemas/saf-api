@@ -974,7 +974,7 @@ textarea[cols] {
 
 .plan-steps .nav-pills .nav-link.active,
 .plan-steps .nav-pills .show>.nav-link {
-    /* background: #fff !important; */
+    background: #00506b !important;
     /* border: 1px solid #00506b; */
     /* border-bottom: 0 none; */
     /* padding: 15px 30px 10px 30px!important; */
