@@ -3,11 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Allergy;
+use App\Area;
+use App\Disease;
+use App\Doctor;
 use App\Person;
 use App\Employe;
+use App\Exam;
 use App\Position;
 use App\Speciality;
 use App\Image;
+use App\Medicine;
+use App\TypePayment;
+use App\Procedure;
+use App\Service;
+use App\TypeArea;
+use App\TypeDoctor;
+use App\Typesurgery;
 
 class DirectorController extends Controller
 {
@@ -21,6 +33,26 @@ class DirectorController extends Controller
         $employes = Employe::with('person', 'position', 'speciality')->get();
 
         return view('dashboard.director.index', compact('employes'));
+    }
+
+    public function all_register()
+    {
+       $positions = Position::get();
+       $services = Service::get();
+       $specialitys = Speciality::get();
+       $procedures = Procedure::with('speciality')->get();
+       $surgerys = Typesurgery::with('classification')->get();
+       $allergys = Allergy::get();
+       $diseases = Disease::get();
+       $medicines = Medicine::get();
+       $exams = Exam::get();
+       $types = TypeArea::get();
+       $areas = Area::with('typearea')->get();
+       $clases = TypeDoctor::get();
+       $doctors = Doctor::with('typeDoctor')->get();
+       $payments = TypePayment::get();
+
+       return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 'types', 'areas', 'clases', 'doctors', 'payments'));
     }
 
     /**
@@ -95,6 +127,35 @@ class DirectorController extends Controller
 
 
         return redirect()->route('employe.index');
+    }
+
+    public function create_price()
+    {
+        $employes = Employe::with('person.user', 'position')->get();
+        $clases = TypeDoctor::all();
+
+        return view('dashboard.director.price', compact('employes', 'clases'));
+    }
+
+    public function store_price(Request $request)
+    {
+        // dd($request);
+        
+        $data = $request->validate([
+            'employe_id' => 'required',
+            'type_doctor_id'  => 'required',
+            'price'   => 'required',
+        ]);
+
+        $doctor = Doctor::create([
+            'employe_id' => $request->employe_id,
+            'type_doctor_id'  => $request->type_doctor_id,
+            'price'   => $data['price'],
+            'branch_id' => 1
+        ]);
+
+
+        return redirect()->back()->withSuccess('Registro creado correctamente');
     }
 
     /**

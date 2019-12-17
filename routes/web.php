@@ -104,27 +104,23 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => ['role:director']], function(){
+
+        //inicio de rutas para crear
         Route::get('', 'DirectorController@index')->name('employe.index');
         Route::get('doctor/create', 'DirectorController@create')->name('doctor.create');
         Route::POST('/doctor', 'DirectorController@store')->name('doctor.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
-
         Route::get('typearea/create', 'TypeAreasController@create')->name('type-area.create');
         Route::POST('/typearea', 'TypeAreasController@store')->name('type-area.store');
-        
         Route::get('consultorio/create', 'AreasController@create')->name('consultorio.create');
         Route::POST('/consultorio', 'AreasController@store')->name('consultorio.store');
-        
         Route::get('exam/create', 'ExamController@create')->name('exam.create');
         Route::POST('/exam', 'ExamController@store')->name('exam.store');
-        
         Route::get('medicine/create', 'MedicinesController@create')->name('medicine.create');
         Route::POST('/medicine', 'MedicinesController@store')->name('medicine.store');
-
         Route::get('disease/create', 'DiseasesController@create')->name('disease.create');
         Route::POST('disease', 'DiseasesController@store')->name('disease.store');
-
         Route::get('speciality/create', 'SpecialityController@create')->name('speciality.create');
         Route::POST('/speciality', 'SpecialityController@store')->name('speciality.store');
         Route::get('position/create', 'PositionsController@create')->name('position.create');
@@ -137,5 +133,18 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('/surgery', 'TypeSurgerysController@store')->name('surgery.store');
         Route::get('allergy/create', 'AllergyController@create')->name('allergy.create');
         Route::POST('/allergy', 'AllergyController@store')->name('allergy.store');
+        Route::get('clase/create', 'TypeDoctorController@create')->name('clase.create');
+        Route::POST('/clase', 'TypeDoctorController@store')->name('clase.store');
+        Route::get('price/create', 'DirectorController@create_price')->name('price.create');
+        Route::POST('/price', 'DirectorController@store_price')->name('price.store');
+        Route::get('payment/create', 'TypePaymentsController@create')->name('payment.create');
+        Route::POST('/payment', 'TypePaymentsController@store')->name('payment.store');
+
+        //inicio de rutas para editar
+        Route::get('list','DirectorController@all_register')->name('all.register');
+        Route::get('allergy/{id}', 'AllergyController@edit')->name('allergy.edit');
+        Route::put('allergy/update/{id}', 'AllergyController@update')->name('allergy.update');
+        Route::get('clase/{id}', 'TypeDoctorController@edit')->name('clase.edit');
+        Route::put('clase/update/{id}', 'TypeDoctorController@update')->name('clase.update');
     });
 });
