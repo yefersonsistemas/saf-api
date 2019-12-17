@@ -4,12 +4,12 @@
 
 @endsection
 
-@section('title','Registro de Procedimientos')
+@section('title','Registro Precio de Consulta')
 
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{route('procedure.store')}}" method='POST' class="row d-flex justify-content-center">
+        <form action="{{route('price.store')}}" method='POST' class="row d-flex justify-content-center">
             @csrf
             <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                 <div class="card p-4">
@@ -17,36 +17,34 @@
 
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
-                                <label class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ old('name') }}" required>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group"> 
-                                <label class="form-label">Descripción</label>
-                                <input type="text" class="form-control" placeholder="Descripción" name="description" value="{{ old('description') }}" required>
-                            </div>
-                        </div> 
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group"> 
-                                <label class="form-label">Precio</label>
-                                <input type="text"  class="form-control" placeholder="Precio" name="price" value="{{ old('price') }}" required>
-                            </div>
-                        </div> 
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Especialidad</label>
-                                <select name="speciality_id" id="id" class="custom-select input-group-text bg-white form-control">
+                                <label class="form-label">Doctor</label>
+                                <select name="employe_id" class="custom-select2 input-group-text bg-white  form-control">
                                     <option value="0">Ninguna selección</option>
-                                    @foreach ($speciality as $speciality)
-                                    <option value={{$speciality->id}}>{{$speciality->name}}</option>
+                                    @foreach ($employes as $employe)
+                                    <option value={{$employe->id}}>{{$employe->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Clase</label>
+                                <select name="type_doctor_id" class="custom-select input-group-text bg-white form-control">
+                                    <option value="0">Ninguna selección</option>
+                                    @foreach ($clases as $clase)
+                                    <option value={{$clase->id}}>{{$clase->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group"> 
+                                <label class="form-label">Precio de Consulta</label>
+                                <input type="text"  class="form-control" placeholder="Precio" name="price" value="{{ old('price') }}" required>
+                            </div>
+                        </div> 
 
                     </div>
                 </div>

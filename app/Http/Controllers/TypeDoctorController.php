@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Allergy;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\TypeDoctor;
 
-class AllergyController extends Controller
+class TypeDoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +24,7 @@ class AllergyController extends Controller
      */
     public function create()
     {
-        return view('dashboard.director.allergy');
+        return view('dashboard.director.clase');
     }
 
     /**
@@ -36,25 +35,30 @@ class AllergyController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+           // dd($request);
+        
+           $data = $request->validate([
             'name' => 'required',
+            'comission'  => 'required',
+         
         ]);
 
-        $person = Allergy::create([
+        $type = TypeDoctor::create([
             'name' => $data['name'],
+            'comission'  => $data['comission'],
             'branch_id' => 1
         ]);
 
-        return redirect()->back()->withSuccess('Registro agregado correctamente');
+        return redirect()->back()->withSuccess('Registro creado correctamente');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Allergy  $allergy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Allergy $allergy)
+    public function show($id)
     {
         //
     }
@@ -62,43 +66,33 @@ class AllergyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Allergy  $allergy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        // dd($allergy);
-        $allergy = Allergy::find($id);
-        // dd($allergy);
-        return view('dashboard.director.allergy-edit', compact('allergy'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Allergy  $allergy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        // dd($request);
-        $allergy = Allergy::find($request->id);
-        
-        $allergy = $request->name;
-        $allergy->update($allergy);
-        dd($allergy);
-
-       return redirect()->back()->withSuccess('Registro modificado'); 
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Allergy  $allergy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Allergy $allergy)
+    public function destroy($id)
     {
         //
     }
