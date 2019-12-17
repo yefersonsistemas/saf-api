@@ -289,9 +289,23 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                        <h2>Diagnostico</h2>
+                                        <h2>Diagnostico y Procedimientos</h2>
                                         <section class="ml-4">
                                             <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+
+                                            <div class="tab-pane fade show active mt-30" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <label>Procedimientos Realizados: </label>
+                                                    <div class="form-group multiselect_div">
+                                                        <select id="selectp" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                                            @foreach ($exams as $exam)
+                                                                <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </section>
 
                                         <h2>Plan</h2>
@@ -315,6 +329,9 @@ button[data-original-title="Help"]{ display: none; }
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="pills-candidato-tab" data-toggle="pill" href="#pills-candidato" role="tab" aria-controls="pills-candidato" aria-selected="false">Candidato A:</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -496,17 +513,45 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </div>
                                                         </div>
                                                     </div>
+                                                    <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
+                                                        <section>
+                                                            <div class="row">
+                                                                <div class="col-lg-6 col-md-6 mt-30">
+                                                                    <label>Cirugias</label>
+                                                                    <div class="form-group multiselect_div">
+                                                                        <select id="selectsurgy" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                                                            @foreach ($exams as $exam)
+                                                                                <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        <span></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-6 mt-30">
+                                                                    <label>Examenes</label>
+                                                                    <div class="form-group multiselect_div">
+                                                                        <select id="selectproces" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                                                            @foreach ($exams as $exam)
+                                                                                <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        <span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>  
+                                                    </div>
                                                 </div>
                                                 
                                                 <!--Proxima cita-->
-                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
                                                         <div class="col-lg-12 mx-auto">
                                                             Proxima cita...
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </div> --}}
+                                            {{-- </div> --}}
                                         </section>
                                     </form>
                                     </div>
@@ -537,7 +582,35 @@ button[data-original-title="Help"]{ display: none; }
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
 <script>
+    //========== Multiselect de los Examenes===========//
     $('#select').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
+
+<script>
+    //========== Multiselect de los procedimientos en la Consulta===========//
+    $('#selectp').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
+
+<script>
+    //========== Multiselect de los Candidatos a Cirugias===========//
+    $('#selectsurgy').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
+
+<script>
+    //========== Multiselect de los Candidatos a Procedimientos===========//
+    $('#selectproces').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -591,9 +664,9 @@ button[data-original-title="Help"]{ display: none; }
         medida          = $("select[name='medida']").val();
         duracion        = $("input[name='duracion']").val();
         indicaciones    = $("textarea[name='indicaciones']").val();
-        patient        = $("input[id='patient']").val();
+        patient         = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
-        reservacion         = $("input[id='reservacion']").val();
+        reservacion     = $("input[id='reservacion']").val();
         // console.log(reservacion)
 
         ajax(medicina, dosis, medida, duracion, indicaciones, reservacion);

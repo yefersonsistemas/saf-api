@@ -254,7 +254,7 @@ class DoctorController extends Controller
             'recipe_id'     =>  $crear_recipe->id,
             'branch_id'     =>  1,
         ]);
-  
+
         $crear_recipe->medicine()->attach($request->medicina);
 
         $treatments = Treatment::with('medicine')->where('id', $treatment->id)->first();
@@ -341,7 +341,7 @@ class DoctorController extends Controller
             // }
 
             // dd($itinerary);
-         
+        
             Alert::success('Diagnostico creado exitosamente!');
             return redirect()->route('doctor.index');
 
@@ -354,7 +354,6 @@ class DoctorController extends Controller
        // ================================= Guardar diagnostico ======================================
     //    public function storeDiagnostic(Request $request, $id)
     //    {
-   
     //        $patient = Patient::where('person_id', $id)->first();
     //        $diagnostic = Diagnostic::create([
     //            'patient_id'    =>  $patient->id,
@@ -364,19 +363,14 @@ class DoctorController extends Controller
     //            'employe_id'    =>  $patient->employe_id,
     //            'branch_id'     =>  1,
     //        ]);
-   
     //        foreach ($request->multiselect4 as $examen) {
     //            $diagnostic->exam()->attach($examen);
     //        }
-   
     //        $itinerary = Itinerary::where('patient_id', $patient->id)->first();
-           
     //        if (!is_null($itinerary)) {
     //            $itinerary->diagnostic_id = $diagnostic->id;
     //            $itinerary->save();
     //        }
-   
-   
     //        Alert::success('diagnostico creado');
     //        return redirect()->back();
     //    }
@@ -440,7 +434,7 @@ class DoctorController extends Controller
 
                 $diff = $diff->map(function($d)
                 {
-                   return $d->format('m/d/Y'); 
+                    return $d->format('m/d/Y'); 
                 });
 
                 foreach ($diff as $d) {
@@ -467,7 +461,5 @@ class DoctorController extends Controller
             ]);
         }
     }
-
-
 
 }

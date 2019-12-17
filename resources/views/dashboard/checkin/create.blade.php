@@ -38,7 +38,7 @@
                                                                 {{-- @endif --}}
                                                                 <div class="card-body text-center" style="background:#EEEBEB;" style="height:70px; width:170px">
                                                                     <h6 class="font-weight-bold">{{ $area->name}} </h6>
-                                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">{{ $area->status }}</span></h6>
+                                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">desocupado</span></h6>
                                                                 </div>
                                                             </div>
                                                         </label>
