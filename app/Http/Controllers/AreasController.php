@@ -42,7 +42,7 @@ class AreasController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'type_area_id' => 'required'
-           
+        
         ]);
 
         $area = Area::create([
@@ -83,7 +83,10 @@ class AreasController extends Controller
      */
     public function edit($id)
     {
-        //
+         // dd($allergy);
+        $area = Area::find($id);
+        dd($area);
+        return view('dashboard.director.area-edit', compact('area'));
     }
 
     /**

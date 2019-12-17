@@ -149,5 +149,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('list','DirectorController@all_register')->name('all.register');
         Route::get('allergy/{id}', 'AllergyController@edit')->name('allergy.edit');
         Route::put('allergy/update/{id}', 'AllergyController@update')->name('allergy.update');
+        Route::get('area/{id}', 'AreasController@edit')->name('area.edit');
+        Route::put('area/update/{id}', 'AreasController@update')->name('area.update');
     });
 });

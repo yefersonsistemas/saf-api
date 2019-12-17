@@ -408,7 +408,7 @@
                                             <td>{{ $type->name }}</td>
                                             <td>{{ $type->description }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('area.edit', $type->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
                                             </td>
                                         </tr>
