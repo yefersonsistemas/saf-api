@@ -86,7 +86,7 @@
                                                     <h5 class="card-title" style="text-transform: none;">
                                                         {{ $surgery->name }}</h5>
                                                 </div>
-                                                <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}"
+                                                <a href="{{ route('checkout.cirugias_detalles', [$surgery->id, 1] ) }}"
                                                     class="card-link card-footer btn btn-azuloscuro py-2">Ver más..</a>
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@
                                                         <h5 class="card-title" style="text-transform: none;">
                                                             {{ $surgery->name }}</h5>
                                                     </div>
-                                                    <a href="{{ route('checkout.cirugias_detalles', $surgery->id ) }}"
+                                                    <a href="{{ route('checkout.cirugias_detalles', [$surgery->id,2] ) }}"
                                                         class="card-link card-footer btn btn-azuloscuro py-2">Ver más...</a>
                                                 </div>
                                             </div>

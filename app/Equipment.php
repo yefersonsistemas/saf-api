@@ -37,9 +37,9 @@ class Equipment extends Model //equipo maquinaria
         return $this->belongsTo('App\TypeEquipment');
     }
     
-    public function surgery() 
+    public function typesurgery() 
     {
-        return $this->belongsToMany('App\Suregery','equipment_surgery')
-       ->withPivot('surgery_id','id');
+        return $this->belongsToMany('App\Typesurgery','equipment_surgery')
+       ->withPivot('typesurgery_id','id');
     }
 }

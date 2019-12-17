@@ -390,7 +390,6 @@ class EmployesController extends Controller
                     'doctor' => $doctor,
                 ]);   
             }
-
         }
     }
 }

@@ -129,7 +129,7 @@
                                                 @endif
                                                 <div class="text-center">
                                                     @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
                                                         <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
                                                     @endif
@@ -255,7 +255,7 @@
                                                 @endif
                                                 <div class="text-center">
                                                     @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
                                                         <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
                                                     @endif
@@ -320,7 +320,7 @@
                                                 @endif
                                                 <div class="text-center">
                                                     @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
                                                         <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
                                                     @endif
@@ -383,7 +383,7 @@
                                                 @endif
                                                 <div class="text-center">
                                                     @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
                                                         <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
                                                     @endif
@@ -440,13 +440,13 @@
                                         <tr>
                                             <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
-                                                <img src="" alt="" >
+                                                    <img src="" alt="" >
                                                 @endif
                                                 <div class="text-center">
                                                     @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}" class="btn btn-success">Generar</a>
+                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
                                                         <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
                                                     @endif

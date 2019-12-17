@@ -41,7 +41,8 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $today = Reservation::with('patient.historyPatient','inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        // dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 

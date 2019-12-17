@@ -77,7 +77,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -88,7 +88,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -97,8 +97,31 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach ($today as $reservation)
-                                        <tr class="event-click" style="height:40px;">
+                                        @foreach ($today as $reservation)
+                                        @if($reservation->inputoutput->isEmpty()) <!--esta en espera-->
+                                            <tr class="event-click" style="border-radius:3px; border:2px solid  #000">
+                                        @endif
+        
+                                            @if(!empty($reservation->inputoutput->first()->inside) && empty($reservation->inputoutput->first()->inside_office) && empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
+                                             <!--esta en espera-->
+                                                <tr class="event-click" style="border-radius:3px; border:2px solid  #FACC2E">
+                                            @endif
+        
+                                            @if(!empty($reservation->inputoutput->first()->inside_office) && !empty($reservation->inputoutput->first()->inside)  && empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
+                                            <!--dentro del consultorio-->
+                                                <tr class="event-click" style="border-radius:3px; border:2px solid  #00ad88">
+                                            @endif
+        
+                                            @if(!empty($reservation->inputoutput->first()->outside_office) && !empty($reservation->inputoutput->first()->inside) && !empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
+                                            <!--fuera del consultorio-->
+                                                <tr class="event-click" style="border-radius:3px; border:2px solid #B40404">
+                                            @endif
+        
+                                            @if(!empty($reservation->inputoutput->first()->outside) && !empty($reservation->inputoutput->first()->inside) && !empty($reservation->inputoutput->first()->outside_office) && !empty($reservation->inputoutput->first()->outside))<!--fuera de las instalaciones-->
+                                                <tr class="event-click" style="border-radius:3px; border:2px solid #ccc">
+                                            @endif
+
+                                        {{-- <tr class="event-click"> --}}
                                             <td scope="row">{{ $loop->iteration}}</td>
                                             <td style="height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
@@ -113,8 +136,9 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -130,7 +154,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -141,7 +165,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -166,7 +190,7 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                             </td>
                                         </tr>
@@ -183,7 +207,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -194,7 +218,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -219,7 +243,7 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                             </td>
                                         </tr>
@@ -236,7 +260,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -247,7 +271,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Photo</th>
+                                        <th>Foto</th>
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -272,7 +296,7 @@
                                             <td> {{ $reservation->description }}</td>
                                             <td> 
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    {{ $reservation->patient->historyPatient->history_number }}
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                             </td>
                                         </tr>
