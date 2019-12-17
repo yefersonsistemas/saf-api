@@ -41,13 +41,13 @@ class DatabaseSeeder extends Seeder
         $this->call(BalancesTableSeeder::class);
         // $this->call(TypeDoctorTableSeeder::class);
         // $this->call(DoctorTableSeeder::class);
-        $this->call(TypeEquipmentTableSeeder::class);
-        $this->call(EquipmentTableSeeder::class);
+        // $this->call(TypeEquipmentTableSeeder::class);
+        // $this->call(EquipmentTableSeeder::class);
         $this->call(PaymentTableSeeder::class);
         $this->call(TypeSupplieTableSeeder::class);     
         $this->call(SupplieTableSeeder::class);
-        $this->call(ClassificationSurgeryTableSeeder::class);
-        $this->call(TypeSurgeriesTableSeeder::class);
+        // $this->call(ClassificationSurgeryTableSeeder::class);
+        // $this->call(TypeSurgeriesTableSeeder::class);
         $this->call(HospitalizationTableSeeder::class);
         $this->call(SurgeriesTableSeeder::class);
         $this->call(TypeCurrenciesTableSeeder::class);

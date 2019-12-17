@@ -20,6 +20,7 @@ class CreateTypesurgeriesTable extends Migration
             $table->double('cost');
             $table->longText('description');
             $table->unsignedBigInteger('classification_surgery_id');
+            $table->string('day_hospitalization');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 

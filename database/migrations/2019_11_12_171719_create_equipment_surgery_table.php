@@ -16,8 +16,7 @@ class CreateEquipmentSurgeryTable extends Migration
         Schema::create('equipment_surgery', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('equipment_id');
-            $table->unsignedBigInteger('surgery_id');
-            $table->unsignedBigInteger('branch_id');
+            $table->unsignedBigInteger('typesurgery_id');
             $table->timestamps();
 
             $table->foreign('equipment_id')
@@ -26,14 +25,9 @@ class CreateEquipmentSurgeryTable extends Migration
             ->onDelete('CASCADE');
 
             
-            $table->foreign('surgery_id')
+            $table->foreign('typesurgery_id')
             ->references('id')
-            ->on('surgeries')
-            ->onDelete('CASCADE');
-
-            $table->foreign('branch_id')
-            ->references('id')
-            ->on('branch')
+            ->on('type_surgeries')
             ->onDelete('CASCADE');
         });
     }
