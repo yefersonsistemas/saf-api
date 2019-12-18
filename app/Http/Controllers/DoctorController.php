@@ -398,7 +398,9 @@ class DoctorController extends Controller
      */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
         $employe = Employe::with('schedule')->where('id', $request->id)->first();
+        // dd($employe);
         $available = collect([]);
+        // dd($available);
         if (!is_null($employe)) {
             if (!is_null($employe->schedule)) {
                 foreach ($employe->schedule as $schedule) {
@@ -423,6 +425,7 @@ class DoctorController extends Controller
                 }
 
                 $total = $available->first()->diffInDays($available->last());
+                // dd($total);
                 $not = collect([]);
                 $min = Carbon::create($available->min()->year, $available->min()->month, $available->min()->day)->addDay();
                 

@@ -240,9 +240,9 @@ class InController extends Controller
         $employe = Employe::where('person_id', $doctor)->first();
         $doctos = Doctor::where('employe_id',$employe->id)->first();
 
+        $itinerary = Itinerary::where('reservation_id', $id)->first();
 
         $p = Patient::where('person_id', $paciente)->first();
-            // dd($p);
 
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $employe->id)->first();
         // dd($io);
@@ -255,20 +255,10 @@ class InController extends Controller
                 'employe_id' =>  $employe->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
                 'branch_id' => 1,
             ]);
-            // dd($inputOutput);
 
-            // dd($doctos);
-            $itinerary = Itinerary::create([
-                'patient_id' =>  $paciente,  //paciente tratado
-                'employe_id' => $employe->id,               
-                'doctor_id' => $doctos->id,
-                'reservation_id' =>  $busqueda->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
-                'status' => 'dentro',
-                'branch_id' => 1,
-            ]);
+            $itinerary->status ='dentro';
+            $itinerary->save();
 
-            // dd($itinerary);
-            
         }
         else{
             Alert::error('Paciente ya esta dentro');

@@ -147,6 +147,7 @@ class UsersTableSeeder extends Seeder
 
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento);
+        // $employe->procedure()->attach($procedimiento);
 
           //creando procedimiento
           $procedimiento2 = factory(App\Procedure::class)->create([
@@ -176,8 +177,21 @@ class UsersTableSeeder extends Seeder
         ]);
 
         //relacion de la cirugia con el procedimiento
-        // $procedimiento->typesurgery()->attach($cirugia->id);
-        // $->Type_surgery()->attach($procedimiento->id);
+        $cirugia->procedure()->attach($procedimiento3);
+
+            //creando procedimiento
+            $procedimiento4 = factory(App\Procedure::class)->create([
+                'name' => 'Antrostomía bilateral',
+                'description' => 'Extracción de la porción media de unciforme.
+                ',
+                'price' => 2500,
+                'speciality_id' => $especialidad->id,
+                'branch_id' => '1',
+            ]);
+    
+            //relacion de la cirugia con el procedimiento
+            $cirugia->procedure()->attach($procedimiento4);
+
 
             $tipo_equipo = factory(App\TypeEquipment::class)->create([
                 'name' => 'quirurgico',
