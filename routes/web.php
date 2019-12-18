@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::post('create', 'InController@store')->name('checkin.store');
-        Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        Route::get('medicos/list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
         Route::get('list/todos', 'EmployesController@doctor_on_todos')->name('checkin.doctor_todos');
         Route::post('Doctor/asistencia', 'EmployesController@assistance')->name('checkin.asistencia');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
@@ -152,5 +152,13 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('empleado/update/{id}', 'EmployesController@update')->name('empleado.update');
         Route::get('enfermedad/{id}', 'DiseasesController@edit')->name('enfermedad.edit');
         Route::put('enfermedad/update/{id}', 'DiseasesController@update')->name('enfermedad.update');
+        Route::get('examen/{id}', 'ExamController@edit')->name('examen.edit');
+        Route::put('examen/update/{id}', 'ExamController@update')->name('examen.update');
+        Route::get('medicina/{id}', 'MedicinesController@edit')->name('medicina.edit');
+        Route::put('medicina/update/{id}', 'MedicinesController@update')->name('medicina.update');
+        Route::get('cargo/{id}', 'PositionsController@edit')->name('cargo.edit');
+        Route::put('cargo/update/{id}', 'PositionsController@update')->name('cargo.update');
+        Route::get('precio/{id}', 'DirectorController@edit_price')->name('precio.edit');
+        Route::put('precio/update/{id}', 'DirectorController@update_price')->name('precio.update');
     });
 });

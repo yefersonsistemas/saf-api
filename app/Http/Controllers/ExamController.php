@@ -68,7 +68,9 @@ class ExamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $exam = Exam::find($id);
+
+        return view('dashboard.director.exam-edit', compact('exam'));
     }
 
     /**
@@ -78,9 +80,14 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $exam = Exam::find($request->id);
+
+        $exam->name = $request->name;
+        $exam->update();
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
     /**

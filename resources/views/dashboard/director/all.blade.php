@@ -99,8 +99,8 @@
                                         <tr>
                                             <td>{{ $position->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -131,7 +131,7 @@
                                             <td>{{ $service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -168,7 +168,7 @@
                                             <td>{{ $speciality->service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -208,7 +208,7 @@
                                             <td>{{ $procedure->speciality->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -251,7 +251,7 @@
                                             <td>{{ $surgery->classification }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-minus-circle"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -282,7 +282,7 @@
                                             <td>{{ $allergy->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('alergia.edit', $allergy->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -313,7 +313,7 @@
                                             <td>{{ $disease->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('enfermedad.edit', $disease->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -343,8 +343,8 @@
                                         <tr>
                                             <td>{{ $medicine->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="{{ route('medicina.edit', $medicine->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -374,8 +374,8 @@
                                         <tr>
                                             <td>{{ $exam->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-minus-circle"></i></i></a>
+                                                <a href="{{ route('examen.edit', $exam->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-minus-circle"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -409,7 +409,7 @@
                                             <td>{{ $type->description }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -446,7 +446,7 @@
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -480,7 +480,7 @@
                                             <td>{{ $clase->comission }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{route('clase.edit', $clase->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -516,7 +516,7 @@
                                             <td>{{ $doctor->typedoctor->name }}</td>
                                             <td>{{ $doctor->price }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('precio.edit', $doctor->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
@@ -548,7 +548,7 @@
                                             <td>{{ $payment->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

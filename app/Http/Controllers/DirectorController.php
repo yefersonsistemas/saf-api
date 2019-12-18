@@ -157,9 +157,37 @@ class DirectorController extends Controller
             'branch_id' => 1
         ]);
 
-
         return redirect()->back()->withSuccess('Registro creado correctamente');
     }
+
+    public function edit_price($id)
+    {
+        // dd($id);
+        $precio = Doctor::find($id);
+    //    dd($precio);
+        $employes = Employe::with('person.user', 'position', 'doctor')->where('id',$precio->employe_id)->first();
+        //dd($employes);
+        $clases = TypeDoctor::get();
+        //dd($clases);
+
+        return view('dashboard.director.price-edit', compact('employes', 'clases', 'precio'));
+    }
+
+    public function update_price(Request $request)
+    {
+    //    dd($request);
+        
+        $precio = Doctor::find($request->id);
+        $employes = Employe::with('person.user', 'position', 'doctor')->get();
+        $clase = TypeDoctor::all();
+
+        $precio->price = $request->price;
+        $precio->type_doctor_id = $request->type_doctor_id;
+        $precio->update();
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
+    }
+
 
     /**
      * Display the specified resource.
@@ -173,10 +201,8 @@ class DirectorController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * modifica medico
      */
     public function edit($id)
     {
