@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     //======================= rutas para el usuario ckeckout ====================
     Route::group(['middleware' => ['role:OUT']], function () {
-        Route::get('index', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
+        Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
         Route::get('cirugias/detalles/{id}/{cirugia}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de cirugias
@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
         Route::get('informe/{id}','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
-        Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
+        // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {

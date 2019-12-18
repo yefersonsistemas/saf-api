@@ -80,8 +80,7 @@
                                   
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
-                    <li class=""><a href="{{ route('checkout.index_dia') }}"><i class="fa fa-users"></i><span>Citas del dia</span></a></li> 
-                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas en espera</span></a></li>                                          
+                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          
                     <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
                     {{-- <li class=""><a href="{{ route('checkout.index_procedimientos') }}"><i class="fa fa-hospital-o"></i><span>Procedimientos</span></a></li>                         --}}
                 

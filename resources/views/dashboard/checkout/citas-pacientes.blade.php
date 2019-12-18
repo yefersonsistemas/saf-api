@@ -67,9 +67,11 @@
             <div class="container mt--15">
 
                 <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end "  id="pills-tab" role="tablist">
-                    
                     <li class="nav-item mb-1">
-                        <a class="espera pt-0 pb-0 pr-4 pl-4" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="true"> <i class="icon-clock"></i>&nbsp; En espera</a>
+                        <a class="aprobadas pt-0 pb-0 pr-4 pl-4"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas aprobadas</a>
+                    </li>
+                    <li class="nav-item mb-1">
+                        <a class="espera pt-0 pb-0 pr-4 pl-4" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="false"> <i class="icon-clock"></i>&nbsp; En espera</a>
                     </li>
                     <li class="nav-item mb-1">
                         <a class="dentro pt-0 pb-0 pr-4 pl-4" id="pills-profile-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del consultorio</a>
