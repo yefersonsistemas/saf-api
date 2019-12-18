@@ -9,7 +9,7 @@ use App\Exam;
 use App\Diagnostic;
 use App\Procedure;
 use App\Surgery;
-use App\Typesurgery;
+use App\TypeSurgery;
 use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
@@ -42,8 +42,7 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient','inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-        // dd($today);
+        $today = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -86,22 +85,25 @@ class DoctorController extends Controller
         // dd($id);
         $medicines = Medicine::all();
         $specialities = Speciality::all();
-        $cirugias = Typesurgery::all();
-        // dd($cirugias);
 
-        $history=Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
+        $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment','cirugias')
-                ->where('person_id', $id)->first();
+        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+            ->where('person_id', $id)->first();
 
         $exams = Exam::all();
 
-                // dd(  $cite);
+        $surgerys = TypeSurgery::all();
+
+        $procesm = ;
+
+        $proces = ;
+            // dd(  $cite);
             // return response()->json([
             //   'Patient' => $history,
             // ]);
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys'));
     }
 
     /**
@@ -184,6 +186,7 @@ class DoctorController extends Controller
         $specialities = Speciality::all();
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
     }
+
 
     // ================================= referir doctor ======================================
     public function referenceStore(Request $request)
@@ -464,5 +467,7 @@ class DoctorController extends Controller
             ]);
         }
     }
+
+
 
 }

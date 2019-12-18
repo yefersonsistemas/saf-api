@@ -223,6 +223,7 @@ class CitaController extends Controller
         
         if (!is_null($reservation)) {
             $specialities = Speciality::with('employe.person')->get();
+            // dd($specialities);
             return view('dashboard.reception.edit', compact('reservation','specialities'));
         }else{
             Alert::error('Cita no encontrada!');
@@ -232,9 +233,14 @@ class CitaController extends Controller
 
     public function update(Reservation $cite, Request $request)
     {
+        // dd($cite);
         if (!is_null($cite)) {
-            if ($request->dni != null) {
+
+            //cuando se han editado los datos del paciente
+            if ($request->habilitado != null) {
+               
                 $paciente = Person::where('id', $cite->patient_id)->first();
+            
                 if (!is_null($paciente)) {
                     $paciente->update([
                         'type_dni'  => $request->type_dni,
@@ -247,26 +253,35 @@ class CitaController extends Controller
                     ]);
                 }
             }
-            if ($request->speciality != null) {
+
+            //si se cambio la especialidad y medico
+            if ($request->speciality) {
                 $cite->specialitie_id = $request->speciality;
                 // $employe = Employe::where('person_id', $request->doctor)->first();
                 $cite->person_id  = $request->person_id;
                 $cite->save();
             }
-            if ($request->fecha != null) {
-                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
-                // dd($cite->person->employe);
-                $schedule = Schedule::where('employe_id', $cite->person->employe->id)->where('day', $dia)->first();
-                $cite->date       = Carbon::create($request->fecha);
-                $cite->reschedule = Carbon::now();
-                $cite->schedule_id = $schedule->id;
-            }
-            $cite->save();
+
+            // if ($request->fecha != null) {
+            //     $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
+            //     // dd($cite->person->employe);
+            //     $schedule = Schedule::where('employe_id', $cite->person->employe->id)->where('day', $dia)->first();
+            //     $cite->date       = Carbon::create($request->fecha);
+            //     $cite->reschedule = Carbon::now();
+            //     $cite->schedule_id = $schedule->id;
+            // }
+            // $cite->save();
+
+
+            //guardar razon del reprogramar
+            if($request->reason){
             Cite::create([
                 'reservation_id'    =>  $cite->id,
                 'reason'            =>  $request->reason,
                 'branch_id'         =>  1,
             ]);
+            }
+
             Alert::success('Cita actualizada exitosamente');
             return redirect()->route('checkin.index');
         }
