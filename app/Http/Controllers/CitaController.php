@@ -16,6 +16,8 @@ use App\Person;
 use App\User;
 use App\Patient;
 use App\Surgery;
+use App\Itinerary;
+use App\Doctor;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -205,8 +207,20 @@ class CitaController extends Controller
                 Alert::success('Cita Aprobada exitosamente');
             }
             
+
             $reservation->status = $data['type'];
             $reservation->save();
+
+            $doctos = Doctor::where('employe_id',$reservation->person_id)->first();
+
+            // dd($doctos);
+            $itinerary = Itinerary::create([
+                'patient_id' =>  $reservation->patient_id,  //paciente tratado
+                'employe_id' => $reservation->person_id,               
+                'doctor_id' => $doctos->id,
+                'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'branch_id' => 1,
+            ]);
 
             return redirect()->back();
         }else{
@@ -234,6 +248,7 @@ class CitaController extends Controller
     public function update(Reservation $cite, Request $request)
     {
         // dd($cite);
+        // dd($request);
         if (!is_null($cite)) {
 
             //cuando se han editado los datos del paciente
@@ -262,15 +277,19 @@ class CitaController extends Controller
                 $cite->save();
             }
 
-            // if ($request->fecha != null) {
-            //     $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
-            //     // dd($cite->person->employe);
-            //     $schedule = Schedule::where('employe_id', $cite->person->employe->id)->where('day', $dia)->first();
-            //     $cite->date       = Carbon::create($request->fecha);
-            //     $cite->reschedule = Carbon::now();
-            //     $cite->schedule_id = $schedule->id;
-            // }
-            // $cite->save();
+            if ($request->fecha != null) {
+                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
+                // dd($cite->person->employe);
+                $employe = Employe::where('person_id',$cite->person_id)->first();
+                // dd($employe); 
+                $schedule = Schedule::where('employe_id', $employe->id)->where('day', $dia)->first();
+                // dd($schedule);
+                $cite->date       = Carbon::create($request->fecha);
+                $cite->reschedule = Carbon::now();
+                $cite->schedule_id = $schedule->id;
+            }
+            $cite->save();
+            // dd($cite);
 
 
             //guardar razon del reprogramar

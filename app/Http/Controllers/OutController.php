@@ -440,6 +440,15 @@ class OutController extends Controller
     }
 
 
+      //========================= Citas del dia (las que estan aprobadas) ======================
+      public function index_dia()
+      {
+          $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        //   $itinerary = Itinerary::all();
+        //   dd($day);
+          return view('dashboard.checkout.citas-pacientesDia', compact('day'));
+      }
+
     public function store(Request $request)
     {
         
