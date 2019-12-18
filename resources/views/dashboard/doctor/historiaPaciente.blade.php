@@ -515,14 +515,14 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row d-flex justify-content-center">
                                                             <div class=" col-4">
                                                                 <button class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                    <i class="icon-clock"></i>
+                                                                    <i class="fa fa-hospital-o"></i>
                                                                     Cirugias
                                                                 </button>
                                                             </div>
                                                             
                                                             <div class="col-4">
                                                                 <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                    <i class="icon-clock"></i>
+                                                                    <i class="fa fa-navicon"></i>
                                                                     Procedimientos
                                                                 </button>
                                                             </div>                                                            
@@ -555,7 +555,7 @@ button[data-original-title="Help"]{ display: none; }
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Examenes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -607,17 +607,17 @@ button[data-original-title="Help"]{ display: none; }
                             <div class="custom-controls-stacked">
                                 @foreach ($procesm->procedures as $proces)
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="{{ $proces->id }}">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox2" id="hh" value="{{ $proces->id }}">
                                     <span class="custom-control-label">{{ $proces->name }}</span>
                                 </label>
                                 @endforeach
                             </div>
                         </div> 
-                    </div>   
+
                         {{-- <div class="col-lg-12 col-md-12">
                             <label>Procedimientos</label>
                             <div class="form-group multiselect_div">
-                                <select id="selectprocesm" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                <select id="selectprocesm" name="multiselect4[]"  class="hh multiselect multiselect-custom" multiple="multiple">
                                     @foreach ($procesm->procedures as $proces)
                                         <option value="{{ $proces->id }}">{{ $proces->name }}</option>
                                     @endforeach
@@ -626,9 +626,10 @@ button[data-original-title="Help"]{ display: none; }
                             </div>
                         </div> --}}
                     
+                    </div>   
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success">Guardar</button>
+                        <button class="btn btn-success" id="guardarP">Guardar</button>
                     </div>
             </div>
         </div>
@@ -649,7 +650,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="custom-controls-stacked">
                             <label class="custom-control custom-checkbox custom-control-inline">
                                 @foreach ($surgerys as $surgery)
-                                <input type="checkbox" class="custom-control-input" name="example-inline-checkbox1" value="{{ $surgery->id }}">
+                                <input type="checkbox" class="custom-control-input" name="example-inline-checkbox3" value="{{ $surgery->id }}">
                                 <span class="custom-control-label">{{ $surgery->name }}</span>
                                 @endforeach
                             </label>
@@ -692,7 +693,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="{{ $proces->id }}">
+                                <input type="checkbox" id="proce" class="custom-control-input" name="example-checkbox3" value="{{ $proces->id }}">
                                 <span class="custom-control-label">{{ $proces->name }}</span>
                             </label>
                             @endforeach
@@ -772,6 +773,7 @@ button[data-original-title="Help"]{ display: none; }
 <script>
     var form = $('#wizard_vertical').show();
     //Vertical form basic
+    var procedures=0;
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
@@ -983,9 +985,25 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
+
+    //captar datos de procedimientos en la consulta
+
+    $('input[name="example-checkbox2"]').on('click',function(){
+        var proce_id = $("#proce").val();  
+        procedures = procedures +','+proce_id;
+        console.log(procedures);
+        console.log('jj',proce_id)
+    });
+    $("#guardarP").click(function() {
+            var proce = $("#proce").val();          //asignando el valor que se ingresa en el campo
+            console.log('hola', proce);                   //mostrando en consola
+            
+            // ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+
 </script>
 <script>
-    
+
 </script>
 
 @endsection
