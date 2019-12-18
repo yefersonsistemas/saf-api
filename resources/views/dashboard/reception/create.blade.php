@@ -215,8 +215,8 @@
             confirmButtonColor: '#3085d6',
             confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
             }).then((result) => {
-            if (result.value) {
-            }
+                if (result.value) {
+                }
             })
         }
     });

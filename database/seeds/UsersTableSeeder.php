@@ -176,6 +176,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         //relacion de la cirugia con el procedimiento
+<<<<<<< HEAD
         $cirugia->procedure()->attach($procedimiento3);
 
             //creando procedimiento
@@ -191,6 +192,10 @@ class UsersTableSeeder extends Seeder
             //relacion de la cirugia con el procedimiento
             $cirugia->procedure()->attach($procedimiento4);
 
+=======
+        // $procedimiento->typesurgery()->attach($cirugia->id);
+        // $->Type_surgery()->attach($procedimiento->id);
+>>>>>>> 572ab23fc89ee3f3eca77e097c032ac962e3b6d9
 
             $tipo_equipo = factory(App\TypeEquipment::class)->create([
                 'name' => 'quirurgico',
