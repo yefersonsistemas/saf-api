@@ -21,7 +21,7 @@
                         <div class="row d-flex justify-content-between">
                             <div class="form-group col-lg-3 col-md-3">
                                 <label class="form-label">Foto</label>
-                                <div class=" mb-2">
+                                <div class="mb-2">
                                     <input id="image" type="file" class="dropify" name="image" data-default-file="">
                                 </div>
                             </div>

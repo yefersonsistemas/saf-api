@@ -1019,10 +1019,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'administrador@sinusandface.com',
             'person_id' => $person->id,
 
-        ])->givePermissionTo('registrar empleado')
+        ])->givePermissionTo('crear todos los registros nuevos')
         ->givePermissionTo('ver empleados')
-        ->givePermissionTo('registrar doctor')
-        ->givePermissionTo('registrar especialidad')
+        ->givePermissionTo('modificar los registros creados')
         ->assignRole('director');
 
         // $position = factory(App\Position::class)->create([

@@ -102,7 +102,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        {{-- <th class="text-center">Entradas</th> --}}
+                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -115,7 +115,7 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        {{-- <th class="text-center">Entradas</th> --}}
+                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -136,9 +136,9 @@
                                                 </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
+                                            <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
                                             <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
-                                            <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
+                                            <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td>
                                                 @if ($reservation->status == 'Aprobada')
@@ -164,72 +164,51 @@
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
-
                                             <td>
-                                                {{-- <div class="row">
-                                                    <div class="col-3"> <button class="btn btn-danger stad state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%;">E</button></div>
-                                                    <div class="col-3">                                                    
-                                                        <button type="button" class="btn btn-danger state state_1 P-0" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" style="border-radius:50%">E</button>
-                                                    </div>
-                                                    <div class="col-3">                                                
-                                                        <button type="button" class="btn btn-danger state state_2" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%">S</button>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <button type="button" class="btn btn-danger state state_3" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled style="border-radius:50%">S</button>
-                                                    </div>
-                                                </div> --}}
+                                                <div class="container text-center" id="ID_element_0">
+                                                    @if($reservation->patient->inputoutput->isEmpty() && $reservation->approved == null )
+                                                        <button disabled class="btn btn-danger state state_0" state="0"></button>
+                                                        <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    @endif
 
-                                                <!--Si no a llegado a las instalaciones-->
-                                                {{-- @if($reservation->patient->inputoutput->isEmpty())
-                                                    <div>
-                                                        <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
-                                                    </div>
-                                                @endif --}}
-
-                                                <!--Si esta dentro de las instalaciones-->
-                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
-                                                    <div>
-                                                        <button disabled href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success">E</button>
-                                                    </div>
-                                                @endif --}}
-
-                                                <!--Si ya se fue de las instalaciones-->
-                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside))
-                                                    <div>
-                                                        <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-danger primero" disabled>E</button>
-                                                    </div>
-                                                @endif    --}}
+                                                    @if($reservation->patient->inputoutput->isEmpty() && $reservation->approved != null )
+                                                        <a href="{{ route ('checkin.statusIn', $reservation->id) }}" class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                                        <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    @endif
+                
+                                                        @if(!empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
+                                                        <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <a href="{{ route ('checkin.insideOffice', $reservation->id) }}" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                                        <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        @endif
+                                                        
+                                                    @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
+                                                        <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    @endif
+        
+                                                    @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
+                                                    <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-success state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    @endif
+                                                        
+                                                    @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))
+                                                        <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-success state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                        <button class="btn btn-success state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    @endif
+                                                </div>
                                             </td>
-
-                                            {{-- <td>   --}}
-                                                <!--Si no ha llegado a las instalaciones-->
-                                                {{-- @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
-                                                    <div>
-                                                        <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</button>
-                                                    </div>
-                                                @endif --}}
-
-                                                <!--Si esta en espera-->
-                                                {{-- @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
-                                                    <div>
-                                                        <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero">E</a>
-                                                    </div>
-                                                @endif --}}
-
-                                                <!--Si esta dentro del consultorio-->
-                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->outside_office))
-                                                    <div>
-                                                        <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-success primero">E</button>
-                                                    </div>
-                                                @endif --}}
-
-                                                <!--Si salio del consultorio-->
-                                                {{-- @if(!empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office))
-                                                    <div>
-                                                        <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-danger primero">E</button>
-                                                    </div>
-                                                @endif --}}
-                                            {{-- </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -356,7 +335,6 @@
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -417,7 +395,6 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-warning">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
                                                 <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
                                             </td>
@@ -481,7 +458,6 @@
                                             <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
                                             </td>
                                         </tr>

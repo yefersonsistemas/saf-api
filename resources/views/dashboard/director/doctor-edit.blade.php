@@ -13,17 +13,16 @@
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{route('doctor.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
+        <form action="{{route('doctores.update', $employe->id)}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
+            @method('PUT')
             @csrf
                 <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                     <div class="card p-4">
 
                         <div class="row d-flex justify-content-between">
-                            <div class="form-group col-lg-3 col-md-3">
-                                <label class="form-label">Foto</label>
-                                <div class=" mb-2">
-                                    <input id="image" type="file" class="dropify" name="image" data-default-file="">
-                                </div>
+                            <div class="form-group col-lg-3 col-md-3" style="height:150px">
+                                <label class="form-label">Foto</label>  
+                                <img class="rounded circle col-12 mb-2" width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt="">
                             </div>
 
                             <div class="col-lg-9 col-md-7 d-flex justify-content-between">
@@ -32,93 +31,101 @@
                                         <label class="form-label">Documento de Identidad</label>
                                         <div class="input-group ">
                                             <div class="input-group-prepend">
-                                                <select name="type_dni" class="custom-select input-group-text form-control" value=" {{ old('type_dni') }}" required>
-                                                    <option value="0">...</option>
+                                                <select name="type_dni" class="custom-select input-group-text form-control"  required>
+                                                    @if ($employe->person->type_dni == 'N' )
                                                     <option value="N">N</option>
+                                                    @endif
+                                                    @if ($employe->person->type_dni == 'E' )
                                                     <option value="E">E</option>
+                                                    @endif
                                                 </select>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
+                                            <input type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ $employe->person->dni }}" required name="dni">
                                         </div>
                                     </div>
                                         
                                         <div class="col-lg-4 ">
                                             <div class="form-group">
                                                 <label class="form-label">Nombre</label>
-                                                <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ old('name') }}" required>
+                                                <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ $employe->person->name }}" required>
                                             </div>
                                         </div>
                         
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4 ">
                                             <div class="form-group"> 
                                                 <label class="form-label">Apellido</label>
-                                                <input type="text" class="form-control" placeholder="Apellido" name="lastname" value="{{ old('lastname') }}" required>
+                                                <input type="text" class="form-control" placeholder="Apellido" name="lastname" value="{{ $employe->person->lastname }}" required>
                                             </div>
                                         </div>
         
-                                        <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label class="form-label">Direccion</label>
-                                                    <input type="text" name="address" id="address" class="form-control" placeholder="Direccion" value="{{ old('address') }}" required>
-                                                </div>
+                                        <div class="col-lg-4 mt-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Direccion</label>
+                                                <input type="text" name="address" id="address" class="form-control" placeholder="Direccion" value="{{ $employe->person->address }}" required>
                                             </div>
+                                        </div>
                     
-                                            
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label class="form-label"> Teléfono </label>
-                                                    <input type="text" class="form-control" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
-                                                </div>
+                                        <div class="col-lg-4 mt-4">
+                                            <div class="form-group">
+                                                <label class="form-label"> Teléfono </label>
+                                                <input type="text" class="form-control" placeholder="Telefono" name="phone" value="{{ $employe->person->phone }}" required>
                                             </div>
+                                        </div>
                                             
-                                        
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4 mt-4">
                                             <div class="form-group">
                                                 <label class="form-label"> Correo Electronico </label>
-                                                <input type="email" placeholder="name@example.com" class="form-control" name="email" value="{{ old('email') }}" required>
+                                                <input type="email" placeholder="name@example.com" class="form-control" name="email" value="{{$employe->person->email }}" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                    <div class="row d-flex justify-content-between">
-                    
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                            <label class="form-label">Cargo </label>
-                                <input type="hidden"  name="position_id" value="{{$position->id}}">
-                                <input type="text" class="form-control" name="position_id" value="{{$position->name = 'doctor'}}" disabled>
-                            </div>
-                        </div>
+                            <div class="row d-flex justify-content-between">
 
-                        <div class="col-lg-6" id="framework_form">
-                            <label class="form-label">Especialidad</label>
-                            <div class="form-group multiselect_div">
-                                <select id="speciality" name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple">
-                                    @foreach ($speciality as $speciality)
-                                        <option value= {{ $speciality->id }}>
-                                            {{ $speciality->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="mb-2 col-lg-3">
+                                    <input id="image" type="file" class="dropify" name="image" data-default-file="">
+                                </div>
+                            
+                                <div class="col-lg-3 mt-4">
+                                    <div class="form-group">
+                                    <label class="form-label">Cargo </label>
+                                        <input type="hidden"  name="position_id" value="{{$position->id}}">
+                                        <input type="text" class="form-control" name="position_id" value="{{$position->name = 'doctor'}}" disabled>
+                                    </div>
+                                </div>
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{$error}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                                <div class="col-lg-6 mt-4" id="framework_form">
+                                    <label class="form-label">Especialidad</label>
+                                    <div class="form-group multiselect_div">
+                                        <select id="speciality"  name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
+                                            @foreach ($speciality as $speciality)
+                                                @foreach ($employe->speciality as $item)
+                                                @if ($item->id == $speciality->id)
+                                                <option selected="selected" value= {{ $speciality->id }}>{{ $speciality->name }}</option>
+                                                @endif
+                                                @endforeach
+                                            <option value= {{ $speciality->id }}>{{ $speciality->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
-                            <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
-                            <button type="reset" class="btn btn-azuloscuro mr-2 pr-4 pl-4">Limpiar</button>
-                        {{-- <a href="{{route('employe.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a> --}}    
+                        <button  type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Guardar</button>
                     </div>
                 </div>
         </form>
@@ -126,7 +133,6 @@
 </div>
 @endsection
 
-{{-- style="color:#00ad88" turquesa --}}
 
 @section('scripts')
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>

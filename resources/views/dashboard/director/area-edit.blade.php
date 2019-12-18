@@ -4,16 +4,16 @@
 
 @endsection
 
-@section('title','Modificar alergias')
+@section('title','Registro de Alergias en los Pacientes')
 
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{ route('alergia.update', $allergy->id) }}" method='POST' class="row d-flex justify-content-center">
+        <form action="{{ route('allergy.update', $allergy->id) }}" method='POST' class="row d-flex justify-content-center">
             @method('PUT')
             @csrf
 
-            <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
+            <div class="card p-4 col-lg-6 col-md-12 col-sm-12">
                 <div class="card p-4">
             
                     <div class="col-lg-12 ">
@@ -41,4 +41,3 @@
         </form>
     </div>
 </div>
-@endsection

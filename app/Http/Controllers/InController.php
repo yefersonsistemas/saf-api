@@ -31,7 +31,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class InController extends Controller
 {
-     /**
+    /**
      * Muestra todas las listas
      * de pacientes
      * 
@@ -80,18 +80,18 @@ class InController extends Controller
      */
     public function create()
     {
-        $type_area = TypeArea::where('name','Consultorio')->first();
-        $areas = Area::with('typearea', 'image')->where('type_area_id',$type_area->id)->get();
-
+        $type_area = TypeArea::where('name','Consultorio')->first(); // Trae los consultorio
+        $areas = Area::with('typearea', 'image')->where('type_area_id',$type_area->id)->get(); // Trae la informacion de Consultorios
         // dd($areas);
-
-        $employes = Employe::with('image','person.user', 'speciality', 'assistance')->get();
+        
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance','areaassigment')->get();
+            // dd($employes);
         $em = collect([]);
         if ($employes->isNotEmpty()) {
             foreach ($employes as $employe) {
                 if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
                     if ($employe->schedule->isNotEmpty()) {
-                        $dia = strtolower(Carbon::now()->locale('en')->dayName);
+                        $dia = strtolower(Carbon::now()->locale('en')->dayName); //Trae los medicos del dia 
                         foreach ($employe->schedule as $schedule) {
                             if ($schedule->day == $dia) {
                                 $em->push($employe);
@@ -104,14 +104,14 @@ class InController extends Controller
         return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
-      /**
+    /**
      * 
      * busca la historia desde la lista de check-in
      * 
      */
     public function search_history(Request $request, $id){ 
         $rs = Reservation::with('patient.historyPatient')->where('id', $id)
-                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
+                        ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
 
         $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 
@@ -194,33 +194,33 @@ class InController extends Controller
                 ]);
             }
 
-           if (!is_null($patient)) {
-               if (!empty($request->disease)) {
-                   foreach ($request->disease as $disease) {
-                       $di = Disease::find($disease);
-                       $patient->disease()->attach($di); 
-                   }
-               }
+            if (!is_null($patient)) {
+                if (!empty($request->disease)) {
+                    foreach ($request->disease as $disease) {
+                        $di = Disease::find($disease);
+                        $patient->disease()->attach($di); 
+                    }
+                }
 
-               if (!empty($request->medicine)){
+                if (!empty($request->medicine)){
 
-                   foreach ($request->medicine as $medicine) {
-                       $me = Medicine::find($medicine);
-                       $patient->medicine()->attach($me); 
-                   }
-               }
+                    foreach ($request->medicine as $medicine) {
+                        $me = Medicine::find($medicine);
+                        $patient->medicine()->attach($me); 
+                    }
+                }
 
-               if (!empty($request->allergy)){
+                if (!empty($request->allergy)){
 
-                   foreach ($request->allergy as $allergy) {
-                       $al = Allergy::find($allergy);
-                       $patient->allergy()->attach($al); 
-                   }
-               }
+                    foreach ($request->allergy as $allergy) {
+                        $al = Allergy::find($allergy);
+                        $patient->allergy()->attach($al); 
+                    }
+                }
 
-               Alert::success('Guardado exitosamente');
-               return redirect()->route('checkin.index');
-           }
+                Alert::success('Guardado exitosamente');
+                return redirect()->route('checkin.index');
+            }
         }
     }
 
@@ -231,7 +231,7 @@ class InController extends Controller
 
         // dd($registro);
         // $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
-      
+
         $busqueda = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         // dd($busqueda);
     
@@ -425,7 +425,7 @@ class InController extends Controller
         //
     }
 
-   
+
     public function destroy($id)
     {
         //
@@ -453,7 +453,7 @@ class InController extends Controller
         }
     }
 
- /**
+/**
      * busca el medico que sera asignado 
      * a un consultorio
      * 
@@ -476,8 +476,6 @@ class InController extends Controller
         }
     }
 
-
-        
     /**
      * 
      * busca el horario que se muestra
@@ -506,17 +504,17 @@ class InController extends Controller
      * asignado al medico
      * 
      */
-  
+
 
     public static function assigment_area(Request $request) //asignacion de consultorio
     {
-        // dd($request);
+            // dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
-// si olsdoatos no estas vacios 
+// si los datos no estas vacios 
     if($e != null && $a != null){
         
-            $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
+        $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
 
         if(empty($existe)){
             $areaAssigment = AreaAssigment::create([
@@ -524,18 +522,20 @@ class InController extends Controller
             'area_id'     => $a,
             'branch_id' => 1,
             ]);
-            return response()->json([
-                'message' => 'Consultorio asignado',202
-            ]);
-            }else{
-                return response()->json([
-                    'error' => 'No se pudo asignar el consultorio',202
-                ]);
+
+            // dd($areaAssigment);
+
+            $act = Area::find($request->area_id);
+
+            $act->status = 'ocupado';
+            $act->save();
+
+            // dd($act);
+
+            return redirect()->route('checkin.index')->withSuccess('Consultorio Asignado');
             }
         }else{
-            return response()->json([
-                'error' => 'Datos incompletos',202
-            ]);
+            return withSuccess('No se pudo asignar');
         }
     }
 

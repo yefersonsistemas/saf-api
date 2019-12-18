@@ -29,7 +29,7 @@
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix">
- 
+
             {{-- Tabs de registros --}}
             <div class="col-md-12 mt-3">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -281,7 +281,7 @@
                                         <tr>
                                             <td>{{ $allergy->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="{{ route('allergy.edit', $allergy->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('alergia.edit', $allergy->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
@@ -312,7 +312,7 @@
                                         <tr>
                                             <td>{{ $disease->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('enfermedad.edit', $disease->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
