@@ -991,9 +991,12 @@ textarea[cols] {
     color: #00506b!important;
 } */
 
-.table.table_custom tr {
+
+/* .table.table_custom tr {
     display: flex;
+    margin: 5px;
     justify-content: space-between;
     align-items: center;
-    margin: 5px;
-}
+} */
+
+.table.table_custom tr td {}
