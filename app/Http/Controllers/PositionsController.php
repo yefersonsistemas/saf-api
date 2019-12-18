@@ -42,7 +42,7 @@ class PositionsController extends Controller
             'name' => 'required',
         ]);
 
-        $person = Position::create([
+        $position = Position::create([
             'name' => $data['name'],
             'branch_id' => 1
         ]);
@@ -69,7 +69,9 @@ class PositionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $position = Position::find($id);
+
+        return view('dashboard.director.position-edit', compact('position'));
     }
 
     /**
@@ -79,9 +81,14 @@ class PositionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $position = Position::find($request->id);
+
+        $position->name = $request->name;
+        $position->update();
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
     /**

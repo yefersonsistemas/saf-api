@@ -4,7 +4,7 @@
 
 @endsection
 
-@section('title','Registro Clase del Doctor')
+@section('title','Modificar clase de doctor')
 
 @section('content')
 <div class="section-body py-4">
