@@ -83,7 +83,7 @@
                                             <div  class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                 <div class="card assigment doctor" >
                                                     <label class="imagecheck m-0 disabled" >
-                                                        <input name="employe_id" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input">
+                                                        <input name="employe_id" id="searchemploye" type="radio" value=" {{ $employe->id}}" class="imagecheck-input" disabled>
                                                         {{-- @if (!empty($area->image->path))
                                                         <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                             <img src={{ Storage::url($employe->image->path) }} alt="" class="imagecheck-image">

@@ -89,6 +89,8 @@ class DoctorController extends Controller
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
+        // $procesm = ;
+        
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
 
@@ -96,7 +98,6 @@ class DoctorController extends Controller
 
         $surgerys = TypeSurgery::all();
 
-        // $procesm = ;
 
         // $proces = ;
             // dd(  $cite);

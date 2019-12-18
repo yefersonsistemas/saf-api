@@ -291,7 +291,22 @@ button[data-original-title="Help"]{ display: none; }
 
                                         <h2>Diagnostico</h2>
                                         <section class="ml-4">
-                                            <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    
+                                                </div>
+                                                <div class="col-12 mt-30">
+
+                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                        <i class="icon-clock"></i>
+                                                        Procedimientos
+                                                    </button>
+
+                                                </div>
+                                                
+                                            </div>
                                         </section>
 
                                         <h2>Plan</h2>
