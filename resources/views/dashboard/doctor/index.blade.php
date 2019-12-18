@@ -308,7 +308,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach ($today as $reservation)
+                                    @foreach ($all as $reservation)
                                     @if($reservation->inputoutput->isEmpty()) <!--esta en espera-->
                                     <tr class="event-click" style="border-radius:3px; border:2px solid  #FACC2E;">
                                     @endif
@@ -367,7 +367,7 @@
                                         @if(!empty($reservation->inputoutput->first()->outside) && !empty($reservation->inputoutput->first()->inside) && !empty($reservation->inputoutput->first()->outside_office) && !empty($reservation->inputoutput->first()->outside))<!--fuera de las instalaciones-->
                                         <td><span class="status-icon" style= " padding:5px; animation: pulse 2s infinite; background:#ccc;"></span><i class="fa fa-hospital-o"></i> Fuera de las instalaciones</td>
                                         @endif
-                                        @if(empty($reservation->inputoutput->first()->outside) && empty($reservation->inputoutput->first()->inside) && empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))<!--fuera de las instalaciones-->
+                                        @if(empty($reservation->inputoutput))<!--vacio-->
                                         <td></td>
                                         @endif
                                         <td> 
