@@ -234,6 +234,7 @@ class CitaController extends Controller
     public function update(Reservation $cite, Request $request)
     {
         // dd($cite);
+        // dd($request);
         if (!is_null($cite)) {
 
             //cuando se han editado los datos del paciente
@@ -262,15 +263,19 @@ class CitaController extends Controller
                 $cite->save();
             }
 
-            // if ($request->fecha != null) {
-            //     $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
-            //     // dd($cite->person->employe);
-            //     $schedule = Schedule::where('employe_id', $cite->person->employe->id)->where('day', $dia)->first();
-            //     $cite->date       = Carbon::create($request->fecha);
-            //     $cite->reschedule = Carbon::now();
-            //     $cite->schedule_id = $schedule->id;
-            // }
-            // $cite->save();
+            if ($request->fecha != null) {
+                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
+                // dd($cite->person->employe);
+                $employe = Employe::where('person_id',$cite->person_id)->first();
+                // dd($employe); 
+                $schedule = Schedule::where('employe_id', $employe->id)->where('day', $dia)->first();
+                // dd($schedule);
+                $cite->date       = Carbon::create($request->fecha);
+                $cite->reschedule = Carbon::now();
+                $cite->schedule_id = $schedule->id;
+            }
+            $cite->save();
+            // dd($cite);
 
 
             //guardar razon del reprogramar

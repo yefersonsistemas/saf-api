@@ -4038,3 +4038,12 @@ th .factura{
 .abarca{
     width: 100%;
 }
+
+
+.enlace_cirugia{
+    color:#6CBBF5;
+}
+
+.enlace_cirugia:hover {
+    color:#00ad88;
+}

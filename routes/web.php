@@ -90,6 +90,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
         Route::get('informe/{id}','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
+        Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
