@@ -4060,3 +4060,16 @@ th .factura{
 .enlace_cirugia:hover {
     color:#00ad88;
 }
+
+.datepicker table tr td.highlighted.disabled,
+.datepicker table tr td.highlighted.disabled:active {
+    background: #e3e3e3!important;
+    color: #777!important;
+}
+
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+    background: #e3e3e3!important;
+    color: #777!important;
+    cursor: default!important;
+}

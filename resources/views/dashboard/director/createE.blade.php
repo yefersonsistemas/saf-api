@@ -111,7 +111,6 @@
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
                             <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
                             <button type="reset" class="btn btn-azuloscuro mr-2 pr-4 pl-4">Limpiar</button>
-                        {{-- <a href="{{route('employe.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a> --}}    
                     </div>
                 </div>
         </form>
@@ -119,7 +118,6 @@
 </div>
 @endsection
 
-{{-- style="color:#00ad88" turquesa --}}
 
 @section('scripts')
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>

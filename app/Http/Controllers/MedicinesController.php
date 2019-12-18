@@ -65,7 +65,9 @@ class MedicinesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $medicine = Medicine::find($id);
+
+        return view('dashboard.director.medicine-edit', compact('medicine'));
     }
 
     /**
@@ -75,9 +77,14 @@ class MedicinesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $medicine = Medicine::find($request->id);
+
+        $medicine->name = $request->name;
+        $medicine->update();
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
     /**

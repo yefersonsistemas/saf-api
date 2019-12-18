@@ -107,7 +107,7 @@
                                         <label>Fecha</label>
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input id="fecha" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="{{ $reservation->date }}">
+                                                <input id="fechas" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="{{ $reservation->date }}">
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
             $('#newDoctor').html('<label class="form-label">Médico</label><select class="form-control custom-select" name="person_id" id="doctor1"> <option value=""> Seleccione </option> </select>');
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].employe.length; j++) {
-                    $('#doctor1').append('<option value="'+data[i].employe[j].person.id+'">'+ data[i].employe[j].person.name +'</option>');
+                    $('#doctor1').append('<option value="'+data[i].employe[j].id+'">'+ data[i].employe[j].person.name +'</option>');
                 }
             }
 
@@ -217,14 +217,6 @@
             })
             .done(function(data) {
                 console.log(data);
-                // $('.datepicker').datepicker({
-                //         todayHighlight: true,
-                //         language: 'es',
-                //         startDate: data.start,
-                //         endDate: data.end,
-                //         daysOfWeekHighlighted: [0,6],
-                //         datesDisabled: data.diff,
-                //     });
                 cargarDate(data);
             })
             .fail(function(data) {
@@ -232,32 +224,34 @@
             })
         }
        
-    
         //cargando horario
         function cargarDate(data){
-            console.log(data.available);
+            console.log('primero',data.available);
+            console.log('segundo',data.diff);
             $('#newDate').empty();
-            $('#newDate').html('<label class="form-label">Fecha</label> <div class="form-group"> <div class="input-group"> <input id="datepicker" data-provide="datepicker" data-date-autoclose="true" name="fecha" class="form-control datepicker"> </div> </div>');
+            $('#newDate').html('<label class="form-label">Fecha</label> <div class="form-group"> <div class="input-group"> <input id="fechas" data-provide="datepicker" data-date-autoclose="true" name="fecha" class="form-control datepicker"> </div> </div>');
             fecha = new Date(2019, 10, 29);
             fecha2 = new Date(2019, 10, 30);
             console.log(fecha);
-            $('.datepicker').datepicker({
+            $('#fechas').datepicker({
                 todayHighlight: true,
                 language: 'es',
                 startDate: data.start,
                 endDate: data.end,
                 daysOfWeekHighlighted: [0,6],
-               
+                datesDisabled: data.diff, 
             });
-
+           
+        $('#fechas').val();
         }
 
-        $('#fecha').datepicker({
+        $('#fechas').datepicker({
             todayHighlight: true,
             language: 'es',
             startDate: data.start,
             endDate: data.end,
-            datesDisabled: data.diff,
+            datesDisabled: data.available,
+        
         });
 
     </script>

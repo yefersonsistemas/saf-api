@@ -110,11 +110,11 @@
                                     <div class="card assigment">
                                             <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
                                             @if (!empty($speciality->image->path))
-                                            <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px; ">
+                                            <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                 <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @else
-                                            <figure class="imagecheck-figure border-0">
+                                            <figure class="imagecheck-figure border-0 text-center">
                                                 <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @endif
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="form-group mx-4">
                                     <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker" autocomplete="off">
+                                        <input data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -379,13 +379,14 @@
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);
-                    $('.datepicker').datepicker({
+                    $('#picker').datepicker({
                         todayHighlight: true,
                         language: 'es',
                         startDate: data.start,
                         endDate: data.end,
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
+                      
                     });
                     $('#fecha').val();
                 })
@@ -409,37 +410,37 @@
         var date = $('#date').val();
         var person = $('#newPerson').val();
         $.ajax({
-            url: "{{ route('reservation.store') }}",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                type_dni: type_dni,
-                dni: dni,
-                name: name,
-                lastname: lastname,
-                email: email,
-                address: address,
-                phone: phone,
-                speciality: speciality,
-                doctor: doctor,
-                motivo: motivo,
-                date: date,
-                person: person,
-            }
-        })
-        .done(function(data) {
-            console.log(data);
-            $('.datepicker').datepicker({
-                todayHighlight: true,
-                language: 'es',
-                datesDisabled: data.available,
-                daysOfWeekDisabled: '0'
-            });
-            window.location.href = "{{ route('checkin.index') }}";
-        })
-        .fail(function(data) {
-            console.log(data);
-        })
+                url: "{{ route('reservation.store') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    type_dni: type_dni,
+                    dni: dni,
+                    name: name,
+                    lastname: lastname,
+                    email: email,
+                    address: address,
+                    phone: phone,
+                    speciality: speciality,
+                    doctor: doctor,
+                    motivo: motivo,
+                    date: date,
+                    person: person,
+                }
+            })
+            .done(function(data) {
+                console.log(data);
+                $('#picker').datepicker({
+                    todayHighlight: true,
+                    language: 'es',
+                    datesDisabled: data.available,
+                    daysOfWeekDisabled: '0'
+                });
+                window.location.href = "{{ route('checkin.index') }}";
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
     }
 
 </script>
