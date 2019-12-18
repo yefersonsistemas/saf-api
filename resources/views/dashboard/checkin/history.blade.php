@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/dropzone/css/dropzone.css') }}">
 
 @endsection
 
@@ -38,7 +39,7 @@
         </div>
     </div>
     <div class="container">
-        <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4">
+        <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
             @csrf
             <div class="card p-4">
                 <div style="margin-bottom:12px">
@@ -202,51 +203,8 @@
 
             <div class="card p-4">
                 <label class="form-label">Exámenes</label>
-                <div class="form-control">
-                    <div class="row fileupload-buttonbar mt-4 ml-2">
-                        <div>
-                            <span class="btn btn-success fileinput-button">
-                            <input type="file" name="files[]" multiple="">
-                        </div>
-
-                        <div class="ml-2">
-                            <button type="submit" class="btn btn-primary start">
-                                <i class="glyphicon glyphicon-upload"></i>
-                                <span>Subir</span>
-                            </button>
-                        </div>
-
-                        <div class="ml-2">
-                            <button type="reset" class="btn btn-warning cancel">
-                                <i class="glyphicon glyphicon-ban-circle"></i>
-                                <span>Cancelar</span>
-                            </button>
-                        </div>
-
-                        <div class="ml-2">
-                            <button type="button" class="btn btn-danger delete">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                <span>Eliminar</span>
-                            </button>
-                        </div>
-                
-                        <div class="ml-2 mt-2">
-                            <input type="checkbox" class="toggle">
-                        </div>
-
-                        <div class="col-lg-5 fileupload-progress fade">
-                            <!-- The global progress bar -->
-                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                            </div>
-                            <!-- The extended global progress state -->
-                            <div class="progress-extended">&nbsp;</div>
-                        </div>
-                    </div>
-                            <!-- The table listing the files available for upload/download -->
-                    <table role="presentation" class="table table-striped">
-                        <tbody class="files"></tbody>
-                    </table>
+                <div class="fallback" id="drop">
+                    <input name="file" type="file" multiple/>
                 </div>
             </div>
 
@@ -355,6 +313,12 @@
     <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
     <script src="{{ asset('assets\css\brandAn.css') }}"></script>
+    <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
+    <script src="{{ asset('assets/plugins/dropzone/js/dropzone-amd-module.js') }}"></script>
+
+    <script>
+    $("div#drop").dropzone();
+    </script>
 
     <script>
         $('#disease').multiselect({
