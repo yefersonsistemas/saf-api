@@ -88,9 +88,10 @@ class DoctorController extends Controller
 
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
-
-        // $procesm = ;
         
+        $procesm = Employe::with('procedures')->where('id', $history->person_id)->first(); 
+        
+        // dd($procesm);
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
 
@@ -99,12 +100,11 @@ class DoctorController extends Controller
         $surgerys = TypeSurgery::all();
 
 
-        // $proces = ;
             // dd(  $cite);
             // return response()->json([
             //   'Patient' => $history,
             // ]);
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm'));
     }
 
     /**

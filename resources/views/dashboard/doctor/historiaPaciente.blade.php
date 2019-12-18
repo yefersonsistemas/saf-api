@@ -299,7 +299,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 <div class="col-12 mt-30">
 
-                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
                                                         <i class="icon-clock"></i>
                                                         Procedimientos
                                                     </button>
@@ -339,16 +339,13 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="tab-content" id="pills-tabContent">
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <label>Examenes</label>
-                                                        <div class="form-group multiselect_div">
-                                                            <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                                @foreach ($exams as $exam)
-                                                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span></span>
-                                                        </div>
+                                                    <div class="col-12 mt-30">
+
+                                                        <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
+                                                            <i class="fa fa-file-text-o"></i>
+                                                            Examenes
+                                                        </button>
+    
                                                     </div>
                                                 </div>
                                                 <!--Recetario-->
@@ -553,9 +550,9 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     </div>
-{{-- modal de procedimientos en la consulta --}}
-    <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    {{-- modal de los examenes --}}
+    <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
@@ -564,8 +561,71 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                     <div class="modal-body">
-
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @foreach ($exams as $exam)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="{{ $exam->id }}">
+                                    <span class="custom-control-label">{{ $exam->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+                        {{-- <div class="col-lg-12 col-md-12">
+                            <label>Examenes</label>
+                            <div class="form-group multiselect_div">
+                                <select id="selectexam" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                    @foreach ($exams as $exam)
+                                        <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span></span>
+                            </div>
+                        </div>  --}}
+                    </div>   
+                        
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-success">Guardar</button>
                     </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal de procedimientos en la consulta --}}
+    <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @foreach ($procesm->procedures as $proces)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="{{ $proces->id }}">
+                                    <span class="custom-control-label">{{ $proces->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div> 
+                    </div>   
+                        {{-- <div class="col-lg-12 col-md-12">
+                            <label>Procedimientos</label>
+                            <div class="form-group multiselect_div">
+                                <select id="selectprocesm" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                    @foreach ($procesm->procedures as $proces)
+                                        <option value="{{ $proces->id }}">{{ $proces->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span></span>
+                            </div>
+                        </div> --}}
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button class="btn btn-success">Guardar</button>
@@ -584,8 +644,19 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="custom-controls-stacked">
+                            <label class="custom-control custom-checkbox custom-control-inline">
+                                @foreach ($surgerys as $surgery)
+                                <input type="checkbox" class="custom-control-input" name="example-inline-checkbox1" value="{{ $surgery->id }}">
+                                <span class="custom-control-label">{{ $surgery->name }}</span>
+                                @endforeach
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                    {{-- <div class="modal-body">
                         <div class="col-lg-12 col-md-12">
                             <label>Cirugias</label>
                             <div class="form-group multiselect_div">
@@ -597,7 +668,7 @@ button[data-original-title="Help"]{ display: none; }
                                 <span></span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-success">Guardar</button>
@@ -608,7 +679,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
@@ -616,18 +687,35 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('reservation.status') }}">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                           
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="custom-controls-stacked">
+                            @foreach ($procesm->procedures as $proces)
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="{{ $proces->id }}">
+                                <span class="custom-control-label">{{ $proces->name }}</span>
+                            </label>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success">Guardar</button>
-                    </div>
-                </form>
+                    {{-- <div class="form-group">
+                        <div class="col-lg-12 col-md-12">
+                            <label>Procedimientos</label>
+                            <div class="form-group multiselect_div">
+                                <select id="selectproces" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                    @foreach ($procesm->procedures as $proces)
+                                        <option value="{{ $proces->id }}">{{ $proces->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div> --}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-success">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -650,7 +738,15 @@ button[data-original-title="Help"]{ display: none; }
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
 <script>
-    $('#select').multiselect({
+    $('#selectexam').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
+
+<script>
+    $('#selectprocesm').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -659,6 +755,14 @@ button[data-original-title="Help"]{ display: none; }
 
 <script>
     $('#selectsurgerys').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
+
+<script>
+    $('#selectproces').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -879,6 +983,9 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
+</script>
+<script>
+    
 </script>
 
 @endsection
