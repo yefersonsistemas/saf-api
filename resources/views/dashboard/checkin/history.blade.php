@@ -200,7 +200,7 @@
                 </div>
             </div>
 
-            {{-- <div class="card p-4">
+            <div class="card p-4">
                 <label class="form-label">Exámenes</label>
                 <div class="form-control">
                     <div class="row fileupload-buttonbar mt-4 ml-2">
@@ -248,7 +248,7 @@
                         <tbody class="files"></tbody>
                     </table>
                 </div>
-            </div> --}}
+            </div>
 
             <div class="card p-4 d-flex justify-content-between">
                 <div class="row">

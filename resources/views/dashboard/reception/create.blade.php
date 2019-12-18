@@ -215,8 +215,8 @@
             confirmButtonColor: '#3085d6',
             confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
             }).then((result) => {
-            if (result.value) {
-            }
+                if (result.value) {
+                }
             })
         }
     });
@@ -409,37 +409,37 @@
         var date = $('#date').val();
         var person = $('#newPerson').val();
         $.ajax({
-                url: "{{ route('reservation.store') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    type_dni: type_dni,
-                    dni: dni,
-                    name: name,
-                    lastname: lastname,
-                    email: email,
-                    address: address,
-                    phone: phone,
-                    speciality: speciality,
-                    doctor: doctor,
-                    motivo: motivo,
-                    date: date,
-                    person: person,
-                }
-            })
-            .done(function(data) {
-                console.log(data);
-                $('.datepicker').datepicker({
-                    todayHighlight: true,
-                    language: 'es',
-                    datesDisabled: data.available,
-                    daysOfWeekDisabled: '0'
-                });
-                window.location.href = "{{ route('checkin.index') }}";
-            })
-            .fail(function(data) {
-                console.log(data);
-            })
+            url: "{{ route('reservation.store') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                type_dni: type_dni,
+                dni: dni,
+                name: name,
+                lastname: lastname,
+                email: email,
+                address: address,
+                phone: phone,
+                speciality: speciality,
+                doctor: doctor,
+                motivo: motivo,
+                date: date,
+                person: person,
+            }
+        })
+        .done(function(data) {
+            console.log(data);
+            $('.datepicker').datepicker({
+                todayHighlight: true,
+                language: 'es',
+                datesDisabled: data.available,
+                daysOfWeekDisabled: '0'
+            });
+            window.location.href = "{{ route('checkin.index') }}";
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
     }
 
 </script>

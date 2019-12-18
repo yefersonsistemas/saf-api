@@ -138,7 +138,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         //relacion de la cirugia con el procedimiento
-        $procedimiento->typesurgery()->attach($cirugia->id);
+        // $procedimiento->typesurgery()->attach($cirugia->id);
         // $->Type_surgery()->attach($procedimiento->id);
 
 
