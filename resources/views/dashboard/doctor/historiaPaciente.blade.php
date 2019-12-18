@@ -289,22 +289,23 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                        <h2>Diagnostico y Procedimientos</h2>
+                                        <h2>Diagnostico</h2>
                                         <section class="ml-4">
-                                            <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <div class="row">
+                                                <div class="col-12">
 
-                                            <div class="tab-pane fade show active mt-30" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                <div class="col-lg-12 col-md-12">
-                                                    <label>Procedimientos Realizados: </label>
-                                                    <div class="form-group multiselect_div">
-                                                        <select id="selectp" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                            @foreach ($exams as $exam)
-                                                                <option value="{{ $exam->id }}">{{ $exam->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span></span>
-                                                    </div>
+                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    
                                                 </div>
+                                                <div class="col-12 mt-30">
+
+                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                        <i class="icon-clock"></i>
+                                                        Procedimientos
+                                                    </button>
+
+                                                </div>
+                                                
                                             </div>
                                         </section>
 
@@ -328,10 +329,10 @@ button[data-original-title="Help"]{ display: none; }
                                                         <a class="nav-link" id="pills-referencia-tab" data-toggle="pill" href="#pills-referencia" role="tab" aria-controls="pills-referencia" aria-selected="false">Referir a otro médico</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
+                                                        <a class="nav-link" id="pills-candidato-tab" data-toggle="pill" href="#pills-candidato" role="tab" aria-controls="pills-candidato" aria-selected="false">Candidato A:</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="pills-candidato-tab" data-toggle="pill" href="#pills-candidato" role="tab" aria-controls="pills-candidato" aria-selected="false">Candidato A:</a>
+                                                        <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -466,7 +467,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
-                                                                <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
+                                                            <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
                                                                 <div class="card mr-0 ml-0">
                                                                     <div class="card-body m-0">
                                                                         {{-- <h3 class="card-title">Datos del Médico</h3> --}}
@@ -509,37 +510,26 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
                                                                             <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar</a>
                                                                         </div>
-                                                                    </div>
                                                                 </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                        <section>
-                                                            <div class="row">
-                                                                <div class="col-lg-6 col-md-6 mt-30">
-                                                                    <label>Cirugias</label>
-                                                                    <div class="form-group multiselect_div">
-                                                                        <select id="selectsurgy" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                                            @foreach ($exams as $exam)
-                                                                                <option value="{{ $exam->id }}">{{ $exam->name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                        <span></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6 mt-30">
-                                                                    <label>Examenes</label>
-                                                                    <div class="form-group multiselect_div">
-                                                                        <select id="selectproces" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                                            @foreach ($exams as $exam)
-                                                                                <option value="{{ $exam->id }}">{{ $exam->name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                        <span></span>
-                                                                    </div>
-                                                                </div>
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class=" col-4">
+                                                                <button class="btn btn-success" data-toggle="modal" data-target="#surgerys">
+                                                                    <i class="icon-clock"></i>
+                                                                    Cirugias
+                                                                </button>
                                                             </div>
-                                                        </section>  
+                                                            
+                                                            <div class="col-4">
+                                                                <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                                    <i class="icon-clock"></i>
+                                                                    Procedimientos
+                                                                </button>
+                                                            </div>                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 
@@ -551,7 +541,6 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                 </div> --}}
-                                            {{-- </div> --}}
                                         </section>
                                     </form>
                                     </div>
@@ -564,6 +553,85 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     </div>
+{{-- modal de procedimientos en la consulta --}}
+    <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-success">Guardar</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de cirugias --}}
+    <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                    <div class="modal-body">
+                        <div class="col-lg-12 col-md-12">
+                            <label>Cirugias</label>
+                            <div class="form-group multiselect_div">
+                                <select id="selectsurgerys" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
+                                    @foreach ($surgerys as $surgery)
+                                        <option value="{{ $surgery->id }}">{{ $surgery->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de candidatos a posibles procedimientos --}}
+    <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{{ route('reservation.status') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                           
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
@@ -582,7 +650,6 @@ button[data-original-title="Help"]{ display: none; }
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
 <script>
-    //========== Multiselect de los Examenes===========//
     $('#select').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
@@ -591,26 +658,7 @@ button[data-original-title="Help"]{ display: none; }
 </script>
 
 <script>
-    //========== Multiselect de los procedimientos en la Consulta===========//
-    $('#selectp').multiselect({
-        enableFiltering: true,
-        enableCaseInsensitiveFiltering: true,
-        maxHeight: 200
-    });
-</script>
-
-<script>
-    //========== Multiselect de los Candidatos a Cirugias===========//
-    $('#selectsurgy').multiselect({
-        enableFiltering: true,
-        enableCaseInsensitiveFiltering: true,
-        maxHeight: 200
-    });
-</script>
-
-<script>
-    //========== Multiselect de los Candidatos a Procedimientos===========//
-    $('#selectproces').multiselect({
+    $('#selectsurgerys').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200

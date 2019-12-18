@@ -370,7 +370,7 @@
                 console.log('procedures', data.procedureS)
                 $("#procedure").append(procedure);
 
-                for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
+                for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
                     costo = financial(data.procedureS[i].price);
                     costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
