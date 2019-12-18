@@ -96,9 +96,9 @@ class DoctorController extends Controller
 
         $surgerys = TypeSurgery::all();
 
-        $procesm = ;
+        // $procesm = ;
 
-        $proces = ;
+        // $proces = ;
             // dd(  $cite);
             // return response()->json([
             //   'Patient' => $history,
