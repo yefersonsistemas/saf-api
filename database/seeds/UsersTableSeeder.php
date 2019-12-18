@@ -147,7 +147,7 @@ class UsersTableSeeder extends Seeder
 
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento);
-        $employe->procedure()->attach($procedimiento);
+        // $employe->procedure()->attach($procedimiento);
 
           //creando procedimiento
           $procedimiento2 = factory(App\Procedure::class)->create([
