@@ -274,7 +274,7 @@ class DoctorController extends Controller
     // ================================= Guardar diagnostico ======================================
     public function storeDiagnostic(Request $request)
     {
-        // dd($request);
+        dd($request);
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 

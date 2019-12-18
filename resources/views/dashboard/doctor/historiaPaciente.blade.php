@@ -597,7 +597,7 @@ button[data-original-title="Help"]{ display: none; }
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos no</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -629,7 +629,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>   
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success" id="guardarP">Guardar</button>
+                        <button class="btn btn-success">Guardar</button>
                     </div>
             </div>
         </div>
@@ -713,9 +713,10 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div> --}}
                 </div>
+           
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-success">Guardar</button>
+                    <button class="btn btn-success" id="guardarP">Guardar</button>
                 </div>
             </div>
         </div>
@@ -988,15 +989,17 @@ button[data-original-title="Help"]{ display: none; }
 
     //captar datos de procedimientos en la consulta
 
-    $('input[name="example-checkbox2"]').on('click',function(){
-        var proce_id = $("#proce").val();  
-        procedures = procedures +','+proce_id;
-        console.log(procedures);
-        console.log('jj',proce_id)
-    });
+    // $('input[type="checkbox"]').on('click',function(){
+    //     var proce_id = $("#proce").val();  
+    //     procedures = procedures +','+proce_id;
+    //     console.log(procedures);
+    //     console.log('jj',proce_id)
+    // });
+
     $("#guardarP").click(function() {
-            var proce = $("#proce").val();          //asignando el valor que se ingresa en el campo
+            var proce = $("#form").val();          //asignando el valor que se ingresa en el campo
             console.log('hola', proce);                   //mostrando en consola
+
             
             // ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
