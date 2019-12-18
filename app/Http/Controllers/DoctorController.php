@@ -402,6 +402,7 @@ class DoctorController extends Controller
      * 
      */
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
+        // dd($request->id);
         $employe = Employe::with('schedule')->where('id', $request->id)->first();
         // dd($employe);
         $available = collect([]);

@@ -386,6 +386,7 @@
                         endDate: data.end,
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
+                      
                     });
                     $('#fecha').val();
                 })
