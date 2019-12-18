@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="form-group mx-4">
                                     <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" id="datepiker" name="date" class="form-control datepicker" autocomplete="off">
+                                        <input data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +379,7 @@
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);
-                    $('#datepicker').datepicker({
+                    $('#picker').datepicker({
                         todayHighlight: true,
                         language: 'es',
                         startDate: data.start,
@@ -430,7 +430,7 @@
             })
             .done(function(data) {
                 console.log(data);
-                $('#datepiker').datepicker({
+                $('#picker').datepicker({
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,
