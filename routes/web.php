@@ -107,8 +107,8 @@ Route::group(['middleware' => 'auth'], function (){
 
         //inicio de rutas para crear
         Route::get('', 'DirectorController@index')->name('employe.index');
-        Route::get('doctor/create', 'DirectorController@create')->name('doctor.create');
-        Route::POST('/doctor', 'DirectorController@store')->name('doctor.store');
+        Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
+        Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
         Route::get('typearea/create', 'TypeAreasController@create')->name('type-area.create');
@@ -142,9 +142,15 @@ Route::group(['middleware' => 'auth'], function (){
 
         //inicio de rutas para editar
         Route::get('list','DirectorController@all_register')->name('all.register');
-        Route::get('allergy/{id}', 'AllergyController@edit')->name('allergy.edit');
-        Route::put('allergy/update/{id}', 'AllergyController@update')->name('allergy.update');
+        Route::get('alergia/{id}', 'AllergyController@edit')->name('alergia.edit');
+        Route::put('alergia/update/{id}', 'AllergyController@update')->name('alergia.update');
         Route::get('clase/{id}', 'TypeDoctorController@edit')->name('clase.edit');
         Route::put('clase/update/{id}', 'TypeDoctorController@update')->name('clase.update');
+        Route::get('doctores/{id}', 'DirectorController@edit')->name('doctores.edit');
+        Route::put('doctores/update/{id}', 'DirectorController@update')->name('doctores.update');
+        Route::get('empleado/{id}', 'EmployesController@edit')->name('empleado.edit');
+        Route::put('empleado/update/{id}', 'EmployesController@update')->name('empleado.update');
+        Route::get('enfermedad/{id}', 'DiseasesController@edit')->name('enfermedad.edit');
+        Route::put('enfermedad/update/{id}', 'DiseasesController@update')->name('enfermedad.update');
     });
 });

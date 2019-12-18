@@ -104,7 +104,7 @@
                             <li><a href="{{ route('service.create') }}"><i class="fa fa-ambulance"></i>Servicio</a></li>
                             <li><a href="{{ route('speciality.create') }}"><i class="fa fa-flask"></i>Especialidad</a></li>
                             <li><a href="{{ route('employe.create') }}"><i class="fa fa-user-plus"></i>Empleado</a></li>
-                            <li><a href="{{ route('doctor.create') }}"><i class="fa fa-user-md"></i>Doctor</a></li>
+                            <li><a href="{{ route('doctores.create') }}"><i class="fa fa-user-md"></i>Doctor</a></li>
                             <li><a href="{{ route('price.create') }}"><i class=""></i>Precio de consulta</a></li>
                             <li><a href="{{ route('procedure.create') }}"><i class="fa fa-hotel"></i>Procedimiento</a></li>
                             <li><a href="{{ route('surgery.create') }}"><i class="fa fa-medkit"></i>Cirugias</a></li>

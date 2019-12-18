@@ -80,9 +80,8 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Permission::create(['name' => 'ver cuentas por cobrar']);
 
         //Permiso del rol director
-        Permission::create(['name' => 'registrar empleado']);
-        Permission::create(['name' => 'registrar doctor']);
-        Permission::create(['name' => 'registrar especialidad']);
+        Permission::create(['name' => 'crear todos los registros nuevos']);
+        Permission::create(['name' => 'modificar los registros creados']);
         Permission::create(['name' => 'ver empleados']);
 
 

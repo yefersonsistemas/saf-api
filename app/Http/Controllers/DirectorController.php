@@ -129,6 +129,9 @@ class DirectorController extends Controller
         return redirect()->route('employe.index');
     }
 
+    /*
+    *  crea el precio de la consulta por doctor
+    */
     public function create_price()
     {
         $employes = Employe::with('person.user', 'position')->get();
@@ -177,7 +180,15 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        //
+        // dd($id);
+        $employe = Employe::with('person.user', 'position','speciality', 'image')->find($id);
+        // dd($employe);
+        $position = Position::where('name', 'doctor')->first();
+        // dd($position);
+        $speciality = Speciality::get();
+        // dd($speciality);
+
+        return view('dashboard.director.doctor-edit', compact('employe','position', 'speciality'));
     }
 
     /**
@@ -187,9 +198,45 @@ class DirectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        // dd($request->image);
+        $employe = Employe::with('person.user', 'position','speciality', 'image')->find($request->id);
+        
+        $employe->person->type_dni = $request->type_dni;
+        $employe->person->dni = $request->dni;
+        $employe->person->name = $request->name;
+        $employe->person->lastname = $request->lastname;
+        $employe->person->address = $request->address;
+        $employe->person->phone = $request->phone;
+        $employe->person->email = $request->email;
+        
+        if (!is_null($employe)) {
+            if (!empty($request->speciality)) {
+                foreach ($request->speciality as $speciality) {
+                    $especialidad = Speciality::find($speciality);
+                    $employe->speciality()->attach($especialidad); 
+                }
+            }
+        }
+        
+        $employe->update();
+
+       if ($request->image != null) {
+           
+           $image = $request->file('image');
+           $path = $image->store('public/employes');  
+           $path = str_replace('public/', '', $path);
+           $image = new Image;
+           $image->path = $path;
+           $image->imageable_type = "App\Employe";
+           $image->imageable_id = $employe->id;
+           $image->branch_id = 1;
+           $image->save();
+        }
+
+       return redirect()->route('employe.index')->withSuccess('Registro modificado'); 
     }
 
     /**
