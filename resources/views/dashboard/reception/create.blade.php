@@ -110,11 +110,11 @@
                                     <div class="card assigment">
                                             <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
                                             @if (!empty($speciality->image->path))
-                                            <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px; ">
+                                            <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                 <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @else
-                                            <figure class="imagecheck-figure border-0">
+                                            <figure class="imagecheck-figure border-0 text-center">
                                                 <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @endif
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="form-group mx-4">
                                     <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker" autocomplete="off">
+                                        <input data-provide="datepicker" data-date-autoclose="true" id="datepiker" name="date" class="form-control datepicker" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +379,7 @@
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);
-                    $('.datepicker').datepicker({
+                    $('#datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
                         startDate: data.start,
@@ -429,7 +429,7 @@
             })
             .done(function(data) {
                 console.log(data);
-                $('.datepicker').datepicker({
+                $('#datepiker').datepicker({
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,
