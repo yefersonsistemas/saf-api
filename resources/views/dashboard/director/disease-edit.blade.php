@@ -9,7 +9,7 @@
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{ route('alergia.update', $allergy->id) }}" method='POST' class="row d-flex justify-content-center">
+        <form action="{{ route('enfermedad.update', $disease->id) }}" method='POST' class="row d-flex justify-content-center">
             @method('PUT')
             @csrf
 
@@ -19,7 +19,7 @@
                     <div class="col-lg-12 ">
                         <div class="form-group">
                             <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control"  name="name" value="{{ $allergy->name}}" required>
+                            <input type="text" class="form-control"  name="name" value="{{ $disease->name}}" required>
                         </div>
                     </div>
 

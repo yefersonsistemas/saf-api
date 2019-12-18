@@ -54,8 +54,13 @@
                                         <td>{{ $employe->person->lastname }}</td>
                                         <td>{{ $employe->position->name }}</td>
                                         <td>
-                                            <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                            @if ($employe->position->name == 'doctor')
+                                            <a href="{{ route('doctores.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                             <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
+                                            @elseif ($employe->position->name != 'doctor')
+                                            <a href="{{ route('empleado.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                            <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
+                                            @endif
                                         </td>
                                         {{-- <td>
                                             @if ( $employe->position->name == 'doctor')
