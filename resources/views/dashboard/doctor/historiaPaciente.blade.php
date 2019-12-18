@@ -629,7 +629,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>   
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success" id="guardarP">Guardar</button>
+                        <button class="btn btn-success">Guardar</button>
                     </div>
             </div>
         </div>
@@ -688,12 +688,14 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <form action="" id="posible-procedures">
                 <div class="modal-body">
+                    
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" id="proce" class="custom-control-input" name="example-checkbox3" value="{{ $proces->id }}">
+                                <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
                                 <span class="custom-control-label">{{ $proces->name }}</span>
                             </label>
                             @endforeach
@@ -714,9 +716,10 @@ button[data-original-title="Help"]{ display: none; }
                     </div> --}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-success">Guardar</button>
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
+                    <a class="btn btn-success" id="guardarP">Guardar</a>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -988,16 +991,15 @@ button[data-original-title="Help"]{ display: none; }
 
     //captar datos de procedimientos en la consulta
 
-    $('input[name="example-checkbox2"]').on('click',function(){
-        var proce_id = $("#proce").val();  
-        procedures = procedures +','+proce_id;
-        console.log(procedures);
-        console.log('jj',proce_id)
-    });
+    // $('input[name="example-checkbox2"]').on('click',function(){
+    //     var proce_id = $("#proce").val();  
+    //     procedures = procedures +','+proce_id;
+    //     console.log(procedures);
+    //     console.log('jj',proce_id)
+    // });
     $("#guardarP").click(function() {
-            var proce = $("#proce").val();          //asignando el valor que se ingresa en el campo
+            var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
             console.log('hola', proce);                   //mostrando en consola
-            
             // ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
 
