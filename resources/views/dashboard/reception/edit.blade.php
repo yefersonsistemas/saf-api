@@ -224,7 +224,6 @@
             })
         }
        
-    
         //cargando horario
         function cargarDate(data){
             console.log('primero',data.available);
@@ -240,8 +239,7 @@
                 startDate: data.start,
                 endDate: data.end,
                 daysOfWeekHighlighted: [0,6],
-                datesDisabled: data.diff,
-               
+                datesDisabled: data.diff, 
             });
            
         $('#fecha').val();
@@ -253,7 +251,6 @@
             startDate: data.start,
             endDate: data.end,
             datesDisabled: data.available,
-            //   daysOfWeekDisabled: '0'
         
         });
 
