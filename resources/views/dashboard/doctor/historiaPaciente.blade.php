@@ -1000,8 +1000,44 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarP").click(function() {
             var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
             console.log('hola', proce);                   //mostrando en consola
-            // ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+            ajax(proce);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
+        
+        function ajax(proce) {
+        $.ajax({ 
+            url: "{{ route('doctor.procedures') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:proce, 
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
 
 </script>
 <script>
