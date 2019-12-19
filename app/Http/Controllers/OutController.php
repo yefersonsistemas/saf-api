@@ -221,8 +221,8 @@ class OutController extends Controller
             $tipo_moneda = TypeCurrency::all();
             $tipo_pago = TypePayment::all();
 
-            $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','typesurgery')->where('patient_id', $request->patient_id)->first();
-
+            $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $request->patient_id)->first();
+            // dd($itinerary->surgeryR->name);
             $fecha = Carbon::now()->format('Y-m-d');
             $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
 
@@ -301,8 +301,8 @@ class OutController extends Controller
                     $total += $proce->price;
                 }
 
-                $cirugia = Itinerary::with('person','employe.person','typesurgery')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
-
+                $cirugia = Itinerary::with('person','employe.person','surgeryR')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
+// dd($cirugia);
                 if($cirugia->surgery != null){
                     $total_cancelar = $cirugia->typesurgery->cost + $todos->employe->doctor->price + $total;
                 }else{
