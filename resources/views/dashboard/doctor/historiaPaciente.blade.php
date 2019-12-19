@@ -346,7 +346,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 Examenes
                                                             </button>
                                                         </div>
-                                                        <div class="col-12 mt-30" id="examenes">
+                                                        <div class="col-12 mt-30" id="examen">
                                                             <p class="text-center">sdsadasdasdasdas</p>  
                                                         </div>
                                                     </div>
@@ -533,11 +533,11 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
 
                                                         <div class="row d-flex mt-50">
-                                                            <div id="procedimientos" class="col-4 ml-50">
+                                                            <div id="cirugias" class="col-4 ml-50">
 
                                                             </div>
-                                                            <div id="cirugias" class="col-4">
-
+                                                            <div id="procedimientos" class="col-4 ml-30">
+                                                            
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1125,15 +1125,16 @@ button[data-original-title="Help"]{ display: none; }
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
-                    title: data.surgeryP,
+                    title: data.surgeryR,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+                mostrarSurgery(data[1]);
             }
             
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.surgeryP2,
+                    title: data.surgeryR2,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
@@ -1144,6 +1145,16 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
+
+    function mostrarSurgery(data){
+            console.log('hh',data);
+
+            for($i=0; $i < data.length; $i++){
+                cirugias='<p style="text-align:center">'+data[$i].name+'</p>';
+                $("#cirugias").append(cirugias);
+            }
+            
+        }
 
 </script>
 <script>

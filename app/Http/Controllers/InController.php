@@ -535,7 +535,7 @@ class InController extends Controller
             return redirect()->route('checkin.index')->withSuccess('Consultorio Asignado');
             }
         }else{
-            return withSuccess('No se pudo asignar');
+            return withErrors('No se pudo asignar');
         }
     }
 
