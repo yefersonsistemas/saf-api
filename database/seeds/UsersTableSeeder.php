@@ -147,7 +147,7 @@ class UsersTableSeeder extends Seeder
 
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento);
-        $employe->procedure()->attach($procedimiento);
+        $employe->procedures()->attach($procedimiento);
 
           //creando procedimiento
           $procedimiento2 = factory(App\Procedure::class)->create([
@@ -165,7 +165,7 @@ class UsersTableSeeder extends Seeder
 
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento2);
-        $employe->procedure()->attach($procedimiento2);
+        $employe->procedures()->attach($procedimiento2);
 
           //creando procedimiento
           $procedimiento3 = factory(App\Procedure::class)->create([
@@ -179,7 +179,7 @@ class UsersTableSeeder extends Seeder
 
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento3);
-        $employe->procedure()->attach($procedimiento3);
+        $employe->procedures()->attach($procedimiento3);
 
             //creando procedimiento
             $procedimiento4 = factory(App\Procedure::class)->create([
@@ -193,7 +193,7 @@ class UsersTableSeeder extends Seeder
     
             //relacion de la cirugia con el procedimiento
             $cirugia->procedure()->attach($procedimiento4);
-            $employe->procedure()->attach($procedimiento4);
+            $employe->procedures()->attach($procedimiento4);
 
 
             $tipo_equipo = factory(App\TypeEquipment::class)->create([
