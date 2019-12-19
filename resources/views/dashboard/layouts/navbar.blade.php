@@ -1,11 +1,7 @@
 <style>
-   /* .header-brand img {
+   .header-brand img {
         max-width: 50px;
         width: 50px;
-    } */
-
-    img{
-        max-width: 50px;
     }
 </style>
 
