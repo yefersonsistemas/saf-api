@@ -340,14 +340,15 @@ button[data-original-title="Help"]{ display: none; }
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                                     <div class="row">
-                                                        <div class="col-12 mt-30 d-flex justify-content-center">
+                                                        <div class="col-12 mt-30 d-flex justify-content-start">
                                                             <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
                                                                 <i class="fa fa-file-text-o"></i>
-                                                                Examenes
+                                                                Agregar examen
                                                             </button>
                                                         </div>
-                                                        <div class="col-12 mt-30" id="examen">
-                                                            <p class="text-center">sdsadasdasdasdas</p>  
+                                                        <div class="col-12 mt-30 p-4  card ml-2">
+                                                            <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
+                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"></ul>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -533,9 +534,13 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
 
                                                         <div class="row d-flex mt-50">
-                                                            <div id="cirugias" class="col-4 ml-50">
-
+                                                            <div class="col-4 mt-30 p-4 card ml-2">
+                                                                <h6 class="text-center" style="font-weight:bold">Posibles Cirugia/as</h6>
+                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>  
                                                             </div>
+                                                            {{-- <div id="cirugias" class="col-4 ml-50">
+
+                                                            </div> --}}
                                                             <div id="procedimientos" class="col-4 ml-30">
                                                             
                                                             </div>
@@ -552,6 +557,8 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div> --}}
                                         </section>
+
+                                        
                                     </form>
                                     </div>
                                 </div>
@@ -588,8 +595,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div> 
                     </div>   
                     <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
-                        <a  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</a>
+                        <button  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>    
             </div>
@@ -620,8 +626,8 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
+                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -652,7 +658,6 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarC">Guardar</button>
                     </div>
                 </form>    
@@ -676,7 +681,6 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
                             <label class="custom-control custom-checkbox">
-                                {{-- <input type="hidden" name="id" id="reservacionD" value="reservacion"> --}}
                                 <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
                                 <span class="custom-control-label">{{ $proces->name }}</span>
                             </label>
@@ -685,8 +689,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
-                    <a class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</a>
+                    <button class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
             </div>
@@ -1014,6 +1017,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+console.log('gfhdg', data[1]);
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1021,6 +1025,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+                mostrarExamen(data[1]);
             }
             
             if (data[0] == 202) {                       //si no trae valores
@@ -1086,16 +1091,27 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-        // mostrando posibles procedimientos 
-        function mostrarProcedure(data){
-            console.log('hh',data);
+    // mostrando posibles procedimientos 
+    function mostrarProcedure(data){
+        console.log('hh',data);
 
-            for($i=0; $i < data.length; $i++){
-                procedure='<p style="text-align:center">'+data[$i].name+'</p>';
-                $("#procedimientos").append(procedure);
-            }
-            
+        for($i=0; $i < data.length; $i++){
+            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
+            $("#procedimientos").append(procedure);
         }
+        
+    }
+
+    // mostrando posibles procedimientos 
+    function mostrarExamen(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            examen='<li>'+data[$i].name+'</li>';
+            $("#examen").append(examen);
+        }
+        
+    }
 
 
     //captar datos de las posibles cirugias
@@ -1150,7 +1166,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('hh',data);
 
             for($i=0; $i < data.length; $i++){
-                cirugias='<p style="text-align:center">'+data[$i].name+'</p>';
+                cirugias='<li>'+data[$i].name+'</li>';
                 $("#cirugias").append(cirugias);
             }
             
