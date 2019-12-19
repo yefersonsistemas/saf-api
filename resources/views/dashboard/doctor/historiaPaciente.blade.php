@@ -340,14 +340,15 @@ button[data-original-title="Help"]{ display: none; }
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                                     <div class="row">
-                                                        <div class="col-12 mt-30 d-flex justify-content-center">
+                                                        <div class="col-12 mt-30 d-flex justify-content-start">
                                                             <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
                                                                 <i class="fa fa-file-text-o"></i>
-                                                                Examenes
+                                                                Agregar examen
                                                             </button>
                                                         </div>
-                                                        <div class="col-12 mt-30" id="examen">
-                                                            {{-- <p class="text-center"></p>   --}}
+                                                        <div class="col-12 mt-30 p-4  card ml-2">
+                                                            <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
+                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"></ul>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1103,7 +1104,7 @@ console.log('gfhdg', data[1]);
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            examen='<p style="text-align:center">'+data[$i].name+'</p>';
+            examen='<li>'+data[$i].name+'</li>';
             $("#examen").append(examen);
         }
         
