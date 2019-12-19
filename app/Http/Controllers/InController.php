@@ -25,6 +25,7 @@ use App\Assistance;
 use App\Itinerary;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\File;
 
 //use App\Http\Controllers\CitaController;
 
@@ -132,9 +133,8 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  
     {
-        // dd($request);
+        dd($request);
         $person = Person::where('dni', $request->dni)->first();
-
         $reservation = Reservation::find($id);
 
         if (!is_null($person)) {

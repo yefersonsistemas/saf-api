@@ -204,10 +204,10 @@
             <div class="card p-4">
                 <label class="form-label">Exámenes</label>
                 <div class="dropzone" id="my-dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple />
-                        </div>
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
                     </div>
+                </div>
             </div>
 
             <div class="card p-4 d-flex justify-content-between">
@@ -317,13 +317,10 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script>
  Dropzone.options.myDropzone = {
-            url: "{{ route('save.history', $rs) }}",
             autoProcessQueue: false,
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 100,
-            acceptedFiles: "image/*",
-
             init: function () {
 
                 var submitButton = document.querySelector("#submit-all");
