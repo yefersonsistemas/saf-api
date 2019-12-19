@@ -14,6 +14,7 @@ use App\Billing;
 use App\Assistance;
 use App\AreaAssigment;
 use App\Image;
+use App\User;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -168,7 +169,7 @@ class EmployesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         $data = $request->validate([
             'name' => 'required',
             'type_dni'  => 'required',
@@ -197,7 +198,14 @@ class EmployesController extends Controller
             'branch_id' => 1
         ]);
 
-        
+        // dd($person);
+        // $user = User::create([
+        //     'email'      => $person->email,
+        //     'password'   => $request->
+        //     'person_id'  => $person->id,
+        //     'branch_id' => 1
+        // ]);
+
         $image = $request->file('image');
         $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
         $path = str_replace('public/', '', $path);
