@@ -505,9 +505,9 @@ class DoctorController extends Controller
         
         //Examenes a realizar(paciente)
         public function examR(Request $request){
-            // dd($request->id);
+  
             $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-// dd($itinerary);
+
             $returndata2 = array();
             $strArray = explode('&', $request->data);
 
@@ -526,10 +526,14 @@ class DoctorController extends Controller
             $itinerary->exam_id = $data;
             $itinerary->save();
 
-            dd($itinerary);
+            $examenes = explode(',', $itinerary->exam_id); // decodificando los prcocedimientos json
+            for ($i=0; $i < count($examenes) ; $i++) { 
+                $examen[] = Exam::find($examenes[$i]);
+            }
 
+            // dd($examen);
             return response()->json([
-                'exam' => 'Examenes guardados exitosamente',201
+                'exam' => 'Examenes guardados exitosamente',201,$examen
             ]);
         }
 

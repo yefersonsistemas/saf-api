@@ -347,7 +347,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </button>
                                                         </div>
                                                         <div class="col-12 mt-30" id="examen">
-                                                            <p class="text-center"></p>  
+                                                            {{-- <p class="text-center"></p>   --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1013,6 +1013,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+console.log('gfhdg', data[1]);
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1020,6 +1021,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+                mostrarExamen(data[1]);
             }
             
             if (data[0] == 202) {                       //si no trae valores
@@ -1085,16 +1087,27 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-        // mostrando posibles procedimientos 
-        function mostrarProcedure(data){
-            console.log('hh',data);
+    // mostrando posibles procedimientos 
+    function mostrarProcedure(data){
+        console.log('hh',data);
 
-            for($i=0; $i < data.length; $i++){
-                procedure='<p style="text-align:center">'+data[$i].name+'</p>';
-                $("#procedimientos").append(procedure);
-            }
-            
+        for($i=0; $i < data.length; $i++){
+            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
+            $("#procedimientos").append(procedure);
         }
+        
+    }
+
+    // mostrando posibles procedimientos 
+    function mostrarExamen(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            examen='<p style="text-align:center">'+data[$i].name+'</p>';
+            $("#examen").append(examen);
+        }
+        
+    }
 
 
     //captar datos de las posibles cirugias
