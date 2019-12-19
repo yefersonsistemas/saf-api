@@ -339,13 +339,16 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="tab-content" id="pills-tabContent">
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                    <div class="col-12 mt-30">
-
-                                                        <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
-                                                            <i class="fa fa-file-text-o"></i>
-                                                            Examenes
-                                                        </button>
-    
+                                                    <div class="row">
+                                                        <div class="col-12 mt-30 d-flex justify-content-center">
+                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
+                                                                <i class="fa fa-file-text-o"></i>
+                                                                Examenes
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-12 mt-30" id="examenes">
+                                                            <p class="text-center">sdsadasdasdasdas</p>  
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--Recetario-->
@@ -518,6 +521,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <i class="fa fa-hospital-o"></i>
                                                                     Cirugias
                                                                 </button>
+
                                                             </div>
                                                             
                                                             <div class="col-4">
@@ -526,6 +530,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                     Procedimientos
                                                                 </button>
                                                             </div>                                                            
+                                                        </div>
+
+                                                        <div class="row d-flex mt-50">
+                                                            <div id="procedimientos" class="col-4 ml-50">
+
+                                                            </div>
+                                                            <div id="cirugias" class="col-4">
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1047,13 +1060,16 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            console.log('procedure',data[1])  
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
-                    title: data.procedures,
+                    title: data.proceduresR,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+
+                mostrarProcedure(data[1]);
             }
             
             if (data[0] == 202) {                       //si no trae valores
@@ -1069,6 +1085,18 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
+
+        // mostrando posibles procedimientos 
+        function mostrarProcedure(data){
+            console.log('hh',data);
+
+            for($i=0; $i < data.length; $i++){
+                procedure='<p style="text-align:center">'+data[$i].name+'</p>';
+                $("#procedimientos").append(procedure);
+            }
+            
+        }
+
 
     //captar datos de las posibles cirugias
     $("#guardarC").click(function() {

@@ -555,8 +555,18 @@ class DoctorController extends Controller
         $itinerary->procedure_id = $data;
         $itinerary->save();
 
+        $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
+        // dd($procedures);
+
+            for ($i=0; $i < count($procedures) ; $i++) { 
+                $procedure[] = Procedure::find($procedures[$i]);
+            }
+        
+            // dd($procedure);
+
+
         return response()->json([
-            'proceduresR' => 'Procedimientos guardados exitosamente',201
+            'proceduresR' => 'Procedimientos guardados exitosamente',201, $procedure
         ]);
     }
 
