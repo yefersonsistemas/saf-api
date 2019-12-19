@@ -688,12 +688,14 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <form action="" id="posible-procedures">
                 <div class="modal-body">
+                    
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" id="proce" class="custom-control-input" name="example-checkbox3" value="{{ $proces->id }}">
+                                <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
                                 <span class="custom-control-label">{{ $proces->name }}</span>
                             </label>
                             @endforeach
@@ -715,9 +717,10 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
            
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-success" id="guardarP">Guardar</button>
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
+                    <a class="btn btn-success" id="guardarP">Guardar</a>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -989,20 +992,48 @@ button[data-original-title="Help"]{ display: none; }
 
     //captar datos de procedimientos en la consulta
 
-    // $('input[type="checkbox"]').on('click',function(){
-    //     var proce_id = $("#proce").val();  
-    //     procedures = procedures +','+proce_id;
-    //     console.log(procedures);
-    //     console.log('jj',proce_id)
-    // });
-
     $("#guardarP").click(function() {
-            var proce = $("#form").val();          //asignando el valor que se ingresa en el campo
+            var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
+            // var proce = $("#reservacion").val();
             console.log('hola', proce);                   //mostrando en consola
-
-            
-            // ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+            ajax(proce);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
+        
+        function ajax(proce) {
+        $.ajax({ 
+            url: "{{ route('doctor.procedures') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:proce, 
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
 
 </script>
 <script>

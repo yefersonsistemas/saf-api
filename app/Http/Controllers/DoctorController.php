@@ -472,6 +472,24 @@ class DoctorController extends Controller
         }
     }
 
+    public function procedures(Request $request){
+        // dd($id);
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        } 
 
+        $data =  implode(',', $returndata2);
+
+
+        dd($data);
+    }
 
 }
