@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
- 
+
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
@@ -101,7 +101,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
-        Route::post('procedures', 'DoctorController@procedures')->name('doctor.procedures');
+        Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP');
+        Route::post('exam', 'DoctorController@exam')->name('doctor.exam');
+        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');
+        Route::post('proceduresC', 'DoctorController@proceduresC')->name('doctor.proceduresC');
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 

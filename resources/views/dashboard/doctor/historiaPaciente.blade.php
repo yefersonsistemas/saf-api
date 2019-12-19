@@ -1004,7 +1004,7 @@ button[data-original-title="Help"]{ display: none; }
         
         function ajax(proce,reservacion) {
         $.ajax({ 
-            url: "{{ route('doctor.procedures') }}",   //definiendo ruta
+            url: "{{ route('doctor.proceduresP') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
