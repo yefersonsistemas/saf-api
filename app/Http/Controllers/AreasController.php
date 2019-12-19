@@ -39,6 +39,7 @@ class AreasController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->validate([
             'name' => 'required',
             'type_area_id' => 'required'
@@ -50,6 +51,11 @@ class AreasController extends Controller
             'type_area_id' => $request->type_area_id,
             'branch_id' => 1
         ]);
+
+        if($request->type_area_id == 3){
+            $todas_areas = Area::where('type_area_id',$request->type_area_id)->get();
+            dd($todas_areas);
+        }
 
         $image = $request->file('image');
         $path = $image->store('public/Areas');  
@@ -98,15 +104,16 @@ class AreasController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request);
+        dd($request);
         $area = Area::with('image', 'typearea')->find($request->id);
+        dd($area);
         $type = TypeArea::get();
 
         $area->name = $request->name;
         $area->type_area_id = $request->type_area_id;
         $area->save();
 
-        
+
         if ($request->image != null) {
             $image = $request->file('image');
             $path = $image->store('public/Areas');  
