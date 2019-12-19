@@ -346,8 +346,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                 Examenes
                                                             </button>
                                                         </div>
-                                                        <div class="col-12 mt-30" id="examenes">
-                                                            <p class="text-center">sdsadasdasdasdas</p>  
+                                                        <div class="col-12 mt-30" id="examen">
+                                                            <p class="text-center"></p>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -552,6 +552,8 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div> --}}
                                         </section>
+
+                                        
                                     </form>
                                     </div>
                                 </div>
@@ -588,7 +590,6 @@ button[data-original-title="Help"]{ display: none; }
                         </div> 
                     </div>   
                     <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
                         <a  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</a>
                     </div>
                 </form>    
@@ -620,8 +621,8 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
+                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -676,7 +677,6 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
                             <label class="custom-control custom-checkbox">
-                                {{-- <input type="hidden" name="id" id="reservacionD" value="reservacion"> --}}
                                 <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
                                 <span class="custom-control-label">{{ $proces->name }}</span>
                             </label>
@@ -685,7 +685,6 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
                     <a class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</a>
                 </div>
             </form>
