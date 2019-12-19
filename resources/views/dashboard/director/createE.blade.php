@@ -100,12 +100,12 @@
                             <div class="form-group">
                                 <div class="form-label">Usara el Sistema</div>
                                 <div class="custom-controls-stacked">
-                                    <label class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="inline-radios" value="option1" >
+                                    <label class="custom-control custom-radio custom-control-inline" data-toggle="modal" data-target="#staticBackdrop">
+                                        <input type="radio" class="custom-control-input" name="pass" value="option1" >
                                         <span class="custom-control-label">Si</span>
                                     </label>
                                     <label class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="inline-radios" value="option2">
+                                        <input type="radio" class="custom-control-input" name="pass" value="option2">
                                         <span class="custom-control-label">No</span>
                                     </label>
                                 </div>
@@ -124,14 +124,9 @@
                         </div>
                     @endif
         
-                    <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
-                        <a href="" class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b" data-toggle="modal" data-target="#staticBackdrop">Crear usuario</a>
-                     
-                        {{-- <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button> --}}
-                
-                    
-
+                    <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">     
                         <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
+                        <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>
                     </div>
                 </div>
                     <!-- Modal -->
@@ -147,7 +142,7 @@
                             <div class="modal-body">
                                     <div class="col-12" >
                                         <label class="form-label" style="text-align:left"> Contraseña </label>
-                                        <input type="password" placeholder="password" class="form-control" name="password" value="{{ old('password') }}" required>
+                                        <input type="password" placeholder="password" class="form-control" name="password" value="{{ old('password') }}" >
                                     </div>
                             </div>
                             <div class="modal-footer">

@@ -9,7 +9,7 @@ class Service extends Model
     protected $table = 'services';
 
     protected $fillable = [
-        'name', 'branch_id'
+        'name', 'description', 'branch_id'
     ];
 
     public function specialitie()
