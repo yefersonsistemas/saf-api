@@ -472,13 +472,14 @@ class DoctorController extends Controller
         }
     }
 
+
     public function procedures(Request $request){
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
         $returndata2 = array();
         $strArray = explode('&', $request->data);
-        
+
         foreach($strArray as $item) {
             $array = explode("=", $item);
             $returndata[] = $array;
@@ -498,7 +499,7 @@ class DoctorController extends Controller
         return response()->json([
             'procedures' => 'Procedimientos guardados exitosamente',201
         ]);
-
     }
+
 
 }
