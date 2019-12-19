@@ -106,6 +106,7 @@ class AreasController extends Controller
         $area->type_area_id = $request->type_area_id;
         $area->save();
 
+        
         if ($request->image != null) {
             $image = $request->file('image');
             $path = $image->store('public/Areas');  
