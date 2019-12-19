@@ -472,7 +472,7 @@ class DoctorController extends Controller
         }
     }
 
-    //candidato a procedimientos
+
     public function proceduresP(Request $request){
         $returndata2 = array();
         $strArray = explode('&', $request->data);
