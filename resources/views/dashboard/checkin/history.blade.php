@@ -317,10 +317,13 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script>
  Dropzone.options.myDropzone = {
+            url: "{{ route('save.history', $rs) }}",
             autoProcessQueue: false,
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 100,
+            acceptedFiles: "image/*",
+
             init: function () {
 
                 var submitButton = document.querySelector("#submit-all");
