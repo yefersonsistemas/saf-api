@@ -7,6 +7,7 @@ use App\Employe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Patient;
+use App\Procedure;
 Use App\TypeSurgery;
 
 
@@ -31,8 +32,9 @@ class TypeSurgerysController extends Controller
     public function create()
     {
         $classification = ClassificationSurgery::get();
+        $procedure = Procedure::get();
 
-        return view('dashboard.director.surgery', compact('classification'));
+        return view('dashboard.director.surgery', compact('classification', 'procedure'));
     }
 
     /**
@@ -51,6 +53,7 @@ class TypeSurgerysController extends Controller
             'cost'   => 'required',
             'description' => 'required',
             'classification_surgery_id' => 'required',
+            'day_hospitalization' => 'required',
             'cost.required' => 'Es obligatorio precio de la cirugía.',
         ]);
 
@@ -60,8 +63,18 @@ class TypeSurgerysController extends Controller
             'cost'                        => $data['cost'],
             'description'                 => $data['description'],
             'classification_surgery_id'   => $request->classification_surgery_id,
+            'day_hospitalization'         => $request->day_hospitalization,
             'branch_id'                   => 1
         ]);
+
+        if (!is_null($surgery)) {
+            if (!empty($request->procedure)) {
+                foreach ($request->procedure as $procedure) {
+                    $procedimiento = Procedure::find($procedure);
+                    $surgery->procedure()->attach($procedimiento); 
+                }
+            }
+        }
 
         return redirect()->back()->withSuccess('Registro agregado correctamente');
     }
@@ -131,26 +144,4 @@ class TypeSurgerysController extends Controller
             ]);
         }
     }
-
-    public function procedure_surgery(Request $request) //procedimientos pertenecientes a cierta cirugia
-    {
-        $e = Surgery::with('procedure')->where('id', $request->id)->first();
-
-        if(!is_null($e)){
-            return response()->json([
-                'details' => $e,
-            ]);
-        }
-    }
-
-    // public function surgeries_patient(Request $request){
-    //     //$s = TypeSurgery::get();
-    //     $p = Patient::where('id', $request->id)->first();
-
-    //     if(!is_null($p)){
-    //         return response()->json([
-    //             'posible_surgeries' => $p,
-    //         ]);
-    //     }
-    // }
 }

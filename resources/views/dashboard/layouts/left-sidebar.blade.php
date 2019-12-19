@@ -106,14 +106,14 @@
                             <li><a href="{{ route('procedure.create') }}"><i class="fa fa-hotel"></i>Procedimiento</a></li>
                             <li><a href="{{ route('employe.create') }}"><i class="fa fa-user-plus"></i>Empleado</a></li>
                             <li><a href="{{ route('doctores.create') }}"><i class="fa fa-user-md"></i>Doctor</a></li>
-                            {{-- <li><a href="{{ route('price.create') }}"><i class=""></i>Precio de consulta</a></li> --}}
+                            {{-- <li><a href=""><i class=""></i>Clasificación de cirugía</a></li> --}}
                             <li><a href="{{ route('surgery.create') }}"><i class="fa fa-medkit"></i>Cirugias</a></li>
                             <li><a href="{{ route('allergy.create') }}"><i class=""></i>Alergias</a></li>
                             <li><a href="{{ route('disease.create') }}"><i class="fa fa-heartbeat"></i>Enfermedades</a></li>
                             <li><a href="{{ route('medicine.create') }}"><i class="fa fa-eyedropper"></i>Medicina</a></li>
                             <li><a href="{{ route('exam.create') }}"><i class="fa fa-file-text"></i>Exámenes</a></li>
                             <li><a href="{{ route('type-area.create') }}"><i class="fe fe-home"></i>Tipo de Area</a></li>
-                            <li><a href="{{ route('consultorio.create') }}"><i class="icon-home"></i>Consultorio</a></li>
+                            <li><a href="{{ route('consultorio.create') }}"><i class="icon-home"></i>Area</a></li>
                             <li><a href="{{ route('payment.create') }}"><i class=""></i>Tipos de pagos</a></li>
                         </ul>
                         

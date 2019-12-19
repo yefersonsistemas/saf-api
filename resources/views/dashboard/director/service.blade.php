@@ -13,10 +13,19 @@
             <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                 <div class="card p-4">
             
-                    <div class="col-lg-12 ">
-                        <div class="form-group">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ old('name') }}" required>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-6 ">
+                            <div class="form-group">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ old('name') }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 ">
+                            <div class="form-group">
+                                <label class="form-label">Descripción</label>
+                                <input type="text" class="form-control" placeholder="Descripción" name="description" value="{{ old('description') }}" required>
+                            </div>
                         </div>
                     </div>
 

@@ -32,13 +32,13 @@
                                     <a id="search"name="search" class="search btn btn-boo" style="color:#fff"><i class="icon-magnifier"></i></a>
                                 </div>
 
-                                <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
+                                {{-- <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
                                     <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
                                         @foreach ($procedimientos as $procedimiento)
                                             <option value="{{ $procedimiento->id }}" >{{ $procedimiento->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>          
+                                </div>           --}}
                             </div>
                         </div>
                     </div>
@@ -350,19 +350,20 @@
                 $("#consulta").append(consulta_html);
 
             }
-
+// console.log('holaaaa',data.encontrado[0] );
             //-------------------cirugia -----------------
-            if(data.encontrado[0].surgery != null){
-                console.log('cirugia',data.encontrado[0].surgery)
-                nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
-                costo_cirugia= financial(data.encontrado[0].surgery.typesurgeries.cost);
+            if(data.encontrado[0].surgery_r != null){
+                console.log('cooo ken')
+                console.log('cirugia',data.encontrado[0].surgery_r.name)
+                nombre_cirugia= data.encontrado[0].surgery_r.name;
+                costo_cirugia= financial(data.encontrado[0].surgery_r.cost);
 
 
                 // console.log('decimales', $data);
 
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
-                costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
+                costo_cirugia = data.encontrado[0].surgery_r.cost; //costo de la cirugia
             }
 
              // --------------------Procedures -------------

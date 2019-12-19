@@ -14,7 +14,7 @@
 @section('content')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{route('doctor.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
+        <form action="{{route('doctores.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
             @csrf
                 <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                     <div class="card p-4">
@@ -147,13 +147,36 @@
                                 </div>
                             @endif
                         </div>
+
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
-                        <a href="" class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b">Crear usuario</a>
+                        <a class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b" data-toggle="modal" data-target="#staticBackdrop">Crear usuario</a>
                         <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
                         <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>
                     </div>
                 </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Crear Contraseña</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                    <div class="col-12" >
+                                        <label class="form-label" style="text-align:left"> Contraseña </label>
+                                        <input type="password" placeholder="password" class="form-control" name="password" value="{{ old('password') }}" >
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
         </form>
     </div>
 </div>

@@ -37,10 +37,12 @@ class ServiceController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
+            'description' => 'required',
         ]);
 
         $person = Service::create([
             'name' => $data['name'],
+            'description' => $data['description'],
             'branch_id' => 1
         ]);
 

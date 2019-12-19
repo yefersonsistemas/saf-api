@@ -20,6 +20,7 @@ use App\Service;
 use App\TypeArea;
 use App\TypeDoctor;
 use App\Typesurgery;
+use App\User;
 
 class DirectorController extends Controller
 {
@@ -108,12 +109,19 @@ class DirectorController extends Controller
             'position_id'   =>$request->position_id,
             'branch_id' => 1
         ]);
+            
+        $user = User::create([
+            'email'      => $person->email,
+            'password'   => $request->password,
+            'person_id'  => $person->id,
+            'branch_id' => 1
+        ]);
 
         if (!is_null($employe)) {
             if (!empty($request->speciality)) {
                 foreach ($request->speciality as $speciality) {
                     $especialidad = Speciality::find($speciality);
-                    $employe->speciality()->attach($especialidad); 
+                    $employe->speciality()->sync($especialidad); 
                 }
             }
         }
@@ -121,22 +129,23 @@ class DirectorController extends Controller
         if (!is_null($employe)) {
             if (!empty($request->procedure)) {
                 foreach ($request->procedure as $procedure) {
-                    $procedimiento = Procedure::find($procedure);
-                    $employe->procedures()->attach($procedimiento); 
+                    // $procedimiento = Procedure::find($procedure);
+                    $employe->procedures()->sync($procedure); 
                 }
             }
         }
           
-        $image = $request->file('image');
-        $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
-        $path = str_replace('public/', '', $path);
-        $image = new Image;
-        $image->path = $path;
-        $image->imageable_type = "App\Employe";
-        $image->imageable_id = $employe->id;
-        $image->branch_id = 1;
-        $image->save();
-
+        if ($request->image != null) {
+            $image = $request->file('image');
+            $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
+            $path = str_replace('public/', '', $path);
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\Employe";
+            $image->imageable_id = $employe->id;
+            $image->branch_id = 1;
+            $image->save();
+        }
 
         return redirect()->route('employe.index');
     }

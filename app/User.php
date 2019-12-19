@@ -20,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $table = 'users';
 
     protected $fillable = [
-        'person_id', 'password', 'branch_id'
+        'email', 'person_id', 'password', 'branch_id'
     ];
 
     /**

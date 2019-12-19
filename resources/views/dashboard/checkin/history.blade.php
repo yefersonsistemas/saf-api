@@ -204,10 +204,10 @@
             <div class="card p-4">
                 <label class="form-label">Exámenes</label>
                 <div class="dropzone" id="my-dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple />
-                        </div>
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
                     </div>
+                </div>
             </div>
 
             <div class="card p-4 d-flex justify-content-between">
@@ -235,11 +235,11 @@
                             <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
                                 @foreach ($medicine as $medicamentos)
                                 <option value= {{ $medicamentos->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                            selected
-                                            @endif
-                                            @endif>{{ $medicamentos->name }}</option>
+                                    @if ($rs->patient->historyPatient != null)
+                                        @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                        selected
+                                        @endif
+                                    @endif>{{ $medicamentos->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -275,7 +275,7 @@
                 <div class="card p-4">
                     <h5 class="text-center">Citas anteriores</h5>
                     @forelse ($cites as $reservation)
-                    <div class="card col-4 text-justify p-4 form-control mt-2">
+                        <div class="card col-4 text-justify p-4 form-control mt-2">
                             <div>
                                 <label class="m-0 form-label">Doctor:</label>
                                 <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
@@ -315,14 +315,14 @@
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
-<script>
- Dropzone.options.myDropzone = {
+
+    <script>
+        Dropzone.options.myDropzone = {
             url: "{{ route('save.history', $rs) }}",
             autoProcessQueue: false,
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 100,
-            acceptedFiles: "image/*",
 
             init: function () {
 
@@ -359,8 +359,9 @@
                 });
             }
         };
-</script>
-<script>
+    </script>
+
+    <script>
         $('#disease').multiselect({
             enableFiltering: true,
             enableCaseInsensitiveFiltering: true,
@@ -368,7 +369,7 @@
         });
     </script>
 
-<script>
+    <script>
         $('#medicine').multiselect({
             enableFiltering: true,
             enableCaseInsensitiveFiltering: true,

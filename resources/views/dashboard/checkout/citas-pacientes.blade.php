@@ -221,11 +221,11 @@
                                         <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posible cirugia</h5>
-                                                @if($itinerary->surgery != null)
-                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->id, 'hospitalaria']) }}">{{ $itinerary->surgery->typesurgeries->name }}</a></span><br>
-                                                    <span class="titulos">Descripcion: </span><span>{{ $itinerary->surgery->typesurgeries->description }}</span><br>
-                                                    <span class="titulos">Duracion: </span><span>{{ $itinerary->surgery->typesurgeries->duration }}</span> <br>                                               
-                                                    <span class="titulos">costo: </span><span>{{ $itinerary->surgery->typesurgeries->cost }}</span>
+                                                @if($itinerary->typesurgery != null)
+                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->id, 'hospitalaria']) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                    <span class="titulos">Descripcion: </span><span>{{ $itinerary->typesurgery->description }}</span><br>
+                                                    <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>                                               
+                                                    <span class="titulos">costo: </span><span>{{ $itinerary->typesurgery->cost }}</span>
                                                 @else
                                                     <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                 @endif
@@ -239,7 +239,7 @@
                                                 @if ($itinerary->procedures != null)
                                                     <ul>
                                                         @foreach ($itinerary->procedures as $proce)
-                                                            <li> <span class="mb-2 text-muted">{{ $proce->name }} {{ $itinerary->surgery->typesurgeries->name }}</span></li>
+                                                            <li> <span class="mb-2 text-muted">{{ $proce->name }} </span></li>
                                                         @endforeach
                                                     </ul>
                                                 @else

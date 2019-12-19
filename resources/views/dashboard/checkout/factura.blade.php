@@ -169,13 +169,13 @@
                                                         @endforeach
                                                     </tbody> 
                                                     @endif
-                                                    @if($itinerary->surgery != null)
+                                                    @if($itinerary->surgeryR != null)
                                                     <tbody>
                                                         <tr>
                                                             <td colspan="5" class="text-left pl-4">
-                                                                <div class="text-muted">Cirugía {{ $itinerary->surgery->typesurgeries->name }}</div>
+                                                                <div class="text-muted">Cirugía {{ $itinerary->surgeryR->name }}</div>
                                                             </td>
-                                                            <td class="text-right" style="width: 1%">{{ number_format($itinerary->surgery->typesurgeries->cost, 2) }}</td>
+                                                            <td class="text-right" style="width: 1%">{{ number_format($itinerary->surgeryR->cost, 2) }}</td>
                                                         </tr>
                                                     </tbody> 
                                                     @endif
