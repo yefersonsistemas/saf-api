@@ -44,8 +44,8 @@ class OutController extends Controller
     public function index()
     {
         $procedures_id = array();
-        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
-        // dd($itinerary);
+        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation')->get(); // esta es una coleccion
+
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -61,12 +61,11 @@ class OutController extends Controller
     }
 
 
-      //====================== crear examen ============================ (listo)
-      public function crearExamen($patient_id){
+    //====================== crear examen ============================ (listo)
+    public function crearExamen($patient_id){
 
         $patient = $patient_id;
         $exams = Exam::all();
-       
         return view('dashboard.checkout.crearDiagnostico', compact('patient','exams'));
     }
 
@@ -91,7 +90,7 @@ class OutController extends Controller
 
         //Para mostrar lista de citas de pacientes
         $procedures_id = array();
-        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries','exam','recipe','reservation')->get(); // esta es una coleccion
+        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery','exam','recipe','reservation')->get(); // esta es una coleccion
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -114,7 +113,6 @@ class OutController extends Controller
         $cirugias_ambulatorias = ClassificationSurgery::with('typeSurgeries')->where('name','ambulatoria')->get();
         $cirugias_hospitalarias = ClassificationSurgery::with('typeSurgeries')->where('name','hospitalaria')->get();
         $clasificacion = ClassificationSurgery::all();
-
         return view('dashboard.checkout.cirugias', compact('cirugias_ambulatorias', 'cirugias_hospitalarias', 'clasificacion'));
     }
 
@@ -124,7 +122,6 @@ class OutController extends Controller
      {
         $tipo_cirugia = $cirugia;
         $cirugias = TypeSurgery::with('classification','procedure','equipment')->where('id', $id)->first();
-        // dd($cirugias);
         return view('dashboard.checkout.cirugias-detalles', compact('cirugias', 'tipo_cirugia'));
      }
 
@@ -142,8 +139,8 @@ class OutController extends Controller
             if(!empty($itinerary)){
 
                 $all = collect([]); //definiendo una coleccion|
-                $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $person->id)->get(); // esta es una coleccion
-
+                $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
+                // dd($encontrado);
                 $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
 
                 if($procedures[0] != ''){ 
@@ -224,7 +221,7 @@ class OutController extends Controller
             $tipo_moneda = TypeCurrency::all();
             $tipo_pago = TypePayment::all();
 
-            $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgery.typesurgeries')->where('patient_id', $request->patient_id)->first();
+            $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','typesurgery')->where('patient_id', $request->patient_id)->first();
 
             $fecha = Carbon::now()->format('Y-m-d');
             $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
@@ -304,10 +301,10 @@ class OutController extends Controller
                     $total += $proce->price;
                 }
 
-                $cirugia = Itinerary::with('person','employe.person','surgery.typesurgeries')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
+                $cirugia = Itinerary::with('person','employe.person','typesurgery')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
 
                 if($cirugia->surgery != null){
-                    $total_cancelar = $cirugia->surgery->typesurgeries->cost + $todos->employe->doctor->price + $total;
+                    $total_cancelar = $cirugia->typesurgery->cost + $todos->employe->doctor->price + $total;
                 }else{
                     $total_cancelar = $todos->employe->doctor->price + $total;
                 }
