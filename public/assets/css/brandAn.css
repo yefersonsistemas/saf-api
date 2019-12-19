@@ -1009,3 +1009,15 @@ textarea[cols] {
 .dropzone .dz-preview.dz-image-preview {
     text-align: center;
 }
+
+.dropzone.dz-clickable {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+td img {
+    max-width: 50px;
+    width: 50px;
+}

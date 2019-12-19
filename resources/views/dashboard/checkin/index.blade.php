@@ -24,6 +24,11 @@
     .dataTables_filter label input:focus{
         border: 2px solid #00506b;
     }
+
+       img.rounded{
+            max-width: 50px;
+            width: 50px;
+        } 
 </style>
 
 <div class="section-body  py-4">
