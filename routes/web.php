@@ -94,17 +94,17 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
+        Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
-        Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
+        Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');  
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
-        Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP');
-        Route::post('exam', 'DoctorController@exam')->name('doctor.exam');
-        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');
-        Route::post('proceduresC', 'DoctorController@proceduresC')->name('doctor.proceduresC');
+        Route::post('procedures_realizados', 'DoctorController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta
+        Route::post('examR', 'DoctorController@examR')->name('doctor.examR'); // guardar los examenes que se realizara el paciente
+        Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos 
+        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 
