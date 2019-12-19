@@ -473,13 +473,17 @@ class DoctorController extends Controller
     }
 
     public function procedures(Request $request){
-        // dd($id);
+
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
+        
         foreach($strArray as $item) {
             $array = explode("=", $item);
             $returndata[] = $array;
         }
+
         for($i=0; $i < count($returndata); $i++){
             for($y=1; $y <= 1; $y++){
             $returndata2[$i] = $returndata[$i][$y];
@@ -488,8 +492,13 @@ class DoctorController extends Controller
 
         $data =  implode(',', $returndata2);
 
+        $itinerary->procedure_id = $data;
+        $itinerary->save();
 
-        dd($data);
+        return response()->json([
+            'procedures' => 'Procedimientos guardados exitosamente',201
+        ]);
+
     }
 
 }

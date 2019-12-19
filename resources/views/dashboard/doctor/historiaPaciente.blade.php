@@ -695,6 +695,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
                             <label class="custom-control custom-checkbox">
+                                {{-- <input type="hidden" name="id" id="reservacionD" value="reservacion"> --}}
                                 <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
                                 <span class="custom-control-label">{{ $proces->name }}</span>
                             </label>
@@ -993,13 +994,15 @@ button[data-original-title="Help"]{ display: none; }
     //captar datos de procedimientos en la consulta
 
     $("#guardarP").click(function() {
+            var reservacion = $("#reservacion").val();
+            console.log('hh',reservacion)
             var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
-            // var proce = $("#reservacion").val();
-            console.log('hola', proce);                   //mostrando en consola
-            ajax(proce);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+          
+            console.log('hola', proce,reservacion);                   //mostrando en consola
+            ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
-        function ajax(proce) {
+        function ajax(proce,reservacion) {
         $.ajax({ 
             url: "{{ route('doctor.procedures') }}",   //definiendo ruta
             type: "POST",
@@ -1007,6 +1010,7 @@ button[data-original-title="Help"]{ display: none; }
             data: {
                 _token: "{{ csrf_token() }}",        
                 data:proce, 
+                id:reservacion
             }
         })
         .done(function(data) {               
@@ -1014,7 +1018,7 @@ button[data-original-title="Help"]{ display: none; }
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
-                    title: data.reference,
+                    title: data.procedures,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
