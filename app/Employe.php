@@ -101,7 +101,7 @@ class Employe extends Model
     
     public function doctor() //clase de doctor en rango de popularidad
     {
-        return $this->belongsTo('App\Doctor', 'employe_id');
+        return $this->hasOne('App\Doctor', 'employe_id');
     }
     
     public function procedures() //relacion  con la tabla m:m 
