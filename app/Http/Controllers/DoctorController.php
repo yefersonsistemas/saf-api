@@ -274,7 +274,7 @@ class DoctorController extends Controller
     // ================================= Guardar diagnostico ======================================
     public function storeDiagnostic(Request $request)
     {
-        // dd($request);
+        dd($request);
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
@@ -471,63 +471,120 @@ class DoctorController extends Controller
             ]);
         }
     }
+    
+    //Procedimientos en el Consultorio
+    public function procedures_realizados(Request $request){
 
+        dd($request);
 
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        }
+
+        $data =  implode(',', $returndata2);
+
+        $itinerary->
+        $itinerary->save();
+        
+        return response()->json([
+            'procedures' => 'Procedimientos guardados exitosamente',201
+            ]);
+        }
+        
+        //Examenes a realizar(paciente)
+        public function examR(Request $request){
+            dd($request);
+            $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+            $returndata2 = array();
+            $strArray = explode('&', $request->data);
+
+            foreach($strArray as $item) {
+                $array = explode("=", $item);
+                $returndata[] = $array;
+            }
+
+            for($i=0; $i < count($returndata); $i++){
+                for($y=1; $y <= 1; $y++){
+                $returndata2[$i] = $returndata[$i][$y];
+                }
+            } 
+            $data =  implode(',', $returndata2);
+
+            // $itinerary->procedure_id = $data;
+            $itinerary->save();
+
+            return response()->json([
+                'exam' => 'Examenes guardados exitosamente',201
+            ]);
+        }
+
+    // ================ posibles procedimientos =================
     public function proceduresP(Request $request){
-        $returndata2 = array();
-        $strArray = explode('&', $request->data);
-        foreach($strArray as $item) {
-            $array = explode("=", $item);
-            $returndata[] = $array;
-        }
-        for($i=0; $i < count($returndata); $i++){
-            for($y=1; $y <= 1; $y++){
-            $returndata2[$i] = $returndata[$i][$y];
-            }
-        } 
-    }
 
-    //Examenes a realizar(paciente)
-    public function exam(Request $request){
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
+
         foreach($strArray as $item) {
             $array = explode("=", $item);
             $returndata[] = $array;
         }
+
         for($i=0; $i < count($returndata); $i++){
             for($y=1; $y <= 1; $y++){
             $returndata2[$i] = $returndata[$i][$y];
             }
         } 
+
+        $data =  implode(',', $returndata2);
+
+        $itinerary->procedure_id = $data;
+        $itinerary->save();
+
+        return response()->json([
+            'proceduresR' => 'Procedimientos guardados exitosamente',201
+        ]);
     }
 
     //Candidato a cirugias
     public function surgerysP(Request $request){
+        dd($request);
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
+
         foreach($strArray as $item) {
             $array = explode("=", $item);
             $returndata[] = $array;
         }
+
         for($i=0; $i < count($returndata); $i++){
             for($y=1; $y <= 1; $y++){
             $returndata2[$i] = $returndata[$i][$y];
             }
-        } 
-    }
-    //Procedimientos en el Consultorio
-    public function proceduresC(Request $request){
-        $returndata2 = array();
-        $strArray = explode('&', $request->data);
-        foreach($strArray as $item) {
-            $array = explode("=", $item);
-            $returndata[] = $array;
         }
-        for($i=0; $i < count($returndata); $i++){
-            for($y=1; $y <= 1; $y++){
-            $returndata2[$i] = $returndata[$i][$y];
-            }
-        } 
+        $data =  implode(',', $returndata2);
+
+        // $itinerary->procedure_id = $data;
+        $itinerary->save();
+
+        return response()->json([
+            'surgerysR' => 'Cirugias guardadas exitosamente',201
+        ]);
     }
 }
