@@ -472,7 +472,8 @@ class DoctorController extends Controller
         }
     }
 
-    public function procedures(Request $request){
+    //candidato a procedimientos
+    public function proceduresP(Request $request){
         $returndata2 = array();
         $strArray = explode('&', $request->data);
         foreach($strArray as $item) {
@@ -486,4 +487,47 @@ class DoctorController extends Controller
         } 
     }
 
+    //Examenes a realizar(paciente)
+    public function exam(Request $request){
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        } 
+    }
+
+    //Candidato a cirugias
+    public function surgerysP(Request $request){
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        } 
+    }
+    //Procedimientos en el Consultorio
+    public function proceduresC(Request $request){
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        } 
+    }
 }
