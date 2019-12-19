@@ -257,7 +257,7 @@
                                 <tbody>
                                     @foreach ($canceladas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="recep-img">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -315,7 +315,7 @@
                                 <tbody>
                                     @foreach ($reprogramadas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="recep-img">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -390,7 +390,7 @@
                                 <tbody>
                                     @foreach ($suspendidas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="recep-img">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -451,7 +451,7 @@
                                 <tbody>
                                     @foreach ($pendientes as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="recep-img">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>

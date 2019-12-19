@@ -132,6 +132,7 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  
     {
+        // dd($request);
         $person = Person::where('dni', $request->dni)->first();
 
         $reservation = Reservation::find($id);

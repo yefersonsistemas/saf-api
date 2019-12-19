@@ -1001,3 +1001,11 @@ textarea[cols] {
 } */
 
 .table.table_custom tr td {}
+
+.dz-image img {
+    width: 100% !important;
+}
+
+.dropzone .dz-preview.dz-image-preview {
+    text-align: center;
+}
