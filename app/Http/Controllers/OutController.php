@@ -141,11 +141,11 @@ class OutController extends Controller
                 $all = collect([]); //definiendo una coleccion|
                 $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
                 // dd($encontrado);
-                $procedures = explode(',', $encontrado->last()->procedure_id); //decodificando los procedimientos en $encontrado
+                $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
 
                 if($procedures[0] != ''){ 
                     foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
-                    $procedures[] = $proce->procedure_id;
+                    $procedures[] = $proce->procedureR_id;
                     }
 
                     for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
@@ -224,7 +224,7 @@ class OutController extends Controller
             $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $request->patient_id)->first();
             // dd($itinerary->surgeryR->name);
             $fecha = Carbon::now()->format('Y-m-d');
-            $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
+            $procedures = explode(',', $itinerary->procedureR_id); // decodificando los prcocedimientos json
 
             $procedures_for = $request->multiselect4; // asignando los procedimientos del multiselect
 
