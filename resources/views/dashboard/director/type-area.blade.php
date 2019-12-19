@@ -1,5 +1,7 @@
 @extends('dashboard.layouts.app')
 
+@section('cites','active')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">

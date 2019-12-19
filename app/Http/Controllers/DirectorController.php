@@ -65,7 +65,10 @@ class DirectorController extends Controller
         $position = Position::where('name', 'doctor')->first();
         // dd( $position);
         $speciality = Speciality::all();
-        return view('dashboard.director.created', compact('position', 'speciality'));
+        $procedure = Procedure::get();
+        $clases = TypeDoctor::get();
+
+        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases'));
     }
 
     /**
@@ -114,6 +117,15 @@ class DirectorController extends Controller
                 }
             }
         }
+
+        if (!is_null($employe)) {
+            if (!empty($request->procedure)) {
+                foreach ($request->procedure as $procedure) {
+                    $procedimiento = Procedure::find($procedure);
+                    $employe->procedures()->attach($procedimiento); 
+                }
+            }
+        }
           
         $image = $request->file('image');
         $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
@@ -129,7 +141,122 @@ class DirectorController extends Controller
         return redirect()->route('employe.index');
     }
 
-    /*
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     *
+     * modifica medico
+     */
+    public function edit($id)
+    {
+        // dd($id);
+        $employe = Employe::with('person.user', 'position','speciality', 'image','procedures')->find($id);
+        // dd($employe);
+        $position = Position::where('name', 'doctor')->first();
+        // dd($position);
+        $speciality = Speciality::get();
+        // dd($speciality);
+        $procedure = Procedure::get();
+        $clases = TypeDoctor::get();
+        $precio = Doctor::where('employe_id', $employe->id)->first();
+        // dd($precio);
+
+        return view('dashboard.director.doctor-edit', compact('employe','position', 'speciality', 'procedure', 'clases', 'precio'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //  dd($request);
+        // dd($request->image);
+        $employe = Employe::with('person.user', 'position','speciality', 'image')->find($id);
+        //  dd($employe);
+        $doctor = Doctor::where('employe_id', $employe->id)->first();
+        // dd($doctor);
+        $employe->person->type_dni = $request->type_dni;
+        $employe->person->dni = $request->dni;
+        $employe->person->name = $request->name;
+        $employe->person->lastname = $request->lastname;
+        $employe->person->address = $request->address;
+        $employe->person->phone = $request->phone;
+        $employe->person->email = $request->email;
+        
+        if (!is_null($employe)) {
+            if (!empty($request->speciality)) {
+                // dd($employe);
+                foreach ($request->speciality as $speciality) {
+                    // $especialidad = Speciality::find($speciality);
+                    foreach ($employe->speciality as $speciality2) {
+                        if ($speciality != $speciality2->id ) {
+                            $employe->speciality()->attach($speciality); 
+                        }
+                    }
+                   
+                }
+            }
+        }
+
+        if (!is_null($employe)) {
+            if (!empty($request->procedure)) {
+                foreach ($request->procedure as $procedure) {
+                    $procedimiento = Procedure::find($procedure);
+                    if ($procedimiento != $employe->procedure) {
+                        $employe->procedures()->attach($procedimiento); 
+                    }
+                }
+            }
+        }
+
+        $doctor->price = $request->price;
+        $doctor->type_doctor_id = $request->type_doctor_id;
+        
+        $employe->update();
+        $doctor->save();
+
+       if ($request->image != null) {
+           
+           $image = $request->file('image');
+           $path = $image->store('public/employes');  
+           $path = str_replace('public/', '', $path);
+           $image = new Image;
+           $image->path = $path;
+           $image->imageable_type = "App\Employe";
+           $image->imageable_id = $employe->id;
+           $image->branch_id = 1;
+           $image->save();
+        }
+
+       return redirect()->route('employe.index')->withSuccess('Registro modificado'); 
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+     /*
     *  crea el precio de la consulta por doctor
     */
     public function create_price()
@@ -186,93 +313,5 @@ class DirectorController extends Controller
         $precio->update();
 
         return redirect()->route('all.register')->withSuccess('Registro modificado');
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     *
-     * modifica medico
-     */
-    public function edit($id)
-    {
-        // dd($id);
-        $employe = Employe::with('person.user', 'position','speciality', 'image')->find($id);
-        // dd($employe);
-        $position = Position::where('name', 'doctor')->first();
-        // dd($position);
-        $speciality = Speciality::get();
-        // dd($speciality);
-
-        return view('dashboard.director.doctor-edit', compact('employe','position', 'speciality'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        // dd($request);
-        // dd($request->image);
-        $employe = Employe::with('person.user', 'position','speciality', 'image')->find($request->id);
-        
-        $employe->person->type_dni = $request->type_dni;
-        $employe->person->dni = $request->dni;
-        $employe->person->name = $request->name;
-        $employe->person->lastname = $request->lastname;
-        $employe->person->address = $request->address;
-        $employe->person->phone = $request->phone;
-        $employe->person->email = $request->email;
-        
-        if (!is_null($employe)) {
-            if (!empty($request->speciality)) {
-                foreach ($request->speciality as $speciality) {
-                    $especialidad = Speciality::find($speciality);
-                    $employe->speciality()->attach($especialidad); 
-                }
-            }
-        }
-        
-        $employe->update();
-
-       if ($request->image != null) {
-           
-           $image = $request->file('image');
-           $path = $image->store('public/employes');  
-           $path = str_replace('public/', '', $path);
-           $image = new Image;
-           $image->path = $path;
-           $image->imageable_type = "App\Employe";
-           $image->imageable_id = $employe->id;
-           $image->branch_id = 1;
-           $image->save();
-        }
-
-       return redirect()->route('employe.index')->withSuccess('Registro modificado'); 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

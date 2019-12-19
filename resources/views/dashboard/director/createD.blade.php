@@ -1,10 +1,11 @@
 @extends('dashboard.layouts.app')
 
+@section('cites','active')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 
 @endsection
 
@@ -18,7 +19,7 @@
                 <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                     <div class="card p-4">
 
-                        <div class="row d-flex justify-content-between">
+                        <div class="row d-flex justify-content-between create-employee">
                             <div class="form-group col-lg-3 col-md-3">
                                 <label class="form-label">Foto</label>
                                 <div class="mb-2">
@@ -82,43 +83,75 @@
                                 </div>
                             </div>
 
-                    <div class="row d-flex justify-content-between">
-                    
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                            <label class="form-label">Cargo </label>
-                                <input type="hidden"  name="position_id" value="{{$position->id}}">
-                                <input type="text" class="form-control" name="position_id" value="{{$position->name = 'doctor'}}" disabled>
-                            </div>
-                        </div>
+                            <div class="row d-flex justify-content-between">
 
-                        <div class="col-lg-6" id="framework_form">
-                            <label class="form-label">Especialidad</label>
-                            <div class="form-group multiselect_div">
-                                <select id="speciality" name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple">
-                                    @foreach ($speciality as $speciality)
-                                        <option value= {{ $speciality->id }}>
-                                            {{ $speciality->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="col-lg-6" id="framework_form">
+                                    <label class="form-label">Especialidad</label>
+                                    <div class="form-group multiselect_div">
+                                        <select id="speciality" name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple">
+                                            @foreach ($speciality as $speciality)
+                                                <option value= {{ $speciality->id }}>{{ $speciality->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{$error}}</li>
-                                @endforeach
-                            </ul>
+                                <div class="col-lg-6" id="framework_form">
+                                    <label class="form-label">Procedimientos</label>
+                                    <div class="form-group multiselect_div">
+                                        <select id="procedure" name="procedure[]" class="multiselect multiselect-custom form-control" multiple="multiple">
+                                            @foreach ($procedure as $procedure)
+                                                <option value= {{ $procedure->id }}>{{ $procedure->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row d-flex justify-content-between">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                    <label class="form-label">Cargo </label>
+                                        <input type="hidden"  name="position_id" value="{{$position->id}}">
+                                        <input type="text" class="form-control" name="position_id" value="{{$position->name = 'doctor'}}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Clase</label>
+                                        <select name="type_doctor_id" class="custom-select input-group-text bg-white form-control">
+                                            <option value="0">Ninguna selección</option>
+                                            @foreach ($clases as $clase)
+                                            <option value={{$clase->id}}>{{$clase->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+        
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group"> 
+                                        <label class="form-label">Precio de Consulta</label>
+                                        <input type="text"  class="form-control" placeholder="Precio" name="price" value="{{ old('price') }}" required>
+                                    </div>
+                                </div> 
+                            </div> 
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
-                    @endif
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
-                            <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
-                            <button type="reset" class="btn btn-azuloscuro mr-2 pr-4 pl-4">Limpiar</button>
-                        {{-- <a href="{{route('employe.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a> --}}    
+                        <a href="" class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b">Crear usuario</a>
+                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
+                        <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>
                     </div>
                 </div>
         </form>
@@ -147,6 +180,22 @@
     $("#speciality").change(function(){
         var especialidad_id = $(this).val();     // Capta el id de la especialidad
         console.log('especialidad', especialidad_id); 
+    });
+</script>
+
+<script>
+    $('#procedure').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
+
+<script>
+    // select de las especialidades
+    $("#procedure").change(function(){
+        var procedure_id = $(this).val();     // Capta el id de procedimiento
+        console.log('procedure', procedure_id); 
     });
 </script>
 @endsection

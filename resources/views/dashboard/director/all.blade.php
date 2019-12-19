@@ -1,8 +1,5 @@
 @extends('dashboard.layouts.app')
 
-@section('cites','active')
-@section('all','active')
-
 @php
     use Carbon\Carbon;
 @endphp
