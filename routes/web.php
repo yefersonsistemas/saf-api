@@ -144,6 +144,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('/price', 'DirectorController@store_price')->name('price.store');
         Route::get('payment/create', 'TypePaymentsController@create')->name('payment.create');
         Route::POST('/payment', 'TypePaymentsController@store')->name('payment.store');
+        Route::get('classification/susrgery/create', 'TypeSurgerysController@create_classification')->name('classification.create');
+        Route::POST('/classsification', 'TypeSurgerysController@store_classification')->name('classification.store');
 
         //inicio de rutas para editar
         Route::get('list','DirectorController@all_register')->name('all.register');

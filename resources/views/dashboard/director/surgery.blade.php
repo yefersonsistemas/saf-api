@@ -50,7 +50,7 @@
 
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Clasificación de cirugía</label>
+                                    <label class="form-label">Tipo de cirugía</label>
                                     <select name="classification_surgery_id" id="id" class="custom-select input-group-text bg-white form-control">
                                         <option value="0">Ninguna selección</option>
                                         @foreach ($classification as $classification)

@@ -79,6 +79,7 @@ class TypeSurgerysController extends Controller
         return redirect()->back()->withSuccess('Registro agregado correctamente');
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -143,5 +144,27 @@ class TypeSurgerysController extends Controller
                 'tpesurgeries' => $s,
             ]);
         }
+    }
+
+    public function create_classification()
+    {
+        return view('dashboard.director.type-surgery');
+    }
+
+
+    public function store_classification(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $person = ClassificationSurgery::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'branch_id' => 1
+        ]);
+
+        return redirect()->route('all.register')->withSuccess('Registro agregado correctamente');
     }
 }
