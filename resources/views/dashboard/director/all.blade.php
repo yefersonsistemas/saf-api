@@ -1,8 +1,5 @@
 @extends('dashboard.layouts.app')
 
-@section('cites','active')
-@section('all','active')
-
 @php
     use Carbon\Carbon;
 @endphp
@@ -61,10 +58,10 @@
                         <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-exam-tab" data-toggle="pill" href="#pills-exam" role="tab" aria-controls="pills-exam" aria-selected="false">Examenes</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-type-tab" data-toggle="pill" href="#pills-type" role="tab" aria-controls="pills-type" aria-selected="false">Areas</a>
+                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-type-tab" data-toggle="pill" href="#pills-type" role="tab" aria-controls="pills-type" aria-selected="false">Tipo de area</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-area-tab" data-toggle="pill" href="#pills-area" role="tab" aria-controls="pills-area" aria-selected="false">Consultorios</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-area-tab" data-toggle="pill" href="#pills-area" role="tab" aria-controls="pills-area" aria-selected="false">Area</a>
                     </li>
                     <li class="nav-item col-md-2">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-claseDoctor-tab" data-toggle="pill" href="#pills-claseDoctor" role="tab" aria-controls="pills-claseDoctor" aria-selected="false">Clase del doctor</a>
@@ -424,6 +421,7 @@
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
+                                        <th>Foto</th>
                                         <th>Nombre</th>
                                         <th>status</th>
                                         <th>Tipo de area</th>
@@ -432,6 +430,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Foto</th>
                                         <th>Nombre</th>
                                         <th>status</th>
                                         <th>Tipo de area</th>
@@ -441,11 +440,18 @@
                                 <tbody>
                                     @foreach ($areas as $area)
                                         <tr>
+                                            <td>
+                                                @if (!empty($area->image->path))
+                                                    <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($area->image->path) }}" alt="">
+                                                @else
+                                                    <img src="" alt="" >
+                                                @endif
+                                            </td>
                                             <td>{{ $area->name }}</td>
                                             <td>{{ $area->status }}</td>
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('area.edit', $area->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>

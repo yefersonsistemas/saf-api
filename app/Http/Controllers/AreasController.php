@@ -82,11 +82,11 @@ class AreasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-         // dd($allergy);
-        $area = Area::find($id);
-        dd($area);
-        return view('dashboard.director.area-edit', compact('area'));
+    {   
+        // dd($id);
+        $area = Area::with('image', 'typearea')->find($id);
+        $type = TypeArea::get();
+        return view('dashboard.director.area-edit', compact('type', 'area'));
     }
 
     /**
@@ -96,9 +96,30 @@ class AreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        $area = Area::with('image', 'typearea')->find($request->id);
+        $type = TypeArea::get();
+
+        $area->name = $request->name;
+        $area->type_area_id = $request->type_area_id;
+        $area->save();
+
+        if ($request->image != null) {
+            $image = $request->file('image');
+            $path = $image->store('public/Areas');  
+            $path = str_replace('public/', '', $path);
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\Area";
+            $image->imageable_id = $area->id;
+            $image->branch_id = 1;
+            $image->save();
+        }
+           
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
+       
     }
 
     /**

@@ -4073,3 +4073,7 @@ th .factura{
     color: #777!important;
     cursor: default!important;
 }
+.create-employee .dropify-wrapper {
+    height: 130px!important ;
+
+}

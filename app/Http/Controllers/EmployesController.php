@@ -14,6 +14,7 @@ use App\Billing;
 use App\Assistance;
 use App\AreaAssigment;
 use App\Image;
+use App\User;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -197,16 +198,28 @@ class EmployesController extends Controller
             'branch_id' => 1
         ]);
 
-        
-        $image = $request->file('image');
-        $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
-        $path = str_replace('public/', '', $path);
-        $image = new Image;
-        $image->path = $path;
-        $image->imageable_type = "App\Employe";
-        $image->imageable_id = $employe->id;
-        $image->branch_id = 1;
-        $image->save();
+        // dd($person);
+        if ($request->pass == 'option1') {
+            $user = User::create([
+                'email'      => $person->email,
+                'password'   => $request->password,
+                'person_id'  => $person->id,
+                // 'remember_token' => ,
+                'branch_id' => 1
+            ]);
+        }
+
+        if ($request->image != null) {
+            $image = $request->file('image');
+            $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
+            $path = str_replace('public/', '', $path);
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\Employe";
+            $image->imageable_id = $employe->id;
+            $image->branch_id = 1;
+            $image->save();
+        }
 
         return redirect()->route('employe.index');
     }
