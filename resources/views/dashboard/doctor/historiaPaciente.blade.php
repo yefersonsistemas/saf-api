@@ -289,23 +289,24 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                        <h2>Diagnostico</h2>
+                                        <h2>Diagnostico y Procedimientos</h2>
                                         <section class="ml-4">
                                             <div class="row">
                                                 <div class="col-12">
 
                                                     <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
                                                     
+                                                <div class="row">
+                                                    <div class="col-12 mt-30">
+                                                        <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
+                                                            <i class="icon-clock"></i>
+                                                            Agregar Procedimiento
+                                                        </button>
+                                                    <div class="col-12 mt-30 p-4  card ml-2">
+                                                        <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
+                                                        <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;"></ul>  
+                                                    </div>
                                                 </div>
-                                                <div class="col-12 mt-30">
-
-                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
-                                                        <i class="icon-clock"></i>
-                                                        Procedimientos
-                                                    </button>
-
-                                                </div>
-                                                
                                             </div>
                                         </section>
 
@@ -522,7 +523,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <i class="fa fa-hospital-o"></i>
                                                                     Cirugias
                                                                 </button>
-
                                                             </div>
                                                             
                                                             <div class="col-4">
@@ -532,17 +532,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </button>
                                                             </div>                                                            
                                                         </div>
-
-                                                        <div class="row d-flex mt-50">
+                                                        <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-4 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posibles Cirugia/as</h6>
+                                                                <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
                                                                 <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>  
                                                             </div>
-                                                            {{-- <div id="cirugias" class="col-4 ml-50">
 
-                                                            </div> --}}
-                                                            <div id="procedimientos" class="col-4 ml-30">
-                                                            
+                                                            <div class="col-4 mt-30 p-4 card ml-2">
+                                                                <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
+                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>  
                                                             </div>
                                                         </div>
                                                     </div>
@@ -557,8 +555,6 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div> --}}
                                         </section>
-
-                                        
                                     </form>
                                     </div>
                                 </div>
@@ -973,15 +969,16 @@ button[data-original-title="Help"]{ display: none; }
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
-                    title: data.proceduresR,
+                    title: data.procedures,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+                mostrarProceduresC(data[1]);
             }
             
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.reference,
+                    title: data.procedureR2,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
@@ -1091,27 +1088,6 @@ console.log('gfhdg', data[1]);
         })
     } // fin de la funcion
 
-    // mostrando posibles procedimientos 
-    function mostrarProcedure(data){
-        console.log('hh',data);
-
-        for($i=0; $i < data.length; $i++){
-            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
-            $("#procedimientos").append(procedure);
-        }
-        
-    }
-
-    // mostrando posibles procedimientos 
-    function mostrarExamen(data){
-        console.log('hh',data);
-
-        for($i=0; $i < data.length; $i++){
-            examen='<li>'+data[$i].name+'</li>';
-            $("#examen").append(examen);
-        }
-        
-    }
 
 
     //captar datos de las posibles cirugias
@@ -1141,7 +1117,7 @@ console.log('gfhdg', data[1]);
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
-                    title: data.surgeryR,
+                    title: data.surgerysR,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
@@ -1150,7 +1126,7 @@ console.log('gfhdg', data[1]);
             
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.surgeryR2,
+                    title: data.surgerysR2,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
@@ -1162,6 +1138,18 @@ console.log('gfhdg', data[1]);
         })
     } // fin de la funcion
 
+
+    
+    function mostrarProceduresC(data){
+            console.log('hh',data);
+
+            for($i=0; $i < data.length; $i++){
+                procesc='<li>'+data[$i].name+'</li>';
+                $("#procesc").append(procesc);
+            }
+            
+        }
+    //mostrando posibles cirugias
     function mostrarSurgery(data){
             console.log('hh',data);
 
@@ -1172,6 +1160,27 @@ console.log('gfhdg', data[1]);
             
         }
 
+        // mostrando posibles procedimientos 
+        function mostrarProcedure(data){
+            console.log('hh',data);
+    
+            for($i=0; $i < data.length; $i++){
+                procedure='<li>'+data[$i].name+'</li>';
+                $("#procedimientos").append(procedure);
+            }
+            
+        }
+    
+        // mostrando examenes 
+        function mostrarExamen(data){
+            console.log('hh',data);
+    
+            for($i=0; $i < data.length; $i++){
+                examen='<li>'+data[$i].name+'</li>';
+                $("#examen").append(examen);
+            }
+            
+        }
 </script>
 <script>
 
