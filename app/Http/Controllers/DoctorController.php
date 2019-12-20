@@ -9,7 +9,7 @@ use App\Exam;
 use App\Diagnostic;
 use App\Procedure;
 use App\Surgery;
-use App\TypeSurgery;
+use App\Typesurgery;
 use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
