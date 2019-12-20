@@ -289,23 +289,28 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                        <h2>Diagnostico</h2>
+                                        <h2>Diagnostico y Procedimientos</h2>
                                         <section class="ml-4">
                                             <div class="row">
                                                 <div class="col-12">
 
                                                     <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
-                                                    
+                                                </div>    
+                                                <div class="row">
+                                                    <div class="col-12 mt-30">
+                                                        <h5>Procedimientos Realizados al Paciente:</h5>
+                                                    </div>
+                                                    <div class="col-12 mt-10">
+                                                        <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
+                                                            <i class="fa fa-plus"></i>
+                                                            Agregar Procedimiento
+                                                        </button>
+                                                    </div>   
+                                                    <div class="col-12 mt-20 p-4  card ml-2">
+                                                        <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
+                                                        <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;"></ul>  
+                                                    </div>
                                                 </div>
-                                                <div class="col-12 mt-30">
-
-                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                        <i class="icon-clock"></i>
-                                                        Procedimientos
-                                                    </button>
-
-                                                </div>
-                                                
                                             </div>
                                         </section>
 
@@ -339,15 +344,19 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="tab-content" id="pills-tabContent">
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <label>Examenes</label>
-                                                        <div class="form-group multiselect_div">
-                                                            <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                                @foreach ($exams as $exam)
-                                                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span></span>
+                                                <div>
+                                                    <h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
+                                                </div>
+                                                    <div class="row">
+                                                        <div class="col-12 mt-30 d-flex justify-content-start">
+                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
+                                                                <i class="fa fa-plus"></i>
+                                                                Agregar examen
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-12 mt-30 p-4  card ml-2">
+                                                            <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
+                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"></ul>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -518,17 +527,28 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row d-flex justify-content-center">
                                                             <div class=" col-4">
                                                                 <button class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                    <i class="icon-clock"></i>
-                                                                    Cirugias
+                                                                    <i class="fa fa-plus"></i>
+                                                                    Agregar Cirugia
                                                                 </button>
                                                             </div>
                                                             
                                                             <div class="col-4">
                                                                 <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                    <i class="icon-clock"></i>
-                                                                    Procedimientos
+                                                                    <i class="fa fa-plus"></i>
+                                                                    Agregar Procedimiento
                                                                 </button>
                                                             </div>                                                            
+                                                        </div>
+                                                        <div class="row d-flex mt-20 justify-content-center">
+                                                            <div class="col-5 mt-30 p-4 card ml-2">
+                                                                <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
+                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>  
+                                                            </div>
+
+                                                            <div class="col-5 mt-30 p-4 card ml-2">
+                                                                <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
+                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>  
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -553,30 +573,73 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     </div>
-{{-- modal de procedimientos en la consulta --}}
+
+    {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos no</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <form action="" id="proceduresC-office">
                     <div class="modal-body">
-
-                    </div>
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @foreach ($procesm->procedures as $proces)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                    <span class="custom-control-label">{{ $proces->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div> 
+                    </div>   
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success">Guardar</button>
+                        <button  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
+                </form>    
             </div>
         </div>
     </div>
 
-    {{-- modal de cirugias --}}
+    {{-- modal de los examenes --}}
+    <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Examenes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="exam">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @foreach ($exams as $exam)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
+                                    <span class="custom-control-label">{{ $exam->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
+                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de posibles cirugias --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
@@ -584,31 +647,30 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                
-                    <div class="modal-body">
-                        <div class="col-lg-12 col-md-12">
-                            <label>Cirugias</label>
-                            <div class="form-group multiselect_div">
-                                <select id="selectsurgerys" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                    @foreach ($surgerys as $surgery)
-                                        <option value="{{ $surgery->id }}">{{ $surgery->name }}</option>
-                                    @endforeach
-                                </select>
-                                <span></span>
-                            </div>
+                <form action="" id="posible-surgerys">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="custom-controls-stacked">
+                            <label class="custom-control custom-checkbox custom-control-inline">
+                                @foreach ($surgerys as $surgery)
+                                <input type="checkbox" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                <span class="custom-control-label">{{ $surgery->name }}</span>
+                                @endforeach
+                            </label>
                         </div>
                     </div>
+                </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarC">Guardar</button>
                     </div>
+                </form>    
             </div>
         </div>
     </div>
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
@@ -616,18 +678,23 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('reservation.status') }}">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                           
+                <form action="" id="posible-procedures">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="custom-controls-stacked">
+                            @foreach ($procesm->procedures as $proces)
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
+                                <span class="custom-control-label">{{ $proces->name }}</span>
+                            </label>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success">Guardar</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</button>
+                </div>
+            </form>
             </div>
         </div>
     </div>
@@ -650,7 +717,7 @@ button[data-original-title="Help"]{ display: none; }
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
 <script>
-    $('#select').multiselect({
+    $('#selectexam').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -658,7 +725,7 @@ button[data-original-title="Help"]{ display: none; }
 </script>
 
 <script>
-    $('#selectsurgerys').multiselect({
+    $('#selectprocesm').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -668,6 +735,7 @@ button[data-original-title="Help"]{ display: none; }
 <script>
     var form = $('#wizard_vertical').show();
     //Vertical form basic
+    var procedures=0;
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
@@ -879,6 +947,234 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
-</script>
 
+
+    //captar datos de los procedimientos en la consulta
+    $("#guardarO").click(function() {
+            var reservacion = $("#reservacion").val();
+            var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
+
+            ajax_PO(procesof,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+        });                                                               //fin de la funcion clikea
+        
+        function ajax_PO(procesof,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.procedures_realizados') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:procesof, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.procedures,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarProceduresC(data[1]);
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.procedureR2,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+    //examenes a realizar (paciente)
+    $("#guardarE").click(function() {
+            var reservacion = $("#reservacion").val();
+            var exam = $("#exam").serialize();          //asignando el valor que se ingresa en el campo
+
+            ajax_E(exam,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+        
+        function ajax_E(exam,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.examR') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:exam, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.exam,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarExamen(data[1]);
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.exam2,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+    //captar datos de los posibles procedimientos
+    $("#guardarP").click(function() {
+            var reservacion = $("#reservacion").val();
+            var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
+
+            ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+        
+        function ajax(proce,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.proceduresP') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:proce, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.proceduresR,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+                mostrarProcedure(data[1]);
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+
+
+    //captar datos de las posibles cirugias
+    $("#guardarC").click(function() {
+
+            var reservacion = $("#reservacion").val();
+            var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+
+            ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+        
+        function ajax_S(surgery,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.surgerysP') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:surgery, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.surgerysR,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarSurgery(data[1]);
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.surgerysR2,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+
+    
+    function mostrarProceduresC(data){
+            console.log('hh',data);
+
+            for($i=0; $i < data.length; $i++){
+                procesc='<li>'+data[$i].name+'</li>';
+                $("#procesc").append(procesc);
+            }
+            
+        }
+    //mostrando posibles cirugias
+    function mostrarSurgery(data){
+            console.log('hh',data);
+
+            for($i=0; $i < data.length; $i++){
+                cirugias='<li>'+data[$i].name+'</li>';
+                $("#cirugias").append(cirugias);
+            }
+            
+        }
+
+        // mostrando posibles procedimientos 
+        function mostrarProcedure(data){
+            console.log('hh',data);
+    
+            for($i=0; $i < data.length; $i++){
+                procedure='<li>'+data[$i].name+'</li>';
+                $("#procedimientos").append(procedure);
+            }
+            
+        }
+    
+        // mostrando examenes 
+        function mostrarExamen(data){
+            console.log('hh',data);
+    
+            for($i=0; $i < data.length; $i++){
+                examen='<li>'+data[$i].name+'</li>';
+                $("#examen").append(examen);
+            }
+            
+        }
+</script>
 @endsection

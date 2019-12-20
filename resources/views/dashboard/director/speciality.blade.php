@@ -1,5 +1,7 @@
 @extends('dashboard.layouts.app')
 
+@section('cites','active')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">

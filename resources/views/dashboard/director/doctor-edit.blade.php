@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Registro de Medicos')
+@section('title','Modificar Medico')
 
 @section('content')
 <div class="section-body py-4">
@@ -58,21 +58,21 @@
                                             </div>
                                         </div>
         
-                                        <div class="col-lg-4 mt-4">
+                                        <div class="col-lg-4 ">
                                             <div class="form-group">
                                                 <label class="form-label">Direccion</label>
                                                 <input type="text" name="address" id="address" class="form-control" placeholder="Direccion" value="{{ $employe->person->address }}" required>
                                             </div>
                                         </div>
                     
-                                        <div class="col-lg-4 mt-4">
+                                        <div class="col-lg-4 ">
                                             <div class="form-group">
                                                 <label class="form-label"> Teléfono </label>
                                                 <input type="text" class="form-control" placeholder="Telefono" name="phone" value="{{ $employe->person->phone }}" required>
                                             </div>
                                         </div>
                                             
-                                        <div class="col-lg-4 mt-4">
+                                        <div class="col-lg-4 ">
                                             <div class="form-group">
                                                 <label class="form-label"> Correo Electronico </label>
                                                 <input type="email" placeholder="name@example.com" class="form-control" name="email" value="{{$employe->person->email }}" required>
@@ -87,16 +87,11 @@
                                 <div class="mb-2 col-lg-3">
                                     <input id="image" type="file" class="dropify" name="image" data-default-file="">
                                 </div>
-                            
-                                <div class="col-lg-3 mt-4">
-                                    <div class="form-group">
-                                    <label class="form-label">Cargo </label>
-                                        <input type="hidden"  name="position_id" value="{{$position->id}}">
-                                        <input type="text" class="form-control" name="position_id" value="{{$position->name = 'doctor'}}" disabled>
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-6 mt-4" id="framework_form">
+
+                              <div class="col-lg-9 ">
+                              <div class="row">
+                                <div class="col-lg-12"  id="framework_form">
                                     <label class="form-label">Especialidad</label>
                                     <div class="form-group multiselect_div">
                                         <select id="speciality"  name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
@@ -109,10 +104,60 @@
                                             <option value= {{ $speciality->id }}>{{ $speciality->name }}</option>
                                             @endforeach
                                         </select>
-                                        
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12" id="framework_form">
+                                    <label class="form-label">Procedimientos</label>
+                                    <div class="form-group multiselect_div">
+                                        <select id="procedure"  name="procedure[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
+                                            @foreach ($procedure as $procedure)
+                                                @foreach ($employe->procedures as $item)
+                                                @if ($item->id == $procedure->id)
+                                                <option selected="selected" value= {{ $procedure->id }}>{{ $procedure->name }}</option>
+                                                @endif
+                                                @endforeach
+                                            <option value= {{ $procedure->id }}>{{ $procedure->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                              </div>
+                              </div>
                             </div>
+
+                            <div class="row d-flex justify-content-between">
+
+                                <div class="col-lg-4 ">
+                                    <div class="form-group">
+                                    <label class="form-label">Cargo </label>
+                                        <input type="hidden"  name="position_id" value="{{$position->id}}">
+                                        <input type="text" class="form-control" name="position_id" value="{{$position->name = 'doctor'}}" disabled>
+                                    </div>
+                                </div> 
+
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Clase</label>
+                                        <select name="type_doctor_id" class="custom-select input-group-text bg-white form-control">
+                                            @foreach ($clases as $clase)
+                                            {{-- @if ($precio->typedoctor->id == $clase->id ) --}}
+                                            <option selected="selected" value={{$clase->id}}>{{$clase->name}}</option>
+                                            {{-- @endif --}}
+                                            {{-- <option value={{$clase->id}}>{{$clase->name}}</option> --}}
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+        
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group"> 
+                                        <label class="form-label">Precio de Consulta</label>
+                                        <input type="text"  class="form-control" placeholder="Precio" name="price" value="{{ $precio->price }}" required>
+                                    </div>
+                                </div> 
+                            </div> 
+
 
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -123,6 +168,7 @@
                                     </ul>
                                 </div>
                             @endif
+                        </div>
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
                         <button  type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Guardar</button>
@@ -153,6 +199,22 @@
     $("#speciality").change(function(){
         var especialidad_id = $(this).val();     // Capta el id de la especialidad
         console.log('especialidad', especialidad_id); 
+    });
+</script>
+
+<script>
+    $('#procedure').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
+
+<script>
+    // select de las especialidades
+    $("#procedure").change(function(){
+        var procedure_id = $(this).val();     // Capta el id de procedimiento
+        console.log('procedure', procedure_id); 
     });
 </script>
 @endsection

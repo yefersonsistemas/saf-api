@@ -49,14 +49,14 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('insideOffice/{id}', 'InController@insideOffice')->name('checkin.insideOffice'); // cambia estado depaciente a dentro del consultorio
         Route::get('assigment', 'InController@create')->name('checkin.create');
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
-        // Route::post('create', 'InController@store')->name('checkin.store');
-        Route::get('list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
+        Route::post('create', 'InController@store')->name('checkin.store');
+        Route::get('medicos/list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
         Route::get('list/todos', 'EmployesController@doctor_on_todos')->name('checkin.doctor_todos');
         Route::post('Doctor/asistencia', 'EmployesController@assistance')->name('checkin.asistencia');
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
- 
+
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
@@ -94,13 +94,17 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
+        Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
-        Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
+        Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');  
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
+        Route::post('procedures_realizados', 'DoctorController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta
+        Route::post('examR', 'DoctorController@examR')->name('doctor.examR'); // guardar los examenes que se realizara el paciente
+        Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos 
+        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugiasv
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 
@@ -153,5 +157,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('empleado/update/{id}', 'EmployesController@update')->name('empleado.update');
         Route::get('enfermedad/{id}', 'DiseasesController@edit')->name('enfermedad.edit');
         Route::put('enfermedad/update/{id}', 'DiseasesController@update')->name('enfermedad.update');
+        Route::get('examen/{id}', 'ExamController@edit')->name('examen.edit');
+        Route::put('examen/update/{id}', 'ExamController@update')->name('examen.update');
+        Route::get('medicina/{id}', 'MedicinesController@edit')->name('medicina.edit');
+        Route::put('medicina/update/{id}', 'MedicinesController@update')->name('medicina.update');
+        Route::get('cargo/{id}', 'PositionsController@edit')->name('cargo.edit');
+        Route::put('cargo/update/{id}', 'PositionsController@update')->name('cargo.update');
+        Route::get('precio/{id}', 'DirectorController@edit_price')->name('precio.edit');
+        Route::put('precio/update/{id}', 'DirectorController@update_price')->name('precio.update');
+        Route::get('area/{id}', 'AreasController@edit')->name('area.edit');
+        Route::put('area/update/{id}', 'AreasController@update')->name('area.update');
     });
 });

@@ -19,6 +19,7 @@ class CreateAreasTable extends Migration
             $table->enum('status', ['ocupado', 'desocupado'])->nullable();
             $table->unsignedBigInteger('type_area_id');
             $table->unsignedBigInteger('branch_id');
+            $table->integer('number')->nullable();  //servira como contador en la creacion de consultorios
             $table->timestamps();
 
             $table->foreign('type_area_id')

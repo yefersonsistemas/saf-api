@@ -107,7 +107,7 @@
                                         <label>Fecha</label>
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input id="fecha" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="{{ $reservation->date }}">
+                                                <input id="fechas" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="{{ $reservation->date }}">
                                             </div>
                                         </div>
                                     </div>
@@ -229,11 +229,11 @@
             console.log('primero',data.available);
             console.log('segundo',data.diff);
             $('#newDate').empty();
-            $('#newDate').html('<label class="form-label">Fecha</label> <div class="form-group"> <div class="input-group"> <input id="datepicker" data-provide="datepicker" data-date-autoclose="true" name="fecha" class="form-control datepicker"> </div> </div>');
+            $('#newDate').html('<label class="form-label">Fecha</label> <div class="form-group"> <div class="input-group"> <input id="fechas" data-provide="datepicker" data-date-autoclose="true" name="fecha" class="form-control datepicker"> </div> </div>');
             fecha = new Date(2019, 10, 29);
             fecha2 = new Date(2019, 10, 30);
             console.log(fecha);
-            $('.datepicker').datepicker({
+            $('#fechas').datepicker({
                 todayHighlight: true,
                 language: 'es',
                 startDate: data.start,
@@ -242,10 +242,10 @@
                 datesDisabled: data.diff, 
             });
            
-        $('#fecha').val();
+        $('#fechas').val();
         }
 
-        $('#fecha').datepicker({
+        $('#fechas').datepicker({
             todayHighlight: true,
             language: 'es',
             startDate: data.start,

@@ -1,8 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('css')
-
-@endsection
+@section('cites','active')
 
 @section('title','Registro de Alergias en los Pacientes')
 

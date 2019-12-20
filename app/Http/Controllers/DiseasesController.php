@@ -78,9 +78,9 @@ class DiseasesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $disease = Disease::find($id);
+        $disease = Disease::find($request->id);
 
         $disease->name = $request->name;
         $disease->update();
