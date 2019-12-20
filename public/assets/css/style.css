@@ -3757,76 +3757,76 @@ span.titulos {
 .tamano {
     /* width: 100%;
         height:150px; */
+    background: #000;
+}
 
-                background: #000;
-            }
-            
-            .tamano img {
-                width: 100%;
-                height: 100%;
-            }
-            
-            .with150 {
-                width: 100%;
-                height: 150px;
-            }
-            
-            .tama {
-                width: 100%;
-                height: 120px;
-            }
-            
-            .color {
-                color: #2185d0;
-            }
-            
-            .bg-azul {
-                background: #2185d0;
-            }
-            
-            .h4 {
-                font-size: 24px;
-                color: #000;
-            }
-            
-            .page-item:last-child .page-link:active {
-                color: #fff;
-                background: #00ba88;
-                box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
-            }
-            
-            .event-click {
-                cursor: pointer;
-            }
-            
-            .img-thumbnail {
-                padding: 0;
-            }
-            
-            .scrolll {
-                overflow-y: auto;
-            }
-            
-            .scroll {
-                height: 300px;
-                ;
-            }
+.tamano img {
+    width: 100%;
+    height: 100%;
+}
 
-            textarea.letras{
-                color:#000;
-            }
+.with150 {
+    width: 100%;
+    height: 150px;
+}
 
-            .borderF{
-                border-bottom: 2px solid #2185d0;
-                border-top:2px solid #2185d0;
-            }
-            .text{
-                font-size: 14px;
-            }
+.tama {
+    width: 100%;
+    height: 120px;
+}
 
-            .h66{
-                font-weight: bold;
-            }
+.color {
+    color: #2185d0;
+}
+
+.bg-azul {
+    background: #2185d0;
+}
+
+.h4 {
+    font-size: 24px;
+    color: #000;
+}
+
+.page-item:last-child .page-link:active {
+    color: #fff;
+    background: #00ba88;
+    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+}
+
+.event-click {
+    cursor: pointer;
+}
+
+.img-thumbnail {
+    padding: 0;
+}
+
+.scrolll {
+    overflow-y: auto;
+}
+
+.scroll {
+    height: 300px;
+    ;
+}
+
+textarea.letras {
+    color: #000;
+}
+
+.borderF {
+    border-bottom: 2px solid #2185d0;
+    border-top: 2px solid #2185d0;
+}
+
+.text {
+    font-size: 14px;
+}
+
+.h66 {
+    font-weight: bold;
+}
 
 .tamano img {
     width: 100%;
@@ -3882,183 +3882,182 @@ textarea.letras {
     color: #000;
 }
 
-.heig{
-    height: 90px;;
+.heig {
+    height: 90px;
+    ;
 }
 
-.btn-hecho{
-    color: #000000 ;
+.btn-hecho {
+    color: #000000;
     font-weight: bold;
     font-size: 20px;
 }
-.btn-boo{
-    color:#fff;
+
+.btn-boo {
+    color: #fff;
     background: #00506b;
 }
 
 .btn-boo:hover {
-    color:#fff;
+    color: #fff;
     /* background:#2C7BAF; */
 }
 
-.btn-gene{
-    color:#fff;
+.btn-gene {
+    color: #fff;
     background: #00ad88;
 }
 
 .btn-gene:hover {
-    color:#fff;
+    color: #fff;
     background: #00ad88;
 }
 
 .bg-boo {
-    background:#00506b !important;
+    background: #00506b !important;
 }
 
 .bg-boo:hover {
-    background:#00506b !important;
+    background: #00506b !important;
 }
 
 table tr .bg-boo:hover {
-    background:#00506b;
+    background: #00506b;
 }
 
-th .factura{
-    color:#000;
+th .factura {
+    color: #000;
 }
-.todos{
-    border:2px solid #a1a1a1;
+
+.todos {
+    border: 2px solid #a1a1a1;
     background: #fff;
-    color:#000;
+    color: #000;
     border-radius: 5px;
 }
 
 .todos:hover {
-    background:  #a1a1a1;
-    color:#fff;
+    background: #a1a1a1;
+    color: #fff;
 }
 
 .todos:active {
-    background:  #a1a1a1;
-    color:#fff;
+    background: #a1a1a1;
+    color: #fff;
 }
 
-.espera{
-    border:2px solid #FACC2E;
+.espera {
+    border: 2px solid #FACC2E;
     background: #fff;
-    color:#000;
+    color: #000;
     border-radius: 5px;
 }
 
 .espera:hover {
     background: #FACC2E;
-    color:#fff;
+    color: #fff;
 }
 
-.dentro{
-    border:2px solid #00ad88;
+.dentro {
+    border: 2px solid #00ad88;
     background: #fff;
-    color:#000;
+    color: #000;
     border-radius: 5px;
 }
 
 .dentro:hover {
     background: #00ad88;
-    color:#fff;
+    color: #fff;
 }
 
-.fuera{
-    border:2px solid #B40404;
+.fuera {
+    border: 2px solid #B40404;
     background: #fff;
-    color:#000;
+    color: #000;
     border-radius: 5px;
 }
 
-.aprobadas{
-    border:2px solid #000;
+.aprobadas {
+    border: 2px solid #000;
     background: #fff;
-    color:#000;
+    color: #000;
     border-radius: 5px;
 }
 
 .aprobadas:hover {
     background: #000;
-    color:#fff;
+    color: #fff;
     border-radius: 5px;
 }
 
 .fuera:hover {
     background: #B40404;
-    color:#fff;
+    color: #fff;
 }
 
 .fuera:active {
     background: #B40404;
-    color:#fff;
+    color: #fff;
 }
 
 .btn-fuera {
-    color:#B40404;
+    color: #B40404;
     font-weight: bold;
     font-size: 20px;
 }
 
-
-.btn-amarillo{
-    background:#FACC2E;
-    color:#fff;
+.btn-amarillo {
+    background: #FACC2E;
+    color: #fff;
     font-weight: bold;
 }
 
-.btn-amarillo:hover{
-    background:#FACC2E;
-    color:#fff;
+.btn-amarillo:hover {
+    background: #FACC2E;
+    color: #fff;
     font-weight: bold;
 }
 
-.btn-inside-c{
-
-    background:#00ad88;
-    color:#fff;
+.btn-inside-c {
+    background: #00ad88;
+    color: #fff;
 }
 
-.btn-inside-c:hover{
-    background:#00ad88;
-    color:#fff;
+.btn-inside-c:hover {
+    background: #00ad88;
+    color: #fff;
 }
 
-.btn-outside-c{
+.btn-outside-c {
     background: #B40404;
-    color:#fff;
+    color: #fff;
 }
 
-.btn-outside-c:hover{
+.btn-outside-c:hover {
     background: #B40404;
-    color:#fff;
-  
+    color: #fff;
 }
 
-.btn-outside{
+.btn-outside {
     background: #ccc;
-    color:#fff;
+    color: #fff;
 }
 
-.btn-outside:hover{
+.btn-outside:hover {
     background: #ccc;
-    color:#fff;
+    color: #fff;
 }
 
-.abarca{
+.abarca {
     width: 100%;
 }
 
-
-.enlace_cirugia{
-    color:#6CBBF5;
+.enlace_cirugia {
+    color: #6CBBF5;
 }
 
 .enlace_cirugia:hover {
-    color:#00ad88;
+    color: #00ad88;
 }
 
 .datepicker table tr td.highlighted.disabled,
@@ -4073,7 +4072,71 @@ th .factura{
     color: #777!important;
     cursor: default!important;
 }
-.create-employee .dropify-wrapper {
-    height: 130px!important ;
 
+.create-employee .dropify-wrapper {
+    height: 130px!important;
+}
+
+.wizard>.content>.body {
+    float: left;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 2.5%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.wizard>.content>.body::-webkit-scrollbar {
+    width: 8px;
+    /* Tamaño del scroll en vertical */
+    height: 8px;
+    /* Tamaño del scroll en horizontal */
+    display: block;
+}
+
+
+/* * Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+.wizard>.content>.body::-webkit-scrollbar-thumb {
+    background: #00ba88;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+
+.wizard>.content>.body::-webkit-scrollbar-thumb:hover {
+    background: #00ba88;
+    box-shadow: 0 0 2px 1px rgba(0, 107, 136, 0.2);
+}
+
+
+/* Cambiamos el fondo cuando esté en active */
+
+.wizard>.content>.body::-webkit-scrollbar-thumb:active {
+    background-color: #00506b;
+}
+
+
+/* * Ponemos un color de fondo y redondeamos las esquinas del track */
+
+.wizard>.content>.bodyr::-webkit-scrollbar-track {
+    background: #00ba88;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo cuando esté en active o hover */
+
+.wizard>.content>.body::-webkit-scrollbar-track:hover,
+.wizard>.content>.body::-webkit-scrollbar-track:active {
+    background: #75d8bd;
+}
+
+.wizard>.steps .done a,
+.wizard>.steps .done a:hover,
+.wizard>.steps .done a:active {
+    background: #00ba88;
+    color: #fff;
 }
