@@ -94,7 +94,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
+        Route::get('doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');

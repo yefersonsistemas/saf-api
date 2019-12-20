@@ -97,7 +97,7 @@ class DoctorController extends Controller
 
         $exams = Exam::all();
 
-        $surgerys = TypeSurgery::all();
+        $surgerys = Typesurgery::all();
 
 
             // dd(  $cite);
