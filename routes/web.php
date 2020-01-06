@@ -167,5 +167,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('precio/update/{id}', 'DirectorController@update_price')->name('precio.update');
         Route::get('area/{id}', 'AreasController@edit')->name('area.edit');
         Route::put('area/update/{id}', 'AreasController@update')->name('area.update');
+        Route::get('procedure/{id}', 'ProcedureController@edit')->name('procedure.edit');
+        Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
     });
 });

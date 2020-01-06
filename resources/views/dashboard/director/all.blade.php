@@ -204,7 +204,7 @@
                                             <td>{{ $procedure->price }}</td>
                                             <td>{{ $procedure->speciality->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
