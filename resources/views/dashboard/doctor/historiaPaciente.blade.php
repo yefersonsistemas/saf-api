@@ -509,7 +509,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             </div>
                                                                         </div>
                                                                         <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar</a>
+                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -899,12 +899,13 @@ button[data-original-title="Help"]{ display: none; }
         console.log('d e',doctorExterno);
         console.log('patient',patient);
 
-        ajax(speciality, reason, doctor, doctorExterno, patient);                          
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
     });
 
-    function ajax(speciality, reason, doctor, doctorExterno, patient) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
+        console.log("hola hoy");
         $.ajax({ 
             url: "{{ route('reference.store') }}",   //definiendo ruta
             type: "POST",                             //definiendo metodo
@@ -1014,7 +1015,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-console.log('gfhdg', data[1]);
+            console.log('gfhdg', data[1]);
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
