@@ -42,7 +42,8 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $today = Reservation::with('patient.historyPatient', 'patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+    //    dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -277,15 +278,13 @@ class DoctorController extends Controller
         // dd($request);
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
-        // dd($itinerary);
 
         $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-        // dd($io);
     
         if (empty($io->outside_office) && (!empty($io->inside_office))) {
             $io->outside_office = 'fuera';
             $io->save();
-            // dd($io);
+        // }
      
             if($itinerary != null){
 
