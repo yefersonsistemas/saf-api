@@ -553,7 +553,6 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div> --}}
                                         </section>
-
                                         
                                     </form>
                                     </div>
@@ -622,7 +621,6 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
                         <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -1108,9 +1106,7 @@ button[data-original-title="Help"]{ display: none; }
             examen='<li>'+data[$i].name+'</li>';
             $("#examen").append(examen);
         }
-        
     }
-
 
     //captar datos de las posibles cirugias
     $("#guardarC").click(function() {
