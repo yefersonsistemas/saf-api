@@ -926,7 +926,7 @@ button[data-original-title="Help"]{ display: none; }
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
-            if(data[0] == 201){                  //si no trae valores
+            if(data[0] == 201){                  //si trae valores
                 Swal.fire({
                     title: data.reference,
                     text: 'Click en OK para continuar',

@@ -4084,7 +4084,7 @@ th .factura {
     height: 100%;
     padding: 2.5%;
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: hidden!important;
 }
 
 .wizard>.content>.body::-webkit-scrollbar {

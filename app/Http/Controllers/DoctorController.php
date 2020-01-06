@@ -279,12 +279,10 @@ class DoctorController extends Controller
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
         $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-        // dd($io);
-        // dd($io);
+        
         if (empty($io->outside_office)) {
             $io->outside_office = 'fuera';
             $io->save();
-            // dd($io);
         }
 
         // dd($itinerary);
