@@ -517,7 +517,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             </div>
                                                                         </div>
                                                                         <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar</a>
+                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -562,6 +562,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div> --}}
                                         </section>
+                                        
                                     </form>
                                     </div>
                                 </div>
@@ -629,7 +630,6 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
                         <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -905,12 +905,13 @@ button[data-original-title="Help"]{ display: none; }
         console.log('d e',doctorExterno);
         console.log('patient',patient);
 
-        ajax(speciality, reason, doctor, doctorExterno, patient);                          
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
     });
 
-    function ajax(speciality, reason, doctor, doctorExterno, patient) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
+        console.log("hola hoy");
         $.ajax({ 
             url: "{{ route('reference.store') }}",   //definiendo ruta
             type: "POST",                             //definiendo metodo
@@ -1015,6 +1016,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            console.log('gfhdg', data[1]);
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1085,7 +1087,26 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
+    // mostrando posibles procedimientos 
+    function mostrarProcedure(data){
+        console.log('hh',data);
 
+        for($i=0; $i < data.length; $i++){
+            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
+            $("#procedimientos").append(procedure);
+        }
+        
+    }
+
+    // mostrando posibles procedimientos 
+    function mostrarExamen(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            examen='<li>'+data[$i].name+'</li>';
+            $("#examen").append(examen);
+        }
+    }
 
     //captar datos de las posibles cirugias
     $("#guardarC").click(function() {

@@ -106,7 +106,6 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
 
-
         //creando cirugia
         $cirugia = factory(App\Typesurgery::class)->create([
             'name' => 'Endoscópica SENOS PARANASALES',

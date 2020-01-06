@@ -118,7 +118,7 @@ class InController extends Controller
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
-
+        
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
