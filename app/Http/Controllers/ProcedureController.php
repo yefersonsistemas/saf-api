@@ -92,7 +92,9 @@ class ProcedureController extends Controller
     {
         $procedure = Procedure::with('speciality')->where('id', $id)->first();
         $speciality = Speciality::all();
-        return view('dashboard.director.procedure-edit', compact('procedure', 'speciality'));
+        $diff = $speciality->diff($procedure->speciality);
+
+        return view('dashboard.director.procedure-edit', compact('procedure', 'diff'));
     }
 
     /**

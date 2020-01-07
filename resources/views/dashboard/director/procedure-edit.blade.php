@@ -40,43 +40,14 @@
                                 <label class="form-label">Especialidad</label>
                                 <div class="form-group multiselect_div">
                                     <select id="speciality"  name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
-                                        
-                                        @foreach ($speciality as $speciality)
-                                            @foreach ($procedure->speciality as $item)
-                                                @if ($item->id == $speciality->id )
-                                                <option selected="selected" value={{$speciality->id}}>{{$speciality->name}}</option>
-                                                @break
-                                                @elseif($item->id != $speciality->id)
-                                                    {{-- <option value={{$speciality->id}}>{{$speciality->name}}</option> --}}
-                                                    @continue
-                                                {{-- @endif --}}
-                                                @endif
-                                            @endforeach
-                                            <option value={{$speciality->id}}>{{$speciality->name}}</option>
-                                         @endforeach
-                                    {{-- @foreach ($speciality as $speciality)
-                                            @foreach ($employe->speciality as $item)
-                                            @if ($item->id == $speciality->id)
-                                            <option selected="selected" value= {{ $speciality->id }}>{{ $speciality->name }}</option>
-                                            @endif
-                                            @endforeach
-                                        <option value= {{ $speciality->id }}>{{ $speciality->name }}</option>
-                                        @endforeach --}}
+                                        @foreach ($procedure->speciality as $item)
+                                            <option selected="selected" value={{$item->id}}>{{$item->name}}</option>
+                                        @endforeach
+                                        @foreach ($diff as $demas)
+                                            <option value={{$demas->id}}>{{$demas->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-
-                                {{-- <select name="speciality_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                    <option value="0">Ninguna selección</option>
-                                    @foreach ($speciality as $speciality)
-                                        @if ($procedure->speciality->id == $speciality->id )
-                                        <option selected="selected" value={{$speciality->id}}>{{$speciality->name}}</option>
-                                        @endif
-                                        @if ($procedure->speciality->id != $speciality->id )
-                                        <option value={{$speciality->id}}>{{$speciality->name}}</option>
-                                        @endif
-                                    @endforeach
-                                 
-                                </select> --}}
                             </div>
                         </div>
 
