@@ -18,7 +18,7 @@ class CreateCitesTable extends Migration
             $table->unsignedBigInteger('reservation_id');
             $table->string('reason');
             $table->unsignedBigInteger('branch_id');
-            // $table->softDeletes();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('branch_id')
