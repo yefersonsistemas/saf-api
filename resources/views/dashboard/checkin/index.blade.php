@@ -178,9 +178,9 @@
                                                 @endif
                                                 
                                                 @if ($reservation->status == 'Cancelada')
-                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
+                                                    {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    {{-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button> --}}
                                                 @endif
                                                 @if ($reservation->status == 'Reprogramada')
                                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
@@ -188,7 +188,7 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
                                                 @if ($reservation->status == 'Suspendida')
-                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
+                                                    {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
@@ -363,7 +363,11 @@
                                             <td><span class="badge badge-danger">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-secondary">S</a>
+                                                <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                    <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -487,7 +491,11 @@
                                             <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
-                                                <a href="" class="btn btn-danger">C</a>
+                                                <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                    <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

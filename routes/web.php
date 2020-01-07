@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
-        
+        Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');

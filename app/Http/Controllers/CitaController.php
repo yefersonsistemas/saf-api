@@ -466,11 +466,14 @@ class CitaController extends Controller
 
         if(!is_null($reservation)){
            $reservation->delete();
- 
-                return response()->json([
-                'message' => 'Cita eliminada',
-                ]);
-            }
+
+        Alert::success('Cita Eliminada Exitosamente ');
+        return redirect()->route('checkin.index');
+            // return response()->json([
+            // 'message' => 'Cita eliminada',
+            // ]);
+        }
+        
     }
 
     public function speciality()
