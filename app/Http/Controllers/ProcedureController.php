@@ -92,6 +92,7 @@ class ProcedureController extends Controller
     {
         // dd($id);
         $procedure = Procedure::with('speciality')->where('id', $id)->first();
+        // dd($procedure->speciality);
         $speciality = Speciality::all();
         return view('dashboard.director.procedure-edit', compact('procedure', 'speciality'));
     }
@@ -105,13 +106,17 @@ class ProcedureController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request);
         $procedure = Procedure::with('speciality')->where('id', $request->id)->first();
         $procedure->name          =  $request->name;
         $procedure->price         =  $request->price;
         $procedure->description   =  $request->description; 
-        $procedure->speciality_id   =  $request->speciality_id; 
+        // $procedure->speciality_id   =  $request->speciality_id; 
+     
         $procedure->save();   
-
+        
+        $procedure->speciality()->sync($request->speciality);
+        dd($procedure);
         return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 

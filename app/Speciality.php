@@ -63,8 +63,15 @@ class Speciality extends Model
         return $this->belongsTo('App\Diagnostic');
     }
 
-    public function procedures()
+    // public function procedures()
+    // {
+    //     return $this->hasMany('App\Procedure');
+    // }
+
+    public function procedure()
     {
-        return $this->hasMany('App\Procedure');
+        return $this->belongsToMany('App\Procedure','procedure_speciality')
+       ->withPivot('speciality_id','id');
     }
+
 }

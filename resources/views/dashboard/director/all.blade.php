@@ -202,7 +202,9 @@
                                             <td>{{ $procedure->name }}</td>
                                             <td>{{ $procedure->description }}</td>
                                             <td>{{ $procedure->price }}</td>
-                                            <td>{{ $procedure->speciality->name }}</td>
+                                            @foreach ($procedure->speciality as $item)
+                                            <td>{{ $item->name }}</td>
+                                            @endforeach
                                             <td style="display: inline-block">
                                                 <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>

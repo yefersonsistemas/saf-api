@@ -38,7 +38,32 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Especialidad</label>
-                                <select name="speciality_id" id="id" class="custom-select input-group-text bg-white form-control">
+                                <div class="form-group multiselect_div">
+                                    <select id="speciality"  name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
+                                        
+                                        @foreach ($speciality as $speciality)
+                                            @foreach ($procedure->speciality as $item)
+                                            @if ($item->id == $speciality->id )
+                                            <option selected="selected" value={{$speciality->id}}>{{$speciality->name}}</option>
+                                            @endif
+                                            @if ($item->id != $speciality->id )
+                                            <option value={{$speciality->id}}>{{$speciality->name}}</option>
+                                            @endif
+                                            @endforeach
+                                       
+                                         @endforeach
+                                    {{-- @foreach ($speciality as $speciality)
+                                            @foreach ($employe->speciality as $item)
+                                            @if ($item->id == $speciality->id)
+                                            <option selected="selected" value= {{ $speciality->id }}>{{ $speciality->name }}</option>
+                                            @endif
+                                            @endforeach
+                                        <option value= {{ $speciality->id }}>{{ $speciality->name }}</option>
+                                        @endforeach --}}
+                                    </select>
+                                </div>
+
+                                {{-- <select name="speciality_id" id="id" class="custom-select input-group-text bg-white form-control">
                                     <option value="0">Ninguna selección</option>
                                     @foreach ($speciality as $speciality)
                                         @if ($procedure->speciality->id == $speciality->id )
@@ -49,7 +74,7 @@
                                         @endif
                                     @endforeach
                                  
-                                </select>
+                                </select> --}}
                             </div>
                         </div>
 
@@ -78,4 +103,16 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
+<script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
+<script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
+
+<script>
+    $('#speciality').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
 @endsection
