@@ -501,7 +501,7 @@
                         </div>
                     </div> 
                 </div>
-                {{-- <div class="tab-pane fade" id="pills-doctor" role="tabpanel" aria-labelledby="pills-doctor-tab">
+                <div class="tab-pane fade" id="pills-doctor" role="tabpanel" aria-labelledby="pills-doctor-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -529,7 +529,6 @@
                                             <td>{{ $doctor->price }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('precio.edit', $doctor->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -537,7 +536,7 @@
                             </table>
                         </div>
                     </div> 
-                </div> --}}
+                </div>
                 <div class="tab-pane fade" id="pills-payment" role="tabpanel" aria-labelledby="pills-payment-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">

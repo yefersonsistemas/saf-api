@@ -39,6 +39,7 @@ class DirectorController extends Controller
     public function all_register()
     {
        $positions = Position::get();
+    //    dd($positions);
        $services = Service::get();
        $specialitys = Speciality::get();
     //    dd($specialitys);

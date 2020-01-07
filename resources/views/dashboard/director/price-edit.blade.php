@@ -27,12 +27,12 @@
                             <div class="form-group">
                                 <label class="form-label">Clase</label>
                                 <select name="type_doctor_id" class="custom-select input-group-text bg-white form-control">
-                                    {{-- @foreach ($clases as $clase)
+                                    @foreach ($clases as $clase)
                                     @if ($precio->typedoctor->id == $clase->id )
                                     <option selected="selected" value={{$clase->id}}>{{$clase->name}}</option>
                                     @endif
                                     <option value={{$clase->id}}>{{$clase->name}}</option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
