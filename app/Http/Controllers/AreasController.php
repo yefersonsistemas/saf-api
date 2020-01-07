@@ -39,7 +39,7 @@ class AreasController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        // dd($request->type_area_id);
         $data = $request->validate([
             'name' => 'required',
             'type_area_id' => 'required'
@@ -52,11 +52,14 @@ class AreasController extends Controller
             'branch_id' => 1
         ]);
 
-        if($request->type_area_id == 3){
-            $todas_areas = Area::where('type_area_id',$request->type_area_id)->get();
-            // dd($todas_areas);
+        $todo =0;
+        $areas = Area::get();
+        foreach($areas as $area){
+            if($request->type_area_id == $area->type_area_id){
+                $todo = $todo + 1;;
+            }
         }
-
+     
         $image = $request->file('image');
         $path = $image->store('public/Areas');  
         $path = str_replace('public/', '', $path);
@@ -67,7 +70,7 @@ class AreasController extends Controller
         $image->branch_id = 1;
         $image->save();
 
-        return redirect()->back()->withSuccess('Registro creado correctamente');
+        return redirect()->back()->withSuccess('Registro creado correctamente <br> Consultorio '.$todo.'');
     }
 
     /**
