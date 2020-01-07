@@ -285,7 +285,7 @@ class DirectorController extends Controller
         $precio = Doctor::find($id);
     //    dd($precio);
         $employes = Employe::with('person.user', 'position', 'doctor')->where('id',$precio->employe_id)->first();
-        //dd($employes);
+        // dd($employes);
         $clases = TypeDoctor::get();
         //dd($clases);
 

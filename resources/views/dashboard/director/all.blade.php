@@ -74,7 +74,7 @@
                     </li>
                 </ul>
             </div>
-            {{-- <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-position" role="tabpanel" aria-labelledby="pills-position-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -97,11 +97,11 @@
                                             <td>{{ $position->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('cargo.destroy',$position) }}" method="POST">
+                                                {{-- <form action="{{ route('cargo.destroy',$position) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -132,11 +132,11 @@
                                             <td>{{ $service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('servicio.edit', $service->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('servicio.destroy',$service) }}" method="POST">
+                                                {{-- <form action="{{ route('servicio.destroy',$service) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -173,11 +173,11 @@
                                             <td>{{ $speciality->service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('especialidad.edit', $speciality->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('especialidad.destroy',$speciality) }}" method="POST">
+                                                {{-- <form action="{{ route('especialidad.destroy',$speciality) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -219,11 +219,11 @@
                                             @endforeach
                                             <td style="display: inline-block">
                                                 <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('procedimiento.destroy',$procedure) }}" method="POST">
+                                                {{-- <form action="{{ route('procedimiento.destroy',$procedure) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -266,11 +266,11 @@
                                             <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('cirugia.destroy',$surgery) }}" method="POST">
+                                                {{-- <form action="{{ route('cirugia.destroy',$surgery) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -301,11 +301,11 @@
                                             <td>{{ $allergy->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('alergia.edit', $allergy->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('alergia.destroy',$allergy) }}" method="POST">
+                                                {{-- <form action="{{ route('alergia.destroy',$allergy) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -336,11 +336,11 @@
                                             <td>{{ $disease->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('enfermedad.edit', $disease->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('enfermedad.destroy',$disease) }}" method="POST">
+                                                {{-- <form action="{{ route('enfermedad.destroy',$disease) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -371,11 +371,11 @@
                                             <td>{{ $medicine->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('medicina.edit', $medicine->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('medicina.destroy',$medicine) }}" method="POST">
+                                                {{-- <form action="{{ route('medicina.destroy',$medicine) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -406,11 +406,11 @@
                                             <td>{{ $exam->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('examen.edit', $exam->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('examen.destroy',$exam) }}" method="POST">
+                                                {{-- <form action="{{ route('examen.destroy',$exam) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -444,11 +444,11 @@
                                             <td>{{ $type->description }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('tipo-area.edit', $type->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('tipo-area.destroy',$type) }}" method="POST">
+                                                {{-- <form action="{{ route('tipo-area.destroy',$type) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -494,11 +494,11 @@
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('area.edit', $area->id) }}" title="Editar" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('area.destroy',$area) }}" method="POST">
+                                                {{-- <form action="{{ route('area.destroy',$area) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -532,11 +532,11 @@
                                             <td>{{ $clase->comission }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{route('clase.edit', $clase->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('clase-doctor.destroy',$clase) }}" method="POST">
+                                                {{-- <form action="{{ route('clase-doctor.destroy',$clase) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -573,11 +573,11 @@
                                             <td>{{ $doctor->price }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('precio.edit', $doctor->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('consulta.destroy',$doctor) }}" method="POST">
+                                                {{-- <form action="{{ route('consulta.destroy',$doctor) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -608,11 +608,11 @@
                                             <td>{{ $payment->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('pago.edit', $payment->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('pago.destroy',$payment) }}" method="POST">
+                                                {{-- <form action="{{ route('pago.destroy',$payment) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -621,7 +621,7 @@
                         </div>
                     </div> 
                 </div> 
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>

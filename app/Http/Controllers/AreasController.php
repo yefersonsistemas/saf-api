@@ -106,9 +106,9 @@ class AreasController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request);
+        // dd($request);
         $area = Area::with('image', 'typearea')->find($request->id);
-        dd($area);
+        // dd($area);
         $type = TypeArea::get();
 
         $area->name = $request->name;
