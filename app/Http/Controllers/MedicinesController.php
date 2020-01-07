@@ -93,8 +93,11 @@ class MedicinesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Medicine $medicine)
     {
-        //
+        $medicine = Medicine::find($medicine);
+        $medicine->delete();
+        return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
+
 }

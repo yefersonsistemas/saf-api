@@ -99,8 +99,10 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Service $service)
     {
-        //
+        $service = Service::find($service);
+        $service->delete();
+        return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
 }

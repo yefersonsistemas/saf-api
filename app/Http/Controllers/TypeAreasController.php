@@ -120,8 +120,11 @@ class TypeAreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TypeArea $type)
     {
-        //
+        $type = TypeArea::find($type);
+        $type->delete();
+        return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
+
 }
