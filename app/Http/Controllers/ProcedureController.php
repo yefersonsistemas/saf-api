@@ -92,7 +92,6 @@ class ProcedureController extends Controller
     {
         // dd($id);
         $procedure = Procedure::with('speciality')->where('id', $id)->first();
-        // dd($procedure->speciality);
         $speciality = Speciality::all();
         return view('dashboard.director.procedure-edit', compact('procedure', 'speciality'));
     }
@@ -116,7 +115,7 @@ class ProcedureController extends Controller
         $procedure->save();   
         
         $procedure->speciality()->sync($request->speciality);
-        dd($procedure);
+        // dd($procedure);
         return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
