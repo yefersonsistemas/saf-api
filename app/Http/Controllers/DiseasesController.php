@@ -39,7 +39,7 @@ class DiseasesController extends Controller
             'name' => 'required',
         ]);
 
-        $medicine = Disease::create([
+        $disease = Disease::create([
             'name' => $data['name'],
             'branch_id' => 1
         ]);

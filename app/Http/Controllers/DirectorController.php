@@ -121,19 +121,23 @@ class DirectorController extends Controller
 
         if (!is_null($employe)) {
             if (!empty($request->speciality)) {
-                foreach ($request->speciality as $speciality) {
-                    $especialidad = Speciality::find($speciality);
-                    $employe->speciality()->sync($especialidad); 
-                }
+                // foreach ($request->speciality as $speciality) {
+                    // $especialidad = Speciality::find($speciality);
+                    $employe->speciality()->sync($request->speciality); 
+                    // }
             }
         }
+            /**
+             * acomodar los selects para q no inserte de nuevo los  
+             * procedures y specialitys existente en BD cuando se edita el medico
+             */
 
         if (!is_null($employe)) {
             if (!empty($request->procedure)) {
-                foreach ($request->procedure as $procedure) {
+                // foreach ($request->procedure as $procedure) {
                     // $procedimiento = Procedure::find($procedure);
-                    $employe->procedures()->sync($procedure); 
-                }
+                    $employe->procedures()->sync($request->procedure); 
+                // }
             }
         }
           

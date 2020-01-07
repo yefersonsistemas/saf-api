@@ -144,6 +144,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('/price', 'DirectorController@store_price')->name('price.store');
         Route::get('payment/create', 'TypePaymentsController@create')->name('payment.create');
         Route::POST('/payment', 'TypePaymentsController@store')->name('payment.store');
+        Route::get('classification/surgery/create', 'TypeSurgerysController@create_classification')->name('classification.create');
+        Route::POST('/classsification', 'TypeSurgerysController@store_classification')->name('classification.store');
 
         //inicio de rutas para editar
         Route::get('list','DirectorController@all_register')->name('all.register');
@@ -167,6 +169,14 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('precio/update/{id}', 'DirectorController@update_price')->name('precio.update');
         Route::get('area/{id}', 'AreasController@edit')->name('area.edit');
         Route::put('area/update/{id}', 'AreasController@update')->name('area.update');
+        Route::get('servicio/{id}', 'ServiceController@edit')->name('servicio.edit');
+        Route::put('servicio/update/{id}', 'ServiceController@update')->name('servicio.update');
+        Route::get('especialidad/{id}', 'SpecialityController@edit')->name('especialidad.edit');
+        Route::put('especialidad/update/{id}', 'SpecialityController@update')->name('especialidad.update');
+        Route::get('cirugia/{id}', 'TypeSurgerysController@edit')->name('cirugia.edit');
+        Route::put('cirugia/update/{id}', 'TypeSurgerysController@update')->name('cirugia.update'); 
+        Route::get('tipo/area/{id}', 'TypeAreasController@edit')->name('tipo-area.edit');
+        Route::put('tipo/area/update/{id}', 'TypeAreasController@update')->name('tipo-area.update');
         Route::get('procedure/{id}', 'ProcedureController@edit')->name('procedure.edit');
         Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
     });

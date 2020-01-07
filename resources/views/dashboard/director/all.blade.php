@@ -127,7 +127,7 @@
                                         <tr>
                                             <td>{{ $service->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('servicio.edit', $service->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
@@ -164,7 +164,7 @@
                                             <td>{{ $speciality->description }}</td>
                                             <td>{{ $speciality->service->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('especialidad.edit', $speciality->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
@@ -247,9 +247,9 @@
                                             <td>{{ $surgery->duration }}</td>
                                             <td>{{ $surgery->cost }}</td>
                                             <td>{{ $surgery->description }}</td>
-                                            <td>{{ $surgery->classification }}</td>
+                                            <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-minus-circle"></i></i></a>
                                             </td>
                                         </tr>
@@ -407,7 +407,7 @@
                                             <td>{{ $type->name }}</td>
                                             <td>{{ $type->description }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('tipo-area.edit', $type->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
