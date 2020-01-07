@@ -99,13 +99,17 @@ class TypeSurgerysController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
         $classification = ClassificationSurgery::get();
         $procedure = Procedure::get();
         $surgery = Typesurgery::with('procedure', 'classification')->find($id);
-        // dd($surgery);
 
-        return view('dashboard.director.surgery-edit', compact('classification', 'procedure', 'surgery'));
+        $diff_procedure = $procedure->diff($surgery->procedure);
+
+        $buscar_clasificacion = ClassificationSurgery::where('id', $surgery->classification_surgery_id)->first();
+        $clasi = array($buscar_clasificacion);
+        $diff = $classification->diff($clasi);
+
+        return view('dashboard.director.surgery-edit', compact('classification', 'procedure', 'diff_procedure','surgery', 'buscar_clasificacion', 'diff'));
     }
 
     /**

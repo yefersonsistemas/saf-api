@@ -94,9 +94,13 @@ class SpecialityController extends Controller
     public function edit($id)
     {
         $servicio = Service::get();
-        $speciality = Speciality::find($id);
-
-        return view('dashboard.director.speciality-edit', compact('servicio', 'speciality'));
+        $speciality = Speciality::find($id); 
+        $buscar_service = Service::where('id', $speciality->service_id)->first();
+        
+        $servi = array($speciality);
+        $diff = $servicio->diff($servi);
+     
+        return view('dashboard.director.speciality-edit', compact('servicio', 'speciality', 'buscar_service', 'diff'));
     }
 
     /**

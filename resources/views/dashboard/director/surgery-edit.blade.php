@@ -51,11 +51,9 @@
                                 <div class="form-group">
                                     <label class="form-label">Tipo de cirugía</label>
                                     <select name="classification_surgery_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                        @foreach ($classification as $classification)
-                                        @if ($surgery->classification->id == $surgery->id)
-                                        <option selected="selected" value={{$classification->id}}>{{$classification->name}}</option>
-                                        @endif
-                                        <option value={{$classification->id}}>{{$classification->name}}</option>
+                                        <option selected="selected" value={{$buscar_clasificacion->id}}>{{$buscar_clasificacion->name}}</option>
+                                        @foreach ($diff as $demas)
+                                            <option value={{$demas->id}}>{{$demas->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -72,16 +70,12 @@
                             <div class="col-lg-6 col-md-6" id="framework_form">
                                 <label class="form-label">Procedimientos</label>
                                 <div class="form-group multiselect_div">
-                                    <select id="procedure" name="procedure[]" class="multiselect multiselect-custom form-control" multiple="multiple">
-                                        @foreach ($procedure as $procedure)
-                                            @foreach ($procedure->typesurgery as $item)
-                                                @if ($item->id == $surgery->id)
-                                                <option selected="selected" value= {{ $procedure->id }}>{{ $procedure->name }}</option>
-                                                @endif
-                                                @if ($item->id != $surgery->id)
-                                                <option value= {{ $procedure->id }}>{{ $procedure->name }}</option>
-                                                @endif
-                                            @endforeach
+                                    <select id="procedure" name="procedure[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
+                                        @foreach ($surgery->procedure as $item)
+                                        <option selected="selected" value={{$item->id}}>{{$item->name}}</option>
+                                        @endforeach
+                                        @foreach ($diff_procedure as $demas)
+                                            <option value={{$demas->id}}>{{$demas->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

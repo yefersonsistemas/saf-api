@@ -89,10 +89,12 @@ class AreasController extends Controller
      */
     public function edit($id)
     {   
-        // dd($id);
         $area = Area::with('image', 'typearea')->find($id);
         $type = TypeArea::get();
-        return view('dashboard.director.area-edit', compact('type', 'area'));
+        $b_area = array($area->typearea);
+        $diff = $type->diff($b_area);
+
+        return view('dashboard.director.area-edit', compact('type', 'area', 'diff'));
     }
 
     /**
