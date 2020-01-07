@@ -144,9 +144,11 @@ class TypeSurgerysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Typesurgery $surgery)
     {
-        //
+        $surgery = Typesurgery::find($surgery);
+        $surgery->delete();
+        return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
 
     public function surgeries(Request $request){  //lista de todas las cirugias

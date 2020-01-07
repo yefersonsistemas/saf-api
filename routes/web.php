@@ -183,6 +183,22 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('pago/update/{id}', 'TypePaymentsController@update')->name('pago.update');
 
         //inicio de rutas para eliminar
-        Route::delete('{area}', 'AreasController@destroy')->name('area.destroy');
+        Route::delete('{employe}', 'EmployesController@destroy')->name('empleado.destroy');
+        Route::delete('{employe}', 'DirectorController@destroy')->name('medico.destroy');
+        // Route::delete('{position}', 'PositionsController@destroy')->name('cargo.destroy');
+        // Route::delete('{service}', 'ServiceController@destroy')->name('servicio.destroy');
+        // Route::delete('{speciality}', 'SpecialityController@destroy')->name('especialidad.destroy');
+        // Route::delete('{procedure}', 'ProcedureController@destroy')->name('procedimiento.destroy');
+        // Route::delete('{surgery}', 'TypeSurgerysController@destroy')->name('cirugia.destroy');
+        // Route::delete('{allergy}', 'AllergyController@destroy')->name('alergia.destroy');
+        // Route::delete('{disease}', 'DiseasesController@destroy')->name('enfermedad.destroy');
+        // Route::delete('{medicine}', 'AreasController@destroy')->name('medicina.destroy');
+        // Route::delete('{exam}', 'ExamController@destroy')->name('examen.destroy');
+        // Route::delete('{type}', 'TypeAreasController@destroy')->name('tipo-area.destroy');
+        // Route::delete('{area}', 'AreasController@destroy')->name('area.destroy');
+        // Route::delete('{clase}', 'TypeDoctorController@destroy')->name('clase.destroy');
+        // Route::delete('{doctor}', 'DirectorController@destroy_consulta')->name('consulta.destroy');
+        // Route::delete('{payment}', 'TypePaymentsController@destroy')->name('pago.destroy');
+
     });
 });
