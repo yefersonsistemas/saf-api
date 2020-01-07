@@ -305,11 +305,11 @@ class EmployesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employe $employe)
+    public function destroy($id)
     {
-        $employe = Employe::find($employe);
+        $employe = Employe::find($id);
         $employe->delete();
-        return redirect()->route('all.register')->withSuccess('Empleado eliminado');
+        return redirect()->route('employe.index')->withSuccess('Eliminado correctamente');
     }
 
     public function statusIn(Request $request){

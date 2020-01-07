@@ -97,11 +97,11 @@ class PositionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Position $position)
+    public function destroy($id)
     {
-        $position = Position::find($position);
-        $position->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+         $position = Position::find($id);
+         $position->delete();
+         return redirect()->route('all.register')->withSuccess('Cargo eliminado');
     }
 
 }

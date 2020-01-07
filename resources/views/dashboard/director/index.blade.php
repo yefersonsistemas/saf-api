@@ -56,14 +56,14 @@
                                         <td>
                                             @if ($employe->position->name == 'doctor')
                                             <a href="{{ route('doctores.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('medico.destroy', $employe) }}" method="POST">
+                                            <form action="{{ route('empleado.delete', $employe) }}" method="POST">
                                                 <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                 @method('delete')
                                                 @csrf
                                             </form>
                                             @elseif ($employe->position->name != 'doctor')
                                             <a href="{{ route('empleado.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('empleado.destroy', $employe) }}" method="POST">
+                                            <form action="{{ route('empleado.delete', $employe) }}" method="POST">
                                                 <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                 @method('delete')
                                                 @csrf

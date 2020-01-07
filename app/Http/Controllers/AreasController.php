@@ -140,10 +140,7 @@ class AreasController extends Controller
      */
     public function destroy($area)
     {
-        $area = Area::find($area);
-        // dd($area);
-        $area->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+       
     }
 
     public function list_area(){

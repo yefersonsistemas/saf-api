@@ -183,9 +183,12 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('pago/update/{id}', 'TypePaymentsController@update')->name('pago.update');
 
         //inicio de rutas para eliminar
-        Route::delete('{employe}', 'EmployesController@destroy')->name('empleado.destroy');
-        Route::delete('{employe}', 'DirectorController@destroy')->name('medico.destroy');
-        // Route::delete('{position}', 'PositionsController@destroy')->name('cargo.destroy');
+        Route::delete('employe/{id}', 'EmployesController@destroy')->name('empleado.delete');
+        Route::delete('position/{id}', 'PositionsController@destroy')->name('cargo.delete');
+
+
+        // Route::delete('{employe}', 'EmployesController@destroy')->name('empleado');
+        // Route::delete('{position}', 'PositionsController@destroy')->name('cargos');
         // Route::delete('{service}', 'ServiceController@destroy')->name('servicio.destroy');
         // Route::delete('{speciality}', 'SpecialityController@destroy')->name('especialidad.destroy');
         // Route::delete('{procedure}', 'ProcedureController@destroy')->name('procedimiento.destroy');

@@ -95,8 +95,6 @@ class TypePaymentsController extends Controller
      */
     public function destroy(TypePayment $payment)
     {
-        $payment = TypePayment::find($payment);
-        $payment->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+ 
     }
 }

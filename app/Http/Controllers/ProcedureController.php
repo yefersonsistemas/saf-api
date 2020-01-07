@@ -130,9 +130,7 @@ class ProcedureController extends Controller
         $procedure->delete();
         return redirect()->back()->withSuccess('Se ha Eliminacion correctamente');*/
 
-        $procedure = Procedure::find($procedure);
-        $procedure->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+       
     }
 }
 

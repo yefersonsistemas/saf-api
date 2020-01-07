@@ -100,8 +100,8 @@ class AllergyController extends Controller
      */
     public function destroy(Allergy $allergy)
     {
-        $allergy = Allergy::find($allergy);
-        $allergy->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+        // $allergy = Allergy::find($allergy);
+        // $allergy->delete();
+        // return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
 }

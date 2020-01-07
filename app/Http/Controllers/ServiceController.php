@@ -101,8 +101,6 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        $service = Service::find($service);
-        $service->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+     
     }
 }
