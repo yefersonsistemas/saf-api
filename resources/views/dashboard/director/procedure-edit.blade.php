@@ -43,14 +43,16 @@
                                         
                                         @foreach ($speciality as $speciality)
                                             @foreach ($procedure->speciality as $item)
-                                            @if ($item->id == $speciality->id )
-                                            <option selected="selected" value={{$speciality->id}}>{{$speciality->name}}</option>
-                                            @endif
-                                            @if ($item->id != $speciality->id )
-                                            <option value={{$speciality->id}}>{{$speciality->name}}</option>
-                                            @endif
+                                                @if ($item->id == $speciality->id )
+                                                <option selected="selected" value={{$speciality->id}}>{{$speciality->name}}</option>
+                                                @break
+                                                @elseif($item->id != $speciality->id)
+                                                    {{-- <option value={{$speciality->id}}>{{$speciality->name}}</option> --}}
+                                                    @continue
+                                                {{-- @endif --}}
+                                                @endif
                                             @endforeach
-                                       
+                                            <option value={{$speciality->id}}>{{$speciality->name}}</option>
                                          @endforeach
                                     {{-- @foreach ($speciality as $speciality)
                                             @foreach ($employe->speciality as $item)
