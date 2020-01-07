@@ -28,6 +28,7 @@ class CreateReservationsTable extends Migration
             $table->unsignedBigInteger('specialitie_id');
             $table->boolean('operation')->nullable()->default(0);  //tendra 0/1 para saber si esta reserva es de consulta o de cirugia
             $table->unsignedBigInteger('branch_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('patient_id')
