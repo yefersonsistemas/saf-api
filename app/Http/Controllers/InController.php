@@ -25,7 +25,7 @@ use App\Assistance;
 use App\Itinerary;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\File;
 //use App\Http\Controllers\CitaController;
 
 
@@ -49,7 +49,7 @@ class InController extends Controller
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
 
         // dd($reservations);
-       
+
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
     }
 
@@ -118,7 +118,7 @@ class InController extends Controller
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
-
+        
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
     }
 
@@ -133,9 +133,7 @@ class InController extends Controller
     public function guardar(Request $request, $id)  
     {
         $person = Person::where('dni', $request->dni)->first();
-
         $reservation = Reservation::find($id);
-
         if (!is_null($person)) {
 
             if ($person->historyPatient == null) {
@@ -535,7 +533,7 @@ class InController extends Controller
             return redirect()->route('checkin.index')->withSuccess('Consultorio Asignado');
             }
         }else{
-            return withSuccess('No se pudo asignar');
+            return redirect()->back()->withError('No se pudo asignar');
         }
     }
 
