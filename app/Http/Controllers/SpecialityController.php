@@ -143,11 +143,13 @@ class SpecialityController extends Controller
      * @param  \App\Speciality  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Speciality $speciality)
+    public function destroy($id)
     {
-       
+        $speciality = Speciality::find($id);
+        $speciality->delete();
+        return redirect()->route('all.register')->withSuccess('Especialidad eliminada');
     }
-
+    
     public function doctor_S(Request $request){    //medico con todas sus especialidades
         $doctor = Employe::with('person.user', 'speciality')->where('person_id', $request->person_id)->first();
 

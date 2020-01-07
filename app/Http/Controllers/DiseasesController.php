@@ -94,9 +94,11 @@ class DiseasesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Disease $disease)
+    public function destroy($id)
     {
-       
+        $disease = Disease::find($id);
+        $disease->delete();
+        return redirect()->route('all.register')->withSuccess('Enfermedad eliminada');
     }
 
 }

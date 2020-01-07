@@ -123,14 +123,11 @@ class ProcedureController extends Controller
      * @param  \App\Procedure  $procedure
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Procedure $procedure)
-    {/*
-        $doctor = $procedure->doctors->first();
-        $doctor->procedures()->detach($procedure->id);
+    public function destroy($id)
+    {
+        $procedure = Procedure::find($id);
         $procedure->delete();
-        return redirect()->back()->withSuccess('Se ha Eliminacion correctamente');*/
-
-       
+        return redirect()->route('all.register')->withSuccess('Procedimiento eliminado');
     }
 }
 
