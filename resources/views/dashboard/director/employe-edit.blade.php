@@ -45,28 +45,28 @@
                                                         @endif
                                                     </select>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Documento de Identidad" value=" {{$employe->person->dni }}" required name="dni">
+                                                <input type="text" class="form-control" value=" {{$employe->person->dni }}" required name="dni">
                                             </div>
                                         </div>
                                         
                                         <div class="col-lg-4 ">
                                             <div class="form-group">
                                                 <label class="form-label">Nombre</label>
-                                                <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ $employe->person->name }}" required>
+                                                <input type="text" class="form-control" name="name" value="{{ $employe->person->name }}" required>
                                             </div>
                                         </div>
                         
                                         <div class="col-lg-4">
                                             <div class="form-group"> 
                                                 <label class="form-label">Apellido</label>
-                                                <input type="text" class="form-control" placeholder="Apellido" name="lastname" value="{{ $employe->person->lastname }}" required>
+                                                <input type="text" class="form-control"  name="lastname" value="{{ $employe->person->lastname }}" required>
                                             </div>
                                         </div>
         
                                         <div class="col-lg-4 mt-4">
                                                 <div class="form-group">
                                                     <label class="form-label">Direccion</label>
-                                                    <input type="text" name="address" id="address" class="form-control" placeholder="Direccion" value="{{ $employe->person->address }}" required>
+                                                    <input type="text" name="address" id="address" class="form-control" value="{{ $employe->person->address }}" required>
                                                 </div>
                                             </div>
                     
@@ -74,7 +74,7 @@
                                             <div class="col-lg-4 mt-4">
                                                 <div class="form-group">
                                                     <label class="form-label"> Teléfono </label>
-                                                    <input type="text" class="form-control" placeholder="Telefono" name="phone" value="{{ $employe->person->phone }}" required>
+                                                    <input type="text" class="form-control" name="phone" value="{{ $employe->person->phone }}" required>
                                                 </div>
                                             </div>
                                             
@@ -82,7 +82,7 @@
                                         <div class="col-lg-4 mt-4">
                                             <div class="form-group">
                                                 <label class="form-label"> Correo Electronico </label>
-                                                <input type="email" placeholder="name@example.com" class="form-control" name="email" value="{{ $employe->person->email }}" required>
+                                                <input type="email" class="form-control" name="email" value="{{ $employe->person->email }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -103,6 +103,7 @@
                                                 @if ($employe->position->id == $position->id )
                                                 <option selected="selected" value={{$position->id}}>{{$position->name}}</option>
                                                 @endif
+                                                <option value={{$position->id}}>{{$position->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

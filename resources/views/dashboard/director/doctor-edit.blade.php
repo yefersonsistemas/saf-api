@@ -97,9 +97,9 @@
                                         <select id="speciality"  name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
                                             @foreach ($speciality as $speciality)
                                                 @foreach ($employe->speciality as $item)
-                                                {{-- @if ($item->id == $speciality->id)
+                                                @if ($item->id == $speciality->id)
                                                 <option selected="selected" value= {{ $speciality->id }}>{{ $speciality->name }}</option>
-                                                @endif --}}
+                                                @endif
                                                 @endforeach
                                             <option value= {{ $speciality->id }}>{{ $speciality->name }}</option>
                                             @endforeach
@@ -113,9 +113,9 @@
                                         <select id="procedure"  name="procedure[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
                                             @foreach ($procedure as $procedure)
                                                 @foreach ($employe->procedures as $item)
-                                                {{-- @if ($item->id == $procedure->id)
+                                                @if ($item->id == $procedure->id)
                                                 <option selected="selected" value= {{ $procedure->id }}>{{ $procedure->name }}</option>
-                                                @endif --}}
+                                                @endif
                                                 @endforeach
                                             <option value= {{ $procedure->id }}>{{ $procedure->name }}</option>
                                             @endforeach

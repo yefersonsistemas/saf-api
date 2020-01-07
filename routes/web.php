@@ -179,5 +179,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('tipo/area/update/{id}', 'TypeAreasController@update')->name('tipo-area.update');
         Route::get('procedure/{id}', 'ProcedureController@edit')->name('procedure.edit');
         Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
+        Route::get('tipo/pago/{id}', 'TypePaymentsController@edit')->name('pago.edit');
+        Route::put('pago/update/{id}', 'TypePaymentsController@update')->name('pago.update');
+
+        //inicio de rutas para eliminar
+        Route::delete('{area}', 'AreasController@destroy')->name('area.destroy');
     });
 });

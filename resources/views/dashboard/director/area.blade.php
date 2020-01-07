@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 @endsection
 
-@section('title','Registro de Consultorios')
+@section('title','Registro de area')
 
 @section('content')
 <div class="section-body py-4">

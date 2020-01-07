@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 @endsection
 
-@section('title','Registro de Consultorios')
+@section('title','Modificar area')
 
 @section('content')
 <div class="section-body py-4">
@@ -32,7 +32,7 @@
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <label class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ $area->name }}" required>
+                                        <input type="text" class="form-control" name="name" value="{{ $area->name }}" required>
                                     </div>
                                 </div>
     
@@ -40,7 +40,6 @@
                                     <div class="form-group">
                                         <label class="form-label">Tipo de area</label>
                                         <select name="type_area_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                            <option value="0">Ninguna selección</option>
                                             @foreach ($type as $type)
                                             @if ($area->typearea == $type)
                                             <option selected="selected" value={{$type->id}}>{{$type->name}}</option>

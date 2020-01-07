@@ -103,7 +103,7 @@ class TypeSurgerysController extends Controller
         $classification = ClassificationSurgery::get();
         $procedure = Procedure::get();
         $surgery = Typesurgery::with('procedure', 'classification')->find($id);
-        dd($surgery);
+        // dd($surgery);
 
         return view('dashboard.director.surgery-edit', compact('classification', 'procedure', 'surgery'));
     }
@@ -117,7 +117,7 @@ class TypeSurgerysController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request);
+        // dd($request);
         $surgery = Typesurgery::with('classification', 'procedure')->find($request->id);
 
         $surgery->name = $request->name;
@@ -126,17 +126,9 @@ class TypeSurgerysController extends Controller
         $surgery->description = $request->description;
         $surgery->classification_surgery_id = $request->classification_surgery_id;
         $surgery->day_hospitalization =  $request->day_hospitalization;
-        
-        if (!is_null($surgery)) {
-            if (!empty($request->procedure)) {
-                foreach ($request->procedure as $procedure) {
-                    $procedimiento = Procedure::find($procedure);
-                    $surgery->procedure()->attach($procedimiento); 
-                }
-            }
-        }
-
         $surgery->update();
+
+        $surgery->procedure()->sync($request->procedure);
 
         return redirect()->route('all.register')->withSuccess('Registro modificado');
 

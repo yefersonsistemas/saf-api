@@ -105,7 +105,7 @@
                             </table>
                         </div>
                     </div>  
-                </div>
+                </div> 
                 <div class="tab-pane fade" id="pills-service" role="tabpanel" aria-labelledby="pills-service-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -250,7 +250,7 @@
                                             <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fa fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -374,7 +374,7 @@
                                             <td>{{ $exam->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('examen.edit', $exam->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fa fa-minus-circle"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -453,8 +453,12 @@
                                             <td>{{ $area->status }}</td>
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="{{ route('area.edit', $area->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
+                                                <a href="{{ route('area.edit', $area->id) }}" title="Editar" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <form action="{{ route('area.destroy',$area) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -525,7 +529,7 @@
                                             <td>{{ $doctor->price }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('precio.edit', $doctor->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                <a href="" class="btn btn-warning"><i class="fas fa-eraser"></i></i></a>
+                                                <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -555,7 +559,7 @@
                                         <tr>
                                             <td>{{ $payment->name }}</td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('pago.edit', $payment->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="" class="btn btn-warning"><i class="fa fa-eraser"></i></i></a>
                                             </td>
                                         </tr>
