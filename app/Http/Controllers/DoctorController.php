@@ -284,6 +284,8 @@ class DoctorController extends Controller
         if (empty($io->outside_office) && (!empty($io->inside_office))) {
             $io->outside_office = 'fuera';
             $io->save();
+            $itinerary->status = 'fuera_office';
+            $itinerary->save();
         // }
             if($itinerary != null){
 
@@ -318,7 +320,6 @@ class DoctorController extends Controller
 
                 $reporte_id = $reporte->id;
                 $itinerary->report_medico_id = $reporte_id;
-                $itinerary->status = 'fuera_office';
                 $itinerary->save();
                 }else{
                     $reporte_id = null;
