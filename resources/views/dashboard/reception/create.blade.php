@@ -110,11 +110,11 @@
                                     <div class="card assigment">
                                             <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
                                             @if (!empty($speciality->image->path))
-                                            <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px; ">
+                                            <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                 <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @else
-                                            <figure class="imagecheck-figure border-0">
+                                            <figure class="imagecheck-figure border-0 text-center">
                                                 <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @endif
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="form-group mx-4">
                                     <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" id="date" name="date" class="form-control datepicker" autocomplete="off">
+                                        <input data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -215,8 +215,8 @@
             confirmButtonColor: '#3085d6',
             confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
             }).then((result) => {
-            if (result.value) {
-            }
+                if (result.value) {
+                }
             })
         }
     });
@@ -379,13 +379,14 @@
                         type: 'success',
                     });
                     $('#doctor').val(data.employe.id);
-                    $('.datepicker').datepicker({
+                    $('#picker').datepicker({
                         todayHighlight: true,
                         language: 'es',
                         startDate: data.start,
                         endDate: data.end,
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
+                      
                     });
                     $('#fecha').val();
                 })
@@ -429,7 +430,7 @@
             })
             .done(function(data) {
                 console.log(data);
-                $('.datepicker').datepicker({
+                $('#picker').datepicker({
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,

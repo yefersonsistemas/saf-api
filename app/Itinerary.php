@@ -14,7 +14,7 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
     ];
 
     protected $fillable = [
-        'patient_id', 'employe_id','doctor_id', 'status','procedure_id', 'surgery_id', 'report_medico_id','exam_id', 'recipe_id', 'reservation_id', 'branch_id', 'reference_id','diagnostic_id', 'repose_id'
+        'patient_id', 'employe_id','doctor_id', 'status','procedure_id', 'procedureR_id', 'typesurgery_id','surgeryR_id', 'report_medico_id','exam_id', 'recipe_id', 'reservation_id', 'branch_id', 'reference_id','diagnostic_id', 'repose_id'
     ];
 
     // protected $irinerary = 'itinerary';
@@ -39,14 +39,24 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
         return $this->belongsTo('App\Procedure');
     }
 
+    // public function procedureR()
+    // {
+    //     return $this->belongsTo('App\Procedure','procedureR_id');
+    // }
+
     public function reference()
     {
         return $this->belongsTo('App\Reference');
     }
 
-    public function surgery()
+    public function typesurgery()
     {
-        return $this->belongsTo('App\Surgery');
+        return $this->belongsTo('App\Typesurgery','typesurgery_id');
+    }
+
+    public function surgeryR()
+    {
+        return $this->belongsTo('App\Typesurgery','surgeryR_id');
     }
 
     public function person()

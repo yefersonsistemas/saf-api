@@ -9,7 +9,10 @@
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
-
+<style type="text/css"> button[data-original-title="Code View"], button[data-original-title="Video"], 
+button[data-original-title="Picture"], button[data-original-title="Link (CTRL+K)"],
+button[data-original-title="Help"]{ display: none; }
+</style>
 @endsection
 
 @section('title','Doctor')
@@ -226,7 +229,7 @@
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad" id="" cols="30" rows="10" class="summernote" id="summernote"></textarea>
+                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -288,7 +291,22 @@
 
                                         <h2>Diagnostico</h2>
                                         <section class="ml-4">
-                                            <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    
+                                                </div>
+                                                <div class="col-12 mt-30">
+
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
+                                                        <i class="icon-clock"></i>
+                                                        Procedimientos
+                                                    </button>
+
+                                                </div>
+                                                
+                                            </div>
                                         </section>
 
                                         <h2>Plan</h2>
@@ -311,6 +329,9 @@
                                                         <a class="nav-link" id="pills-referencia-tab" data-toggle="pill" href="#pills-referencia" role="tab" aria-controls="pills-referencia" aria-selected="false">Referir a otro médico</a>
                                                     </li>
                                                     <li class="nav-item">
+                                                        <a class="nav-link" id="pills-candidato-tab" data-toggle="pill" href="#pills-candidato" role="tab" aria-controls="pills-candidato" aria-selected="false">Candidato A:</a>
+                                                    </li>
+                                                    <li class="nav-item">
                                                         <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
                                                     </li>
                                                 </ul>
@@ -318,14 +339,16 @@
                                             <div class="tab-content" id="pills-tabContent">
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <label>Examenes</label>
-                                                        <div class="form-group multiselect_div">
-                                                            <select id="multiselect4-filter" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                                                @foreach ($exams as $exam)
-                                                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
-                                                                @endforeach
-                                                            </select>
+                                                    <div class="row">
+                                                        <div class="col-12 mt-30 d-flex justify-content-start">
+                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
+                                                                <i class="fa fa-file-text-o"></i>
+                                                                Agregar examen
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-12 mt-30 p-4  card ml-2">
+                                                            <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
+                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"></ul>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -445,7 +468,7 @@
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
-                                                                <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
+                                                            <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
                                                                 <div class="card mr-0 ml-0">
                                                                     <div class="card-body m-0">
                                                                         {{-- <h3 class="card-title">Datos del Médico</h3> --}}
@@ -486,24 +509,51 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar</a>
+                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
                                                                         </div>
-                                                                    </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class=" col-4">
+                                                                <button class="btn btn-success" data-toggle="modal" data-target="#surgerys">
+                                                                    <i class="fa fa-hospital-o"></i>
+                                                                    Cirugias
+                                                                </button>
+
+                                                            </div>
+                                                            
+                                                            <div class="col-4">
+                                                                <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                                    <i class="fa fa-navicon"></i>
+                                                                    Procedimientos
+                                                                </button>
+                                                            </div>                                                            
+                                                        </div>
+
+                                                        <div class="row d-flex mt-50">
+                                                            <div id="procedimientos" class="col-4 ml-50">
+
+                                                            </div>
+                                                            <div id="cirugias" class="col-4">
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                                 <!--Proxima cita-->
-                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
                                                         <div class="col-lg-12 mx-auto">
                                                             Proxima cita...
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </div> --}}
                                         </section>
+                                        
                                     </form>
                                     </div>
                                 </div>
@@ -515,6 +565,132 @@
             </div>
         </div>
     </div>
+
+    {{-- modal de procedimientos en la consulta --}}
+    <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos no</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="proceduresC-office">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @foreach ($procesm->procedures as $proces)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                    <span class="custom-control-label">{{ $proces->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div> 
+                    </div>   
+                    <div class="modal-footer">
+                        <a  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</a>
+                    </div>
+                </form>    
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de los examenes --}}
+    <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Examenes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="exam">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @foreach ($exams as $exam)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
+                                    <span class="custom-control-label">{{ $exam->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="modal-footer">
+                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de posibles cirugias --}}
+    <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="posible-surgerys">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="custom-controls-stacked">
+                            <label class="custom-control custom-checkbox custom-control-inline">
+                                @foreach ($surgerys as $surgery)
+                                <input type="checkbox" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                <span class="custom-control-label">{{ $surgery->name }}</span>
+                                @endforeach
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarC">Guardar</button>
+                    </div>
+                </form>    
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de candidatos a posibles procedimientos --}}
+    <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="posible-procedures">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="custom-controls-stacked">
+                            @foreach ($procesm->procedures as $proces)
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
+                                <span class="custom-control-label">{{ $proces->name }}</span>
+                            </label>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</a>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
@@ -532,27 +708,16 @@
 
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
 
-{{-- <script>
-$('#summernote').summernote({
-    toolbar: [
-        ['style', ['style']],
-    // ['font', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-    ['fontname', ['fontname']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']],
-    ['table', ['table']],
-    ['insert', ['link', 'picture', 'hr']],
-    ['view', ['fullscreen'/*, 'codeview' */]],   // remove codeview button
-    ['help', ['help']]
-    ],
-});
-</script> --}}
+<script>
+    $('#selectexam').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        maxHeight: 200
+    });
+</script>
 
 <script>
-    $('#multiselect4-filter').multiselect({
+    $('#selectprocesm').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
@@ -562,6 +727,7 @@ $('#summernote').summernote({
 <script>
     var form = $('#wizard_vertical').show();
     //Vertical form basic
+    var procedures=0;
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
@@ -606,9 +772,9 @@ $('#summernote').summernote({
         medida          = $("select[name='medida']").val();
         duracion        = $("input[name='duracion']").val();
         indicaciones    = $("textarea[name='indicaciones']").val();
-        patient        = $("input[id='patient']").val();
+        patient         = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
-        reservacion         = $("input[id='reservacion']").val();
+        reservacion     = $("input[id='reservacion']").val();
         // console.log(reservacion)
 
         ajax(medicina, dosis, medida, duracion, indicaciones, reservacion);
@@ -653,7 +819,7 @@ $('#summernote').summernote({
 
 
     //======================Referencia medica=========================
-      
+
     $('input[name="tipoMedico"]').on('click',function(){
 
         if ($('#interno').is(':checked')) {
@@ -712,6 +878,12 @@ $('#summernote').summernote({
         }
     });
 
+    $("#select").change(function(){
+            var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura 
+            console.log('estos son ', exam_id);
+            console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+    });
+
     $('#referir').click(function () {
         // console.log('referir');
         var speciality = $("#speciality").val(); 
@@ -725,13 +897,13 @@ $('#summernote').summernote({
         console.log('d e',doctorExterno);
         console.log('patient',patient);
 
-        ajax(speciality, reason, doctor, doctorExterno, patient);                          
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
-       
     });
 
-    function ajax(speciality, reason, doctor, doctorExterno, patient) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
+        console.log("hola hoy");
         $.ajax({ 
             url: "{{ route('reference.store') }}",   //definiendo ruta
             type: "POST",                             //definiendo metodo
@@ -770,6 +942,222 @@ $('#summernote').summernote({
     } // fin de la funcion
 
 
+    //captar datos de los procedimientos en la consulta
+    $("#guardarO").click(function() {
+        console.log('ken')
+            var reservacion = $("#reservacion").val();
+            console.log('hh',reservacion)
+            var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
+        
+            console.log('hola ken', procesof,reservacion);                   //mostrando en consola
+            ajax_PO(procesof,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+        
+        function ajax_PO(procesof,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.procedures_realizados') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:procesof, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.proceduresR,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+    //examenes a realizar (paciente)
+    $("#guardarE").click(function() {
+        console.log('ken')
+            var reservacion = $("#reservacion").val();
+            console.log('hh',reservacion)
+            var exam = $("#exam").serialize();          //asignando el valor que se ingresa en el campo
+        
+            console.log('hola yeffer', exam,reservacion);                   //mostrando en consola
+            ajax_E(exam,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+        
+        function ajax_E(exam,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.examR') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:exam, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            console.log('gfhdg', data[1]);
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.exam,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarExamen(data[1]);
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.exam2,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+    //captar datos de los posibles procedimientos
+    $("#guardarP").click(function() {
+            var reservacion = $("#reservacion").val();
+            console.log('hh',reservacion)
+            var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
+        
+            console.log('hola', proce,reservacion);                   //mostrando en consola
+            ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+        
+        function ajax(proce,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.proceduresP') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:proce, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            console.log('procedure',data[1])  
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.proceduresR,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+                mostrarProcedure(data[1]);
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.reference,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+    // mostrando posibles procedimientos 
+    function mostrarProcedure(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
+            $("#procedimientos").append(procedure);
+        }
+        
+    }
+
+    // mostrando posibles procedimientos 
+    function mostrarExamen(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            examen='<li>'+data[$i].name+'</li>';
+            $("#examen").append(examen);
+        }
+    }
+
+    //captar datos de las posibles cirugias
+    $("#guardarC").click(function() {
+        console.log('ken')
+            var reservacion = $("#reservacion").val();
+            console.log('hh',reservacion)
+            var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+        
+            console.log('hola yeffer', surgery,reservacion);                   //mostrando en consola
+            ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
+        
+        function ajax_S(surgery,reservacion) {
+        $.ajax({ 
+            url: "{{ route('doctor.surgerysP') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",        
+                data:surgery, 
+                id:reservacion
+            }
+        })
+        .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.surgeryP,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+            
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.surgeryP2,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
 
 </script>
+<script>
+
+</script>
+
 @endsection

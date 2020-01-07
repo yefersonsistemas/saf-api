@@ -53,7 +53,7 @@
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Médicos</span></a>
                             <ul>
                                 <li>
-                                    <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                   
+                                    {{-- <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                    --}}
                                 </li>
                                 <li>
                                     <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
@@ -77,10 +77,10 @@
                     {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                 @endrole
                     {{-- FIN DEL MODULO DE LOS DOCTORES --}}       
-                                  
+                
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
-                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Pacientes del día</span></a></li>                        
+                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          
                     <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
                     {{-- <li class=""><a href="{{ route('checkout.index_procedimientos') }}"><i class="fa fa-hospital-o"></i><span>Procedimientos</span></a></li>                         --}}
                 
@@ -119,8 +119,6 @@
                         
                     </li>
                 @endrole
-                  
-    
                 
             </ul>
         </nav>

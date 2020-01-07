@@ -46,7 +46,6 @@
             </div>
         </div>
 
-      
         <div class="section-body">
             <div class="container">
                 <div class="tab-content">
@@ -54,7 +53,6 @@
                     <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                         <div class="row clearfix">
                             <div class="col-lg-10  col-md-10 col-sm-10 ml-5">
-                                  
                                 <div class="card">
 
                                     <div class="card-body row my-8  pl-4">
@@ -77,15 +75,15 @@
                                                 <input id="total" type="hidden" name="total_cancelar" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
-                                               <div class="row ml-3">
+                                                <div class="row ml-3">
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span style="font-weight:bold; ">Doc. de identidad:</span>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span id="dnii"></span>
                                                     </div>
-                                               </div>
-                                               <div class="row ml-3">
+                                                </div>
+                                                <div class="row ml-3">
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span style="font-weight:bold;">Nombres/Apellidos:</span>
                                                     </div> 
@@ -100,7 +98,7 @@
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span id="phone"></span>
                                                     </div>
-                                               </div><br>
+                                                </div><br>
                                             </div>
 
                                             <!--Medico tratante-->
@@ -297,7 +295,7 @@
 
 
         //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
-          function ajax(dni) {
+        function ajax(dni) {
                 $.ajax({ 
                     url: "{{ route('checkout.patient') }}",   //definiendo ruta
                     type: "POST",                             //definiendo metodo
@@ -317,7 +315,6 @@
                             type: 'error',
                         });
                     }
-                   
                     if (data[0] == 201) {                       //si no trae valores
                         Swal.fire({
                             title: 'Excelente!',
@@ -353,38 +350,36 @@
                 $("#consulta").append(consulta_html);
 
             }
-
+// console.log('holaaaa',data.encontrado[0] );
             //-------------------cirugia -----------------
-            if(data.encontrado[0].surgery != null){
-                console.log('cirugia',data.encontrado[0].surgery)
-                nombre_cirugia= data.encontrado[0].surgery.typesurgeries.name;
-                costo_cirugia= financial(data.encontrado[0].surgery.typesurgeries.cost);
+            if(data.encontrado[0].surgery_r != null){
+                console.log('cooo ken')
+                console.log('cirugia',data.encontrado[0].surgery_r.name)
+                nombre_cirugia= data.encontrado[0].surgery_r.name;
+                costo_cirugia= financial(data.encontrado[0].surgery_r.cost);
 
-  
+
                 // console.log('decimales', $data);
 
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
-                costo_cirugia = data.encontrado[0].surgery.typesurgeries.cost; //costo de la cirugia
+                costo_cirugia = data.encontrado[0].surgery_r.cost; //costo de la cirugia
             }
-  
+
              // --------------------Procedures -------------
             if(data.procedureS != null){
                 console.log('procedures', data.procedureS)
                 $("#procedure").append(procedure);
 
-                for(var i = 0; i < data.procedureS.length; i++){         // para listar los procedimientos
+                for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
                     costo = financial(data.procedureS[i].price);
                     costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
-                  
-                   
                     procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
                     console.log('proceduressss',procedures_id)
                     procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
                     $("#columna").append(procedure_select);
                 }
             }
-
             cu = parseFloat(costo_consulta);
             ci = parseFloat(costo_cirugia);
             p = parseFloat(costo_procedimientos);
@@ -419,15 +414,15 @@
 
 
         //================================== para agregar procedimientos adicionales==========================
-          $("#select").change(function(){
+        $("#select").change(function(){
             var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
             console.log('estos son ',procedure_id);
             console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-      
+
             //ruta para buscar los datos segun procedimiento seleccionado
             $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
               //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-              console.log('datos',data.procedure.name);
+            console.log('datos',data.procedure.name);
 
                 procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
                 console.log('procedimiento seleccionado',procedure_select);
@@ -441,14 +436,12 @@
                 $('#costo_total').text(costo_total);
                 $('#subtotal').text(costo_total);
                 total = costo_total;
-                  
                 $('#total').val(costo_total);
-      
             });
           }); // fin de la funcion para agregar procedimientos
 
         }); //fin del documento
-      </script>
+    </script>
 
     
 @endsection

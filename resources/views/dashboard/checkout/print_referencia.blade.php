@@ -164,9 +164,18 @@ margin-top: -15px;
                         Portador del documento de identidad:<span>{{$referencia->patient->type_dni}} {{$referencia->patient->dni}}</span>, 
                         manifiesta que presenta: <span>{{$referencia->reason}}.</span> 
                     </p><br>
+                    @if (empty($referencia->employe_id) && !empty($referencia->doctor))
                     <p class="conte">
-                        La presente solicitud, es para recurrir a la atención medica del Doctor/a<span>{{$referencia->doctor}}.</span> 
+                        La presente solicitud, es para recurrir a la atención medica del Doctor/a<span>{{ $referencia->doctor }},</span>
+                        médico especialista en <span>{{ $referencia->speciality->name}}.</span>
                     </p> 
+                    @endif
+                    @if (!empty($referencia->employe_id) && empty($referencia->doctor))
+                    <p class="conte">
+                        La presente solicitud, es para recurrir a la atención medica del Doctor/a<span>{{ $referencia->employe->person->name }} {{ $referencia->employe->person->lastname}},</span>
+                        médico especialista en <span>{{ $referencia->speciality->name}}.</span>
+                    </p>
+                    @endif
                 </div>
                 <div class="fecha">
                     <p>
@@ -177,14 +186,14 @@ margin-top: -15px;
                     <p>Atentamente.-</p>
                 </div>
                 <div class="doctor">
-                    <p>Dr/a.{{ $referencia->employe->person->name }} {{ $referencia->employe->person->lastname }}.</p><br>
-                    <p>Especialista en {{ $referencia->speciality->name }}.</p>
+                    <p>Dr/a.{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}.</p><br>
+                    <p>Especialista en {{ $especialidad->speciality->name }}.</p>
                 </div>
             </div>
     </main>
     <footer>
-        Dr/ra. {{ $referencia->employe->person->name }} {{ $referencia->employe->person->name }}- 
-        Especialista en {{ $referencia->speciality->name }}-Email:{{ $referencia->employe->person->email }}
+        Dr/ra. {{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->name }}- 
+        Especialista en {{ $especialidad->speciality->name }}-Email:{{ $itinerary->employe->person->email }}
     </footer>   
     </body>
 </html>

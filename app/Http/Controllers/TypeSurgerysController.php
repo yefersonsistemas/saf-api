@@ -103,7 +103,7 @@ class TypeSurgerysController extends Controller
         $classification = ClassificationSurgery::get();
         $procedure = Procedure::get();
         $surgery = Typesurgery::with('procedure', 'classification')->find($id);
-        dd($procedure->typesurgery);
+        dd($surgery);
 
         return view('dashboard.director.surgery-edit', compact('classification', 'procedure', 'surgery'));
     }

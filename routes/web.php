@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
- 
+
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     //======================= rutas para el usuario ckeckout ====================
     Route::group(['middleware' => ['role:OUT']], function () {
-        Route::get('index', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
+        Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
         Route::get('cirugias/detalles/{id}/{cirugia}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de cirugias
@@ -90,16 +90,21 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
         Route::get('informe/{id}','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
+        // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
+        Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
-        Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
+        Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');  
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::resource('doctor', 'DoctorController');
+        Route::post('procedures_realizados', 'DoctorController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta
+        Route::post('examR', 'DoctorController@examR')->name('doctor.examR'); // guardar los examenes que se realizara el paciente
+        Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos 
+        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 
@@ -169,8 +174,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('especialidad/{id}', 'SpecialityController@edit')->name('especialidad.edit');
         Route::put('especialidad/update/{id}', 'SpecialityController@update')->name('especialidad.update');
         Route::get('cirugia/{id}', 'TypeSurgerysController@edit')->name('cirugia.edit');
-        Route::put('cirugia/update/{id}', 'TypeSurgerysController@update')->name('cirugia.update');
+        Route::put('cirugia/update/{id}', 'TypeSurgerysController@update')->name('cirugia.update'); 
         Route::get('tipo/area/{id}', 'TypeAreasController@edit')->name('tipo-area.edit');
         Route::put('tipo/area/update/{id}', 'TypeAreasController@update')->name('tipo-area.update');
+        Route::get('procedure/{id}', 'ProcedureController@edit')->name('procedure.edit');
+        Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
     });
 });

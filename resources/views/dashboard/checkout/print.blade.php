@@ -321,12 +321,12 @@ table tfoot tr td:first-child {
               @endforeach
               @endif
           
-          @if($cirugia->surgery != null)
+          @if($cirugia->surgeryR != null)
               <tr>
                 <td class="desc" style="text-align:left;padding-left:10px">
-                    Cirugía {{ $cirugia->surgery->typesurgeries->name }}
+                    Cirugía {{ $cirugia->surgeryR->name }}
                   </td>
-                  <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">{{ number_format($cirugia->surgery->typesurgeries->cost,2) }}</td>    
+                  <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">{{ number_format($cirugia->surgeryR->cost,2) }}</td>    
               </tr>
               @endif
             
@@ -334,10 +334,10 @@ table tfoot tr td:first-child {
         <tfoot>
         <tr>
           <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
-          <td style="text-align:right; padding-right:10px">{{ number_format($total_cancelar,2) }}</td>
-        </tr>        <tr>
-            
-            <td colspan="1" style="padding-top:-5px;  font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
+          <td style="text-align:right; padding-right:10px; border-top:#000000 solid 1px;">{{ number_format($total_cancelar,2) }}</td>
+        </tr>        
+        <tr>
+            <td colspan="1" style="padding-top:-5px; font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
             <td style="text-align:right;padding-top:-5px; padding-right:10px">{{ number_format($total_cancelar,2) }}</td>
         </tr>
       </tfoot>

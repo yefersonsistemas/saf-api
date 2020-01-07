@@ -52,9 +52,10 @@
                                     <label class="form-label">Tipo de cirugía</label>
                                     <select name="classification_surgery_id" id="id" class="custom-select input-group-text bg-white form-control">
                                         @foreach ($classification as $classification)
+                                            {{-- @foreach ($classification as $classification)
                                         @if ($surgery->classification->id == $surgery->id)
                                         <option selected="selected" value={{$classification->id}}>{{$classification->name}}</option>
-                                        @endif
+                                        @endif --}}
                                         <option value={{$classification->id}}>{{$classification->name}}</option>
                                         @endforeach
                                     </select>

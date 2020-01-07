@@ -38,6 +38,7 @@ class UsersTableSeeder extends Seeder
         Patient::truncate();
         Diagnostic::truncate();
         TypeDoctor::truncate();
+        Speciality::truncate();
         Doctor::truncate();
         Reservation::truncate();
         Typesurgery::truncate();
@@ -106,7 +107,6 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
 
-
         //creando cirugia
         $cirugia = factory(App\Typesurgery::class)->create([
             'name' => 'Endoscópica SENOS PARANASALES',
@@ -141,12 +141,14 @@ class UsersTableSeeder extends Seeder
                                 indicación es la presencia de desviación septal nasal 
                                 significativa',
             'price' => 2500,
-            'speciality_id' => $especialidad->id,
+            // 'speciality_id' => $especialidad->id,
             'branch_id' => '1',
         ]);
 
+        $procedimiento->speciality()->attach($especialidad);
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento);
+        $employe->procedures()->attach($procedimiento);
 
           //creando procedimiento
           $procedimiento2 = factory(App\Procedure::class)->create([
@@ -158,12 +160,14 @@ class UsersTableSeeder extends Seeder
                             como el papiloma nasal invertido y sinusitis de origen dental que
                             comprometen los senos descritos',
             'price' => 1200,
-            'speciality_id' => $especialidad->id,
+            // 'speciality_id' => $especialidad->id,
             'branch_id' => '1',
         ]);
 
         //relacion de la cirugia con el procedimiento
+        $procedimiento2->speciality()->attach($especialidad);
         $cirugia->procedure()->attach($procedimiento2);
+        $employe->procedures()->attach($procedimiento2);
 
           //creando procedimiento
           $procedimiento3 = factory(App\Procedure::class)->create([
@@ -171,12 +175,14 @@ class UsersTableSeeder extends Seeder
             'description' => 'Extracción de la porción media de unciforme',
 
             'price' => 2500,
-            'speciality_id' => $especialidad->id,
+            // 'speciality_id' => $especialidad->id,
             'branch_id' => '1',
         ]);
 
         //relacion de la cirugia con el procedimiento
+        $procedimiento3->speciality()->attach($especialidad);
         $cirugia->procedure()->attach($procedimiento3);
+        $employe->procedures()->attach($procedimiento3);
 
             //creando procedimiento
             $procedimiento4 = factory(App\Procedure::class)->create([
@@ -184,12 +190,14 @@ class UsersTableSeeder extends Seeder
                 'description' => 'Extracción de la porción media de unciforme.
                 ',
                 'price' => 2500,
-                'speciality_id' => $especialidad->id,
+                // 'speciality_id' => $especialidad->id,
                 'branch_id' => '1',
             ]);
     
             //relacion de la cirugia con el procedimiento
+            // $especialidad->procedures()->attach($procedimiento);
             $cirugia->procedure()->attach($procedimiento4);
+            $employe->procedures()->attach($procedimiento4);
 
 
             $tipo_equipo = factory(App\TypeEquipment::class)->create([
@@ -525,10 +533,11 @@ class UsersTableSeeder extends Seeder
             $num = rand(1,3);
             for ($i=0; $i < $num ; $i++) { 
                 $speciality = Speciality::inRandomOrder()->first();
+                // dd($speciality);
                 $speciality->employe()->attach($employe->id);
-                foreach ($speciality->procedures as $procedure) {
-                    $procedure->employe()->attach($employe->id);
-                }
+                // foreach ($speciality->procedures as $procedure) {
+                //     $procedure->employe()->attach($employe->id);
+                // }
             }
 
             /**
@@ -635,9 +644,9 @@ class UsersTableSeeder extends Seeder
             for ($i=0; $i < $num ; $i++) { 
                 $speciality = Speciality::inRandomOrder()->first();
                 $speciality->employe()->attach($employe->id);
-                foreach ($speciality->procedures as $procedure) {
-                    $procedure->employe()->attach($employe->id);
-                }
+                // foreach ($speciality->procedures as $procedure) {
+                //     $procedure->employe()->attach($employe->id);
+                // }
             }
 
             /**
@@ -745,9 +754,9 @@ class UsersTableSeeder extends Seeder
             for ($i=0; $i < $num ; $i++) { 
                 $speciality = Speciality::inRandomOrder()->first();
                 $speciality->employe()->attach($employe->id);
-                foreach ($speciality->procedures as $procedure) {
-                    $procedure->employe()->attach($employe->id);
-                }
+                // foreach ($speciality->procedures as $procedure) {
+                //     $procedure->employe()->attach($employe->id);
+                // }
             }
 
             /**
