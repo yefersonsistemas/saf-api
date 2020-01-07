@@ -54,7 +54,7 @@ class AreasController extends Controller
 
         if($request->type_area_id == 3){
             $todas_areas = Area::where('type_area_id',$request->type_area_id)->get();
-            dd($todas_areas);
+            // dd($todas_areas);
         }
 
         $image = $request->file('image');

@@ -1,7 +1,5 @@
 @extends('dashboard.layouts.app')
 
-@section('cites','active')
-
 @section('title','Editar Procedimiento')
 
 @section('content')
