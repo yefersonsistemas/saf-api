@@ -1,8 +1,11 @@
 <style>
-    img {
+   /* .header-brand img {
         max-width: 50px;
         width: 50px;
-    }
+    } */
+     img {
+        max-width: 50px;
+        width: 50px;}
 </style>
 
 <div id="header_top" class="header_top dark">

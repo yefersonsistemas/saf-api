@@ -250,10 +250,10 @@ class CitaController extends Controller
         // dd($cite);
         // dd($request);
         if (!is_null($cite)) {
-
+            $cite->status = 'Pendiente';
             //cuando se han editado los datos del paciente
             if ($request->habilitado != null) {
-               
+            
                 $paciente = Person::where('id', $cite->patient_id)->first();
             
                 if (!is_null($paciente)) {
@@ -289,7 +289,7 @@ class CitaController extends Controller
                 $cite->schedule_id = $schedule->id;
             }
             $cite->save();
-            // dd($cite);
+            
 
 
             //guardar razon del reprogramar
@@ -304,6 +304,7 @@ class CitaController extends Controller
             Alert::success('Cita actualizada exitosamente');
             return redirect()->route('checkin.index');
         }
+        // dd($request);
     }
 
     public function createHistory($id)

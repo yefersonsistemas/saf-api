@@ -95,13 +95,11 @@
                                     <label class="form-label">Especialidad</label>
                                     <div class="form-group multiselect_div">
                                         <select id="speciality"  name="speciality[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
-                                            @foreach ($speciality as $speciality)
-                                                @foreach ($employe->speciality as $item)
-                                                @if ($item->id == $speciality->id)
-                                                <option selected="selected" value= {{ $speciality->id }}>{{ $speciality->name }}</option>
-                                                @endif
-                                                @endforeach
-                                            <option value= {{ $speciality->id }}>{{ $speciality->name }}</option>
+                                            @foreach ($employe->speciality as $item)
+                                            <option selected="selected" value={{$item->id}}>{{$item->name}}</option>
+                                            @endforeach
+                                            @foreach ($diff_E as $demas)
+                                                <option value={{$demas->id}}>{{$demas->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -111,13 +109,11 @@
                                     <label class="form-label">Procedimientos</label>
                                     <div class="form-group multiselect_div">
                                         <select id="procedure"  name="procedure[]" class="multiselect multiselect-custom form-control" multiple="multiple" checked="true">
-                                            @foreach ($procedure as $procedure)
-                                                @foreach ($employe->procedures as $item)
-                                                @if ($item->id == $procedure->id)
-                                                <option selected="selected" value= {{ $procedure->id }}>{{ $procedure->name }}</option>
-                                                @endif
-                                                @endforeach
-                                            <option value= {{ $procedure->id }}>{{ $procedure->name }}</option>
+                                            @foreach ($employe->procedures as $item)
+                                            <option selected="selected" value={{$item->id}}>{{$item->name}}</option>
+                                            @endforeach
+                                            @foreach ($diff_P as $demas)
+                                                <option value={{$demas->id}}>{{$demas->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -127,7 +123,6 @@
                             </div>
 
                             <div class="row d-flex justify-content-between">
-
                                 <div class="col-lg-4 ">
                                     <div class="form-group">
                                     <label class="form-label">Cargo </label>
@@ -140,11 +135,9 @@
                                     <div class="form-group">
                                         <label class="form-label">Clase</label>
                                         <select name="type_doctor_id" class="custom-select input-group-text bg-white form-control">
-                                            @foreach ($clases as $clase)
-                                            {{-- @if ($precio->typedoctor->id == $clase->id ) --}}
-                                            <option selected="selected" value={{$clase->id}}>{{$clase->name}}</option>
-                                            {{-- @endif --}}
-                                            {{-- <option value={{$clase->id}}>{{$clase->name}}</option> --}}
+                                            <option selected="selected" value={{$buscar_C->id}}>{{$buscar_C->name}}</option>
+                                            @foreach ($diff_C as $demas)
+                                                <option value={{$demas->id}}>{{$demas->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

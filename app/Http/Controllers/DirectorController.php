@@ -39,6 +39,7 @@ class DirectorController extends Controller
     public function all_register()
     {
        $positions = Position::get();
+    //    dd($positions);
        $services = Service::get();
        $specialitys = Speciality::get();
     //    dd($specialitys);
@@ -170,19 +171,21 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
         $employe = Employe::with('person.user', 'position','speciality', 'image','procedures')->find($id);
-        // dd($employe);
         $position = Position::where('name', 'doctor')->first();
-        // dd($position);
         $speciality = Speciality::get();
-        // dd($speciality);
         $procedure = Procedure::get();
         $clases = TypeDoctor::get();
         $precio = Doctor::where('employe_id', $employe->id)->first();
-        // dd($precio);
 
-        return view('dashboard.director.doctor-edit', compact('employe','position', 'speciality', 'procedure', 'clases', 'precio'));
+        $buscar_C = TypeDoctor::where('id', $precio->type_doctor_id)->first();
+        $clase = array($buscar_C);
+        $diff_C = $clases->diff($clase);
+
+        $diff_E = $speciality->diff($employe->speciality);
+        $diff_P = $procedure->diff($employe->procedures);
+
+        return view('dashboard.director.doctor-edit', compact('employe','position', 'clases', 'precio', 'diff_E', 'diff_P', 'diff_C', 'buscar_C'));
     }
 
     /**
@@ -281,7 +284,7 @@ class DirectorController extends Controller
         $precio = Doctor::find($id);
     //    dd($precio);
         $employes = Employe::with('person.user', 'position', 'doctor')->where('id',$precio->employe_id)->first();
-        //dd($employes);
+        // dd($employes);
         $clases = TypeDoctor::get();
         //dd($clases);
 

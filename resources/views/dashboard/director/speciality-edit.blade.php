@@ -54,12 +54,9 @@
                                 <div class="form-group">
                                     <label class="form-label">Servicio</label>
                                     <select name="service_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                        <option value="0">Ninguna selección</option>
-                                        @foreach ($servicio as $servicio)
-                                        @if ($speciality->service->id == $speciality->service_id)
-                                        <option selected="selected" value={{$servicio->id}}>{{$servicio->name}}</option>
-                                        @endif
-                                        <option value={{$servicio->id}}>{{$servicio->name}}</option>
+                                        <option selected="selected" value={{$buscar_service->id}}>{{$buscar_service->name}}</option>
+                                        @foreach ($diff as $demas)
+                                            <option value={{$demas->id}}>{{$demas->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

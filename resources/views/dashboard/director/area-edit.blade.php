@@ -40,11 +40,9 @@
                                     <div class="form-group">
                                         <label class="form-label">Tipo de area</label>
                                         <select name="type_area_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                            @foreach ($type as $type)
-                                            @if ($area->typearea == $type)
-                                            <option selected="selected" value={{$type->id}}>{{$type->name}}</option>
-                                            @endif
-                                            <option value={{$type->id}}>{{$type->name}}</option>
+                                            <option selected="selected" value={{$area->typearea->id}}>{{$area->typearea->name}}</option>
+                                            @foreach ($diff as $demas)
+                                                <option value={{$demas->id}}>{{$demas->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

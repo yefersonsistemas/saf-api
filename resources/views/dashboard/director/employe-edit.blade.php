@@ -98,12 +98,10 @@
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
                                         <label class="form-label">Cargo</label>
-                                        <select name="position_id" id="id" class="custom-select input-group-text bg-white form-control">
-                                            @foreach ($position as $position)
-                                                @if ($employe->position->id == $position->id )
-                                                <option selected="selected" value={{$position->id}}>{{$position->name}}</option>
-                                                @endif
-                                                <option value={{$position->id}}>{{$position->name}}</option>
+                                        <select name="position_id" id="id" class="custom-select input-group-text bg-white form-control">                                         
+                                            <option selected="selected" value={{$buscar_P->id}}>{{$buscar_P->name}}</option>
+                                            @foreach ($diff as $demas)
+                                                <option value={{$demas->id}}>{{$demas->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

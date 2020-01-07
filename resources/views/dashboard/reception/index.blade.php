@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
+
 @endsection
 
 @section('title','Todas las citas')
@@ -119,7 +120,7 @@
                                 <tbody>
                                     @foreach ($reservations as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="img-recep">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -198,7 +199,7 @@
                                 <tbody>
                                     @foreach($aprobadas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="img-recep">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -257,7 +258,7 @@
                                 <tbody>
                                     @foreach ($canceladas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="img-recep">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -315,7 +316,7 @@
                                 <tbody>
                                     @foreach ($reprogramadas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="img-recep">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -390,7 +391,7 @@
                                 <tbody>
                                     @foreach ($suspendidas as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="img-recep">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
@@ -451,7 +452,7 @@
                                 <tbody>
                                     @foreach ($pendientes as $reservation)
                                         <tr>
-                                            <td>
+                                            <td class="img-recep">
                                                 <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
