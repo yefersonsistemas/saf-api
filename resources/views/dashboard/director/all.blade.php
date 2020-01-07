@@ -132,7 +132,11 @@
                                             <td>{{ $service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('servicio.edit', $service->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                
+                                                <form action="{{ route('servicio.delete', $service) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -169,7 +173,11 @@
                                             <td>{{ $speciality->service->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('especialidad.edit', $speciality->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                             
+                                                <form action="{{ route('especialidad.delete', $speciality) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -211,7 +219,11 @@
                                             @endforeach
                                             <td style="display: inline-block">
                                                 <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                
+                                                <form action="{{ route('procedimiento.delete', $procedure) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -254,7 +266,11 @@
                                             <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                              
+                                                <form action="{{ route('cirugia.delete', $surgery) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -285,7 +301,11 @@
                                             <td>{{ $allergy->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('alergia.edit', $allergy->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                             
+                                                <form action="{{ route('alergia.delete', $allergy) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -316,7 +336,11 @@
                                             <td>{{ $disease->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('enfermedad.edit', $disease->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                              
+                                                <form action="{{ route('enfermedad.delete', $disease) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -347,7 +371,11 @@
                                             <td>{{ $medicine->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('medicina.edit', $medicine->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                             
+                                                <form action="{{ route('medicina.delete', $medicine) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -378,7 +406,11 @@
                                             <td>{{ $exam->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('examen.edit', $exam->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                               
+                                                <form action="{{ route('examen.delete', $exam) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -412,7 +444,11 @@
                                             <td>{{ $type->description }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('tipo-area.edit', $type->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                
+                                                <form action="{{ route('tipo.delete', $type) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -458,7 +494,11 @@
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('area.edit', $area->id) }}" title="Editar" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            
+                                                <form action="{{ route('area.delete', $area) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -492,7 +532,11 @@
                                             <td>{{ $clase->comission }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{route('clase.edit', $clase->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                               
+                                                <form action="{{ route('clase.delete', $clase) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -560,7 +604,11 @@
                                             <td>{{ $payment->name }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('pago.edit', $payment->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                              
+                                                <form action="{{ route('pago.delete', $payment) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

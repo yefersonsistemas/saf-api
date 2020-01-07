@@ -101,8 +101,10 @@ class TypeDoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TypeDoctor $doctor)
+    public function destroy($id)
     {
-
+        $doctor = TypeDoctor::find($id);
+        $doctor->delete();
+        return redirect()->route('all.register')->withSuccess('Clase de doctor eliminada');
     }
 }

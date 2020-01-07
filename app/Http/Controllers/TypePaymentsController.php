@@ -93,8 +93,10 @@ class TypePaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TypePayment $payment)
+    public function destroy($id)
     {
- 
+        $payment = typePayment::find($id);
+        $payment->delete();
+        return redirect()->route('all.register')->withSuccess('Tipo de pago eliminado');
     }
 }

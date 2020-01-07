@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Position;
 use Illuminate\Http\Request;
 use App\Service;
 
@@ -99,8 +100,10 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy($id)
     {
-     
+        $service = Service::find($id);
+        $service->delete();
+        return redirect()->route('all.register')->withSuccess('Servicio eliminado');
     }
 }

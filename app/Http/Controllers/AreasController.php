@@ -136,9 +136,11 @@ class AreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($area)
+    public function destroy($id)
     {
-       
+        $area = Area::find($id);
+        $area->delete();
+        return redirect()->route('all.register')->withSuccess('Area eliminada');
     }
 
     public function list_area(){
