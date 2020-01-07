@@ -196,7 +196,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('tipo/{id}', 'TypeAreasController@destroy')->name('tipo.delete');
         Route::delete('area/{id}', 'AreasController@destroy')->name('area.delete');
         Route::delete('clase/{id}', 'TypeDoctorController@destroy')->name('clase.delete');
-        // Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
+        Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
 
     });

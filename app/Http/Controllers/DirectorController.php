@@ -54,6 +54,7 @@ class DirectorController extends Controller
        $areas = Area::with('typearea')->get();
        $clases = TypeDoctor::get();
        $doctors = Doctor::with('typeDoctor')->get();
+    //    dd($doctors);
        $payments = TypePayment::get();
 
        return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 'types', 'areas', 'clases', 'doctors', 'payments'));
@@ -306,8 +307,10 @@ class DirectorController extends Controller
         return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
-    public function destroy_consulta(Doctor $doctor)
+    public function destroy_consulta($id)
     {
-      
+        $doctor = Doctor::find($id);
+        $doctor->delete();
+        return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
 }

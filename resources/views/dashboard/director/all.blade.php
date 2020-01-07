@@ -573,6 +573,11 @@
                                             <td>{{ $doctor->price }}</td>
                                             <td style="display: inline-block">
                                                 <a href="{{ route('precio.edit', $doctor->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <form action="{{ route('consulta.delete', $doctor) }}" method="POST">
+                                                    <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
