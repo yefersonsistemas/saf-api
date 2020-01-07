@@ -103,8 +103,6 @@ class TypeDoctorController extends Controller
      */
     public function destroy(TypeDoctor $doctor)
     {
-        $doctor = TypeDoctor::find($doctor);
-        $doctor->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+
     }
 }

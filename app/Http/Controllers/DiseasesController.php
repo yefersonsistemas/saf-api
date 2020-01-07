@@ -96,9 +96,7 @@ class DiseasesController extends Controller
      */
     public function destroy(Disease $disease)
     {
-        $disease = Disease::find($disease);
-        $disease->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+       
     }
 
 }

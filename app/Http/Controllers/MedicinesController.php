@@ -95,9 +95,7 @@ class MedicinesController extends Controller
      */
     public function destroy(Medicine $medicine)
     {
-        $medicine = Medicine::find($medicine);
-        $medicine->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+  
     }
 
 }

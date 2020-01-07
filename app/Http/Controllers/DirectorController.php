@@ -239,11 +239,9 @@ class DirectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employe $employe)
+    public function destroy($id)
     {
-        $employe = Employe::find($employe);
-        $employe->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+        //
     }
 
      /*
@@ -307,8 +305,6 @@ class DirectorController extends Controller
 
     public function destroy_consulta(Doctor $doctor)
     {
-        $doctor = Doctor::find($doctor);
-        $doctor->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+      
     }
 }

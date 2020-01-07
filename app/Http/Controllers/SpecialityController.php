@@ -141,9 +141,7 @@ class SpecialityController extends Controller
      */
     public function destroy(Speciality $speciality)
     {
-        $speciality = Speciality::find($speciality);
-        $speciality->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+       
     }
 
     public function doctor_S(Request $request){    //medico con todas sus especialidades

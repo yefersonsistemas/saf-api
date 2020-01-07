@@ -54,7 +54,7 @@ class AreasController extends Controller
 
         if($request->type_area_id == 3){
             $todas_areas = Area::where('type_area_id',$request->type_area_id)->get();
-            dd($todas_areas);
+            // dd($todas_areas);
         }
 
         $image = $request->file('image');
@@ -104,9 +104,9 @@ class AreasController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request);
+        // dd($request);
         $area = Area::with('image', 'typearea')->find($request->id);
-        dd($area);
+        // dd($area);
         $type = TypeArea::get();
 
         $area->name = $request->name;
@@ -138,10 +138,7 @@ class AreasController extends Controller
      */
     public function destroy($area)
     {
-        $area = Area::find($area);
-        // dd($area);
-        $area->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+       
     }
 
     public function list_area(){

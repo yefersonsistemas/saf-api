@@ -98,9 +98,7 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        $exam = Exam::find($exam);
-        $exam->delete();
-        return redirect()->route('all.register')->withSuccess('Registro eliminado');
+     
     }
 
 
