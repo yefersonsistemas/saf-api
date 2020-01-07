@@ -119,25 +119,21 @@ class DirectorController extends Controller
             'branch_id' => 1
         ]);
 
-        if (!is_null($employe)) {
+        if (!is_null($employe)) { 
             if (!empty($request->speciality)) {
-                // foreach ($request->speciality as $speciality) {
-                    // $especialidad = Speciality::find($speciality);
-                    $employe->speciality()->sync($request->speciality); 
-                    // }
+                foreach ($request->speciality as $speciality) {
+                    $especialidad = Speciality::find($speciality);
+                    $employe->speciality()->attach($especialidad); 
+                    }
             }
         }
-            /**
-             * acomodar los selects para q no inserte de nuevo los  
-             * procedures y specialitys existente en BD cuando se edita el medico
-             */
-
+         
         if (!is_null($employe)) {
             if (!empty($request->procedure)) {
-                // foreach ($request->procedure as $procedure) {
-                    // $procedimiento = Procedure::find($procedure);
-                    $employe->procedures()->sync($request->procedure); 
-                // }
+                foreach ($request->procedure as $procedure) {
+                    $procedimiento = Procedure::find($procedure);
+                    $employe->procedures()->attach($procedimiento); 
+                }
             }
         }
           
@@ -212,31 +208,8 @@ class DirectorController extends Controller
         $employe->person->phone = $request->phone;
         $employe->person->email = $request->email;
         
-        if (!is_null($employe)) {
-            if (!empty($request->speciality)) {
-                // dd($employe);
-                foreach ($request->speciality as $speciality) {
-                    // $especialidad = Speciality::find($speciality);
-                    foreach ($employe->speciality as $speciality2) {
-                        if ($speciality != $speciality2->id ) {
-                            $employe->speciality()->attach($speciality); 
-                        }
-                    }
-                   
-                }
-            }
-        }
-
-        if (!is_null($employe)) {
-            if (!empty($request->procedure)) {
-                foreach ($request->procedure as $procedure) {
-                    $procedimiento = Procedure::find($procedure);
-                    if ($procedimiento != $employe->procedure) {
-                        $employe->procedures()->attach($procedimiento); 
-                    }
-                }
-            }
-        }
+        $employe->speciality()->sync($request->speciality);
+        $employe->procedures()->sync($request->procedure); 
 
         $doctor->price = $request->price;
         $doctor->type_doctor_id = $request->type_doctor_id;

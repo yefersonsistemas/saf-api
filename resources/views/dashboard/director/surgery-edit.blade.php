@@ -52,10 +52,9 @@
                                     <label class="form-label">Tipo de cirugía</label>
                                     <select name="classification_surgery_id" id="id" class="custom-select input-group-text bg-white form-control">
                                         @foreach ($classification as $classification)
-                                            {{-- @foreach ($classification as $classification)
                                         @if ($surgery->classification->id == $surgery->id)
                                         <option selected="selected" value={{$classification->id}}>{{$classification->name}}</option>
-                                        @endif --}}
+                                        @endif
                                         <option value={{$classification->id}}>{{$classification->name}}</option>
                                         @endforeach
                                     </select>
@@ -75,10 +74,14 @@
                                 <div class="form-group multiselect_div">
                                     <select id="procedure" name="procedure[]" class="multiselect multiselect-custom form-control" multiple="multiple">
                                         @foreach ($procedure as $procedure)
-                                        @if ($procedure->typesurgery->id == $surgery->id)
-                                        <option selected="selected" value= {{ $procedure->id }}>{{ $procedure->name }}</option>
-                                        @endif
-                                        <option value= {{ $procedure->id }}>{{ $procedure->name }}</option>
+                                            @foreach ($procedure->typesurgery as $item)
+                                                @if ($item->id == $surgery->id)
+                                                <option selected="selected" value= {{ $procedure->id }}>{{ $procedure->name }}</option>
+                                                @endif
+                                                @if ($item->id != $surgery->id)
+                                                <option value= {{ $procedure->id }}>{{ $procedure->name }}</option>
+                                                @endif
+                                            @endforeach
                                         @endforeach
                                     </select>
                                 </div>
