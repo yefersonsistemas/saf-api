@@ -3,6 +3,10 @@
 @section('cites','active')
 @section('all','active')
 
+@php
+    use Carbon\Carbon;
+@endphp
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
@@ -97,7 +101,7 @@
                                     <label class="form-label">Fecha de Nacimiento</label>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input id="birthdate" disabled name="birthdate" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->birthdate : '' }}" data-provide="datepicker" data-date-autoclose="true" class="form-control">
+                                            <input disabled name="birthdate" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->birthdate : '' }}" data-provide="datepicker" data-date-autoclose="true" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +117,8 @@
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
-                                    <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->age : '' }}">
+                                    <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}">
+                                    {{-- value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->age : '' }}" --}}
                                 </div>
                             </div>
                             
@@ -392,7 +397,6 @@
             $('#allergy').removeAttr('disabled');
             $('#medicine').removeAttr('disabled');
             $('#disease').removeAttr('disabled');
-            $('#birthdate').removeAttr('disabled');
             $('#address').removeAttr('disabled');
             $('#genero1').removeAttr('disabled');
             $('#genero2').removeAttr('disabled');

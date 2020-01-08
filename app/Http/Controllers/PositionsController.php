@@ -99,7 +99,9 @@ class PositionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $position = Position::find($id);
+         $position->delete();
+         return redirect()->route('all.register')->withSuccess('Cargo eliminado');
     }
 
 }

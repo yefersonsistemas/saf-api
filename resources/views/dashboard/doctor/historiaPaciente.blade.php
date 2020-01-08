@@ -295,14 +295,18 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="col-12">
 
                                                     <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
-                                                    
+                                                </div>    
                                                 <div class="row">
                                                     <div class="col-12 mt-30">
+                                                        <h5>Procedimientos Realizados al Paciente:</h5>
+                                                    </div>
+                                                    <div class="col-12 mt-10">
                                                         <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
-                                                            <i class="icon-clock"></i>
+                                                            <i class="fa fa-plus"></i>
                                                             Agregar Procedimiento
                                                         </button>
-                                                    <div class="col-12 mt-30 p-4  card ml-2">
+                                                    </div>   
+                                                    <div class="col-12 mt-20 p-4  card ml-2">
                                                         <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
                                                         <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;"></ul>  
                                                     </div>
@@ -340,10 +344,13 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="tab-content" id="pills-tabContent">
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
+                                                <div>
+                                                    <h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
+                                                </div>
                                                     <div class="row">
                                                         <div class="col-12 mt-30 d-flex justify-content-start">
                                                             <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
-                                                                <i class="fa fa-file-text-o"></i>
+                                                                <i class="fa fa-plus"></i>
                                                                 Agregar examen
                                                             </button>
                                                         </div>
@@ -510,7 +517,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             </div>
                                                                         </div>
                                                                         <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar</a>
+                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -520,25 +527,25 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row d-flex justify-content-center">
                                                             <div class=" col-4">
                                                                 <button class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                    <i class="fa fa-hospital-o"></i>
-                                                                    Cirugias
+                                                                    <i class="fa fa-plus"></i>
+                                                                    Agregar Cirugia
                                                                 </button>
                                                             </div>
                                                             
                                                             <div class="col-4">
                                                                 <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                    <i class="fa fa-navicon"></i>
-                                                                    Procedimientos
+                                                                    <i class="fa fa-plus"></i>
+                                                                    Agregar Procedimiento
                                                                 </button>
                                                             </div>                                                            
                                                         </div>
                                                         <div class="row d-flex mt-20 justify-content-center">
-                                                            <div class="col-4 mt-30 p-4 card ml-2">
+                                                            <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
                                                                 <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>  
                                                             </div>
 
-                                                            <div class="col-4 mt-30 p-4 card ml-2">
+                                                            <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
                                                                 <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>  
                                                             </div>
@@ -555,6 +562,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div> --}}
                                         </section>
+                                        
                                     </form>
                                     </div>
                                 </div>
@@ -622,7 +630,6 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> --}}
                         <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -898,12 +905,13 @@ button[data-original-title="Help"]{ display: none; }
         console.log('d e',doctorExterno);
         console.log('patient',patient);
 
-        ajax(speciality, reason, doctor, doctorExterno, patient);                          
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
     });
 
-    function ajax(speciality, reason, doctor, doctorExterno, patient) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
+        console.log("hola hoy");
         $.ajax({ 
             url: "{{ route('reference.store') }}",   //definiendo ruta
             type: "POST",                             //definiendo metodo
@@ -919,7 +927,7 @@ button[data-original-title="Help"]{ display: none; }
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
-            if(data[0] == 201){                  //si no trae valores
+            if(data[0] == 201){                  //si trae valores
                 Swal.fire({
                     title: data.reference,
                     text: 'Click en OK para continuar',
@@ -944,14 +952,11 @@ button[data-original-title="Help"]{ display: none; }
 
     //captar datos de los procedimientos en la consulta
     $("#guardarO").click(function() {
-        console.log('ken')
             var reservacion = $("#reservacion").val();
-            console.log('hh',reservacion)
             var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
-        
-            console.log('hola ken', procesof,reservacion);                   //mostrando en consola
-            ajax_PO(procesof,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
-        }); //fin de la funcion clikea
+
+            ajax_PO(procesof,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+        });                                                               //fin de la funcion clikea
         
         function ajax_PO(procesof,reservacion) {
         $.ajax({ 
@@ -992,12 +997,9 @@ button[data-original-title="Help"]{ display: none; }
 
     //examenes a realizar (paciente)
     $("#guardarE").click(function() {
-        console.log('ken')
             var reservacion = $("#reservacion").val();
-            console.log('hh',reservacion)
             var exam = $("#exam").serialize();          //asignando el valor que se ingresa en el campo
-        
-            console.log('hola yeffer', exam,reservacion);                   //mostrando en consola
+
             ajax_E(exam,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
@@ -1014,7 +1016,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-console.log('gfhdg', data[1]);
+            console.log('gfhdg', data[1]);
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1042,10 +1044,8 @@ console.log('gfhdg', data[1]);
     //captar datos de los posibles procedimientos
     $("#guardarP").click(function() {
             var reservacion = $("#reservacion").val();
-            console.log('hh',reservacion)
             var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
-        
-            console.log('hola', proce,reservacion);                   //mostrando en consola
+
             ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
@@ -1061,8 +1061,7 @@ console.log('gfhdg', data[1]);
             }
         })
         .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-            console.log('procedure',data[1])  
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1088,16 +1087,33 @@ console.log('gfhdg', data[1]);
         })
     } // fin de la funcion
 
+    // mostrando posibles procedimientos 
+    function mostrarProcedure(data){
+        console.log('hh',data);
 
+        for($i=0; $i < data.length; $i++){
+            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
+            $("#procedimientos").append(procedure);
+        }
+        
+    }
+
+    // mostrando posibles procedimientos 
+    function mostrarExamen(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            examen='<li>'+data[$i].name+'</li>';
+            $("#examen").append(examen);
+        }
+    }
 
     //captar datos de las posibles cirugias
     $("#guardarC").click(function() {
-        console.log('ken')
+
             var reservacion = $("#reservacion").val();
-            console.log('hh',reservacion)
             var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
-        
-            console.log('hola yeffer', surgery,reservacion);                   //mostrando en consola
+
             ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
@@ -1182,8 +1198,4 @@ console.log('gfhdg', data[1]);
             
         }
 </script>
-<script>
-
-</script>
-
 @endsection

@@ -66,7 +66,8 @@ class TypePaymentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $payment = TypePayment::find($id);
+        return view('dashboard.director.type-payment-edit', compact('payment'));
     }
 
     /**
@@ -76,9 +77,14 @@ class TypePaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $payment = TypePayment::find($request->id);
+
+        $payment->name = $request->name;
+        $payment->update();
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
     /**
@@ -89,6 +95,8 @@ class TypePaymentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = typePayment::find($id);
+        $payment->delete();
+        return redirect()->route('all.register')->withSuccess('Tipo de pago eliminado');
     }
 }

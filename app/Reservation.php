@@ -5,13 +5,19 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Diagnostic;
+use Illuminate\Database\Eloquent\SoftDeletes; //importamos
 
 class Reservation extends Model
 {
+    use SoftDeletes; //Implementamos
+
+    protected $dates = ['deleted_at']; //Registramos la nueva columna
+
     protected $table = 'reservations';
 
     protected $fillable = [
-        'date', 'description', 'status', 'patient_id', 'approved', 'reschedule', 'cancel', 'discontinued', 'person_id', 'schedule_id', 'specialitie_id', 'branch_id', 
+        'date', 'description', 'status', 'patient_id', 'approved', 'reschedule', 'cancel', 'discontinued', 
+        'person_id', 'schedule_id', 'specialitie_id', 'branch_id' 
     ];
 
     public function employe()

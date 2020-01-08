@@ -251,12 +251,14 @@ class EmployesController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
         $employe = Employe::with('person.user', 'position', 'image')->find($id);
-        // dd($employe);
         $position = Position::all();
 
-        return view('dashboard.director.employe-edit', compact('employe','position'));
+        $buscar_P = Position::where('id', $employe->position->id)->first(); 
+        $posi = array($buscar_P);
+        $diff = $position->diff($posi);
+
+        return view('dashboard.director.employe-edit', compact('employe','position', 'buscar_P', 'diff'));
     }
 
     /**
@@ -305,7 +307,9 @@ class EmployesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employe = Employe::find($id);
+        $employe->delete();
+        return redirect()->route('employe.index')->withSuccess('Eliminado correctamente');
     }
 
     public function statusIn(Request $request){

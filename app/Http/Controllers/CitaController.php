@@ -48,6 +48,7 @@ class CitaController extends Controller
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
 
+        // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
 
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
@@ -250,10 +251,10 @@ class CitaController extends Controller
         // dd($cite);
         // dd($request);
         if (!is_null($cite)) {
-
+            $cite->status = 'Pendiente';
             //cuando se han editado los datos del paciente
             if ($request->habilitado != null) {
-               
+            
                 $paciente = Person::where('id', $cite->patient_id)->first();
             
                 if (!is_null($paciente)) {
@@ -289,7 +290,7 @@ class CitaController extends Controller
                 $cite->schedule_id = $schedule->id;
             }
             $cite->save();
-            // dd($cite);
+            
 
 
             //guardar razon del reprogramar
@@ -304,6 +305,7 @@ class CitaController extends Controller
             Alert::success('Cita actualizada exitosamente');
             return redirect()->route('checkin.index');
         }
+        // dd($request);
     }
 
     public function createHistory($id)
@@ -465,11 +467,14 @@ class CitaController extends Controller
 
         if(!is_null($reservation)){
            $reservation->delete();
- 
-                return response()->json([
-                'message' => 'Cita eliminada',
-                ]);
-            }
+
+        Alert::success('Cita Eliminada Exitosamente ');
+        return redirect()->route('checkin.index');
+            // return response()->json([
+            // 'message' => 'Cita eliminada',
+            // ]);
+        }
+        
     }
 
     public function speciality()

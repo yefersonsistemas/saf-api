@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 @endsection
 
-@section('title','Registro de Consultorios')
+@section('title','Registro de area')
 
 @section('content')
 <div class="section-body py-4">
@@ -19,7 +19,7 @@
                         <div class="form-group col-lg-3 col-md-3">
                             <label class="form-label">Imagen</label>
                             <div class=" mb-2">
-                                <input id="image" type="file" class="dropify" name="image" data-default-file="">
+                                <input required id="image" type="file" class="dropify" name="image" data-default-file="">
                             </div>
                         </div>
 

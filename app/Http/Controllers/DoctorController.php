@@ -42,7 +42,8 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $today = Reservation::with('patient.historyPatient', 'patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+    //    dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -279,79 +280,80 @@ class DoctorController extends Controller
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
         $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-        // dd($io);
-        // dd($io);
-        if (empty($io->outside_office)) {
+    
+        if (empty($io->outside_office) && (!empty($io->inside_office))) {
             $io->outside_office = 'fuera';
             $io->save();
-            // dd($io);
-        }
-
-        // dd($itinerary);
-        if($itinerary != null){
-
-            if($request->reposop != null){
-            //-------- crear reposo ---------
-            $reposo = Repose::create([
-                'patient_id'        =>  $request->patient_id,
-                'employe_id'        =>  $request->employe_id,
-                'description'       =>  $request->reposop, 
-                'branch_id'         =>  1
-            ]);
-
-            $reposo_id = $reposo->id;
-            $itinerary->repose_id = $reposo_id;
             $itinerary->status = 'fuera_office';
             $itinerary->save();
+        // }
+            if($itinerary != null){
 
-            }else{
-                $reposo_id = null;
-            }
+                if($request->reposop != null){
+                //-------- crear reposo ---------
+                $reposo = Repose::create([
+                    'patient_id'        =>  $request->patient_id,
+                    'employe_id'        =>  $request->employe_id,
+                    'description'       =>  $request->reposop, 
+                    'branch_id'         =>  1
+                ]);
 
-            // dd($reposo);
-    
-            if($request->reporte != null){
-            //------- crear informe medico -------
-            $reporte = ReportMedico::create([
-                'patient_id'        =>  $request->patient_id,
-                'employe_id'        =>  $request->employe_id,
-                'descripction'      =>  $request->reporte,
-                'branch_id'         =>  1
-            ]);
+                $reposo_id = $reposo->id;
+                $itinerary->repose_id = $reposo_id;
+                $itinerary->status = 'fuera_office';
+                $itinerary->save();
 
-            $reporte_id = $reporte->id;
-            $itinerary->report_medico_id = $reporte_id;
-            $itinerary->status = 'fuera_office';
-            $itinerary->save();
-            }else{
-                $reporte_id = null;
-            }
-            // dd($reporte);
+                }else{
+                    $reposo_id = null;
+                }
 
-            // ------ guardando diagnostico ------
-            $diagnostic = Diagnostic::create([
-                'patient_id'        =>  $request->patient_id, //esta
-                'description'       =>  $request->diagnostic,  //esta
-                'reason'            =>  $request->razon, //esta
-                'enfermedad_actual' =>  $request->enfermedad_actual, //esta
-                'examen_fisico'     =>  $request->examen_fisico,//esta
-                'report_medico_id'  =>  $reporte_id, //esta
-                'repose_id'         =>  $reposo_id,  //esta
-                'indications'       =>  $request->indicaciones, //esta
-                'employe_id'        =>  $request->employe_id, //esta
-                'branch_id'         =>  1,
-            ]);
-
-
-            // foreach ($request->multiselect4 as $examen) {
-            //     $diagnostic->exam()->attach($examen);
-            // }
-
-            // dd($itinerary);
+                // dd($reposo);
         
-            Alert::success('Diagnostico creado exitosamente!');
-            return redirect()->route('doctor.index');
+                if($request->reporte != null){
+                //------- crear informe medico -------
+                $reporte = ReportMedico::create([
+                    'patient_id'        =>  $request->patient_id,
+                    'employe_id'        =>  $request->employe_id,
+                    'descripction'      =>  $request->reporte,
+                    'branch_id'         =>  1
+                ]);
 
+                $reporte_id = $reporte->id;
+                $itinerary->report_medico_id = $reporte_id;
+                $itinerary->save();
+                }else{
+                    $reporte_id = null;
+                }
+                // dd($reporte);
+
+                // ------ guardando diagnostico ------
+                $diagnostic = Diagnostic::create([
+                    'patient_id'        =>  $request->patient_id, //esta
+                    'description'       =>  $request->diagnostic,  //esta
+                    'reason'            =>  $request->razon, //esta
+                    'enfermedad_actual' =>  $request->enfermedad_actual, //esta
+                    'examen_fisico'     =>  $request->examen_fisico,//esta
+                    'report_medico_id'  =>  $reporte_id, //esta
+                    'repose_id'         =>  $reposo_id,  //esta
+                    'indications'       =>  $request->indicaciones, //esta
+                    'employe_id'        =>  $request->employe_id, //esta
+                    'branch_id'         =>  1,
+                ]);
+
+
+                // foreach ($request->multiselect4 as $examen) {
+                //     $diagnostic->exam()->attach($examen);
+                // }
+
+                // dd($itinerary);
+            
+                Alert::success('Diagnostico creado exitosamente!');
+                return redirect()->route('doctor.index');
+
+            }else{
+                Alert::error('No se pudo generar su diagnostico!');
+                return redirect()->back();
+            }
         }else{
             Alert::error('No se pudo generar su diagnostico!');
             return redirect()->back();
