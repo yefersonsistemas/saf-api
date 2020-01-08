@@ -12,6 +12,11 @@ class Patient extends Model
         'date', 'history_number', 'reason', 'person_id', 'gender', 'place', 'birthdate', 'age','weight',  'occupation', 'profession', 'another_phone', 'previous_surgery', 'employe_id', 'branch_id', 'another_email',
     ];
 
+    public function file()
+    {
+        return $this->morphOne('App\File', 'fileable');
+    }
+
     public function person()
     {
         return $this->belongsTo('App\Person');

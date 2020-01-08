@@ -326,8 +326,9 @@
             autoProcessQueue: false,
             uploadMultiple: true,
             parallelUploads: 100,
-            maxFiles: 100,
-            acceptedFiles: "image/*",
+            maxFiles: 10,
+            maxFilesize:10,
+            // acceptedFiles: "image/*",
 
             init: function () {
 
@@ -335,6 +336,8 @@
                 var wrapperThis = this;
 
                 submitButton.addEventListener("click", function () {
+                    e.preventDefault();
+                    e.stopPropagation();
                     wrapperThis.processQueue();
                 });
 
@@ -358,10 +361,7 @@
                     // Agregue el botón al elemento de vista previa del archivo.
                     file.previewElement.appendChild(removeButton);
                 });
-
-                this.on('sendingmultiple', function (data, xhr, formData) {
-                    formData.append("Username", $("#Username").val());
-                });
+                
             }
         };
 </script>

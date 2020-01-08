@@ -131,7 +131,14 @@ class InController extends Controller
 
 
     public function guardar(Request $request, $id)  
-    {
+    {   
+        $dir=public_path().'/file/';
+        $files=$request->file('file');
+        foreach($files as $file){
+            $fileName=$file->getClientOriginalName();
+            $file->move($dir,$fileName);
+        }
+        dd($file);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
@@ -192,6 +199,19 @@ class InController extends Controller
                 ]);
             }
 
+            if ($request->file != null) {
+           
+                $image = $request->file('file');
+                $path = $image->store('public/exams');  
+                $path = str_replace('public/', '', $path);
+                $image = new File;
+                $image->path = $path;
+                $image->fileable_type = "App\Patient";
+                $image->fileable_id = $patient->id;
+                $image->branch_id = 1;
+                $image->save();
+             }
+
             if (!is_null($patient)) {
                 if (!empty($request->disease)) {
                     foreach ($request->disease as $disease) {
@@ -219,6 +239,7 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.index');
             }
+         
         }
     }
 
