@@ -134,11 +134,10 @@ class InController extends Controller
     {   
         $dir=public_path().'/file/';
         $files=$request->file('file');
-        foreach($files as $file){
-            $fileName=$file->getClientOriginalName();
-            $file->move($dir,$fileName);
-        }
-        dd($file);
+        // foreach($files as $file){
+        //     $fileName=$file->getClientOriginalName();
+        //     $file->move($dir,$fileName);
+        // }
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
