@@ -66,23 +66,24 @@ class AreasController extends Controller
         $image->branch_id = 1;
         $image->save();
         
-        // $todo =0;
-        // $b_area = Area::where('id', $request->type_area_id)->first();
-        // $areas = Area::get();
-        // dd($b_area->name);
-        // if($b_area->name == "Consultorio"){
+        $todo =0;
+        $b_area = TypeArea::where('id', $request->type_area_id)->first();
+        $cambio_name = strtolower($b_area->name);
+        $areas = Area::get();
+        
+        if($cambio_name == "consultorio" ){
 
-        // foreach($areas as $area){
-        //     if($request->type_area_id == $area->type_area_id){
-        //         $todo = $todo + 1;;
-        //     }
-        // }
+        foreach($areas as $area){
+            if($request->type_area_id == $area->type_area_id){
+                $todo = $todo + 1;;
+            }
+        }
 
-        // return redirect()->back()->withSuccess('Registro creado correctamente <br> Consultorio '.$todo.'');
-        //  }else{
+        return redirect()->back()->withSuccess('Registro creado correctamente <br> Consultorio '.$todo.'');
+         }else{
 
              return redirect()->back()->withSuccess('Registro creado correctamente');
-        //  }
+         }
 
        
     }
