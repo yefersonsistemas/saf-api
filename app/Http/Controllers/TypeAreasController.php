@@ -80,7 +80,8 @@ class TypeAreasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $type = TypeArea::find($id);
+        return view('dashboard.director.type-area-edit', compact('type'));
     }
 
     /**
@@ -90,9 +91,27 @@ class TypeAreasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $type = TypeArea::find($request->id);
+
+        $type->name = $request->name;
+        $type->description = $request->description;
+        $type->update();
+
+        if ($request->image != null) {
+            $image = $request->file('image');
+            $path = $image->store('public/TypeAreas');  
+            $path = str_replace('public/', '', $path);
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\TypeArea";
+            $image->imageable_id = $type->id;
+            $image->branch_id = 1;
+            $image->save();
+        }
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
     /**
@@ -103,6 +122,9 @@ class TypeAreasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type = TypeArea::find($id);
+        $type->delete();
+        return redirect()->route('all.register')->withSuccess('Tipo de area eliminada');
     }
+
 }

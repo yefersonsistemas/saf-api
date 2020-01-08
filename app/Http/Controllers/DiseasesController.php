@@ -39,7 +39,7 @@ class DiseasesController extends Controller
             'name' => 'required',
         ]);
 
-        $medicine = Disease::create([
+        $disease = Disease::create([
             'name' => $data['name'],
             'branch_id' => 1
         ]);
@@ -96,6 +96,9 @@ class DiseasesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $disease = Disease::find($id);
+        $disease->delete();
+        return redirect()->route('all.register')->withSuccess('Enfermedad eliminada');
     }
+
 }

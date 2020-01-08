@@ -103,6 +103,8 @@ class TypeDoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $doctor = TypeDoctor::find($id);
+        $doctor->delete();
+        return redirect()->route('all.register')->withSuccess('Clase de doctor eliminada');
     }
 }

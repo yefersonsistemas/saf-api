@@ -106,7 +106,7 @@
                             <li><a href="{{ route('procedure.create') }}"><i class="fa fa-hotel"></i>Procedimiento</a></li>
                             <li><a href="{{ route('employe.create') }}"><i class="fa fa-user-plus"></i>Empleado</a></li>
                             <li><a href="{{ route('doctores.create') }}"><i class="fa fa-user-md"></i>Doctor</a></li>
-                            {{-- <li><a href=""><i class=""></i>Clasificación de cirugía</a></li> --}}
+                            <li><a href="{{ route('classification.create') }}"><i class=""></i>Tipo de cirugía</a></li>
                             <li><a href="{{ route('surgery.create') }}"><i class="fa fa-medkit"></i>Cirugias</a></li>
                             <li><a href="{{ route('allergy.create') }}"><i class=""></i>Alergias</a></li>
                             <li><a href="{{ route('disease.create') }}"><i class="fa fa-heartbeat"></i>Enfermedades</a></li>

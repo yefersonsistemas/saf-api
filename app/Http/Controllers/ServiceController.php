@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Position;
 use Illuminate\Http\Request;
 use App\Service;
 
@@ -40,7 +41,7 @@ class ServiceController extends Controller
             'description' => 'required',
         ]);
 
-        $person = Service::create([
+        $service = Service::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'branch_id' => 1
@@ -68,7 +69,9 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::find($id);
+        // dd($service);
+        return view('dashboard.director.service-edit', compact('service'));
     }
 
     /**
@@ -78,9 +81,17 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request )
     {
-        //
+        // dd($request);
+        $service = Service::find($request->id);
+        // dd($service);
+
+        $service->name = $request->name;
+        $service->description = $request->description;
+        $service->update();
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
     }
 
     /**
@@ -91,6 +102,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = Service::find($id);
+        $service->delete();
+        return redirect()->route('all.register')->withSuccess('Servicio eliminado');
     }
 }

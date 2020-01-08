@@ -63,10 +63,12 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
-        Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
+        
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
+        Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
+        // delete.cite
     });
 
 
@@ -104,7 +106,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('procedures_realizados', 'DoctorController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta
         Route::post('examR', 'DoctorController@examR')->name('doctor.examR'); // guardar los examenes que se realizara el paciente
         Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos 
-        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugiasv
+        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 
@@ -144,6 +146,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('/price', 'DirectorController@store_price')->name('price.store');
         Route::get('payment/create', 'TypePaymentsController@create')->name('payment.create');
         Route::POST('/payment', 'TypePaymentsController@store')->name('payment.store');
+        Route::get('classification/surgery/create', 'TypeSurgerysController@create_classification')->name('classification.create');
+        Route::POST('/classsification', 'TypeSurgerysController@store_classification')->name('classification.store');
 
         //inicio de rutas para editar
         Route::get('list','DirectorController@all_register')->name('all.register');
@@ -167,5 +171,35 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('precio/update/{id}', 'DirectorController@update_price')->name('precio.update');
         Route::get('area/{id}', 'AreasController@edit')->name('area.edit');
         Route::put('area/update/{id}', 'AreasController@update')->name('area.update');
+        Route::get('servicio/{id}', 'ServiceController@edit')->name('servicio.edit');
+        Route::put('servicio/update/{id}', 'ServiceController@update')->name('servicio.update');
+        Route::get('especialidad/{id}', 'SpecialityController@edit')->name('especialidad.edit');
+        Route::put('especialidad/update/{id}', 'SpecialityController@update')->name('especialidad.update');
+        Route::get('cirugia/{id}', 'TypeSurgerysController@edit')->name('cirugia.edit');
+        Route::put('cirugia/update/{id}', 'TypeSurgerysController@update')->name('cirugia.update'); 
+        Route::get('tipo/area/{id}', 'TypeAreasController@edit')->name('tipo-area.edit');
+        Route::put('tipo/area/update/{id}', 'TypeAreasController@update')->name('tipo-area.update');
+        Route::get('procedure/{id}', 'ProcedureController@edit')->name('procedure.edit');
+        Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
+        Route::get('tipo/pago/{id}', 'TypePaymentsController@edit')->name('pago.edit');
+        Route::put('pago/update/{id}', 'TypePaymentsController@update')->name('pago.update');
+
+        //inicio de rutas para eliminar
+        Route::delete('employe/{id}', 'EmployesController@destroy')->name('empleado.delete');
+        Route::delete('position/{id}', 'PositionsController@destroy')->name('cargo.delete');
+        Route::delete('service/{id}', 'ServiceController@destroy')->name('servicio.delete');
+        Route::delete('especialidad/{id}', 'SpecialityController@destroy')->name('especialidad.delete');
+        Route::delete('procedimiento/{id}', 'ProcedureController@destroy')->name('procedimiento.delete');
+        Route::delete('cirugia/{id}', 'TypeSurgerysController@destroy')->name('cirugia.delete');
+        Route::delete('alergia/{id}', 'AllergyController@destroy')->name('alergia.delete');
+        Route::delete('enfermedad/{id}', 'DiseasesController@destroy')->name('enfermedad.delete');
+        Route::delete('medicina/{id}', 'MedicinesController@destroy')->name('medicina.delete');
+        Route::delete('examen/{id}', 'ExamController@destroy')->name('examen.delete');
+        Route::delete('tipo/{id}', 'TypeAreasController@destroy')->name('tipo.delete');
+        Route::delete('area/{id}', 'AreasController@destroy')->name('area.delete');
+        Route::delete('clase/{id}', 'TypeDoctorController@destroy')->name('clase.delete');
+        Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
+        Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
+
     });
 });

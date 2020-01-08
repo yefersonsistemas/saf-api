@@ -186,6 +186,27 @@
             $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
         }
 
+
+        $("#searcharea").click(function() {
+           console.log("jajaja");
+           Swal.fire({
+               title: 'Realizado!',
+                text: 'Click en OK para continuar',
+                type: 'success',
+            })
+        });
+
+        $("#searchemploye").click(function() {
+           console.log("jajaja");
+           Swal.fire({
+               title: 'Médico seleccionado!',
+                text: 'Click en OK para continuar',
+                type: 'success',
+            })
+        });
+
+
+
     </script>
     
 @endsection

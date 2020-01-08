@@ -98,8 +98,10 @@ class AllergyController extends Controller
      * @param  \App\Allergy  $allergy
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Allergy $allergy)
+    public function destroy($id)
     {
-        //
+        $allergy = Allergy::find($id);
+        $allergy->delete();
+        return redirect()->route('all.register')->withSuccess('Alergia eliminada');
     }
 }

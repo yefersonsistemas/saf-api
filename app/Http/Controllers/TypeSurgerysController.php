@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Patient;
 use App\Procedure;
-Use App\TypeSurgery;
+Use App\Typesurgery;
 
 
 
@@ -57,7 +57,7 @@ class TypeSurgerysController extends Controller
             'cost.required' => 'Es obligatorio precio de la cirugía.',
         ]);
 
-        $surgery =  TypeSurgery::create([
+        $surgery =  Typesurgery::create([
             'name'                        => $data['name'],
             'duration'                    => $data['duration'],
             'cost'                        => $data['cost'],
@@ -79,6 +79,7 @@ class TypeSurgerysController extends Controller
         return redirect()->back()->withSuccess('Registro agregado correctamente');
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -98,7 +99,17 @@ class TypeSurgerysController extends Controller
      */
     public function edit($id)
     {
-        //
+        $classification = ClassificationSurgery::get();
+        $procedure = Procedure::get();
+        $surgery = Typesurgery::with('procedure', 'classification')->find($id);
+
+        $diff_procedure = $procedure->diff($surgery->procedure);
+
+        $buscar_clasificacion = ClassificationSurgery::where('id', $surgery->classification_surgery_id)->first();
+        $clasi = array($buscar_clasificacion);
+        $diff = $classification->diff($clasi);
+
+        return view('dashboard.director.surgery-edit', compact('classification', 'procedure', 'diff_procedure','surgery', 'buscar_clasificacion', 'diff'));
     }
 
     /**
@@ -108,9 +119,23 @@ class TypeSurgerysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        $surgery = Typesurgery::with('classification', 'procedure')->find($request->id);
+
+        $surgery->name = $request->name;
+        $surgery->duration = $request->duration;
+        $surgery->cost = $request->cost;
+        $surgery->description = $request->description;
+        $surgery->classification_surgery_id = $request->classification_surgery_id;
+        $surgery->day_hospitalization =  $request->day_hospitalization;
+        $surgery->update();
+
+        $surgery->procedure()->sync($request->procedure);
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
+
     }
 
     /**
@@ -121,7 +146,9 @@ class TypeSurgerysController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type = Typesurgery::find($id);
+        $type->delete();
+        return redirect()->route('all.register')->withSuccess('Cirugía eliminada');
     }
 
     public function surgeries(Request $request){  //lista de todas las cirugias
@@ -143,5 +170,31 @@ class TypeSurgerysController extends Controller
                 'tpesurgeries' => $s,
             ]);
         }
+    }
+
+    /**
+     * tipo de cirugía
+     */
+
+    public function create_classification()
+    {
+        return view('dashboard.director.type-surgery');
+    }
+
+
+    public function store_classification(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $person = ClassificationSurgery::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'branch_id' => 1
+        ]);
+
+        return redirect()->route('all.register')->withSuccess('Registro agregado correctamente');
     }
 }

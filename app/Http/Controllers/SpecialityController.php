@@ -91,9 +91,16 @@ class SpecialityController extends Controller
      * @param  \App\Speciality  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function edit(Speciality $speciality)
+    public function edit($id)
     {
-        //
+        $servicio = Service::get();
+        $speciality = Speciality::find($id); 
+        $buscar_service = Service::where('id', $speciality->service_id)->first();
+        
+        $servi = array($buscar_service);
+        $diff = $servicio->diff($servi);
+     
+        return view('dashboard.director.speciality-edit', compact('servicio', 'speciality', 'buscar_service', 'diff'));
     }
 
     /**
@@ -103,9 +110,31 @@ class SpecialityController extends Controller
      * @param  \App\Speciality  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Speciality $speciality)
+    public function update(Request $request)
     {
-        //
+        // dd($request->id);
+        $speciality = Speciality::with('service')->find($request->id);
+        // dd($speciality);
+
+        $speciality->name = $request->name;
+        $speciality->description = $request->description;
+        $speciality->service_id = $request->service_id;
+        $speciality->update();
+
+        if ($request->image != null) {
+            $image = $request->file('image');
+            $path = $image->store('public/speciality');  //se guarda en la carpeta public
+            $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en especialidad
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\Speciality";
+            $image->imageable_id = $speciality->id;
+            $image->branch_id = 1;
+            $image->save();
+        }
+
+        return redirect()->route('all.register')->withSuccess('Registro modificado');
+
     }
 
     /**
@@ -114,11 +143,13 @@ class SpecialityController extends Controller
      * @param  \App\Speciality  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Speciality $speciality)
+    public function destroy($id)
     {
-        //
+        $speciality = Speciality::find($id);
+        $speciality->delete();
+        return redirect()->route('all.register')->withSuccess('Especialidad eliminada');
     }
-
+    
     public function doctor_S(Request $request){    //medico con todas sus especialidades
         $doctor = Employe::with('person.user', 'speciality')->where('person_id', $request->person_id)->first();
 

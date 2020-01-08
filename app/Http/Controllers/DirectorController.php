@@ -39,9 +39,12 @@ class DirectorController extends Controller
     public function all_register()
     {
        $positions = Position::get();
+    //    dd($positions);
        $services = Service::get();
        $specialitys = Speciality::get();
+    //    dd($specialitys);
        $procedures = Procedure::with('speciality')->get();
+    //    dd($procedures);
        $surgerys = Typesurgery::with('classification')->get();
        $allergys = Allergy::get();
        $diseases = Disease::get();
@@ -51,6 +54,7 @@ class DirectorController extends Controller
        $areas = Area::with('typearea')->get();
        $clases = TypeDoctor::get();
        $doctors = Doctor::with('typeDoctor')->get();
+    //    dd($doctors);
        $payments = TypePayment::get();
 
        return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 'types', 'areas', 'clases', 'doctors', 'payments'));
@@ -117,20 +121,20 @@ class DirectorController extends Controller
             'branch_id' => 1
         ]);
 
-        if (!is_null($employe)) {
+        if (!is_null($employe)) { 
             if (!empty($request->speciality)) {
                 foreach ($request->speciality as $speciality) {
                     $especialidad = Speciality::find($speciality);
-                    $employe->speciality()->sync($especialidad); 
-                }
+                    $employe->speciality()->attach($especialidad); 
+                    }
             }
         }
-
+         
         if (!is_null($employe)) {
             if (!empty($request->procedure)) {
                 foreach ($request->procedure as $procedure) {
-                    // $procedimiento = Procedure::find($procedure);
-                    $employe->procedures()->sync($procedure); 
+                    $procedimiento = Procedure::find($procedure);
+                    $employe->procedures()->attach($procedimiento); 
                 }
             }
         }
@@ -168,19 +172,21 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
         $employe = Employe::with('person.user', 'position','speciality', 'image','procedures')->find($id);
-        // dd($employe);
         $position = Position::where('name', 'doctor')->first();
-        // dd($position);
         $speciality = Speciality::get();
-        // dd($speciality);
         $procedure = Procedure::get();
         $clases = TypeDoctor::get();
         $precio = Doctor::where('employe_id', $employe->id)->first();
-        // dd($precio);
 
-        return view('dashboard.director.doctor-edit', compact('employe','position', 'speciality', 'procedure', 'clases', 'precio'));
+        $buscar_C = TypeDoctor::where('id', $precio->type_doctor_id)->first();
+        $clase = array($buscar_C);
+        $diff_C = $clases->diff($clase);
+
+        $diff_E = $speciality->diff($employe->speciality);
+        $diff_P = $procedure->diff($employe->procedures);
+
+        return view('dashboard.director.doctor-edit', compact('employe','position', 'clases', 'precio', 'diff_E', 'diff_P', 'diff_C', 'buscar_C'));
     }
 
     /**
@@ -206,31 +212,8 @@ class DirectorController extends Controller
         $employe->person->phone = $request->phone;
         $employe->person->email = $request->email;
         
-        if (!is_null($employe)) {
-            if (!empty($request->speciality)) {
-                // dd($employe);
-                foreach ($request->speciality as $speciality) {
-                    // $especialidad = Speciality::find($speciality);
-                    foreach ($employe->speciality as $speciality2) {
-                        if ($speciality != $speciality2->id ) {
-                            $employe->speciality()->attach($speciality); 
-                        }
-                    }
-                   
-                }
-            }
-        }
-
-        if (!is_null($employe)) {
-            if (!empty($request->procedure)) {
-                foreach ($request->procedure as $procedure) {
-                    $procedimiento = Procedure::find($procedure);
-                    if ($procedimiento != $employe->procedure) {
-                        $employe->procedures()->attach($procedimiento); 
-                    }
-                }
-            }
-        }
+        $employe->speciality()->sync($request->speciality);
+        $employe->procedures()->sync($request->procedure); 
 
         $doctor->price = $request->price;
         $doctor->type_doctor_id = $request->type_doctor_id;
@@ -302,7 +285,7 @@ class DirectorController extends Controller
         $precio = Doctor::find($id);
     //    dd($precio);
         $employes = Employe::with('person.user', 'position', 'doctor')->where('id',$precio->employe_id)->first();
-        //dd($employes);
+        // dd($employes);
         $clases = TypeDoctor::get();
         //dd($clases);
 
@@ -322,5 +305,12 @@ class DirectorController extends Controller
         $precio->update();
 
         return redirect()->route('all.register')->withSuccess('Registro modificado');
+    }
+
+    public function destroy_consulta($id)
+    {
+        $doctor = Doctor::find($id);
+        $doctor->delete();
+        return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
 }

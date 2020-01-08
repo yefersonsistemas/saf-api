@@ -9,7 +9,7 @@ class Procedure extends Model
     protected $table = 'procedures';
 
     protected $fillable = [
-        'name', 'description', 'price', 'speciality_id', 'branch_id'
+        'name', 'description', 'price', 'branch_id'
     ];
 
     public function person()
@@ -40,7 +40,8 @@ class Procedure extends Model
 
     public function speciality()
     {
-        return $this->belongsTo('App\Speciality');
+        return $this->belongsToMany('App\Speciality','procedure_speciality')
+       ->withPivot('procedure_id','id');
     }
 
     public function itineraryS() 
