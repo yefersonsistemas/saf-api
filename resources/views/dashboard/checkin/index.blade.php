@@ -25,7 +25,7 @@
         border: 2px solid #00506b;
     }
 
-       img.rounded{
+        img.rounded{
             max-width: 50px;
             width: 50px;
         } 
@@ -315,7 +315,6 @@
                                             </tr>
                                         @endif      
                                     @empty
-                                        <h2>Sin datos</h2>
                                     @endforelse
                                 </tbody>
                             </table>
