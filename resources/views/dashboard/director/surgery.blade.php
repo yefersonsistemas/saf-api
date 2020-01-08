@@ -36,8 +36,8 @@
                         <div class="row d-flex justify-content-between">
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
-                                    <label class="form-label">Duración</label>
-                                    <input type="text" class="form-control" placeholder="Duración" name="duration" value="{{ old('duration') }}" required>
+                                    <label class="form-label">Duración (horas)</label>
+                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Duración" name="duration" value="{{ old('duration') }}" required>
                                 </div>
                             </div> 
 
@@ -63,7 +63,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
                                     <label class="form-label">Cantidad de días</label>
-                                    <input type="text" class="form-control" placeholder="Días" name="day_hospitalization" value="{{ old('day_hospitalization') }}" required>
+                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Días" name="day_hospitalization" value="{{ old('day_hospitalization') }}" required>
                                 </div>
                             </div>  
                         </div>  
@@ -113,6 +113,7 @@
     });
 </script>
 
+{{-- si acepta . y , --}}
 <script>
     onload = function(){ 
     var ele = document.querySelectorAll('.validanumericos')[0];
@@ -124,5 +125,19 @@
         e.preventDefault();
     }
     }
+</script>
+
+{{-- no acepta . y , --}}
+<script type="text/javascript"> function controltag(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) 
+    return true;
+    else 
+    if (tecla==0||tecla==9)  
+    return true;
+    patron =/[0-9\s]/;// -> solo numeros
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
 </script>
 @endsection
