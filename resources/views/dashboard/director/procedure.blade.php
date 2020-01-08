@@ -30,7 +30,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group"> 
                                 <label class="form-label">Precio</label>
-                                <input type="text"  class="form-control" placeholder="Precio" name="price" value="{{ old('price') }}" required>
+                                <input type="text"  class="form-control validanumericos" placeholder="Precio" name="price" value="{{ old('price') }}" required>
                             </div>
                         </div> 
 
@@ -71,4 +71,17 @@
 @endsection
 
 @section('scripts')
+
+<script>
+onload = function(){ 
+  var ele = document.querySelectorAll('.validanumericos')[0];
+  ele.onkeypress = function(e) {
+     if(isNaN(this.value+String.fromCharCode(e.charCode)))
+        return false;
+  }
+  ele.onpaste = function(e){
+     e.preventDefault();
+  }
+}
+</script>
 @endsection

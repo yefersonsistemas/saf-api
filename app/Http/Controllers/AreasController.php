@@ -51,10 +51,6 @@ class AreasController extends Controller
             'type_area_id' => $request->type_area_id,
             'branch_id' => 1
         ]);
-
-      
-       
-       
      
         $image = $request->file('image');
         $path = $image->store('public/Areas');  
@@ -70,7 +66,7 @@ class AreasController extends Controller
         $b_area = TypeArea::where('id', $request->type_area_id)->first();
         $cambio_name = strtolower($b_area->name);
         $areas = Area::get();
-        
+
         if($cambio_name == "consultorio" ){
 
         foreach($areas as $area){
@@ -84,8 +80,6 @@ class AreasController extends Controller
 
              return redirect()->back()->withSuccess('Registro creado correctamente');
          }
-
-       
     }
 
     /**

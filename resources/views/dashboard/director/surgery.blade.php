@@ -44,7 +44,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
                                     <label class="form-label">Precio</label>
-                                    <input type="text" class="form-control" placeholder="Precio" name="cost" value="{{ old('cost') }}" required>
+                                    <input type="text" class="form-control validanumericos" placeholder="Precio" name="cost" value="{{ old('cost') }}" required>
                                 </div>
                             </div> 
 
@@ -78,7 +78,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>s
+                        </div>
 
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -111,5 +111,18 @@
         enableCaseInsensitiveFiltering: true,
         maxHeight: 200
     });
+</script>
+
+<script>
+    onload = function(){ 
+    var ele = document.querySelectorAll('.validanumericos')[0];
+    ele.onkeypress = function(e) {
+        if(isNaN(this.value+String.fromCharCode(e.charCode)))
+            return false;
+    }
+    ele.onpaste = function(e){
+        e.preventDefault();
+    }
+    }
 </script>
 @endsection

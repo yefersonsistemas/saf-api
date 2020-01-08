@@ -67,7 +67,7 @@
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-label"> Teléfono </label>
-                                                    <input type="text" class="form-control" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
+                                                    <input type="text" class="form-control validanumericos" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
                                                 </div>
                                             </div>
                                             
@@ -162,6 +162,19 @@
 
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+
+<script>
+onload = function(){ 
+  var ele = document.querySelectorAll('.validanumericos')[0];
+  ele.onkeypress = function(e) {
+     if(isNaN(this.value+String.fromCharCode(e.charCode)))
+        return false;
+  }
+  ele.onpaste = function(e){
+     e.preventDefault();
+  }
+}
+</script>
 
 @endsection
 
