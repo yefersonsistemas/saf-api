@@ -43,7 +43,6 @@ class DoctorController extends Controller
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
         $today = Reservation::with('patient.historyPatient', 'patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-    //    dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -193,82 +192,96 @@ class DoctorController extends Controller
     // ================================= referir doctor ======================================
     public function referenceStore(Request $request)
     {
-        //    dd($request);
+            // dd($request);
         $person = Person::with('historyPatient')->where('id',$request->patient)->first();
+        $io = InputOutput::where('person_id', $person->id)->first();
+        
+        if (!empty($io->inside) && !empty($io->inside_office) && empty($io->outside_office) && empty($io->outside) ) {
 
-        if($request->doctor != null  || $request->doctorExterno != null){
+            if($request->doctor != null  || $request->doctorExterno != null){
 
-            if($request->speciality != null && $request->reason != null){
+                if($request->speciality != null && $request->reason != null){
 
-                $reference = Reference::create([
-                    'patient_id'    =>  $person->id,
-                    'specialitie_id'    =>  $request['speciality'],
-                    'reason'        =>  $request['reason'],
-                    'employe_id'    =>  $request->doctor,
-                    'doctor'        =>  $request->doctorExterno,
-                ]);
+                    $reference = Reference::create([
+                        'patient_id'    =>  $person->id,
+                        'specialitie_id'    =>  $request['speciality'],
+                        'reason'        =>  $request['reason'],
+                        'employe_id'    =>  $request->doctor,
+                        'doctor'        =>  $request->doctorExterno,
+                    ]);
 
-                $itinerary = Itinerary::where('patient_id', $person->id)->first();
-                if (!is_null($itinerary)) {
-                    $itinerary->reference_id = $reference->id;
-                    $itinerary->save();
+                    $itinerary = Itinerary::where('patient_id', $person->id)->first();
+                    if (!is_null($itinerary)) {
+                        $itinerary->reference_id = $reference->id;
+                        $itinerary->save();
+                    }
+
+                    return response()->json([
+                        'reference' => 'Médico referido',201
+                    ]);
+                }else{
+                    return response()->json([
+                        'reference' => 'Datos incompletos',202
+                    ]);
                 }
-
-                return response()->json([
-                    'reference' => 'Médico referido',201
-                ]);
-            }else{
+            }{
                 return response()->json([
                     'reference' => 'Datos incompletos',202
                 ]);
             }
-        }{
+         }else{
             return response()->json([
-                'reference' => 'Datos incompletos',202
+                'reference' => 'No se pudo generar su referencia',202
             ]);
-        }
+         }
     }
 
 
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================
     public function recipeStore(Request $request)
     {
+        // dd($request);
         $itinerary = Itinerary::with('person','employe.person','reservation')->where('reservation_id', $request->reservacion)->first();
+// dd($itinerary);
+        if(!empty($itinerary)){
+            if($itinerary->recipe_id == null){
+                
+                // crear el recipe
+                $crear_recipe = Recipe::create([               
+                    'patient_id'   =>  $itinerary->patient_id,
+                    'employe_id'   =>  $itinerary->employe_id,
+                    'branch_id'    =>  1,
+                ]);
 
-        if($itinerary->recipe_id == null){
-            
-            // crear el recipe
-            $crear_recipe = Recipe::create([               
-                'patient_id'   =>  $itinerary->patient_id,
-                'employe_id'   =>  $itinerary->employe_id,
-                'branch_id'    =>  1,
+                //actualiza el campo de recipe en itinerary
+                $itinerary->recipe_id = $crear_recipe->id;     
+                $itinerary->save();
+
+            }else{
+                $crear_recipe = Recipe::where('id', $itinerary->recipe_id)->first();
+            }
+
+            // $paciente = Person::find($paciente);
+            $treatment = Treatment::create([
+                'medicine_id'   =>  $request->medicina,
+                'doses'         =>  $request->dosis,
+                'duration'      =>  $request->duracion,
+                'measure'       =>  $request->medida,
+                'indications'   =>  $request->indicaciones,
+                'recipe_id'     =>  $crear_recipe->id,
+                'branch_id'     =>  1,
             ]);
 
-            //actualiza el campo de recipe en itinerary
-            $itinerary->recipe_id = $crear_recipe->id;     
-            $itinerary->save();
+            $crear_recipe->medicine()->attach($request->medicina);
 
+            $treatments = Treatment::with('medicine')->where('id', $treatment->id)->first();
+
+            return response()->json($treatments);
         }else{
-            $crear_recipe = Recipe::where('id', $itinerary->recipe_id)->first();
+            return response()->json([
+                'recipe' => 'No se pudo generar recipe', 202,
+            ]);
         }
-
-        // $paciente = Person::find($paciente);
-        $treatment = Treatment::create([
-            'medicine_id'   =>  $request->medicina,
-            'doses'         =>  $request->dosis,
-            'duration'      =>  $request->duracion,
-            'measure'       =>  $request->medida,
-            'indications'   =>  $request->indicaciones,
-            'recipe_id'     =>  $crear_recipe->id,
-            'branch_id'     =>  1,
-        ]);
-
-        $crear_recipe->medicine()->attach($request->medicina);
-
-        $treatments = Treatment::with('medicine')->where('id', $treatment->id)->first();
-        // $treatment->load('medicine');
-
-        return response()->json($treatments);
     }
 
 

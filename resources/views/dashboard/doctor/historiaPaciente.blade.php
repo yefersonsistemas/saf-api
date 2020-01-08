@@ -783,17 +783,34 @@ button[data-original-title="Help"]{ display: none; }
         patient         = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
-        // console.log(reservacion)
 
-        ajax(medicina, dosis, medida, duracion, indicaciones, reservacion);
+        console.log("1",medicina);
+        console.log("2",dosis);
+        console.log("3",medida);
+        console.log("4",duracion);
+        console.log("5",indicaciones);
+        console.log("6",patient);
+        console.log("7",employe);
+        console.log("8",reservacion);
 
-        validacion(medicina, dosis, medida, duracion, reservacion);
+        ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion);
+
+        // validacion(medicina, dosis, medida, duracion, reservacion);
     });
 
-    function validacion (medicina, dosis, medida, duracion, reservacion){
-    }
+    // function validacion (medicina, dosis, medida, duracion, reservacion){
+    // }
 
-    function ajax(medicina, dosis, medida, duracion, indicaciones, reservacion){
+    function ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion){
+        console.log("1",medicina);
+        console.log("2",dosis);
+        console.log("3",medida);
+        console.log("4",duracion);
+        console.log("5",indicaciones);
+        console.log("6",patient);
+        console.log("7",employe);
+        console.log("8",reservacion);
+
         $.ajax({
                 url: "{{ route('recipe.store') }}",
                 type: "POST",
@@ -808,13 +825,21 @@ button[data-original-title="Help"]{ display: none; }
                 }
             })
             .done(function(data) {
-                console.log(data);
+                console.log("hola ken", data);
+                if(data[0] == 202){
+                    Swal.fire({
+                    title: 'Error!',
+                    text: data.recipe,
+                    type: 'error',
+                });
+                }else{
                 Swal.fire({
                     title: 'Excelente!',
                     text: 'Medicina agregada',
                     type: 'success',
                 })
                 addRow(data);
+            }
             })
             .fail(function(data) {
                 console.log(data);
@@ -899,6 +924,7 @@ button[data-original-title="Help"]{ display: none; }
         var doctor = $("#medicoInterno").val(); 
         var doctorExterno = $("#medicoExterno").val(); 
         var patient = $("#patient").val();   
+        var reservation = $("#reservacion_id").val();
         console.log('espe',speciality);
         console.log('reason',reason);
         console.log('d',doctor);

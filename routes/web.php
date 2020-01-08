@@ -71,7 +71,6 @@ Route::group(['middleware' => 'auth'], function (){
         // delete.cite
     });
 
-
     //======================= rutas para el usuario ckeckout ====================
     Route::group(['middleware' => ['role:OUT']], function () {
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
