@@ -39,7 +39,16 @@ class TypeDoctorController extends Controller
         
            $data = $request->validate([
             'name' => 'required',
-            'comission'  => 'required',
+            'comission'  => 'numeric|required|regex:/^[\w\d.]+$/i',
+          //  'comission'  => 'numeric|required|regex:/^\d{1,3}(?:\.\d\d\d)*(?:,\d{1,2})?$/', //decimas opcinal
+
+            /*
+             *   ^                 # Inicio de línea/string
+             *   \d{1,3}           # de 1 a 3 números
+             *   (?:\.\d\d\d)*     # un punto y 3 números. Todo ello repetido 0 veces o más (*)
+             *  (?:,\d{1,2})?      # una coma y de uno a dos números. Dentro de un grupo con un ?  que hace que el conjunto aparezca 0 o 1 vez
+             *   $                 # Fin de línea/string
+             */
          
         ]);
 

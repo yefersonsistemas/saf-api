@@ -26,7 +26,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group"> 
                                 <label class="form-label">Comisión</label>
-                                <input type="text"  class="form-control" placeholder="Comisión" name="comission" value="{{ $type->comission }}" required>
+                                <input type="text"  class="form-control validanumericos" placeholder="Comisión" name="comission" value="{{ $type->comission }}" required>
                             </div>
                         </div> 
                     </div>
@@ -50,4 +50,21 @@
         </form>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+
+<script>
+onload = function(){ 
+  var ele = document.querySelectorAll('.validanumericos')[0];
+  ele.onkeypress = function(e) {
+     if(isNaN(this.value+String.fromCharCode(e.charCode)))
+        return false;
+  }
+  ele.onpaste = function(e){
+     e.preventDefault();
+  }
+}
+</script>
 @endsection
