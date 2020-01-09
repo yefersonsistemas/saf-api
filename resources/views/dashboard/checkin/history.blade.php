@@ -323,7 +323,7 @@
 <script>
  Dropzone.options.myDropzone = {
             url: "{{ route('save.history', $rs) }}",
-            autoProcessQueue: false,
+            autoProcessQueue: true,
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 10,

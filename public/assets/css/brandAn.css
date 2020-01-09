@@ -1021,3 +1021,7 @@ td img {
     max-width: 50px;
     width: 50px;
 }
+
+.dropzone .dz-preview .dz-image img {
+    max-width: 120px!important;
+}

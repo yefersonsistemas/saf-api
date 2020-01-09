@@ -132,12 +132,7 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  
     {   
-        $dir=public_path().'/file/';
-        $files=$request->file('file');
-        // foreach($files as $file){
-        //     $fileName=$file->getClientOriginalName();
-        //     $file->move($dir,$fileName);
-        // }
+        dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
@@ -574,17 +569,5 @@ class InController extends Controller
         }
     }
 
-
-    public function exams_previos(Request $request)
-    {
-        $p = Patient::where('id', $request->id)->first();
-
-        File::create([
-            'filiable_type' => 'Paciente',
-            'filiable_id' => $p->id,
-
-        ]);
-
-        $request->file('nombre del archivo')->store('Exams');
-    }
+    
 }
