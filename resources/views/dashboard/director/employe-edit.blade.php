@@ -91,11 +91,11 @@
 
                             <div class="row">
 
-                                <div class=" mb-2 col-lg-3">
+                                <div class="mt-3 col-lg-3">
                                     <input id="image" type="file" class="dropify" name="image" data-default-file="">
                                 </div>
                             
-                                <div class="col-lg-4 mt-4">
+                                <div class="col-lg-3 mt-4">
                                     <div class="form-group">
                                         <label class="form-label">Cargo</label>
                                         <select name="position_id" id="id" class="custom-select input-group-text bg-white form-control">                                         

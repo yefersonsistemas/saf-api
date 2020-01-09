@@ -18,7 +18,6 @@ use App\User;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class EmployesController extends Controller
 {
@@ -209,6 +208,7 @@ class EmployesController extends Controller
                 'email'      => $person->email,
                 'password'   => encrypt($request->password),
                 'person_id'  => $person->id,
+                // 'remember_token'    => ,
                 'branch_id' => 1
                 ]);
 
