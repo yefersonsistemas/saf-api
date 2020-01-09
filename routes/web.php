@@ -107,6 +107,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos 
         Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
+        Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
+        Route::put('doctor/update{id}','DoctorController@update')->name('doctor.update');
     });
 
     Route::group(['middleware' => ['role:director']], function(){

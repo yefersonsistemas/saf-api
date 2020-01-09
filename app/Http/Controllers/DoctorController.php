@@ -42,13 +42,20 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient', 'patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        // dd($today);  
+        $patient = Patient::with('person', 'diagnostic')->where('person_id', $today->patient_id)->first();
+        dd($patient);
+
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
         $date = Carbon::now();
         $week = Reservation::with('patient.historyPatient')->where('person_id',$id)->whereBetween('date', [$date->startOfWeek()->format('Y-m-d'), $date->endOfWeek()->format('Y-m-d')])->get();
-        return view('dashboard.doctor.index', compact('today','month', 'all', 'week'));
+        
+        $fecha= Carbon::now()->format('Y/m/d h:m:s'); //la h en minuscula muestra hora normal, y en mayuscula hora militar
+        // dd($fecha);
+        return view('dashboard.doctor.index', compact('today','month', 'all', 'week', 'fecha'));
     }
 
     /**
@@ -84,8 +91,7 @@ class DoctorController extends Controller
     {
         // dd($id);
         $medicines = Medicine::all();
-        $specialities = Speciality::all();
-
+        $specialities = Speciality::all(); 
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         
@@ -96,14 +102,8 @@ class DoctorController extends Controller
             ->where('person_id', $id)->first();
 
         $exams = Exam::all();
-
         $surgerys = TypeSurgery::all();
 
-
-            // dd(  $cite);
-            // return response()->json([
-            //   'Patient' => $history,
-            // ]);
         return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm'));
     }
 
@@ -113,9 +113,21 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($patient)
     {
-        //
+        dd($patient);
+        $paciente = Diagnostic::with('exam', 'procedure' ,'medicine')->where('patient_id', $patient)->where('employe_id', $employe)->first();
+        dd($paciente);
+        $person = Patient::where('id', $patient)->first();
+        // dd($person);
+        $itinerary = Itinerary::with('exam', 'procedure')->where('patient_id', $person->person_id)->first();
+        // dd($itinerary);
+        $report = ReportMedico::where('id', $paciente->report_medico_id)->first();
+        // dd($report);
+        $reposo = Repose::where('id', $paciente->repose_id)->first();
+        // dd($reposo);
+        
+        return view('dashboard.doctor.edit', compact('paciente', 'report','reposo'));
     }
 
     /**
