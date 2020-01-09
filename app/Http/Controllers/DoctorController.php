@@ -9,7 +9,7 @@ use App\Exam;
 use App\Diagnostic;
 use App\Procedure;
 use App\Surgery;
-use App\TypeSurgery;
+use App\Typesurgery;
 use Carbon\Carbon;
 use App\Http\Requests\CreateDiagnosticRequest;
 use App\Employe;
@@ -102,7 +102,8 @@ class DoctorController extends Controller
             ->where('person_id', $id)->first();
 
         $exams = Exam::all();
-        $surgerys = TypeSurgery::all();
+
+        $surgerys = Typesurgery::all();
 
         return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm'));
     }

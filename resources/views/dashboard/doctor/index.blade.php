@@ -125,7 +125,7 @@
                                         <tr class="event-click" style="border-radius:3px; border:2px solid #ccc">
                                         @endif --}}
 
-                                        <tr class="event-click">
+                                        <tr>
                                             <td scope="row">{{ $loop->iteration}}</td>
                                             <td style="height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
