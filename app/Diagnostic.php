@@ -14,7 +14,7 @@ class Diagnostic extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient', 'patient_id');
+        return $this->belongsTo('App\Person', 'patient_id');
     }
 
     public function payment()

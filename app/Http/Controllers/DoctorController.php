@@ -42,10 +42,10 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-        // dd($today);  
-        $patient = Patient::with('person', 'diagnostic')->where('person_id', $today->patient_id)->first();
-        dd($patient);
+        $today = Reservation::with('patient.historyPatient', 'patient.diagnostic','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        dd($today);  
+        // $patient = Patient::with('person', 'diagnostic')->where('person_id', $today->first()->patient_id)->first();
+        // dd($patient);
 
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
