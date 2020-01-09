@@ -89,29 +89,15 @@
                     <h2>Elegir Especialidad</h2>
                     <section>
                         <div class="row justify-content-between">
-                            @foreach ($specialities as $speciality)
-                            {{-- <div class="col-6 col-sm-4">
-                                    <label class="imagecheck mb-3">
-                                        <div class="card max-card text-center">
-                                            <div class="card-header text-center ">
-                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                                <figure class="imagecheck-figure border-0">
-                                                    <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image max-img">
-                                                </figure>
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $speciality->name }}</h5>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div> --}}
+                            @foreach ($surgeries as $surgery)
+
                                 <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
                                     <div class="card assigment">
-                                            <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                            @if (!empty($speciality->image->path))
+                                            <input type="radio" name="surgery" value="{{ $surgery->id }}" id="" class="imagecheck-input">
+                                            @if (!empty($surgery->image->path))
                                             <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                <img width="100%" height="100%" src="{{ Storage::url($surgery->image->path) }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
                                             @else
                                             <figure class="imagecheck-figure border-0 text-center">
@@ -119,13 +105,13 @@
                                             </figure>
                                             @endif
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                                <h6 class="font-weight-bold" style="font-size:15px">{{ $speciality->name }}</h6>
+                                                <h6 class="font-weight-bold" style="font-size:15px">{{ $surgery->name }}</h6>
                                             </div>
                                         </div>
                                     </label>
                                 </div>
                             @endforeach
-                            <input type="hidden" name="speciality" id="speciality">
+                            <input type="hidden" name="surgery" id="surgery">
                         </div>
                     </section>
                     <h2>Elegir Medico</h2>
@@ -213,7 +199,7 @@
             type: 'success',
             allowOutsideClick:false,
             confirmButtonColor: '#3085d6',
-            confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
+            confirmButtonText: '<a href="{{ route('checkout.index') }}" style="color:#fff">OK</a>'
             }).then((result) => {
                 if (result.value) {
                 }
@@ -236,7 +222,7 @@
 
     function ajax(type_dni, dni) {
         $.ajax({
-                url: "{{ route('search.patient') }}",
+                url: "{{ route('search.patients') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -309,15 +295,15 @@
         $('#newPerson').val('nuevo');
     }
 
-    function speciality() {
-        $("input[name='speciality']").click(function() {
-            var speciality = $(this).val();
+    function surgery() {
+        $("input[name='surgery']").click(function() {
+            var surgery = $(this).val();
             $.ajax({
                     url: "{{ route('search.medic') }}",
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        id: speciality,
+                        id: surgery,
                     }
                 })
                 .done(function(data) {
@@ -327,7 +313,7 @@
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    $('#speciality').val(data[0].id);
+                    $('#surgery').val(data[0].id);
                     cargarMedicos(data);
                 })
                 .fail(function(data) {
@@ -390,6 +376,7 @@
                         endDate: data.end,
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
+                    
                     });
                     $('#fecha').val();
                 })
@@ -407,7 +394,7 @@
         var email = $('#email').val();
         var address = $('#address').val();
         var phone = $('#phone').val();
-        var speciality = $('#speciality').val();
+        var surgery = $('#surgery').val();
         var doctor = $('#doctor').val();
         var motivo = $('#motivo').val();
         var date = $('#date').val();
@@ -424,7 +411,7 @@
                     email: email,
                     address: address,
                     phone: phone,
-                    speciality: speciality,
+                    surgery: surgery,
                     doctor: doctor,
                     motivo: motivo,
                     date: date,

@@ -68,7 +68,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
-        // delete.cite
     });
 
 
@@ -92,6 +91,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
         Route::get('informe/{id}','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
+        Route::get('programar/{id?}','OutController@programar_cirugia')->name('checkout.programar_cirugia'); // para enviar a la vista programar posible cita
+        Route::post('search/checkout/patients','ReservationController@search_patients')->name('search.patients');
+        // Route::post('search/checkout/patients','OutController@search_patients')->name('search.patients');
+        // Route::post('create/cirugia','ReservationController@create')->name('create.cirugia'); //agenda y crea cirugia
         // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 

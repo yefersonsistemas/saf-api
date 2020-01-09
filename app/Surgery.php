@@ -30,13 +30,13 @@ class Surgery extends Model
     public function equipment() 
     {
         return $this->belongsToMany('App\Equipment','equipment_surgery')
-       ->withPivot('equipment_id','id');
+        ->withPivot('equipment_id','id');
     }
 
     public function itineraryP() 
     {
         return $this->belongsToMany('App\Procedure','itinerary_surgery_procedure')
-       ->withPivot('procedure_id','id');
+        ->withPivot('procedure_id','id');
     }
 
     public function patient()

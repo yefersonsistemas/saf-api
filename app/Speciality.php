@@ -45,7 +45,7 @@ class Speciality extends Model
     public function employe() //relacion  con la tabla m:m 
     {
         return $this->belongsToMany('App\Employe','speciality_employe')
-       ->withPivot('employe_id','id');
+        ->withPivot('employe_id','id');
     }
 
     public function branch()
@@ -71,7 +71,7 @@ class Speciality extends Model
     public function procedure()
     {
         return $this->belongsToMany('App\Procedure','procedure_speciality')
-       ->withPivot('speciality_id','id');
+        ->withPivot('speciality_id','id');
     }
 
 }

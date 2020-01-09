@@ -546,7 +546,6 @@ class OutController extends Controller
         ]);
     }
 
- 
 
     public function recipe(Request $request)
     {
@@ -555,5 +554,11 @@ class OutController extends Controller
         return response()->json([
             'recipe' => $patient,
         ]);
+    }
+
+    public function programar_cirugia(){
+
+        $surgeries = TypeSurgery::all();
+        return view('dashboard.checkout.programar_cirugia', compact('surgeries'));
     }
 }

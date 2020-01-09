@@ -82,7 +82,7 @@
                     <li class="g_heading">Checkout</li>
                     <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          
                     <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
-                    {{-- <li class=""><a href="{{ route('checkout.index_procedimientos') }}"><i class="fa fa-hospital-o"></i><span>Procedimientos</span></a></li>                         --}}
+                    <li class=""><a href="{{ route('checkout.programar_cirugia') }}"><i class="fa fa-calendar"></i><span>Agendar Cirugia</span></a></li>                        
                 
                     <li><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
                     {{-- <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li> --}}
