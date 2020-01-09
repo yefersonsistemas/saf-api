@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('outside/{id}', 'OutController@statusOut')->name('checkout.statusOut'); // cambia estado depaciente a fuera del consultorio
 
     Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
-    Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+  
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update{id}','DoctorController@update')->name('doctor.update');
+        Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
     });
 
     Route::group(['middleware' => ['role:director']], function(){

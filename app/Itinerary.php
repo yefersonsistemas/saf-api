@@ -39,10 +39,10 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
         return $this->belongsTo('App\Procedure');
     }
 
-    // public function procedureR()
-    // {
-    //     return $this->belongsTo('App\Procedure','procedureR_id');
-    // }
+    public function procedureR()
+    {
+        return $this->belongsTo('App\Procedure','procedureR_id');
+    }
 
     public function reference()
     {
@@ -71,7 +71,7 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
 
     public function exam()
     {
-        return $this->belongsTo('App\Exam');
+        return $this->belongsTo('App\Exam', 'exam_id');
     }
 
     public function recipe()

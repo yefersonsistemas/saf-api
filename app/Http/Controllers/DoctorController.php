@@ -42,11 +42,8 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         $empleado = Employe::where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient', 'patient.diagnostic','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-        dd($today);  
-        // $patient = Patient::with('person', 'diagnostic')->where('person_id', $today->first()->patient_id)->first();
-        // dd($patient);
-
+        $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+      
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -54,7 +51,7 @@ class DoctorController extends Controller
         $week = Reservation::with('patient.historyPatient')->where('person_id',$id)->whereBetween('date', [$date->startOfWeek()->format('Y-m-d'), $date->endOfWeek()->format('Y-m-d')])->get();
         
         $fecha= Carbon::now()->format('Y/m/d h:m:s'); //la h en minuscula muestra hora normal, y en mayuscula hora militar
-        // dd($fecha);
+
         return view('dashboard.doctor.index', compact('today','month', 'all', 'week', 'fecha'));
     }
 
@@ -96,8 +93,7 @@ class DoctorController extends Controller
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         
         $procesm = Employe::with('procedures')->where('id', $history->person_id)->first(); 
-        
-        // dd($procesm);
+     
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
 
@@ -114,21 +110,69 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($patient)
+    public function edit($id)
     {
-        dd($patient);
-        $paciente = Diagnostic::with('exam', 'procedure' ,'medicine')->where('patient_id', $patient)->where('employe_id', $employe)->first();
-        dd($paciente);
-        $person = Patient::where('id', $patient)->first();
-        // dd($person);
-        $itinerary = Itinerary::with('exam', 'procedure')->where('patient_id', $person->person_id)->first();
-        // dd($itinerary);
-        $report = ReportMedico::where('id', $paciente->report_medico_id)->first();
-        // dd($report);
-        $reposo = Repose::where('id', $paciente->repose_id)->first();
-        // dd($reposo);
+        $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
+        ->where('id',$id)->first();
+     
+        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+        ->where('person_id', $reservation->patient_id)->first();
+     
+        $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
         
-        return view('dashboard.doctor.edit', compact('paciente', 'report','reposo'));
+        $r_patient = Diagnostic::with('repose', 'reportMedico')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
+
+        $itinerary = Itinerary::with('exam','recipe.medicine.treatment', 'typesurgery')->where('patient_id', $reservation->patient_id)->first();
+        // dd($itinerary);
+        //decodificando y buscando datos de posibles procedures 
+        $medicines = Medicine::all();
+        if (!empty($itinerary->procedure_id)) {
+            $procedures_id = explode(',', $itinerary->procedure_id); //decodificando los procedimientos en $encontrado
+            if (!empty($procedures_id)) {
+                foreach($procedures_id as $procedure){
+                    $procedures[] = Procedure::find($procedure);
+                }
+            }
+        }
+
+        //decodificando y buscando datos de procedures realizados
+        if (!empty($itinerary->procedureR_id)) {
+            $proceduresR_id = explode(',', $itinerary->procedureR_id); //decodificando los procedimientos en $encontrado
+            if (!empty($proceduresR_id)) {
+                foreach($proceduresR_id as $procedureR){
+                    $proceduresR[] = Procedure::find($procedureR);
+                }
+            }
+        }
+        
+          //decodificando y buscando datos de examenes
+        if (!empty($itinerary->exam_id)) {
+            $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
+            if (!empty($exam_id)) {
+                foreach($exam_id as $exam){
+                    $exams[] = Procedure::find($exam);
+                }
+            }
+        }
+
+        $procesm = Employe::with('procedures')->where('id', $reservation->person_id)->first(); 
+        $diff_PR = $procesm->procedures->diff($proceduresR);      
+
+        $examenes = Exam::all();
+        // dd($examenes);
+        $diff_E = $examenes->diff($exams);
+        $diff_P = $procesm->procedures->diff($procedures);
+
+        $surgery = array($itinerary->typesurgery);
+        // dd($surgery);
+
+        $cirugias = TypeSurgery::get();
+        // dd($cirugias);
+        $diff_C = $cirugias->diff($surgery);
+
+        // dd($diff_C->all());
+        
+        return view('dashboard.doctor.editar', compact('r_patient','procedures', 'proceduresR', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery'));
     }
 
     /**
@@ -255,7 +299,7 @@ class DoctorController extends Controller
     {
         // dd($request);
         $itinerary = Itinerary::with('person','employe.person','reservation')->where('reservation_id', $request->reservacion)->first();
-// dd($itinerary);
+
         if(!empty($itinerary)){
             if($itinerary->recipe_id == null){
                 
@@ -302,6 +346,8 @@ class DoctorController extends Controller
     public function storeDiagnostic(Request $request)
     {
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $reservation = Reservation::where('id', $request->reservacion_id)->first();
+        $patient = Patient::where('person_id', $reservation->patient_id)->first();
 
         if($itinerary != null){
                 $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
@@ -335,7 +381,7 @@ class DoctorController extends Controller
                     if($request->reporte != null){
                     //------- crear informe medico -------
                     $reporte = ReportMedico::create([
-                        'patient_id'        =>  $request->patient_id,
+                        'patient_id'        =>  $patient->id,
                         'employe_id'        =>  $request->employe_id,
                         'descripction'      =>  $request->reporte,
                         'branch_id'         =>  1
@@ -350,7 +396,7 @@ class DoctorController extends Controller
 
                     // ------ guardando diagnostico ------
                     $diagnostic = Diagnostic::create([
-                        'patient_id'        =>  $request->patient_id, //esta
+                        'patient_id'        =>  $patient->id, //esta
                         'description'       =>  $request->diagnostic,  //esta
                         'reason'            =>  $request->razon, //esta
                         'enfermedad_actual' =>  $request->enfermedad_actual, //esta
@@ -358,7 +404,7 @@ class DoctorController extends Controller
                         'report_medico_id'  =>  $reporte_id, //esta
                         'repose_id'         =>  $reposo_id,  //esta
                         'indications'       =>  $request->indicaciones, //esta
-                        'employe_id'        =>  $request->employe_id, //esta
+                        'employe_id'        =>  $reservation->person_id, //esta
                         'branch_id'         =>  1,
                     ]);
                 

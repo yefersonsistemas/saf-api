@@ -71,19 +71,14 @@ button[data-original-title="Help"]{ display: none; }
                                 <div class="card-header">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-md-6">
-                                            <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Nro. Historia: <span class="badge badge-info p-2">{{ $history->patient->historyPatient->history_number }}</span></h3>
+                                            <h3 class="card-title"> <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro mr-3 text-white"><i class="icon-action-undo  mx-auto"></i></a>Nro. Historia: <span class="badge badge-info p-2">{{ $reservation->patient->historyPatient->history_number }}</span></h3>
                                         </div>
-                                        {{-- <div class="col-md-6 text-right">
-                                            <a href="{{ route('doctor.crearDiagnostico', $history->patient) }}" class="btn btn-azuloscuro">Diagnostico</a>
-                                            <a href="{{ route('doctor.crearRecipe', [$history->patient_id, $history->person_id]) }}" class="btn btn-azuloscuro">Recipe</a>
-                                            <a href="{{ route('doctor.crearReferencia', $history->patient) }}" class="btn btn-azuloscuro">Referencia</a>
-                                        </div> --}}
                                     </div>
 
                                     <!--Informacion del paciente-->
                                     <div class="row mt-3 d-flex align-items-center">
                                         <div class="col-md-2 text-center">
-                                            <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:150px">
+                                            <img src="{{ Storage::url($reservation->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:150px">
                                         </div>
                                         <div class="col-md-4">
                                             <div class=" d-flex align-items-center">
@@ -91,20 +86,20 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <select name="type_dni" class="custom-select input-group-text border-0 bg-white" disabled="">
-                                                            <option value="{{ $history->patient->type_dni }}">
-                                                                {{ $history->patient->type_dni }}</option>
+                                                            <option value="{{ $reservation->patient->type_dni }}">
+                                                                {{ $reservation->patient->type_dni }}</option>
                                                         </select>
                                                     </div>
-                                                    <input type="text" class="form-control border-0 bg-white dni" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $history->patient->dni }}" name="dniP">
+                                                    <input type="text" class="form-control border-0 bg-white dni" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $reservation->patient->dni }}" name="dniP">
                                                 </div>
                                             </div>
                                             <div class=" d-flex align-items-center">
                                                 <label class="m-0 form-label">Nombre:</label>
-                                                <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->patient->name }}" name="nameP">
+                                                <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $reservation->patient->name }}" name="nameP">
                                             </div>
                                             <div class=" d-flex align-items-center">
                                                 <label class="m-0 form-label">Apellido:</label>
-                                                <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->patient->lastname }}" name="lastnameP">
+                                                <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $reservation->patient->lastname }}" name="lastnameP">
                                             </div>
                                         </div>
                                     </div>
@@ -115,12 +110,12 @@ button[data-original-title="Help"]{ display: none; }
                                 <!--body-->
                                 <div class="card-body">
                                     {{-- <div id="wizard_vertical"> --}}
-                                    <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST">
+                                    <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->patient_id) }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="patient_id" value="{{ $history->patient_id }}"> 
-                                        <input type="hidden" name="employe_id" value="{{ $history->person_id }}"> 
-                                        <input type="hidden" name="razon" value="{{ $history->description }}"> 
-                                        <input type="hidden" name="reservacion_id" value="{{ $history->id }}"> 
+                                        <input type="hidden" name="patient_id" value="{{ $reservation->patient_id }}"> 
+                                        <input type="hidden" name="employe_id" value="{{ $reservation->person_id }}"> 
+                                        <input type="hidden" name="razon" value="{{ $reservation->description }}"> 
+                                        <input type="hidden" name="reservacion_id" value="{{ $reservation->id }}"> 
 
                                         <h2>Información Personal</h2>
                                         <section class="card mr-4 ml-4">
@@ -128,29 +123,29 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="col-sm-6 col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">Dirección:</label>
-                                                        <input type="text" class="form-control border-0 bg-white" disabled="" name="addressP" placeholder="dirección" value="{{ $history->patient->address }}">
+                                                        <input type="text" class="form-control border-0 bg-white" disabled="" name="addressP" placeholder="dirección" value="{{ $reservation->patient->address }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">Correo:</label>
-                                                        <input type="emailP" class="form-control border-0 bg-white" disabled="" placeholder="Email" value="{{ $history->patient->email }}">
+                                                        <input type="emailP" class="form-control border-0 bg-white" disabled="" placeholder="Email" value="{{ $reservation->patient->email }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-md-6">
                                                     <div class="form-group ">
                                                         <label class="form-label">Lugar de nacimiento</label>
-                                                        <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Lugar de Nacimiento" value="{{ $history->patient->historyPatient->place }}" name="place">
+                                                        <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Lugar de Nacimiento" value="{{ $reservation->patient->historyPatient->place }}" name="place">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-md-6 d-flex flex-row align-items-center">
                                                     <div class="form-group col-md-8">
                                                         <label class="form-label">Fecha de nacimiento:</label>
-                                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $history->patient->historyPatient->birthdate }}" name="birthdate">        
+                                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $reservation->patient->historyPatient->birthdate }}" name="birthdate">        
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label class="form-label">Edad:</label>
-                                                        <input type="number" class="form-control border-0 bg-white " placeholder="Edad" disabled="" name="age" value="{{ $history->patient->historyPatient->age }}">
+                                                        <input type="number" class="form-control border-0 bg-white " placeholder="Edad" disabled="" name="age" value="{{ $reservation->patient->historyPatient->age }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 text-center d-flex justify-content-center">
@@ -158,11 +153,11 @@ button[data-original-title="Help"]{ display: none; }
                                                         <label class="form-label">Genero <span class=""><i class="fa fa-venus-mars"></i></span>:</label>
                                                         <div class="form-check ladymen p-0">
                                                             <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
-                                                                <input type="radio" id="genero1" name="gender" class="form-check-input" {{ $history->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} disabled value="Masculino">
+                                                                <input type="radio" id="genero1" name="gender" class="form-check-input" {{ $reservation->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} disabled value="Masculino">
                                                                 <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
                                                             </div>
                                                             <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-                                                                <input  type="radio" id="genero2" name="gender" class="form-check-input"  {{ $history->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} disabled value="Femenino">
+                                                                <input  type="radio" id="genero2" name="gender" class="form-check-input"  {{ $reservation->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} disabled value="Femenino">
                                                                 <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
                                                             </div>
                                                         </div>
@@ -172,7 +167,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="form-group">
                                                         <label for="" class="form-label">Telefono: </label>
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Telefono" name="phone" value="{{ $history->patient->phone }}">
+                                                            <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Telefono" name="phone" value="{{ $reservation->patient->phone }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -180,7 +175,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="form-group">
                                                         <label for="" class="form-label">Profesión: </label>
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Profesión" name="profession" value="{{  $history->patient->historyPatient->profession }}">
+                                                            <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Profesión" name="profession" value="{{  $reservation->patient->historyPatient->profession }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -188,7 +183,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="form-group">
                                                         <label for="" class="form-label">Ocupación: </label>
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Ocupación" name="occupation" value="{{  $history->patient->historyPatient->occupation }}">
+                                                            <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Ocupación" name="occupation" value="{{  $reservation->patient->historyPatient->occupation }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -201,7 +196,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="m-0 form-label">Fecha:</label>
-                                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Proxima Cita" disabled="" value="{{ $history->date }}" name=proxCita>
+                                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Proxima Cita" disabled="" value="{{ $reservation->date }}" name=proxCita>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -209,19 +204,19 @@ button[data-original-title="Help"]{ display: none; }
                                                         <label class="m-0 form-label">Medico Tratante:</label>
                                                         <div class="input-group d-flex flex-row align-items-center">
                                                             <label for="" class="m-0">Dr.(a) </label>
-                                                            <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
-                                                            <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
-                                                            <input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
+                                                            <input type="hidden" value="{{ $reservation->patient_id }}" id="patient"><!--paciente-->
+                                                            <input type="hidden" value="{{ $reservation->person_id }}" id="employe"><!--Empleado-->
+                                                            <input type="hidden" value="{{ $reservation->id }}" id="reservacion"><!--reservation-->
 
-                                                            <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
-                                                            <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
+                                                            <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $reservation->person->name }}" name="nameM">
+                                                            <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $reservation->person->lastname }}" name="lastnameM">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="m-0 form-label">Razon:</label>
-                                                        <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->description }}" name="razon">
+                                                        <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $reservation->description }}" name="razon">
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,7 +224,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote">{{ $r_patient->enfermedad_actual }}</textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -240,7 +235,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <h5 class="card-title text-white">Enfermedades</h5>
                                                     </div>
                                                     <div  class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
-                                                        @foreach ( $history->historyPatient->disease as $disease )
+                                                        @foreach ( $reservation->historyPatient->disease as $disease )
                                                             <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
                                                         @endforeach
                                                     </div>
@@ -251,25 +246,25 @@ button[data-original-title="Help"]{ display: none; }
                                                         <h5 class="card-title text-white">Alergias</h5>
                                                     </div>
                                                     <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                        @foreach ( $history->historyPatient->allergy as $allergy )
+                                                        @foreach ( $reservation->historyPatient->allergy as $allergy )
                                                             <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                                <div class="card">
+                                                {{-- <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <h5 class="card-title text-white">Cirugias Previas</h5>
                                                     </div>
                                                     <div id="collapseThree" class="collapse list-group card-body" aria-labelledby="headingThree" data-parent="#accordion">
                                                         <a class="list-group-item list-group-item-action">{{ $cite->previous_surgery }}</a>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </section>
 
                                         <h2>Examen Fisico</h2>
                                         <section class="ml-4">
-                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote">{{ $r_patient->examen_fisico }}</textarea>
                                         </section>
 
                                         <h2>Estudios complementarios</h2>
@@ -294,7 +289,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="row">
                                                 <div class="col-12">
 
-                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote">{{ $r_patient->description }}</textarea>
                                                 </div>    
                                                 <div class="row">
                                                     <div class="col-12 mt-30">
@@ -308,7 +303,11 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>   
                                                     <div class="col-12 mt-20 p-4  card ml-2">
                                                         <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
-                                                        <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;"></ul>  
+                                                        <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;">
+                                                            @foreach ($proceduresR as $proces)
+                                                            <li>{{ $proces->name }}</li>
+                                                            @endforeach
+                                                        </ul>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -356,7 +355,11 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                         <div class="col-12 mt-30 p-4  card ml-2">
                                                             <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
-                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"></ul>  
+                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;">
+                                                                @foreach ($exams as $exam)
+                                                                <li>{{ $exam->name }}</li>
+                                                                @endforeach
+                                                            </ul>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -445,14 +448,35 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         </tr>
                                                                                     </tfoot>
                                                                                     <tbody id="addRow">
+                                                                                        @foreach ($itinerary->recipe->medicine as $item)
+                                                                                            <tr>
+                                                                                            <td>{{$item->name}}</td>
+                                                                                            <td>{{$item->treatment->doses}}</td>
+                                                                                            <td>{{$item->treatment->measure}}</td>
+                                                                                            <td>{{$item->treatment->duration}}</td>
+                                                                                            <td>{{$item->treatment->indications}}</td>
+                                                                                            <td class="actions">
+                                                                                                <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden="">
+                                                                                                    <i class="icon-drawer" aria-hidden="true"></i> 
+                                                                                                </button> 
+                                                                                                <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden="">
+                                                                                                    <i class="icon-close" aria-hidden="true"></i> 
+                                                                                                </button> 
+                                                                                                <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit">
+                                                                                                    <i class="icon-pencil" aria-hidden="true"></i> 
+                                                                                                </button> 
+                                                                                                <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
+                                                                                                    <i class="icon-trash" aria-hidden="true"></i>
+                                                                                                </button>
+                                                                                            </td>
+                                                                                            </tr>
+                                                                                        @endforeach
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                {{-- <div class="card-footer text-center">
-                                                                    <button type="submit" class="btn btn-azuloscuro">Generar</button>
-                                                                </div> --}}
+                                                             
                                                             </div>
                                                         </div>
                                                     </div>
@@ -461,14 +485,14 @@ button[data-original-title="Help"]{ display: none; }
                                                 <!--Informe medico-->
                                                 <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
                                                     <section>
-                                                        <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                        <textarea name="reporte" id="" cols="30" rows="10" class="summernote">{{$r_patient->reportMedico->descripction}}</textarea>
                                                     </section>    
                                                 </div>
                                                 
                                                 <!--Reposo-->
                                                 <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
                                                     <section>
-                                                        <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    <textarea name="reposop" id="" cols="30" rows="10" class="summernote">{{$r_patient->repose->description}}</textarea>
                                                     </section>  
                                                 </div>
                                             
@@ -476,19 +500,18 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
-                                                            <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
+                                                            <input type="hidden" id="patient" name="patient" value="{{ $reservation->patient_id }}">
                                                                 <div class="card mr-0 ml-0">
                                                                     <div class="card-body m-0">
-                                                                        {{-- <h3 class="card-title">Datos del Médico</h3> --}}
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
-                                                                                <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                                {{-- <select class="form-control custom-select" name="speciality" id="speciality">
                                                                                     <option value="0" >Seleccione</option>
                                                                                     @foreach ($specialities as $speciality)
                                                                                         <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
                                                                                     @endforeach
-                                                                                </select>
+                                                                                </select> --}}
                                                                             </div>
                                                                             <div class="col-md-8">
                                                                                 <div class="form-group" style=" margin-top:8px;">
@@ -523,6 +546,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
                                                         <div class="row d-flex justify-content-center">
                                                             <div class=" col-4">
@@ -542,25 +566,34 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>  
+                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;">
+                                                                    @foreach ($surgery as $surge)
+                                                                    <li>{{ $surge->name }}</li>
+                                                                    @endforeach
+                                                                </ul>  
                                                             </div>
 
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>  
+                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;">
+                                                                    @foreach ($procedures as $proces)
+                                                                    <li>{{ $proces->name }}</li>
+                                                                    @endforeach
+                                                                </ul>  
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                                 <!--Proxima cita-->
-                                                {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
                                                         <div class="col-lg-12 mx-auto">
                                                             Proxima cita...
                                                         </div>
                                                     </div>
-                                                </div> --}}
+                                                </div>
+                                            </div>
                                         </section>
                                         
                                     </form>
@@ -573,7 +606,7 @@ button[data-original-title="Help"]{ display: none; }
                 
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -589,10 +622,17 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                @foreach ($procesm->procedures as $proces)
+                                {{-- @foreach ($proceduresR as $item)
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
-                                    <span class="custom-control-label">{{ $proces->name }}</span>
+                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
+                                    <span class="custom-control-label">{{ $item->name }}</span>
+                                </label>
+                                @endforeach --}}
+
+                                @foreach ($diff_PR as $demas)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
+                                    <span class="custom-control-label">{{ $demas->name }}</span>
                                 </label>
                                 @endforeach
                             </div>
@@ -620,10 +660,17 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                @foreach ($exams as $exam)
+                                {{-- @foreach ($exams as $item)
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
-                                    <span class="custom-control-label">{{ $exam->name }}</span>
+                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
+                                    <span class="custom-control-label">{{ $item->name }}</span>
+                                </label>
+                                @endforeach --}}
+
+                                @foreach ($diff_E as $demas)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
+                                    <span class="custom-control-label">{{ $demas->name }}</span>
                                 </label>
                                 @endforeach
                             </div>
@@ -652,9 +699,18 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             <label class="custom-control custom-checkbox custom-control-inline">
-                                @foreach ($surgerys as $surgery)
-                                <input type="checkbox" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
-                                <span class="custom-control-label">{{ $surgery->name }}</span>
+                                {{-- @foreach ($surgery as $item)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
+                                    <span class="custom-control-label">{{ $item->name }}</span>
+                                </label>
+                                @endforeach --}}
+
+                                @foreach ($diff_C as $demas)
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
+                                    <span class="custom-control-label">{{ $demas->name }}</span>
+                                </label>
                                 @endforeach
                             </label>
                         </div>
@@ -682,10 +738,17 @@ button[data-original-title="Help"]{ display: none; }
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                            @foreach ($procesm->procedures as $proces)
+                            {{-- @foreach ($procedures as $item)
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
-                                <span class="custom-control-label">{{ $proces->name }}</span>
+                                <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
+                                <span class="custom-control-label">{{ $item->name }}</span>
+                            </label>
+                            @endforeach --}}
+
+                            @foreach ($diff_P as $demas)
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
+                                <span class="custom-control-label">{{ $demas->name }}</span>
                             </label>
                             @endforeach
                         </div>
@@ -810,6 +873,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log("6",patient);
         console.log("7",employe);
         console.log("8",reservacion);
+        console.log("hola");
 
         $.ajax({
                 url: "{{ route('recipe.store') }}",
