@@ -37,7 +37,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
                                     <label class="form-label">Duración (horas)</label>
-                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Duración" name="duration" value="{{ old('duration') }}" required>
+                                    <input type="text" class="form-control" onkeypress="return num(event)" placeholder="Duración" name="duration" value="{{ old('duration') }}" required>
                                 </div>
                             </div> 
 
@@ -63,7 +63,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
                                     <label class="form-label">Cantidad de días</label>
-                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Días" name="day_hospitalization" value="{{ old('day_hospitalization') }}" required>
+                                    <input type="text" disabled id="day_hospitalization" class="form-control" onkeypress="return num(event)" placeholder="Días" name="day_hospitalization" value="{{ old('day_hospitalization') }}" required>
                                 </div>
                             </div>  
                         </div>  
@@ -113,7 +113,7 @@
     });
 </script>
 
-{{-- si acepta . y , --}}
+{{-- acepta . y , --}}
 <script>
     onload = function(){ 
     var ele = document.querySelectorAll('.validanumericos')[0];
@@ -128,16 +128,25 @@
 </script>
 
 {{-- no acepta . y , --}}
-<script type="text/javascript"> function controltag(e) {
+<script type="text/javascript"> function num(e) {
     tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla==8) 
+    if (tecla==8) //acepta barra espaciadora
     return true;
     else 
-    if (tecla==0||tecla==9)  
+    if (tecla==0||tecla==9)  //tabulador
     return true;
     patron =/[0-9\s]/;// -> solo numeros
     te = String.fromCharCode(tecla);
     return patron.test(te);
 }
+</script>
+
+<script>
+    $('#id').change(function() {
+        var surgery =  $('select[name="classification_surgery_id"] option:selected').text();
+        console.log(surgery);
+        if(surgery == 'hospitalaria')
+        $('#day_hospitalization').removeAttr('disabled');
+    });
 </script>
 @endsection
