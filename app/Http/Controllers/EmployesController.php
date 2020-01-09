@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Employe;
 use App\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Patient;
 use App\Position;
 use App\Reservation;
@@ -206,11 +207,16 @@ class EmployesController extends Controller
         if ($request->pass == 'option1') {
             $user = User::create([
                 'email'      => $person->email,
-                'password'   => encrypt($request->password),
+                'password'   => Hash::make($request->password),
                 'person_id'  => $person->id,
                 // 'remember_token'    => ,
                 'branch_id' => 1
                 ]);
+
+            $cargo = Position::find($request->position_id);
+            // dd($cargo);
+
+            $user->assignRole($cargo->name);
 
             foreach ($request->perms as  $permission){
             $user->givePermissionTo([$permission]);
