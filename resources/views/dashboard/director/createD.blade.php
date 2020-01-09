@@ -68,7 +68,7 @@
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-label"> Teléfono </label>
-                                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
+                                                    <input type="text" class="form-control" onkeypress="return num(event)" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
                                                 </div>
                                             </div>
                                             
@@ -235,7 +235,7 @@
     }
 </script>
 
-<script type="text/javascript"> function controltag(e) {
+<script type="text/javascript"> function num(e) {
     tecla = (document.all) ? e.keyCode : e.which;
     if (tecla==8) 
     return true;

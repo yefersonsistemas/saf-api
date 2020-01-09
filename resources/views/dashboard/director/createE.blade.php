@@ -95,19 +95,27 @@
                                 </select>
                             </div>
                         </div>
-                   
-                        <div class="col-lg-4 mt-2">
-                            <div class="form-group">
-                                <div class="form-label">Usara el Sistema</div>
-                                <div class="custom-controls-stacked">
-                                    <label class="custom-control custom-radio custom-control-inline" data-toggle="modal" data-target="#staticBackdrop">
-                                        <input type="radio" class="custom-control-input" name="pass" value="option1" >
-                                        <span class="custom-control-label">Si</span>
-                                    </label>
-                                    <label class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="pass" value="option2">
-                                        <span class="custom-control-label">No</span>
-                                    </label>
+
+                        <div class="col-lg-6">
+                            <div class="row ">
+                                <div class="col-lg-6 mt-2 d-flex justify-content-center">
+                                    <div class="form-group">
+                                        <div class="form-label">Usara el Sistema</div>
+                                        <div class="custom-controls-stacked">
+                                            <label class="custom-control custom-radio custom-control-inline" data-toggle="modal" data-target="#staticBackdrop">
+                                                <input type="radio" class="custom-control-input" onclick="enableBtn()"  name="pass" value="option1" >
+                                                <span class="custom-control-label">Si</span>
+                                            </label>
+                                            <label class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" onclick="disableBtn()" name="pass" value="option2">
+                                                <span class="custom-control-label">No</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mt-2">
+                                    <button disabled type="button" id="boton" class="btn text-white bg-azuloscuro ml-4" data-toggle="modal" data-target="#permission">Agregar Permisos</button><i class=""></i>
                                 </div>
                             </div>
                         </div>
@@ -132,23 +140,66 @@
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Crear Contraseña</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Crear Contraseña</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
                                     <div class="col-12" >
                                         <label class="form-label" style="text-align:left"> Contraseña </label>
                                         <input type="password" placeholder="password" class="form-control" name="password" value="{{ old('password') }}" >
                                     </div>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                                </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="modal fade" id="permission" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Asignar Permisos</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-12" >
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Seleccionar</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($permissions as $item)
+                                        <tr>
+                                        <td>{{ $item->name }}</td>
+                                        <td>
+                                            <div class="custom-controls-stacked">
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-switch-input" name="example-checkbox1" value="option1" >
+                                                    <span class="custom-switch-indicator"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
         </form>
@@ -159,7 +210,6 @@
 
 @section('scripts')
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
-
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
@@ -173,6 +223,16 @@ onload = function(){
   ele.onpaste = function(e){
      e.preventDefault();
   }
+}
+</script>
+
+<script>
+function disableBtn() {
+  document.getElementById("boton").disabled = true;
+}
+
+function enableBtn() {
+  document.getElementById("boton").disabled = false;
 }
 </script>
 
