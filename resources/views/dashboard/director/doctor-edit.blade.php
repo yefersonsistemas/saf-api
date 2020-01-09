@@ -68,7 +68,7 @@
                                         <div class="col-lg-4 ">
                                             <div class="form-group">
                                                 <label class="form-label"> Teléfono </label>
-                                                <input type="text" class="form-control" placeholder="Telefono" name="phone" value="{{ $employe->person->phone }}" required>
+                                                <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Telefono" name="phone" value="{{ $employe->person->phone }}" required>
                                             </div>
                                         </div>
                                             
@@ -146,7 +146,7 @@
                                 <div class="col-lg-4 col-md-4">
                                     <div class="form-group"> 
                                         <label class="form-label">Precio de Consulta</label>
-                                        <input type="text"  class="form-control" placeholder="Precio" name="price" value="{{ $precio->price }}" required>
+                                        <input type="text"  class="form-control validanumericos" placeholder="Precio" name="price" value="{{ $precio->price }}" required>
                                     </div>
                                 </div> 
                             </div> 
@@ -210,7 +210,34 @@
         console.log('procedure', procedure_id); 
     });
 </script>
+
+<script>
+    onload = function(){ 
+    var ele = document.querySelectorAll('.validanumericos')[0];
+    ele.onkeypress = function(e) {
+        if(isNaN(this.value+String.fromCharCode(e.charCode)))
+            return false;
+    }
+    ele.onpaste = function(e){
+        e.preventDefault();
+    }
+    }
+</script>
+
+<script type="text/javascript"> function controltag(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) 
+    return true;
+    else 
+    if (tecla==0||tecla==9)  
+    return true;
+    patron =/[0-9\s]/;// -> solo numeros
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+</script>
 @endsection
+
 
 
     

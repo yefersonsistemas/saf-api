@@ -24,15 +24,6 @@
                     <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                     <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
                     <li><a href="app-blog.html"><i class="icon-globe"></i><span>Blog</span></a></li>
-
-                    <div class="card bg-indigo" style="background-color: #00506b;">
-                        <div class="card-header">
-                            <h3 class="card-title text-white">Fechas</h3>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="inline-datepicker datepicker-reception fill_bg"></div>
-                        </div>
-                    </div>
                 @endrole
 
 
@@ -65,11 +56,11 @@
                         </li>
 
                     </li> 
-                    <div class="card bg-indigo" style="background-color: #00506b;">
+                    {{-- <div class="card bg-indigo" style="background-color: #00506b;">
                         <div class="card-body text-center">
                             <div class="inline-datepicker datepicker-reception fill_bg"></div>
                         </div>
-                    </div>
+                    </div> --}}
                 @endrole
                 @role('doctor')
                     <li class="g_heading">Doctor</li>

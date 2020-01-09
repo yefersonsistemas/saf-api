@@ -199,29 +199,10 @@ class CitaController extends Controller
                 $reservation->cancel = Carbon::now();
                 Alert::success('Cita Cancelada exitosamente');
 
-            }elseif ($data['type'] == 'Aprobada') {
-                $reservation->approved = Carbon::now();
-                if ($reservation->discontinued != null) {
-                    $reservation->discontinued = null;
-                }
-
-                Alert::success('Cita Aprobada exitosamente');
             }
-            
 
             $reservation->status = $data['type'];
             $reservation->save();
-
-            $doctos = Doctor::where('employe_id',$reservation->person_id)->first();
-
-            // dd($doctos);
-            $itinerary = Itinerary::create([
-                'patient_id' =>  $reservation->patient_id,  //paciente tratado
-                'employe_id' => $reservation->person_id,               
-                'doctor_id' => $doctos->id,
-                'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
-                'branch_id' => 1,
-            ]);
 
             return redirect()->back();
         }else{
@@ -229,6 +210,34 @@ class CitaController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function approved(Reservation $reservation)
+    {
+        if ($reservation != null) {
+            $reservation->approved = Carbon::now();
+            if ($reservation->discontinued != null) {
+                $reservation->discontinued = null;
+            }
+
+            $reservation->status = 'Aprobada';
+            $reservation->save();
+
+            $doctor = Doctor::where('employe_id',$reservation->person_id)->first();
+
+            $itinerary = Itinerary::create([
+                'patient_id' =>  $reservation->patient_id,  //paciente tratado
+                'employe_id' => $reservation->person_id,               
+                'doctor_id' => $doctor->id,
+                'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                'branch_id' => 1,
+            ]);
+
+            Alert::success('Cita Aprobada exitosamente');
+        }else{
+            Alert::error('Cita No Encontrada');
+        }
+        return redirect()->back();
     }
 
     public function edit($id)

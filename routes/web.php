@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
+        Route::get('cite/approved/{reservation}', 'CitaController@approved')->name('reservation.approved');
         
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
@@ -99,7 +100,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
+        Route::get('doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
@@ -116,7 +117,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:director']], function(){
 
         //inicio de rutas para crear
-        Route::get('', 'DirectorController@index')->name('employe.index');
+        Route::get('empleados', 'DirectorController@index')->name('employe.index');
         Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
