@@ -208,11 +208,14 @@
             
             <div class="card p-4">
                 <label class="form-label">Exámenes</label>
-                <div class="dropzone" id="my-dropzone">
+                {{-- <div class="dropzone" id="my-dropzone">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                     </div>
-                </div>
+                </div> --}}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                  </button>
             </div>
 
             <div class="card p-4 d-flex justify-content-between">
@@ -312,6 +315,38 @@
                 <button type="submit" class="btn btn-primary" id="submit-all"> Guardar</button>
             </div>
         </form>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                <form role="form" enctype="multipart/form-data" action="{{route('checkin.exams')}}" method="POST">
+                        @csrf
+                        <!-- You can add extra form fields here -->
+                    
+                        <input hidden id="file" name="file"/>
+                    
+                        <!-- You can add extra form fields here -->
+                    
+                        <div class="dropzone dropzone-file-area" id="fileUpload">
+                            <div class="dz-default dz-message">
+                                <h3 class="sbold">Drop files here to upload</h3>
+                                <span>You can also click to open file browser</span>
+                            </div>
+                        </div>
+                    
+                        <!-- You can add extra form fields here -->
+                    
+                        <button type="submit" class="btn btn-azuloscuro">Submit</button>
+                    </form>
+                </div>
+            </div>
+          </div>
     </div>
 @endsection
 
@@ -321,49 +356,66 @@
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script>
- Dropzone.options.myDropzone = {
-            url: "{{ route('save.history', $rs) }}",
-            autoProcessQueue: true,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 10,
-            maxFilesize:10,
-            // acceptedFiles: "image/*",
+Dropzone.options.fileUpload = {
+    url: 'checkin.exams',
+    addRemoveLinks: true,
+    accept: function(file) {
+        let fileReader = new FileReader();
 
-            init: function () {
+        fileReader.readAsDataURL(file);
+        fileReader.onloadend = function() {
 
-                var submitButton = document.querySelector("#submit-all");
-                var wrapperThis = this;
+            let content = fileReader.result;
+            $('#file').val(content);
+            file.previewElement.classList.add("dz-success");
+        }
+        file.previewElement.classList.add("dz-complete");
+        
+    }
+}
+//  Dropzone.options.myDropzone = {
+//             url: "{{ route('save.history', $rs) }}",
+//             autoProcessQueue: true,
+//             uploadMultiple: true,
+//             parallelUploads: 100,
+//             maxFiles: 10,
+//             maxFilesize:10,
+//             // acceptedFiles: "image/*",
 
-                submitButton.addEventListener("click", function () {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    wrapperThis.processQueue();
-                });
+//             init: function () {
 
-                this.on("addedfile", function (file) {
+//                 var submitButton = document.querySelector("#submit-all");
+//                 var wrapperThis = this;
 
-                    // Create the remove button
-                    var removeButton = Dropzone.createElement("<button class='btn btn-danger mt-2 text-center'><i class='fa fa-remove'></i></button>");
+//                 submitButton.addEventListener("click", function () {
+//                     e.preventDefault();
+//                     e.stopPropagation();
+//                     wrapperThis.processQueue();
+//                 });
 
-                    // Escucha el evento click
-                    removeButton.addEventListener("click", function (e) {
-                        // Asegúrese de que el clic del botón no envíe el formulario:
-                        e.preventDefault();
-                        e.stopPropagation();
+//                 this.on("addedfile", function (file) {
 
-                        // Eliminar la vista previa del archivo.
-                        wrapperThis.removeFile(file);
-                        // Si también quieres eliminar el archivo en el servidor,
-                        // puedes hacer la solicitud AJAX aquí.
-                    });
+//                     // Create the remove button
+//                     var removeButton = Dropzone.createElement("<button class='btn btn-danger mt-2 text-center'><i class='fa fa-remove'></i></button>");
 
-                    // Agregue el botón al elemento de vista previa del archivo.
-                    file.previewElement.appendChild(removeButton);
-                });
+//                     // Escucha el evento click
+//                     removeButton.addEventListener("click", function (e) {
+//                         // Asegúrese de que el clic del botón no envíe el formulario:
+//                         e.preventDefault();
+//                         e.stopPropagation();
+
+//                         // Eliminar la vista previa del archivo.
+//                         wrapperThis.removeFile(file);
+//                         // Si también quieres eliminar el archivo en el servidor,
+//                         // puedes hacer la solicitud AJAX aquí.
+//                     });
+
+//                     // Agregue el botón al elemento de vista previa del archivo.
+//                     file.previewElement.appendChild(removeButton);
+//                 });
                 
-            }
-        };
+//             }
+//         };
 </script>
 <script>
         $('#disease').multiselect({

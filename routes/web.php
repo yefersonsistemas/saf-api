@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
+        Route::post('exams_previos', 'InController@exams_previos')->name('checkin.exams');
 
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');

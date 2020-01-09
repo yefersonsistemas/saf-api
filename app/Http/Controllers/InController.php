@@ -133,6 +133,12 @@ class InController extends Controller
     public function guardar(Request $request, $id)  
     {   
         dd($request);
+        $dir=public_path().'/file/';
+        $files=$request->file('file');
+        // foreach($files as $file){
+        //     $fileName=$file->getClientOriginalName();
+        //     $file->move($dir,$fileName);
+        // }
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
@@ -569,5 +575,9 @@ class InController extends Controller
         }
     }
 
-    
+
+    public function exams_previos(Request $request)
+    {
+        dd($request);
+    }
 }
