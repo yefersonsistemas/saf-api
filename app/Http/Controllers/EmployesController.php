@@ -207,13 +207,16 @@ class EmployesController extends Controller
         if ($request->pass == 'option1') {
             $user = User::create([
                 'email'      => $person->email,
-                'password'   => $request->password,
+                'password'   => encrypt($request->password),
                 'person_id'  => $person->id,
-                // 'remember_token' => ,
                 'branch_id' => 1
-            ]);
-        }
+                ]);
 
+            foreach ($request->perms as  $permission){
+            $user->givePermissionTo([$permission]);
+            }
+        }
+        
         if ($request->image != null) {
             $image = $request->file('image');
             $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece

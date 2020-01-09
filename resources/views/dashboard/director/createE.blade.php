@@ -114,8 +114,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 mt-2">
-                                    <button disabled type="button" id="boton" class="btn text-white bg-azuloscuro ml-4" data-toggle="modal" data-target="#permission">Agregar Permisos</button><i class=""></i>
+                                <div class="col-lg-6 mt-3">
+                                    <button disabled type="button" id="boton" class="btn btn-info" style="width: 230px" data-toggle="modal" data-target="#permission"> Agregar Permisos </button>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                                         <td>
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-switch-input" name="example-checkbox1" value="option1" >
+                                                    <input type="checkbox" class="custom-switch-input" name="perms[]" value="{{ $item->name }}" >
                                                     <span class="custom-switch-indicator"></span>
                                                 </label>
                                             </div>
