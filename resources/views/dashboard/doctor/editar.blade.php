@@ -67,7 +67,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
 
-                                <!--Header-->
+                                <!--HEADER-->
                                 <div class="card-header">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-md-6">
@@ -75,7 +75,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </div>
                                     </div>
 
-                                    <!--Informacion del paciente-->
+                                    <!------------------------------INFORMACION DEL PACIENTE---------------------->
                                     <div class="row mt-3 d-flex align-items-center">
                                         <div class="col-md-2 text-center">
                                             <img src="{{ Storage::url($reservation->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:150px">
@@ -103,13 +103,10 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </div>
                                     </div>
-                                    <!--Fin de informacion paciente-->
                                 </div>
-                                <!--Fin del header-->
 
-                                <!--body-->
+                                <!--BODY-->
                                 <div class="card-body">
-                                    {{-- <div id="wizard_vertical"> --}}
                                     <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->patient_id) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="patient_id" value="{{ $reservation->patient_id }}"> 
@@ -117,6 +114,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <input type="hidden" name="razon" value="{{ $reservation->description }}"> 
                                         <input type="hidden" name="reservacion_id" value="{{ $reservation->id }}"> 
 
+                                        <!------------------------------INFORMACION PERSONAL---------------------->
                                         <h2>Información Personal</h2>
                                         <section class="card mr-4 ml-4">
                                             <div class="row">
@@ -190,6 +188,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
+                                        <!----------------------------- MOTIVO DE LA RESERVACION---------------------->
                                         <h2>Motivo</h2>
                                         <section class="card mr-4 ml-4">
                                             <div class="row">
@@ -222,11 +221,13 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
+                                        <!------------------------------ENFERMEDAD ACTUAL---------------------->
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
                                             <textarea name="enfermedad" cols="30" rows="10" class="summernote">{{ $r_patient->enfermedad_actual }}</textarea>
                                         </section>
 
+                                        <!------------------------------ANTECEDENTES---------------------->
                                         <h2>Antecedentes</h2>
                                         <section class="ml-4">
                                             <div id="accordion">
@@ -262,11 +263,13 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
+                                        <!------------------------------EXAMEN FISICO---------------------->
                                         <h2>Examen Fisico</h2>
                                         <section class="ml-4">
                                             <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote">{{ $r_patient->examen_fisico }}</textarea>
                                         </section>
 
+                                        <!-----------------------------ESTUDIOS COMPLEMENTARIOS--------------------------->
                                         <h2>Estudios complementarios</h2>
                                         <section class="ml-4">
                                             <div class="row">
@@ -284,37 +287,81 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                        <h2>Diagnostico y Procedimientos</h2>
+                                         <!------------------------------DIAGNOSTICO ---------------------->
+                                        <h2>Diagnostico</h2>
                                         <section class="ml-4">
                                             <div class="row">
                                                 <div class="col-12">
-
+                                                    @if(!empty($r_patient->description))
                                                     <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote">{{ $r_patient->description }}</textarea>
+                                                    @else
+                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    @endif
                                                 </div>    
-                                                <div class="row">
-                                                    <div class="col-12 mt-30">
-                                                        <h5>Procedimientos Realizados al Paciente:</h5>
-                                                    </div>
-                                                    <div class="col-12 mt-10">
-                                                        <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
-                                                            <i class="fa fa-plus"></i>
-                                                            Agregar Procedimiento
-                                                        </button>
-                                                    </div>   
-                                                    <div class="col-12 mt-20 p-4  card ml-2">
-                                                        <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
-                                                        <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;">
-                                                            @if(!empty($proceduresR))
-                                                                @foreach ($proceduresR as $proces)
-                                                                <li>{{ $proces->name }}</li>
-                                                                @endforeach
-                                                            @endif
-                                                        </ul>  
-                                                    </div>
+                                            </div>
+                                        </section>
+
+                                         <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
+                                         <h2>Procedimientos Realizados</h2>
+                                         <section class="ml-4">
+                                            <div class="row">
+                                                <div class="col-12 mt-30">
+                                                    <h5>Procedimientos Realizados al Paciente:</h5>
+                                                </div>
+                                                <div class="col-12 mt-10">
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
+                                                        <i class="fa fa-plus"></i>
+                                                        Agregar Procedimiento
+                                                    </button>
+                                                </div>   
+                                                <h6 class="text-center col-12 mt-2 p-2  " style="font-weight:bold">Procedimientos Realizados</h6>
+                                                <div class="col-lg-12 mx-auto">
+                                                    <div class="card">
+                                                        <div class="row">
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover table-vcenter table-striped"
+                                                                        cellspacing="0" id="addrowExample">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Procedimiento Seleccionado</th>
+                                                                                <th class="text-center">Accion</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th>Procedimiento Seleccionado</th>
+                                                                                <th class="text-center">Accion</th>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                        <tbody>
+                                                                            @if(!empty($proceduresR))
+                                                                            @foreach ($proceduresR as $proces)
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <div class="col-6" >{{ $proces->name }}</div> 
+                                                                                        </td>
+                                                                                        <td class="actions d-flex justify-content-center">
+                                                                                            <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
+                                                                                                <i class="icon-trash" aria-hidden="true"></i>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                @endforeach
+                                                                            @endif
+                                                                        </tbody>
+                                                                        <tbody id="procesc">
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>                                                         
+                                                        </div>
+                                                    </div>                                                                                                       
                                                 </div>
                                             </div>
                                         </section>
 
+                                        <!------------------------------PLAN---------------------->
                                         <h2>Plan</h2>
                                         <section class="ml-4">
                                             <div class="plan-steps">
@@ -343,7 +390,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </ul>
                                             </div>
                                             <div class="tab-content" id="pills-tabContent">
-                                                <!--Examen-->
+                                                <!------------------------------EXAMENES---------------------->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                                 <div>
                                                     <h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
@@ -356,7 +403,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </button>
                                                         </div>
                                                         {{-- <div class="col-12 mt-30 p-4  card ml-2"> --}}
-                                                            <h6 class="text-center col-12 mt-30 p-4" style="font-weight:bold">Examenes médicos a realizar</h6>
+                                                            <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
                                                             {{-- <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"> --}}
                                                             
                                                                     <div class="col-lg-12 mx-auto">
@@ -378,7 +425,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                         <th class="text-center">Accion</th>
                                                                                                     </tr>
                                                                                                 </tfoot>
-                                                                                                <tbody id="addRow">
+                                                                                                <tbody>
                                                                                                     @if(!empty($exams))
                                                                                                         @foreach ($exams as $exam)
                                                                                                             <tr>
@@ -393,6 +440,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                             </tr>
                                                                                                         @endforeach
                                                                                                     @endif
+                                                                                                </tbody>
+                                                                                                <tbody id="examen">
                                                                                                 </tbody>
                                                                                             </table>
                                                                                         </div>
@@ -409,7 +458,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         {{-- </div> --}}
                                                     </div>
                                                 </div>
-                                                <!--Recetario-->
+
+                                                <!------------------------------RECETARIO---------------------->
                                                 <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
                                                     <div class="row clearfix">
                                                         <div class="col-lg-12 mx-auto">
@@ -494,7 +544,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         </tr>
                                                                                     </tfoot>
                                                                                     <tbody id="addRow">
-                                                                                        @foreach ($itinerary->recipe->medicine as $item)
+                                                                                        {{-- @foreach ($itinerary->recipe->medicine as $item)
                                                                                             <tr>
                                                                                             <td>{{$item->name}}</td>
                                                                                             <td>{{$item->treatment->doses}}</td>
@@ -516,7 +566,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 </button>
                                                                                             </td>
                                                                                             </tr>
-                                                                                        @endforeach
+                                                                                        @endforeach --}}
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
@@ -528,21 +578,30 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
 
-                                                <!--Informe medico-->
+                                                <!-----------------------------INFORME MEDICO---------------------->
                                                 <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
                                                     <section>
-                                                        <textarea name="reporte" id="" cols="30" rows="10" class="summernote">{{$r_patient->reportMedico->descripction}}</textarea>
+                                                       
+                                                        @if(!empty($r_patient->reportMedico->description))
+                                                            <textarea name="reporte" id="" cols="30" rows="10" class="summernote">{{$r_patient->reportMedico->descripction}}</textarea>
+                                                        @else
+                                                            <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                        @endif
                                                     </section>    
                                                 </div>
                                                 
-                                                <!--Reposo-->
+                                                <!------------------------------REPOSO---------------------->
                                                 <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
                                                     <section>
-                                                    <textarea name="reposop" id="" cols="30" rows="10" class="summernote">{{$r_patient->repose->description}}</textarea>
+                                                        @if(!empty($r_patient->repose->description))
+                                                            <textarea name="reposop" id="" cols="30" rows="10" class="summernote">{{$r_patient->repose->description}}</textarea>
+                                                        @else
+                                                            <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                        @endif
                                                     </section>  
                                                 </div>
                                             
-                                                <!--Referencia-->
+                                                <!------------------------------REFERENCIA---------------------->
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
@@ -553,10 +612,10 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
                                                                                 <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
+                                                                                {{-- <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @foreach ($speciality as $spe)
                                                                                         <option value="{{ $spe->id }}">{{ $spe->name }}</option>
-                                                                                    @endforeach
+                                                                                    @endforeach --}}
                                                                                 </select>
                                                                             </div>
                                                                             <div class="col-md-8">
@@ -566,7 +625,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
                                                                                                 <span class="custom-control-label">Médico Interno</span>
                                                                                                 <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
+                                                                                                {{-- <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option> --}}
                                                                                                 </select>
                                                                                             </label>
                                                                                             <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
@@ -574,8 +633,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 @if(!empty($itinerary->reference->doctor))
                                                                                                     <span class="custom-control-label">Médico Externo</span>
                                                                                                     <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctorExterno" >
-                                                                                                @endif
-                                                                                                @if($itinerary->reference->doctor == null)
+                                                                                                @else
                                                                                                     <span class="custom-control-label">Médico Externo</span>
                                                                                                     <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctorExterno" >
                                                                                                 @endif
@@ -586,7 +644,11 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <div class="col-lg-12 col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label class="form-label">Razon</label>
-                                                                                <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon">{{$itinerary->reference->reason}}</textarea>
+                                                                                     @if(!empty($itinerary->reference->reason))
+                                                                                    <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon">{{$itinerary->reference->reason}}</textarea>
+                                                                                    @else
+                                                                                    <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
+                                                                                    @endif 
                                                                                 </div>
                                                                             </div>
                                                                             </div>
@@ -599,6 +661,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
 
+                                                    <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
                                                     <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
                                                         <div class="row d-flex justify-content-center">
                                                             <div class=" col-4">
@@ -615,6 +678,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </button>
                                                             </div>                                                            
                                                         </div>
+                                                        <!------------------------------listar cirugias y procedimientos---------------------->
                                                         <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
@@ -641,7 +705,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 
-                                                <!--Proxima cita-->
+                                                <!------------------------------PROXIMA CITA---------------------->
                                                 {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
                                                         <div class="col-lg-12 mx-auto">
@@ -1027,6 +1091,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
     });
 
+    //========================referir a un medico =======================
     $('#referir').click(function () {
         
         var speciality = $("#speciality").val(); 
@@ -1086,17 +1151,20 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
 
-    //captar datos de los procedimientos en la consulta
+    //=================== captar datos de los procedimientos realizados =======================
     $("#guardarO").click(function() {
+        console.log("hola");
             var reservacion = $("#reservacion").val();
             var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
 
+            console.log(reservacion);
+            console.log(procesof);
             ajax_PO(procesof,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
         });                                                               //fin de la funcion clikea
         
         function ajax_PO(procesof,reservacion) {
         $.ajax({ 
-            url: "{{ route('doctor.procedures_realizados') }}",   //definiendo ruta
+            url: "{{ route('doctor.procedures_update') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
@@ -1105,7 +1173,8 @@ button[data-original-title="Help"]{ display: none; }
                 id:reservacion
             }
         })
-        .done(function(data) {               
+        .done(function(data) {       
+            console.log("hola");        
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
             if(data[0] == 201){                  //si no trae valores
@@ -1129,9 +1198,22 @@ button[data-original-title="Help"]{ display: none; }
         .fail(function(data) {
             console.log(data);
         })
-    } // fin de la funcion
+    } 
 
-    //examenes a realizar (paciente)
+    //=================== Mostrar procedimientos realizados =======================
+    function mostrarProceduresC(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            // procesc='<li>'+data[$i].name+'</li>';
+            procesc='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
+            $("#procesc").append(procesc);
+        }
+        
+    }
+
+
+    //======================== examenes a realizar =====================
     $("#guardarE").click(function() {
             var reservacion = $("#reservacion").val();
             var exam = $("#exam").serialize();          //asignando el valor que se ingresa en el campo
@@ -1177,7 +1259,19 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-    //captar datos de los posibles procedimientos
+   //==============  mostrando lista de examenes  ================
+   function mostrarExamen(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            // examen='<li>'+data[$i].name+'</li>';
+            examen='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
+            $("#examen").append(examen);
+        }
+    }
+
+
+    //=============  captar datos de los posibles procedimientos ==========
     $("#guardarP").click(function() {
             var reservacion = $("#reservacion").val();
             var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
@@ -1223,6 +1317,16 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
+    //============ mostrando posibles procedimientos =============== 
+    function mostrarProcedure(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            procedure='<li>'+data[$i].name+'</li>';
+            $("#procedimientos").append(procedure);
+        }
+    }
+        
     // mostrando posibles procedimientos 
     function mostrarProcedure(data){
         console.log('hh',data);
@@ -1231,20 +1335,10 @@ button[data-original-title="Help"]{ display: none; }
             procedure='<p style="text-align:center">'+data[$i].name+'</p>';
             $("#procedimientos").append(procedure);
         }
-        
     }
+ 
 
-    // mostrando posibles procedimientos 
-    function mostrarExamen(data){
-        console.log('hh',data);
-
-        for($i=0; $i < data.length; $i++){
-            examen='<li>'+data[$i].name+'</li>';
-            $("#examen").append(examen);
-        }
-    }
-
-    //captar datos de las posibles cirugias
+    //============== captar datos de las posibles cirugias =============
     $("#guardarC").click(function() {
 
             var reservacion = $("#reservacion").val();
@@ -1290,48 +1384,17 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-
     
-    function mostrarProceduresC(data){
-            console.log('hh',data);
-
-            for($i=0; $i < data.length; $i++){
-                procesc='<li>'+data[$i].name+'</li>';
-                $("#procesc").append(procesc);
-            }
-            
-        }
-    //mostrando posibles cirugias
+    //============= mostrando posibles cirugias ==================
     function mostrarSurgery(data){
-            console.log('hh',data);
+        console.log('hh',data);
 
-            for($i=0; $i < data.length; $i++){
-                cirugias='<li>'+data[$i].name+'</li>';
-                $("#cirugias").append(cirugias);
-            }
-            
+        for($i=0; $i < data.length; $i++){
+            cirugias='<li>'+data[$i].name+'</li>';
+            $("#cirugias").append(cirugias);
         }
+        
+    }
 
-        // mostrando posibles procedimientos 
-        function mostrarProcedure(data){
-            console.log('hh',data);
-    
-            for($i=0; $i < data.length; $i++){
-                procedure='<li>'+data[$i].name+'</li>';
-                $("#procedimientos").append(procedure);
-            }
-            
-        }
-    
-        // mostrando examenes 
-        function mostrarExamen(data){
-            console.log('hh',data);
-    
-            for($i=0; $i < data.length; $i++){
-                examen='<li>'+data[$i].name+'</li>';
-                $("#examen").append(examen);
-            }
-            
-        }
 </script>
 @endsection

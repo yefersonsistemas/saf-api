@@ -295,21 +295,50 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="col-12">
 
                                                     <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
-                                                </div>    
-                                                <div class="row">
-                                                    <div class="col-12 mt-30">
-                                                        <h5>Procedimientos Realizados al Paciente:</h5>
-                                                    </div>
-                                                    <div class="col-12 mt-10">
-                                                        <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
-                                                            <i class="fa fa-plus"></i>
-                                                            Agregar Procedimiento
-                                                        </button>
-                                                    </div>   
-                                                    <div class="col-12 mt-20 p-4  card ml-2">
-                                                        <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
-                                                        <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;"></ul>  
-                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </section>
+
+                                         <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
+                                         <h2>Procedimientos Realizados</h2>
+                                         <section class="ml-4">
+                                            <div class="row">
+                                                <div class="col-12 mt-30">
+                                                    <h5>Procedimientos Realizados al Paciente:</h5>
+                                                </div>
+                                                <div class="col-12 mt-10">
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
+                                                        <i class="fa fa-plus"></i>
+                                                        Agregar Procedimiento
+                                                    </button>
+                                                </div>   
+                                                <h6 class="text-center col-12 mt-2 p-2  " style="font-weight:bold">Procedimientos Realizados</h6>
+                                                <div class="col-lg-12 mx-auto">
+                                                    <div class="card">
+                                                        <div class="row">
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover table-vcenter table-striped"
+                                                                        cellspacing="0" id="addrowExample">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Procedimiento Seleccionado</th>
+                                                                                <th class="text-center">Accion</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th>Procedimiento Seleccionado</th>
+                                                                                <th class="text-center">Accion</th>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                        <tbody id="procesc">
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>                                                         
+                                                        </div>
+                                                    </div>                                                                                                       
                                                 </div>
                                             </div>
                                         </section>
@@ -354,10 +383,42 @@ button[data-original-title="Help"]{ display: none; }
                                                                 Agregar examen
                                                             </button>
                                                         </div>
-                                                        <div class="col-12 mt-30 p-4  card ml-2">
+
+                                                        <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
+
+                                                        <div class="col-lg-12 mx-auto">
+                                                            <div class="card">
+                                                                    <div class="row">
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-vcenter table-striped"
+                                                                                    cellspacing="0" id="addrowExample">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Examen Seleccionado</th>
+                                                                                            <th class="text-center">Accion</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tfoot>
+                                                                                        <tr>
+                                                                                            <th>Medicamento Seleccionado</th>
+                                                                                            <th class="text-center">Accion</th>
+                                                                                        </tr>
+                                                                                    </tfoot>
+                                                                                    <tbody id="examen">
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                             
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- <div class="col-12 mt-30 p-4  card ml-2">
                                                             <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
                                                             <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"></ul>  
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </div>
                                                 <!--Recetario-->
@@ -1129,7 +1190,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            examen='<li>'+data[$i].name+'</li>';
+            examen='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
             $("#examen").append(examen);
         }
     }
@@ -1186,7 +1247,8 @@ button[data-original-title="Help"]{ display: none; }
             console.log('hh',data);
 
             for($i=0; $i < data.length; $i++){
-                procesc='<li>'+data[$i].name+'</li>';
+                // procesc='<li>'+data[$i].name+'</li>';
+                procesc='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
                 $("#procesc").append(procesc);
             }
             
@@ -1213,15 +1275,5 @@ button[data-original-title="Help"]{ display: none; }
             
         }
     
-        // mostrando examenes 
-        function mostrarExamen(data){
-            console.log('hh',data);
-    
-            for($i=0; $i < data.length; $i++){
-                examen='<li>'+data[$i].name+'</li>';
-                $("#examen").append(examen);
-            }
-            
-        }
 </script>
 @endsection

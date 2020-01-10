@@ -111,6 +111,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update{id}','DoctorController@update')->name('doctor.update');
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+
+        Route::post('procedures_update', 'DoctorController@procedures_update')->name('doctor.procedures_update');  // guardar los procedimientos realizados en la consulta
     });
 
     Route::group(['middleware' => ['role:director']], function(){

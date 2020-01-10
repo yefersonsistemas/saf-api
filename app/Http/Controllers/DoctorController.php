@@ -127,9 +127,10 @@ class DoctorController extends Controller
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
 
+        // dd($itinerary);
 
         // dd($itinerary->procedures);
-        if (!empty($itinerary->procedure)) {
+        if (!empty($itinerary->procedure_id)) {
             $procedures_id = explode(',', $itinerary->procedure_id); //decodificando los procedimientos en $encontrado
             if (!empty($procedures_id)) {
                 foreach($procedures_id as $procedure){
@@ -140,9 +141,10 @@ class DoctorController extends Controller
             $procedures = null;
         }
     
+        // dd($procedures);
 
         //decodificando y buscando datos de procedures realizados
-        if (!empty($itinerary->procedureR)) {
+        if (!empty($itinerary->procedureR_id)) {
             $proceduresR_id = explode(',', $itinerary->procedureR_id); //decodificando los procedimientos en $encontrado
             if (!empty($proceduresR_id)) {
                 foreach($proceduresR_id as $procedureR){
@@ -152,11 +154,11 @@ class DoctorController extends Controller
         }else{
             $proceduresR = null;
         }
-
+       
         
         //decodificando y buscando datos de examenes
         // dd($itinerary->exam);
-        if (!empty($itinerary->exam)) {
+        if (!empty($itinerary->exam_id)) {
             $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
             if (!empty($exam_id)) {
                 foreach($exam_id as $exam){
@@ -166,12 +168,13 @@ class DoctorController extends Controller
         }else{
             $exams = null;
         }
+        // dd($exams);
 
         $procesm = Employe::with('procedures')->where('id', $reservation->person_id)->first(); 
         $examenes = Exam::all();
         $cirugias = TypeSurgery::get();
 
-        if (!empty($itinerary->procedureR)) {
+        if (!empty($itinerary->procedureR_id)) {
             $diff_PR = $procesm->procedures->diff($proceduresR);    
         }else{
             $diff_PR = $procesm->procedures;
@@ -182,13 +185,12 @@ class DoctorController extends Controller
         }else{
             $diff_E = $examenes;
         }
-
-        if (!empty($itinerary->procedure)) {
+      
+        if (!empty($itinerary->procedure_id)) {
             $diff_P = $procesm->procedures->diff($procedures);
         }else{
             $diff_P = $procesm->procedures;
         }
-
 
         $surgery = array($itinerary->typesurgery);
      
@@ -197,8 +199,8 @@ class DoctorController extends Controller
         }else{
             $diff_C = $cirugias;
         }   
-        // dd($surgery->first());
         
+
         return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'proceduresR', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery'));
     }
 
@@ -570,7 +572,7 @@ class DoctorController extends Controller
     public function procedures_realizados(Request $request){
         // dd($request);
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-
+    
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
@@ -600,6 +602,42 @@ class DoctorController extends Controller
             'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
             ]);
         }
+
+        //================= actualizar procedimientos realizados ==============
+        public function procedures_update(Request $request){
+            // dd($request);
+            $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+    
+
+            $returndata2 = array();
+            $strArray = explode('&', $request->data);
+    
+            foreach($strArray as $item) {
+                $array = explode("=", $item);
+                $returndata[] = $array;
+            }
+    
+            for($i=0; $i < count($returndata); $i++){
+                for($y=1; $y <= 1; $y++){
+                $returndata2[$i] = $returndata[$i][$y];
+                }
+            }
+    
+            $data =  implode(',', $returndata2);
+    
+            $itinerary->procedureR_id = $itinerary->procedureR_id + $data;
+            $itinerary->save();
+    
+            $procedures = explode(',', $itinerary->procedureR_id); // decodificando los prcocedimientos json
+            
+            for ($i=0; $i < count($procedures) ; $i++) { 
+                        $procedure[] = Procedure::find($procedures[$i]);
+                    }
+    
+            return response()->json([
+                'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
+                ]);
+            }
         
         //Examenes a realizar(paciente)
         public function examR(Request $request){
