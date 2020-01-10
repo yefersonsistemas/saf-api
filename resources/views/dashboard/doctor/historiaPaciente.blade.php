@@ -414,11 +414,6 @@ button[data-original-title="Help"]{ display: none; }
                                                              
                                                             </div>
                                                         </div>
-
-                                                        {{-- <div class="col-12 mt-30 p-4  card ml-2">
-                                                            <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
-                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"></ul>  
-                                                        </div> --}}
                                                     </div>
                                                 </div>
                                                 <!--Recetario-->
@@ -480,40 +475,37 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                         <div class="col-lg-12 mx-auto">
                                                             <div class="card">
-                                                                    <div class="row">
-                                                                        <div class="card-body">
-                                                                            <div class="table-responsive">
-                                                                                <table class="table table-hover table-vcenter table-striped"
-                                                                                    cellspacing="0" id="addrowExample">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Medicamento Seleccionado</th>
-                                                                                            <th>Dosis</th>
-                                                                                            <th>Medidas</th>
-                                                                                            <th>Duracion</th>
-                                                                                            <th>Indicaciones</th>
-                                                                                            <th>Acciones</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tfoot>
-                                                                                        <tr>
-                                                                                            <th>Medicamento Seleccionado</th>
-                                                                                            <th>Dosis</th>
-                                                                                            <th>Medidas</th>
-                                                                                            <th>Duracion</th>
-                                                                                            <th>Indicaciones</th>
-                                                                                            <th>Acciones</th>
-                                                                                        </tr>
-                                                                                    </tfoot>
-                                                                                    <tbody id="addRow">
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
+                                                                <div class="row">
+                                                                    <div class="card-body">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Medicamento Seleccionado</th>
+                                                                                        <th>Dosis</th>
+                                                                                        <th>Medidas</th>
+                                                                                        <th>Duracion</th>
+                                                                                        <th>Indicaciones</th>
+                                                                                        <th>Acciones</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tfoot>
+                                                                                    <tr>
+                                                                                        <th>Medicamento Seleccionado</th>
+                                                                                        <th>Dosis</th>
+                                                                                        <th>Medidas</th>
+                                                                                        <th>Duracion</th>
+                                                                                        <th>Indicaciones</th>
+                                                                                        <th>Acciones</th>
+                                                                                    </tr>
+                                                                                </tfoot>
+                                                                                <tbody id="addRow">
+                                                                                </tbody>
+                                                                            </table>
                                                                         </div>
                                                                     </div>
-                                                                {{-- <div class="card-footer text-center">
-                                                                    <button type="submit" class="btn btn-azuloscuro">Generar</button>
-                                                                </div> --}}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -537,68 +529,68 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
-                                                            <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
-                                                                <div class="card mr-0 ml-0">
-                                                                    <div class="card-body m-0">
-                                                                        {{-- <h3 class="card-title">Datos del Médico</h3> --}}
-                                                                        <div class="row">
-                                                                            <div class="col-sm-6 col-md-4">
-                                                                                <label class="form-label" >Especialidad:</label>
-                                                                                <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                    <option value="0" >Seleccione</option>
-                                                                                    @foreach ($specialities as $speciality)
-                                                                                        <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="col-md-8">
-                                                                                <div class="form-group" style=" margin-top:8px;">
-                                                                                        <div class="custom-controls-stacked d-flex justify-content-between">
-                                                                                            <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
-                                                                                                <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
-                                                                                                <span class="custom-control-label">Médico Interno</span>
-                                                                                                <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                        <option value="null">Médico Interno</option>
-                                                                                                </select>
-                                                                                            </label>
-                                                                                            <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
-                                                                                                <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
-                                                                                                <span class="custom-control-label">Médico Externo</span>
-                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="" name="doctorExterno" >
-                                                                                            </label>
-                                                                                        </div>
+                                                        <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
+                                                            <div class="card mr-0 ml-0">
+                                                                <div class="card-body m-0">
+                                                                    {{-- <h3 class="card-title">Datos del Médico</h3> --}}
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6 col-md-4">
+                                                                            <label class="form-label" >Especialidad:</label>
+                                                                            <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                                <option value="0" >Seleccione</option>
+                                                                                @foreach ($specialities as $speciality)
+                                                                                    <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group" style=" margin-top:8px;">
+                                                                                    <div class="custom-controls-stacked d-flex justify-content-between">
+                                                                                        <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
+                                                                                            <span class="custom-control-label">Médico Interno</span>
+                                                                                            <select class="form-control custom-select" name="doctor" id="medicoInterno">
+                                                                                                    <option value="null">Médico Interno</option>
+                                                                                            </select>
+                                                                                        </label>
+                                                                                        <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
+                                                                                            <span class="custom-control-label">Médico Externo</span>
+                                                                                            <input type="text" id="medicoExterno" class="form-control"  required placeholder="" name="doctorExterno" >
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
-                                                                            <div class="col-lg-12 col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label class="form-label">Razon</label>
-                                                                                    <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
-                                                                                </div>
                                                                             </div>
+                                                                        <div class="col-lg-12 col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label class="form-label">Razon</label>
+                                                                                <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
                                                                             </div>
                                                                         </div>
-                                                                        <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
                                                                         </div>
-                                                                </div>
+                                                                    </div>
+                                                                    <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
+                                                                        <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
+                                                                    </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                        <div class="row d-flex justify-content-center">
-                                                            <div class=" col-4">
-                                                                <button class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                    <i class="fa fa-plus"></i>
-                                                                    Agregar Cirugia
-                                                                </button>
-                                                            </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class=" col-4">
+                                                            <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#surgerys">
+                                                                <i class="fa fa-plus"></i>
+                                                                Agregar Cirugia
+                                                            </button>
+                                                        </div>
                                                             
-                                                            <div class="col-4">
-                                                                <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                    <i class="fa fa-plus"></i>
-                                                                    Agregar Procedimiento
-                                                                </button>
-                                                            </div>                                                            
+                                                        <div class="col-4">
+                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                                <i class="fa fa-plus"></i>
+                                                                Agregar Procedimiento
+                                                            </button>
+                                                        </div>                                                            
                                                         </div>
                                                         <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-5 mt-30 p-4 card ml-2">
@@ -1156,7 +1148,6 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-
                 mostrarProcedure(data[1]);
             }
             

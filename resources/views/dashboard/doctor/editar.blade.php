@@ -659,25 +659,25 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                </div>
 
-                                                    <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
-                                                    <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                        <div class="row d-flex justify-content-center">
-                                                            <div class=" col-4">
-                                                                <button class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                    <i class="fa fa-plus"></i>
-                                                                    Agregar Cirugia
-                                                                </button>
-                                                            </div>
-                                                            
-                                                            <div class="col-4">
-                                                                <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                    <i class="fa fa-plus"></i>
-                                                                    Agregar Procedimiento
-                                                                </button>
-                                                            </div>                                                            
+                                                <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
+                                                <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class=" col-4">
+                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#surgerys">
+                                                                <i class="fa fa-plus"></i>
+                                                                Agregar Cirugia
+                                                            </button>
                                                         </div>
+                                                        
+                                                        <div class="col-4">
+                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                                <i class="fa fa-plus"></i>
+                                                                Agregar Procedimiento
+                                                            </button>
+                                                        </div>                                                            
+                                                    </div>
                                                         <!------------------------------listar cirugias y procedimientos---------------------->
                                                         <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-5 mt-30 p-4 card ml-2">
@@ -1164,7 +1164,7 @@ button[data-original-title="Help"]{ display: none; }
         
         function ajax_PO(procesof,reservacion) {
         $.ajax({ 
-            url: "{{ route('doctor.procedures_update') }}",   //definiendo ruta
+            url: "{{ route('doctor.proceduresR_actualizar') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
@@ -1188,7 +1188,7 @@ button[data-original-title="Help"]{ display: none; }
             
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.procedureR2,
+                    title: data.procedures,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
@@ -1223,7 +1223,7 @@ button[data-original-title="Help"]{ display: none; }
         
         function ajax_E(exam,reservacion) {
         $.ajax({ 
-            url: "{{ route('doctor.examR') }}",   //definiendo ruta
+            url: "{{ route('doctor.exam_actualizar') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
@@ -1247,7 +1247,7 @@ button[data-original-title="Help"]{ display: none; }
             
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.exam2,
+                    title: data.exam,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
@@ -1264,7 +1264,6 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            // examen='<li>'+data[$i].name+'</li>';
             examen='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
             $("#examen").append(examen);
         }
@@ -1275,13 +1274,13 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarP").click(function() {
             var reservacion = $("#reservacion").val();
             var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
-
+// console.log(proce);
             ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
         function ajax(proce,reservacion) {
         $.ajax({ 
-            url: "{{ route('doctor.proceduresP') }}",   //definiendo ruta
+            url: "{{ route('doctor.procedures_actualizar') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
@@ -1295,7 +1294,7 @@ button[data-original-title="Help"]{ display: none; }
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
-                    // title: data.proceduresR,
+                    title: data.proceduresR,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
@@ -1305,7 +1304,7 @@ button[data-original-title="Help"]{ display: none; }
             
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.reference,
+                    title: data.proceduresR,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
@@ -1349,7 +1348,7 @@ button[data-original-title="Help"]{ display: none; }
         
         function ajax_S(surgery,reservacion) {
         $.ajax({ 
-            url: "{{ route('doctor.surgerysP') }}",   //definiendo ruta
+            url: "{{ route('doctor.surgery_actualizar') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
@@ -1372,7 +1371,7 @@ button[data-original-title="Help"]{ display: none; }
             
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.surgerysR2,
+                    title: data.surgerysR,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })

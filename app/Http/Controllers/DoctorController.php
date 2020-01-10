@@ -568,7 +568,7 @@ class DoctorController extends Controller
         }
     }
     
-    //Procedimientos en el Consultorio
+    //============= Procedimientos realizados en el consultorio =============
     public function procedures_realizados(Request $request){
         // dd($request);
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
@@ -604,47 +604,91 @@ class DoctorController extends Controller
         }
 
         //================= actualizar procedimientos realizados ==============
-        public function procedures_update(Request $request){
+        public function proceduresR_update(Request $request){
             // dd($request);
             $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-    
 
             $returndata2 = array();
-            $strArray = explode('&', $request->data);
-    
-            foreach($strArray as $item) {
-                $array = explode("=", $item);
-                $returndata[] = $array;
-            }
-    
-            for($i=0; $i < count($returndata); $i++){
-                for($y=1; $y <= 1; $y++){
-                $returndata2[$i] = $returndata[$i][$y];
-                }
-            }
-    
-            $data =  implode(',', $returndata2);
-    
-            $itinerary->procedureR_id = $itinerary->procedureR_id + $data;
-            $itinerary->save();
-    
-            $procedures = explode(',', $itinerary->procedureR_id); // decodificando los prcocedimientos json
-            
-            for ($i=0; $i < count($procedures) ; $i++) { 
-                        $procedure[] = Procedure::find($procedures[$i]);
-                    }
-    
-            return response()->json([
-                'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
-                ]);
-            }
+            if(!empty($request->data)){
+                $strArray = explode('&', $request->data);
         
-        //Examenes a realizar(paciente)
-        public function examR(Request $request){
+                foreach($strArray as $item) {
+                    $array = explode("=", $item);
+                    $returndata[] = $array;
+                }
+        
+                for($i=0; $i < count($returndata); $i++){
+                    for($y=1; $y <= 1; $y++){
+                    $returndata2[$i] = $returndata[$i][$y];
+                    }
+                }
+        
+                $data =  implode(',', $returndata2);
+            
+                if(!empty($itinerary->procedureR_id)){
+                $date = $itinerary->procedureR_id . ',' . $data;
+                $itinerary->procedureR_id = $date;
+                }else{
+                    $itinerary->procedureR_id = $data;
+                }
+                $itinerary->save();
+        
+                $procedures = explode(',', $data); // decodificando los prcocedimientos json
+                
+                for ($i=0; $i < count($procedures) ; $i++) { 
+                            $procedure[] = Procedure::find($procedures[$i]);
+                        }
+        
+                return response()->json([
+                    'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
+                    ]);
+            }else{
+                return response()->json([
+                    'procedures' => 'Seleccione un procedimiento',202
+                    ]);
+            }
+        }
 
-            $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+        
+    //======================= Examenes a realizar(paciente) ==================
+    public function examR(Request $request){
 
-            $returndata2 = array();
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        } 
+        $data =  implode(',', $returndata2);
+
+        $itinerary->exam_id = $data;
+        $itinerary->save();
+
+        $examenes = explode(',', $itinerary->exam_id); // decodificando los prcocedimientos json
+        for ($i=0; $i < count($examenes) ; $i++) { 
+            $examen[] = Exam::find($examenes[$i]);
+        }
+        return response()->json([
+            'exam' => 'Examenes guardados exitosamente',201,$examen
+        ]);
+    }
+
+    //============== actualizar Examenes a realizar al paciente ============
+    public function exam_update(Request $request){
+        
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+        $returndata2 = array();
+        if(!empty($request->data)){
             $strArray = explode('&', $request->data);
 
             foreach($strArray as $item) {
@@ -659,21 +703,31 @@ class DoctorController extends Controller
             } 
             $data =  implode(',', $returndata2);
 
-            $itinerary->exam_id = $data;
+            if(!empty($itinerary->exam_id)){
+            $date =  $itinerary->exam_id . ','. $data;
+            $itinerary->exam_id = $date;
+            }else{
+                $itinerary->exam_id = $data;
+            }
             $itinerary->save();
 
-            $examenes = explode(',', $itinerary->exam_id); // decodificando los prcocedimientos json
+            $examenes = explode(',', $data); // decodificando los prcocedimientos json
             for ($i=0; $i < count($examenes) ; $i++) { 
                 $examen[] = Exam::find($examenes[$i]);
             }
             return response()->json([
                 'exam' => 'Examenes guardados exitosamente',201,$examen
             ]);
+        }else{
+            return response()->json([
+                'exam' => 'Seleccione un examen',202
+            ]);
         }
+    }
 
     // ================ posibles procedimientos =================
     public function proceduresP(Request $request){
-
+        // dd($request);
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
         $returndata2 = array();
@@ -705,6 +759,54 @@ class DoctorController extends Controller
         return response()->json([
             'proceduresR' => 'Procedimientos guardados exitosamente',201, $procedure
         ]);
+    }
+
+    // ================ posibles procedimientos =================
+    public function procedures_update(Request $request){
+        
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+        $returndata2 = array();
+        if(!empty($request->data)){
+            $strArray = explode('&', $request->data);
+
+            foreach($strArray as $item) {
+                $array = explode("=", $item);
+                $returndata[] = $array;
+            }
+
+            for($i=0; $i < count($returndata); $i++){
+                for($y=1; $y <= 1; $y++){
+                $returndata2[$i] = $returndata[$i][$y];
+                }
+            } 
+
+            $data =  implode(',', $returndata2);
+
+            if(!empty($itinerary->procedure_id)){
+            $date = $itinerary->procedure_id . ',' . $data;
+            $itinerary->procedure_id = $date;
+            }else{
+                $itinerary->procedure_id = $data;
+            }
+
+            $itinerary->save();
+
+            $procedures = explode(',', $data); // decodificando los prcocedimientos json
+            // dd($procedures);
+
+                for ($i=0; $i < count($procedures) ; $i++) { 
+                    $procedure[] = Procedure::find($procedures[$i]);
+                }
+
+            return response()->json([
+                'proceduresR' => 'Procedimientos guardados exitosamente',201, $procedure
+            ]);
+        }else{
+            return response()->json([
+                'proceduresR' => 'Seleccione un procedimiento',202
+            ]);
+        }
     }
 
     //Candidato a cirugias
@@ -740,4 +842,50 @@ class DoctorController extends Controller
             'surgerysR' => 'Cirugias guardadas exitosamente',201,$surgery
         ]);
     }
+
+     //Candidato a cirugias
+     public function surgerysP_update(Request $request){
+
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+        $returndata2 = array();
+        if(!empty($request->data)){
+            $strArray = explode('&', $request->data);
+
+            foreach($strArray as $item) {
+                $array = explode("=", $item);
+                $returndata[] = $array;
+            }
+
+            for($i=0; $i < count($returndata); $i++){
+                for($y=1; $y <= 1; $y++){
+                $returndata2[$i] = $returndata[$i][$y];
+                }
+            }
+            $data =  implode(',', $returndata2);
+            
+            if(!empty($itinerary->typesurgery_id)){
+            $date = $itinerary->typesurgery_id .','. $data;
+            $itinerary->typesurgery_id = $date;
+            }else{
+                $itinerary->typesurgery_id = $data;
+            }
+            $itinerary->save();
+
+            $surgerys = explode(',', $data); // decodificando los prcocedimientos json
+            
+            for ($i=0; $i < count($surgerys) ; $i++) { 
+                        $surgery[] = TypeSurgery::find($surgerys[$i]);
+                    }
+
+            return response()->json([
+                'surgerysR' => 'Cirugias guardadas exitosamente',201,$surgery
+            ]);
+        }else{
+            return response()->json([
+                'surgerysR' => 'Seleccione una cirugia',202
+            ]);
+        }
+    }
+
 }
