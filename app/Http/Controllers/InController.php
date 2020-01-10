@@ -112,6 +112,7 @@ class InController extends Controller
     public function search_history(Request $request, $id){ 
         $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
+        // dd($rs);
 
         $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 
@@ -132,13 +133,6 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  
     {   
-        dd($request);
-        $dir=public_path().'/file/';
-        $files=$request->file('file');
-        // foreach($files as $file){
-        //     $fileName=$file->getClientOriginalName();
-        //     $file->move($dir,$fileName);
-        // }
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
@@ -503,9 +497,7 @@ class InController extends Controller
      */
     public static function horario(Request $request){
         // dd($request);
-
-        $employe = Employe::with('schedule')->where('id', $request->id)->first();
-
+        
         if(!empty($employe)){
             return response()->json([
                 'employe' => $employe,201
@@ -578,6 +570,18 @@ class InController extends Controller
 
     public function exams_previos(Request $request)
     {
-        dd($request);
+        // dd($request);
+        if ($request->file != null) {
+           
+            $image = $request->file('file');
+            $path = $image->store('public/exams');  
+            $path = str_replace('public/', '', $path);
+            $image = new File;
+            $image->path = $path;
+            $image->fileable_type = "App\Patient";
+            $image->fileable_id = $request->patient;
+            $image->branch_id = 1;
+            $image->save();
+         }
     }
 }

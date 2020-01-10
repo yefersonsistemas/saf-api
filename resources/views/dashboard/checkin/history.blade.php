@@ -53,7 +53,55 @@
                     <h5 class="text-center">Datos Personales</h5>
                     <div class="row">
                         <div class="col-3 ml-4 mb-4">
-                            <img src="{{ ($rs->patient->image != null) ? 'Storage::url($rs->patient->image->path)' : '' }}" alt="" class="img-thumbnail" style=" width:140px">
+                            {{-- <div class="avatar-upload">
+                                <div class="avatar-edit">
+                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                    <label for="imageUpload"></label>
+                                </div>
+                                <div class="avatar-preview">
+                                    <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
+                                    </div>
+                                </div>
+                                </div> --}}
+                            @if (!empty($rs->patient->image->path))
+                            <div class="avatar-edit">
+                                <img src="{{ Storage::url($rs->patient->image->path)}}" alt="" class="img-thumbnail avatar-patient position-relative">
+                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                            </div>
+                            @else
+                            <div class="avatar-edit">
+                                <img src="" alt=""  class="img-thumbnail avatar-patient">
+                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                            </div>
+                            @endif
+                        </div>
+                                        <!-- Modal -->
+                        <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h1>Tomar foto con JavaScript v3.0</h1>
+                                        <p>
+                                            Programado por Luis Cabrera Benito a.k.a. <a target="_blank" href="https://www.parzibyte.me/blog">parzibyte</a>
+                                        </p>
+                                        <h1>Selecciona un dispositivo</h1>
+                                        <div>
+                                            <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                                            <button id="boton">Tomar foto</button>
+                                            <p id="estado"></p>
+                                        </div>
+                                        <br>
+                                        <video muted="muted" id="video"></video>
+                                        <canvas id="canvas" style="display: none;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-8 mt-4">
@@ -208,14 +256,14 @@
             
             <div class="card p-4">
                 <label class="form-label">Exámenes</label>
-                {{-- <div class="dropzone" id="my-dropzone">
+                <div class="dropzone" id="my-dropzone">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                     </div>
-                </div> --}}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                </div>
+                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Launch demo modal
-                  </button>
+                  </button> --}}
             </div>
 
             <div class="card p-4 d-flex justify-content-between">
@@ -327,20 +375,12 @@
                 <div class="modal-body">
                 <form role="form" enctype="multipart/form-data" action="{{route('checkin.exams')}}" method="POST">
                         @csrf
-                        <!-- You can add extra form fields here -->
-                    
-                        <input hidden id="file" name="file"/>
-                    
-                        <!-- You can add extra form fields here -->
-                    
-                        <div class="dropzone dropzone-file-area" id="fileUpload">
-                            <div class="dz-default dz-message">
-                                <h3 class="sbold">Drop files here to upload</h3>
-                                <span>You can also click to open file browser</span>
-                            </div>
-                        </div>
-                    
-                        <!-- You can add extra form fields here -->
+                <input type="hidden" value="{{$rs->patient->historyPatient->id}}" name="patient">
+                      <div class="dropzone" id="my-dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple id="files" />
+                    </div>
+                </div>
                     
                         <button type="submit" class="btn btn-azuloscuro">Submit</button>
                     </form>
@@ -355,9 +395,15 @@
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
+<script src="{{ asset('js/brandAn.js') }}"></script>
 <script>
-Dropzone.options.fileUpload = {
-    url: 'checkin.exams',
+Dropzone.options.myDropzone = {
+    url: "{{ route('save.history', $rs) }}",
+    autoProcessQueue: true,
+    uploadMultiple: true,
+    parallelUploads: 100,
+    maxFiles: 10,
+    maxFilesize:10,
     addRemoveLinks: true,
     accept: function(file) {
         let fileReader = new FileReader();
@@ -366,7 +412,7 @@ Dropzone.options.fileUpload = {
         fileReader.onloadend = function() {
 
             let content = fileReader.result;
-            $('#file').val(content);
+            $('#files').val(content);
             file.previewElement.classList.add("dz-success");
         }
         file.previewElement.classList.add("dz-complete");
