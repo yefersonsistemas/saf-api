@@ -122,57 +122,84 @@ class DoctorController extends Controller
         
         $r_patient = Diagnostic::with('repose', 'reportMedico')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
-        $itinerary = Itinerary::with('exam','recipe.medicine.treatment', 'typesurgery')->where('patient_id', $reservation->patient_id)->first();
-        // dd($itinerary);
-        //decodificando y buscando datos de posibles procedures 
+        $itinerary = Itinerary::with('exam','recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
+        // dd($itinerary->recipe->medicine);
+        $speciality = Speciality::all(); 
         $medicines = Medicine::all();
-        if (!empty($itinerary->procedure_id)) {
+
+
+        // dd($itinerary->procedures);
+        if (!empty($itinerary->procedure)) {
             $procedures_id = explode(',', $itinerary->procedure_id); //decodificando los procedimientos en $encontrado
             if (!empty($procedures_id)) {
                 foreach($procedures_id as $procedure){
                     $procedures[] = Procedure::find($procedure);
                 }
             }
+        }else{
+            $procedures = null;
         }
+    
 
         //decodificando y buscando datos de procedures realizados
-        if (!empty($itinerary->procedureR_id)) {
+        if (!empty($itinerary->procedureR)) {
             $proceduresR_id = explode(',', $itinerary->procedureR_id); //decodificando los procedimientos en $encontrado
             if (!empty($proceduresR_id)) {
                 foreach($proceduresR_id as $procedureR){
                     $proceduresR[] = Procedure::find($procedureR);
                 }
             }
+        }else{
+            $proceduresR = null;
         }
+
         
-          //decodificando y buscando datos de examenes
-        if (!empty($itinerary->exam_id)) {
+        //decodificando y buscando datos de examenes
+        // dd($itinerary->exam);
+        if (!empty($itinerary->exam)) {
             $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
             if (!empty($exam_id)) {
                 foreach($exam_id as $exam){
                     $exams[] = Procedure::find($exam);
                 }
             }
+        }else{
+            $exams = null;
         }
 
         $procesm = Employe::with('procedures')->where('id', $reservation->person_id)->first(); 
-        $diff_PR = $procesm->procedures->diff($proceduresR);      
-
         $examenes = Exam::all();
-        // dd($examenes);
-        $diff_E = $examenes->diff($exams);
-        $diff_P = $procesm->procedures->diff($procedures);
+        $cirugias = TypeSurgery::get();
+
+        if (!empty($itinerary->procedureR)) {
+            $diff_PR = $procesm->procedures->diff($proceduresR);    
+        }else{
+            $diff_PR = $procesm->procedures;
+        }
+     
+        if (!empty($itinerary->exam)) {
+            $diff_E = $examenes->diff($exams);
+        }else{
+            $diff_E = $examenes;
+        }
+
+        if (!empty($itinerary->procedure)) {
+            $diff_P = $procesm->procedures->diff($procedures);
+        }else{
+            $diff_P = $procesm->procedures;
+        }
+
 
         $surgery = array($itinerary->typesurgery);
-        // dd($surgery);
-
-        $cirugias = TypeSurgery::get();
-        // dd($cirugias);
-        $diff_C = $cirugias->diff($surgery);
-
-        // dd($diff_C->all());
+     
+        if(!empty($itinerary->typesurgery)){
+            $diff_C = $cirugias->diff($surgery);
+        }else{
+            $diff_C = $cirugias;
+        }   
+        // dd($surgery->first());
         
-        return view('dashboard.doctor.editar', compact('r_patient','procedures', 'proceduresR', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'proceduresR', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery'));
     }
 
     /**

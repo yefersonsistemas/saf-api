@@ -251,14 +251,14 @@ button[data-original-title="Help"]{ display: none; }
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                                {{-- <div class="card">
+                                                <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <h5 class="card-title text-white">Cirugias Previas</h5>
                                                     </div>
                                                     <div id="collapseThree" class="collapse list-group card-body" aria-labelledby="headingThree" data-parent="#accordion">
                                                         <a class="list-group-item list-group-item-action">{{ $cite->previous_surgery }}</a>
                                                     </div>
-                                                </div> --}}
+                                                </div>
                                             </div>
                                         </section>
 
@@ -304,9 +304,11 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="col-12 mt-20 p-4  card ml-2">
                                                         <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
                                                         <ul class="text-start pl-4 pr-4" id="procesc" style="font-size:14px;">
-                                                            @foreach ($proceduresR as $proces)
-                                                            <li>{{ $proces->name }}</li>
-                                                            @endforeach
+                                                            @if(!empty($proceduresR))
+                                                                @foreach ($proceduresR as $proces)
+                                                                <li>{{ $proces->name }}</li>
+                                                                @endforeach
+                                                            @endif
                                                         </ul>  
                                                     </div>
                                                 </div>
@@ -353,14 +355,58 @@ button[data-original-title="Help"]{ display: none; }
                                                                 Agregar examen
                                                             </button>
                                                         </div>
-                                                        <div class="col-12 mt-30 p-4  card ml-2">
-                                                            <h6 class="text-center" style="font-weight:bold">Examenes médicos a realizar</h6>
-                                                            <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;">
-                                                                @foreach ($exams as $exam)
-                                                                <li>{{ $exam->name }}</li>
-                                                                @endforeach
-                                                            </ul>  
-                                                        </div>
+                                                        {{-- <div class="col-12 mt-30 p-4  card ml-2"> --}}
+                                                            <h6 class="text-center col-12 mt-30 p-4" style="font-weight:bold">Examenes médicos a realizar</h6>
+                                                            {{-- <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"> --}}
+                                                            
+                                                                    <div class="col-lg-12 mx-auto">
+                                                                        <div class="card">
+                                                                                <div class="row">
+                                                                                    <div class="card-body">
+                                                                                        <div class="table-responsive">
+                                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                                cellspacing="0" id="addrowExample">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>Examen Seleccionado</th>
+                                                                                                        <th class="text-center">Accion</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tfoot>
+                                                                                                    <tr>
+                                                                                                        <th>Medicamento Seleccionado</th>
+                                                                                                        <th class="text-center">Accion</th>
+                                                                                                    </tr>
+                                                                                                </tfoot>
+                                                                                                <tbody id="addRow">
+                                                                                                    @if(!empty($exams))
+                                                                                                        @foreach ($exams as $exam)
+                                                                                                            <tr>
+                                                                                                                <td>
+                                                                                                                    <div class="col-6" >{{ $exam->name }}</div> 
+                                                                                                                </td>
+                                                                                                                <td class="actions d-flex justify-content-center">
+                                                                                                                    <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
+                                                                                                                        <i class="icon-trash" aria-hidden="true"></i>
+                                                                                                                    </button>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        @endforeach
+                                                                                                    @endif
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                         
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {{-- <div class="row">
+                                                                      
+                                                                    </div> --}}
+                                                               
+                                                        {{-- </div> --}}
                                                     </div>
                                                 </div>
                                                 <!--Recetario-->
@@ -506,12 +552,12 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
-                                                                                {{-- <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                    <option value="0" >Seleccione</option>
-                                                                                    @foreach ($specialities as $speciality)
-                                                                                        <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                                                                                <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                                <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
+                                                                                    @foreach ($speciality as $spe)
+                                                                                        <option value="{{ $spe->id }}">{{ $spe->name }}</option>
                                                                                     @endforeach
-                                                                                </select> --}}
+                                                                                </select>
                                                                             </div>
                                                                             <div class="col-md-8">
                                                                                 <div class="form-group" style=" margin-top:8px;">
@@ -520,13 +566,19 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
                                                                                                 <span class="custom-control-label">Médico Interno</span>
                                                                                                 <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                        <option value="null">Médico Interno</option>
+                                                                                                <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
                                                                                                 </select>
                                                                                             </label>
                                                                                             <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
-                                                                                                <span class="custom-control-label">Médico Externo</span>
-                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="" name="doctorExterno" >
+                                                                                                @if(!empty($itinerary->reference->doctor))
+                                                                                                    <span class="custom-control-label">Médico Externo</span>
+                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctorExterno" >
+                                                                                                @endif
+                                                                                                @if($itinerary->reference->doctor == null)
+                                                                                                    <span class="custom-control-label">Médico Externo</span>
+                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctorExterno" >
+                                                                                                @endif
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -534,13 +586,13 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <div class="col-lg-12 col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label class="form-label">Razon</label>
-                                                                                    <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
+                                                                                <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon">{{$itinerary->reference->reason}}</textarea>
                                                                                 </div>
                                                                             </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
+                                                                            <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Actualizar referencia</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -567,18 +619,22 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
                                                                 <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;">
-                                                                    @foreach ($surgery as $surge)
-                                                                    <li>{{ $surge->name }}</li>
-                                                                    @endforeach
+                                                                    @if(!empty($itinerary->typesurgery))
+                                                                        @foreach ($surgery as $surge)
+                                                                        <li>{{ $surge->name }}</li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>  
                                                             </div>
 
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
                                                                 <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;">
-                                                                    @foreach ($procedures as $proces)
-                                                                    <li>{{ $proces->name }}</li>
-                                                                    @endforeach
+                                                                    @if(!empty($procedures))
+                                                                        @foreach ($procedures as $proces)
+                                                                        <li>{{ $proces->name }}</li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>  
                                                             </div>
                                                         </div>
@@ -586,13 +642,13 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 
                                                 <!--Proxima cita-->
-                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
                                                         <div class="col-lg-12 mx-auto">
                                                             Proxima cita...
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </section>
                                         
@@ -622,19 +678,14 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                {{-- @foreach ($proceduresR as $item)
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
-                                    <span class="custom-control-label">{{ $item->name }}</span>
-                                </label>
-                                @endforeach --}}
-
+                            
                                 @foreach ($diff_PR as $demas)
                                 <label class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
                                     <span class="custom-control-label">{{ $demas->name }}</span>
                                 </label>
                                 @endforeach
+                            
                             </div>
                         </div> 
                     </div>   
@@ -738,12 +789,7 @@ button[data-original-title="Help"]{ display: none; }
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                            {{-- @foreach ($procedures as $item)
-                            <label class="custom-control custom-checkbox">
-                                <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
-                                <span class="custom-control-label">{{ $item->name }}</span>
-                            </label>
-                            @endforeach --}}
+                         
 
                             @foreach ($diff_P as $demas)
                             <label class="custom-control custom-checkbox">
@@ -982,7 +1028,7 @@ button[data-original-title="Help"]{ display: none; }
     });
 
     $('#referir').click(function () {
-        // console.log('referir');
+        
         var speciality = $("#speciality").val(); 
         var reason = $("#reason").val(); 
         var doctor = $("#medicoInterno").val(); 
@@ -1155,7 +1201,7 @@ button[data-original-title="Help"]{ display: none; }
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
-                    title: data.proceduresR,
+                    // title: data.proceduresR,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
