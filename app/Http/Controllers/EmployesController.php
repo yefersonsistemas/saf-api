@@ -267,12 +267,15 @@ class EmployesController extends Controller
     {
         $employe = Employe::with('person.user', 'position', 'image')->find($id);
         $position = Position::all();
-
+        $permissions = Permission::all();
         $buscar_P = Position::where('id', $employe->position->id)->first(); 
         $posi = array($buscar_P);
         $diff = $position->diff($posi);
+        $perms = $employe->person->user->permissions;
+        // dd($perms);
+      
 
-        return view('dashboard.director.employe-edit', compact('employe','position', 'buscar_P', 'diff'));
+        return view('dashboard.director.employe-edit', compact('employe','position', 'buscar_P', 'diff', 'permissions','perms'));
     }
 
     /**
@@ -287,6 +290,7 @@ class EmployesController extends Controller
         // dd($request);
         // dd($request->image);
         $employe = Employe::with('person.user', 'position', 'image')->find($request->id);
+        $user = User::where('person_id', $employe->person->id )->first();
         
         $employe->person->type_dni = $request->type_dni;
         $employe->person->dni = $request->dni;
@@ -294,8 +298,11 @@ class EmployesController extends Controller
         $employe->person->lastname = $request->lastname;
         $employe->person->address = $request->address;
         $employe->person->phone = $request->phone;
-        $employe->person->email = $request->email;
+        $employe->person->email = $request->email; 
         $employe->update();
+                
+        // dd($request->perms);
+        $user->permissions()->sync($request->perms);
 
        if ($request->image != null) {
            
@@ -309,6 +316,7 @@ class EmployesController extends Controller
            $image->branch_id = 1;
            $image->save();
         }
+
 
        return redirect()->route('employe.index')->withSuccess('Registro modificado'); 
     }
@@ -369,15 +377,6 @@ class EmployesController extends Controller
                 'diagnostic' => $diagnostic,
             ]);
     }
-
-    // public function recipe(Request $request){
-       
-    //     $medicines = Medicine::all();  //suponiendo q esten cargadas se seleccionara las q necesitan 
-        
-    //     return response()->json([
-    //         'medicines' => $medicines,
-    //     ]);
-    // }
 
     public function list()
     {
