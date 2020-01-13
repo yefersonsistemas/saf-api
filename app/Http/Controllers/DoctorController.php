@@ -436,6 +436,17 @@ class DoctorController extends Controller
                         'employe_id'        =>  $reservation->person_id, //esta
                         'branch_id'         =>  1,
                     ]);
+
+
+                    //--------------Guardando examenes------------
+                    $examen  =  explode(',', $itinerary->exam_id);
+
+
+                    for ($i=0; $i < count($examen) ; $i++) { 
+                        $exam = Exam::find($examen[$i]);
+                        $exam->diagnostic()->sync($diagnostic);
+                    }
+                    
                 
                     Alert::success('Diagnostico creado exitosamente!');
                     return redirect()->route('doctor.index');
@@ -591,6 +602,16 @@ class DoctorController extends Controller
 
         $itinerary->procedureR_id = $data;
         $itinerary->save();
+
+
+        $date =  explode(',', $data);
+        $patient = Patient::where('person_id', $itinerary->patient_id)->first();    
+        // dd($patient);
+
+        for ($i=0; $i < count($date) ; $i++) { 
+            $procedure2 = Procedure::find($date[$i]);
+            $procedure2->patient()->sync($patient); 
+        }
 
         $procedures = explode(',', $itinerary->procedureR_id); // decodificando los prcocedimientos json
         

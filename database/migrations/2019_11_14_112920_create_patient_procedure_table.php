@@ -17,7 +17,7 @@ class CreatePatientProcedureTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('procedure_id');
-            $table->unsignedBigInteger('branch_id');
+            // $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('procedure_id')
@@ -31,10 +31,10 @@ class CreatePatientProcedureTable extends Migration
             ->on('patients')
             ->onDelete('CASCADE');
 
-            $table->foreign('branch_id')
-            ->references('id')
-            ->on('branch')
-            ->onDelete('CASCADE');
+            // $table->foreign('branch_id')
+            // ->references('id')
+            // ->on('branch')
+            // ->onDelete('CASCADE');
         });
     }
 
