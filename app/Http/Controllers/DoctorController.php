@@ -162,7 +162,7 @@ class DoctorController extends Controller
             $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
             if (!empty($exam_id)) {
                 foreach($exam_id as $exam){
-                    $exams[] = Procedure::find($exam);
+                    $exams[] = Exam::find($exam);
                 }
             }
         }else{
@@ -653,6 +653,7 @@ class DoctorController extends Controller
     //======================= Examenes a realizar(paciente) ==================
     public function examR(Request $request){
 
+        // dd($request);
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
         $returndata2 = array();
@@ -684,12 +685,13 @@ class DoctorController extends Controller
 
     //============== actualizar Examenes a realizar al paciente ============
     public function exam_update(Request $request){
-        
+        // dd($request);
+
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
         $returndata2 = array();
         if(!empty($request->data)){
-            $strArray = explode('&', $request->data);
+            $strArray = explode('&', $request->data); 
 
             foreach($strArray as $item) {
                 $array = explode("=", $item);
@@ -698,18 +700,31 @@ class DoctorController extends Controller
 
             for($i=0; $i < count($returndata); $i++){
                 for($y=1; $y <= 1; $y++){
-                $returndata2[$i] = $returndata[$i][$y];
+                $returndata2[$i] = $returndata[$i][$y]; // colocando los datos en un arreglo
                 }
             } 
-            $data =  implode(',', $returndata2);
-
+            $data =  implode(',', $returndata2); // arreglo de examenes seleccionados codificando
+     
+            //para sacar la diferencia de los examnes guardado sy los seleccionados
             if(!empty($itinerary->exam_id)){
-            $date =  $itinerary->exam_id . ','. $data;
-            $itinerary->exam_id = $date;
+
+                $examG = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
+                // dd($examG);
+                $diff_C = $examG->diff($returndata2); //diferencia entre dos arreglos (seleccionado y guardado)
+
+                if(!empty($diff_C)){ 
+                    $data2 =  implode(',', $diff_C); // decodificando arreglo
+                    $date =  $itinerary->exam_id . ','. $data2; //concatenando dos string
+                }else{
+                    $date =  $itinerary->exam_id . ','. $data; //concatenando dos string
+                }
+               
+                $itinerary->exam_id = $date; 
             }else{
                 $itinerary->exam_id = $data;
             }
-            $itinerary->save();
+
+            $itinerary->save(); //actualizando examenes
 
             $examenes = explode(',', $data); // decodificando los prcocedimientos json
             for ($i=0; $i < count($examenes) ; $i++) { 
