@@ -68,4 +68,10 @@ class Diagnostic extends Model
        ->withPivot('exam_id','id');
     }
 
+    public function procedures() 
+    {
+        return $this->belongsToMany('App\Procedure','diagnostic_procedure')
+       ->withPivot('procedure_id','id');
+    }
+
 }

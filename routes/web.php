@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
-        Route::put('doctor/update{id}','DoctorController@update')->name('doctor.update');
+        Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
 
         Route::post('doctor/proceduresRUpdate', 'DoctorController@proceduresR_update')->name('doctor.proceduresR_actualizar');  // guardar los procedimientos realizados en la consulta

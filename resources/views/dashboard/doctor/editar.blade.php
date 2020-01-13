@@ -107,8 +107,9 @@ button[data-original-title="Help"]{ display: none; }
 
                                 <!--BODY-->
                                 <div class="card-body">
-                                    <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->patient_id) }}" method="POST">
+                                    <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->id) }}" method="POST">
                                         @csrf
+                                        @method('PUT')
                                         <input type="hidden" name="patient_id" value="{{ $reservation->patient_id }}"> 
                                         <input type="hidden" name="employe_id" value="{{ $reservation->person_id }}"> 
                                         <input type="hidden" name="razon" value="{{ $reservation->description }}"> 
@@ -335,8 +336,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                             </tr>
                                                                         </tfoot>
                                                                         <tbody>
-                                                                            @if(!empty($proceduresR))
-                                                                            @foreach ($proceduresR as $proces)
+                                                                            @if(!empty($r_patient->procedures))
+                                                                            @foreach ($r_patient->procedures as $proces)
                                                                                     <tr>
                                                                                         <td>
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
@@ -426,8 +427,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                     </tr>
                                                                                                 </tfoot>
                                                                                                 <tbody>
-                                                                                                    @if(!empty($exams))
-                                                                                                        @foreach ($exams as $exam)
+                                                                                                    @if(!empty($r_patient->exam))
+                                                                                                        @foreach ($r_patient->exam as $exam)
                                                                                                             <tr>
                                                                                                                 <td>
                                                                                                                     <div class="col-6" >{{ $exam->name }}</div> 
@@ -582,9 +583,10 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
                                                     <section>
                                                        
-                                                        @if(!empty($r_patient->reportMedico->description))
+                                                        @if(!empty($r_patient->reportMedico->descripction))
                                                             <textarea name="reporte" id="" cols="30" rows="10" class="summernote">{{$r_patient->reportMedico->descripction}}</textarea>
-                                                        @else
+                                                            <input type="hidden" name="report_medico_id" value="{{$r_patient->reportMedico->id}}">
+                                                            @else
                                                             <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
                                                         @endif
                                                     </section>    
@@ -595,6 +597,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <section>
                                                         @if(!empty($r_patient->repose->description))
                                                             <textarea name="reposop" id="" cols="30" rows="10" class="summernote">{{$r_patient->repose->description}}</textarea>
+                                                            <input type="hidden" name="reposo_id" value="{{$r_patient->repose->id}}">
                                                         @else
                                                             <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
                                                         @endif
