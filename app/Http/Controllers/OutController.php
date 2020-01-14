@@ -87,6 +87,7 @@ class OutController extends Controller
        
         $itinerary->exam_id = $examenes;
         $itinerary->save();
+        
 
         //Para mostrar lista de citas de pacientes
         $procedures_id = array();

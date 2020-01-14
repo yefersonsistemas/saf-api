@@ -114,6 +114,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <input type="hidden" name="employe_id" value="{{ $reservation->person_id }}"> 
                                         <input type="hidden" name="razon" value="{{ $reservation->description }}"> 
                                         <input type="hidden" name="reservacion_id" value="{{ $reservation->id }}"> 
+                                        <input type="hidden" name="diagnostic_id" id="diagnostic_id" value="{{ $r_patient->id }}"> 
 
                                         <!------------------------------INFORMACION PERSONAL---------------------->
                                         <h2>Información Personal</h2>
@@ -1220,11 +1221,12 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarE").click(function() {
             var reservacion = $("#reservacion").val();
             var exam = $("#exam").serialize();          //asignando el valor que se ingresa en el campo
+            var diagnostic = $("#diagnostic_id").val();
 
-            ajax_E(exam,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+            ajax_E(exam,reservacion,diagnostic);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
-        function ajax_E(exam,reservacion) {
+        function ajax_E(exam,reservacion,diagnostic) {
         $.ajax({ 
             url: "{{ route('doctor.exam_actualizar') }}",   //definiendo ruta
             type: "POST",
@@ -1232,7 +1234,8 @@ button[data-original-title="Help"]{ display: none; }
             data: {
                 _token: "{{ csrf_token() }}",        
                 data:exam, 
-                id:reservacion
+                id:reservacion,
+                diagnostic_id: diagnostic
             }
         })
         .done(function(data) {               

@@ -194,14 +194,14 @@ class DoctorController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     //================ actualizar historia =================
+
+
+     //=============================== actualizar diagnostico =============================
     public function update(Request $request, $id)
     {
-        // dd($request);
-        // dd($id);
-
         //buscar reservacion
             $reservation = Reservation::where('id',$id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->first();
+
         //buscando reservacion en itinerary
             $itinerary = Itinerary::find($reservation->id);
 
@@ -221,13 +221,14 @@ class DoctorController extends Controller
             $diagnostic->save();
 
        
-        //actualizacion/crear de reposo
+        //actualizacion de reposo
             if($request->reposo_id != null){
                 $reposo = Repose::find($request->reposo_id);
                 $reposo->description = $request->reposop;
                 $reposo->save();
             }
             
+        //crear reposo y actualizar campo en itinerary y diagnostico
             if($request->reposop != null && $request->reposo_id == null){
                 $reposo = Repose::create([
                     'patient_id'        =>  $reservation->patient_id,
@@ -242,16 +243,14 @@ class DoctorController extends Controller
                 $diagnostic->save();
             }
 
-            // dd($itinerary);
-            
-        //actualizacion/crear de reporte medico
+        //actualizacion de reporte medico
             if($request->report_medico_id != null){
                 $reporte = ReportMedico::find($request->report_medico_id);
                 $reporte->descripction = $request->reporte;
                 $reporte->save();
-                // dd($diagnostic); 
             }
         
+        //crear reporte medico y actualizar campo en itinerary y diagnostico
             if($request->reporte != null && $request->report_medico_id == null){
                 $reporte = ReportMedico::create([
                     'patient_id'        =>  $b_patient->id,
@@ -262,15 +261,14 @@ class DoctorController extends Controller
              
                 $itinerary->report_medico_id = $reporte->id;
                 $itinerary->save();
-                
                 $diagnostic->report_medico_id = $reporte->id;
                 $diagnostic->save();
-                // dd($diagnostic);
             }
-         
 
             return redirect()->route('doctor.index')->withSuccess('Historia actualizada');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -764,45 +762,67 @@ class DoctorController extends Controller
         // dd($request);
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+        $diagnostic = Diagnostic::with('exam')->where('id',$request->diagnostic_id)->first();
+        // dd($diagnostic);
 
         $returndata2 = array();
         if(!empty($request->data)){
             $strArray = explode('&', $request->data); 
 
+            // dd($strArray);
             foreach($strArray as $item) {
                 $array = explode("=", $item);
                 $returndata[] = $array;
             }
+            // dd($array);
 
             for($i=0; $i < count($returndata); $i++){
                 for($y=1; $y <= 1; $y++){
                 $returndata2[$i] = $returndata[$i][$y]; // colocando los datos en un arreglo
                 }
             } 
+
+            // dd($returndata2);
             $data =  implode(',', $returndata2); // arreglo de examenes seleccionados codificando
      
 
+            //========== buscando datos de los examenes seleccionados =========
+            for($i=0; $i < count($returndata2); $i++){
+                $aux[$i] = Exam::find($returndata2[$i]); // colocando los datos en un arreglo
+            } 
 
             //para sacar la diferencia de los examnes guardado sy los seleccionados
-            // if(!empty($itinerary->exam_id)){
+            if(!empty($itinerary->exam_id)){
+                
+                // $examG = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
+         
+                $diff_C = $diagnostic->exam->diff($aux); //diferencia entre dos arreglos (seleccionado y guardado)
+                // dd($diff_C->all());
+              
 
-                $examG = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
-
-
-            //     // dd($examG);
-            //     $diff_C = $examG->diff($returndata2); //diferencia entre dos arreglos (seleccionado y guardado)
-
-            //     if(!empty($diff_C)){ 
-            //         $data2 =  implode(',', $diff_C); // decodificando arreglo
-            //         $date =  $itinerary->exam_id . ','. $data2; //concatenando dos string
-            //     }else{
-            //         $date =  $itinerary->exam_id . ','. $data; //concatenando dos string
-            //     }
                
-            //     $itinerary->exam_id = $date; 
-            // }else{
+
+                if($diff_C == ''){ 
+                    dd($data);
+                    for($i=0; $i < count($diff_C); $i++){
+                        $todo[$i] = $diff_C[$i]->id; // colocando los datos en un arreglo
+                    } 
+    
+                    $data2 =  implode(',', $todo); // decodificando arreglo
+                    // dd($itinerary->exam_id);
+                    // dd($data2);
+                    $date =  $itinerary->exam_id . ','. $data2; //concatenando dos string
+                    // dd($date);
+                }else{
+                  
+                    $date =  $itinerary->exam_id . ','. $data; //concatenando dos string
+                    
+                }
+               
+                $itinerary->exam_id = $date; 
+            }else{
                 $itinerary->exam_id = $data;
-            // }
+            }
 
             $itinerary->save(); //actualizando examenes
 
