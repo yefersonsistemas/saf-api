@@ -149,10 +149,16 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="col-12" >
-                                <label class="form-label" style="text-align:left"> Contraseña </label>
-                                <input type="password" placeholder="password" class="form-control" name="password" value="{{ old('password') }}" >
-                            </div>
+                            <div class="col-10" >
+                                <div class="input-group">
+                                    <input id="clave" type="Password" onkeyup="contar(this);"  name="contra" Class="form-control" maxlength="16" minlength="8" required>
+
+                                    <div class="input-group-append">
+                                        <button id="ver" class="form-control" type="button" onclick="mostrarPassword()"><i class="fa fa-eye-slash " style="color:#00506b; font-size:17px" id="icon"></i></button>
+                                    </div>
+                                </div>
+                                    <p id="charNum"></p>
+                            </div>  
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
@@ -234,6 +240,36 @@ function disableBtn() {
 
 function enableBtn() {
   document.getElementById("boton").disabled = false;
+}
+</script>
+
+<script>
+function mostrarPassword(){
+        var eye = document.getElementById("clave");
+        if(eye.type == "password"){
+            eye.type = "text";
+            $('#icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        }else{
+            eye.type = "password";
+            $('#icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+        }
+    } 
+
+    $(document).ready(function () {
+	//CheckBox mostrar contraseña
+	$('#ver').click(function () {
+		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+	});
+});
+</script>
+
+<script>
+function contar(obj){
+    if(obj.value.length < 8){
+        document.getElementById("charNum").innerHTML = '<p style="color:red">Debe contener de 8 - 16 caracteres.</p>';
+    }else{
+        document.getElementById("charNum").innerHTML = '<p style="color:green">Número de carácteres válidos.</p>';
+    }
 }
 </script>
 

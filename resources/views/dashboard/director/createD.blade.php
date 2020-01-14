@@ -171,10 +171,14 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                                    <div class="col-12" >
-                                        <label class="form-label" style="text-align:left"> Contraseña </label>
-                                        <input type="password" placeholder="password" class="form-control" name="password" value="{{ old('password') }}" >
+                                <div class="col-10" >
+                                    <div class="input-group">
+                                        <input id="clave" type="Password"  name="contra" Class="form-control">
+                                        <div class="input-group-append">
+                                            <button id="ver" class="btn" type="button" onclick="mostrarPassword()"><i class="fa fa-eye-slash" style="color:#00506b; font-size:17px" id="icon"></i></button>
+                                        </div>
                                     </div>
+                                </div>  
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
@@ -300,6 +304,26 @@
 function enableBtn() {
   document.getElementById("boton").disabled = false;
 }
+</script>
+
+<script>
+function mostrarPassword(){
+        var eye = document.getElementById("clave");
+        if(eye.type == "password"){
+            eye.type = "text";
+            $('#icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        }else{
+            eye.type = "password";
+            $('#icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+        }
+    } 
+
+    $(document).ready(function () {
+    //CheckBox mostrar contraseña
+    $('#ver').click(function () {
+        $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+    });
+});
 </script>
 
 @endsection

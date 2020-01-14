@@ -175,6 +175,7 @@ class EmployesController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        // dd(strlen($request->contra));
         $data = $request->validate([
             'name' => 'required',
             'type_dni'  => 'required',
@@ -207,12 +208,13 @@ class EmployesController extends Controller
         if ($request->pass == 'option1') {
             $user = User::create([
                 'email'      => $person->email,
-                'password'   => Hash::make($request->password),
+                'password'   => Hash::make($request->contra),
                 'person_id'  => $person->id,
                 // 'remember_token'    => ,
                 'branch_id' => 1
-                ]);
+            ]);
 
+    
             $cargo = Position::find($request->position_id);
             // dd($cargo);
 
@@ -235,7 +237,7 @@ class EmployesController extends Controller
             $image->save();
         }
 
-        return redirect()->route('employe.index');
+        return redirect()->route('employe.index')->withSuccess('Empleado'.' '.$cargo->name.' '.'registrado');
     }
 
     public function positions()

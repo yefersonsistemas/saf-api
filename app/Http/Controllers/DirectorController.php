@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;                               
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Allergy;
@@ -120,7 +120,7 @@ class DirectorController extends Controller
             
         $user = User::create([
             'email'      => $person->email,
-            'password'   => Hash::make($request->password),
+            'password'   => Hash::make($request->contra),
             'person_id'  => $person->id,
             'branch_id' => 1
         ]);
@@ -163,7 +163,7 @@ class DirectorController extends Controller
             $image->save();
         }
 
-        return redirect()->route('employe.index');
+        return redirect()->route('employe.index')->withSuccess($cargo->name.' '.'registrado');
     }
 
 
