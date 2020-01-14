@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/dropzone/css/dropzone.css') }}">
-    
+
     @endsection
 
     @section('title','Historia Medica')
@@ -77,27 +77,19 @@
                         </div>
                                         <!-- Modal -->
                         <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
                                     <div class="modal-body">
-                                        <h1>Tomar foto con JavaScript v3.0</h1>
-                                        <p>
-                                            Programado por Luis Cabrera Benito a.k.a. <a target="_blank" href="https://www.parzibyte.me/blog">parzibyte</a>
-                                        </p>
                                         <h1>Selecciona un dispositivo</h1>
                                         <div>
                                             <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
-                                            <button id="boton">Tomar foto</button>
+                                            <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                                            <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
                                             <p id="estado"></p>
                                         </div>
                                         <br>
-                                        <video muted="muted" id="video"></video>
+                                        <video muted="muted" id="video" class="col-12"></video>
                                         <canvas id="canvas" style="display: none;"></canvas>
                                     </div>
                                 </div>
@@ -291,11 +283,11 @@
                             <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
                                 @foreach ($medicine as $medicamentos)
                                 <option value= {{ $medicamentos->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                            selected
-                                            @endif
-                                            @endif>{{ $medicamentos->name }}</option>
+                                @if ($rs->patient->historyPatient != null)
+                                    @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                    selected
+                                    @endif
+                                    @endif>{{ $medicamentos->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -307,11 +299,11 @@
                             <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
                                 @foreach ($allergy as $alergias)
                                 <option value= {{ $alergias->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                            selected
-                                            @endif
-                                            @endif>{{ $alergias->name }}</option>
+                                @if ($rs->patient->historyPatient != null)
+                                    @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
+                                    selected
+                                    @endif
+                                    @endif>{{ $alergias->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -396,9 +388,53 @@
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
+
+<script>
+$boton.addEventListener("click", function() {
+    
+    var data = {
+            "tokenmodalfoto": $('#tokenfoto').val()
+        };
+        console.log('token modal ',data.tokenmodalfoto);
+        //Pausar reproducción
+        $video.pause();
+        
+        //Obtener contexto del canvas y dibujar sobre él
+        let contexto = $canvas.getContext("2d");
+        $canvas.width = $video.videoWidth;
+        $canvas.height = $video.videoHeight;
+        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+        
+let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+$estado.innerHTML = "Enviando foto. Por favor, espera...";
+
+fetch("{{ route('checkin.avatar') }}", {
+    method: "POST",
+    body: encodeURIComponent(foto),
+    headers: {
+        "Content-type": "application/x-www-form-urlencoded",
+        'X-CSRF-TOKEN': data.tokenmodalfoto// <--- aquí el token
+    },
+})
+    .then(resultado => {
+        // A los datos los decodificamos como texto plano
+        return resultado.text()
+    })
+    .then(nombreDeLaFoto => {
+        // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+        console.log("La foto fue enviada correctamente");
+        $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+    })
+
+//Reanudar reproducción
+$video.play();
+});
+</script>
+
+
 <script>
 Dropzone.options.myDropzone = {
-    url: "{{ route('save.history', $rs) }}",
+    url: "{{ route('checkin.exams') }}",
     autoProcessQueue: true,
     uploadMultiple: true,
     parallelUploads: 100,

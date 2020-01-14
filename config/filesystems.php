@@ -64,6 +64,13 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'images_base64' => [
+            'driver' => 'local', //tipo driver local-nube(s3 de amazon)
+            'root' => storage_path('public/person'), //ruta en la carpeta storage/app y 
+            'url' => env('APP_URL').'/storage', //ruta base storage no cambiar
+            'visibility' => 'public', //si se podra acceder desde el exterior
+        ],
+
     ],
 
 ];

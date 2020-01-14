@@ -20,9 +20,7 @@ const limpiarSelect = () => {
     for (let x = $listaDeDispositivos.options.length - 1; x >= 0; x--)
         $listaDeDispositivos.remove(x);
 };
-const obtenerDispositivos = () => navigator
-    .mediaDevices
-    .enumerateDevices();
+const obtenerDispositivos = () => navigator.mediaDevices.enumerateDevices();
 
 // La función que es llamada después de que ya se dieron los permisos
 // Lo que hace es llenar el select con los dispositivos obtenidos
@@ -118,62 +116,62 @@ const llenarSelectConDispositivosDisponibles = () => {
                 $video.srcObject = stream;
                 $video.play();
 
-                //Escuchar el click del botón para tomar la foto
-                //Escuchar el click del botón para tomar la foto
-                $boton.addEventListener("click", function() {
+                // //Escuchar el click del botón para tomar la foto
+                // //Escuchar el click del botón para tomar la foto
+                // $boton.addEventListener("click", function() {
 
-                    //Pausar reproducción
-                    $video.pause();
+                //     //Pausar reproducción
+                //     $video.pause();
 
-                    //Obtener contexto del canvas y dibujar sobre él
-                    let contexto = $canvas.getContext("2d");
-                    $canvas.width = $video.videoWidth;
-                    $canvas.height = $video.videoHeight;
-                    contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+                //     //Obtener contexto del canvas y dibujar sobre él
+                //     let contexto = $canvas.getContext("2d");
+                //     $canvas.width = $video.videoWidth;
+                //     $canvas.height = $video.videoHeight;
+                //     contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
-                    let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-                    $estado.innerHTML = "Enviando foto. Por favor, espera...";
-                    $.ajax({
-                            url: "./guardar_foto.php",
-                            headers: {
-                                "accept": "application/json",
-                                "Access-Control-Allow-Origin": "*"
-                            },
-                            type: "POST",
-                            data: { foto: encodeURIComponent(foto), }
-                        })
-                        .done(function(data) {
-                            // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                            console.log("La foto fue enviada correctamente");
-                            $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-                        })
-                        .fail(function(data) {
-                            alert("error");
-                        })
-                        .always(function(data) {
-                            alert("complete");
-                        });
+                //     let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                //     $estado.innerHTML = "Enviando foto. Por favor, espera...";
+                //     $.ajax({
+                //             url: "./guardar_foto.php",
+                //             headers: {
+                //                 "accept": "application/json",
+                //                 "Access-Control-Allow-Origin": "*"
+                //             },
+                //             type: "POST",
+                //             data: { foto: encodeURIComponent(foto), }
+                //         })
+                //         .done(function(data) {
+                //             // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                //             console.log("La foto fue enviada correctamente");
+                //             $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+                //         })
+                //         .fail(function(data) {
+                //             alert("error");
+                //         })
+                //         .always(function(data) {
+                //             alert("complete");
+                //         });
 
-                    fetch("./guardar_foto.php", {
-                            method: "POST",
-                            body: encodeURIComponent(foto),
-                            headers: {
-                                "Content-type": "application/x-www-form-urlencoded",
-                            }
-                        })
-                        .then(resultado => {
-                            // A los datos los decodificamos como texto plano
-                            return resultado.text()
-                        })
-                        .then(nombreDeLaFoto => {
-                            // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                            console.log("La foto fue enviada correctamente");
-                            $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-                        })
+                //     fetch("./guardar_foto.php", {
+                //             method: "POST",
+                //             body: encodeURIComponent(foto),
+                //             headers: {
+                //                 "Content-type": "application/x-www-form-urlencoded",
+                //             }
+                //         })
+                //         .then(resultado => {
+                //             // A los datos los decodificamos como texto plano
+                //             return resultado.text()
+                //         })
+                //         .then(nombreDeLaFoto => {
+                //             // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                //             console.log("La foto fue enviada correctamente");
+                //             $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+                //         })
 
-                    //Reanudar reproducción
-                    $video.play();
-                });
+                //     //Reanudar reproducción
+                //     $video.play();
+                // });
             }, (error) => {
                 console.log("Permiso denegado o error: ", error);
                 $estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";

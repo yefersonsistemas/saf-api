@@ -114,7 +114,7 @@ class InController extends Controller
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
         // dd($rs);
 
-        $cites = Reservation::with('patient.historyPatient','speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
+        $cites = Reservation::with('patient.historyPatient', 'patient.file', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 
         $disease = Disease::get();
         $medicine = Medicine::get();
@@ -193,14 +193,25 @@ class InController extends Controller
                 ]);
             }
 
+            if($request->foto != null){
+                $image = $request->file('foto');
+                $path = $image->store('public/Person');  
+                $path = str_replace('public/', '', $path);
+                $image = new Image;
+                $image->path = $path;
+                $image->fileable_type = "App\Person";
+                $image->fileable_id = $patient->id;
+                $image->branch_id = 1;
+                $image->save();
+            }
+
             if ($request->file != null) {
-           
                 $image = $request->file('file');
                 $path = $image->store('public/exams');  
                 $path = str_replace('public/', '', $path);
                 $image = new File;
                 $image->path = $path;
-                $image->fileable_type = "App\Patient";
+                $image->fileable_type = "App\Person";
                 $image->fileable_id = $patient->id;
                 $image->branch_id = 1;
                 $image->save();
@@ -584,4 +595,30 @@ class InController extends Controller
             $image->save();
          }
     }
+
+    public function guardar_foto(Request $request){
+        dd($request);
+    $imagenCodificada = file_get_contents("php://input"); //Obtener la imagen
+    if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
+    //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
+    $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", urldecode($imagenCodificada));
+    //Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
+    //todo el contenido lo guardamos en un archivo
+    $imagenDecodificada = base64_decode($imagenCodificadaLimpia);
+    //Calcular un nombre único
+    $nombreImagenGuardada = "foto_" . uniqid() . ".png";
+    //Escribir el archivo
+    file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
+    // exit($nombreImagenGuardada);
+    $path=file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
+    $image=Image::create([
+        'path'=> $path,
+        'imageable_type'=>'App\Person',
+        'imageable_id'=>$request->patient,
+        'branch_id'=>1
+    ]);
+    }
+    
+
 }
+
