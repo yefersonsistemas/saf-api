@@ -427,7 +427,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                         <th class="text-center">Accion</th>
                                                                                                     </tr>
                                                                                                 </tfoot>
-                                                                                                <tbody>
+                                                                                                <tbody id="ocultar_examen">
                                                                                                     @if(!empty($r_patient->exam))
                                                                                                         @foreach ($r_patient->exam as $exam)
                                                                                                             <tr>
@@ -1249,6 +1249,7 @@ button[data-original-title="Help"]{ display: none; }
                     type: 'success',
                 });
                 mostrarExamen(data[1]);
+                // $("#ocultar_examen").hide();
             }
             
             if (data[0] == 202) {                       //si no trae valores

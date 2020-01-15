@@ -789,15 +789,32 @@ class DoctorController extends Controller
             //para asegurarse de que no se repitan los examenes
                 if(!empty($itinerary->exam_id)){
                     
-                    // buscando datos de los examenes guardados
+                    // buscando solo el id de los examenes guardados
                     for($i=0; $i < count($diagnostic->exam); $i++){
-                        $aux2[$i] = $diagnostic->exam[$i]->id; // colocando los datos en un arreglo
+                        $b2[$i] = Exam::find($diagnostic->exam[$i]->id);
+                        $aux2[$i] = $diagnostic->exam[$i]->id; 
                     } 
 
                     //uniendo erreglos de examenes seleccionados y los guardados
                     $merge_exam= array_merge($returndata2,$aux2);
-            
                     
+                    for($i=0; $i < count($returndata2); $i++){
+                        $b[$i] = Exam::find($returndata2[$i]);
+                    } 
+                    
+
+                //-----------------
+                for($i=0; $i < count($returndata2); $i++){
+                    $b[$i] = Exam::find($returndata2[$i]);
+                } 
+                
+                // $diff = $b->diff($diagnostic->exam);
+                $diff = array_diff($b, $b2);
+                // dd($diff);
+
+                //-----------------
+  
+
                     //guardando examens en la tabla diagnostic_exam
                     foreach($merge_exam as $item){
                         $b_exam = Exam::find($item);
@@ -815,8 +832,30 @@ class DoctorController extends Controller
                     //codificando arreglo 
                     $date = implode(',',$todo);
                   
+
                     //actualizando campo de examenes en itinerary
                     $itinerary->exam_id = $date; 
+                    $itinerary->save(); //actualizando examenes
+
+                    if(!empty($diff)){
+                        // dd($diff);
+                        // $all = collect([]);
+                        // $all->push($diff);
+// dd($all[0][4]);
+                        // dd($arreglo->find(0));
+                        foreach($diff as $item){
+                            $examen[] = $item;
+                        } 
+
+
+                        // for ($i=0; $i <= count($arreglo) ; $i++) { 
+                        //     $examen[] = $arreglo[$i];
+                        // }
+                        // dd($examen);     
+                    }else{
+                        $examen[]=null;
+                    }
+
                 }else{
                      //guardando examens en la tabla diagnostic_exam
                      foreach($returndata2 as $item){
@@ -824,15 +863,19 @@ class DoctorController extends Controller
                         $b_exam->diagnostic()->sync($diagnostic);
                     } 
                     $itinerary->exam_id = $data;
+                    $itinerary->save(); //actualizando examenes
+
+                    for ($i=0; $i < count($returndata2) ; $i++) { 
+                        $examen[] = Exam::find($returndata2[$i]);
+                    }
+                    // dd($examen);
                 }
 
-            $itinerary->save(); //actualizando examenes
-
-            //rivisar
-            $examenes = explode(',', $data); // decodificando los prcocedimientos json
-            for ($i=0; $i < count($examenes) ; $i++) { 
-                $examen[] = Exam::find($examenes[$i]);
-            }
+            
+            // $examenes = explode(',', $itinerary->exam_id); // decodificando los prcocedimientos json
+           
+            
+            
             return response()->json([
                 'exam' => 'Examenes guardados exitosamente',201,$examen
             ]);
