@@ -784,97 +784,63 @@ class DoctorController extends Controller
             } 
           
             // codificando arreglo de examenes seleccionados
-            $data =  implode(',', $returndata2); 
+                $data =  implode(',', $returndata2); 
 
             //para asegurarse de que no se repitan los examenes
                 if(!empty($itinerary->exam_id)){
                     
                     // buscando solo el id de los examenes guardados
-                    for($i=0; $i < count($diagnostic->exam); $i++){
-                        $b2[$i] = Exam::find($diagnostic->exam[$i]->id);
-                        $aux2[$i] = $diagnostic->exam[$i]->id; 
-                    } 
-
-                    //uniendo erreglos de examenes seleccionados y los guardados
-                    $merge_exam= array_merge($returndata2,$aux2);
-                    
-                    for($i=0; $i < count($returndata2); $i++){
-                        $b[$i] = Exam::find($returndata2[$i]);
-                    } 
-                    
-
-                //-----------------
-                for($i=0; $i < count($returndata2); $i++){
-                    $b[$i] = Exam::find($returndata2[$i]);
-                } 
-                
-                // $diff = $b->diff($diagnostic->exam);
-                $diff = array_diff($b, $b2);
-                // dd($diff);
-
-                //-----------------
-  
-
-                    //guardando examens en la tabla diagnostic_exam
-                    foreach($merge_exam as $item){
-                        $b_exam = Exam::find($item);
-                        $b_exam->diagnostic()->sync($diagnostic);
-                    } 
-
-                    //buscar todos los examenes guardados
-                    $b_diagnostic = Diagnostic::with('exam')->where('id',$request->diagnostic_id)->first();
-
-                    // colocando solo el id en un arreglo
-                    for($i=0; $i < count($b_diagnostic->exam); $i++){
-                        $todo[$i] = $b_diagnostic->exam[$i]->id; 
-                    } 
-
-                    //codificando arreglo 
-                    $date = implode(',',$todo);
-                  
-
-                    //actualizando campo de examenes en itinerary
-                    $itinerary->exam_id = $date; 
-                    $itinerary->save(); //actualizando examenes
-
-                    if(!empty($diff)){
-                        // dd($diff);
-                        // $all = collect([]);
-                        // $all->push($diff);
-// dd($all[0][4]);
-                        // dd($arreglo->find(0));
-                        foreach($diff as $item){
-                            $examen[] = $item;
+                        for($i=0; $i < count($diagnostic->exam); $i++){
+                            $aux2[$i] = $diagnostic->exam[$i]->id; 
                         } 
 
+                    //uniendo erreglos de examenes seleccionados y los guardados
+                        $merge_exam= array_merge($returndata2,$aux2);
+                    
+                    //guardando examens en la tabla diagnostic_exam
+                        foreach($merge_exam as $item){
+                            $b_exam = Exam::find($item);
+                            $b_exam->diagnostic()->sync($diagnostic);
+                        } 
 
-                        // for ($i=0; $i <= count($arreglo) ; $i++) { 
-                        //     $examen[] = $arreglo[$i];
-                        // }
-                        // dd($examen);     
-                    }else{
-                        $examen[]=null;
-                    }
+                    //buscar todos los examenes guardados
+                        $b_diagnostic = Diagnostic::with('exam')->where('id',$request->diagnostic_id)->first();
+
+                    // colocando solo el id en un arreglo
+                        for($i=0; $i < count($b_diagnostic->exam); $i++){
+                            $todo[$i] = $b_diagnostic->exam[$i]->id; 
+                        } 
+
+                    //codificando arreglo 
+                        $date = implode(',',$todo);
+                  
+                    //actualizando campo de examenes en itinerary
+                        $itinerary->exam_id = $date; 
+                        $itinerary->save(); //actualizando examenes
+
+                    //diferencias entre arrelogs para mostar al usuario
+                        $diff_E = array_diff($returndata2,$aux2);
+
+                    //buscando datos de examenes para mostrar
+                        if(!empty($diff_E)){
+                            foreach($diff_E as $item){
+                                $examen[] = Exam::find($item);
+                            } 
+                        }else{
+                            $examen[]=null;
+                        }
 
                 }else{
                      //guardando examens en la tabla diagnostic_exam
-                     foreach($returndata2 as $item){
-                        $b_exam = Exam::find($item);
-                        $b_exam->diagnostic()->sync($diagnostic);
-                    } 
-                    $itinerary->exam_id = $data;
-                    $itinerary->save(); //actualizando examenes
-
-                    for ($i=0; $i < count($returndata2) ; $i++) { 
-                        $examen[] = Exam::find($returndata2[$i]);
-                    }
-                    // dd($examen);
+                        foreach($returndata2 as $item){
+                            $b_exam = Exam::find($item);
+                            $examen[] = $b_exam;
+                            $b_exam->diagnostic()->sync($diagnostic);
+                        } 
+                    //actualizando campo de examenes en itinerary
+                        $itinerary->exam_id = $data;
+                        $itinerary->save(); //actualizando examenes
                 }
-
-            
-            // $examenes = explode(',', $itinerary->exam_id); // decodificando los prcocedimientos json
-           
-            
             
             return response()->json([
                 'exam' => 'Examenes guardados exitosamente',201,$examen
