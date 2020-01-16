@@ -336,17 +336,16 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <th class="text-center">Accion</th>
                                                                             </tr>
                                                                         </tfoot>
-                                                                        <tbody>
+                                                                        <tbody id="ocultar_procedureR">
                                                                             @if(!empty($r_patient->procedures))
                                                                             @foreach ($r_patient->procedures as $proces)
-                                                                                    <tr>
+                                                                                    <tr id="{{ $proces->id }}">
                                                                                         <td>
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
                                                                                         </td>
                                                                                         <td class="actions d-flex justify-content-center">
-                                                                                            <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
-                                                                                                <i class="icon-trash" aria-hidden="true"></i>
-                                                                                            </button>
+                                                                                            <input id="{{ $proces->id }}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
+                                                                                                value="g">
                                                                                         </td>
                                                                                     </tr>
                                                                                 @endforeach
@@ -743,11 +742,19 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" id="proceduresC-office">
+                <form action="" id="procedure">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                            
+                                @if($r_patient->procedures != null)
+                                    @foreach ($r_patient->procedures as $item)
+                                    <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{  $item->id    }}">
+                                        <span class="custom-control-label">{{ $item->name }}</span>
+                                    </label>
+                                    @endforeach
+                                @endif
+
                                 @foreach ($diff_PR as $demas)
                                 <label class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
@@ -783,7 +790,7 @@ button[data-original-title="Help"]{ display: none; }
                                 @if($exams != null)
                                     @foreach ($exams as $item)
                                     <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
+                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value=" {{ $item->id    }}">
                                         <span class="custom-control-label">{{ $item->name }}</span>
                                     </label>
                                     @endforeach
@@ -1162,14 +1169,16 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarO").click(function() {
         console.log("hola");
             var reservacion = $("#reservacion").val();
-            var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
+            var procesof = $("#procedure").serialize();          //asignando el valor que se ingresa en el campo
+            var diagnostic = $("#diagnostic_id").val();
 
             console.log(reservacion);
             console.log(procesof);
-            ajax_PO(procesof,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+            console.log(diagnostic);
+            ajax_PO(procesof,reservacion,diagnostic);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
         });                                                               //fin de la funcion clikea
         
-        function ajax_PO(procesof,reservacion) {
+        function ajax_PO(procesof,reservacion,diagnostic) {
         $.ajax({ 
             url: "{{ route('doctor.proceduresR_actualizar') }}",   //definiendo ruta
             type: "POST",
@@ -1177,7 +1186,8 @@ button[data-original-title="Help"]{ display: none; }
             data: {
                 _token: "{{ csrf_token() }}",        
                 data:procesof, 
-                id:reservacion
+                id:reservacion,
+                diagnostic_id:diagnostic,
             }
         })
         .done(function(data) {       
@@ -1212,8 +1222,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            // procesc='<li>'+data[$i].name+'</li>';
-            procesc='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
+            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>'
             $("#procesc").append(procesc);
         }
         
@@ -1415,6 +1424,8 @@ button[data-original-title="Help"]{ display: none; }
             var reservacion = $("#reservacion_id").val();
             console.log(reservacion);
             $("#"+id).hide();
+            
+                // $('option:selected').removeAttr('selected');
 
             $.ajax({
                 url: "{{ route('doctor.exam_eliminar') }}",
@@ -1455,6 +1466,64 @@ button[data-original-title="Help"]{ display: none; }
 
 
         });
+
+       
+    });
+
+
+    //================ eliminar procedure seleccionado ==========
+   
+    $(function() {
+        $(document).on('click', 'input[type="button"]', function(event) {
+            let id = this.id;
+            var diagnostic = $("#diagnostic_id").val();
+            var reservacion = $("#reservacion_id").val();
+            console.log(reservacion);
+            $("#"+id).hide();
+            
+                // $('option:selected').removeAttr('selected');
+
+            $.ajax({
+                url: "{{ route('doctor.exam_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                diagnostic_id:diagnostic,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.exam,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+            // if (data[0] == 202) {                       //si no trae valores
+            //     Swal.fire({
+            //         title: data.proceduresR,
+            //         text:  'Click en OK para continuar',
+            //         type:  'error',
+            //     })
+            //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            // }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+
+
+        });
+
+       
     });
 
 
