@@ -124,7 +124,7 @@ class DoctorController extends Controller
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
         // dd($r_patient->reportMedico);
-        $itinerary = Itinerary::with('exam','recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
+        $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
    
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
@@ -163,13 +163,14 @@ class DoctorController extends Controller
             }else{
                 $diff_PR = $procesm->procedures;
             }
-     
+    
         // buscando diferencia de examenes 
-            if (!empty($itinerary->exam)) {
+            if ($itinerary->exam_id != null) {
                 $diff_E = $examenes->diff($exams);
             }else{
                 $diff_E = $examenes;
             }
+
       
         // busacndo posibles procedimientos 
             if (!empty($itinerary->procedure_id)) {
@@ -837,6 +838,7 @@ class DoctorController extends Controller
                             $examen[] = $b_exam;
                             $b_exam->diagnostic()->sync($diagnostic);
                         } 
+
                     //actualizando campo de examenes en itinerary
                         $itinerary->exam_id = $data;
                         $itinerary->save(); //actualizando examenes
@@ -852,6 +854,41 @@ class DoctorController extends Controller
         }
     }
 
+
+    //================eliminar examen ===================
+    public function exam_eliminar(Request $request){
+
+        $diagnostic = Diagnostic::find($request->diagnostic_id);
+        $exams = Exam::find($request->id);
+
+        //borrando examen de la tabla pivote diagnostic_exam
+        $diagnostic->exam()->detach($exams);
+    
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $examenes = explode(',', $itinerary->exam_id);
+
+        $exam = null;
+        for($i=0; $i < count($examenes); $i++) {
+            if($request->id != $examenes[$i]){
+                $exam[] = $examenes[$i];
+            }
+        }
+
+        //actualizando campo de examenes
+        if($exam != null){
+            $itinerary->exam_id = implode(',', $exam);
+            $itinerary->save();
+        }else{
+            $itinerary->exam_id = null;
+            $itinerary->save();
+        }
+
+        return response()->json([
+            'exam' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
 
     // ================ posibles procedimientos =================
     public function proceduresP(Request $request){

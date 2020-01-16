@@ -116,6 +116,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/proceduresUpdate', 'DoctorController@procedures_update')->name('doctor.procedures_actualizar');  // guardar los procedimientos realizados en la consulta
         Route::post('doctor/examUpdate', 'DoctorController@exam_update')->name('doctor.exam_actualizar');  // guardar los procedimientos realizados en la consulta
         Route::post('doctor/surgeryUpdate', 'DoctorController@surgerysP_update')->name('doctor.surgery_actualizar');  // guardar los procedimientos realizados en la consulta
+
+        //---------------elimnar------------
+        Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
+        
     });
 
     Route::group(['middleware' => ['role:director']], function(){

@@ -113,7 +113,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <input type="hidden" name="patient_id" value="{{ $reservation->patient_id }}"> 
                                         <input type="hidden" name="employe_id" value="{{ $reservation->person_id }}"> 
                                         <input type="hidden" name="razon" value="{{ $reservation->description }}"> 
-                                        <input type="hidden" name="reservacion_id" value="{{ $reservation->id }}"> 
+                                        <input type="hidden" name="reservacion_id" id="reservacion_id" value="{{ $reservation->id }}"> 
                                         <input type="hidden" name="diagnostic_id" id="diagnostic_id" value="{{ $r_patient->id }}"> 
 
                                         <!------------------------------INFORMACION PERSONAL---------------------->
@@ -418,27 +418,28 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <thead>
                                                                                                     <tr>
                                                                                                         <th>Examen Seleccionado</th>
-                                                                                                        <th class="text-center">Accion</th>
+                                                                                                        <th class="text-center">Eliminar examen</th>
                                                                                                     </tr>
                                                                                                 </thead>
                                                                                                 <tfoot>
                                                                                                     <tr>
                                                                                                         <th>Medicamento Seleccionado</th>
-                                                                                                        <th class="text-center">Accion</th>
+                                                                                                        <th class="text-center">Eliminar examen</th>
                                                                                                     </tr>
                                                                                                 </tfoot>
                                                                                                 <tbody id="ocultar_examen">
                                                                                                     @if(!empty($r_patient->exam))
                                                                                                         @foreach ($r_patient->exam as $exam)
-                                                                                                            <tr>
+                                                                                                            <tr id="{{ $exam->id }}">
                                                                                                                 <td>
                                                                                                                     <div class="col-6" >{{ $exam->name }}</div> 
                                                                                                                 </td>
                                                                                                                 <td class="actions d-flex justify-content-center">
-                                                                                                                    <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
-                                                                                                                        <i class="icon-trash" aria-hidden="true"></i>
-                                                                                                                    </button>
+                                                                                                                <input id="{{ $exam->id }}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
+                                                                                                                        value="g">
                                                                                                                 </td>
+                                                                                                                {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
+
                                                                                                             </tr>
                                                                                                         @endforeach
                                                                                                     @endif
@@ -636,10 +637,10 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                                 @if(!empty($itinerary->reference->doctor))
                                                                                                     <span class="custom-control-label">Médico Externo</span>
-                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctorExterno" >
+                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctor Externo" >
                                                                                                 @else
                                                                                                     <span class="custom-control-label">Médico Externo</span>
-                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctorExterno" >
+                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
                                                                                                 @endif
                                                                                             </label>
                                                                                         </div>
@@ -779,12 +780,14 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                {{-- @foreach ($exams as $item)
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
-                                    <span class="custom-control-label">{{ $item->name }}</span>
-                                </label>
-                                @endforeach --}}
+                                @if($exams != null)
+                                    @foreach ($exams as $item)
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
+                                        <span class="custom-control-label">{{ $item->name }}</span>
+                                    </label>
+                                    @endforeach
+                                @endif
 
                                 @foreach ($diff_E as $demas)
                                 <label class="custom-control custom-checkbox">
@@ -796,7 +799,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
+                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -1271,7 +1274,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            examen='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>';
             $("#examen").append(examen);
         }
     }
@@ -1402,5 +1405,60 @@ button[data-original-title="Help"]{ display: none; }
         
     }
 
+
+    //================ eliminar examen seleccionado ==========
+   
+    $(function() {
+        $(document).on('click', 'input[type="button"]', function(event) {
+            let id = this.id;
+            var diagnostic = $("#diagnostic_id").val();
+            var reservacion = $("#reservacion_id").val();
+            console.log(reservacion);
+            $("#"+id).hide();
+
+            $.ajax({
+                url: "{{ route('doctor.exam_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                diagnostic_id:diagnostic,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.exam,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+            // if (data[0] == 202) {                       //si no trae valores
+            //     Swal.fire({
+            //         title: data.proceduresR,
+            //         text:  'Click en OK para continuar',
+            //         type:  'error',
+            //     })
+            //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            // }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+
+
+        });
+    });
+
+
 </script>
+
+
 @endsection
