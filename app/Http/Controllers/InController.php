@@ -26,6 +26,8 @@ use App\Itinerary;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 //use App\Http\Controllers\CitaController;
 
 
@@ -132,7 +134,8 @@ class InController extends Controller
 
 
     public function guardar(Request $request, $id)  
-    {   
+     {   
+        //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
@@ -597,8 +600,8 @@ class InController extends Controller
     }
 
     public function guardar_foto(Request $request){
-        dd($request);
-    $imagenCodificada = file_get_contents("php://input"); //Obtener la imagen
+        $datos=json_decode(file_get_contents("php://input"));
+        $imagenCodificada=$datos->pic;
     if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
     //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
     $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", urldecode($imagenCodificada));
@@ -609,16 +612,23 @@ class InController extends Controller
     $nombreImagenGuardada = "foto_" . uniqid() . ".png";
     //Escribir el archivo
     file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
-    // exit($nombreImagenGuardada);
     $path=file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
-    $image=Image::create([
-        'path'=> $path,
-        'imageable_type'=>'App\Person',
-        'imageable_id'=>$request->patient,
-        'branch_id'=>1
-    ]);
+    // $image=Image::create([
+    //     'path'=> $path,
+    //     'imageable_type'=>'App\Person',
+    //     'imageable_id'=>$datos->idpatient,
+    //     'branch_id'=>1
+    //     ]);
+    // $image = new Image;
+    // $image->path = $path;
+    // $image->imageable_type = "App\Person";
+    // $image->imageable_id = $datos->idpatient;
+    // $image->branch_id = 1;
+    // $image->save();
+        //Terminar y regresar el nombre de la foto
+        
+    exit($nombreImagenGuardada);
+    return redirect()->withsuccess("Foto Actualizada");
     }
-    
-
 }
 

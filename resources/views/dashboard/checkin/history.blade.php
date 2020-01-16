@@ -84,13 +84,13 @@
                                         <div>
                                             <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                                             <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
-                                        <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                                            <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
                                             <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
                                             <p id="estado"></p>
                                         </div>
                                         <br>
                                         <video muted="muted" id="video" class="col-12"></video>
-                                        <canvas id="canvas" style="display: none;"></canvas>
+                                        <canvas id="canvas" style="display: none;" name="foto"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -392,43 +392,44 @@
 <script>
 $boton.addEventListener("click", function() {
     
-    var data = {
-            "tokenmodalfoto": $('#tokenfoto').val()
-        };
-        console.log('token modal ',data.tokenmodalfoto);
-        //Pausar reproducción
-        $video.pause();
-        
+    // Codificarlo como JSON
+    //Pausar reproducción
+    $video.pause();
         //Obtener contexto del canvas y dibujar sobre él
         let contexto = $canvas.getContext("2d");
         $canvas.width = $video.videoWidth;
         $canvas.height = $video.videoHeight;
         contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
         
-let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-$estado.innerHTML = "Enviando foto. Por favor, espera...";
-
-fetch("{{ route('checkin.avatar') }}", {
-    method: "POST",
-    body: encodeURIComponent(foto),
-    headers: {
-        "Content-type": "application/x-www-form-urlencoded",
-        'X-CSRF-TOKEN': data.tokenmodalfoto// <--- aquí el token
-    },
-})
-    .then(resultado => {
-        // A los datos los decodificamos como texto plano
-        return resultado.text()
-    })
-    .then(nombreDeLaFoto => {
-        // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-        console.log("La foto fue enviada correctamente");
-        $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-    })
-
-//Reanudar reproducción
-$video.play();
-});
+        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+        let datafoto=encodeURIComponent(foto);
+                var data1 = {
+                    "tokenmodalfoto": $('#tokenfoto').val(),
+                    "idpatient":$('#patient-id').val(),
+                    "pic":datafoto
+                    };
+        const datos=JSON.stringify(data1)
+        $estado.innerHTML = "Enviando foto. Por favor, espera...";
+        fetch("{{ route('checkin.avatar') }}", {
+            method: "POST",
+            body: datos,
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded",
+                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+            },
+        })
+            .then(resultado => {
+                // A los datos los decodificamos como texto plano
+                return resultado.text()
+            })
+            .then(nombreDeLaFoto => {
+                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                console.log("La foto fue enviada correctamente");
+                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+            })
+        //Reanudar reproducción
+        $video.play();
+        });
 </script>
 
 
