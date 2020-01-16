@@ -123,7 +123,6 @@ class DoctorController extends Controller
         
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
-        // dd($r_patient->procedures);
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
    
         $speciality = Speciality::all(); 
@@ -807,7 +806,7 @@ class DoctorController extends Controller
 
     //============== actualizar Examenes a realizar al paciente ============
     public function exam_update(Request $request){
-    // dd($request);
+    // dd($request->data);
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
         $diagnostic = Diagnostic::with('exam')->where('id',$request->diagnostic_id)->first();
@@ -840,16 +839,16 @@ class DoctorController extends Controller
 
                     //uniendo erreglos de examenes seleccionados y los guardados
                         $merge_exam= array_merge($returndata2,$aux2);
-                    
+                   
                     //guardando examens en la tabla diagnostic_exam
                         foreach($merge_exam as $item){
                             $b_exam = Exam::find($item);
                             $b_exam->diagnostic()->sync($diagnostic);
                         } 
-
+                       
                     //buscar todos los examenes guardados
-                        $b_diagnostic = Diagnostic::with('exam')->where('id',$request->diagnostic_id)->first();
-
+                        $b_diagnostic = Diagnostic::with('exam')->where('id',$diagnostic->id)->first();
+                     
                     // colocando solo el id en un arreglo
                         for($i=0; $i < count($b_diagnostic->exam); $i++){
                             $todo[$i] = $b_diagnostic->exam[$i]->id; 

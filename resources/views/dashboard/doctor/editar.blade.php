@@ -429,12 +429,12 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <tbody id="ocultar_examen">
                                                                                                     @if(!empty($r_patient->exam))
                                                                                                         @foreach ($r_patient->exam as $exam)
-                                                                                                            <tr id="{{ $exam->id }}">
+                                                                                                            <tr id="{{$exam->id}}">
                                                                                                                 <td>
-                                                                                                                    <div class="col-6" >{{ $exam->name }}</div> 
+                                                                                                                    <div class="col-6" >{{$exam->name}}</div> 
                                                                                                                 </td>
                                                                                                                 <td class="actions d-flex justify-content-center">
-                                                                                                                <input id="{{ $exam->id }}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
+                                                                                                                <input id="{{$exam->id}}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
                                                                                                                         value="g">
                                                                                                                 </td>
                                                                                                                 {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
@@ -790,7 +790,7 @@ button[data-original-title="Help"]{ display: none; }
                                 @if($exams != null)
                                     @foreach ($exams as $item)
                                     <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value=" {{ $item->id    }}">
+                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
                                         <span class="custom-control-label">{{ $item->name }}</span>
                                     </label>
                                     @endforeach
@@ -798,7 +798,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                 @foreach ($diff_E as $demas)
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{$demas->id}}">
                                     <span class="custom-control-label">{{ $demas->name }}</span>
                                 </label>
                                 @endforeach
