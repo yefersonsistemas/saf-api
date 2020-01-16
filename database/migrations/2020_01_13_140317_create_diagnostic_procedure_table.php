@@ -15,15 +15,14 @@ class CreateDiagnosticProcedureTable extends Migration
     {
         Schema::create('diagnostic_procedure', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('procedure_id');
             $table->unsignedBigInteger('diagnostic_id');
+            $table->unsignedBigInteger('procedure_id');
             $table->timestamps();
 
             $table->foreign('diagnostic_id')
             ->references('id')
             ->on('diagnostics')
             ->onDelete('CASCADE');
-
             
             $table->foreign('procedure_id')
             ->references('id')

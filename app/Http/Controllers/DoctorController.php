@@ -658,12 +658,11 @@ class DoctorController extends Controller
 
         //================= actualizar procedimientos realizados ==============
         public function proceduresR_update(Request $request){
-            // dd($request->data);
             $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
             //buscando procedimientos
             $diagnostic = Diagnostic::with('procedures')->where('id',$request->diagnostic_id)->first();
-            // dd($diagnostic->procedures);
+        
             $returndata2 = array();
             if(!empty($request->data)){
                 $strArray = explode('&', $request->data);
@@ -683,7 +682,7 @@ class DoctorController extends Controller
                     $data =  implode(',', $returndata2);
     
                     if(!empty($itinerary->procedureR_id)){
-                    
+                 
                         // buscando solo el id de los examenes guardados
                             for($i=0; $i < count($diagnostic->procedures); $i++){
                                 $aux2[$i] = $diagnostic->procedures[$i]->id; 
@@ -691,15 +690,15 @@ class DoctorController extends Controller
     
                         //uniendo erreglos de examenes seleccionados y los guardados
                             $merge_procedure= array_merge($returndata2,$aux2);
-                        
+                      
                         //guardando examens en la tabla diagnostic_exam
                             foreach($merge_procedure as $item){
-                                $b_procedure = Exam::find($item);
+                                $b_procedure = Procedure::find($item);
                                 $b_procedure->diagnostic()->sync($diagnostic);
                             } 
     
                         //buscar todos los examenes guardados
-                            $b_diagnostic = Diagnostic::with('procedures')->where('id',$request->diagnostic_id)->first();
+                            $b_diagnostic = Diagnostic::with('procedures')->where('id',$diagnostic->id)->first();
     
                         // colocando solo el id en un arreglo
                             for($i=0; $i < count($b_diagnostic->procedures); $i++){

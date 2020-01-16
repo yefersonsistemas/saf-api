@@ -70,4 +70,5 @@ class Procedure extends Model
         return $this->belongsToMany('App\Diagnostic','diagnostic_procedure')
        ->withPivot('diagnostic_id','id');
     }
+
 }

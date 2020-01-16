@@ -749,7 +749,7 @@ button[data-original-title="Help"]{ display: none; }
                                 @if($r_patient->procedures != null)
                                     @foreach ($r_patient->procedures as $item)
                                     <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{  $item->id    }}">
+                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
                                         <span class="custom-control-label">{{ $item->name }}</span>
                                     </label>
                                     @endforeach
@@ -757,7 +757,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                 @foreach ($diff_PR as $demas)
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{$demas->id}}">
                                     <span class="custom-control-label">{{ $demas->name }}</span>
                                 </label>
                                 @endforeach
