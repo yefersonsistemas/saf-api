@@ -10,6 +10,7 @@
 @section('title','Modificar Medico')
 
 @section('content')
+@can('modificar empleados')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('doctores.update', $employe->id)}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
@@ -149,11 +150,13 @@
                                     </div>
                                 </div> 
 
+                                @can('asignar permisos')
                                 <div class="col-lg-3 ">
                                     <label class="form-label">Modificar Permisos</label>
                                     <button type="button" id="boton" class="btn btn-info" style="width: 230px" data-toggle="modal" data-target="#permission"> Seleccionar </button>
                                 
                                 </div>
+                                @endcan
                             </div> 
 
 
@@ -196,10 +199,12 @@
                                         <tr>
                                             <td>{{ $item->name }}</td>
                                             <td>
+                                                @can('revocar permisos')
                                                 <label class="custom-control custom-checkbox">
                                                         <input checked type="checkbox" class="custom-switch-input" name="perms[]" value="{{ $item->id }}" >
                                                         <span class="custom-switch-indicator"></span>
                                                 </label>
+                                                @endcan
                                             </td>
                                         </tr>
                                         @endforeach
@@ -208,10 +213,12 @@
                                         <tr>
                                             <td>{{ $item->name }}</td>
                                             <td>
+                                                @can('asignar permisos')
                                                 <label class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-switch-input" name="perms[]" value="{{ $item->id }}" >
                                                         <span class="custom-switch-indicator"></span>
                                                 </label>
+                                                @endcan
                                             </td>
                                         </tr>
                                         @endforeach
@@ -228,6 +235,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 

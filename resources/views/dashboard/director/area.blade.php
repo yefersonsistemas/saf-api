@@ -10,6 +10,7 @@
 @section('title','Registro de area')
 
 @section('content')
+@can('registrar area')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('consultorio.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
@@ -69,6 +70,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 @section('scripts')

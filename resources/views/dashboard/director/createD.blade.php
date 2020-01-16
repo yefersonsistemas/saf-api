@@ -16,6 +16,7 @@
     <div class="container-fluid">
         <form action="{{route('doctores.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
             @csrf
+            @can('registrar empleados')
                 <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                     <div class="card p-4">
 
@@ -129,16 +130,20 @@
                                     </div>
                                 </div>
         
+                                @can('registrar precio de consulta')
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group"> 
                                         <label class="form-label">Precio de Consulta</label>
                                         <input type="text"  class="form-control validanumericos" placeholder="Precio" name="price" value="{{ old('price') }}" required>
                                     </div>
                                 </div> 
+                                @endcan
 
+                                @can('asignar permisos')
                                 <div class="col-lg-3 mt-4">
                                     <button disabled type="button" id="boton" class="btn btn-info" style="width: 230px" data-toggle="modal" data-target="#permission"> Agregar Permisos </button>
                                 </div>
+                                @endcan
                             </div> 
 
                             @if ($errors->any())
@@ -210,12 +215,14 @@
                                         <tr>
                                         <td>{{ $item->name }}</td>
                                         <td>
+                                            @can('asignar permisos')
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-switch-input" name="perms[]" value="{{ $item->name }}" >
                                                     <span class="custom-switch-indicator"></span>
                                                 </label>
                                             </div>
+                                            @endcan
                                         </td>
                                         </tr>
                                         @endforeach
@@ -229,12 +236,12 @@
                             </div>
                         </div>
                     </div>
+            @endcan
         </form>
     </div>
 </div>
 @endsection
 
-{{-- style="color:#00ad88" turquesa --}}
 
 @section('scripts')
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>

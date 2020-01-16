@@ -7,6 +7,7 @@
 @section('title','Registro Precio de Consulta')
 
 @section('content')
+@can('modificar precio de consulta')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('precio.update', $precio->id)}}" method='POST' class="row d-flex justify-content-center">
@@ -65,6 +66,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 @section('scripts')

@@ -5,6 +5,7 @@
 @section('title','Registro de Medicinas')
 
 @section('content')
+@can('registrar medicina')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{ route('medicine.store') }}" method='POST' class="row d-flex justify-content-center">
@@ -39,4 +40,5 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection

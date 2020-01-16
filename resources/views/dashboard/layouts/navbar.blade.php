@@ -15,6 +15,9 @@
                 <img src="{{ asset('img/logosinusblanco.svg') }}" alt="">
             </a>
             <div class="dropdown">
+                <a href="" style="color:antiquewhite" class="nav-link icon"><i></i> IN </a>
+                <a href="" style="color:antiquewhite" class="nav-link icon"><i></i> OUT </a>
+                <a href="" style="color:antiquewhite" class="nav-link icon"><i></i> Doctor </a>
                 {{-- <a href="page-search.html" class="nav-link icon"><i class="fa fa-search" data-toggle="tooltip" data-placement="right" title="Search..."></i></a>
                 <a href="javascript:void(0)" class="nav-link icon create_page xs-hide"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Create New"></i></a>
                 <a href="app-email.html" class="nav-link icon app_inbox"><i class="fa fa-envelope" data-toggle="tooltip" data-placement="right" title="Inbox"></i></a>
@@ -30,6 +33,7 @@
                 <a href="javascript:void(0)" class="nav-link icon settingbar"><i class="fa fa-gear fa-spin" data-toggle="tooltip" data-placement="right" title="Settings"></i></a>
                 <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar" src="..\assets\images\user.png" alt="" data-toggle="tooltip" data-placement="right" title="User Menu"></a>
                 <a href="javascript:void(0)" class="nav-link icon menu_toggle"><i class="fa  fa-align-left"></i></a>
+                
             </div>            
         </div>
     </div>

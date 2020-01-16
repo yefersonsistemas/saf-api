@@ -23,6 +23,7 @@ use App\TypeArea;
 use App\TypeDoctor;
 use App\Typesurgery;
 use App\User;
+use App\ClassificationSurgery;
 use Spatie\Permission\Models\Permission;
 
 class DirectorController extends Controller
@@ -59,8 +60,10 @@ class DirectorController extends Controller
        $doctors = Doctor::with('typeDoctor')->get();
     //    dd($doctors);
        $payments = TypePayment::get();
+       $classifications = ClassificationSurgery::get();
 
-       return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 'types', 'areas', 'clases', 'doctors', 'payments'));
+       return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 
+                                                     'types', 'areas', 'clases', 'doctors', 'payments', 'classifications'));
     }
 
     /**

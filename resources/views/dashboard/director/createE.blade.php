@@ -11,6 +11,7 @@
 @section('title','Registro de Empleados')
 
 @section('content')
+@can('registrar empleados')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('employe.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
@@ -114,9 +115,11 @@
                                         </div>
                                     </div>
 
+                                    @can('asignar permisos')
                                     <div class="col-lg-6 mt-3">
                                         <button disabled type="button" id="boton" class="btn btn-info" style="width: 230px" data-toggle="modal" data-target="#permission"> Agregar Permisos </button>
                                     </div>
+                                    @endcan
                                 </div>
                             </div>
                         </div>
@@ -190,12 +193,14 @@
                                 <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>
+                                    @can('asignar permisos')
                                     <div class="custom-controls-stacked">
                                         <label class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-switch-input" name="perms[]" value="{{ $item->name }}" >
                                             <span class="custom-switch-indicator"></span>
                                         </label>
                                     </div>
+                                    @endcan
                                 </td>
                                 </tr>
                                 @endforeach
@@ -212,6 +217,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 

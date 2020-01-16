@@ -5,6 +5,7 @@
 @section('title','Registro de Alergias en los Pacientes')
 
 @section('content')
+@can('registrar alergias')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{ route('allergy.store') }}" method='POST' class="row d-flex justify-content-center">
@@ -39,4 +40,5 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection

@@ -8,6 +8,7 @@
 @section('title','Modificar Empleado')
 
 @section('content')
+@can('modificar empleados')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('empleado.update', $employe->id)}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
@@ -186,6 +187,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 

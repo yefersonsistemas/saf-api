@@ -71,6 +71,9 @@
                         </div>
                     </div>
                 @endrole
+
+
+
                 @role('doctor')
                     <li class="g_heading">Doctor</li>
                     <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
@@ -78,6 +81,9 @@
                 @endrole
                     {{-- FIN DEL MODULO DE LOS DOCTORES --}}       
                 
+
+
+                    
                 @role('OUT')
                     <li class="g_heading">Checkout</li>
                     <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          

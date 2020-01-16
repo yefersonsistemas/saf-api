@@ -110,7 +110,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 
-    Route::group(['middleware' => ['role:director']], function(){
+    Route::group(['middleware' => ['role:director, IN, OUT, doctor']], function(){
 
         //inicio de rutas para crear
         Route::get('empleados', 'DirectorController@index')->name('employe.index');
@@ -183,6 +183,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
         Route::get('tipo/pago/{id}', 'TypePaymentsController@edit')->name('pago.edit');
         Route::put('pago/update/{id}', 'TypePaymentsController@update')->name('pago.update');
+        Route::get('tipo/cirugia/{id}', 'TypeSurgerysController@edit_classification')->name('tipo-cirugia.edit');
+        Route::put('clasificacion/cirugia/update/{id}', 'TypeSurgerysController@update_classification')->name('tipo-cirugia.update');
 
         //inicio de rutas para eliminar
         Route::delete('employe/{id}', 'EmployesController@destroy')->name('empleado.delete');
@@ -200,6 +202,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('clase/{id}', 'TypeDoctorController@destroy')->name('clase.delete');
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
+        Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
 
     });
 });

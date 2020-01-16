@@ -2,9 +2,10 @@
 
 @section('cites','active')
 
-@section('title','Registro de Clasificación de la cirugía')
+@section('title','Registro Tipo de cirugía')
 
 @section('content')
+@can('registrar tipo de cirugias')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{ route('classification.store') }}" method='POST' class="row d-flex justify-content-center">
@@ -48,4 +49,5 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection

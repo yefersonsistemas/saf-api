@@ -21,7 +21,7 @@ use App\Typesurgery;
 use App\Procedure;
 use App\ClassificationSurgery;
 use App\TypeEquipment;
-
+use Spatie\Permission\Models\Permission;
 
 
 class UsersTableSeeder extends Seeder
@@ -1027,9 +1027,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'administrador@sinusandface.com',
             'person_id' => $person->id,
 
-        ])->givePermissionTo('crear todos los registros nuevos')
-        ->givePermissionTo('ver empleados')
-        ->givePermissionTo('modificar los registros creados')
+        ])->givePermissionTo(Permission::all())
         ->assignRole('director');
 
         // $position = factory(App\Position::class)->create([

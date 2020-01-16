@@ -10,6 +10,7 @@
 @section('title','Lista de empleados')
 
 @section('content')
+@can('ver lista de empleados')
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="tab-content" id="pills-tabContent">
@@ -86,6 +87,7 @@
             </div>
         </div>
     </div>
+    @endcan
 @endsection
 
 @section('scripts')
