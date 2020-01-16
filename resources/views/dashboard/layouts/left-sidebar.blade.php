@@ -37,37 +37,39 @@
 
 
                 @role('IN')
-                    <li class="g_heading">Check-IN</li>                      
-                    <li class="@yield('cites')">
-                        <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Pacientes</span></a>
-                        <ul>
-                            <li class="@yield('day')"><a href="{{ route('checkin.day') }}">Citas Del Dia</a></li>
-                            <li class="@yield('approved')"><a href="{{ route('checkin.approved') }}">Citas Aprobadas</a></li>
-                            <li class="@yield('pending')"><a href="{{ route('checkin.pending') }}">Citas Pendientes</a></li>
-                            <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Todas Las Citas</a></li>
-                            <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
-                            {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
-                        </ul>
-
-                        <li>
-                            <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Médicos</span></a>
+                    <div class="checkIn d-none animated fadeIn">
+                        <li class="g_heading">Check-IN</li>                      
+                        <li class="@yield('cites')">
+                            <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Pacientes</span></a>
                             <ul>
-                                <li>
-                                    {{-- <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                    --}}
-                                </li>
-                                <li>
-                                    <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('checkin.create') }}">Asignar Consultorio</a>
-                                </li>
+                                <li class="@yield('day')"><a href="{{ route('checkin.day') }}">Citas Del Dia</a></li>
+                                <li class="@yield('approved')"><a href="{{ route('checkin.approved') }}">Citas Aprobadas</a></li>
+                                <li class="@yield('pending')"><a href="{{ route('checkin.pending') }}">Citas Pendientes</a></li>
+                                <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Todas Las Citas</a></li>
+                                <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
+                                {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                             </ul>
-                        </li>
-
-                    </li> 
-                    <div class="card bg-indigo" style="background-color: #00506b;">
-                        <div class="card-body text-center">
-                            <div class="inline-datepicker datepicker-reception fill_bg"></div>
+    
+                            <li>
+                                <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Médicos</span></a>
+                                <ul>
+                                    <li>
+                                        {{-- <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                    --}}
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('checkin.create') }}">Asignar Consultorio</a>
+                                    </li>
+                                </ul>
+                            </li>
+    
+                        </li> 
+                        <div class="card bg-indigo" style="background-color: #00506b;">
+                            <div class="card-body text-center">
+                                <div class="inline-datepicker datepicker-reception fill_bg"></div>
+                            </div>
                         </div>
                     </div>
                 @endrole
@@ -75,16 +77,19 @@
 
 
                 @role('doctor')
-                    <li class="g_heading">Doctor</li>
-                    <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
-                    {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
+                    <div class="doctor d-none animated fadeIn">
+                        <li class="g_heading">Doctor</li>
+                        <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
+                        {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
+                    </div>
                 @endrole
                     {{-- FIN DEL MODULO DE LOS DOCTORES --}}       
                 
 
 
-                    
+
                 @role('OUT')
+                <div class="checkOut d-none animated fadeIn">
                     <li class="g_heading">Checkout</li>
                     <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          
                     <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
@@ -92,12 +97,14 @@
                 
                     <li><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
                     {{-- <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li> --}}
+                </div>
                 @endrole
 
 
 
 
                 @role('director')
+                <div class="director animated fadeIn">
                     <li class="g_heading">Director</li> 
                     <li><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>Lista de Empleados</a></li>
                     <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>Lista de Registros</a></li>
@@ -124,6 +131,7 @@
                         </ul>
                         
                     </li>
+                </div>
                 @endrole
                 
             </ul>

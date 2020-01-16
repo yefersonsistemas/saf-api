@@ -22,6 +22,7 @@ use App\Procedure;
 use App\ClassificationSurgery;
 use App\TypeEquipment;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 
 class UsersTableSeeder extends Seeder
@@ -1028,7 +1029,7 @@ class UsersTableSeeder extends Seeder
             'person_id' => $person->id,
 
         ])->givePermissionTo(Permission::all())
-        ->assignRole('director');
+        ->assignRole(Role::all());
 
         // $position = factory(App\Position::class)->create([
         //     'name' => 'logistica',

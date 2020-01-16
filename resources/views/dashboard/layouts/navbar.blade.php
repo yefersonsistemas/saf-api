@@ -15,9 +15,19 @@
                 <img src="{{ asset('img/logosinusblanco.svg') }}" alt="">
             </a>
             <div class="dropdown">
-                <a href="" style="color:antiquewhite" class="nav-link icon"><i></i> IN </a>
-                <a href="" style="color:antiquewhite" class="nav-link icon"><i></i> OUT </a>
-                <a href="" style="color:antiquewhite" class="nav-link icon"><i></i> Doctor </a>
+                @if (Auth::check())
+
+                    @role('director')
+                    <a ...............................................................................class="nav-link icon" id="dir" style="font-size:12px">Director</a>
+
+                    <a href="javascript:void(0)" class="nav-link icon" id="in">IN</a>
+                 
+                    <a href="javascript:void(0)" id="out" class="nav-link icon"> OUT </a>
+                  
+                    <a href="javascript:void(0)" id="doc"  class="nav-link icon"> Doctor </a>
+                    @endrole
+
+                @endif
                 {{-- <a href="page-search.html" class="nav-link icon"><i class="fa fa-search" data-toggle="tooltip" data-placement="right" title="Search..."></i></a>
                 <a href="javascript:void(0)" class="nav-link icon create_page xs-hide"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Create New"></i></a>
                 <a href="app-email.html" class="nav-link icon app_inbox"><i class="fa fa-envelope" data-toggle="tooltip" data-placement="right" title="Inbox"></i></a>

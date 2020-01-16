@@ -163,7 +163,33 @@ $(document).ready(function() {
     $('.theme_switch').on('click', function() {
         $('body').toggleClass('theme-dark');
     });
+    $('#in').on('click', function(){
+        $('.checkIn').removeClass('d-none');
+        $('.director').addClass('d-none');
+        $('.checkOut').addClass('d-none');
+        $('.doctor').addClass('d-none');
+    });
+    $('#dir').on('click', function(){
+        $('.checkIn').addClass('d-none');
+        $('.director').removeClass('d-none');
+        $('.checkOut').addClass('d-none');
+        $('.doctor').addClass('d-none');
+    })
+    $('#doc').on('click', function(){
+        $('.checkIn').addClass('d-none');
+        $('.director').addClass('d-none');
+        $('.checkOut').addClass('d-none');
+        $('.doctor').removeClass('d-none');
+    })
+    $('#out').on('click', function(){
+        $('.checkIn').addClass('d-none');
+        $('.director').addClass('d-none');
+        $('.checkOut').removeClass('d-none');
+        $('.doctor').addClass('d-none');
+    })
+    
 });
+
 
 // Font Setting and icon
 $(document).ready(function() {

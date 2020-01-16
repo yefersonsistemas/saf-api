@@ -19,16 +19,16 @@ class role
         if (!Auth::check()) // verifica si esta autorizado el usuario
         return redirect('login');
 
-    $user = Auth::user();  
+        $user = Auth::user();  
 
-    if($user->isAdmin())
-        return $next($request);
-
-    foreach($roles as $role) {
-        if($user->hasRole($role))  //verifica si el usuario tienen el rol
+        if($user->isAdmin())
             return $next($request);
-    }
 
-    return redirect('login');
+        foreach($roles as $role) {
+            if($user->hasRole($role))  //verifica si el usuario tienen el rol
+                return $next($request);
+        }
+
+        return redirect('login');
     }
 }

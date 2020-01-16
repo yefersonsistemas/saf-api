@@ -110,7 +110,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
     });
 
-    Route::group(['middleware' => ['role:director, IN, OUT, doctor']], function(){
+    Route::group(['middleware' => ['role:director']], function(){
 
         //inicio de rutas para crear
         Route::get('empleados', 'DirectorController@index')->name('employe.index');
