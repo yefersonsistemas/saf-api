@@ -1088,6 +1088,6 @@
         }
         
         .avatar-edit .btn-camara {
-            left: 125px;
-            bottom: 0;
+            left: 125px!important;
+            bottom: 0!important;
         }
