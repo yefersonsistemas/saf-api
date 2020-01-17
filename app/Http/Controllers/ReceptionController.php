@@ -55,7 +55,6 @@ class ReceptionController extends Controller
                 $r->patient = $patient;
                 return $r; 
             }
-           
             return response()->json([
                 'Reservation' => $r,
             ]);
@@ -90,19 +89,19 @@ class ReceptionController extends Controller
     {
         $patient    = Patient::all()->last();
         if ($patient == null) {
-          $number = 1;
+            $number = 1;
         } else {
-          $number = $patient->id + 1;
+            $number = $patient->id + 1;
         }
     
         if (strlen($number) == 1) {
-          $history_number = 'P-000' . $number;
+            $history_number = 'P-000' . $number;
         } elseif (strlen($number) == 2) {
-          $history_number = 'P-00' . $number;
+            $history_number = 'P-00' . $number;
         } elseif (strlen($number) == 3) {
-          $history_number = 'P-0' . $number;
+            $history_number = 'P-0' . $number;
         } else {
-          $history_number = 'P-' . $number;
+            $history_number = 'P-' . $number;
         }
 
         return $history_number;
@@ -156,18 +155,17 @@ class ReceptionController extends Controller
     }
 
     public function cancel(Request $request){
-      
+    
         $reservation = Reservation::find($request->id);
         
         if (!empty($reservation)) {
-              $reservation->cancel = 'Cancelado';
-      
-              if ($reservation->save()){
-                  $this->reason($request);
-                  return response()->json([
-                      'message' => 'Cita cancelada', 
-                  ]);
-              }
+            $reservation->cancel = 'Cancelado';
+            if ($reservation->save()){
+                $this->reason($request);
+                return response()->json([
+                    'message' => 'Cita cancelada', 
+                ]);
+            }
         }else{
             return response()->json([
                 'message' => 'Ha ocurrido un error', 
@@ -176,11 +174,10 @@ class ReceptionController extends Controller
     }
 
     public function discontinued(Request $request){ //fecha limite
-      
+    
         $reservation = Reservation::find($request->id);
         
         if (!empty($reservation)) {
-          
             $reservation->discontinued = 'Suspendido';
     
             if ($reservation->save()){
@@ -197,18 +194,18 @@ class ReceptionController extends Controller
     }
 
     public function approved(Request $request){
-      
-        $reservation = Reservation::find($request->id);
-        
-        if (!empty($reservation)) {
-          
-            $reservation->approved = 'Aprobado';
     
-            if ($reservation->save()){
-               return response()->json([
-                    'message' => 'Confirmada', 
-                ]);
-            }
+    $reservation = Reservation::find($request->id);
+    
+    if (!empty($reservation)) {
+        
+        $reservation->approved = 'Aprobado';
+
+        if ($reservation->save()){
+            return response()->json([
+                'message' => 'Confirmada', 
+            ]);
+        }
         }else{
             return response()->json([
                 'message' => 'No se pudo confirmar la cita',
@@ -253,10 +250,10 @@ class ReceptionController extends Controller
         $r = Reservation::where('id', $request->id)->first();
         $cite = Cite::where('reservation_id', $request->id)->first();
 
-          if(!is_null($cite) && !is_null($r)){
-           $cite->delete();
-           $r->delete();
- 
+        if(!is_null($cite) && !is_null($r)){
+        $cite->delete();
+        $r->delete();
+
                 return response()->json([
                 'message' => 'Cita eliminada',
                 ]);

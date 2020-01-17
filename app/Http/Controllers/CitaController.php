@@ -416,7 +416,7 @@ class CitaController extends Controller
         // return response()->json([
         //     'message' => $reservation->schedule->employe,
         // ]);
-       
+
         $employe = $reservation->schedule->employe;  
         // $employe->load('schedule');
 
@@ -440,7 +440,7 @@ class CitaController extends Controller
                 'message' => 'El doctor no cuenta con ese horario',
                 ]);
         }
-                                 
+
         $cupos = $schedule->quota; 
 
         $dia = Reservation::whereDate('date', $date)->get()->count();
@@ -475,7 +475,7 @@ class CitaController extends Controller
         $reservation = Reservation::find($id);
 
         if(!is_null($reservation)){
-           $reservation->delete();
+            $reservation->delete();
 
         Alert::success('Cita Eliminada Exitosamente ');
         return redirect()->route('checkin.index');
@@ -488,7 +488,7 @@ class CitaController extends Controller
 
     public function speciality()
     {
-       $speciality = Speciality::with('image')->get();
+        $speciality = Speciality::with('image')->get();
        //$speciality = Speciality::all();
 
         return response()->json([

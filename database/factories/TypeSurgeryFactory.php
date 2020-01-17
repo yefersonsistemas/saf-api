@@ -5,6 +5,7 @@
 use App\Typesurgery;
 use App\Branch;
 use App\ClassificationSurgery;
+use App\Employe;
 
 use Faker\Generator as Faker;
 

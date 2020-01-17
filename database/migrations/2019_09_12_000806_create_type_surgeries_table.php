@@ -30,9 +30,9 @@ class CreateTypesurgeriesTable extends Migration
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')
-                  ->references('id')
-                  ->on('branch')
-                  ->onDelete('CASCADE');
+                    ->references('id')
+                    ->on('branch')
+                    ->onDelete('CASCADE');
         });
     }
 

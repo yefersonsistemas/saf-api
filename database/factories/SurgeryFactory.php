@@ -24,7 +24,7 @@ $factory->define(Surgery::class, function (Faker $faker) {
         'patient_id' =>$patient->id,
         'area_id' =>$area->id,
         'type_surgery_id' =>$typesurgery->id,
-        'hospitalization_id' =>$hospitalization->id,
+        // 'hospitalization_id' =>$hospitalization->id,
         'branch_id' => $branchoffice->id,
     ];
 });

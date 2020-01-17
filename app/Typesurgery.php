@@ -17,6 +17,11 @@ class Typesurgery extends Model //tipos de cirugias
         return $this->belongsTo('App\Employe');
     }
 
+    public function area()
+    {
+        return $this->hasMany('App\Area');
+    }
+
     public function surgery()
     {
         return $this->belongsTo('App\Surgery');
@@ -35,14 +40,18 @@ class Typesurgery extends Model //tipos de cirugias
     public function procedure() //relacion  con la tabla m:m 
     {
         return $this->belongsToMany('App\Procedure','procedure_surgery')
-       ->withPivot('procedure_id','id');
+        ->withPivot('procedure_id','id');
     }
 
     public function equipment() //relacion  con la tabla m:m 
     {
         return $this->belongsToMany('App\Equipment','equipment_surgery')
-       ->withPivot('equipment_id','id');
+        ->withPivot('equipment_id','id');
     }
 
-    
+    public function employe_surgery() //relacion  con la tabla m:m 
+    {
+        return $this->belongsToMany('App\Employe','surgery_employe')
+        ->withPivot('employe_id','id');
+    }    
 }

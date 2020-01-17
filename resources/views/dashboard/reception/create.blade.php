@@ -251,6 +251,7 @@
                         title: 'Error!',
                         text: 'Paciente no encontrado',
                         type: 'error',
+                        allowOutsideClick:false,
                     })
                     enabled();
                 }
@@ -259,6 +260,7 @@
                         title: 'Excelente!',
                         text: 'Paciente encontrado',
                         type: 'success',
+                        allowOutsideClick:false,
                     })
                     disabled(data);
                 }
@@ -323,6 +325,7 @@
                         title: 'Realizado!',
                         text: 'Click en OK para continuar',
                         type: 'success',
+                        allowOutsideClick:false,
                     });
                     $('#speciality').val(data[0].id);
                     cargarMedicos(data);
@@ -377,6 +380,7 @@
                         title: 'Médico seleccionado!',
                         text: 'Click en OK para continuar',
                         type: 'success',
+                        allowOutsideClick:false,
                     });
                     $('#doctor').val(data.employe.id);
                     $('#picker').datepicker({
@@ -386,7 +390,6 @@
                         endDate: data.end,
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
-                      
                     });
                     $('#fecha').val();
                 })

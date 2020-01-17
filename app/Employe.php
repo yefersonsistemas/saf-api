@@ -136,4 +136,10 @@ class Employe extends Model
     {
         return $this->belongsTo('App\Visitor');
     } 
+
+    public function surgery() //relacion  con la tabla m:m 
+    {
+        return $this->belongsToMany('App\Typesurgery','surgery_employe')
+        ->withPivot('surgery_id','id');
+    }
 }

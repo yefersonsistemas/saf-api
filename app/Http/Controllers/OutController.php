@@ -547,7 +547,6 @@ class OutController extends Controller
         ]);
     }
 
- 
 
     public function recipe(Request $request)
     {
@@ -557,4 +556,5 @@ class OutController extends Controller
             'recipe' => $patient,
         ]);
     }
+
 }

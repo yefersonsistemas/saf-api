@@ -269,7 +269,7 @@ ul[role="tablist"] {
     border-color: #00506b;
 }
 
-.modal-backdrop.show {
+/* .modal-backdrop.show {
     opacity: .5;
 }
 
@@ -312,7 +312,7 @@ ul[role="tablist"] {
 
 .modal-content {
     z-index: 1040;
-}
+} */
 
 .ladymen {
     position: absolute;
@@ -616,4 +616,8 @@ body,
 td img {
     max-width: 50px;
     width: 50px;
+}
+
+.fc-basic-view .fc-body .fc-row {
+    min-height: 5em!important ;
 }
