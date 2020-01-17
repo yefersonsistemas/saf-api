@@ -686,13 +686,20 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" style="font-size:14px;">
+                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;">
                                                                     @if(!empty($itinerary->typesurgery))
                                                                         @foreach ($surgery as $surge)
-                                                                        <li id="cirugias">{{ $surge->name }}</li>
+                                                                        <li>{{ $surge->name }}</li>
                                                                         @endforeach
                                                                     @endif
+
+                                                                  
+                                                                    
                                                                 </ul>  
+
+                                                                {{-- @if(empty($itinerary->typesurgery))
+                                                                <li id="cirugias"></li> --}}
+                                                            {{-- @endif} --}}
                                                             </div>
 
                                                             <div class="col-5 mt-30 p-4 card ml-2">
@@ -832,9 +839,11 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             <label class="custom-control custom-checkbox">
-                            <input type="radio" class="custom-control-input" name="example-radios" value="{{$itinerary->typesurgery->id}}" checked>
-                                <span class="custom-control-label">{{ $itinerary->typesurgery->name }}</span>
-                            </label>
+                            @if(!empty($itinerary->typesurgery))
+                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$itinerary->typesurgery->id}}" checked>
+                                    <span class="custom-control-label">{{ $itinerary->typesurgery->name }}</span>
+                                </label>
+                            @endif
 
                             @foreach ($diff_C as $demas)
                                 <label class="custom-control custom-checkbox">
@@ -1414,14 +1423,12 @@ button[data-original-title="Help"]{ display: none; }
     //============= mostrando posibles cirugias ================== (listo)
     function mostrarSurgery(data){
         for($i=0; $i < data.length; $i++){           
-            cirugias=data[$i].name;
+            cirugias='<li>'+data[$i].name+'</li>';
             $("#cirugias").html(cirugias);
         }        
     }
 
-
     //================ eliminar examen seleccionado ==========
-   
     $(function() {
         $(document).on('click', 'input[type="button"]', function(event) {
             let id = this.id;
