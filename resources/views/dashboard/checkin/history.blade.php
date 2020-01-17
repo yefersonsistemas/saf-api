@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/dropzone/css/dropzone.css') }}">
-    
+
     @endsection
 
     @section('title','Historia Medica')
@@ -53,7 +53,47 @@
                     <h5 class="text-center">Datos Personales</h5>
                     <div class="row">
                         <div class="col-3 ml-4 mb-4">
-                            <img src="{{ ($rs->patient->image != null) ? 'Storage::url($rs->patient->image->path)' : '' }}" alt="" class="img-thumbnail" style=" width:140px">
+                            {{-- <div class="avatar-upload">
+                                <div class="avatar-edit">
+                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                    <label for="imageUpload"></label>
+                                </div>
+                                <div class="avatar-preview">
+                                    <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
+                                    </div>
+                                </div>
+                                </div> --}}
+                            @if (!empty($rs->patient->image->path))
+                            <div class="avatar-edit">
+                                <img src="{{ Storage::url($rs->patient->image->path)}}" alt="" class="img-thumbnail avatar-patient position-relative" id="aja">
+                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                            </div>
+                            @else
+                            <div class="avatar-edit">
+                                <img src="" alt=""  class="img-thumbnail avatar-patient">
+                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                            </div>
+                            @endif
+                        </div>
+                                        <!-- Modal -->
+                        <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <h1>Selecciona un dispositivo</h1>
+                                        <div>
+                                            <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                                            <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                                            <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                                            <p id="estado"></p>
+                                        </div>
+                                        <br>
+                                        <video muted="muted" id="video" class="col-12"></video>
+                                        <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-8 mt-4">
@@ -213,6 +253,9 @@
                         <input name="file" type="file" multiple />
                     </div>
                 </div>
+                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                  </button> --}}
             </div>
 
             <div class="card p-4 d-flex justify-content-between">
@@ -240,10 +283,10 @@
                             <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
                                 @foreach ($medicine as $medicamentos)
                                 <option value= {{ $medicamentos->id }}
-                                    @if ($rs->patient->historyPatient != null)
-                                        @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                        selected
-                                        @endif
+                                @if ($rs->patient->historyPatient != null)
+                                    @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                    selected
+                                    @endif
                                     @endif>{{ $medicamentos->name }}</option>
                                 @endforeach
                             </select>
@@ -256,11 +299,11 @@
                             <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
                                 @foreach ($allergy as $alergias)
                                 <option value= {{ $alergias->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                            selected
-                                            @endif
-                                            @endif>{{ $alergias->name }}</option>
+                                @if ($rs->patient->historyPatient != null)
+                                    @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
+                                    selected
+                                    @endif
+                                    @endif>{{ $alergias->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -312,6 +355,30 @@
                 <button type="submit" class="btn btn-primary" id="submit-all"> Guardar</button>
             </div>
         </form>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                <form role="form" enctype="multipart/form-data" action="{{route('checkin.exams')}}" method="POST">
+                        @csrf
+                <input type="hidden" value="{{$rs->patient->historyPatient->id}}" name="patient">
+                      <div class="dropzone" id="my-dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple id="files" />
+                    </div>
+                </div>
+                    
+                        <button type="submit" class="btn btn-azuloscuro">Submit</button>
+                    </form>
+                </div>
+            </div>
+          </div>
     </div>
 @endsection
 
@@ -320,53 +387,133 @@
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
+<script src="{{ asset('js/brandAn.js') }}"></script>
 
-    <script>
-        Dropzone.options.myDropzone = {
-            url: "{{ route('save.history', $rs) }}",
-            autoProcessQueue: false,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 100,
-
-            init: function () {
-
-                var submitButton = document.querySelector("#submit-all");
-                var wrapperThis = this;
-
-                submitButton.addEventListener("click", function () {
-                    wrapperThis.processQueue();
-                });
-
-                this.on("addedfile", function (file) {
-
-                    // Create the remove button
-                    var removeButton = Dropzone.createElement("<button class='btn btn-danger mt-2 text-center'><i class='fa fa-remove'></i></button>");
-
-                    // Escucha el evento click
-                    removeButton.addEventListener("click", function (e) {
-                        // Asegúrese de que el clic del botón no envíe el formulario:
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        // Eliminar la vista previa del archivo.
-                        wrapperThis.removeFile(file);
-                        // Si también quieres eliminar el archivo en el servidor,
-                        // puedes hacer la solicitud AJAX aquí.
-                    });
-
-                    // Agregue el botón al elemento de vista previa del archivo.
-                    file.previewElement.appendChild(removeButton);
-                });
-
-                this.on('sendingmultiple', function (data, xhr, formData) {
-                    formData.append("Username", $("#Username").val());
-                });
+<script>
+$boton.addEventListener("click", function() {
+    
+    // Codificarlo como JSON
+    //Pausar reproducción
+    $video.pause();
+        //Obtener contexto del canvas y dibujar sobre él
+        let contexto = $canvas.getContext("2d");
+        $canvas.width = $video.videoWidth;
+        $canvas.height = $video.videoHeight;
+        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+        
+        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+        let datafoto=encodeURIComponent(foto);
+            var data1 = {
+                "tokenmodalfoto": $('#tokenfoto').val(),
+                "idpatient":$('#patient-id').val(),
+                "pic":datafoto
+                };
+        const datos=JSON.stringify(data1)
+        $estado.innerHTML = "Enviando foto. Por favor, espera...";
+        fetch("{{ route('checkin.avatar') }}", {
+            method: "POST",
+            body: datos,
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded",
+                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+            },
+        })
+            .then(resultado => {
+                // A los datos los decodificamos como texto plano
+                return resultado.text()
+            })
+            .then(nombreDeLaFoto => {
+                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                console.log("La foto fue enviada correctamente");
+                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+            })
+        //Reanudar reproducción
+        $video.play();
+        if (datos.dic) {
+            console.log(datos.dic)
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#aja').css('background-image', 'url(' + e.target.result + ')');
+                $('#aja').hide();
+                $('#aja').fadeIn(650);
             }
-        };
-    </script>
+            reader.readAsDataURL(input.files[0]);
+        }
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
+        });
+</script>
 
-    <script>
+
+<script>
+Dropzone.options.myDropzone = {
+    url: "{{ route('checkin.exams') }}",
+    autoProcessQueue: true,
+    uploadMultiple: true,
+    parallelUploads: 100,
+    maxFiles: 10,
+    maxFilesize:10,
+    addRemoveLinks: true,
+    accept: function(file) {
+        let fileReader = new FileReader();
+
+        fileReader.readAsDataURL(file);
+        fileReader.onloadend = function() {
+
+            let content = fileReader.result;
+            $('#files').val(content);
+            file.previewElement.classList.add("dz-success");
+        }
+        file.previewElement.classList.add("dz-complete");
+        
+    }
+}
+//  Dropzone.options.myDropzone = {
+//             url: "{{ route('save.history', $rs) }}",
+//             autoProcessQueue: true,
+//             uploadMultiple: true,
+//             parallelUploads: 100,
+//             maxFiles: 10,
+//             maxFilesize:10,
+//             // acceptedFiles: "image/*",
+
+//             init: function () {
+
+//                 var submitButton = document.querySelector("#submit-all");
+//                 var wrapperThis = this;
+
+//                 submitButton.addEventListener("click", function () {
+//                     e.preventDefault();
+//                     e.stopPropagation();
+//                     wrapperThis.processQueue();
+//                 });
+
+//                 this.on("addedfile", function (file) {
+
+//                     // Create the remove button
+//                     var removeButton = Dropzone.createElement("<button class='btn btn-danger mt-2 text-center'><i class='fa fa-remove'></i></button>");
+
+//                     // Escucha el evento click
+//                     removeButton.addEventListener("click", function (e) {
+//                         // Asegúrese de que el clic del botón no envíe el formulario:
+//                         e.preventDefault();
+//                         e.stopPropagation();
+
+//                         // Eliminar la vista previa del archivo.
+//                         wrapperThis.removeFile(file);
+//                         // Si también quieres eliminar el archivo en el servidor,
+//                         // puedes hacer la solicitud AJAX aquí.
+//                     });
+
+//                     // Agregue el botón al elemento de vista previa del archivo.
+//                     file.previewElement.appendChild(removeButton);
+//                 });
+                
+//             }
+//         };
+</script>
+<script>
         $('#disease').multiselect({
             enableFiltering: true,
             enableCaseInsensitiveFiltering: true,

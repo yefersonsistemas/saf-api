@@ -29,6 +29,12 @@
             max-width: 50px;
             width: 50px;
         } 
+    .img-test{
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+    }
 </style>
 
 <div class="section-body  py-4">
@@ -129,8 +135,10 @@
                                             <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
                                                     <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">
+                                                    {{-- <div class="img-test"></div> --}}
                                                 @endif
                                                 <div class="text-center">
                                                     @if ($reservation->patient->historyPatient == null)
