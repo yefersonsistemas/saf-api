@@ -827,21 +827,19 @@ button[data-original-title="Help"]{ display: none; }
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                            <label class="custom-control custom-checkbox custom-control-inline">
-                                {{-- @foreach ($surgery as $item)
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{ $item->id }}">
-                                    <span class="custom-control-label">{{ $item->name }}</span>
-                                </label>
-                                @endforeach --}}
+                            {{-- @foreach ( as $demas) --}}
+                            <label class="custom-control custom-checkbox">
+                            <input type="radio" class="custom-control-input" name="example-radios" value="{{$itinerary->typesurgery->id}}" checked>
+                                <span class="custom-control-label">{{ $itinerary->typesurgery->name }}</span>
+                            </label>
+                        {{-- @endforeach --}}
 
-                                @foreach ($diff_C as $demas)
+                            @foreach ($diff_C as $demas)
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
+                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$demas->id}}">
                                     <span class="custom-control-label">{{ $demas->name }}</span>
                                 </label>
-                                @endforeach
-                            </label>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -867,7 +865,14 @@ button[data-original-title="Help"]{ display: none; }
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                         
+                            @if($r_patient->procedures != null)
+                                @foreach ($procedures as $item)
+                                <label class="custom-control custom-checkbox">
+                                <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
+                                    <span class="custom-control-label">{{ $item->name }}</span>
+                                </label>
+                                @endforeach
+                            @endif
 
                             @foreach ($diff_P as $demas)
                             <label class="custom-control custom-checkbox">
@@ -1293,7 +1298,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarP").click(function() {
             var reservacion = $("#reservacion").val();
             var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
-// console.log(proce);
+            
             ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
@@ -1345,23 +1350,14 @@ button[data-original-title="Help"]{ display: none; }
         }
     }
         
-    // mostrando posibles procedimientos 
-    function mostrarProcedure(data){
-        console.log('hh',data);
-
-        for($i=0; $i < data.length; $i++){
-            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
-            $("#procedimientos").append(procedure);
-        }
-    }
- 
-
+   
     //============== captar datos de las posibles cirugias =============
     $("#guardarC").click(function() {
 
             var reservacion = $("#reservacion").val();
             var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
 
+        console.log(surgery);
             ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
         
