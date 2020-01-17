@@ -75,6 +75,29 @@ class AreasTableSeeder extends Seeder
             'type_area_id' =>  $type->id,
         ]);
         
+        $tipo = factory(TypeArea::class)->create([
+            'name' => 'Quirofano',
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'Quirofano 1',
+            'type_area_id' =>  $tipo->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'Quirofano 2',
+            'type_area_id' =>  $tipo->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'Quirofano 3',
+            'type_area_id' =>  $tipo->id,
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'Quirofano 4',
+            'type_area_id' =>  $tipo->id,
+        ]);
     }
 }
 

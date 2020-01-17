@@ -556,9 +556,4 @@ class OutController extends Controller
         ]);
     }
 
-    public function programar_cirugia(){
-
-        $surgeries = TypeSurgery::all();
-        return view('dashboard.checkout.programar_cirugia', compact('surgeries'));
-    }
 }

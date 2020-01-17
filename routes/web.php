@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('doctor/recipe/{patient}/{employe}','DoctorController@crearRecipe')->name('doctor.crearRecipe');
     Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+    Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
@@ -60,7 +61,7 @@ Route::group(['middleware' => 'auth'], function (){
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
-        Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
+        // Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
         Route::get('cite/approved/{reservation}', 'CitaController@approved')->name('reservation.approved');
@@ -88,14 +89,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
         Route::post('guardar/examens/{patient}','OutController@storeDiagnostic')->name('checkout.diagnostic.store');
-        Route::get('constancia/{id}','OutController@imprimir_constancia')->name('checkout.imprimir_constancia'); // imprimir constancia
-        Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo'); // imprimir reposo medico
+        Route::get('constancia/{id}','OutController@imprimir_constancia')->name('checkout.imprimir_constancia');  // imprimir constancia
+        Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo');  // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
         Route::get('informe/{id}','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
-        Route::get('programar/{id?}','OutController@programar_cirugia')->name('checkout.programar_cirugia'); // para enviar a la vista programar posible cita
-        Route::post('search/checkout/patients','ReservationController@search_patients')->name('search.patients');
-        // Route::post('search/checkout/patients','OutController@search_patients')->name('search.patients');
-        // Route::post('create/cirugia','ReservationController@create')->name('create.cirugia'); //agenda y crea cirugia
+        Route::get('programar/{id}','SurgerysController@create')->name('checkout.programar_cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
+        Route::get('programar_cirugia','SurgerysController@create_surgery')->name('checkout.programar-cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
+        Route::post('search/checkout/patients','SurgerysController@search_patients')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia 
+        Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
+        Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
         // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 

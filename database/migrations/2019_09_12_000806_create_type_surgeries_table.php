@@ -20,7 +20,6 @@ class CreateTypesurgeriesTable extends Migration
             $table->double('cost');
             $table->longText('description');
             $table->unsignedBigInteger('classification_surgery_id');
-            $table->unsignedBigInteger('employe_id');
             $table->string('day_hospitalization');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
@@ -34,11 +33,6 @@ class CreateTypesurgeriesTable extends Migration
                     ->references('id')
                     ->on('branch')
                     ->onDelete('CASCADE');
-
-            $table->foreign('employe_id')
-            ->references('id')
-            ->on('employes')
-            ->onDelete('CASCADE');
         });
     }
 
