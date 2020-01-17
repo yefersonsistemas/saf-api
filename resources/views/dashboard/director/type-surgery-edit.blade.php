@@ -1,22 +1,31 @@
 @extends('dashboard.layouts.app')
 
-@section('title','Modificar Cargo')
+@section('title','Modificar Tipo de cirugía')
 
 @section('content')
-@can('modificar tipo de pago')
+@can('modificar tipo de cirugias')
 <div class="section-body py-4">
     <div class="container-fluid">
-        <form action="{{ route('pago.update', $payment->id) }}" method='POST' class="row d-flex justify-content-center">
+        <form action="{{ route('tipo-cirugia.update', $classification->id) }}" method='POST' class="row d-flex justify-content-center">
             @method('PUT')
             @csrf
 
             <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                 <div class="card p-4">
             
-                    <div class="col-lg-12 ">
-                        <div class="form-group">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" name="name" value="{{ $payment->name }}" required>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-6 ">
+                            <div class="form-group">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" name="name" value="{{ $classification->name }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 ">
+                            <div class="form-group">
+                                <label class="form-label">Descripción</label>
+                                <input type="text" class="form-control" name="description" value="{{ $classification->description }}" required>
+                            </div>
                         </div>
                     </div>
 

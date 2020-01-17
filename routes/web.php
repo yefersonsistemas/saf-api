@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
      //======================= rutas para el usuario ckeckin ====================
-    Route::group(['middleware' => ['role:IN']], function () {
+    Route::group(['middleware' => ['role:IN, director']], function () {
         Route::get('cite/day', 'InController@day')->name('checkin.day');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
         Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     //======================= rutas para el usuario ckeckout ====================
-    Route::group(['middleware' => ['role:OUT']], function () {
+    Route::group(['middleware' => ['role:OUT, director']], function () {
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
@@ -102,8 +102,8 @@ Route::group(['middleware' => 'auth'], function (){
         // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 
-    Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('doctor', 'DoctorController@index')->name('doctor.index'); 
+    Route::group(['middleware' => ['role:doctor, director']], function () {
+        Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
@@ -204,6 +204,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
         Route::get('tipo/pago/{id}', 'TypePaymentsController@edit')->name('pago.edit');
         Route::put('pago/update/{id}', 'TypePaymentsController@update')->name('pago.update');
+        Route::get('tipo/cirugia/{id}', 'TypeSurgerysController@edit_classification')->name('tipo-cirugia.edit');
+        Route::put('clasificacion/cirugia/update/{id}', 'TypeSurgerysController@update_classification')->name('tipo-cirugia.update');
 
         //inicio de rutas para eliminar
         Route::delete('employe/{id}', 'EmployesController@destroy')->name('empleado.delete');
@@ -221,6 +223,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('clase/{id}', 'TypeDoctorController@destroy')->name('clase.delete');
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
+        Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
 
     });
 });

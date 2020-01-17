@@ -3,6 +3,7 @@
 @section('title','Editar Procedimiento')
 
 @section('content')
+@can('modificar procedimiento')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('procedure.update', $procedure->id)}}" method='POST' class="row d-flex justify-content-center">
@@ -71,6 +72,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 @section('scripts')

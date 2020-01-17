@@ -134,7 +134,7 @@ class TypeSurgerysController extends Controller
 
         $surgery->procedure()->sync($request->procedure);
 
-        return redirect()->route('all.register')->withSuccess('Registro modificado');
+        return redirect()->route('all.register')->withSuccess('Cirugía modificada');
 
     }
 
@@ -189,7 +189,7 @@ class TypeSurgerysController extends Controller
             'description' => 'required',
         ]);
 
-        $person = ClassificationSurgery::create([
+        $classification = ClassificationSurgery::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'branch_id' => 1
@@ -197,4 +197,31 @@ class TypeSurgerysController extends Controller
 
         return redirect()->route('all.register')->withSuccess('Registro agregado correctamente');
     }
+
+    public function edit_classification($id)
+    {
+        $classification = ClassificationSurgery::find($id);
+        return view('dashboard.director.type-surgery-edit', compact('classification'));
+    }
+
+
+    public function update_classification(Request $request)
+    {
+        $classification = ClassificationSurgery::find($request->id);
+
+        $classification->name = $request->name;
+        $classification->description = $request->description;
+        $classification->update();
+           
+
+        return redirect()->route('all.register')->withSuccess('Tipo de cirugía modificada');
+    }
+
+    public function destroy_cirugia($id)
+    {
+        $classification = ClassificationSurgery::find($id);
+        $classification->delete();
+        return redirect()->route('all.register')->withSuccess('Tipo de cirugía eliminada');
+    }
+
 }

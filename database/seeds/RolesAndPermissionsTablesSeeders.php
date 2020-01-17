@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use App\User;
 
 class RolesAndPermissionsTablesSeeders extends Seeder
 {
@@ -14,6 +13,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
      */
     public function run()
     {
+     
         // Reset cached roles and permissions
         app()['cache']->forget('spatie.permission.cache');
 
@@ -21,7 +21,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Permission::truncate();
 
         //Roles de usuarios
-        //$role = Role::create(['name' => 'administrador']); por si existira
+        // $role = Role::create(['name' => 'director']);
         Role::create(['name' => 'director']);
         Role::create(['name' => 'seguridad']);
         Role::create(['name' => 'recepcion']);
@@ -80,23 +80,90 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Permission::create(['name' => 'ver cuentas por cobrar']);
 
         //Permiso del rol director
-        Permission::create(['name' => 'crear todos los registros nuevos']);
-        Permission::create(['name' => 'modificar los registros creados']);
-        Permission::create(['name' => 'ver empleados']);
+        Permission::create(['name' => 'ver lista de empleados']);
+        Permission::create(['name' => 'registrar empleados']);
+        Permission::create(['name' => 'modificar empleados']);
+        Permission::create(['name' => 'eliminar empleados']);
 
+        Permission::create(['name' => 'ver lista de registros']);
+        Permission::create(['name' => 'ver lista de emppleados']);
 
-        /* por si existira 
-        $role->givePermissionTo(Permission::all());
+        Permission::create(['name' => 'registrar cargo']);
+        Permission::create(['name' => 'modificar cargo']);
+        Permission::create(['name' => 'eliminar cargo']);
 
-        $user = User::create([
-            'name' => 'Administrador',
-            'email' => 'Administrador@sinusandface.com',
-            'password' => 'admin'
-        ]);
+        Permission::create(['name' => 'registrar clase de doctor']);
+        Permission::create(['name' => 'modificar clase de doctor']);
+        Permission::create(['name' => 'eliminar clase de doctor']);
 
-        $user->assignRole('administrador');
-        echo 'User admin has been created';
-        */
+        Permission::create(['name' => 'registrar servicios']);
+        Permission::create(['name' => 'modificar servicios']);
+        Permission::create(['name' => 'eliminar servicios']);
+
+        Permission::create(['name' => 'registrar procedimiento']);
+        Permission::create(['name' => 'eliminar procedimiento']);
+        Permission::create(['name' => 'modificar procedimiento']);
+
+        Permission::create(['name' => 'registrar especialidad']);
+        Permission::create(['name' => 'eliminar especialidad']);
+        Permission::create(['name' => 'modificar especialidad']);
+
+        Permission::create(['name' => 'registrar cirugias']);
+        Permission::create(['name' => 'eliminar cirugias']);
+        Permission::create(['name' => 'modificar cirugias']);
+
+        Permission::create(['name' => 'registrar tipo de cirugias']);
+        Permission::create(['name' => 'eliminar tipo de cirugias']);
+        Permission::create(['name' => 'modificar tipo de cirugias']);
+
+        Permission::create(['name' => 'registrar alergias']);
+        Permission::create(['name' => 'eliminar alergias']);
+        Permission::create(['name' => 'modificar alergias']);
+
+        Permission::create(['name' => 'registrar enfermedades']);
+        Permission::create(['name' => 'eliminar enfermedades']);
+        Permission::create(['name' => 'modificar enfermedades']);
+
+        Permission::create(['name' => 'registrar medicina']);
+        Permission::create(['name' => 'eliminar medicina']);
+        Permission::create(['name' => 'modificar medicina']);
+
+        Permission::create(['name' => 'registrar examenes']);
+        Permission::create(['name' => 'eliminar examenes']);
+        Permission::create(['name' => 'modificar examenes']);
+
+        Permission::create(['name' => 'registrar area']);
+        Permission::create(['name' => 'eliminar area']);
+        Permission::create(['name' => 'modificar area']);
+
+        Permission::create(['name' => 'registrar tipo de area']);
+        Permission::create(['name' => 'eliminar tipo de area']);
+        Permission::create(['name' => 'modificar tipo de area']);
+        
+        Permission::create(['name' => 'registrar tipo de pago']);
+        Permission::create(['name' => 'eliminar tipo de pago']);
+        Permission::create(['name' => 'modificar tipo de pago']);
+
+        Permission::create(['name' => 'registrar precio de consulta']);
+        Permission::create(['name' => 'modificar precio de consulta']);
+        Permission::create(['name' => 'eliminar precio de consulta']);
+
+        Permission::create(['name' => 'asignar permisos']);
+        Permission::create(['name' => 'revocar permisos']);
+
+        
+        // $role->givePermissionTo(Permission::all());
+
+        // $user = User::create([
+        //     'person_id' => $person->id,
+        //     'email' => $person->email,
+        //     'password' => 'password',
+        //     'branch_id' => '1',
+        // ]);
+
+        // $user->assignRole('director');
+        // echo 'User admin has been created';
+        
 
     }
 }
