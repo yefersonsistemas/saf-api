@@ -74,7 +74,7 @@
                                 <div class="inline-datepicker datepicker-reception fill_bg"></div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div> 
                 @endrole
 
 
