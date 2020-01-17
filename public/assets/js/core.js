@@ -163,8 +163,10 @@ $(document).ready(function() {
     $('.theme_switch').on('click', function() {
         $('body').toggleClass('theme-dark');
     });
+
+    //=========== permite hacer los cambios en el menu de director para escoger distinto rol ============
     $('#in').on('click', function(){
-        $('.checkIn').removeClass('d-none');
+        $('.checkIn').removeClass('d-none');//remueve el display por lo que se puede ver
         $('.director').addClass('d-none');
         $('.checkOut').addClass('d-none');
         $('.doctor').addClass('d-none');
@@ -187,6 +189,7 @@ $(document).ready(function() {
         $('.checkOut').removeClass('d-none');
         $('.doctor').addClass('d-none');
     })
+
     
 });
 

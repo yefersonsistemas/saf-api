@@ -18,13 +18,20 @@
                 @if (Auth::check())
 
                     @role('director')
-                    <a ...............................................................................class="nav-link icon" id="dir" style="font-size:12px">Director</a>
 
-                    <a href="javascript:void(0)" class="nav-link icon" id="in">IN</a>
+                    <a class="nav-link icon" id="dir" style="font-size:12px">Director</a>
+
+                    @role('IN')
+                    <a  class="nav-link icon" id="in" style="font-size:12px">IN</a>
+                    @endrole
                  
-                    <a href="javascript:void(0)" id="out" class="nav-link icon"> OUT </a>
+                    @role('OUT')
+                    <a  class="nav-link icon" id="out" style="font-size:12px"> OUT </a>
+                    @endrole
                   
-                    <a href="javascript:void(0)" id="doc"  class="nav-link icon"> Doctor </a>
+                    @role('doctor')
+                    <a  class="nav-link icon" id="doc" style="font-size:12px"> Doctor </a>
+                    @endrole
                     @endrole
 
                 @endif

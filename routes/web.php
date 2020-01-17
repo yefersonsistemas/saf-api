@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
      //======================= rutas para el usuario ckeckin ====================
-    Route::group(['middleware' => ['role:IN']], function () {
+    Route::group(['middleware' => ['role:IN, director']], function () {
         Route::get('cite/day', 'InController@day')->name('checkin.day');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
         Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
     //======================= rutas para el usuario ckeckout ====================
-    Route::group(['middleware' => ['role:OUT']], function () {
+    Route::group(['middleware' => ['role:OUT, director']], function () {
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
@@ -95,7 +95,7 @@ Route::group(['middleware' => 'auth'], function (){
         // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 
-    Route::group(['middleware' => ['role:doctor']], function () {
+    Route::group(['middleware' => ['role:doctor, director']], function () {
         Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');

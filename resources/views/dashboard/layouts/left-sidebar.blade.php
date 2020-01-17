@@ -10,7 +10,7 @@
         <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[0]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
-                @role('recepcion')
+                {{-- @role('recepcion')
                     <li class="g_heading">Recepcion</li>
                     <li class=""><a href="index.html"><i class="icon-home"></i><span>Dashboard</span></a></li>                        
                     <li class="@yield('cites')">
@@ -33,11 +33,14 @@
                             <div class="inline-datepicker datepicker-reception fill_bg"></div>
                         </div>
                     </div>
-                @endrole
+                @endrole --}}
 
 
                 @role('IN')
-                    <div class="checkIn d-none animated fadeIn">
+                    <div class="">
+                        @role('director')
+                        <div class="checkIn animated fadeIn d-none">
+                        @endrole   
                         <li class="g_heading">Check-IN</li>                      
                         <li class="@yield('cites')">
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Pacientes</span></a>
@@ -77,7 +80,12 @@
 
 
                 @role('doctor')
-                    <div class="doctor d-none animated fadeIn">
+                    <div class="">
+                        @role('director')
+                        <div class="doctor animated fadeIn d-none">
+                        @endrole   
+
+
                         <li class="g_heading">Doctor</li>
                         <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
                         {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
@@ -89,7 +97,11 @@
 
 
                 @role('OUT')
-                <div class="checkOut d-none animated fadeIn">
+                <div class="">
+                    @role('director')
+                    <div class="checkOut animated fadeIn d-none">
+                    @endrole   
+
                     <li class="g_heading">Checkout</li>
                     <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          
                     <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
