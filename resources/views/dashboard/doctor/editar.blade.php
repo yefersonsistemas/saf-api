@@ -691,15 +691,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                         @foreach ($surgery as $surge)
                                                                         <li>{{ $surge->name }}</li>
                                                                         @endforeach
-                                                                    @endif
-
-                                                                  
+                                                                    @endif                                                            
                                                                     
                                                                 </ul>  
-
-                                                                {{-- @if(empty($itinerary->typesurgery))
-                                                                <li id="cirugias"></li> --}}
-                                                            {{-- @endif} --}}
                                                             </div>
 
                                                             <div class="col-5 mt-30 p-4 card ml-2">
