@@ -686,10 +686,10 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;">
+                                                                <ul class="text-start pl-4 pr-4" style="font-size:14px;">
                                                                     @if(!empty($itinerary->typesurgery))
                                                                         @foreach ($surgery as $surge)
-                                                                        <li>{{ $surge->name }}</li>
+                                                                        <li id="cirugias">{{ $surge->name }}</li>
                                                                         @endforeach
                                                                     @endif
                                                                 </ul>  
@@ -704,6 +704,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                         @endforeach
                                                                     @endif
                                                                 </ul>  
+                                                                {{-- <ul id="procedimientos1">
+
+                                                                </ul> --}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -813,6 +816,7 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
 
+    
     {{-- modal de posibles cirugias --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -827,19 +831,18 @@ button[data-original-title="Help"]{ display: none; }
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                            {{-- @foreach ( as $demas) --}}
                             <label class="custom-control custom-checkbox">
                             <input type="radio" class="custom-control-input" name="example-radios" value="{{$itinerary->typesurgery->id}}" checked>
                                 <span class="custom-control-label">{{ $itinerary->typesurgery->name }}</span>
                             </label>
-                        {{-- @endforeach --}}
 
                             @foreach ($diff_C as $demas)
                                 <label class="custom-control custom-checkbox">
-                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$demas->id}}">
+                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$demas->id}}">  
                                     <span class="custom-control-label">{{ $demas->name }}</span>
                                 </label>
                             @endforeach
+                          
                         </div>
                     </div>
                 </div>
@@ -865,7 +868,7 @@ button[data-original-title="Help"]{ display: none; }
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                            @if($r_patient->procedures != null)
+                            @if($procedures != null)
                                 @foreach ($procedures as $item)
                                 <label class="custom-control custom-checkbox">
                                 <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
@@ -1296,8 +1299,8 @@ button[data-original-title="Help"]{ display: none; }
 
     //=============  captar datos de los posibles procedimientos ==========
     $("#guardarP").click(function() {
-            var reservacion = $("#reservacion").val();
-            var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
+        var reservacion = $("#reservacion").val();
+        var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
             
             ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
@@ -1332,13 +1335,23 @@ button[data-original-title="Help"]{ display: none; }
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
-                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
             }
         })
         .fail(function(data) {
             console.log(data);
         })
     } // fin de la funcion
+
+    //============ mostrando posibles procedimientos =============== 
+    //   function mostrarProcedure(data){
+    //     console.log('hh',data);
+    //     $("#procedimientos").remove();
+
+    //     for($i=0; $i < data.length; $i++){
+    //         procedure='<li>'+data[$i].name+'</li>';
+    //         $("#procedimientos").append(procedure);
+    //     }
+    // }
 
     //============ mostrando posibles procedimientos =============== 
     function mostrarProcedure(data){
@@ -1351,11 +1364,11 @@ button[data-original-title="Help"]{ display: none; }
     }
         
    
-    //============== captar datos de las posibles cirugias =============
+    //============== captar datos de las posibles cirugias =============(listo)
     $("#guardarC").click(function() {
 
-            var reservacion = $("#reservacion").val();
-            var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+        var reservacion = $("#reservacion").val();
+        var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
 
         console.log(surgery);
             ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
@@ -1389,8 +1402,7 @@ button[data-original-title="Help"]{ display: none; }
                     title: data.surgerysR,
                     text:  'Click en OK para continuar',
                     type:  'error',
-                })
-                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                });            
             }
         })
         .fail(function(data) {
@@ -1399,15 +1411,12 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
     
-    //============= mostrando posibles cirugias ==================
+    //============= mostrando posibles cirugias ================== (listo)
     function mostrarSurgery(data){
-        console.log('hh',data);
-
-        for($i=0; $i < data.length; $i++){
-            cirugias='<li>'+data[$i].name+'</li>';
-            $("#cirugias").append(cirugias);
-        }
-        
+        for($i=0; $i < data.length; $i++){           
+            cirugias=data[$i].name;
+            $("#cirugias").html(cirugias);
+        }        
     }
 
 

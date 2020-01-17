@@ -170,7 +170,7 @@
                                             <td> 
                                                 @if(!($reservation->patient->historyPatient->diagnostic->isEmpty()))
                                                 <a href="{{ route('doctor.editar', $reservation->id) }}" class="badge badge-info btn p-2">
-                                                    <i class="fa fa-eye"></i> Ver Historia tiene
+                                                    <i class="fa fa-eye"></i> Ver Historia
                                                 </a>
                                                @endif
                                                 @if($reservation->patient->historyPatient->diagnostic->isEmpty())
@@ -179,7 +179,7 @@
                                                 </a>
                                                 @endif
                                             </td>
-                                            </tr>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
