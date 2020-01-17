@@ -53,7 +53,7 @@
                     <h5 class="text-center">Datos Personales</h5>
                     <div class="row">
                         <div class="col-3 ml-4 mb-4">
-                            {{-- <div class="avatar-upload">
+                            <div class="avatar-upload">
                                 <div class="avatar-edit">
                                     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                                     <label for="imageUpload"></label>
@@ -62,10 +62,10 @@
                                     <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                     </div>
                                 </div>
-                                </div> --}}
+                                </div>
                             @if (!empty($rs->patient->image->path))
                             <div class="avatar-edit">
-                                <img src="{{ Storage::url($rs->patient->image->path)}}" alt="" class="img-thumbnail avatar-patient position-relative">
+                                <img src="{{ Storage::url($rs->patient->image->path)}}" alt="" class="img-thumbnail avatar-patient position-relative" id="aja">
                                 <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                             </div>
                             @else
@@ -403,11 +403,11 @@ $boton.addEventListener("click", function() {
         
         let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
         let datafoto=encodeURIComponent(foto);
-                var data1 = {
-                    "tokenmodalfoto": $('#tokenfoto').val(),
-                    "idpatient":$('#patient-id').val(),
-                    "pic":datafoto
-                    };
+            var data1 = {
+                "tokenmodalfoto": $('#tokenfoto').val(),
+                "idpatient":$('#patient-id').val(),
+                "pic":datafoto
+                };
         const datos=JSON.stringify(data1)
         $estado.innerHTML = "Enviando foto. Por favor, espera...";
         fetch("{{ route('checkin.avatar') }}", {
@@ -429,6 +429,19 @@ $boton.addEventListener("click", function() {
             })
         //Reanudar reproducción
         $video.play();
+        if (datos.dic) {
+            console.log(datos.dic)
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#aja').css('background-image', 'url(' + e.target.result + ')');
+                $('#aja').hide();
+                $('#aja').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
         });
 </script>
 

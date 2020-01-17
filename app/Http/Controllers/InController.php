@@ -28,6 +28,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
+use App\Image;
 //use App\Http\Controllers\CitaController;
 
 
@@ -599,36 +600,30 @@ class InController extends Controller
          }
     }
 
-    public function guardar_foto(Request $request){
+    public function guardar_foto(){
+    
         $datos=json_decode(file_get_contents("php://input"));
         $imagenCodificada=$datos->pic;
-    if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
-    //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
-    $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", urldecode($imagenCodificada));
-    //Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
-    //todo el contenido lo guardamos en un archivo
-    $imagenDecodificada = base64_decode($imagenCodificadaLimpia);
-    //Calcular un nombre único
-    $nombreImagenGuardada = "foto_" . uniqid() . ".png";
-    //Escribir el archivo
-    file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
-    $path=file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
-    // $image=Image::create([
-    //     'path'=> $path,
-    //     'imageable_type'=>'App\Person',
-    //     'imageable_id'=>$datos->idpatient,
-    //     'branch_id'=>1
-    //     ]);
-    // $image = new Image;
-    // $image->path = $path;
-    // $image->imageable_type = "App\Person";
-    // $image->imageable_id = $datos->idpatient;
-    // $image->branch_id = 1;
-    // $image->save();
-        //Terminar y regresar el nombre de la foto
-        
-    exit($nombreImagenGuardada);
-    return redirect()->withsuccess("Foto Actualizada");
+        if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
+        //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
+        $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", urldecode($imagenCodificada));
+        //Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
+        //todo el contenido lo guardamos en un archivo
+        $imagenDecodificada = base64_decode($imagenCodificadaLimpia);
+        //Calcular un nombre único
+        $nombreImagenGuardada = "foto_" . uniqid() . ".png";
+        //Escribir el archivo
+        file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
+        $path=("person/".$nombreImagenGuardada);
+            //Terminar y regresar el nombre de la foto
+            // $image = new Image;
+            // $image->path = $path;
+            // $image->imageable_type = "App\Person";
+            // $image->imageable_id = $datos->idpatient;
+            // $image->branch_id = 1;
+            // $image->save();
+        exit($nombreImagenGuardada);
+        return redirect()->withsuccess("Foto Actualizada");
     }
 }
 
