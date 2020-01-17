@@ -54,28 +54,26 @@
                     <div class="row">
                         <div class="col-3 ml-4 mb-4">
                             <div class="avatar-upload">
-                                <div class="avatar-edit">
+                                {{-- <div class="avatar-edit">
                                     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                                     <label for="imageUpload"></label>
-                                </div>
-                                <div class="avatar-preview">
+                                </div> --}}
+                                @if (!empty($rs->patient->image->path))
+                                <div class="avatar-preview avatar-edit">
                                     <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                     </div>
+                                    <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                                 </div>
-                                </div>
-                            @if (!empty($rs->patient->image->path))
-                            <div class="avatar-edit">
-                                <img src="{{ Storage::url($rs->patient->image->path)}}" alt="" class="img-thumbnail avatar-patient position-relative" id="aja">
-                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
-                            </div>
                             @else
-                            <div class="avatar-edit">
-                                <img src="" alt=""  class="img-thumbnail avatar-patient">
+                            <div class="avatar-preview avatar-edit">
+                                <div id="imagePreview" style="background-image: url();">
+                                </div>
                                 <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                             </div>
                             @endif
                         </div>
-                                        <!-- Modal -->
+                            </div>
+                        <!-- Modal -->
                         <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -85,12 +83,14 @@
                                             <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                                             <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
                                             <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
-                                            <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                                            <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
                                             <p id="estado"></p>
                                         </div>
-                                        <br>
                                         <video muted="muted" id="video" class="col-12"></video>
                                         <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                                        <div class="col-12 text-center">
+                                            <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -406,6 +406,7 @@ $boton.addEventListener("click", function() {
             var data1 = {
                 "tokenmodalfoto": $('#tokenfoto').val(),
                 "idpatient":$('#patient-id').val(),
+                "idimage":$('#imagen-id').val(),
                 "pic":datafoto
                 };
         const datos=JSON.stringify(data1)
@@ -417,31 +418,22 @@ $boton.addEventListener("click", function() {
                 "Content-type": "application/x-www-form-urlencoded",
                 'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
             },
-        })
-            .then(resultado => {
-                // A los datos los decodificamos como texto plano
-                return resultado.text()
-            })
-            .then(nombreDeLaFoto => {
+        }).then(function(response) {
+            // console.log(response.json());
+                return response.json();
+            }).then(nombreDeLaFoto => {
                 // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
                 console.log("La foto fue enviada correctamente");
                 $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
             })
         //Reanudar reproducción
         $video.play();
-        if (datos.dic) {
-            console.log(datos.dic)
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#aja').css('background-image', 'url(' + e.target.result + ')');
-                $('#aja').hide();
-                $('#aja').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    $("#imageUpload").change(function() {
-        readURL(this);
-    });
+  
+        $('.avatar-preview').load(
+            $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
+             $('#imagePreview').hide(),
+             $('#imagePreview').fadeIn(650)
+         );        
         });
 </script>
 

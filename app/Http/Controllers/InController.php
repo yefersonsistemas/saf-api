@@ -615,15 +615,23 @@ class InController extends Controller
         //Escribir el archivo
         file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
         $path=("person/".$nombreImagenGuardada);
-            //Terminar y regresar el nombre de la foto
-            // $image = new Image;
-            // $image->path = $path;
+
+        // $newimg=Image::find($datos.idimage);
+        // dd($newimg);
+        //Terminar y regresar el nombre de la foto
+            $image = Image::find($datos->idimage);
+            $image->path = $path;
+
             // $image->imageable_type = "App\Person";
             // $image->imageable_id = $datos->idpatient;
             // $image->branch_id = 1;
-            // $image->save();
-        exit($nombreImagenGuardada);
-        return redirect()->withsuccess("Foto Actualizada");
+            $image->save();
+            $urlfoto=$image;
+            return response()->json([
+                'foto' => $path,
+                'Mensaje'=>'Imagen guardada correctamente'
+                ]);
+        // exit($nombreImagenGuardada);
     }
 }
 
