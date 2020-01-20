@@ -223,11 +223,14 @@ class CitaController extends Controller
             $reservation->status = 'Aprobada';
             $reservation->save();
 
-            $doctor = Doctor::where('employe_id',$reservation->person_id)->first();
+            // dd($reservation->person_id);
+            $employe = Employe::where('person_id', $reservation->person_id)->first();
+            $doctor = Doctor::where('employe_id',$employe->id)->first();
+            // dd($doctor);
 
             $itinerary = Itinerary::create([
                 'patient_id' =>  $reservation->patient_id,  //paciente tratado
-                'employe_id' => $reservation->person_id,               
+                'employe_id' => $employe->id,               
                 'doctor_id' => $doctor->id,
                 'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
                 'branch_id' => 1,
