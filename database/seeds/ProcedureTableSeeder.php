@@ -14,7 +14,7 @@ class ProcedureTableSeeder extends Seeder
      */
     public function run()
     {
-        Procedure::truncate();
+        // Procedure::truncate();
         
         // factory(Procedure::class, 20)->create();
 

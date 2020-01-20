@@ -11,14 +11,13 @@ use App\Patient;
 use App\Reservation;
 use App\Schedule;
 use App\Speciality;
-//use App\Procedure;
+use App\Procedure;
 use App\Traits\ImageFactory;
 use App\Treatment;
 use App\Medicine;
 use App\TypeDoctor;
 use App\Doctor;
 use App\Typesurgery;
-use App\Procedure;
 use App\ClassificationSurgery;
 use App\TypeEquipment;
 use Spatie\Permission\Models\Permission;
@@ -43,7 +42,7 @@ class UsersTableSeeder extends Seeder
         Doctor::truncate();
         Reservation::truncate();
         Typesurgery::truncate();
-        // Procedure::truncate();
+        Procedure::truncate();
         ClassificationSurgery::truncate();
         TypeEquipment::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
@@ -188,25 +187,69 @@ class UsersTableSeeder extends Seeder
         $employe->procedures()->attach($procedimiento3);
 
             //creando procedimiento
-            $procedimiento4 = factory(App\Procedure::class)->create([
-                'name' => 'Antrostomía bilateral',
-                'description' => 'Extracción de la porción media de unciforme.
-                ',
-                'price' => 2500,
-                // 'speciality_id' => $especialidad->id,
-                'branch_id' => '1',
-            ]);
-    
-            //relacion de la cirugia con el procedimiento
-            // $especialidad->procedures()->attach($procedimiento);
-            $cirugia->procedure()->attach($procedimiento4);
-            $employe->procedures()->attach($procedimiento4);
+        $procedimiento4 = factory(App\Procedure::class)->create([
+            'name' => 'Antrostomía bilateral',
+            'description' => 'Extracción de la porción media de unciforme.
+            ',
+            'price' => 2500,
+            // 'speciality_id' => $especialidad->id,
+            'branch_id' => '1',
+        ]);
 
+        //relacion de la cirugia con el procedimiento
+        // $especialidad->procedures()->attach($procedimiento);
+        $cirugia->procedure()->attach($procedimiento4);
+        $employe->procedures()->attach($procedimiento4);
 
-            $tipo_equipo = factory(App\TypeEquipment::class)->create([
-                'name' => 'quirurgico',
-                'branch_id' => '1',
-            ]);
+        //=========================  Procedimientos otros ==========================
+
+        $pro= factory(Procedure::class)->create([
+            'name'    => 'consulta',
+            'description' => 'Solo consulta',
+        ]);
+        $employe->procedures()->attach($pro);
+
+        $pro1= factory(Procedure::class)->create([
+            'name'    => 'Anestesia',
+            'description' => 'bloquea la sensibilidad táctil',
+            'price' => 15000,
+        ]);
+        $employe->procedures()->attach($pro1);
+
+        $pro2= factory(Procedure::class)->create([
+            'name'    => 'Radiografía de la cara',
+             'description' => 'serie de imágenes de los huesos de la cara',
+             'price' => 35000,
+        ]);
+        $employe->procedures()->attach($pro2);
+
+        $pro3= factory(Procedure::class)->create([
+            'name'    => 'Exploraciones de oído, garganta y nariz',
+             'description' => 'identifica la presencia de tapones de cera o exceso de cerumen, 
+             secreciones irregulares, cuerpos extraños, lesiones bacterianas y micóticas, 
+             infecciones frecuentes o recurrentes.',
+             'price' => 25000,
+        ]);
+        $employe->procedures()->attach($pro3);
+
+        $pro4= factory(Procedure::class)->create([
+            'name'    => 'Timpanometría',
+             'description' => 'evalua la movilidad de la membrana timpánica',
+             'price' => 18000,
+        ]);
+        $employe->procedures()->attach($pro4);
+
+        $pro5= factory(Procedure::class)->create([
+            'name'    => ' Audiometría',
+             'description' => 'mide la capacidad de cada oído de percibir las vibraciones de diversas bandas del espectro audible',
+             'price' => 22000,
+        ]);
+        $employe->procedures()->attach($pro5);
+
+        $tipo_equipo = factory(App\TypeEquipment::class)->create([
+            'name' => 'quirurgico',
+            'branch_id' => '1',
+        ]);
 
             //========================= equipos quirurgicos ==========================
             // equipos quirurgicos
@@ -712,160 +755,30 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
 
-        // $clasificacion = factory(App\ClassificationSurgery::class)->create([
-        //     'name' => 'hospitalaria',
-        //     'description' => 'con hospitalizacion',
-        //     'branch_id' => '1',
-        // ]);
-
-        //creando cirugia
-        // $cirugia = factory(App\Typesurgery::class)->create([
-        //     'name' => 'Endoscópica SENOS PARANASALES',
-        //     'duration' => 3,
-        //     'cost' => 77258.00,
-        //     'description' => 'Es un procedimiento para abrir
-        //                     los pasajes de la nariz y los senos paranasales. Se realiza para tratar infecciones de los
-        //                     senos a largo plazo (crónicas).',
-        //     'day_hospitalization' => '1 dia',
-        //     'classification_surgery_id' => $clasificacion->id,
-        //     'branch_id' => '1',
-        // ]);
-
-        //creando especialidad
-        // $especialidad = factory(App\Speciality::class)->create([
-        //     'name' => 'Otorrinolaringología',
-        //     'description' => 'Médico entrenado en el manejo y tratamiento,
-        //                     tanto médico como quirúrgico, de pacientes con enfermedades y alteraciones
-        //                     del oído, nariz, garganta y estructuras relacionadas de la cabeza y del cuello.',
-        //     'service_id' => 3,
-        //     'branch_id' => '1',
-        // ]);
-
         //relacion de especialidad con el medico
         $especialidad->employe()->attach($employe->id);
 
         //creando procedimiento
-        // $procedimiento = factory(App\Procedure::class)->create([
-        //     'name' => 'Septoplastia endoscópica',
-        //     'description' => 'La septoplastía es uno de los procedimientos quirúrgicos 
-        //                         más frecuentes en otorrinolaringología, cuya principal
-        //                         indicación es la presencia de desviación septal nasal 
-        //                         significativa',
-        //     'price' => 2500,
-        //     // 'speciality_id' => $especialidad->id,
-        //     'branch_id' => '1',
-        // ]);
-
-        // $procedimiento->speciality()->attach($especialidad);
-        //relacion de la cirugia con el procedimiento
-        // $cirugia->procedure()->attach($procedimiento);
         $employe->procedures()->attach($procedimiento);
 
           //creando procedimiento
-        // $procedimiento2 = factory(App\Procedure::class)->create([
-        //     'name' => 'Maxiloetmoidectomia bilateral',
-        //     'description' => 'intervención quirúrgica avanzada de abordaje 
-        //                     endoscópico para eliminar bloqueos y tratar infecciones, tumores 
-        //                     benignos y malignos en los senos maxilares y etmoidales, con el 
-        //                     manejo avanzado de la pared lateral nasal se manejan patologías
-        //                     como el papiloma nasal invertido y sinusitis de origen dental que
-        //                     comprometen los senos descritos',
-        //     'price' => 1200,
-        //     // 'speciality_id' => $especialidad->id,
-        //     'branch_id' => '1',
-        // ]);
-
-        //relacion de la cirugia con el procedimiento
-        // $procedimiento2->speciality()->attach($especialidad);
-        // $cirugia->procedure()->attach($procedimiento2);
         $employe->procedures()->attach($procedimiento2);
 
           //creando procedimiento
-        // $procedimiento3 = factory(App\Procedure::class)->create([
-        //     'name' => 'Uncinectomia bilateral',
-        //     'description' => 'Extracción de la porción media de unciforme',
-
-        //     'price' => 2500,
-        //     // 'speciality_id' => $especialidad->id,
-        //     'branch_id' => '1',
-        // ]);
-
-        //relacion de la cirugia con el procedimiento
-        // $procedimiento3->speciality()->attach($especialidad);
-        // $cirugia->procedure()->attach($procedimiento3);
         $employe->procedures()->attach($procedimiento3);
 
-            //creando procedimiento
-            // $procedimiento4 = factory(App\Procedure::class)->create([
-            //     'name' => 'Antrostomía bilateral',
-            //     'description' => 'Extracción de la porción media de unciforme.
-            //     ',
-            //     'price' => 2500,
-            //     // 'speciality_id' => $especialidad->id,
-            //     'branch_id' => '1',
-            // ]);
-    
-            //relacion de la cirugia con el procedimiento
-            // $especialidad->procedures()->attach($procedimiento);
-            // $cirugia->procedure()->attach($procedimiento4);
-            $employe->procedures()->attach($procedimiento4);
+        //creando procedimiento
+        $employe->procedures()->attach($procedimiento4);
 
+        //creando procedimientos otros
+        $employe->procedures()->attach($pro);
+        $employe->procedures()->attach($pro1);
+        $employe->procedures()->attach($pro2);
+        $employe->procedures()->attach($pro3);
+        $employe->procedures()->attach($pro4);
+        $employe->procedures()->attach($pro5);
 
-            // $tipo_equipo = factory(App\TypeEquipment::class)->create([
-            //     'name' => 'quirurgico',
-            //     'branch_id' => '1',
-            // ]);
-
-            //========================= equipos quirurgicos ==========================
-            // equipos quirurgicos
-            // $equipo1 = factory(App\Equipment::class)->create([
-            //     'name' => 'Monitor',
-            //     'description' => 'Extracción de la porción media de unciforme',
-    
-            //     'quantity' => 250,
-            //     'type_equipment_id' => $tipo_equipo->id,
-            //     'branch_id' => '1',
-            // ]);
-
-            // $cirugia->equipment()->attach($equipo1);
-
-            // equipos quirurgicos
-            // $equipo2 = factory(App\Equipment::class)->create([
-            //     'name' => 'Cuchillas mocrodebridador',
-            //     'description' => 'Extracción de la porción media de unciforme',
-    
-            //     'quantity' => 250,
-            //     'type_equipment_id' => $tipo_equipo->id,
-            //     'branch_id' => '1',
-            // ]);
-
-            // $cirugia->equipment()->attach($equipo2);
-
-            // // equipos quirurgicos
-            // $equipo3 = factory(App\Equipment::class)->create([
-            //     'name' => 'Mircodebridador y punta de microdebridador',
-            //     'description' => 'Extracción de la porción media de unciforme',
-    
-            //     'quantity' => 250,
-            //     'type_equipment_id' => $tipo_equipo->id,
-            //     'branch_id' => '1',
-            // ]);
-
-            // $cirugia->equipment()->attach($equipo3);
-
-            //   // equipos quirurgicos
-            // $equipo4 = factory(App\Equipment::class)->create([
-            //     'name' => 'Radiodrecuencia',
-            //     'description' => 'Extracción de la porción media de unciforme',
-    
-            //     'quantity' => 250,
-            //     'type_equipment_id' => $tipo_equipo->id,
-            //     'branch_id' => '1',
-            // ]);
-
-            // $cirugia->equipment()->attach($equipo4);
-
-
+         
         /**
          * Registro de 10 usuarios medicos de 
          * manera automatica se crean primero 
