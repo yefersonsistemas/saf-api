@@ -18,7 +18,7 @@ class SpecialitiesTableSeeder extends Seeder
         Speciality::truncate();
         $this->deleteDirectory(storage_path('/app/public/speciality'));
 
-        factory(Speciality::class, 15)->create()->each(function ($speciality) {
+        factory(Speciality::class)->create()->each(function ($speciality) {
             $service = Service::inRandomOrder()->first();
             $speciality->service_id = $service->id;
             $speciality->save();
