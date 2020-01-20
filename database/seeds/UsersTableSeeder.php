@@ -210,46 +210,53 @@ class UsersTableSeeder extends Seeder
         $employe->procedures()->attach($pro);
 
         $pro1= factory(Procedure::class)->create([
-            'name'    => 'Anestesia',
-            'description' => 'bloquea la sensibilidad táctil',
+            'name'    => 'cura post operatoria a cada paciente operado (rinoplastia,
+            blefaroplastia,otoplastia, bichectomia)',
+            
             'price' => 15000,
         ]);
         $employe->procedures()->attach($pro1);
 
         $pro2= factory(Procedure::class)->create([
-            'name'    => 'Radiografía de la cara',
-             'description' => 'serie de imágenes de los huesos de la cara',
+            'name'    => 'colocación de botox estético (acido hialuronico, toxina botulínica)',
+           
              'price' => 35000,
         ]);
         $employe->procedures()->attach($pro2);
 
         $pro3= factory(Procedure::class)->create([
-            'name'    => 'Exploraciones de oído, garganta y nariz',
-             'description' => 'identifica la presencia de tapones de cera o exceso de cerumen, 
-             secreciones irregulares, cuerpos extraños, lesiones bacterianas y micóticas, 
-             infecciones frecuentes o recurrentes.',
+            'name'    => 'plasma rico en plaquetas (estético)',
+            
              'price' => 25000,
         ]);
         $employe->procedures()->attach($pro3);
 
         $pro4= factory(Procedure::class)->create([
-            'name'    => 'Timpanometría',
-             'description' => 'evalua la movilidad de la membrana timpánica',
+            'name'    => 'colocación de hilos PDO',
+             
              'price' => 18000,
         ]);
         $employe->procedures()->attach($pro4);
 
         $pro5= factory(Procedure::class)->create([
-            'name'    => ' Audiometría',
-             'description' => 'mide la capacidad de cada oído de percibir las vibraciones de diversas bandas del espectro audible',
+            'name'    => ' nutrición facial (peelin, microdermacioin)',
+             
              'price' => 22000,
         ]);
         $employe->procedures()->attach($pro5);
+
+        $pro6= factory(Procedure::class)->create([
+            'name'    => ' dermapen',
+             
+             'price' => 22000,
+        ]);
+        $employe->procedures()->attach($pro6);
 
         $tipo_equipo = factory(App\TypeEquipment::class)->create([
             'name' => 'quirurgico',
             'branch_id' => '1',
         ]);
+
 
             //========================= equipos quirurgicos ==========================
             // equipos quirurgicos
@@ -639,12 +646,42 @@ class UsersTableSeeder extends Seeder
         $employe1->procedures()->attach($procedimiento4);
 
         //creando procedimientos otros
+        $pro= factory(Procedure::class)->create([
+            'name'    => 'cura post-operatoria a cada paciente operado (por nasosinusal o
+            tumores, retiros de puntos, aspiración en cada fosa nasal)',
+             
+             'price' => 10000,
+        ]);
         $employe1->procedures()->attach($pro);
+
+        $pro1= factory(Procedure::class)->create([
+            'name'    => 'cauterización al paciente (por hemorragia)',
+             
+             'price' => 20000,
+        ]);
         $employe1->procedures()->attach($pro1);
+
+        $pro2= factory(Procedure::class)->create([
+            'name'    => 'aspiración en oídos (ya sea por cuerpo extraño
+            u otocerumen en ambos oídos)',
+             
+             'price' => 15000,
+        ]);
         $employe1->procedures()->attach($pro2);
+
+        $pro3= factory(Procedure::class)->create([
+            'name'    => 'bloqueo esfenopalatino',
+             
+             'price' => 17000,
+        ]);
         $employe1->procedures()->attach($pro3);
+
+        $pro4= factory(Procedure::class)->create([
+            'name'    => 'estudio de NASOVIDEOLARINGOSCOPIA (en consulta con óptica)',
+             
+             'price' => 30000,
+        ]);
         $employe1->procedures()->attach($pro4);
-        $employe1->procedures()->attach($pro5);
 
          
         /**
