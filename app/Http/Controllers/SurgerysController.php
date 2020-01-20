@@ -74,12 +74,13 @@ public function create_surgery(){
         // dd($request);
         $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
-        $patient = Patient::with('person')->where('person_id', $person->id)->first();
-        // dd($patient->person->name); 
-          
+
+       // dd($patient->person->name); 
+
         if (!is_null($person)) {
+            $patient = Patient::with('person')->where('person_id', $person->id)->first();
             return response()->json([
-                'patient' => $patient, 201
+               'patient' => $patient, 201
             ]);
         }else{
             return response()->json([
@@ -109,7 +110,7 @@ public function create_surgery(){
 
     //agenda la cirugia
     public function store(Request $request)
-    {    
+    {   //datos a guardar en la tabla surgeries
         $p = $request->patient_id;
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
@@ -125,12 +126,20 @@ public function create_surgery(){
                 'date'=> $d,
                 'branch_id' => 1,
                 ]);
+                //Actualiza el status del quirofano a ocupado
+                $a = Area::find($request->area_id);
 
+                if (!empty($a)) {
+                    
+                    // dd($a);
+                    $a->status = 'ocupado';
+                    $a->save();
+                }
                 // dd($surgery);
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
-            return redirect()->back()->whitError('No Se Puedo Agendar La Cirugia!');
+            return redirect()->back()->withError('Cirugia no Agendada!');
         }
 
     }

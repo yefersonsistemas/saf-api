@@ -547,11 +547,11 @@ class InController extends Controller
             $a->save();
 
             // if ($a->save()){
+            }
             //    return response()->json([
             //         'message' => 'ocupado', 
             //     ]);
             // }
-        }
     }
 
 

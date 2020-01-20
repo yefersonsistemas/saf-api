@@ -146,12 +146,13 @@
                                                 @endif
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                     <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
+                                                    <h6 class="font-weight-bold" style="font-size:15px">Desocupado</h6>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
                                 @else    
-                                @if ( $quirofano->status == 'ocupado')
+                                @if ( $quirofano->status == 'Ocupado')
                                 <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
                                         <div class="card assigment">
@@ -290,18 +291,6 @@
         onFinished: function(event, currentIndex) {
             var form = $(this);
             form.submit();
-            // crear();
-            // Swal.fire({
-            // title: 'Cita Agendada!',
-            // text: "Click OK para cerrar!!",
-            // type: 'success',
-            // allowOutsideClick:false,
-            // confirmButtonColor: '#3085d6',
-            // confirmButtonText: '<a href="{{ route('checkout.index') }}" style="color:#fff">OK</a>'
-            // }).then((result) => {
-            //     if (result.value) {
-            //     }
-            // })
         }
     });
 
@@ -332,12 +321,12 @@
                 console.log('ee', data);
                 if (data[0] == 202) {
                     Swal.fire({
-                        title: 'Error!',
-                        text: 'Paciente no encontrado',
+                        // title: 'Ha Ingresado Un Dato Incorrecto!',
+                        text: 'Ha Ingresado Un Dato Incorrecto!',
                         type: 'error',
                         allowOutsideClick:false,
                     })
-                    enabled();
+                    // enabled();
                 }
                 if (data[0] == 201) {
                     Swal.fire({
@@ -374,24 +363,24 @@
         // $('.dropify-render')
     }
 
-    function enabled() {
-        $("#photo").val('');
-        $('#name').val('');
-        $('#lastname').val('');
-        $('#email').val('');
-        $('#address').val('');
-        $('#phone').val('');
+    // function enabled() {
+    //     $("#photo").val('');
+    //     $('#name').val('');
+    //     $('#lastname').val('');
+    //     $('#email').val('');
+    //     $('#address').val('');
+    //     $('#phone').val('');
 
-        $("#photo").removeAttr('disabled');
-        $(".dropify-wrapper").removeClass('disabled');
-        $('#name').removeAttr('disabled');
-        $('#lastname').removeAttr('disabled');
-        $('#email').removeAttr('disabled');
-        $('#address').removeAttr('disabled');
-        $('#phone').removeAttr('disabled');
-        $('#submit').removeAttr('disabled');
-        $('#patient_id').val('nuevo');
-    }
+    //     $("#photo").removeAttr('disabled');
+    //     $(".dropify-wrapper").removeClass('disabled');
+    //     $('#name').removeAttr('disabled');
+    //     $('#lastname').removeAttr('disabled');
+    //     $('#email').removeAttr('disabled');
+    //     $('#address').removeAttr('disabled');
+    //     $('#phone').removeAttr('disabled');
+    //     $('#submit').removeAttr('disabled');
+    //     $('#patient_id').val('nuevo');
+    // }
 
     function surgery() {
         $("input[name='type_surgery_id']").click(function() {
@@ -473,43 +462,6 @@
             });
         });
     }
-
-    // function crear() {
-
-    //     var type_surgery_id = $('#type_surgery_id').val();
-    //     var employe_id = $('#employe_id').val();
-    //     var area_id = $('#area_id').val();
-    //     var date = $('#picker').val();
-    //     var patient_id = $('#patient_id').val();
-        
-
-        // console.log('trolazo',date);
-        // $.ajax({
-        //         url: "{{ route('surgerys.store') }}",
-        //         type: "POST",
-        //         data: {
-        //             _token: "{{ csrf_token() }}",
-        //             type_surgery_id: type_surgery_id,
-        //             employe_id: employe_id,
-        //             area_id: area_id,
-        //             patient_id: patient_id,
-        //             date: date,
-        //         }
-        //     })
-        //     .done(function(data) {
-        //         console.log(data);
-        //         $('#picker').datepicker({
-        //             todayHighlight: true,
-        //             language: 'es',
-        //             datesDisabled: data.available,
-        //             daysOfWeekDisabled: '0'
-        //         });
-        //         // window.location.href = "{{ route('checkout.index') }}";
-        //     })
-        //     .fail(function(data) {
-        //         console.log(data);
-        //     })
-    // }
     
 </script>
 
