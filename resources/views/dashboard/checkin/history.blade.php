@@ -46,9 +46,11 @@
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
             @csrf
             <div class="card p-4">
+                @if($mostrar == 1)
                 <div style="margin-bottom:12px">
                         <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
                 </div>
+                @endif
                 <div class="card p-4">
                     <h5 class="text-center">Datos Personales</h5>
                     <div class="row">
