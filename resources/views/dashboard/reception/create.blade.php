@@ -410,8 +410,11 @@
         var speciality = $('#speciality').val();
         var doctor = $('#doctor').val();
         var motivo = $('#motivo').val();
-        var date = $('#date').val();
+        var date = $('#picker').val();
         var person = $('#newPerson').val();
+        console.log('al enviar', date);
+        console.log('haha', person);
+
         $.ajax({
                 url: "{{ route('reservation.store') }}",
                 type: "POST",
@@ -439,7 +442,6 @@
                     datesDisabled: data.available,
                     daysOfWeekDisabled: '0'
                 });
-                window.location.href = "{{ route('checkin.index') }}";
             })
             .fail(function(data) {
                 console.log(data);

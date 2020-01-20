@@ -1345,17 +1345,7 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-    //============ mostrando posibles procedimientos =============== 
-    //   function mostrarProcedure(data){
-    //     console.log('hh',data);
-    //     $("#procedimientos").remove();
-
-    //     for($i=0; $i < data.length; $i++){
-    //         procedure='<li>'+data[$i].name+'</li>';
-    //         $("#procedimientos").append(procedure);
-    //     }
-    // }
-
+  
     //============ mostrando posibles procedimientos =============== 
     function mostrarProcedure(data){
         console.log('hh',data);
@@ -1397,6 +1387,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+                if(data[1])
                 mostrarSurgery(data[1]);
             }
             

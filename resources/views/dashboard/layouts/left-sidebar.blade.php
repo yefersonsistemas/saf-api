@@ -69,11 +69,11 @@
                             </li>
     
                         </li> 
-                        <div class="card bg-indigo" style="background-color: #00506b;">
+                        {{-- <div class="card bg-indigo" style="background-color: #00506b;">
                             <div class="card-body text-center">
                                 <div class="inline-datepicker datepicker-reception fill_bg"></div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div> 
                 @endrole
 

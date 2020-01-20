@@ -53,29 +53,27 @@
                     <h5 class="text-center">Datos Personales</h5>
                     <div class="row">
                         <div class="col-3 ml-4 mb-4">
-                            {{-- <div class="avatar-upload">
-                                <div class="avatar-edit">
+                            <div class="avatar-upload">
+                                {{-- <div class="avatar-edit">
                                     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                                     <label for="imageUpload"></label>
-                                </div>
-                                <div class="avatar-preview">
+                                </div> --}}
+                                @if (!empty($rs->patient->image->path))
+                                <div class="avatar-preview avatar-edit">
                                     <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                     </div>
+                                    <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                                 </div>
-                                </div> --}}
-                            @if (!empty($rs->patient->image->path))
-                            <div class="avatar-edit">
-                                <img src="{{ Storage::url($rs->patient->image->path)}}" alt="" class="img-thumbnail avatar-patient position-relative" id="aja">
-                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
-                            </div>
                             @else
-                            <div class="avatar-edit">
-                                <img src="" alt=""  class="img-thumbnail avatar-patient">
+                            <div class="avatar-preview avatar-edit">
+                                <div id="imagePreview" style="background-image: url();">
+                                </div>
                                 <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                             </div>
                             @endif
                         </div>
-                                        <!-- Modal -->
+                            </div>
+                        <!-- Modal -->
                         <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -85,12 +83,14 @@
                                             <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                                             <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
                                             <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
-                                            <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                                            <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
                                             <p id="estado"></p>
                                         </div>
-                                        <br>
                                         <video muted="muted" id="video" class="col-12"></video>
                                         <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                                        <div class="col-12 text-center">
+                                            <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -246,111 +246,114 @@
                 </div>
             </div>
             
-            <div class="card p-4">
-                <label class="form-label">Exámenes</label>
-                <div class="dropzone" id="my-dropzone">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                    </div>
-                </div>
-                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
-                  </button> --}}
-            </div>
-
-            <div class="card p-4 d-flex justify-content-between">
-                <div class="row">
-                    <div class="col-lg-6 col-md-3" id="framework_form">
-                        <label class="form-label">Enfermedades</label>
-                        <div class="form-group multiselect_div">
-                            <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
-                                @foreach ($disease as $enfermedades)
-                                    <option value= {{ $enfermedades->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                        @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
-                                            selected
-                                            @endif
-                                        @endif>
-                                        {{ $enfermedades->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-6 col-md-3" id="framework_form2">
-                        <label class="form-label">Medicamentos</label>
-                        <div class="form-group multiselect_div">
-                            <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
-                                @foreach ($medicine as $medicamentos)
-                                <option value= {{ $medicamentos->id }}
-                                @if ($rs->patient->historyPatient != null)
-                                    @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                    selected
-                                    @endif
-                                    @endif>{{ $medicamentos->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-3" id="framework_form3">
-                        <label class="form-label">Alergias</label>
-                        <div class="form-group multiselect_div">
-                            <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
-                                @foreach ($allergy as $alergias)
-                                <option value= {{ $alergias->id }}
-                                @if ($rs->patient->historyPatient != null)
-                                    @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                    selected
-                                    @endif
-                                    @endif>{{ $alergias->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-6 col-md-3">
-                        <div class="form-group col-12">
-                            <label class="form-label">Cirugias previas</label>
-                            <input  type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->previous_surgery : ''  }}" name="previous_surgery" disabled>
-                            {{-- <textarea class="form-control" disabled id="previous_surgery" name="cirugia" cols="63" rows="5">{{ $rs->patient->historyPatient->previous_surgery  }}</textarea> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card p-4 row d-flex d-row justify-content-between">
+            @if($mostrar == 1)
                 <div class="card p-4">
-                    <h5 class="text-center">Citas anteriores</h5>
-                    @forelse ($cites as $reservation)
-                        <div class="card col-4 text-justify p-4 form-control mt-2">
-                            <div>
-                                <label class="m-0 form-label">Doctor:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
-                            </div>
-                            
-                            <div>
-                                <label class="m-0 form-label">Especialidad:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->speciality->name }}">
-                            </div>
-                            
-                            <div>
-                                <label class="m-0 form-label">Fecha de la reservacion:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
-                            </div>
-
-                            <div>
-                                <label class="m-0 form-label">Razon de la cita:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
-                            </div>
-                        </div> 
-                    @empty
-                        <div>
-                            <label class="m-0 form-label">No posee Citas Anteriores</label>
+                    <label class="form-label">Exámenes</label>
+                    <div class="dropzone" id="my-dropzone">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple />
                         </div>
-                    @endforelse
+                    </div>
+                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Launch demo modal
+                    </button> --}}
                 </div>
-            </div>
+
+                <div class="card p-4 d-flex justify-content-between">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-3" id="framework_form">
+                            <label class="form-label">Enfermedades</label>
+                            <div class="form-group multiselect_div">
+                                <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
+                                    @foreach ($disease as $enfermedades)
+                                        <option value= {{ $enfermedades->id }}
+                                            @if ($rs->patient->historyPatient != null)
+                                            @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
+                                                selected
+                                                @endif
+                                            @endif>
+                                            {{ $enfermedades->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-3" id="framework_form2">
+                            <label class="form-label">Medicamentos</label>
+                            <div class="form-group multiselect_div">
+                                <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
+                                    @foreach ($medicine as $medicamentos)
+                                    <option value= {{ $medicamentos->id }}
+                                    @if ($rs->patient->historyPatient != null)
+                                        @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                        selected
+                                        @endif
+                                        @endif>{{ $medicamentos->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-3" id="framework_form3">
+                            <label class="form-label">Alergias</label>
+                            <div class="form-group multiselect_div">
+                                <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
+                                    @foreach ($allergy as $alergias)
+                                    <option value= {{ $alergias->id }}
+                                    @if ($rs->patient->historyPatient != null)
+                                        @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
+                                        selected
+                                        @endif
+                                        @endif>{{ $alergias->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-3">
+                            <div class="form-group col-12">
+                                <label class="form-label">Cirugias previas</label>
+                                <input  type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->previous_surgery : ''  }}" name="previous_surgery" disabled>
+                                {{-- <textarea class="form-control" disabled id="previous_surgery" name="cirugia" cols="63" rows="5">{{ $rs->patient->historyPatient->previous_surgery  }}</textarea> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-4 row d-flex d-row justify-content-between">
+                    <div class="card p-4">
+                        <h5 class="text-center">Citas anteriores</h5>
+                        @forelse ($cites as $reservation)
+                            <div class="card col-4 text-justify p-4 form-control mt-2">
+                                <div>
+                                    <label class="m-0 form-label">Doctor:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
+                                </div>
+                                
+                                <div>
+                                    <label class="m-0 form-label">Especialidad:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->speciality->name }}">
+                                </div>
+                                
+                                <div>
+                                    <label class="m-0 form-label">Fecha de la reservacion:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
+                                </div>
+
+                                <div>
+                                    <label class="m-0 form-label">Razon de la cita:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
+                                </div>
+                            </div> 
+                        @empty
+                            <div>
+                                <label class="m-0 form-label">No posee Citas Anteriores</label>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            @endif
+
             <div>
                 <button type="submit" class="btn btn-primary" id="submit-all"> Guardar</button>
             </div>
@@ -406,6 +409,7 @@ $boton.addEventListener("click", function() {
             var data1 = {
                 "tokenmodalfoto": $('#tokenfoto').val(),
                 "idpatient":$('#patient-id').val(),
+                "idimage":$('#imagen-id').val(),
                 "pic":datafoto
                 };
         const datos=JSON.stringify(data1)
@@ -417,31 +421,22 @@ $boton.addEventListener("click", function() {
                 "Content-type": "application/x-www-form-urlencoded",
                 'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
             },
-        })
-            .then(resultado => {
-                // A los datos los decodificamos como texto plano
-                return resultado.text()
-            })
-            .then(nombreDeLaFoto => {
+        }).then(function(response) {
+            // console.log(response.json());
+                return response.json();
+            }).then(nombreDeLaFoto => {
                 // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
                 console.log("La foto fue enviada correctamente");
                 $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
             })
         //Reanudar reproducción
         $video.play();
-        if (datos.dic) {
-            console.log(datos.dic)
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#aja').css('background-image', 'url(' + e.target.result + ')');
-                $('#aja').hide();
-                $('#aja').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    $("#imageUpload").change(function() {
-        readURL(this);
-    });
+  
+        $('.avatar-preview').load(
+            $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
+             $('#imagePreview').hide(),
+             $('#imagePreview').fadeIn(650)
+         );        
         });
 </script>
 
