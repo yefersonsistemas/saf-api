@@ -112,18 +112,20 @@ class InController extends Controller
      * busca la historia desde la lista de check-in
      * 
      */
-    public function search_history(Request $request, $id){ 
+    public function search_history(Request $request, $id, $id2){ 
+        $mostrar = $id2;
+        // dd($mostrar);
         $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-        // dd($rs);
 
-        $cites = Reservation::with('patient.historyPatient', 'patient.file', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
+
+        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
         
-        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy'));
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
      /**
@@ -134,7 +136,7 @@ class InController extends Controller
      */
 
 
-    public function guardar(Request $request, $id)  
+    public function guardar(Request $request, $id)  //REVISAR
      {   
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();

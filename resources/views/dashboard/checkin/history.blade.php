@@ -246,111 +246,114 @@
                 </div>
             </div>
             
-            <div class="card p-4">
-                <label class="form-label">Exámenes</label>
-                <div class="dropzone" id="my-dropzone">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                    </div>
-                </div>
-                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
-                  </button> --}}
-            </div>
-
-            <div class="card p-4 d-flex justify-content-between">
-                <div class="row">
-                    <div class="col-lg-6 col-md-3" id="framework_form">
-                        <label class="form-label">Enfermedades</label>
-                        <div class="form-group multiselect_div">
-                            <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
-                                @foreach ($disease as $enfermedades)
-                                    <option value= {{ $enfermedades->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                        @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
-                                            selected
-                                            @endif
-                                        @endif>
-                                        {{ $enfermedades->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-6 col-md-3" id="framework_form2">
-                        <label class="form-label">Medicamentos</label>
-                        <div class="form-group multiselect_div">
-                            <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
-                                @foreach ($medicine as $medicamentos)
-                                <option value= {{ $medicamentos->id }}
-                                @if ($rs->patient->historyPatient != null)
-                                    @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                    selected
-                                    @endif
-                                    @endif>{{ $medicamentos->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-3" id="framework_form3">
-                        <label class="form-label">Alergias</label>
-                        <div class="form-group multiselect_div">
-                            <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
-                                @foreach ($allergy as $alergias)
-                                <option value= {{ $alergias->id }}
-                                @if ($rs->patient->historyPatient != null)
-                                    @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                    selected
-                                    @endif
-                                    @endif>{{ $alergias->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-6 col-md-3">
-                        <div class="form-group col-12">
-                            <label class="form-label">Cirugias previas</label>
-                            <input  type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->previous_surgery : ''  }}" name="previous_surgery" disabled>
-                            {{-- <textarea class="form-control" disabled id="previous_surgery" name="cirugia" cols="63" rows="5">{{ $rs->patient->historyPatient->previous_surgery  }}</textarea> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card p-4 row d-flex d-row justify-content-between">
+            @if($mostrar == 1)
                 <div class="card p-4">
-                    <h5 class="text-center">Citas anteriores</h5>
-                    @forelse ($cites as $reservation)
-                        <div class="card col-4 text-justify p-4 form-control mt-2">
-                            <div>
-                                <label class="m-0 form-label">Doctor:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
-                            </div>
-                            
-                            <div>
-                                <label class="m-0 form-label">Especialidad:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->speciality->name }}">
-                            </div>
-                            
-                            <div>
-                                <label class="m-0 form-label">Fecha de la reservacion:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
-                            </div>
-
-                            <div>
-                                <label class="m-0 form-label">Razon de la cita:</label>
-                                <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
-                            </div>
-                        </div> 
-                    @empty
-                        <div>
-                            <label class="m-0 form-label">No posee Citas Anteriores</label>
+                    <label class="form-label">Exámenes</label>
+                    <div class="dropzone" id="my-dropzone">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple />
                         </div>
-                    @endforelse
+                    </div>
+                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Launch demo modal
+                    </button> --}}
                 </div>
-            </div>
+
+                <div class="card p-4 d-flex justify-content-between">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-3" id="framework_form">
+                            <label class="form-label">Enfermedades</label>
+                            <div class="form-group multiselect_div">
+                                <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
+                                    @foreach ($disease as $enfermedades)
+                                        <option value= {{ $enfermedades->id }}
+                                            @if ($rs->patient->historyPatient != null)
+                                            @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
+                                                selected
+                                                @endif
+                                            @endif>
+                                            {{ $enfermedades->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-3" id="framework_form2">
+                            <label class="form-label">Medicamentos</label>
+                            <div class="form-group multiselect_div">
+                                <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
+                                    @foreach ($medicine as $medicamentos)
+                                    <option value= {{ $medicamentos->id }}
+                                    @if ($rs->patient->historyPatient != null)
+                                        @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                        selected
+                                        @endif
+                                        @endif>{{ $medicamentos->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-3" id="framework_form3">
+                            <label class="form-label">Alergias</label>
+                            <div class="form-group multiselect_div">
+                                <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
+                                    @foreach ($allergy as $alergias)
+                                    <option value= {{ $alergias->id }}
+                                    @if ($rs->patient->historyPatient != null)
+                                        @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
+                                        selected
+                                        @endif
+                                        @endif>{{ $alergias->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-3">
+                            <div class="form-group col-12">
+                                <label class="form-label">Cirugias previas</label>
+                                <input  type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->previous_surgery : ''  }}" name="previous_surgery" disabled>
+                                {{-- <textarea class="form-control" disabled id="previous_surgery" name="cirugia" cols="63" rows="5">{{ $rs->patient->historyPatient->previous_surgery  }}</textarea> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-4 row d-flex d-row justify-content-between">
+                    <div class="card p-4">
+                        <h5 class="text-center">Citas anteriores</h5>
+                        @forelse ($cites as $reservation)
+                            <div class="card col-4 text-justify p-4 form-control mt-2">
+                                <div>
+                                    <label class="m-0 form-label">Doctor:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
+                                </div>
+                                
+                                <div>
+                                    <label class="m-0 form-label">Especialidad:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->speciality->name }}">
+                                </div>
+                                
+                                <div>
+                                    <label class="m-0 form-label">Fecha de la reservacion:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
+                                </div>
+
+                                <div>
+                                    <label class="m-0 form-label">Razon de la cita:</label>
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
+                                </div>
+                            </div> 
+                        @empty
+                            <div>
+                                <label class="m-0 form-label">No posee Citas Anteriores</label>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            @endif
+
             <div>
                 <button type="submit" class="btn btn-primary" id="submit-all"> Guardar</button>
             </div>
