@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
         Doctor::truncate();
         Reservation::truncate();
         Typesurgery::truncate();
-        Procedure::truncate();
+        // Procedure::truncate();
         ClassificationSurgery::truncate();
         TypeEquipment::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
@@ -470,7 +470,7 @@ class UsersTableSeeder extends Seeder
             /**
              * Enfermedades del paciente
              */
-            for ($i=0; $i < rand(1,5) ; $i++) { 
+            for ($i=0; $i < rand(1,3) ; $i++) { 
                 $disease = Disease::inRandomOrder()->first();
                 $disease->patient()->attach($patient->id);
             }
@@ -479,18 +479,25 @@ class UsersTableSeeder extends Seeder
              * Tratamiento para el paciente
              * y su daignostico
              */
-            $medicine = factory(App\Medicine::class)->create();
-            $treatment = factory(App\Treatment::class)->create([
-                'medicine_id' => $medicine->id,
-            ]);
+
+            // for ($i=0; $i < rand(1,3) ; $i++) { 
+            //     $medicine = Medicine::inRandomOrder()->first();
+            //     $medicine->patient()->attach($patient->id);
+            // }
+            
+            // $medicine = factory(App\Medicine::class)->create();
+
+            // $treatment = factory(App\Treatment::class)->create([
+            //     'medicine_id' => $medicine->id,
+            // ]);
 
             // $treatment = Treatment::inRandomOrder()->first();
-            factory(App\Diagnostic::class)->create([
-                'employe_id' => $employe->id,
-                'patient_id' => $patient->id,
-                'treatment_id' => $treatment->id,
-                // 'description' => 'Rinosinusitis Crónica, Desviación Septal, Hipertrofia Turbinal Inferior Bilateral',
-            ]);
+            // factory(App\Diagnostic::class)->create([
+            //     'employe_id' => $employe->id,
+            //     'patient_id' => $patient->id,
+            //     'treatment_id' => $treatment->id,
+            //     // 'description' => 'Rinosinusitis Crónica, Desviación Septal, Hipertrofia Turbinal Inferior Bilateral',
+            // ]);
 
             /**
              * Registro de la reservacion
@@ -535,16 +542,16 @@ class UsersTableSeeder extends Seeder
                  * Tratamiento para el paciente
                  * y su daignostico
                  */
-                $medicine = factory(App\Medicine::class)->create();
-                $treatment = factory(App\Treatment::class)->create([
-                    'medicine_id' => $medicine->id,
-                ]);
-                // $treatment = Treatment::inRandomOrder()->first();
-                factory(App\Diagnostic::class)->create([
-                    'employe_id' => $employe->id,
-                    'patient_id' => $patient->id,
-                    'treatment_id' => $treatment->id
-                ]);
+                // $medicine = factory(App\Medicine::class)->create();
+                // $treatment = factory(App\Treatment::class)->create([
+                //     'medicine_id' => $medicine->id,
+                // ]);
+                // // $treatment = Treatment::inRandomOrder()->first();
+                // factory(App\Diagnostic::class)->create([
+                //     'employe_id' => $employe->id,
+                //     'patient_id' => $patient->id,
+                //     'treatment_id' => $treatment->id
+                // ]);
     
                 /**
                  * Registro de la reservacion
@@ -589,16 +596,16 @@ class UsersTableSeeder extends Seeder
                      * Tratamiento para el paciente
                      * y su daignostico
                      */
-                    $medicine = factory(App\Medicine::class)->create();
-                    $treatment = factory(App\Treatment::class)->create([
-                        'medicine_id' => $medicine->id,
-                    ]);
-                    // $treatment = Treatment::inRandomOrder()->first();
-                    factory(App\Diagnostic::class)->create([
-                        'employe_id' => $employe->id,
-                        'patient_id' => $patient->id,
-                        'treatment_id' => $treatment->id,
-                    ]);
+                    // $medicine = factory(App\Medicine::class)->create();
+                    // $treatment = factory(App\Treatment::class)->create([
+                    //     'medicine_id' => $medicine->id,
+                    // ]);
+                    // // $treatment = Treatment::inRandomOrder()->first();
+                    // factory(App\Diagnostic::class)->create([
+                    //     'employe_id' => $employe->id,
+                    //     'patient_id' => $patient->id,
+                    //     'treatment_id' => $treatment->id,
+                    // ]);
         
                     /**
                      * Registro de la reservacion
@@ -958,16 +965,16 @@ class UsersTableSeeder extends Seeder
                  * Tratamiento para el paciente
                  * y su daignostico
                  */
-                $medicine = factory(App\Medicine::class)->create();
-                $treatment = factory(App\Treatment::class)->create([
-                    'medicine_id' => $medicine->id,
-                ]);
-                // $treatment = Treatment::inRandomOrder()->first();
-                factory(App\Diagnostic::class)->create([
-                    'employe_id' => $employe->id,
-                    'patient_id' => $patient->id,
-                    'treatment_id' => $treatment->id
-                ]);
+                // $medicine = factory(App\Medicine::class)->create();
+                // $treatment = factory(App\Treatment::class)->create([
+                //     'medicine_id' => $medicine->id,
+                // ]);
+                // // $treatment = Treatment::inRandomOrder()->first();
+                // factory(App\Diagnostic::class)->create([
+                //     'employe_id' => $employe->id,
+                //     'patient_id' => $patient->id,
+                //     'treatment_id' => $treatment->id
+                // ]);
     
                 /**
                  * Registro de la reservacion
@@ -1012,16 +1019,16 @@ class UsersTableSeeder extends Seeder
                      * Tratamiento para el paciente
                      * y su daignostico
                      */
-                    $medicine = factory(App\Medicine::class)->create();
-                    $treatment = factory(App\Treatment::class)->create([
-                        'medicine_id' => $medicine->id,
-                    ]);
-                    // $treatment = Treatment::inRandomOrder()->first();
-                    factory(App\Diagnostic::class)->create([
-                        'employe_id' => $employe->id,
-                        'patient_id' => $patient->id,
-                        'treatment_id' => $treatment->id
-                    ]);
+                    // $medicine = factory(App\Medicine::class)->create();
+                    // $treatment = factory(App\Treatment::class)->create([
+                    //     'medicine_id' => $medicine->id,
+                    // ]);
+                    // // $treatment = Treatment::inRandomOrder()->first();
+                    // factory(App\Diagnostic::class)->create([
+                    //     'employe_id' => $employe->id,
+                    //     'patient_id' => $patient->id,
+                    //     'treatment_id' => $treatment->id
+                    // ]);
         
                     /**
                      * Registro de la reservacion
@@ -1066,16 +1073,16 @@ class UsersTableSeeder extends Seeder
                          * Tratamiento para el paciente
                          * y su daignostico
                          */
-                        $medicine = factory(App\Medicine::class)->create();
-                        $treatment = factory(App\Treatment::class)->create([
-                            'medicine_id' => $medicine->id,
-                        ]);
-                        // $treatment = Treatment::inRandomOrder()->first();
-                        factory(App\Diagnostic::class)->create([
-                            'employe_id' => $employe->id,
-                            'patient_id' => $patient->id,
-                            'treatment_id' => $treatment->id
-                        ]);
+                        // $medicine = factory(App\Medicine::class)->create();
+                        // $treatment = factory(App\Treatment::class)->create([
+                        //     'medicine_id' => $medicine->id,
+                        // ]);
+                        // // $treatment = Treatment::inRandomOrder()->first();
+                        // factory(App\Diagnostic::class)->create([
+                        //     'employe_id' => $employe->id,
+                        //     'patient_id' => $patient->id,
+                        //     'treatment_id' => $treatment->id
+                        // ]);
             
                         /**
                          * Registro de la reservacion

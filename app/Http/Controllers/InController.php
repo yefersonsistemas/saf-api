@@ -225,9 +225,11 @@ class InController extends Controller
                 if (!empty($request->disease)) {
                     foreach ($request->disease as $disease) {
                         $di = Disease::find($disease);
-                        $patient->disease()->attach($di); 
+                        $patient->disease()->sync($request->disease);
                     }
                 }
+
+               
 
                 if (!empty($request->medicine)){
 
