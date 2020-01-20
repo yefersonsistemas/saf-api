@@ -312,7 +312,7 @@ class CitaController extends Controller
             }
 
             Alert::success('Cita actualizada exitosamente');
-            return redirect()->route('checkin.index');
+            return redirect()->route('checkin.day');
         }
         // dd($request);
     }

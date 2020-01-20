@@ -130,26 +130,27 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                      @if($reservations != '')
                                     @foreach ($reservations as $reservation)
                                         <tr style="height:40px;">
                                             <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
-                                                    <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                  <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                     {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">
                                                     {{-- <div class="img-test"></div> --}}
                                                 @endif
                                                 <div class="text-center">
-                                                    @if ($reservation->patient->historyPatient == null)
+                                                    {{-- @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
-                                                    @else
-                                                        @if($reservation->patient->inputoutput->isEmpty())
+                                                    @else --}}
+                                                        @if($reservation->patient->inputoutput != '')
                                                             <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                         @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia 3</a>
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                         @endif
-                                                    @endif
+                                                    {{-- @endif --}}
                                                 </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
@@ -262,6 +263,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -296,6 +298,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($aprobadas != '')
                                     @forelse ($aprobadas as $reservation)
                                         @if ($reservation->status == 'Aprobada')
                                             <tr>
@@ -312,7 +315,7 @@
                                                             @if($reservation->patient->inputoutput->isEmpty())
                                                                 <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                             @else
-                                                                <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia 3</a>
+                                                                <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia </a>
                                                             @endif
                                                         @endif
                                                     </div>
@@ -332,6 +335,7 @@
                                         @endif      
                                     @empty
                                     @endforelse
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -366,6 +370,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($canceladas != '')
                                     @foreach ($canceladas as $reservation)
                                         <tr>
                                             <td style="text-align: center; font-size:10px">
@@ -381,7 +386,7 @@
                                                         @if($reservation->patient->inputoutput->isEmpty())
                                                             <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                         @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia 3</a>
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                         @endif
                                                     @endif
                                                 </div>
@@ -402,6 +407,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -436,6 +442,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($reprogramadas != '')
                                     @foreach ($reprogramadas as $reservation)
                                         <tr>
                                             <td style="text-align: center; font-size:10px">
@@ -451,7 +458,7 @@
                                                         @if($reservation->patient->inputoutput->isEmpty())
                                                             <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                         @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia 3</a>
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                         @endif
                                                     @endif
                                                 </div>
@@ -468,6 +475,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -502,6 +510,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($suspendidas != '')
                                     @foreach ($suspendidas as $reservation)
                                         <tr>
                                             <td style="text-align: center; font-size:10px">
@@ -517,7 +526,7 @@
                                                         @if($reservation->patient->inputoutput->isEmpty())
                                                             <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                         @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia 3</a>
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                         @endif
                                                     @endif
                                                 </div>
@@ -538,6 +547,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

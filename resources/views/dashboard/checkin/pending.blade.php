@@ -112,7 +112,7 @@
                                                 @if($reservation->patient->inputoutput->isEmpty())
                                                     <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                 @else
-                                                    <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia 3</a>
+                                                    <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                 @endif
                                             @endif
                                         </div>

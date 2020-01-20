@@ -46,11 +46,11 @@ class InController extends Controller
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         // dd($aprobadas);
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
-        
+        // dd($canceladas);
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
-
+// dd($reprogramadas);
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
-
+// dd($suspendidas);
         // dd($reservations);
 
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
@@ -178,11 +178,12 @@ class InController extends Controller
             }
 
             $patient = Patient::where('person_id', $person->id)->first();
-
-            if ($person->historyPatient != null && $request->birthdate) {
+            // dd($request->another_phone);
+            if ($person->historyPatient != null) {
 
                 $age = Carbon::create($request->birthdate)->diffInYears(Carbon::now());
 
+              
                 $patient->update([
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $request->another_phone,
@@ -199,6 +200,7 @@ class InController extends Controller
                 ]);
             }
 
+            // dd($patient);
             if($request->foto != null){
                 $image = $request->file('foto');
                 $path = $image->store('public/Person');  
@@ -250,7 +252,7 @@ class InController extends Controller
                 }
 
                 Alert::success('Guardado exitosamente');
-                return redirect()->route('checkin.index');
+                return redirect()->route('checkin.day');
             }
          
         }
