@@ -72,8 +72,10 @@ class InController extends Controller
 
     public function pending()
     {
-        $pending = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        $pending = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        // dd($pending);
         return view('dashboard.checkin.pending', compact('pending'));
+        
     }
 
     /**
@@ -115,16 +117,20 @@ class InController extends Controller
     public function search_history(Request $request, $id, $id2){ 
         $mostrar = $id2;
         // dd($mostrar);
+        // dd($id);
+
+        // $reservation = Reservation::find($id);
+        // dd($reservation);
         $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-
+// dd($rs->patient->image);
 
         $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
-
+// dd($cites);
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
-        
+        // dd($cites);
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 

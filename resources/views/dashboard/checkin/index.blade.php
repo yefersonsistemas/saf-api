@@ -142,15 +142,15 @@
                                                     {{-- <div class="img-test"></div> --}}
                                                 @endif
                                                 <div class="text-center">
-                                                    {{-- @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
-                                                    @else --}}
+                                                    @if ($reservation->patient->historyPatient == null)
+                                                        <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
+                                                    @else
                                                         @if($reservation->patient->inputoutput != '')
                                                             <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                         @else
                                                             <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                         @endif
-                                                    {{-- @endif --}}
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
