@@ -134,7 +134,7 @@ class InController extends Controller
         $medicine = Medicine::get();
         $allergy = Allergy::get();
         // dd($cites);
-        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
+        return view('dashboard.checkin.historyP', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
      /**
@@ -166,7 +166,7 @@ class InController extends Controller
 
                 $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
 
-                $patient = Patient::create([
+                $patient = Patient::update([
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $data['another_phone'],
                     'another_email' =>  $data['another_email'],

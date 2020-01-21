@@ -45,7 +45,7 @@ class OutController extends Controller
     {
         $procedures_id = array(); 
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation')->get(); // esta es una coleccion
-
+        // dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -196,6 +196,25 @@ class OutController extends Controller
         return view('dashboard.checkout.facturacion', compact('procedimientos','fecha'));
     }
 
+     //============== buscando procedimiento y mostrando en la vista para generar factura============== (listo)
+     public function createF($id){
+         $itinerary = Itinerary::with('person','employe.person')->where('id', $id)->first();
+        $procedures = explode(',', $itinerary->procedureR_id); //decodificando los procedimientos en $encontrado
+
+        $procedimientos = Procedure::all();
+        $fecha = Carbon::now()->format('Y-m-d');
+       
+        if(!empty($procedures)){
+            for ($i=0; $i < count($procedures) ; $i++) {          //buscando datos de cada procedimiento
+                $procedureS[] = Procedure::find($procedures[$i]);
+            }
+        }else{
+            $procedures = null;
+        }            
+
+        return view('dashboard.checkout.facturacionf', compact('procedimientos','fecha','itinerary','procedureS'));
+    }
+
 
     //============================ buscando procedimiento ============================ (listo)
     public function search_procedure($procedure_id){
@@ -343,10 +362,11 @@ class OutController extends Controller
 
 
     //============================ imprimir recipe ============================ (listo)
-    public function imprimir_recipe(Request $request, $id, $patient, $employe)
+    public function imprimir_recipe(Request $request, $id)
     {
-        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
-        $paciente = Patient::where('person_id',$patient)->first(); 
+        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->first();
+    
+        $paciente = Patient::where('person_id',$recipe->patient->id)->first(); 
         $fecha = Carbon::now()->format('Y-d-m');
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe', 'paciente', 'fecha'));

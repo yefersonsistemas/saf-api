@@ -44,7 +44,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
                     <div class="card-body">                                
-                        <h6>Total De Citas Agendadas</h6>
+                        <h6>Total De Citas del año</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
                         {{-- <h5>$1,25,451.23</h5> --}}
                     </div>
@@ -110,10 +110,9 @@
                                         <th>Nombre</th>
                                         <th class="fecha">Fecha</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -123,10 +122,9 @@
                                         <th>Nombre</th>
                                         <th class="fecha">Fecha</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -190,16 +188,16 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
                                                 
-                                                @if ($reservation->status == 'Cancelada')
+                                                {{-- @if ($reservation->status == 'Cancelada') --}}
                                                     {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
                                                     {{-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button> --}}
-                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                    {{-- <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                     <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
                                                         <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                                         @method('delete')
                                                         @csrf
                                                     </form>
-                                                @endif
+                                                @endif --}}
                                                 @if ($reservation->status == 'Reprogramada')
                                                     <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
                                                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
@@ -208,8 +206,9 @@
                                                 @if ($reservation->status == 'Suspendida')
                                                     {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
                                                     {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
-                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                    
                                                     <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                         <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                                         @method('delete')
                                                         @csrf
@@ -280,7 +279,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -292,7 +291,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -352,9 +351,9 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
-                                        <th>Acciones</th>
+                                        {{-- <th>Acciones</th> --}}
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -364,9 +363,9 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
-                                        <th>Acciones</th>
+                                        {{-- <th>Acciones</th> --}}
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -397,14 +396,14 @@
                                             <td>{{ $reservation->person->name }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-danger">{{ $reservation->status }}</span></td>
-                                            <td style="display: inline-block">
+                                            {{-- <td style="display: inline-block">
                                                 <a href="" class="btn btn-warning">R</a>
                                                 <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
                                                     <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                                     @method('delete')
                                                     @csrf
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                     @endif
@@ -424,7 +423,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -436,7 +435,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -492,7 +491,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -504,7 +503,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Doctor</th>
-                                        <th>Esepcialidad</th>
+                                        <th>Especialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -538,8 +537,9 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-warning">R</a>
+                                                
                                                 <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                    <a href="" class="btn btn-warning">R</a>
                                                     <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                                     @method('delete')
                                                     @csrf

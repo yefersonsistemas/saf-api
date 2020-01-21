@@ -77,7 +77,7 @@
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>
-                                <th>Esepcialidad</th>
+                                <th>Especialidad</th>
                                 <th>Acciones</th>
                                 {{-- <th class="text-center">E/S</th>
                                 <th class="text-center">EC/SC</th> --}}
@@ -90,7 +90,7 @@
                                 <th>Nombre</th>
                                 <th class="fecha">Fecha</th>
                                 <th>Doctor</th>
-                                <th>Esepcialidad</th>
+                                <th>Especialidad</th>
                                 <th>Acciones</th>
                                 {{-- <th class="text-center">E/S</th>
                                 <th class="text-center">EC/SC</th> --}}

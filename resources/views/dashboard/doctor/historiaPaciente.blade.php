@@ -289,7 +289,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                        <h2>Diagnostico y Procedimientos</h2>
+                                        <h2>Diagnostico</h2>
                                         <section class="ml-4">
                                             <div class="row">
                                                 <div class="col-12">

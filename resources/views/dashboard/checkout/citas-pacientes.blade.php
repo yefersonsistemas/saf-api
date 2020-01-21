@@ -268,7 +268,7 @@
                                             <!--RECETARIO-->
                                             <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                 @if($itinerary->recipe_id != null)
-                                                    <a href="{{ route('checkout.imprimir_recipe', [$itinerary->recipe_id, $itinerary->patient_id, $itinerary->employe_id]) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                    <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Recetario
                                                     </a>
                                                 @endif
@@ -306,6 +306,15 @@
                                                 @if($itinerary->report_medico_id != null)
                                                     <a href="{{ route('checkout.imprimir_informe', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                         <i class="fa fa-print"> </i> Informe
+                                                    </a>
+                                                @endif
+                                            </div>
+
+                                              <!--FACTURAR-->
+                                              <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                @if($itinerary->procedureR_id != null)
+                                                    <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                        <i class="fa fa-print"> </i> Facturar
                                                     </a>
                                                 @endif
                                             </div>
