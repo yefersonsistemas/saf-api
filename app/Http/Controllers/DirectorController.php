@@ -56,6 +56,7 @@ class DirectorController extends Controller
        $exams = Exam::get();
        $types = TypeArea::get();
        $areas = Area::with('typearea')->get();
+    //    dd($areas);
        $clases = TypeDoctor::get();
        $doctors = Doctor::with('typeDoctor')->get();
     //    dd($doctors);

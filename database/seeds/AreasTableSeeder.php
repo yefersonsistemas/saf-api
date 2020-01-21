@@ -18,10 +18,6 @@ class AreasTableSeeder extends Seeder
     {
         Area::truncate();
         $this->deleteDirectory(storage_path('/app/public/area'));
-        factory(Area::class,10)->create()->each(function($area)
-        {
-            $this->to('area', $area->id, 'App\Area');
-        });
 
         $type = factory(TypeArea::class)->create([
             'name' => 'Consultorio',
@@ -98,6 +94,11 @@ class AreasTableSeeder extends Seeder
             'name'          => 'Quirofano 4',
             'type_area_id' =>  $tipo->id,
         ]);
+
+        factory(Area::class)->create()->each(function($area)
+        {
+            $this->to('area', $area->id, 'App\Area');
+        });
     }
 }
 
