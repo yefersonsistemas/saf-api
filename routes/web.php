@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/medico','InController@search_medico')->name('search.medico');  //revisa si el medico esta ocupado
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente dentro del consultorio
         Route::get('insideOffice/{id}', 'InController@insideOffice')->name('checkin.insideOffice'); // cambia estado depaciente a dentro del consultorio
-        Route::get('assigment', 'InController@create')->name('checkin.create');
+        Route::get('assigment', 'InController@create')->name('checkin.create');                    //asigna consultorio
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('medicos/list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
