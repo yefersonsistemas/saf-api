@@ -60,7 +60,7 @@
                                     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                                     <label for="imageUpload"></label>
                                 </div>
-                                @if (!empty($rs->patient->image))
+                                @if (!empty($rs->patient->image->path))
                                 <div class="avatar-preview avatar-edit">
                                     <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                     </div>
@@ -76,7 +76,7 @@
                         </div>
                             </div>
                         <!-- Modal -->
-                        {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="col-8 mt-4">
                             <div class="row mt-4">
@@ -159,12 +159,8 @@
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
-                                    @if($rs->patient->historyPatient != null)
-                                    {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
+                                    <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}">
                                     {{-- value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->age : '' }}" --}}
-                                    @else
-                                    {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
-                                    @endif
                                 </div>
                             </div>
                             
@@ -201,7 +197,7 @@
                                             @if ($rs->patient->historyPatient != null)
                                                 @if ($rs->patient->historyPatient->gender == 'Femenino')
                                                     checked
-                                                @endif
+                                                    @endif
                                             @endif
                                             name="gender" class="form-check-input" value="Femenino">
                                             <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
@@ -387,7 +383,8 @@
                     <div class="fallback">
                         <input name="file" type="file" multiple id="files" />
                     </div>
-                </div>                    
+                </div>
+                    
                         <button type="submit" class="btn btn-azuloscuro">Submit</button>
                     </form>
                 </div>

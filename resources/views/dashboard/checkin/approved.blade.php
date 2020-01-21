@@ -108,9 +108,14 @@
                                             @endif
                                             <div class="text-center">
                                                 @if ($reservation->patient->historyPatient == null)
-                                                    <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
+                                                    <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
+                                                    {{-- <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a> --}}
                                                 @else
-                                                    <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
+                                                    @if($reservation->patient->inputoutput->isEmpty())
+                                                        <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                    @else
+                                                        <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </td>

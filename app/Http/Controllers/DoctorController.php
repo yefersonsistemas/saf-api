@@ -90,8 +90,10 @@ class DoctorController extends Controller
         $specialities = Speciality::all(); 
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+
+        // dd($history);
         
-        $procesm = Employe::with('procedures')->where('id', $history->person_id)->first(); 
+        $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first(); 
      
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();

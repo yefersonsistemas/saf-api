@@ -323,15 +323,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Procedimiento Seleccionado</th>
-                                                                                <th class="text-center">Accion</th>
+                                                                                {{-- <th class="text-center">Accion</th> --}}
                                                                             </tr>
                                                                         </thead>
-                                                                        <tfoot>
+                                                                        {{-- <tfoot>
                                                                             <tr>
                                                                                 <th>Procedimiento Seleccionado</th>
                                                                                 <th class="text-center">Accion</th>
                                                                             </tr>
-                                                                        </tfoot>
+                                                                        </tfoot> --}}
                                                                         <tbody id="procesc">
                                                                         </tbody>
                                                                     </table>
@@ -396,15 +396,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>Examen Seleccionado</th>
-                                                                                            <th class="text-center">Accion</th>
+                                                                                            {{-- <th class="text-center">Accion</th> --}}
                                                                                         </tr>
                                                                                     </thead>
-                                                                                    <tfoot>
+                                                                                    {{-- <tfoot>
                                                                                         <tr>
                                                                                             <th>Medicamento Seleccionado</th>
                                                                                             <th class="text-center">Accion</th>
                                                                                         </tr>
-                                                                                    </tfoot>
+                                                                                    </tfoot> --}}
                                                                                     <tbody id="examen">
                                                                                     </tbody>
                                                                                 </table>
@@ -490,7 +490,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <th>Acciones</th>
                                                                                     </tr>
                                                                                 </thead>
-                                                                                <tfoot>
+                                                                                {{-- <tfoot>
                                                                                     <tr>
                                                                                         <th>Medicamento Seleccionado</th>
                                                                                         <th>Dosis</th>
@@ -499,7 +499,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <th>Indicaciones</th>
                                                                                         <th>Acciones</th>
                                                                                     </tr>
-                                                                                </tfoot>
+                                                                                </tfoot> --}}
                                                                                 <tbody id="addRow">
                                                                                 </tbody>
                                                                             </table>
@@ -633,7 +633,7 @@ button[data-original-title="Help"]{ display: none; }
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos no</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos Realizados</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1221,8 +1221,9 @@ button[data-original-title="Help"]{ display: none; }
     function mostrarExamen(data){
         console.log('hh',data);
 
+            //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
         for($i=0; $i < data.length; $i++){
-            examen='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
+            examen='<tr><td><div class="col-6" >'+data[$i].name+'</div></td></tr>'
             $("#examen").append(examen);
         }
     }
@@ -1276,9 +1277,10 @@ button[data-original-title="Help"]{ display: none; }
     function mostrarProceduresC(data){
             console.log('hh',data);
 
+            //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
             for($i=0; $i < data.length; $i++){
                 // procesc='<li>'+data[$i].name+'</li>';
-                procesc='<tr><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>'
+                procesc='<tr><td><div class="col-6" >'+data[$i].name+'</div></td></tr>'
                 $("#procesc").append(procesc);
             }            
         }

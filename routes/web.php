@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
         Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
         Route::get('cite', 'InController@index')->name('checkin.index');
-        Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
+        Route::get('history/{patient_id}/{id}', 'InController@search_history')->name('checkin.history');
         Route::post('assigment/area', 'InController@assigment')->name('checkin.assigment');
         Route::post('search/area','InController@search_area')->name('search.area');  //revisa si el area esta ocupada
         Route::post('search/medico','InController@search_medico')->name('search.medico');  //revisa si el medico esta ocupado

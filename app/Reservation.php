@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //importamos
 
 class Reservation extends Model
 {
+    //si genera error para migrar las tablas comentar las 2 lineas siguientes y luego volver a migrar
     use SoftDeletes; //Implementamos
 
     protected $dates = ['deleted_at']; //Registramos la nueva columna
