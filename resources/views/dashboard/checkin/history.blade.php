@@ -76,7 +76,7 @@
                         </div>
                             </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                        {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-8 mt-4">
                             <div class="row mt-4">
@@ -160,10 +160,10 @@
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
                                     @if($rs->patient->historyPatient != null)
-                                    <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}">
+                                    {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
                                     {{-- value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->age : '' }}" --}}
                                     @else
-                                    <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}">
+                                    {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
                                     @endif
                                 </div>
                             </div>
@@ -387,8 +387,7 @@
                     <div class="fallback">
                         <input name="file" type="file" multiple id="files" />
                     </div>
-                </div>
-                    
+                </div>                    
                         <button type="submit" class="btn btn-azuloscuro">Submit</button>
                     </form>
                 </div>

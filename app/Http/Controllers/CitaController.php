@@ -84,7 +84,7 @@ class CitaController extends Controller
 
     public function store(CreateReservationRequest $request)
     {
-        // dd($request);
+        // dd($request->date);
         if ($request->person == 'nuevo') {
             $person = Person::create([
                 'type_dni'  => $request->type_dni,
@@ -98,8 +98,24 @@ class CitaController extends Controller
                 'branch_id' => 1
             ]);
 
+
             $request->person = $person->id;
         }
+
+        $b_patient = Patient::where('person_id', $request->person)->first();
+        // $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
+        if($b_patient == null){
+            $patient = Patient::create([
+                'history_number' => $this->numberHistory(),
+                'date'          =>  $request->date,              
+                'person_id'     =>  $request->person,            
+                'employe_id'    =>  $request->doctor,
+                'branch_id'     =>  1,
+            ]);
+        }
+       
+        // dd($patient);
+
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
         $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();

@@ -82,7 +82,7 @@
                                 <th>Doctor</th>
                                 <th>Especialidad</th>
                                 <th>Acciones</th>
-                                <th class="text-center">E/S</th>
+                                <th class="text-center">Estaciones</th>
                                 {{-- <th class="text-center">EC/SC</th> --}}
                             </tr>
                         </thead>
@@ -94,7 +94,7 @@
                                 <th>Doctor</th>
                                 <th>Especialidad</th>
                                 <th>Acciones</th>
-                                <th class="text-center">E/S</th>
+                                <th class="text-center">Estaciones</th>
                                 {{-- <th class="text-center">EC/SC</th> --}}
                             </tr>
                         </tfoot>

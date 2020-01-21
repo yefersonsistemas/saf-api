@@ -150,23 +150,35 @@
                                                         <td colspan="5" class="text-left pl-4" style="font-weight:bold; ">DESCRIPCION</td>
                                                         <td class="text-right" style="width: 4%; font-weight:bold">COSTO</td>
                                                     </tbody>
-                                                    @if($itinerary->employe->doctor != null)
+                                                    {{-- @if($itinerary->employe->doctor != null)
                                                         <tbody style="border-bottom: 1px solid #000">
                                                             <td colspan="5" class="text-left pl-4">Consulta Médica</td>
                                                             <td class="text-right" style="width: 1%">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
                                                         </tbody>
-                                                    @endif
+                                                    @endif --}}
                                                     @if($procedure != 0)
                                                     <tbody>
                                                         @foreach ($procedure as $item)
-                                                        <tr>
-                                                            <td colspan="5" class="text-left pl-4">
-                                                                <div class="text-muted">Procedimiento {{ $item->name }}</div>
-                                                            </td>
-                                                        
-                                                            <td class="text-right" style="width: 1%">{{ number_format($item->price,2) }}</td>
-                                                        </tr>
+                                                            @if($item->name == 'Consulta médica')
+                                                                <tr>
+                                                                    <td colspan="5" class="text-left pl-4">
+                                                                        <div class="text-muted">{{ $item->name }}</div>
+                                                                    </td>
+                                                                
+                                                                    <td class="text-right" style="width: 1%">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
+                                                                </tr>
+                                                            @else
+                                                            {{-- @if($item->name == 'Consulta médica') --}}
+                                                                <tr>
+                                                                    <td colspan="5" class="text-left pl-4">
+                                                                        <div class="text-muted">{{ $item->name }}</div>
+                                                                    </td>
+                                                                
+                                                                    <td class="text-right" style="width: 1%">{{ number_format($item->price,2) }}</td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
+
                                                     </tbody> 
                                                     @endif
                                                     @if($itinerary->surgeryR != null)
