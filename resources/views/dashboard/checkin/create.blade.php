@@ -190,7 +190,7 @@
         $("#searcharea").click(function() {
            console.log("jajaja");
            Swal.fire({
-               title: 'Realizado!',
+               title: 'Consultorio seleccionado!',
                 text: 'Click en OK para continuar',
                 type: 'success',
             })

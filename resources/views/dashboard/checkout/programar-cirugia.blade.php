@@ -146,13 +146,13 @@
                                                 @endif
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                     <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
-                                                    <h6 class="font-weight-bold" style="font-size:15px">Desocupado</h6>
+                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
                                 @else    
-                                @if ( $quirofano->status == 'Ocupado')
+                                @if ( $quirofano->status == 'ocupado')
                                 <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
                                         <div class="card assigment">
@@ -168,6 +168,7 @@
                                             @endif
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                 <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
+                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $quirofano->status }}</span> </h6>
                                             </div>
                                         </div>
                                     </label>

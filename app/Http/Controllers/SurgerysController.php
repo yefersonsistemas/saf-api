@@ -49,10 +49,8 @@ class SurgerysController extends Controller
         $quirofano = Area::where('type_area_id', $tipo->id)->get();     
         //aqui trae los datos asociados al parametro(cuando el paciente agenda el dia que fue candidato a cirugia)
         $paciente = Itinerary::with('person','typesurgery')->where('id',$id)->first();
-        // dd($paciente);
 
         $medico = Typesurgery::with('employe_surgery.person.image')->where('id', $paciente->typesurgery->id)->first();
-        // dd($medico->employe_surgery);
 
         return view('dashboard.checkout.programar_cirugia', compact('quirofano', 'paciente', 'medico'));
 }
@@ -71,11 +69,10 @@ public function create_surgery(){
 
     //buscar paciente
     public function search_patients(Request $request){
+
         // dd($request);
         $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
-
-       // dd($patient->person->name); 
 
         if (!is_null($person)) {
             $patient = Patient::with('person')->where('person_id', $person->id)->first();
@@ -90,9 +87,9 @@ public function create_surgery(){
     }
 
     public function search_doctor(Request $request){    //medicos asociado a una cirugia
-        // dd($request->id);
+        
         $surgery = Typesurgery::with('employe_surgery.person', 'employe_surgery.image')->where('id', $request->id)->first();
-        // dd($surgery);
+        
         if (!is_null($surgery)) {
 
             return response()->json([
@@ -110,12 +107,14 @@ public function create_surgery(){
 
     //agenda la cirugia
     public function store(Request $request)
-    {   //datos a guardar en la tabla surgeries
+    {   
+        //datos a guardar en la tabla surgeries
         $p = $request->patient_id;
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
         $d = $request->date;
+
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
@@ -126,16 +125,15 @@ public function create_surgery(){
                 'date'=> $d,
                 'branch_id' => 1,
                 ]);
+                
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
 
                 if (!empty($a)) {
                     
-                    // dd($a);
                     $a->status = 'ocupado';
                     $a->save();
                 }
-                // dd($surgery);
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
