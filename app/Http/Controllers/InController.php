@@ -83,8 +83,9 @@ class InController extends Controller
      */
     public function create()
     {
-        $type_area = TypeArea::where('name','Consultorio')->first(); // Trae los consultorio
-        $areas = Area::with('typearea', 'image')->where('type_area_id',$type_area->id)->get(); // Trae la informacion de Consultorios
+        $type = TypeArea::where('name','Consultorio')->first(); // Trae los consultorio
+        // dd($type_area);
+        $areas = Area::with('image')->where('type_area_id',$type->id)->get(); // Trae la informacion de Consultorios
         // dd($areas);
         
         $employes = Employe::with('image','person.user', 'speciality', 'assistance','areaassigment')->get();
@@ -104,6 +105,8 @@ class InController extends Controller
                 }
             }
         }
+
+        // dd($em);
         return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
@@ -559,7 +562,6 @@ class InController extends Controller
 
             $act->status = 'ocupado';
             $act->save();
-
             // dd($act);
 
             return redirect()->route('checkin.index')->withSuccess('Consultorio Asignado');
