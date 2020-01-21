@@ -47,7 +47,6 @@ class CitaController extends Controller
     public function index()
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
-
         // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
 
@@ -315,7 +314,7 @@ class CitaController extends Controller
             }
 
             Alert::success('Cita actualizada exitosamente');
-            return redirect()->route('checkin.index');
+            return redirect()->route('checkin.day');
         }
         // dd($request);
     }

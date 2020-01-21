@@ -46,11 +46,11 @@ class InController extends Controller
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         // dd($aprobadas);
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
-        
+        // dd($canceladas);
         $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
-
+// dd($reprogramadas);
         $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
-
+// dd($suspendidas);
         // dd($reservations);
 
         return view('dashboard.checkin.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas'));
@@ -72,8 +72,10 @@ class InController extends Controller
 
     public function pending()
     {
-        $pending = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        $pending = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        // dd($pending);
         return view('dashboard.checkin.pending', compact('pending'));
+        
     }
 
     /**
@@ -118,16 +120,20 @@ class InController extends Controller
     public function search_history(Request $request, $id, $id2){ 
         $mostrar = $id2;
         // dd($mostrar);
+        // dd($id);
+
+        // $reservation = Reservation::find($id);
+        // dd($reservation);
         $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-
+// dd($rs->patient->image);
 
         $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
-
+// dd($cites);
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
-        
+        // dd($cites);
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
@@ -181,11 +187,12 @@ class InController extends Controller
             }
 
             $patient = Patient::where('person_id', $person->id)->first();
-
-            if ($person->historyPatient != null && $request->birthdate) {
+            // dd($request->another_phone);
+            if ($person->historyPatient != null) {
 
                 $age = Carbon::create($request->birthdate)->diffInYears(Carbon::now());
 
+              
                 $patient->update([
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $request->another_phone,
@@ -202,6 +209,7 @@ class InController extends Controller
                 ]);
             }
 
+            // dd($patient);
             if($request->foto != null){
                 $image = $request->file('foto');
                 $path = $image->store('public/Person');  
@@ -253,7 +261,7 @@ class InController extends Controller
                 }
 
                 Alert::success('Guardado exitosamente');
-                return redirect()->route('checkin.index');
+                return redirect()->route('checkin.day');
             }
          
         }
