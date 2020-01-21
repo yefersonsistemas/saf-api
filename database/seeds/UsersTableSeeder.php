@@ -121,6 +121,7 @@ class UsersTableSeeder extends Seeder
             'classification_surgery_id' => $clasificacion->id,
             'branch_id' => '1',
         ]);
+        // $cirugia->employe()->attach($employe->id);
 
         //creando especialidad
         $especialidad = factory(App\Speciality::class)->create([
@@ -150,6 +151,7 @@ class UsersTableSeeder extends Seeder
         $procedimiento->speciality()->attach($especialidad);
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento);
+
         $employe->procedures()->attach($procedimiento);
 
           //creando procedimiento
