@@ -19,7 +19,7 @@ class Area extends Model //deptos
 
     public function typearea()
     {
-        return $this->hasOne('App\TypeArea');
+        return $this->belongsTo('App\TypeArea', 'type_area_id');
     }
 
     public function areaassigment()

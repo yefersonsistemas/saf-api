@@ -46,7 +46,7 @@
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Pacientes</span></a>
                             <ul>
                                 <li class="@yield('day')"><a href="{{ route('checkin.day') }}">Citas Del Dia</a></li>
-                                <li class="@yield('approved')"><a href="{{ route('checkin.approved') }}">Citas Aprobadas</a></li>
+                                <li class="@yield('approved')"><a href="{{ route('checkin.approved') }}">Citas Confirmadas</a></li>
                                 <li class="@yield('pending')"><a href="{{ route('checkin.pending') }}">Citas Pendientes</a></li>
                                 <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Todas Las Citas</a></li>
                                 <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
