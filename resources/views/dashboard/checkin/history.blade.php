@@ -162,18 +162,18 @@
                             
                             <div class="col-2">
                                 {{-- <div class="form-group">
-                                    <label class="form-label">Peso (KG)</label>
+                                    <label class="form-label">Peso (Lbs)</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <select name="peso" disabled class="custom-select input-group-text form-control">
-                                                <option value="KG">KG</option>
+                                                <option value="Lbs">Lbs</option>
                                             </select>
                                         </div>
                                         <input type="text" disabled class="form-control" placeholder="Peso" id="weight" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->weight : '' }}" name="weight">
                                     </div>
                                 </div> --}}
                                 <div class="form-group">
-                                    <label class="form-label">Peso (KG)</label>
+                                    <label class="form-label">Peso (Lbs)</label>
                                     <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->weight : '' }}">
                                 </div>
                             </div>
