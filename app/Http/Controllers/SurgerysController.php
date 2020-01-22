@@ -46,7 +46,7 @@ class SurgerysController extends Controller
 
         $tipo = TypeArea::where('name', 'Quirofano')->first();
         
-        $quirofano = Area::where('type_area_id', $tipo->id)->get();     
+        $quirofano = Area::with('typearea','image')->where('type_area_id', $tipo->id)->get();     
         //aqui trae los datos asociados al parametro(cuando el paciente agenda el dia que fue candidato a cirugia)
         $paciente = Itinerary::with('person','typesurgery')->where('id',$id)->first();
 

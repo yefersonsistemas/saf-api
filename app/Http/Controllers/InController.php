@@ -528,31 +528,29 @@ class InController extends Controller
             $act->status = 'ocupado';
             $act->save();
 
-            // dd($act);
-
             return redirect()->route('checkin.index')->withSuccess('Consultorio Asignado');
             }
         }else{
-            return redirect()->back()->withError('No se pudo asignar');
+            return redirect()->back()->withError('No Se Pudo Asignar');
         }
     }
 
-    public function update_area(Request $request)
-    {
-        $a = Area::find($request->id);
+    // public function update_area(Request $request)
+    // {
+    //     $a = Area::find($request->id);
 
-        if (!empty($a)) {
+    //     if (!empty($a)) {
         
-            $a->status = 'ocupado';
-            $a->save();
+    //         $a->status = 'ocupado';
+    //         $a->save();
 
-            // if ($a->save()){
-            }
-            //    return response()->json([
-            //         'message' => 'ocupado', 
-            //     ]);
-            // }
-    }
+    //         // if ($a->save()){
+    //         //    return response()->json([
+    //         //         'message' => 'ocupado', 
+    //         //     ]);
+    //         // }
+    //     }
+    // }
 
 
     public function exams_previos(Request $request)

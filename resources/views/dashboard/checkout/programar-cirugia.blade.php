@@ -137,11 +137,11 @@
                                                 <input type="radio" name="area_id" value="{{ $quirofano->id }}" id="area_id" class="imagecheck-input">
                                                 @if (!empty($quirofano->image->path))
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                    <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                    <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
                                                 </figure>
                                                 @else
                                                 <figure class="imagecheck-figure border-0 text-center">
-                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                 </figure>
                                                 @endif
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
@@ -159,11 +159,11 @@
                                             <input type="radio" name="area_id" value="" id="area_id" class="imagecheck-input" disabled>
                                             @if (!empty($quirofano->image->path))
                                             <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
                                             </figure>
                                             @else
                                             <figure class="imagecheck-figure border-0 text-center">
-                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                             </figure>
                                             @endif
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
