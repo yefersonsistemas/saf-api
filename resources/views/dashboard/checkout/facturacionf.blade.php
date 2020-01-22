@@ -141,8 +141,14 @@
                                                 </tbody> 
                                                 <tbody style="border-bottom: 1px solid #000" id="cirugia_html">
                                                 </tbody>
-                                                    
+                                                   
                                                 <tbody id="cirugia">
+                                                    @if($itinerary->surgeryR != null)
+                                                    <tr>
+                                                        <td colspan="5" class="pl-4">{{$itinerary->surgeryR->name}}</td>
+                                                        <td class="text-right">{{number_format($itinerary->surgeryR->cost,2)}}</td>
+                                                    </tr>
+                                                    @endif
                                                 </tbody>                                             
                                                 <tr>
                                                     <td colspan="5" class="font600 text-right">Subtotal</td>
