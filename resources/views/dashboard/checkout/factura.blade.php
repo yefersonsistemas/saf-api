@@ -307,8 +307,10 @@
 
             if(phone == ''){ phone = null; }
             if(email == ''){ email=null;   }
+
+            
                        
-           if(tipo_dni == '' || dni == '' || name == '' || lastname == '' || address == ''){
+           if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
             
             Swal.fire({
             title: 'Datos incompletos',
