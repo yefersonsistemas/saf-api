@@ -30,7 +30,7 @@ class CreatePersonRequest extends FormRequest
             'lastname'  => 'required',
             'address'   => 'required',
             'phone'     => 'required',
-            'email'     => 'required',
+            // 'email'     => 'required',
         ];
     }
 }

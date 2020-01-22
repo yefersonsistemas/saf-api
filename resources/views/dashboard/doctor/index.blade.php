@@ -170,12 +170,12 @@
                                             <td> 
                                                 @if(!($reservation->patient->historyPatient->diagnostic->isEmpty()))
                                                 <a href="{{ route('doctor.editar', $reservation->id) }}" class="badge badge-info btn p-2">
-                                                    <i class="fa fa-eye"></i> ir a consulta
+                                                    <i class="fa fa-eye"></i> Realizar consulta
                                                 </a>
                                                @endif
                                                 @if($reservation->patient->historyPatient->diagnostic->isEmpty())
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-info btn p-2">
-                                                    <i class="fa fa-eye"></i> Ir a consulta
+                                                    <i class="fa fa-eye"></i> Realizar consulta
                                                 </a>
                                                 @endif
                                             </td>

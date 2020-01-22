@@ -30,7 +30,7 @@ class CreateVisitorRequest extends FormRequest
             'lastname'  =>  'required|string',
             'address'   =>  'required|string',
             'phone'     =>  'required|numeric',
-            'email'     =>  'required|email',
+            // 'email'     =>  'required|email',
             'file'      =>  'file|image|nullable',
         ];
     }
