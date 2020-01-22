@@ -604,7 +604,7 @@ class InController extends Controller
     {
         // dd($request);
         if ($request->file != null) {
-           
+
             $image = $request->file('file');
             $path = $image->store('public/exams');  
             $path = str_replace('public/', '', $path);
@@ -614,7 +614,7 @@ class InController extends Controller
             $image->fileable_id = $request->patient;
             $image->branch_id = 1;
             $image->save();
-         }
+        }
     }
 
     public function guardar_foto(){

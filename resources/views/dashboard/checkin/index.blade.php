@@ -176,9 +176,9 @@
                                             
                                             <td style="display: inline-block">
                                                 @if ($reservation->status == 'Pendiente')
-                                                    @if (Carbon::now()->addDay(2) < $reservation->date )
+                                                    {{-- @if (Carbon::now()->addDay(2) < $reservation->date ) --}}
                                                     <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
-                                                    @endif
+                                                    {{-- @endif --}}
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
