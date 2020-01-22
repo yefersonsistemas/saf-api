@@ -67,127 +67,361 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 mt-10">
-                <div class="table-responsive mb-4">
-                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Cédula</th>
-                                <th>Nombre</th>
-                                <th class="fecha">Fecha</th>
-                                <th>Doctor</th>
-                                <th>Especialidad</th>
-                                <th>Acciones</th>
-                                {{-- <th class="text-center">E/S</th>
-                                <th class="text-center">EC/SC</th> --}}
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Cédula</th>
-                                <th>Nombre</th>
-                                <th class="fecha">Fecha</th>
-                                <th>Doctor</th>
-                                <th>Especialidad</th>
-                                <th>Acciones</th>
-                                {{-- <th class="text-center">E/S</th>
-                                <th class="text-center">EC/SC</th> --}}
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            @foreach ($pending as $reservation)
-                                <tr style="height:40px;">
-                                    <td style="text-align: center; font-size:10px; height:40px">
-                                        @if (!empty($reservation->patient->image->path))
-                                            <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                        @else
-                                            <img src="" alt="" width="100%" height="100%" >
-                                        @endif
-                                        <div class="text-center">
-                                            @if ($reservation->patient->historyPatient == null)
-                                                <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
-                                            @else
-                                                @if($reservation->patient->inputoutput->isEmpty())
-                                                    <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+              {{-- Tabs de citas --}}
+              <div class="col-lg-12 col-md-12 mt-10">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Hoy</a>
+                    </li>
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">48 Horas</a>
+                    </li>
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-todas-tab" data-toggle="pill" href="#pills-todas" role="tab" aria-controls="pills-todas" aria-selected="false">Todas</a>
+                    </li>
+                </ul>
+            </div>
+
+            {{-- Tablas de los tabs de citas --}}
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="table-responsive mb-4">
+                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                <thead>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th class="fecha">Fecha</th>
+                                        <th>Doctor</th>
+                                        <th>Especialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th class="fecha">Fecha</th>
+                                        <th>Doctor</th>
+                                        <th>Especialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach ($hoy as $reservation)
+                                        <tr style="height:40px;">
+                                            <td style="text-align: center; font-size:10px; height:40px;">
+                                                @if (!empty($reservation->patient->image->path))
+                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
                                                 @else
-                                                    <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                    <img src="" alt=""  width="100%" height="100%">
+                                                    {{-- <div class="img-test"></div> --}}
                                                 @endif
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                    <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
-                                    <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
-                                    <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
-                                    <td>{{ $reservation->speciality->name }}</td>
-                                    
-                                    <td style="display: inline-block">
-                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
-                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                    </td>
+                                                <div class="text-center">
+                                                    @if ($reservation->patient->historyPatient == null)
+                                                        <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
+                                                    @else
+                                                        @if($reservation->patient->inputoutput != '')
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                        @else
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
+                                            <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
+                                            <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
+                                            <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
+                                            <td>{{ $reservation->speciality->name }}</td>
+                                            <td>
+                                                @if ($reservation->status == 'Pendiente')
+                                                    <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
+                                                @endif
+                                            </td>
+                                        
+                                            <td style="display: inline-block">
+                                                @if ($reservation->status == 'Pendiente')
+                                                @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
+                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    @endif
+                                                    @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
+                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    @endif
+                                                    @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
+                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    @endif
+                                                    @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
+                                                    <button type="button" href="" disabled class="btn btn-success">A</button>
+                                                    @endif
 
-                                    {{-- <td>  
-                                        <!--Si no a llegado a las instalaciones-->
-                                        @if($reservation->patient->inputoutput->isEmpty())
-                                            <div>
-                                                <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
-                                            </div>
-                                        @endif
+                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                @endif
 
-                                        <!--Si esta dentro de las instalaciones-->
-                                        @if(!empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside))
-                                            <div>
-                                                <button disabled href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-success">E</button>
-                                            </div>
-                                        @endif
+                                                @if ($reservation->status == 'Aprobada')
+                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                @endif
+                                                @if ($reservation->status == 'Reprogramada')
+                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                @endif
+                                                @if ($reservation->status == 'Suspendida')
+                                                    {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
+                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
+                                                    
+                                                    <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                        <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                        @method('delete')
+                                                        @csrf
+                                                    </form>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                </div> 
+                <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="table-responsive mb-4">
+                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                <thead>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th class="fecha">Fecha</th>
+                                        <th>Doctor</th>
+                                        <th>Especialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th class="fecha">Fecha</th>
+                                        <th>Doctor</th>
+                                        <th>Especialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach ($horas as $reservation)
+                                        {{-- @if ($reservation->date == Carbon::now()->addDay()->format('Y-m-d')) --}}
+                                            <tr style="height:40px;">
+                                                <td style="text-align: center; font-size:10px; height:40px;">
+                                                    @if (!empty($reservation->patient->image->path))
+                                                    <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                        {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
+                                                    @else
+                                                        <img src="" alt=""  width="100%" height="100%">
+                                                        {{-- <div class="img-test"></div> --}}
+                                                    @endif
+                                                    <div class="text-center">
+                                                        @if ($reservation->patient->historyPatient == null)
+                                                            <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
+                                                        @else
+                                                            @if($reservation->patient->inputoutput != '')
+                                                                <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                            @else
+                                                                <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                                <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
+                                                <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
+                                                <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
+                                                <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
+                                                <td>{{ $reservation->speciality->name }}</td>
+                                                <td>
+                                                    @if ($reservation->status == 'Pendiente')
+                                                        <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
+                                                    @endif
+                                                </td>
+                                            
+                                                <td style="display: inline-block">
+                                                    @if ($reservation->status == 'Pendiente')
+                                                    @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
+                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        @endif
+                                                        @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
+                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        @endif
+                                                        @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
+                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        @endif
+                                                        @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
+                                                        <button type="button" href="" disabled class="btn btn-success">A</button>
+                                                        @endif
 
-                                        <!--Si ya se fue de las instalaciones-->
-                                        @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside))
-                                            <div>
-                                                <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero" disabled>E</button>
-                                            </div>
-                                        @endif   
-                                    </td>
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                    @endif
 
-                                    <td>  
-                                        <!--Si no ha llegado a las instalaciones-->
-                                        @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
-                                            <div>
-                                                <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</button>
-                                            </div>
-                                        @endif
-
-                                        <!--Si esta en espera-->
-                                        @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
-                                            <div>
-                                                <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero">E</a>
-                                            </div>
-                                        @endif
-
-                                        <!--Si esta dentro del consultorio-->
-                                        @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->outside_office))
-                                            <div>
-                                                <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-success primero">E</button>
-                                            </div>
-                                            @endif
-
-                                            <!--Si salio del consultorio-->
-                                            @if(!empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office))
-                                            <div>
-                                                <button disabled href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero">E</button>
-                                            </div>
-                                        @endif
-                                    </td> --}}
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                                    @if ($reservation->status == 'Aprobada')
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                    @endif
+                                                    @if ($reservation->status == 'Reprogramada')
+                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                    @endif
+                                                    @if ($reservation->status == 'Suspendida')
+                                                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
+                                                        {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
+                                                        
+                                                        <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                            <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                            <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                            @method('delete')
+                                                            @csrf
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        {{-- @endif --}}
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>  
                 </div>
-            </div> 
+                <div class="tab-pane fade" id="pills-todas" role="tabpanel" aria-labelledby="pills-todas-tab">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="table-responsive mb-4">
+                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                <thead>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th class="fecha">Fecha</th>
+                                        <th>Doctor</th>
+                                        <th>Especialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th class="fecha">Fecha</th>
+                                        <th>Doctor</th>
+                                        <th>Especialidad</th>
+                                        <th>Status</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {{-- @if($suspendidas != '') --}}
+                                    @foreach ($todas as $reservation)
+                                    <tr style="height:40px;">
+                                        <td style="text-align: center; font-size:10px; height:40px;">
+                                            @if (!empty($reservation->patient->image->path))
+                                            <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
+                                            @else
+                                                <img src="" alt=""  width="100%" height="100%">
+                                                {{-- <div class="img-test"></div> --}}
+                                            @endif
+                                            <div class="text-center">
+                                                @if ($reservation->patient->historyPatient == null)
+                                                    <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
+                                                @else
+                                                    @if($reservation->patient->inputoutput != '')
+                                                        <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                    @else
+                                                        <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
+                                        <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
+                                        <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
+                                        <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
+                                        <td>{{ $reservation->speciality->name }}</td>
+                                        <td>
+                                            @if ($reservation->status == 'Pendiente')
+                                                <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
+                                            @endif
+                                        </td>
+                                    
+                                        <td style="display: inline-block">
+                                            @if ($reservation->status == 'Pendiente')
+                                            @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
+                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                @endif
+                                                @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
+                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                @endif
+                                                @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
+                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                @endif
+                                                @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
+                                                <button type="button" href="" disabled class="btn btn-success">A</button>
+                                                @endif
+
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                            @endif
+
+                                            @if ($reservation->status == 'Aprobada')
+                                                <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                            @endif
+                                            @if ($reservation->status == 'Reprogramada')
+                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                            @endif
+                                            @if ($reservation->status == 'Suspendida')
+                                                {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
+                                                {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
+                                                
+                                                <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                    <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                    @method('delete')
+                                                    @csrf
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    {{-- @endif --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                </div> 
+            </div>
         </div>
     </div>
 </div>

@@ -161,8 +161,8 @@
                                     <td>
                                         <div class="container text-center" id="ID_element_0">
                                             {{-- El paciente ha ingresado a las instalaciones --}}
-                                            @if($reservation->patient->inputoutput->isEmpty())
-                                                <a href="{{ route ('checkin.statusIn', $reservation->id) }}" class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                            @if($reservation->patient->inputoutput->isEmpty())  
+                                                <a href="{{ route ('checkin.statusIn', $reservation->id) }}"  data-toggle="tooltip" data-placement="left" title="Marcar cuando el paciente llegue a las instalaciones" class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
                                                 <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -170,7 +170,7 @@
                                             {{-- El paciente ha ingresado al consultorio --}}
                                             @if(!empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                 <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <a href="{{ route ('checkin.insideOffice', $reservation->id) }}" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                                <a href="{{ route ('checkin.insideOffice', $reservation->id) }}" data-toggle="tooltip" data-placement="left" title="Marcar cuando el paciente entre al consultorio" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
                                                 <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             @endif
