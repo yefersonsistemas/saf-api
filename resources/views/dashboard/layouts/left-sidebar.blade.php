@@ -50,6 +50,7 @@
                                 <li class="@yield('pending')"><a href="{{ route('checkin.pending') }}">Citas Pendientes</a></li>
                                 <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Todas Las Citas</a></li>
                                 <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
+                                <li class=""><a href="{{ route('checkin.record') }}">Historial de citas</a></li>
                                 {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                             </ul>
     

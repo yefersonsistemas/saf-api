@@ -41,11 +41,11 @@ class InController extends Controller
      */
     public function index()
     {
-        // $carbon = Carbon::now();
+        // $carbon = Carbon::now()->addDay(2)->format('Y-m-d');
         // dd($carbon);
 
         $reservations = Reservation::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
-        // dd($reservations->date );
+        // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         // dd($aprobadas);
         $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
@@ -62,8 +62,14 @@ class InController extends Controller
     //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
-        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         return view('dashboard.checkin.day', compact('day'));
+    }
+
+    public function record()
+    {
+        $record = Reservation::whereDate('date', '<', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        return view('dashboard.checkin.record-citas', compact('record'));
     }
 
 
@@ -137,7 +143,7 @@ class InController extends Controller
         $medicine = Medicine::get();
         $allergy = Allergy::get();
         // dd($cites);
-        return view('dashboard.checkin.historyP', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
      /**
@@ -169,7 +175,7 @@ class InController extends Controller
 
                 $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
 
-                $patient = Patient::update([
+                $patient = Patient::create([
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $data['another_phone'],
                     'another_email' =>  $data['another_email'],

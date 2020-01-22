@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function (){
      //======================= rutas para el usuario ckeckin ====================
     Route::group(['middleware' => ['role:IN, director']], function () {
         Route::get('cite/day', 'InController@day')->name('checkin.day');
+        Route::get('record/cite', 'InController@record')->name('checkin.record');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
         Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
         Route::get('cite', 'InController@index')->name('checkin.index');
