@@ -16,16 +16,16 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date')->nullable();
-            $table->string('history_number')->nullable();
-            $table->string('reason')->nullable();
+            $table->string('history_number');
+            $table->string('reason')->nullable()->nullable();
             $table->unsignedBigInteger('person_id');
-            $table->enum('gender', ['Femenino', 'Masculino']);
-            $table->string('place');
-            $table->date('birthdate');
-            $table->unsignedInteger('age');
-            $table->unsignedInteger('weight');
-            $table->string('occupation');
-            $table->string('profession');
+            $table->enum('gender', ['Femenino', 'Masculino'])->nullable();
+            $table->string('place')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->unsignedInteger('age')->nullable();
+            $table->unsignedInteger('weight')->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('profession')->nullable();
             $table->string('previous_surgery')->nullable();
             $table->unsignedBigInteger('employe_id');
             $table->string('another_phone')->nullable();

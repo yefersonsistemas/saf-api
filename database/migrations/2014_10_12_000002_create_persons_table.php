@@ -21,7 +21,7 @@ class CreatePersonsTable extends Migration
             $table->string('lastname');
             $table->string('address');
             $table->string('phone')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 

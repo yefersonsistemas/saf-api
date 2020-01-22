@@ -22,7 +22,7 @@
                                 <div class="card-body">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($areas as $area)
-                                                @if ($area->status == null)
+                                                @if ($area->typearea->name == 'Consultorio' && $area->status == null)
                                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center" style="">
                                                         <label class="imagecheck m-0">
                                                         <div class="card assigment">
@@ -44,7 +44,7 @@
                                                         </label>
                                                     </div>
                                                 @else
-                                                    @if ($area->status == 'ocupado')
+                                                @if ($area->typearea->name == 'Consultorio' && $area->status == 'ocupado')
                                                         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                             <label class="imagecheck m-0 disabled">
                                                             <div class="card assigment">

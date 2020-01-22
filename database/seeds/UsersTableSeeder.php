@@ -20,6 +20,7 @@ use App\Doctor;
 use App\Typesurgery;
 use App\ClassificationSurgery;
 use App\TypeEquipment;
+use App\Sschedule;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -136,6 +137,14 @@ class UsersTableSeeder extends Seeder
             //relacion de especialidad con el medico
             $especialidad->employe()->attach($employe->id);
 
+            //procedimiento de consulta
+            $pro= factory(Procedure::class)->create([
+                'name'    => 'Consulta médica',
+                'description' => 'Solo consulta',
+                'price' => 5000,
+            ]);
+            $employe->procedures()->attach($pro);
+
         //creando procedimiento
         $procedimiento = factory(App\Procedure::class)->create([
             'name' => 'Septoplastia endoscópica',
@@ -205,50 +214,42 @@ class UsersTableSeeder extends Seeder
 
         //=========================  Procedimientos otros ==========================
 
-        $pro= factory(Procedure::class)->create([
-            'name'    => 'consulta',
-            'description' => 'Solo consulta',
-        ]);
-        $employe->procedures()->attach($pro);
-
         $pro1= factory(Procedure::class)->create([
-            'name'    => 'cura post operatoria a cada paciente operado (rinoplastia,
-            blefaroplastia,otoplastia, bichectomia)',
-            
+            'name'    => 'Cura post operatoria (rinoplastia, blefaroplastia,otoplastia, bichectomia)',
             'price' => 15000,
         ]);
         $employe->procedures()->attach($pro1);
 
         $pro2= factory(Procedure::class)->create([
-            'name'    => 'colocación de botox estético (acido hialuronico, toxina botulínica)',
+            'name'    => 'Colocación de botox estético (acido hialuronico, toxina botulínica)',
            
              'price' => 35000,
         ]);
         $employe->procedures()->attach($pro2);
 
         $pro3= factory(Procedure::class)->create([
-            'name'    => 'plasma rico en plaquetas (estético)',
+            'name'    => 'Plasma rico en plaquetas (estético)',
             
              'price' => 25000,
         ]);
         $employe->procedures()->attach($pro3);
 
         $pro4= factory(Procedure::class)->create([
-            'name'    => 'colocación de hilos PDO',
+            'name'    => 'Colocación de hilos PDO',
              
              'price' => 18000,
         ]);
         $employe->procedures()->attach($pro4);
 
         $pro5= factory(Procedure::class)->create([
-            'name'    => ' nutrición facial (peelin, microdermacioin)',
+            'name'    => ' Nutrición facial (peelin, microdermacioin)',
              
              'price' => 22000,
         ]);
         $employe->procedures()->attach($pro5);
 
         $pro6= factory(Procedure::class)->create([
-            'name'    => ' dermapen',
+            'name'    => ' Dermapen',
              
              'price' => 22000,
         ]);
@@ -358,9 +359,11 @@ class UsersTableSeeder extends Seeder
         /**
          * Se crea el horario del medico
          */
+            
         $schedule = factory(Schedule::class, rand(1,3))->create([
             'employe_id' => $employe->id
         ]);
+
 
         /**
          * Personas que seran los pacientes
@@ -635,6 +638,9 @@ class UsersTableSeeder extends Seeder
         //relacion de especialidad con el medico
         $especialidad->employe()->attach($employe1->id);
 
+        //procedimiento de consulta
+        $employe1->procedures()->attach($pro);
+
         //creando procedimiento
         $employe1->procedures()->attach($procedimiento);
 
@@ -649,37 +655,35 @@ class UsersTableSeeder extends Seeder
 
         //creando procedimientos otros
         $pro= factory(Procedure::class)->create([
-            'name'    => 'cura post-operatoria a cada paciente operado (por nasosinusal o
-            tumores, retiros de puntos, aspiración en cada fosa nasal)',
+            'name'    => 'Cura post-operatoria (por nasosinusal o tumores, retiros de puntos, aspiración en cada fosa nasal)',
              
              'price' => 10000,
         ]);
         $employe1->procedures()->attach($pro);
 
         $pro1= factory(Procedure::class)->create([
-            'name'    => 'cauterización al paciente (por hemorragia)',
+            'name'    => 'Cauterización al paciente (por hemorragia)',
              
              'price' => 20000,
         ]);
         $employe1->procedures()->attach($pro1);
 
         $pro2= factory(Procedure::class)->create([
-            'name'    => 'aspiración en oídos (ya sea por cuerpo extraño
-            u otocerumen en ambos oídos)',
+            'name'    => 'Aspiración en oídos (ya sea por cuerpo extraño u otocerumen en ambos oídos)',
              
              'price' => 15000,
         ]);
         $employe1->procedures()->attach($pro2);
 
         $pro3= factory(Procedure::class)->create([
-            'name'    => 'bloqueo esfenopalatino',
+            'name'    => 'Bloqueo esfenopalatino',
              
              'price' => 17000,
         ]);
         $employe1->procedures()->attach($pro3);
 
         $pro4= factory(Procedure::class)->create([
-            'name'    => 'estudio de NASOVIDEOLARINGOSCOPIA (en consulta con óptica)',
+            'name'    => 'Estudio de NASOVIDEOLARINGOSCOPIA (en consulta con óptica)',
              
              'price' => 30000,
         ]);

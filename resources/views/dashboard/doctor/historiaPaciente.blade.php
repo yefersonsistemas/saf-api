@@ -289,7 +289,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                        <h2>Diagnostico y Procedimientos</h2>
+                                        <h2>Diagnostico</h2>
                                         <section class="ml-4">
                                             <div class="row">
                                                 <div class="col-12">
@@ -630,7 +630,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Procedimientos Realizados</h5>
@@ -643,10 +643,17 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @foreach ($procesm->procedures as $proces)
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
-                                    <span class="custom-control-label">{{ $proces->name }}</span>
-                                </label>
+                                <div class="row">
+                                    <div class="col-9 mt-3">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                        <span class="custom-control-label">{{ $proces->name }} </span>
+                                    </label>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>{{ $proces->price }} </span>
+                                    </div>
+                                </div>
                                 @endforeach
                             </div>
                         </div> 
@@ -705,12 +712,17 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             @foreach ($surgerys as $surgery)
-                            <label class="custom-control custom-checkbox">
-                                
-                                <input type="checkbox" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
-                                <span class="custom-control-label">{{ $surgery->name }}</span>
-                              
-                            </label>
+                            <div class="row">
+                                <div class="col-9 mt-3">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                        <span class="custom-control-label">{{ $surgery->name }}</span>
+                                    </label>
+                                </div>
+                                <div class="col-3">
+                                    <span>{{ $surgery->cost }} </span>
+                                </div>
+                            </div>
                             @endforeach
                         </div>
                         {{-- <div class="card-body">
@@ -764,7 +776,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
@@ -777,10 +789,17 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
-                            <label class="custom-control custom-checkbox">
-                                <input type="checkbox" id="proce" class="custom-control-input" name="procedures" value="{{ $proces->id }}">
-                                <span class="custom-control-label">{{ $proces->name }}</span>
-                            </label>
+                            <div class="row">
+                                <div class="col-9 mt-3">
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                    <span class="custom-control-label">{{ $proces->name }} </span>
+                                </label>
+                                </div>
+                                <div class="col-3">
+                                    <span>{{ $proces->price }} </span>
+                                </div>
+                            </div>
                             @endforeach
                         </div>
                     </div>

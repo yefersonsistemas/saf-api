@@ -261,7 +261,7 @@ span .name{
             </tr>
         @endforeach
         </tbody>
-        <tfoot>
+        {{-- <tfoot>
           <tr>
             <th class="indi" >Indicaciones</th>
           </tr>
@@ -287,7 +287,7 @@ span .name{
               </div>
             </td>
           </tr>
-        </tfoot>
+        </tfoot> --}}
     </table>
     {{-- <div id="notices">
         <div>NOTICE:</div>

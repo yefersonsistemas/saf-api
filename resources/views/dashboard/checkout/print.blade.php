@@ -288,7 +288,7 @@ table tfoot tr td:first-child {
             </div>
         </div> <br><br><br>
         <div class="row">
-              <span style="font-weight:bold; font-size:13px; color:#000; margin-left:5px">Forma de Pago:</span><span style="color:#000">{{ $todos->typepayment->name }}. </span>
+              <span style="font-weight:bold; font-size:13px; color:#000; margin-left:5px">Forma de Pago:</span> &nbsp;<span style="color:#000">{{ $todos->typepayment->name }}. </span>
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
@@ -301,23 +301,31 @@ table tfoot tr td:first-child {
           </tr>
         </thead>
         <tbody>
-            <tr>
-              <td class="desc_titulo" style="text-align:left">Consulta Medica a Paciente <span style="font-weight:bold">
-                {{ $todos->patient->name }} {{ $todos->patient->lastname }}</span> <br>
-                por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}.
-                </td>
-                <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($todos->employe->doctor->price,2) }}</td>
-            </tr>
-
           @if($todos->procedure->first() != null)
               @foreach ($todos->procedure as $item)
-              <tr class="proces">
-                  <td class="desc" style="text-align:left; padding-left:10px">
-                      <span colspan="1"></span>Procedimiento {{ $item->name }}
-                  </td>
-              
-                  <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($item->price,2) }}</td>
-              </tr>
+                @if($item->name == 'Consulta médica')
+                  <tr class="proces">
+                      <td class="desc" style="text-align:left; padding-left:10px">
+                          <span colspan="1"></span>{{ $item->name }} al Paciente 
+                          {{ $todos->patient->name }} {{ $todos->patient->lastname }}</span> <br>
+                          por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}.
+                      </td>
+                  
+                      <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($todos->employe->doctor->price,2) }}</td>
+                  </tr>
+                @endif
+              @endforeach
+
+              @foreach ($todos->procedure as $item)
+                @if($item->name != 'Consulta médica')
+                  <tr class="proces">
+                      <td class="desc" style="text-align:left; padding-left:10px">
+                          <span colspan="1"></span>{{ $item->name }}
+                      </td>
+                  
+                      <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($item->price,2) }}</td>
+                  </tr>
+                @endif
               @endforeach
               @endif
           

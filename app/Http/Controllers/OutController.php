@@ -45,7 +45,7 @@ class OutController extends Controller
     {
         $procedures_id = array(); 
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation')->get(); // esta es una coleccion
-
+        // dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -196,6 +196,52 @@ class OutController extends Controller
         return view('dashboard.checkout.facturacion', compact('procedimientos','fecha'));
     }
 
+     //============== buscando procedimiento y mostrando en la vista para generar factura============== (listo)
+     public function createF($id){
+         $itinerary = Itinerary::with('person','employe.person','employe.doctor', 'surgeryR')->where('id', $id)->first();
+      
+        $procedures = explode(',', $itinerary->procedureR_id); //decodificando los procedimientos en $encontrado
+
+        $procedimientos = Procedure::all();
+        $fecha = Carbon::now()->format('Y-m-d');
+       
+        //-------para el precio de los procedimientos------
+        $total_P=0;
+        $si=false;
+        if(!empty($procedures)){
+            for ($i=0; $i < count($procedures) ; $i++) {          //buscando datos de cada procedimiento
+                $procedureS[] = Procedure::find($procedures[$i]);
+                if($procedureS[$i]->name != 'Consulta médica'){
+                    $total_P += $procedureS[$i]->price;
+                }else{
+                    $si = true;
+                }
+            }
+        }else{
+            $procedureS = null;
+            $total_P = null;
+        }
+        
+        //----- para el precio de la corigia----
+        $total_S=0;      
+        if(!empty($itinerary->surgeryR)){ 
+            $total_S = $itinerary->surgeryR->cost;
+        }else{
+            $total_S = null;
+        }
+
+        //---------precio de la consulta--------
+        $total_C=0;
+        if($si == true){
+            $total_C = $itinerary->employe->doctor->price;
+        }
+        
+        $total = $total_P + $total_S + $total_C;
+      
+
+        return view('dashboard.checkout.facturacionf', compact('procedimientos','fecha','itinerary','procedureS','total'));
+    }
+
 
     //============================ buscando procedimiento ============================ (listo)
     public function search_procedure($procedure_id){
@@ -264,6 +310,7 @@ class OutController extends Controller
 
     //============================ registrando cliente ============================ (listo)
     public function create_cliente(CreateVisitorRequest $request){
+        // dd($request);
         $person = Person::create([
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
@@ -284,7 +331,7 @@ class OutController extends Controller
     //============================ imprimir factura ============================ (listo)
     public function imprimir_factura(Request $request)
     {
-     
+     dd($request->dniC);
         if($request->person_id != null){
             if($request->factura != null){
                 
@@ -298,16 +345,23 @@ class OutController extends Controller
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
                 $total = 0;
+                // dd($todos->employe->doctor->price);
                 foreach($todos->procedure as $proce) { 
-                    $total += $proce->price;
+                    if($proce->name != 'Consulta médica'){
+                        $total += $proce->price;
+                    }
+                    if($proce->name == 'Consulta médica'){
+                        $total += $todos->employe->doctor->price;
+                    }                    
                 }
+                // dd($total);
 
-                $cirugia = Itinerary::with('person','employe.person','surgeryR')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
+                $cirugia = Itinerary::with('person','employe.person', 'employe.doctor', 'surgeryR')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
 // dd($cirugia);
-                if($cirugia->surgery != null){
-                    $total_cancelar = $cirugia->typesurgery->cost + $todos->employe->doctor->price + $total;
+                if($cirugia->surgeryR != null){
+                    $total_cancelar = $cirugia->surgeryR->cost + $total;
                 }else{
-                    $total_cancelar = $todos->employe->doctor->price + $total;
+                    $total_cancelar = $total;
                 }
 
                 $num_factura = str_pad($billing->id, 5, '0', STR_PAD_LEFT);
@@ -343,10 +397,11 @@ class OutController extends Controller
 
 
     //============================ imprimir recipe ============================ (listo)
-    public function imprimir_recipe(Request $request, $id, $patient, $employe)
+    public function imprimir_recipe(Request $request, $id)
     {
-        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->where('patient_id', $patient)->where('employe_id', $employe)->first();
-        $paciente = Patient::where('person_id',$patient)->first(); 
+        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->first();
+    
+        $paciente = Patient::where('person_id',$recipe->patient->id)->first(); 
         $fecha = Carbon::now()->format('Y-d-m');
 
         $pdf = PDF::loadView('dashboard.checkout.print_recipe', compact('recipe', 'paciente', 'fecha'));

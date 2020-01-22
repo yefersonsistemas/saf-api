@@ -150,23 +150,35 @@
                                                         <td colspan="5" class="text-left pl-4" style="font-weight:bold; ">DESCRIPCION</td>
                                                         <td class="text-right" style="width: 4%; font-weight:bold">COSTO</td>
                                                     </tbody>
-                                                    @if($itinerary->employe->doctor != null)
+                                                    {{-- @if($itinerary->employe->doctor != null)
                                                         <tbody style="border-bottom: 1px solid #000">
                                                             <td colspan="5" class="text-left pl-4">Consulta Médica</td>
                                                             <td class="text-right" style="width: 1%">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
                                                         </tbody>
-                                                    @endif
+                                                    @endif --}}
                                                     @if($procedure != 0)
                                                     <tbody>
                                                         @foreach ($procedure as $item)
-                                                        <tr>
-                                                            <td colspan="5" class="text-left pl-4">
-                                                                <div class="text-muted">Procedimiento {{ $item->name }}</div>
-                                                            </td>
-                                                        
-                                                            <td class="text-right" style="width: 1%">{{ number_format($item->price,2) }}</td>
-                                                        </tr>
+                                                            @if($item->name == 'Consulta médica')
+                                                                <tr>
+                                                                    <td colspan="5" class="text-left pl-4">
+                                                                        <div class="text-muted">{{ $item->name }}</div>
+                                                                    </td>
+                                                                
+                                                                    <td class="text-right" style="width: 1%">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
+                                                                </tr>
+                                                            @else
+                                                            {{-- @if($item->name == 'Consulta médica') --}}
+                                                                <tr>
+                                                                    <td colspan="5" class="text-left pl-4">
+                                                                        <div class="text-muted">{{ $item->name }}</div>
+                                                                    </td>
+                                                                
+                                                                    <td class="text-right" style="width: 1%">{{ number_format($item->price,2) }}</td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
+
                                                     </tbody> 
                                                     @endif
                                                     @if($itinerary->surgeryR != null)
@@ -215,29 +227,28 @@
                     </button>
                 </div>
                 <div class="modal-body pr-5 pl-5 pt-4">
-                    <form>
+                    <form >
                         <div class="form-group">
                             <div class="input-group ">
                                 <div class="input-group-prepend">
                                 </div>
                                 <div class="input-group-prepend">
-                                    <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="">
-                                        <option value="V">V</option>
+                                    <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="" required>
+                                        <option value="N">N</option>
                                         <option value="E">E</option>
-                                        <option value="J">J</option>
                                     </select>
                                 </div>
-                                <input id="dniC" value="" type="text" class="form-control mr-2" maxlength="8" placeholder="Documento de Identidad" formControlName="dni" name="dni">
+                                <input id="dniC" required value="" type="text" class="form-control mr-2" maxlength="8" minlength="3" placeholder="Documento de Identidad" formControlName="dni" name="dni">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="nameC"  name="name" type="text" placeholder="Nombre" class="form-control" value="">
+                                <input id="nameC"  required name="name" type="text" placeholder="Nombre" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="lastnameC" name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
+                                <input id="lastnameC" required name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -252,14 +263,15 @@
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <textarea id="direccionC" name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
+                                <textarea id="direccionC" required name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
                             </div>
                         </div>
+                       
                     </form>
                 </div>
                 <div class="modal-footer">
                 <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-                <a class="btn btn-primary" id="registrar">Registrar</a>
+                <a class="btn btn-primary" data-dismiss="modal" id="registrar">Registrar</a>
                 </div>
             </div>
         </div>
@@ -292,10 +304,41 @@
             var phone = $("#phoneC").val();
             var email = $("#emailC").val();
             var address = $("#direccionC").val();
-            registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+
+            if(phone == ''){ phone = null; }
+            if(email == ''){ email=null;   }
+
+            
+                       
+           if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
+            
+            Swal.fire({
+            title: 'Datos incompletos',
+            text: "Click OK para continuar!!",
+            type: 'error',
+            allowOutsideClick:false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '<a href="#otro" style="color:#fff" data-toggle="modal">OK</a>'
+            }).then((result) => {
+                if (result.value) {
+                }
+            })
+
+           }else{
+            registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);  
+           }        
+          
+           
         }); //fin de la funcion clikea
         //=================== funcion para registrar al cliente================
         function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {
+            console.log(phone)
+            console.log(address)
+            console.log(dni)
+            console.log(tipo_dni)
+            console.log(lastname)
+            console.log(name)
+            console.log(email)
             $.ajax({ 
                 url: "{{ route('checkout.person') }}",  
                 type: "POST",                            

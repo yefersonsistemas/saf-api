@@ -26,7 +26,7 @@ class updatePersonalDatesRequest extends FormRequest
         return [
             'name' => 'required',
             'lastname' => 'required',
-            'email' => 'email|required|string|email|max:255',
+            // 'email' => 'email|required|string|email|max:255',
             'birthdate' => 'required',
         ];
     }

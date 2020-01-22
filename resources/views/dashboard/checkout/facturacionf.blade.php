@@ -18,35 +18,8 @@
 @section('content')
     <form action="{{ route('checkout.guardar_factura') }}" method="POST">
         @csrf 
-        <div class="section-body py-3">
-            <div class="container-fluid">
-                <div class="row clearfix">
-                    <div class="col-lg-10 col-md-10 col-sm-10 ml-5">
-                        <div class="card">
-                            <div class="card-body row">
-                                <div class="col-md-4 col-lg-3 mt-2">
-                                        <h6 style="font-weight:bold">Buscar Paciente </h6>
-                                </div>
-                                <div class="input-group col-lg-9 col-md-8 d-flex justify-content-end" style="border:1px solid #fff">
-                                    <input id="dni" type="text" class="form-control" maxlength="8" placeholder="Documento de identidad...">
-                                    <a id="search"name="search" class="search btn btn-boo" style="color:#fff"><i class="icon-magnifier"></i></a>
-                                </div>
 
-                                {{-- <div class="form-group multiselect_div col-4 d-flex justify-content-end" >
-                                    <select id="select" name="multiselect4[]" class="multiselect multiselect-custom" multiple="multiple">
-                                        @foreach ($procedimientos as $procedimiento)
-                                            <option value="{{ $procedimiento->id }}" >{{ $procedimiento->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>           --}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-body">
+        <div class="section-body mt-4">
             <div class="container">
                 <div class="tab-content">
                 
@@ -70,9 +43,9 @@
                                                                         
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
-                                                <input id="patient_id" type="hidden" name="patient_id" value="" >
-                                                <input id="employe_id" type="hidden" name="employe_id" value="" >
-                                                <input id="total" type="hidden" name="total_cancelar" value="" >
+                                                <input id="patient_id" type="hidden" name="patient_id" value="{{$itinerary->person->id}}" >
+                                                <input id="employe_id" type="hidden" name="employe_id" value="{{$itinerary->employe->person->id}}" >
+                                                <input id="total" type="hidden" name="total_cancelar" value="{{$total}}" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
                                                 <div class="row ml-3">
@@ -80,7 +53,7 @@
                                                         <span style="font-weight:bold; ">Doc. de identidad:</span>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
-                                                        <span id="dnii"></span>
+                                                    <span id="dnii">{{$itinerary->person->dni}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="row ml-3">
@@ -88,7 +61,7 @@
                                                         <span style="font-weight:bold;">Nombres/Apellidos:</span>
                                                     </div> 
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
-                                                        <span id="name"></span><span id="lastname"></span>
+                                                    <span id="name">{{$itinerary->person->name}}</span><span id="lastname"> {{$itinerary->person->lastname}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="row ml-3">
@@ -96,12 +69,12 @@
                                                         <span style="font-weight:bold; ">Telefono:</span>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
-                                                        <span id="phone"></span>
+                                                        <span id="phone">{{$itinerary->person->phone}}</span>
                                                     </div>
                                                 </div><br>
                                             </div>
 
-                                            <!--Medico tratante-->
+                                            <!-------------------Medico tratante------------------>
                                             <div class="col-lg-6 col-md-12 col-sm-12 text-left">
                                                 <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i> MEDICO TRATANTE</p>
                                                 <div class="row ml-3">
@@ -109,7 +82,7 @@
                                                         <span style="font-weight:bold; ">Doc. de identidad:</span>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
-                                                        <span id="dniiD"></span>
+                                                        <span id="dniiD">{{$itinerary->employe->person->dni}}</span>
                                                     </div>
                                                 </div>
 
@@ -118,7 +91,7 @@
                                                         <span style="font-weight:bold; ">Nombres/Apellidos:</span>
                                                     </div> 
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
-                                                        <span id="nameD"></span><span id="lastnameD"></span>
+                                                        <span id="nameD">{{$itinerary->employe->person->name}}</span><span id="lastnameD">{{$itinerary->employe->person->lastname}}</span>
                                                     </div>
 
                                                 </div>
@@ -127,7 +100,7 @@
                                                         <span style="font-weight:bold; ">Telefono:</span>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
-                                                        <span id="phoneD"></span>
+                                                        <span id="phoneD">{{$itinerary->employe->person->phone}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,25 +113,50 @@
                                                     <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
 
-                                                <!--para mostrar procedimientos-->
+                                                <tbody style="border-bottom: 1px solid #000" id="consulta">
+
+                                                    @foreach ($procedureS as $item)
+                                                        @if($item->name == 'Consulta médica')
+                                                            <tr>
+                                                                <td colspan="5" class="pl-4">{{$item->name}}</td>
+                                                                <td class="text-right">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+
                                                 <tbody style="border-bottom: 1px solid #000" id="procedure">
                                                 </tbody>
                                                 <tbody id="columna">
                                                     
-                                                <!--para mostrar cirugia-->
+                                                    @foreach ($procedureS as $item)
+                                                        @if($item->name != 'Consulta médica')
+                                                            <tr>
+                                                                <td colspan="5" class="pl-4">{{$item->name}}</td>
+                                                                <td class="text-right">{{number_format($item->price,2)}}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                    
                                                 </tbody> 
                                                 <tbody style="border-bottom: 1px solid #000" id="cirugia_html">
                                                 </tbody>
-                                                    
+                                                   
                                                 <tbody id="cirugia">
+                                                    @if($itinerary->surgeryR != null)
+                                                    <tr>
+                                                        <td colspan="5" class="pl-4">{{$itinerary->surgeryR->name}}</td>
+                                                        <td class="text-right">{{number_format($itinerary->surgeryR->cost,2)}}</td>
+                                                    </tr>
+                                                    @endif
                                                 </tbody>                                             
                                                 <tr>
                                                     <td colspan="5" class="font600 text-right">Subtotal</td>
-                                                    <td class="text-right" id="subtotal">0,00</td>
+                                                    <td class="text-right" id="subtotal">{{number_format($total,2)}}</td>
                                                 </tr>
                                                 <tr class="bg-boo  text-light">
                                                     <td colspan="5" class="font700 text-right">Total a cancelar</td>
-                                                    <td class="font700 text-right" id="costo_total">0,00</td>
+                                                    <td class="font700 text-right" id="costo_total">{{number_format($total,2)}}</td>
                                                 </tr>
                                             </table>
 
@@ -178,74 +176,7 @@
             </div>
         </div>
     <form>
-
-
-    <!--Modal para registrar otro cliente-->
-    <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registrar cliente</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body pr-5 pl-5 pt-4">
-                    <form>
-                        <div class="form-group">
-                            <div class="input-group ">
-                                <div class="input-group-prepend">
-                                </div>
-                                <div class="input-group-prepend">
-                                    <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="">
-                                        <option value="V">V</option>
-                                        <option value="E">E</option>
-                                        <option value="J">J</option>
-                                    </select>
-                                </div>
-                                <input id="dniC" value="" type="text" class="form-control mr-2" maxlength="8" placeholder="Documento de Identidad" formControlName="dni" name="dni">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="nameC"  name="name" type="text" placeholder="Nombre" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="lastnameC" name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="phoneC" name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="emailC" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <textarea id="direccionC" name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-                    <a class="btn btn-primary" id="registrar">Registrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
 @endsection
 
 @section('scripts')
@@ -284,49 +215,7 @@
             return Number.parseFloat(x).toFixed(2);
         }
             
-        // ==================== ejecuta cuando se clikea el boton de buscar =====================
-        $(".search").click(function() {
-            var dni = $("#dni").val();   
-            
-            ajax(dni);      
-        }); //fin de la funcion clikea
-
-
-        //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
-        function ajax(dni) {
-                $.ajax({ 
-                    url: "{{ route('checkout.patient') }}",   //definiendo ruta
-                    type: "POST",                             //definiendo metodo
-                    data: {
-                        _token: "{{ csrf_token() }}",        
-                        dni: dni                               //valor que se envia
-                    }
-                })
-                .done(function(data) {               
-                    console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
-                    if(data[0] == 202){   
-                        console.log('si')             
-                        Swal.fire({
-                            title: 'Error!',
-                            text: data.encontrado,
-                            type: 'error',
-                        });
-                    }
-                    if (data[0] == 201) {                    
-                        Swal.fire({
-                            title: 'Excelente!',
-                            text:  'Paciente encontrado',
-                            type:  'success',
-                        })
-                        disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                    }
-                })
-                .fail(function(data) {
-                    console.log(data);
-                })
-        } // fin de la funcion que busca datos del paciente/doctor/procedimientos
-
+    
 
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
@@ -338,44 +227,17 @@
             id_patient = data.encontrado[0].person.id;
             id_employe = data.encontrado[0].employe.person.id; 
 
-
             //------------- consulta ---------------------
-            // if(data.encontrado[0].doctor_id != null){
+            if(data.encontrado[0].doctor_id != null){
 
-            //     console.log('consulta', data.encontrado[0].employe.doctor);
-            //     costo_consulta= financial(data.encontrado[0].employe.doctor.price); //costo de la consulta
-            //     console.log(costo_consulta);
-            //     consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
-            //     $("#consulta").append(consulta_html);
+                console.log('consulta', data.encontrado[0].employe.doctor);
+                costo_consulta= financial(data.encontrado[0].employe.doctor.price); //costo de la consulta
+                console.log(costo_consulta);
+                consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
+                $("#consulta").append(consulta_html);
 
-            // }
-
-             // --------------------Procedures -------------
-             if(data.procedureS != null){
-                console.log('procedures', data.procedureS)
-                $("#procedure").append(procedure);
-
-                for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
-                    if(data.procedureS[i].name != 'Consulta médica'){
-                        costo = financial(data.procedureS[i].price);
-                        costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
-                        procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
-                        console.log('proceduressss',procedures_id)
-                        procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
-                        $("#columna").append(procedure_select);
-                    }
-
-                    if(data.procedureS[i].name == 'Consulta médica'){
-                        costo = financial(data.encontrado[0].employe.doctor.price);
-                        costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
-                        procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
-                        console.log('proceduressss',procedures_id)
-                        procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
-                        $("#columna").append(procedure_select);
-                    }
-                }
             }
-
+// console.log('holaaaa',data.encontrado[0] );
             //-------------------cirugia -----------------
             if(data.encontrado[0].surgery_r != null){
                 console.log('cooo ken')
@@ -383,12 +245,28 @@
                 nombre_cirugia= data.encontrado[0].surgery_r.name;
                 costo_cirugia= financial(data.encontrado[0].surgery_r.cost);
 
+
+                // console.log('decimales', $data);
+
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].surgery_r.cost; //costo de la cirugia
             }
 
-            
+             // --------------------Procedures -------------
+            if(data.procedureS != null){
+                console.log('procedures', data.procedureS)
+                $("#procedure").append(procedure);
+
+                for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
+                    costo = financial(data.procedureS[i].price);
+                    costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
+                    procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
+                    console.log('proceduressss',procedures_id)
+                    procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
+                    $("#columna").append(procedure_select);
+                }
+            }
             cu = parseFloat(costo_consulta);
             ci = parseFloat(costo_cirugia);
             p = parseFloat(costo_procedimientos);
@@ -420,34 +298,6 @@
 
         } // fin de la funcion que muestra datos en el html
     
-
-
-        //================================== para agregar procedimientos adicionales==========================
-        $("#select").change(function(){
-            var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
-            console.log('estos son ',procedure_id);
-            console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-
-            //ruta para buscar los datos segun procedimiento seleccionado
-            $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
-              //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-            console.log('datos',data.procedure.name);
-
-                procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
-                console.log('procedimiento seleccionado',procedure_select);
-
-                costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
-                procedures_id = procedures_id +','+ (data.procedure.id); // guardarndo ids
-            
-                console.log('ids',procedures_id);
-                console.log(costo_total)
-                $("#columna").append(procedure_select);
-                $('#costo_total').text(costo_total);
-                $('#subtotal').text(costo_total);
-                total = costo_total;
-                $('#total').val(costo_total);
-            });
-          }); // fin de la funcion para agregar procedimientos
 
         }); //fin del documento
     </script>
