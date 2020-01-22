@@ -98,7 +98,7 @@
                                 </td>
                                     <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                     <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
-                                    <th style="color:black">{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
+                                    <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                     <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
                                     <td>{{ $reservation->speciality->name }}</td>
                                     

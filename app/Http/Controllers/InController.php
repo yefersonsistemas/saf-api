@@ -44,7 +44,7 @@ class InController extends Controller
         // $carbon = Carbon::now()->addDay(2)->format('Y-m-d');
         // dd($carbon);
 
-        $reservations = Reservation::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $reservations = Reservation::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         // dd($aprobadas);
@@ -81,9 +81,12 @@ class InController extends Controller
 
     public function pending()
     {
-        $pending = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        $hoy = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        $horas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->addDay(2)->format('Y-m-d'))->orderBy('date', 'asc')->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        $todas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->orderBy('date', 'asc')->get(); 
         // dd($pending);
-        return view('dashboard.checkin.pending', compact('pending'));
+
+        return view('dashboard.checkin.pending', compact('hoy', 'horas', 'todas'));
         
     }
 
