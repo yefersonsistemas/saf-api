@@ -176,7 +176,7 @@
                                             
                                             <td style="display: inline-block">
                                                 @if ($reservation->status == 'Pendiente')
-                                                    {{-- @if ( (Carbon::now()->format('Y-m-d') >= $reservation->date) && (Carbon::now()->addDay(2)->format('Y-m-d') < $reservation->date)) --}}
+                                                    {{-- @if ((Carbon::now()->addDay(1)->format('Y-m-d') < $reservation->date)) --}}
                                                     <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
                                                     {{-- @endif --}}
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
