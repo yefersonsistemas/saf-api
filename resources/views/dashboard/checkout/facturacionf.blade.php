@@ -43,8 +43,8 @@
                                                                         
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
-                                                <input id="patient_id" type="hidden" name="patient_id" value="" >
-                                                <input id="employe_id" type="hidden" name="employe_id" value="" >
+                                                <input id="patient_id" type="hidden" name="patient_id" value="{{$itinerary->person->id}}" >
+                                                <input id="employe_id" type="hidden" name="employe_id" value="{{$itinerary->employe->person->id}}" >
                                                 <input id="total" type="hidden" name="total_cancelar" value="" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
@@ -74,7 +74,7 @@
                                                 </div><br>
                                             </div>
 
-                                            <!--Medico tratante-->
+                                            <!-------------------Medico tratante------------------>
                                             <div class="col-lg-6 col-md-12 col-sm-12 text-left">
                                                 <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i> MEDICO TRATANTE</p>
                                                 <div class="row ml-3">
@@ -114,6 +114,15 @@
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="consulta">
+
+                                                    @foreach ($procedureS as $item)
+                                                        @if($item->name == 'Consulta médica')
+                                                            <tr>
+                                                                <td colspan="5" class="pl-4">{{$item->name}}</td>
+                                                                <td class="text-right">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
                                                 </tbody>
 
                                                 <tbody style="border-bottom: 1px solid #000" id="procedure">
@@ -121,11 +130,14 @@
                                                 <tbody id="columna">
                                                     
                                                     @foreach ($procedureS as $item)
-                                                        <tr>
-                                                            <td colspan="5" class="pl-4">{{$item->name}}</td>
-                                                            <td class="text-right">{{$item->price}}</td>
-                                                        </tr>
+                                                        @if($item->name != 'Consulta médica')
+                                                            <tr>
+                                                                <td colspan="5" class="pl-4">{{$item->name}}</td>
+                                                                <td class="text-right">{{$item->price}}</td>
+                                                            </tr>
+                                                        @endif
                                                     @endforeach
+                                                    
                                                 </tbody> 
                                                 <tbody style="border-bottom: 1px solid #000" id="cirugia_html">
                                                 </tbody>
@@ -134,11 +146,11 @@
                                                 </tbody>                                             
                                                 <tr>
                                                     <td colspan="5" class="font600 text-right">Subtotal</td>
-                                                    <td class="text-right" id="subtotal">0,00</td>
+                                                    <td class="text-right" id="subtotal">{{$total}}</td>
                                                 </tr>
                                                 <tr class="bg-boo  text-light">
                                                     <td colspan="5" class="font700 text-right">Total a cancelar</td>
-                                                    <td class="font700 text-right" id="costo_total">0,00</td>
+                                                    <td class="font700 text-right" id="costo_total">{{$total}}</td>
                                                 </tr>
                                             </table>
 
@@ -197,50 +209,7 @@
             return Number.parseFloat(x).toFixed(2);
         }
             
-        // ==================== ejecuta cuando se clikea el boton de buscar =====================
-        $(".search").click(function() {
-            var dni = $("#dni").val();          //asignando el valor que se ingresa en el campo
-            console.log(dni);                   //mostrando en consola
-            
-            ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
-        }); //fin de la funcion clikea
-
-
-        //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
-        function ajax(dni) {
-                $.ajax({ 
-                    url: "{{ route('checkout.patient') }}",   //definiendo ruta
-                    type: "POST",                             //definiendo metodo
-                    data: {
-                        _token: "{{ csrf_token() }}",        
-                        dni: dni                               //valor que se envia
-                    }
-                })
-                .done(function(data) {               
-                    console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
-                    if(data[0] == 202){   
-                        console.log('si')                 //si no trae valores
-                        Swal.fire({
-                            title: 'Error!',
-                            text: data.encontrado,
-                            type: 'error',
-                        });
-                    }
-                    if (data[0] == 201) {                       //si no trae valores
-                        Swal.fire({
-                            title: 'Excelente!',
-                            text:  'Paciente encontrado',
-                            type:  'success',
-                        })
-                        disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                    }
-                })
-                .fail(function(data) {
-                    console.log(data);
-                })
-        } // fin de la funcion que busca datos del paciente/doctor/procedimientos
-
+    
 
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
@@ -323,34 +292,6 @@
 
         } // fin de la funcion que muestra datos en el html
     
-
-
-        //================================== para agregar procedimientos adicionales==========================
-        $("#select").change(function(){
-            var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
-            console.log('estos son ',procedure_id);
-            console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-
-            //ruta para buscar los datos segun procedimiento seleccionado
-            $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
-              //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-            console.log('datos',data.procedure.name);
-
-                procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
-                console.log('procedimiento seleccionado',procedure_select);
-
-                costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
-                procedures_id = procedures_id +','+ (data.procedure.id); // guardarndo ids
-            
-                console.log('ids',procedures_id);
-                console.log(costo_total)
-                $("#columna").append(procedure_select);
-                $('#costo_total').text(costo_total);
-                $('#subtotal').text(costo_total);
-                total = costo_total;
-                $('#total').val(costo_total);
-            });
-          }); // fin de la funcion para agregar procedimientos
 
         }); //fin del documento
     </script>

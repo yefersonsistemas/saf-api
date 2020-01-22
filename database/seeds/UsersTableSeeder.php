@@ -141,6 +141,7 @@ class UsersTableSeeder extends Seeder
             $pro= factory(Procedure::class)->create([
                 'name'    => 'Consulta médica',
                 'description' => 'Solo consulta',
+                'price' => 5000,
             ]);
             $employe->procedures()->attach($pro);
 
