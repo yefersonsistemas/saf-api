@@ -314,6 +314,7 @@ class OutController extends Controller
 
     //============================ registrando cliente ============================ (listo)
     public function create_cliente(CreateVisitorRequest $request){
+        // dd($request);
         $person = Person::create([
             'type_dni'    => $request->type_dni,
             'dni'         => $request->dni,
