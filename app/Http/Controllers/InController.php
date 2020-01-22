@@ -587,33 +587,33 @@ class InController extends Controller
             return redirect()->route('checkin.index')->withSuccess('Consultorio Asignado');
             }
         }else{
-            return redirect()->back()->withError('No se pudo asignar');
+            return redirect()->back()->withError('No Se Pudo Asignar');
         }
     }
 
-    public function update_area(Request $request)
-    {
-        $a = Area::find($request->id);
+    // public function update_area(Request $request)
+    // {
+    //     $a = Area::find($request->id);
 
-        if (!empty($a)) {
+    //     if (!empty($a)) {
         
-            $a->status = 'ocupado';
-            $a->save();
+    //         $a->status = 'ocupado';
+    //         $a->save();
 
-            // if ($a->save()){
-            //    return response()->json([
-            //         'message' => 'ocupado', 
-            //     ]);
-            // }
-        }
-    }
+    //         // if ($a->save()){
+    //         //    return response()->json([
+    //         //         'message' => 'ocupado', 
+    //         //     ]);
+    //         // }
+    //     }
+    // }
 
 
     public function exams_previos(Request $request)
     {
         // dd($request);
         if ($request->file != null) {
-           
+
             $image = $request->file('file');
             $path = $image->store('public/exams');  
             $path = str_replace('public/', '', $path);
@@ -623,7 +623,7 @@ class InController extends Controller
             $image->fileable_id = $request->patient;
             $image->branch_id = 1;
             $image->save();
-         }
+        }
     }
 
     public function guardar_foto(){

@@ -18,11 +18,15 @@
     @section('title','Historia Medica')
     
 @section('content')
-<div class="container mt-25">
+{{-- <div class="container mt-25">
         <div class="card p-4">
+        </div>
+    </div> --}}
+    <div class="container">
+        <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
+            @csrf
             <div class="card p-4">
-                <h5 class="text-center">Datos de la cita</h5>
-
+            <h5 class="text-center">Datos de la cita</h5>
                 <div class="row mt-4 mb-2">
                     <div class="col-4">
                         <label class="m-0 form-label">Fecha:</label>
@@ -39,93 +43,81 @@
                         <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
-            @csrf
+            </div>    
             <div class="card p-4">
                 @if($mostrar == 1)
                 <div style="margin-bottom:12px">
                         <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
                 </div>
                 @endif
-                <div class="card p-4">
-                    <h5 class="text-center">Datos Personales</h5>
-                    <div class="row">
-                        <div class="col-3 ml-4 mb-4">
-                            <div class="avatar-upload">
-                                <div class="avatar-edit">
-                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                                    <label for="imageUpload"></label>
-                                </div>
-                                @if (!empty($rs->patient->image))
-                                <div class="avatar-preview avatar-edit">
-                                    <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
-                                    </div>
-                                    <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
-                                </div>
-                            @else
+                <h5 class="text-center">Datos Personales</h5>
+                <div class="row mt--25">
+                    <div class="col-3 ml-2 mb-4">
+                        <div class="avatar-upload">
+                            @if (!empty($rs->patient->image))
                             <div class="avatar-preview avatar-edit">
-                                <div id="imagePreview" style="background-image: url();">
+                                <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                 </div>
                                 <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                             </div>
-                            @endif
+                        @else
+                        <div class="avatar-preview avatar-edit">
+                            <div id="imagePreview" style="background-image: url();">
+                            </div>
+                            <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                         </div>
-                            </div>
-                        <!-- Modal -->
-                        {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <h1>Selecciona un dispositivo</h1>
-                                        <div>
-                                            <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
-                                            <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
-                                            <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
-                                            <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
-                                            <p id="estado"></p>
-                                        </div>
-                                        <video muted="muted" id="video" class="col-12"></video>
-                                        <canvas id="canvas" style="display: none;" name="foto"></canvas>
-                                        <div class="col-12 text-center">
-                                            <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
-                                        </div>
+                        @endif
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h1>Selecciona un dispositivo</h1>
+                                    <div>
+                                        <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                                        <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                                        <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
+                                        <p id="estado"></p>
+                                    </div>
+                                    <video muted="muted" id="video" class="col-12"></video>
+                                    <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                                    <div class="col-12 text-center">
+                                        <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
+                    </div>
 
-                        <div class="col-8 mt-4">
-                            <div class="row mt-4">
-                                <div class="form-group col-4">
-                                    <label class="m-0 form-label">DNI:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <select name="type_dni" disabled class="custom-select input-group-text form-control">
-                                                <option value="{{ $rs->patient->type_dni }}">
-                                                    {{ $rs->patient->type_dni }}</option>
-                                                </select>
-                                            </div>
-                                        <input type="hidden" value=" {{ $rs->patient->dni }}" name="dni">
-                                        <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
-                                    </div>
+                    <div class="col-8 mt-4">
+                        <div class="row mt-4">
+                            <div class="form-group col-4">
+                                <label class="m-0 form-label">DNI:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <select name="type_dni" disabled class="custom-select input-group-text form-control">
+                                            <option value="{{ $rs->patient->type_dni }}">
+                                                {{ $rs->patient->type_dni }}</option>
+                                            </select>
+                                        </div>
+                                    <input type="hidden" value=" {{ $rs->patient->dni }}" name="dni">
+                                    <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
                                 </div>
+                            </div>
+                        
+                            <div class="col-4">
+                                <label class="m-0 form-label">Nombre:</label>
+                                <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
+                            </div>
                             
-                                <div class="col-4">
-                                    <label class="m-0 form-label">Nombre:</label>
-                                    <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
-                                </div>
-                                
-                                <div class="col-4">
-                                    <label class="m-0 form-label">Apellido:</label>
-                                    <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
-                                </div>
+                            <div class="col-4">
+                                <label class="m-0 form-label">Apellido:</label>
+                                <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -160,7 +152,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
                                     @if($rs->patient->historyPatient != null)
-                                    {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
+                                    <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}">
                                     {{-- value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->age : '' }}" --}}
                                     @else
                                     {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
@@ -169,8 +161,19 @@
                             </div>
                             
                             <div class="col-2">
+                                {{-- <div class="form-group">
+                                    <label class="form-label">Peso (Lbs)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <select name="peso" disabled class="custom-select input-group-text form-control">
+                                                <option value="Lbs">Lbs</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" disabled class="form-control" placeholder="Peso" id="weight" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->weight : '' }}" name="weight">
+                                    </div>
+                                </div> --}}
                                 <div class="form-group">
-                                    <label class="form-label">Peso</label>
+                                    <label class="form-label">Peso (Lbs)</label>
                                     <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->weight : '' }}">
                                 </div>
                             </div>
