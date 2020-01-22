@@ -436,7 +436,7 @@ var Dropzone = function(_Emitter) {
                 /**
                  * The text used before any files are dropped.
                  */
-                dictDefaultMessage: "<i></i>Arrastra los archivos aquí para subirlos",
+                dictDefaultMessage: '<div><h1><i class="fa fa-file-photo-o fa-2x"></i></h1></div><div class="mt-4"><h6>Arrastra los archivos aquí para subirlos</h6></div>',
 
                 /**
                  * The text that replaces the default message text it the browser is not supported.
