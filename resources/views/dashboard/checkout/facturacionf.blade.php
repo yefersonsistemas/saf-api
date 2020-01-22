@@ -45,7 +45,7 @@
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
                                                 <input id="patient_id" type="hidden" name="patient_id" value="{{$itinerary->person->id}}" >
                                                 <input id="employe_id" type="hidden" name="employe_id" value="{{$itinerary->employe->person->id}}" >
-                                                <input id="total" type="hidden" name="total_cancelar" value="" >
+                                                <input id="total" type="hidden" name="total_cancelar" value="{{$total}}" >
                                                 <!-------------------- fin de Campos ocultoss------------------>
 
                                                 <div class="row ml-3">
@@ -133,7 +133,7 @@
                                                         @if($item->name != 'Consulta médica')
                                                             <tr>
                                                                 <td colspan="5" class="pl-4">{{$item->name}}</td>
-                                                                <td class="text-right">{{$item->price}}</td>
+                                                                <td class="text-right">{{number_format($item->price,2)}}</td>
                                                             </tr>
                                                         @endif
                                                     @endforeach
@@ -146,11 +146,11 @@
                                                 </tbody>                                             
                                                 <tr>
                                                     <td colspan="5" class="font600 text-right">Subtotal</td>
-                                                    <td class="text-right" id="subtotal">{{$total}}</td>
+                                                    <td class="text-right" id="subtotal">{{number_format($total,2)}}</td>
                                                 </tr>
                                                 <tr class="bg-boo  text-light">
                                                     <td colspan="5" class="font700 text-right">Total a cancelar</td>
-                                                    <td class="font700 text-right" id="costo_total">{{$total}}</td>
+                                                    <td class="font700 text-right" id="costo_total">{{number_format($total,2)}}</td>
                                                 </tr>
                                             </table>
 

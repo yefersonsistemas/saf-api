@@ -140,13 +140,12 @@
                                                     <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                                 </tbody>
 
-                                                <tbody style="border-bottom: 1px solid #000" id="consulta">
-                                                </tbody>
-
+                                                <!--para mostrar procedimientos-->
                                                 <tbody style="border-bottom: 1px solid #000" id="procedure">
                                                 </tbody>
                                                 <tbody id="columna">
                                                     
+                                                <!--para mostrar cirugia-->
                                                 </tbody> 
                                                 <tbody style="border-bottom: 1px solid #000" id="cirugia_html">
                                                 </tbody>
@@ -287,10 +286,9 @@
             
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
-            var dni = $("#dni").val();          //asignando el valor que se ingresa en el campo
-            console.log(dni);                   //mostrando en consola
+            var dni = $("#dni").val();   
             
-            ajax(dni);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+            ajax(dni);      
         }); //fin de la funcion clikea
 
 
@@ -308,14 +306,14 @@
                     console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
                     if(data[0] == 202){   
-                        console.log('si')                 //si no trae valores
+                        console.log('si')             
                         Swal.fire({
                             title: 'Error!',
                             text: data.encontrado,
                             type: 'error',
                         });
                     }
-                    if (data[0] == 201) {                       //si no trae valores
+                    if (data[0] == 201) {                    
                         Swal.fire({
                             title: 'Excelente!',
                             text:  'Paciente encontrado',
@@ -340,17 +338,44 @@
             id_patient = data.encontrado[0].person.id;
             id_employe = data.encontrado[0].employe.person.id; 
 
+
             //------------- consulta ---------------------
-            if(data.encontrado[0].doctor_id != null){
+            // if(data.encontrado[0].doctor_id != null){
 
-                console.log('consulta', data.encontrado[0].employe.doctor);
-                costo_consulta= financial(data.encontrado[0].employe.doctor.price); //costo de la consulta
-                console.log(costo_consulta);
-                consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
-                $("#consulta").append(consulta_html);
+            //     console.log('consulta', data.encontrado[0].employe.doctor);
+            //     costo_consulta= financial(data.encontrado[0].employe.doctor.price); //costo de la consulta
+            //     console.log(costo_consulta);
+            //     consulta_html = '<td colspan="5" class="pl-4">Consulta medica</td><td class="text-right">'+costo_consulta+'</td>';
+            //     $("#consulta").append(consulta_html);
 
+            // }
+
+             // --------------------Procedures -------------
+             if(data.procedureS != null){
+                console.log('procedures', data.procedureS)
+                $("#procedure").append(procedure);
+
+                for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
+                    if(data.procedureS[i].name != 'Consulta médica'){
+                        costo = financial(data.procedureS[i].price);
+                        costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
+                        procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
+                        console.log('proceduressss',procedures_id)
+                        procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
+                        $("#columna").append(procedure_select);
+                    }
+
+                    if(data.procedureS[i].name == 'Consulta médica'){
+                        costo = financial(data.encontrado[0].employe.doctor.price);
+                        costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
+                        procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
+                        console.log('proceduressss',procedures_id)
+                        procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
+                        $("#columna").append(procedure_select);
+                    }
+                }
             }
-// console.log('holaaaa',data.encontrado[0] );
+
             //-------------------cirugia -----------------
             if(data.encontrado[0].surgery_r != null){
                 console.log('cooo ken')
@@ -358,28 +383,12 @@
                 nombre_cirugia= data.encontrado[0].surgery_r.name;
                 costo_cirugia= financial(data.encontrado[0].surgery_r.cost);
 
-
-                // console.log('decimales', $data);
-
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].surgery_r.cost; //costo de la cirugia
             }
 
-             // --------------------Procedures -------------
-            if(data.procedureS != null){
-                console.log('procedures', data.procedureS)
-                $("#procedure").append(procedure);
-
-                for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
-                    costo = financial(data.procedureS[i].price);
-                    costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
-                    procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
-                    console.log('proceduressss',procedures_id)
-                    procedure_select='<tr><td colspan="5" class="pl-4">'+'Procedimiento '+ data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
-                    $("#columna").append(procedure_select);
-                }
-            }
+            
             cu = parseFloat(costo_consulta);
             ci = parseFloat(costo_cirugia);
             p = parseFloat(costo_procedimientos);

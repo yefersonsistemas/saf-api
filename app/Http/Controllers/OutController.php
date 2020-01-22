@@ -241,7 +241,7 @@ class OutController extends Controller
 
         
         $total = $total_P + $total_S + $total_C;
-        dd($total);
+        // dd($total);
 
         return view('dashboard.checkout.facturacionf', compact('procedimientos','fecha','itinerary','procedureS','total'));
     }
@@ -348,16 +348,23 @@ class OutController extends Controller
 
                 $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$billing->id)->first();
                 $total = 0;
+                // dd($todos->employe->doctor->price);
                 foreach($todos->procedure as $proce) { 
-                    $total += $proce->price;
+                    if($proce->name != 'Consulta médica'){
+                        $total += $proce->price;
+                    }
+                    if($proce->name == 'Consulta médica'){
+                        $total += $todos->employe->doctor->price;
+                    }                    
                 }
+                // dd($total);
 
-                $cirugia = Itinerary::with('person','employe.person','surgeryR')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
-// dd($cirugia);
+                $cirugia = Itinerary::with('person','employe.person', 'employe.doctor', 'surgeryR')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
+
                 if($cirugia->surgery != null){
-                    $total_cancelar = $cirugia->typesurgery->cost + $todos->employe->doctor->price + $total;
+                    $total_cancelar = $cirugia->typesurgery->cost + $total;
                 }else{
-                    $total_cancelar = $todos->employe->doctor->price + $total;
+                    $total_cancelar = $total;
                 }
 
                 $num_factura = str_pad($billing->id, 5, '0', STR_PAD_LEFT);
