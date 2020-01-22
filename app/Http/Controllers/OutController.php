@@ -43,7 +43,7 @@ class OutController extends Controller
     //=================== listando los pacientes del dia ================== (listo)
     public function index()
     {
-        $procedures_id = array();
+        $procedures_id = array(); 
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation')->get(); // esta es una coleccion
 
         foreach ($itinerary as $iti) {
@@ -87,6 +87,7 @@ class OutController extends Controller
        
         $itinerary->exam_id = $examenes;
         $itinerary->save();
+        
 
         //Para mostrar lista de citas de pacientes
         $procedures_id = array();

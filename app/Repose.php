@@ -22,6 +22,11 @@ class Repose extends Model
         return $this->hasOne('App\Employe');
     }
 
+    public function diagnostic()
+    {
+        return $this->hasOne('App\Diagnostic');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');

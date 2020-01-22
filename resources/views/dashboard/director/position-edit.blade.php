@@ -7,6 +7,7 @@
 @section('title','Modificar Cargo')
 
 @section('content')
+@can('modificar cargo')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{ route('cargo.update', $position->id) }}" method='POST' class="row d-flex justify-content-center">
@@ -41,4 +42,5 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection

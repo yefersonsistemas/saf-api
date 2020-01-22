@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes; //importamos
 
 class Reservation extends Model
 {
+    //si genera error para migrar las tablas comentar las 2 lineas siguientes y luego volver a migrar
     use SoftDeletes; //Implementamos
 
     protected $dates = ['deleted_at']; //Registramos la nueva columna
@@ -42,7 +43,7 @@ class Reservation extends Model
 
     public function patient()  //este es el paciente de la tabla persona que esta en la tabla de reservacion
     {
-        return $this->belongsTo('App\Person');
+        return $this->belongsTo('App\Person', 'patient_id');
     }
 
     public function historyPatient()  //relacion con tabla paciente

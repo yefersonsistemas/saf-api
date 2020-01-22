@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;                               
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Allergy;
 use App\Area;
 use App\Disease;
@@ -21,6 +23,8 @@ use App\TypeArea;
 use App\TypeDoctor;
 use App\Typesurgery;
 use App\User;
+use App\ClassificationSurgery;
+use Spatie\Permission\Models\Permission;
 
 class DirectorController extends Controller
 {
@@ -52,12 +56,15 @@ class DirectorController extends Controller
        $exams = Exam::get();
        $types = TypeArea::get();
        $areas = Area::with('typearea')->get();
+    //    dd($areas);
        $clases = TypeDoctor::get();
        $doctors = Doctor::with('typeDoctor')->get();
     //    dd($doctors);
        $payments = TypePayment::get();
+       $classifications = ClassificationSurgery::get();
 
-       return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 'types', 'areas', 'clases', 'doctors', 'payments'));
+       return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 
+                                                     'types', 'areas', 'clases', 'doctors', 'payments', 'classifications'));
     }
 
     /**
@@ -72,8 +79,9 @@ class DirectorController extends Controller
         $speciality = Speciality::all();
         $procedure = Procedure::get();
         $clases = TypeDoctor::get();
+        $permissions = Permission::all();
 
-        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases'));
+        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases', 'permissions'));
     }
 
     /**
@@ -116,10 +124,18 @@ class DirectorController extends Controller
             
         $user = User::create([
             'email'      => $person->email,
-            'password'   => $request->password,
+            'password'   => Hash::make($request->contra),
             'person_id'  => $person->id,
             'branch_id' => 1
         ]);
+
+        $cargo = Position::find($request->position_id);
+
+        $user->assignRole($cargo->name);
+
+        foreach ($request->perms as  $permission){
+        $user->givePermissionTo([$permission]);
+        }
 
         if (!is_null($employe)) { 
             if (!empty($request->speciality)) {
@@ -151,7 +167,7 @@ class DirectorController extends Controller
             $image->save();
         }
 
-        return redirect()->route('employe.index');
+        return redirect()->route('employe.index')->withSuccess($cargo->name.' '.'registrado');
     }
 
 
@@ -179,6 +195,9 @@ class DirectorController extends Controller
         $clases = TypeDoctor::get();
         $precio = Doctor::where('employe_id', $employe->id)->first();
 
+        $permissions = Permission::all();
+        $perms = $employe->person->user->permissions;
+
         $buscar_C = TypeDoctor::where('id', $precio->type_doctor_id)->first();
         $clase = array($buscar_C);
         $diff_C = $clases->diff($clase);
@@ -186,7 +205,7 @@ class DirectorController extends Controller
         $diff_E = $speciality->diff($employe->speciality);
         $diff_P = $procedure->diff($employe->procedures);
 
-        return view('dashboard.director.doctor-edit', compact('employe','position', 'clases', 'precio', 'diff_E', 'diff_P', 'diff_C', 'buscar_C'));
+        return view('dashboard.director.doctor-edit', compact('employe','position', 'clases', 'precio', 'diff_E', 'diff_P', 'diff_C', 'buscar_C', 'permissions','perms'));
     }
 
     /**
@@ -199,11 +218,11 @@ class DirectorController extends Controller
     public function update(Request $request, $id)
     {
         //  dd($request);
-        // dd($request->image);
+        
         $employe = Employe::with('person.user', 'position','speciality', 'image')->find($id);
-        //  dd($employe);
+        $user = User::where('person_id', $employe->person->id )->first();
         $doctor = Doctor::where('employe_id', $employe->id)->first();
-        // dd($doctor);
+       
         $employe->person->type_dni = $request->type_dni;
         $employe->person->dni = $request->dni;
         $employe->person->name = $request->name;
@@ -220,6 +239,8 @@ class DirectorController extends Controller
         
         $employe->update();
         $doctor->save();
+
+        $user->permissions()->sync($request->perms);
 
        if ($request->image != null) {
            

@@ -8,6 +8,7 @@
 @section('title','Modificar Especialidad')
 
 @section('content')
+@can('modificar especialidad')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('especialidad.update', $speciality->id)}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
@@ -91,6 +92,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 @section('scripts')

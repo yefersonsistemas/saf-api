@@ -14,7 +14,7 @@ class Diagnostic extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient', 'patient_id');
+        return $this->belongsTo('App\Patient');
     }
 
     public function payment()
@@ -66,6 +66,12 @@ class Diagnostic extends Model
     {
         return $this->belongsToMany('App\Exam','diagnostic_exam')
        ->withPivot('exam_id','id');
+    }
+
+    public function procedures() 
+    {
+        return $this->belongsToMany('App\Procedure','diagnostic_procedure')
+       ->withPivot('procedure_id','id');
     }
 
 }

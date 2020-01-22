@@ -3,6 +3,7 @@
 @section('title','Modificar Medicina')
 
 @section('content')
+@can('modificar medicina')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{ route('medicina.update', $medicine->id) }}" method='POST' class="row d-flex justify-content-center">
@@ -37,4 +38,5 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection

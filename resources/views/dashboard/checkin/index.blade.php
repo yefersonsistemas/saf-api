@@ -29,6 +29,12 @@
             max-width: 50px;
             width: 50px;
         } 
+    .img-test{
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+    }
 </style>
 
 <div class="section-body  py-4">
@@ -107,7 +113,6 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -120,23 +125,29 @@
                                         <th>Esepcialidad</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
-                                        <th class="text-center">E/S</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                      @if($reservations != '')
                                     @foreach ($reservations as $reservation)
                                         <tr style="height:40px;">
                                             <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
-                                                    <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                  <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">
+                                                    {{-- <div class="img-test"></div> --}}
                                                 @endif
                                                 <div class="text-center">
                                                     @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
+                                                        <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
                                                     @else
-                                                        <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
+                                                        @if($reservation->patient->inputoutput != '')
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                        @else
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </td>
@@ -165,7 +176,9 @@
                                             
                                             <td style="display: inline-block">
                                                 @if ($reservation->status == 'Pendiente')
+                                                    @if (Carbon::now()->addDay(2) < $reservation->date )
                                                     <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    @endif
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
@@ -250,6 +263,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -284,6 +298,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($aprobadas != '')
                                     @forelse ($aprobadas as $reservation)
                                         @if ($reservation->status == 'Aprobada')
                                             <tr>
@@ -297,7 +312,11 @@
                                                         @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                         @else
-                                                        <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
+                                                            @if($reservation->patient->inputoutput->isEmpty())
+                                                                <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                            @else
+                                                                <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia </a>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                 </td>
@@ -316,6 +335,7 @@
                                         @endif      
                                     @empty
                                     @endforelse
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -350,6 +370,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($canceladas != '')
                                     @foreach ($canceladas as $reservation)
                                         <tr>
                                             <td style="text-align: center; font-size:10px">
@@ -362,7 +383,11 @@
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
-                                                        <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
+                                                        @if($reservation->patient->inputoutput->isEmpty())
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                        @else
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </td>
@@ -382,6 +407,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -416,6 +442,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($reprogramadas != '')
                                     @foreach ($reprogramadas as $reservation)
                                         <tr>
                                             <td style="text-align: center; font-size:10px">
@@ -428,7 +455,11 @@
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
-                                                        <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
+                                                        @if($reservation->patient->inputoutput->isEmpty())
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                        @else
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </td>
@@ -444,6 +475,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -478,6 +510,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @if($suspendidas != '')
                                     @foreach ($suspendidas as $reservation)
                                         <tr>
                                             <td style="text-align: center; font-size:10px">
@@ -490,7 +523,11 @@
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
-                                                        <a href="{{ route('checkin.history', $reservation->id) }}">Ver Historia</a>
+                                                        @if($reservation->patient->inputoutput->isEmpty())
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                        @else
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </td>
@@ -510,6 +547,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

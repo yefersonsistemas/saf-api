@@ -37,18 +37,18 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
      //======================= rutas para el usuario ckeckin ====================
-    Route::group(['middleware' => ['role:IN']], function () {
+    Route::group(['middleware' => ['role:IN, director']], function () {
         Route::get('cite/day', 'InController@day')->name('checkin.day');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
         Route::get('cite/pending', 'InController@pending')->name('checkin.pending');
         Route::get('cite', 'InController@index')->name('checkin.index');
-        Route::get('history/{patient_id}', 'InController@search_history')->name('checkin.history');
+        Route::get('history/{patient_id}/{id}', 'InController@search_history')->name('checkin.history');
         Route::post('assigment/area', 'InController@assigment')->name('checkin.assigment');
         Route::post('search/area','InController@search_area')->name('search.area');  //revisa si el area esta ocupada
         Route::post('search/medico','InController@search_medico')->name('search.medico');  //revisa si el medico esta ocupado
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente dentro del consultorio
         Route::get('insideOffice/{id}', 'InController@insideOffice')->name('checkin.insideOffice'); // cambia estado depaciente a dentro del consultorio
-        Route::get('assigment', 'InController@create')->name('checkin.create');
+        Route::get('assigment', 'InController@create')->name('checkin.create');                    //asigna consultorio
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('medicos/list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('horario', 'InController@horario')->name('checkin.horario');
         Route::POST('save/{id}', 'InController@guardar')->name('save.history');
         Route::post('status', 'InController@status')->name('checkin.status');
+        Route::post('exams_previos', 'InController@exams_previos')->name('checkin.exams');
+        Route::post('guardar_foto', 'InController@guardar_foto')->name('checkin.avatar');
 
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
@@ -72,9 +74,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
     });
 
-
     //======================= rutas para el usuario ckeckout ====================
-    Route::group(['middleware' => ['role:OUT']], function () {
+    Route::group(['middleware' => ['role:OUT, director']], function () {
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
@@ -101,8 +102,8 @@ Route::group(['middleware' => 'auth'], function (){
         // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
     });
 
-    Route::group(['middleware' => ['role:doctor']], function () {
-        Route::get('doctor', 'DoctorController@index')->name('doctor.index'); 
+    Route::group(['middleware' => ['role:doctor, director']], function () {
+        Route::get('/doctor', 'DoctorController@index')->name('doctor.index'); 
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
@@ -114,6 +115,20 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos 
         Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
+        Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
+        Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
+        Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+
+        //-----------actualizar registros-------------
+        Route::post('doctor/examUpdate', 'DoctorController@exam_update')->name('doctor.exam_actualizar');  // guardar los procedimientos realizados en la consulta
+        Route::post('doctor/proceduresRUpdate', 'DoctorController@proceduresR_update')->name('doctor.proceduresR_actualizar');  // guardar los procedimientos realizados en la consulta
+
+        Route::post('doctor/proceduresUpdate', 'DoctorController@procedures_update')->name('doctor.procedures_actualizar');  // guardar los procedimientos realizados en la consulta
+        Route::post('doctor/surgeryUpdate', 'DoctorController@surgerysP_update')->name('doctor.surgery_actualizar');  // guardar los procedimientos realizados en la consulta
+
+        //-------------------elimnar-------------------
+        Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
+        
     });
 
     Route::group(['middleware' => ['role:director']], function(){
@@ -189,6 +204,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('procedure/update/{id}', 'ProcedureController@update')->name('procedure.update');
         Route::get('tipo/pago/{id}', 'TypePaymentsController@edit')->name('pago.edit');
         Route::put('pago/update/{id}', 'TypePaymentsController@update')->name('pago.update');
+        Route::get('tipo/cirugia/{id}', 'TypeSurgerysController@edit_classification')->name('tipo-cirugia.edit');
+        Route::put('clasificacion/cirugia/update/{id}', 'TypeSurgerysController@update_classification')->name('tipo-cirugia.update');
 
         //inicio de rutas para eliminar
         Route::delete('employe/{id}', 'EmployesController@destroy')->name('empleado.delete');
@@ -206,6 +223,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('clase/{id}', 'TypeDoctorController@destroy')->name('clase.delete');
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
+        Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
 
     });
 });

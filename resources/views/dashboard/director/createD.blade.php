@@ -16,6 +16,7 @@
     <div class="container-fluid">
         <form action="{{route('doctores.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
             @csrf
+            @can('registrar empleados')
                 <div class="card p-4 col-lg-12 col-md-12 col-sm-12">
                     <div class="card p-4">
 
@@ -68,7 +69,7 @@
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-label"> Teléfono </label>
-                                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
+                                                    <input type="text" class="form-control" onkeypress="return num(event)" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
                                                 </div>
                                             </div>
                                             
@@ -109,7 +110,7 @@
                             </div>
 
                             <div class="row d-flex justify-content-between">
-                                <div class="col-lg-4 col-md-4">
+                                <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                     <label class="form-label">Cargo </label>
                                         <input type="hidden"  name="position_id" value="{{$position->id}}">
@@ -117,7 +118,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-4">
+                                <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label class="form-label">Clase</label>
                                         <select name="type_doctor_id" class="custom-select input-group-text bg-white form-control">
@@ -129,12 +130,20 @@
                                     </div>
                                 </div>
         
-                                <div class="col-lg-4 col-md-4">
+                                @can('registrar precio de consulta')
+                                <div class="col-lg-3 col-md-3">
                                     <div class="form-group"> 
                                         <label class="form-label">Precio de Consulta</label>
                                         <input type="text"  class="form-control validanumericos" placeholder="Precio" name="price" value="{{ old('price') }}" required>
                                     </div>
                                 </div> 
+                                @endcan
+
+                                @can('asignar permisos')
+                                <div class="col-lg-3 mt-4">
+                                    <button disabled type="button" id="boton" class="btn btn-info" style="width: 230px" data-toggle="modal" data-target="#permission"> Agregar Permisos </button>
+                                </div>
+                                @endcan
                             </div> 
 
                             @if ($errors->any())
@@ -150,7 +159,8 @@
 
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
-                        <a class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b" data-toggle="modal" data-target="#staticBackdrop">Crear usuario</a>
+                        {{-- <a class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b" data-toggle="modal" data-target="#staticBackdrop">Crear usuario</a> --}}
+                        <button type="button" onclick="enableBtn()" class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b" data-toggle="modal" data-target="#staticBackdrop">Crear usuario</button>
                         <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
                         <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>
                     </div>
@@ -166,10 +176,14 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                                    <div class="col-12" >
-                                        <label class="form-label" style="text-align:left"> Contraseña </label>
-                                        <input type="password" placeholder="password" class="form-control" name="password" value="{{ old('password') }}" >
+                                <div class="col-10" >
+                                    <div class="input-group">
+                                        <input id="clave" type="Password"  name="contra" Class="form-control">
+                                        <div class="input-group-append">
+                                            <button id="ver" class="btn" type="button" onclick="mostrarPassword()"><i class="fa fa-eye-slash" style="color:#00506b; font-size:17px" id="icon"></i></button>
+                                        </div>
                                     </div>
+                                </div>  
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
@@ -177,12 +191,57 @@
                         </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="permission" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Asignar Permisos</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-12" >
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Seleccionar</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($permissions as $item)
+                                        <tr>
+                                        <td>{{ $item->name }}</td>
+                                        <td>
+                                            @can('asignar permisos')
+                                            <div class="custom-controls-stacked">
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-switch-input" name="perms[]" value="{{ $item->name }}" >
+                                                    <span class="custom-switch-indicator"></span>
+                                                </label>
+                                            </div>
+                                            @endcan
+                                        </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            @endcan
         </form>
     </div>
 </div>
 @endsection
 
-{{-- style="color:#00ad88" turquesa --}}
 
 @section('scripts')
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
@@ -235,7 +294,7 @@
     }
 </script>
 
-<script type="text/javascript"> function controltag(e) {
+<script type="text/javascript"> function num(e) {
     tecla = (document.all) ? e.keyCode : e.which;
     if (tecla==8) 
     return true;
@@ -246,6 +305,32 @@
     te = String.fromCharCode(tecla);
     return patron.test(te);
 }
+</script>
+
+<script>
+function enableBtn() {
+  document.getElementById("boton").disabled = false;
+}
+</script>
+
+<script>
+function mostrarPassword(){
+        var eye = document.getElementById("clave");
+        if(eye.type == "password"){
+            eye.type = "text";
+            $('#icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        }else{
+            eye.type = "password";
+            $('#icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+        }
+    } 
+
+    $(document).ready(function () {
+    //CheckBox mostrar contraseña
+    $('#ver').click(function () {
+        $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+    });
+});
 </script>
 
 @endsection

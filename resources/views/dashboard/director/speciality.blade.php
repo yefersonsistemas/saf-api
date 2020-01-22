@@ -10,6 +10,7 @@
 @section('title','Registro de Especialidades')
 
 @section('content')
+@can('registrar especialidad')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('speciality.store')}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
@@ -76,6 +77,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 @section('scripts')

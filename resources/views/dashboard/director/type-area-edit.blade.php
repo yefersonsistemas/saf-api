@@ -11,6 +11,7 @@
 @section('title','Modificar Area')
 
 @section('content')
+@can('modificar tipo de area')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('tipo-area.update', $type->id)}}" method='POST' enctype="multipart/form-data" class="row d-flex justify-content-center">
@@ -80,6 +81,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 

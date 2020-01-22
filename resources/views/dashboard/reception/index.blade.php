@@ -121,7 +121,8 @@
                                     @foreach ($reservations as $reservation)
                                         <tr>
                                             <td class="img-recep">
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt="">
+                                                {{-- <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt=""> --}}
+                                                
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>

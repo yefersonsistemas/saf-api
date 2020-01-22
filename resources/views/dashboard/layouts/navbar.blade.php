@@ -15,6 +15,26 @@
                 <img src="{{ asset('img/logosinusblanco.svg') }}" alt="">
             </a>
             <div class="dropdown">
+                @if (Auth::check())
+
+                    @role('director')
+
+                    <a class="nav-link icon" id="dir" style="font-size:12px">Director</a>
+
+                    @role('IN')
+                    <a  class="nav-link icon" id="in" style="font-size:12px">IN</a>
+                    @endrole
+                 
+                    @role('OUT')
+                    <a  class="nav-link icon" id="out" style="font-size:12px"> OUT </a>
+                    @endrole
+                  
+                    @role('doctor')
+                    <a  class="nav-link icon" id="doc" style="font-size:12px"> Doctor </a>
+                    @endrole
+                    @endrole
+
+                @endif
                 {{-- <a href="page-search.html" class="nav-link icon"><i class="fa fa-search" data-toggle="tooltip" data-placement="right" title="Search..."></i></a>
                 <a href="javascript:void(0)" class="nav-link icon create_page xs-hide"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Create New"></i></a>
                 <a href="app-email.html" class="nav-link icon app_inbox"><i class="fa fa-envelope" data-toggle="tooltip" data-placement="right" title="Inbox"></i></a>
@@ -30,6 +50,7 @@
                 <a href="javascript:void(0)" class="nav-link icon settingbar"><i class="fa fa-gear fa-spin" data-toggle="tooltip" data-placement="right" title="Settings"></i></a>
                 <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar" src="..\assets\images\user.png" alt="" data-toggle="tooltip" data-placement="right" title="User Menu"></a>
                 <a href="javascript:void(0)" class="nav-link icon menu_toggle"><i class="fa  fa-align-left"></i></a>
+                
             </div>            
         </div>
     </div>

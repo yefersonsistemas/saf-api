@@ -5,6 +5,7 @@
 @section('title','Registro de Procedimientos')
 
 @section('content')
+@can('registrar procedimiento')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('procedure.store')}}" method='POST' class="row d-flex justify-content-center">
@@ -68,6 +69,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 @section('scripts')

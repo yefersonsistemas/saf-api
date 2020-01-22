@@ -47,7 +47,6 @@ class CitaController extends Controller
     public function index()
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
-
         // dd($reservations);
         $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
 
@@ -85,7 +84,7 @@ class CitaController extends Controller
 
     public function store(CreateReservationRequest $request)
     {
-
+        // dd($request);
         if ($request->person == 'nuevo') {
             $person = Person::create([
                 'type_dni'  => $request->type_dni,
@@ -223,11 +222,14 @@ class CitaController extends Controller
             $reservation->status = 'Aprobada';
             $reservation->save();
 
-            $doctor = Doctor::where('employe_id',$reservation->person_id)->first();
+            // dd($reservation->person_id);
+            $employe = Employe::where('person_id', $reservation->person_id)->first();
+            $doctor = Doctor::where('employe_id',$employe->id)->first();
+            // dd($doctor);
 
             $itinerary = Itinerary::create([
                 'patient_id' =>  $reservation->patient_id,  //paciente tratado
-                'employe_id' => $reservation->person_id,               
+                'employe_id' => $employe->id,               
                 'doctor_id' => $doctor->id,
                 'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
                 'branch_id' => 1,
@@ -312,7 +314,7 @@ class CitaController extends Controller
             }
 
             Alert::success('Cita actualizada exitosamente');
-            return redirect()->route('checkin.index');
+            return redirect()->route('checkin.day');
         }
         // dd($request);
     }

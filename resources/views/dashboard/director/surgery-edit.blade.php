@@ -8,6 +8,7 @@
 @section('title','Modificar Cirugía')
 
 @section('content')
+@can('modificar cirugias')
 <div class="section-body py-4">
     <div class="container-fluid">
         <form action="{{route('cirugia.update', $surgery->id)}}" method='POST' class="row d-flex justify-content-center">
@@ -36,7 +37,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
                                     <label class="form-label">Duración (horas)</label>
-                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Duración" name="duration" value="{{ $surgery->duration }}" required>
+                                    <input type="text" class="form-control" onkeypress="return num(event)" placeholder="Duración" name="duration" value="{{ $surgery->duration }}" required>
                                 </div>
                             </div> 
 
@@ -62,7 +63,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
                                     <label class="form-label">Cantidad de días</label>
-                                    <input type="text" class="form-control" onkeypress="return controltag(event)" placeholder="Días" name="day_hospitalization" value="{{ $surgery->day_hospitalization }}" required>
+                                    <input type="text" class="form-control" onkeypress="return num(event)" placeholder="Días" name="day_hospitalization" value="{{ $surgery->day_hospitalization }}" required>
                                 </div>
                             </div>  
                         </div>  
@@ -99,6 +100,7 @@
         </form>
     </div>
 </div>
+@endcan
 @endsection
 
 @section('scripts')
@@ -127,7 +129,7 @@
     }
 </script>
 
-<script type="text/javascript"> function controltag(e) {
+<script type="text/javascript"> function num(e) {
     tecla = (document.all) ? e.keyCode : e.which;
     if (tecla==8) 
     return true;
