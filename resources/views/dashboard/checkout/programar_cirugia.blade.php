@@ -70,7 +70,7 @@
                                                 @endif
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                     <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
-                                                    <h6 class="font-weight-bold" style="font-size:15px">Desocupado</h6>
+                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
                                                 </div>
                                             </div>
                                         </label>
@@ -92,7 +92,7 @@
                                             @endif
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                 <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
-                                                <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->status }}</h6>
+                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $quirofano->status }}</span> </h6>
                                             </div>
                                         </div>
                                     </label>

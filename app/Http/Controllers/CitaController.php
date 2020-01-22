@@ -228,7 +228,7 @@ class CitaController extends Controller
     }
 
     public function approved(Reservation $reservation)
-    {
+    {   
         if ($reservation != null) {
             $reservation->approved = Carbon::now();
             if ($reservation->discontinued != null) {
@@ -250,7 +250,7 @@ class CitaController extends Controller
                 'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
                 'branch_id' => 1,
             ]);
-
+            
             Alert::success('Cita Aprobada exitosamente');
         }else{
             Alert::error('Cita No Encontrada');

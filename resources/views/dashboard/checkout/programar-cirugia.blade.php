@@ -137,15 +137,16 @@
                                                 <input type="radio" name="area_id" value="{{ $quirofano->id }}" id="area_id" class="imagecheck-input">
                                                 @if (!empty($quirofano->image->path))
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                    <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                    <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
                                                 </figure>
                                                 @else
                                                 <figure class="imagecheck-figure border-0 text-center">
-                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                 </figure>
                                                 @endif
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                     <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
+                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
                                                 </div>
                                             </div>
                                         </label>
@@ -158,15 +159,16 @@
                                             <input type="radio" name="area_id" value="" id="area_id" class="imagecheck-input" disabled>
                                             @if (!empty($quirofano->image->path))
                                             <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
                                             </figure>
                                             @else
                                             <figure class="imagecheck-figure border-0 text-center">
-                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                             </figure>
                                             @endif
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                 <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
+                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $quirofano->status }}</span> </h6>
                                             </div>
                                         </div>
                                     </label>
@@ -290,18 +292,6 @@
         onFinished: function(event, currentIndex) {
             var form = $(this);
             form.submit();
-            // crear();
-            // Swal.fire({
-            // title: 'Cita Agendada!',
-            // text: "Click OK para cerrar!!",
-            // type: 'success',
-            // allowOutsideClick:false,
-            // confirmButtonColor: '#3085d6',
-            // confirmButtonText: '<a href="{{ route('checkout.index') }}" style="color:#fff">OK</a>'
-            // }).then((result) => {
-            //     if (result.value) {
-            //     }
-            // })
         }
     });
 
@@ -332,12 +322,12 @@
                 console.log('ee', data);
                 if (data[0] == 202) {
                     Swal.fire({
-                        title: 'Error!',
-                        text: 'Paciente no encontrado',
+                        // title: 'Ha Ingresado Un Dato Incorrecto!',
+                        text: 'Ha Ingresado Un Dato Incorrecto!',
                         type: 'error',
                         allowOutsideClick:false,
                     })
-                    enabled();
+                    // enabled();
                 }
                 if (data[0] == 201) {
                     Swal.fire({
@@ -374,24 +364,24 @@
         // $('.dropify-render')
     }
 
-    function enabled() {
-        $("#photo").val('');
-        $('#name').val('');
-        $('#lastname').val('');
-        $('#email').val('');
-        $('#address').val('');
-        $('#phone').val('');
+    // function enabled() {
+    //     $("#photo").val('');
+    //     $('#name').val('');
+    //     $('#lastname').val('');
+    //     $('#email').val('');
+    //     $('#address').val('');
+    //     $('#phone').val('');
 
-        $("#photo").removeAttr('disabled');
-        $(".dropify-wrapper").removeClass('disabled');
-        $('#name').removeAttr('disabled');
-        $('#lastname').removeAttr('disabled');
-        $('#email').removeAttr('disabled');
-        $('#address').removeAttr('disabled');
-        $('#phone').removeAttr('disabled');
-        $('#submit').removeAttr('disabled');
-        $('#patient_id').val('nuevo');
-    }
+    //     $("#photo").removeAttr('disabled');
+    //     $(".dropify-wrapper").removeClass('disabled');
+    //     $('#name').removeAttr('disabled');
+    //     $('#lastname').removeAttr('disabled');
+    //     $('#email').removeAttr('disabled');
+    //     $('#address').removeAttr('disabled');
+    //     $('#phone').removeAttr('disabled');
+    //     $('#submit').removeAttr('disabled');
+    //     $('#patient_id').val('nuevo');
+    // }
 
     function surgery() {
         $("input[name='type_surgery_id']").click(function() {
@@ -473,43 +463,6 @@
             });
         });
     }
-
-    // function crear() {
-
-    //     var type_surgery_id = $('#type_surgery_id').val();
-    //     var employe_id = $('#employe_id').val();
-    //     var area_id = $('#area_id').val();
-    //     var date = $('#picker').val();
-    //     var patient_id = $('#patient_id').val();
-        
-
-        // console.log('trolazo',date);
-        // $.ajax({
-        //         url: "{{ route('surgerys.store') }}",
-        //         type: "POST",
-        //         data: {
-        //             _token: "{{ csrf_token() }}",
-        //             type_surgery_id: type_surgery_id,
-        //             employe_id: employe_id,
-        //             area_id: area_id,
-        //             patient_id: patient_id,
-        //             date: date,
-        //         }
-        //     })
-        //     .done(function(data) {
-        //         console.log(data);
-        //         $('#picker').datepicker({
-        //             todayHighlight: true,
-        //             language: 'es',
-        //             datesDisabled: data.available,
-        //             daysOfWeekDisabled: '0'
-        //         });
-        //         // window.location.href = "{{ route('checkout.index') }}";
-        //     })
-        //     .fail(function(data) {
-        //         console.log(data);
-        //     })
-    // }
     
 </script>
 
