@@ -4,7 +4,6 @@
 
 use App\Exam;
 use App\Itinerary;
-use App\Patient;
 use App\Procedure;
 use App\Recipe;
 use App\Employe;
@@ -12,10 +11,11 @@ use App\Reservation;
 use App\Surgery;
 use App\Branch;
 use App\Doctor;
+use App\Person;
 use Faker\Generator as Faker;
 
 $factory->define(Itinerary::class, function (Faker $faker) {
-    $patient = Patient::inRandomOrder()->first();
+    $patient = Person::inRandomOrder()->first();
     $employe = Employe::inRandomOrder()->first();
     $doctor = Doctor::inRandomOrder()->first();
     $procedure_id = Procedure::inRandomOrder()->first();

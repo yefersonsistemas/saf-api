@@ -76,4 +76,10 @@ class Person extends Model
     {
         return $this->belongsTo('App\Patient');
     }
+
+    
+    public function itinerary()
+    {
+        return $this->belongsTo('App\Itinerary', 'patient_id');
+    }
 }

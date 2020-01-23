@@ -15,8 +15,8 @@ class CreateItineraryTable extends Migration
     {
         Schema::create('itinerary', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('patient_id')->nullable();
-            $table->unsignedBigInteger('employe_id')->nullable();
+            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('doctor_id')->nullable();
             $table->string('procedure_id')->nullable();  //posibles procedimientos
             $table->string('procedureR_id')->nullable(); //Procedimientos realizados
@@ -24,7 +24,7 @@ class CreateItineraryTable extends Migration
             $table->unsignedBigInteger('surgeryR_id')->nullable(); //Procedimientos realizados
             $table->string('exam_id')->nullable();
             $table->unsignedBigInteger('recipe_id')->nullable();
-            $table->unsignedBigInteger('reservation_id')->nullable();
+            $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->unsignedBigInteger('reference_id')->nullable();
             $table->string('status')->nullable();
@@ -35,7 +35,7 @@ class CreateItineraryTable extends Migration
 
             $table->foreign('patient_id')
             ->references('id')
-            ->on('patients')
+            ->on('persons')
             ->onDelete('CASCADE');
 
             $table->foreign('employe_id')

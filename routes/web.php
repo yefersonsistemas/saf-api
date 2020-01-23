@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function (){
         // Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
-        Route::get('cite/approved/{reservation}', 'CitaController@approved')->name('reservation.approved');
+        Route::get('approved/cite/{reservation}', 'CitaController@approved')->name('cita.aprobada');
         
         Route::put('cite/edit/{cite}','CitaController@update')->name('reservations.update');
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');

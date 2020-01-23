@@ -62,8 +62,16 @@ class InController extends Controller
     //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
+        // $day = Reservation::get();
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         // dd($day);
+        // $patient = Patient::where('person_id',$day->patient_id)->first();
+        // dd($patient);
+        // $employe = Employe::where('person_id', $day->person_id)->first();
+        // dd($employe);
+        // $itinerary = Itinerary::where('employe_id', $employe->id)->first();
+        // dd($itinerary);
+       
         
         return view('dashboard.checkin.day', compact('day'));
     }
@@ -539,19 +547,19 @@ class InController extends Controller
      * en la lista de medico
      * 
      */
-    public static function horario(Request $request){
-        // dd($request);
+    // public static function horario(Request $request){
+    //     // dd($request);
         
-        if(!empty($employe)){
-            return response()->json([
-                'employe' => $employe,201
-            ]);
-        }else{
-            return response()->json([
-                'employe' => 202
-            ]);
-        }
-    }
+    //     if(!empty($employe)){
+    //         return response()->json([
+    //             'employe' => $employe,201
+    //         ]);
+    //     }else{
+    //         return response()->json([
+    //             'employe' => 202
+    //         ]);
+    //     }
+    // }
 
     /**
      *  

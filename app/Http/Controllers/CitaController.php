@@ -229,6 +229,7 @@ class CitaController extends Controller
 
     public function approved(Reservation $reservation)
     {
+        // dd($reservation);
         if ($reservation != null) {
             $reservation->approved = Carbon::now();
             if ($reservation->discontinued != null) {
@@ -237,20 +238,47 @@ class CitaController extends Controller
 
             $reservation->status = 'Aprobada';
             $reservation->save();
+            // dd($reservation);
 
+            // dd($reservation->patient_id);
+            // $person = Person::where('id',$reservation->patient_id)->first();
+            // dd($person);
+            // $patient = Patient::where('person_id', $reservation->patient_id)->first();
+            // dd( $patient->person_id);
             // dd($reservation->person_id);
             $employe = Employe::where('person_id', $reservation->person_id)->first();
+            // dd($employe);
             $doctor = Doctor::where('employe_id',$employe->id)->first();
             // dd($doctor);
+         $person = Person::where('id',$reservation->patient_id)->first();
+//   dd($person->id);
+            $itinerary = Itinerary::where('patient_id', $person->id)->where('employe_id', $employe->id)->first();
+            // dd($itinerary);
+            if( $itinerary == null){
+                // dd('hola');
+                $itinerarys = Itinerary::create([
+                    'patient_id' =>  $person->id, //paciente tratado
+                    'employe_id' => $employe->id,               
+                    'doctor_id' => $doctor->id,
+                    'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
+                    'branch_id' => 1,
+                    ]);
+                                    
+          
+            // $itinerary = new Itinerary;
+            // $itinerary->patient_id = $patient->person_id;
+            // $itinerary->employe_id = $employe->id;
+            // $itinerary->doctor_id = $doctor->id;
+            // $itinerary->reservation_id = $reservation->id;
+            // $itinerary->branch_id = 1;
+            // $itinerary->save();
 
-            $itinerary = Itinerary::create([
-                'patient_id' =>  $reservation->patient_id,  //paciente tratado
-                'employe_id' => $employe->id,               
-                'doctor_id' => $doctor->id,
-                'reservation_id' =>  $reservation->id,  //medico asociado para cuando se quiera buscar todos los pacientes visto por el mismo medico
-                'branch_id' => 1,
-            ]);
-
+           }
+           
+        //    dd($itinerarys);
+          
+        //    dd($itinerary);
+           
             Alert::success('Cita Aprobada exitosamente');
         }else{
             Alert::error('Cita No Encontrada');
