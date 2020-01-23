@@ -50,23 +50,25 @@
                                 <li class="@yield('pending')"><a href="{{ route('checkin.pending') }}">Citas Pendientes</a></li>
                                 <li class="@yield('all')"><a href="{{ route('checkin.index') }}">Todas Las Citas</a></li>
                                 <li class="@yield('newCite')"><a href="{{ route('reservations.create') }}">Nueva Cita</a></li>
-                                <li class=""><a href="{{ route('checkin.record') }}">Historial de citas</a></li>
+                                <li class="@yield('record')"><a href="{{ route('checkin.record') }}">Historial de citas</a></li>
                                 {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                             </ul>
     
-                            <li>
+    
+                        </li> 
+                        <li class="@yield('medicoss')">
+                           
                                 <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Médicos</span></a>
                                 <ul>
                                     <li>
                                         {{-- <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                    --}}
                                     </li>
-                                    <li>
+                                    <li class="@yield('medicos')">
                                         <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
                                     </li>
-                                    <li>
+                                    <li class="@yield('asignarC')">
                                         <a href="{{ route('checkin.create') }}">Asignar Consultorio</a>
                                     </li>
-                                </ul>
                             </li>
     
                         </li> 
@@ -88,7 +90,7 @@
 
 
                         <li class="g_heading">Doctor</li>
-                        <li><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
+                        <li class="@yield('doctor')"><a href=" {{route('doctor.index')  }} "><i class="fe fe-calendar"></i><span>Citas de Pacientes</span></a></li>
                         {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                     </div>
                 @endrole
@@ -104,11 +106,11 @@
                     @endrole   
 
                     <li class="g_heading">Checkout</li>
-                    <li class=""><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          
-                    <li class=""><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
-                    <li class=""><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i><span>Agendar Cirugia</span></a></li>                        
+                    <li  class="@yield('citas')"><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i><span>Citas del día</span></a></li>                                          
+                    <li class="@yield('cirugias')"><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i><span>Cirugías</span></a></li> 
+                    <li class="@yield('agendar')"><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i><span>Agendar Cirugia</span></a></li>                        
                 
-                    <li><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
+                    <li class="@yield('facturacion')"><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i><span>Facturación</span></a></li><br><br>
                     {{-- <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li> --}}
                 </div>
                 @endrole

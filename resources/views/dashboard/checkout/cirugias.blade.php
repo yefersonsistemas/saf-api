@@ -14,7 +14,7 @@
 @endsection
 
 @section('title','Cirugías')
-
+@section('cirugias','active')
 @section('content')
 
 <style>

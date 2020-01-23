@@ -1,6 +1,7 @@
 
 @extends('dashboard.layouts.app')
-
+@section('asignarC','active')
+@section('medicoss','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">

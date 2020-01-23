@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('citas de pacientes','active')
-@section('all','active')
+@section('facturacion','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
