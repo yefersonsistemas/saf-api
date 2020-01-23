@@ -201,9 +201,15 @@
                                                     </tr>
                                                 </table>
                                             </div><br>
-                                            <div class="row d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="redirect()"> <i class="fa fa-print"> </i> Imprimir</button>
+                                            <div class="row">
+                                                <div class="col-6 d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="redirect()"> <i class="fa fa-print"> </i> Imprimir</button>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-start">
+                                                    <a href="{{route('checkout.index')}}" class="btn btn-boo pr-5 pl-5 mr-3">Salir</a>
+                                                </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
