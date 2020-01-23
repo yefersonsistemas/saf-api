@@ -229,7 +229,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4">
-                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
