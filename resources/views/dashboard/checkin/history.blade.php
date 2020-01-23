@@ -106,7 +106,7 @@
                         </div>
                     </div>
 
-                    {{-- <div class="row mt--100">
+                    <div class="row mt--100">
                     <div class="col-4 ml-30">
                         <h5 class="text-center">Datos de la Cita</h5>
                     </div>
@@ -129,7 +129,7 @@
                         <label class="m-0 form-label">Razón:</label>
                         <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
                     </div>
-                    </div> --}}
+                    </div>
                     
 
                 </div>
