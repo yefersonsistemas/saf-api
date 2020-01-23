@@ -28,7 +28,7 @@
         img.rounded{
             max-width: 50px;
             width: 50px;
-        } 
+        }
     .img-test{
         height: 100%;
         width: 100%;
@@ -43,7 +43,7 @@
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">                                
+                    <div class="card-body">
                         <h6>Total De Citas del año</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
                         {{-- <h5>$1,25,451.23</h5> --}}
@@ -128,12 +128,19 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+
                                       @if($reservations != '')
                                     @foreach ($reservations as $reservation)
+                                    @if ($reservation->status=="Suspendida")
+                                        @if (!empty($reservation->cite) )
+                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
+                                        @endif
+                                        @else
                                         <tr style="height:40px;">
+                                        @endif
                                             <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
-                                                  <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                     {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">
@@ -173,7 +180,7 @@
                                                     <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
                                                 @endif
                                             </td>
-                                            
+
                                             <td style="display: inline-block">
                                                 @if ($reservation->status == 'Pendiente')
                                                   @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
@@ -199,7 +206,7 @@
                                                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
-                                                
+
                                                 @if ($reservation->status == 'Cancelada')
                                                     <button type="button" class="btn btn-success" disabled>A</button>
                                                     <button type="button" class="btn btn-warning" disabled>R</button>
@@ -214,7 +221,7 @@
                                                 @if ($reservation->status == 'Suspendida')
                                                     {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
                                                     {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
-                                                    
+
                                                     <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
                                                         <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                         <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
@@ -238,28 +245,28 @@
                                                         <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     @endif
-                
+
                                                         @if(!empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                         <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <a href="{{ route ('checkin.insideOffice', $reservation->id) }}" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
                                                         <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         @endif
-                                                        
+
                                                     @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                         <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     @endif
-        
+
                                                     @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-success state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     @endif
-                                                        
+
                                                     @if(!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))
                                                         <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                         <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -274,7 +281,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="col-lg-12 col-md-12">
@@ -339,14 +346,14 @@
                                                     <a href="" class="btn btn-danger">C</a>
                                                 </td>
                                             </tr>
-                                        @endif      
+                                        @endif
                                     @empty
                                     @endforelse
                                     @endif
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div class="col-lg-12 col-md-12">
@@ -418,8 +425,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div>   
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-reprogram" role="tabpanel" aria-labelledby="pills-reprogram-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -486,8 +493,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div>  
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-suspendidas" role="tabpanel" aria-labelledby="pills-suspendidas-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -519,7 +526,13 @@
                                 <tbody>
                                     @if($suspendidas != '')
                                     @foreach ($suspendidas as $reservation)
-                                        <tr>
+                                        @if ($reservation->status=="Suspendida")
+                                        @if (!empty($reservation->cite) )
+                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
+                                        @endif
+                                        @else
+                                        <tr style="height:40px;">
+                                        @endif
                                             <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
                                                     <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
@@ -545,7 +558,7 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                
+
                                                 <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
                                                     <a href="" class="btn btn-warning">R</a>
                                                     <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
@@ -559,8 +572,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>

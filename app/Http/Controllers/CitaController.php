@@ -84,7 +84,7 @@ class CitaController extends Controller
 
     public function store(CreateReservationRequest $request)
     {
-        // dd($request->date);
+                // dd($request->image);
         if ($request->person == 'nuevo') {
             $person = Person::create([
                 'type_dni'  => $request->type_dni,
@@ -110,11 +110,25 @@ class CitaController extends Controller
                 'date'          =>  $request->date,              
                 'person_id'     =>  $request->person,            
                 'employe_id'    =>  $request->doctor,
+                'reason'        =>  $request->motivo,
                 'branch_id'     =>  1,
             ]);
         }
+
+          
+        if ($request->image != null) {
+            $image = $request->file('image');
+            $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
+            $path = str_replace('public/', '', $path);
+            $image = new Image;
+            $image->path = $path;
+            $image->imageable_type = "App\Employe";
+            $image->imageable_id = $employe->id;
+            $image->branch_id = 1;
+            $image->save();
+        }
        
-        // dd($patient);
+                // dd($patient);
 
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
