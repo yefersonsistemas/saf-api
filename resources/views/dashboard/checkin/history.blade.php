@@ -34,12 +34,12 @@
             
             <div class="card p-4">
                 <div class="row">
-                    <div class="col-8 ml-70">
-                        <h5 class="text-center">Datos de la cita</h5>
+                    <div class="col-9 ml-95">
+                        <h5 class="text-center">Datos de la Cita</h5>
                     </div>
-                    <div class="col-2 ml--">
-                    <span>Numero de Historia:{{ $rs->patient->historyPatient->history_number }}</span>
-                    </div>
+                    {{-- <div class="col-3 ml--70">
+                    <h5>Numero de Historia:{{ $rs->patient->historyPatient->history_number }}</h5>
+                    </div> --}}
                 </div>
                 <div class="row mt-4 mb-2">
                     <div class="col-4">
@@ -58,28 +58,28 @@
                     </div>
                 </div>
             </div>    
-            <div class="card p-4">
+            <div class="card p-1">
                 {{-- @if($mostrar == 1)
                 <div style="margin-bottom:12px">
                         <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
                 </div>
                 @endif --}}
-                <h5 class="text-center">Datos Personales</h5>
-                <div class="row mt--25">
-                    <div class="col-3 ml-2 mb-4">
+                <h5 class="text-center ml--50 mt-20">Datos Personales</h5>
+                <div class="row mt--70">
+                    <div class="col-3 ml-4 mb-4">
                         <div class="avatar-upload">
                             @if (!empty($rs->patient->image))
-                                <div class="avatar-preview avatar-edit">
-                                    <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
-                                    </div>
-                                    <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
-                                </div>
-                            @else
                             <div class="avatar-preview avatar-edit">
-                                <div id="imagePreview" style="background-image: url();">
+                                <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                 </div>
                                 <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                             </div>
+                        @else
+                        <div class="avatar-preview avatar-edit">
+                            <div id="imagePreview" style="background-image: url();">
+                            </div>
+                            <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                        </div>
                         @endif
                         </div>
                     </div>
@@ -93,11 +93,7 @@
                                         <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                                         <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
                                         <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
-                                        @if(!empty($rs->patient->image))
                                         <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
-                                        @else
-                                        <input type="hidden" name="image" id="imagen-id" value="">
-                                        @endif
                                         <p id="estado"></p>
                                     </div>
                                     <video muted="muted" id="video" class="col-12"></video>
@@ -110,7 +106,7 @@
                         </div>
                     </div>
 
-                    <div class="col-8 mt-4">
+                    <div class="col-8 mt-90">
                         <div class="row mt-4">
                             <div class="form-group col-4">
                                 <label class="m-0 form-label">DNI:</label>
@@ -180,7 +176,7 @@
                             
                             <div class="col-2">
                                 {{-- <div class="form-group">
-                                    <label class="form-label">Peso (Lbs)</label>
+                                    <label class="form-label">Peso</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <select name="peso" disabled class="custom-select input-group-text form-control">
@@ -376,27 +372,37 @@
                             {{-- <div>
                                 <label class="m-0 form-label">No posee Citas Anteriores</label>
                             </div> --}}
-                            <div class="table-responsive mt-30">
-                                <table class="table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Doctor</th>
-                                            <th>Especialidad</th>
-                                            <th>Fecha de la Cita</th>
-                                            <th>Motivo de la Cita</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="container-fluid">
+                                <div class="tab-content mx-auto">
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive mb-4">
+                                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align:center">Fecha</th>
+                                                        <th style="text-align:center">Doctor</th>
+                                                        <th style="text-align:center">Especialidad</th>
+                                                        <th style="text-align:center">Motivo de la Cita</th>
+                                                        <th style="text-align:center">Proxima Cita</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($cites as $cites)
+                                                    <tr class="event-click">
+                                                        <td style="text-align:center">{{$cites->date}}</td>
+                                                        <td style="text-align:center">{{$cites->employe->person->name}} {{$cites->employe->person->lastname}}</td>
+                                                        <td style="text-align:center">{{$cites->speciality->name}}</td>
+                                                        <td style="text-align:center">{{$cites->description}}</td>
+                                                            {{-- <td style="text-align:center">{{$cites->}}</td> --}}
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>                
+                                </div>
                             </div>
+                
                         @endforelse
                     {{-- </div> --}}
                 </div>
@@ -462,28 +468,28 @@ $boton.addEventListener("click", function() {
         let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
         let datafoto=encodeURIComponent(foto);
             var data1 = {
-                // "tokenmodalfoto": $('#tokenfoto').val(),
-                // "idpatient":$('#patient-id').val(),
-                // "idimage":$('#imagen-id').val(),
+                "tokenmodalfoto": $('#tokenfoto').val(),
+                "idpatient":$('#patient-id').val(),
+                "idimage":$('#imagen-id').val(),
                 "pic":datafoto
                 };
         const datos=JSON.stringify(data1)
         $estado.innerHTML = "Enviando foto. Por favor, espera...";
-        // fetch("{{ route('checkin.avatar') }}", {
-        //     method: "POST",
-        //     body: datos,
-        //     headers: {
-        //         "Content-type": "application/x-www-form-urlencoded",
-        //         'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
-        //     },
-        // }).then(function(response) {
-        //     // console.log(response.json());
-        //         return response.json();
-        //     }).then(nombreDeLaFoto => {
-        //         // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-        //         console.log("La foto fue enviada correctamente");
-        //         $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-        //     })
+        fetch("{{ route('checkin.avatar') }}", {
+            method: "POST",
+            body: datos,
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded",
+                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+            },
+        }).then(function(response) {
+            // console.log(response.json());
+                return response.json();
+            }).then(nombreDeLaFoto => {
+                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                console.log("La foto fue enviada correctamente");
+                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+            })
         //Reanudar reproducción
         $video.play();
   
