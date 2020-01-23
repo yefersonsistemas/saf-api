@@ -710,12 +710,13 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="posible-surgerys">
                 <div class="modal-body">
                     <div class="form-group">
+
                         <div class="custom-controls-stacked">
                             @foreach ($surgerys as $surgery)
                             <div class="row">
                                 <div class="col-9 mt-3">
                                     <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
                                         <span class="custom-control-label">{{ $surgery->name }}</span>
                                     </label>
                                 </div>
@@ -725,45 +726,7 @@ button[data-original-title="Help"]{ display: none; }
                             </div>
                             @endforeach
                         </div>
-                        {{-- <div class="card-body">
-                            <div class="form-group">
-                                <div class="custom-controls-stacked">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-radios" value="option1" checked="">
-                                        <div class="custom-control-label">Option 1</div>
-                                    </label>
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-radios" value="option2">
-                                        <div class="custom-control-label">Option 2</div>
-                                    </label>
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-radios" value="option3" disabled="">
-                                        <div class="custom-control-label">Option Disabled</div>
-                                    </label>
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-radios2" value="option4" disabled="" checked="">
-                                        <div class="custom-control-label">Option Disabled Checked</div>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-label">Inline Radios</div>
-                                <div class="custom-controls-stacked">
-                                    <label class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="option1" checked="">
-                                        <span class="custom-control-label">Option 1</span>
-                                    </label>
-                                    <label class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="option2">
-                                        <span class="custom-control-label">Option 2</span>
-                                    </label>
-                                    <label class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="option3">
-                                        <span class="custom-control-label">Option 3</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div> --}}
+                     
                     </div>
                 </div>
                     <div class="modal-footer">
@@ -1310,7 +1273,7 @@ button[data-original-title="Help"]{ display: none; }
 
             for($i=0; $i < data.length; $i++){
                 cirugias='<li>'+data[$i].name+'</li>';
-                $("#cirugias").append(cirugias);
+                $("#cirugias").html(cirugias);
             }
         }
 
