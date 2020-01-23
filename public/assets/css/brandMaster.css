@@ -76,7 +76,9 @@ ul[role="tablist"] {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-
+.asignar-consultorio .content{
+    min-height: 36.8em!important;
+}
 .wizard>.content {
     background: #fff;
     display: block;
