@@ -130,9 +130,14 @@
                                 <tbody>
 
                                       @if($reservations != '')
-                                      {{-- sajdasjdhjkasd --}}
                                     @foreach ($reservations as $reservation)
+                                    @if ($reservation->status=="Suspendida")
+                                        @if (!empty($reservation->cite) )
+                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
+                                        @endif
+                                        @else
                                         <tr style="height:40px;">
+                                        @endif
                                             <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
                                                   <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
@@ -521,7 +526,13 @@
                                 <tbody>
                                     @if($suspendidas != '')
                                     @foreach ($suspendidas as $reservation)
-                                        <tr>
+                                        @if ($reservation->status=="Suspendida")
+                                        @if (!empty($reservation->cite) )
+                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
+                                        @endif
+                                        @else
+                                        <tr style="height:40px;">
+                                        @endif
                                             <td style="text-align: center; font-size:10px">
                                                 @if (!empty($reservation->patient->image->path))
                                                     <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
