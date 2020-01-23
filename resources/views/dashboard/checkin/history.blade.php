@@ -33,8 +33,14 @@
             @endif
             
             <div class="card p-4">
-            <h5 class="text-center">Datos de la cita</h5>
-                <h6># de Historia</h6>
+                <div class="row">
+                    <div class="col-8 ml-70">
+                        <h5 class="text-center">Datos de la cita</h5>
+                    </div>
+                    <div class="col-2 ml--">
+                    <span>Numero de Historia:{{ $rs->patient->historyPatient->history_number }}</span>
+                    </div>
+                </div>
                 <div class="row mt-4 mb-2">
                     <div class="col-4">
                         <label class="m-0 form-label">Fecha:</label>
