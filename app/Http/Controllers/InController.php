@@ -136,9 +136,9 @@ class InController extends Controller
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
-        $rs = Reservation::with('patient.historyPatient')->where('id', $id)
+        $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-// dd($rs->patient->id);
+dd($rs->patient);
 
         $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 // dd($cites);
