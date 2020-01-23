@@ -18,8 +18,8 @@
                         <form id="wizard_horizontal" method="POST" action="{{ route('checkin.assigment_area') }}" class="card assigmt pr-4 pl-4 mt-20 asignar-consultorio">
                             @csrf
                             <h2>Seleccionar consultorio</h2>
-                            <section>
-                                <div class="card-body">
+                            <section class="py-1">
+                                <div class="card-body py-1">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($areas as $area)
                                                 @if ($area->typearea->name == 'Consultorio' && $area->status == null)
@@ -75,8 +75,8 @@
                                 </div>
                             </section>
                             <h2>Seleccionar médico</h2>
-                            <section>
-                                <div class="card-body">
+                            <section class="py-1">
+                                <div class="card-body py-1">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
                                             @if ($employe->areaassigment != null)
