@@ -55,17 +55,17 @@
                     <div class="col-3 ml-2 mb-4">
                         <div class="avatar-upload">
                             @if (!empty($rs->patient->image))
+                                <div class="avatar-preview avatar-edit">
+                                    <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
+                                    </div>
+                                    <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                                </div>
+                            @else
                             <div class="avatar-preview avatar-edit">
-                                <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
+                                <div id="imagePreview" style="background-image: url();">
                                 </div>
                                 <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                             </div>
-                        @else
-                        <div class="avatar-preview avatar-edit">
-                            <div id="imagePreview" style="background-image: url();">
-                            </div>
-                            <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
-                        </div>
                         @endif
                         </div>
                     </div>
@@ -79,7 +79,11 @@
                                         <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                                         <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
                                         <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                                        @if(!empty($rs->patient->image))
                                         <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
+                                        @else
+                                        <input type="hidden" name="image" id="imagen-id" value="">
+                                        @endif
                                         <p id="estado"></p>
                                     </div>
                                     <video muted="muted" id="video" class="col-12"></video>
@@ -421,28 +425,28 @@ $boton.addEventListener("click", function() {
         let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
         let datafoto=encodeURIComponent(foto);
             var data1 = {
-                "tokenmodalfoto": $('#tokenfoto').val(),
-                "idpatient":$('#patient-id').val(),
-                "idimage":$('#imagen-id').val(),
+                // "tokenmodalfoto": $('#tokenfoto').val(),
+                // "idpatient":$('#patient-id').val(),
+                // "idimage":$('#imagen-id').val(),
                 "pic":datafoto
                 };
         const datos=JSON.stringify(data1)
         $estado.innerHTML = "Enviando foto. Por favor, espera...";
-        fetch("{{ route('checkin.avatar') }}", {
-            method: "POST",
-            body: datos,
-            headers: {
-                "Content-type": "application/x-www-form-urlencoded",
-                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
-            },
-        }).then(function(response) {
-            // console.log(response.json());
-                return response.json();
-            }).then(nombreDeLaFoto => {
-                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                console.log("La foto fue enviada correctamente");
-                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-            })
+        // fetch("{{ route('checkin.avatar') }}", {
+        //     method: "POST",
+        //     body: datos,
+        //     headers: {
+        //         "Content-type": "application/x-www-form-urlencoded",
+        //         'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+        //     },
+        // }).then(function(response) {
+        //     // console.log(response.json());
+        //         return response.json();
+        //     }).then(nombreDeLaFoto => {
+        //         // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+        //         console.log("La foto fue enviada correctamente");
+        //         $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+        //     })
         //Reanudar reproducción
         $video.play();
   

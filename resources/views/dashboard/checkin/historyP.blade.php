@@ -19,7 +19,7 @@
     
 @section('content')
 <!------------------Datos de la cita -------------->
-<div class="container mt-25">
+    <div class="container mt-25">
         <div class="card p-4">
             <div class="card p-4">
                 <h5 class="text-center">Datos de la cita</h5>
@@ -54,18 +54,74 @@
                         <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
                 </div>
                 @endif
-                <div class="card p-4">
-                    <h5 class="text-center">Datos Personales</h5>
-                    <div class="row">
-                        <div class="col-3 ml-4 mb-4">
-                            <div class="avatar-upload">
-                                <div class="avatar-edit">
-                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                                    <label for="imageUpload"></label>
+                <h5 class="text-center">Datos Personales</h5>
+                <div class="row mt--25">
+                    <div class="col-3 ml-2 mb-4">
+                        <div class="avatar-upload">
+                            @if (!empty($rs->patient->image))
+                            <div class="avatar-preview avatar-edit">
+                                <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
+                                </div>
+                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                            </div>
+                        @else
+                        <div class="avatar-preview avatar-edit">
+                            <div id="imagePreview" style="background-image: url();">
+                            </div>
+                            <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                        </div>
+                        @endif
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h1>Selecciona un dispositivo</h1>
+                                    <div>
+                                        <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                                        <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                                        {{-- <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">  --}}
+                                        <p id="estado"></p>
+                                    </div>
+                                    <video muted="muted" id="video" class="col-12"></video>
+                                    <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                                    <div class="col-12 text-center">
+                                        <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>                   
+                        </div>
+                    </div>
 
+                    <div class="col-8 mt-4">
+                        <div class="row mt-4">
+                            <div class="form-group col-4">
+                                <label class="m-0 form-label">DNI:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <select name="type_dni" disabled class="custom-select input-group-text form-control">
+                                            <option value="{{ $rs->patient->type_dni }}">
+                                                {{ $rs->patient->type_dni }}</option>
+                                            </select>
+                                        </div>
+                                    <input type="hidden" value=" {{ $rs->patient->dni }}" name="dni">
+                                    <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
+                                </div>
+                            </div>
+                        
+                            <div class="col-4">
+                                <label class="m-0 form-label">Nombre:</label>
+                                <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
+                            </div>
+                            
+                            <div class="col-4">
+                                <label class="m-0 form-label">Apellido:</label>
+                                <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>        
@@ -81,146 +137,7 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
-<script>
-$boton.addEventListener("click", function() {
-    
-    // Codificarlo como JSON
-    //Pausar reproducción
-    $video.pause();
-        //Obtener contexto del canvas y dibujar sobre él
-        let contexto = $canvas.getContext("2d");
-        $canvas.width = $video.videoWidth;
-        $canvas.height = $video.videoHeight;
-        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
-        
-        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-        let datafoto=encodeURIComponent(foto);
-            var data1 = {
-                "tokenmodalfoto": $('#tokenfoto').val(),
-                "idpatient":$('#patient-id').val(),
-                "idimage":$('#imagen-id').val(),
-                "pic":datafoto
-                };
-        const datos=JSON.stringify(data1)
-        $estado.innerHTML = "Enviando foto. Por favor, espera...";
-        fetch("{{ route('checkin.avatar') }}", {
-            method: "POST",
-            body: datos,
-            headers: {
-                "Content-type": "application/x-www-form-urlencoded",
-                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
-            },
-        }).then(function(response) {
-            // console.log(response.json());
-                return response.json();
-            }).then(nombreDeLaFoto => {
-                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                console.log("La foto fue enviada correctamente");
-                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-            })
-        //Reanudar reproducción
-        $video.play();
-  
-        $('.avatar-preview').load(
-            $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
-             $('#imagePreview').hide(),
-             $('#imagePreview').fadeIn(650)
-         );        
-        });
-</script>
 
 
-<script>
-Dropzone.options.myDropzone = {
-    url: "{{ route('checkin.exams') }}",
-    autoProcessQueue: true,
-    uploadMultiple: true,
-    parallelUploads: 100,
-    maxFiles: 10,
-    maxFilesize:10,
-    addRemoveLinks: true,
-    accept: function(file) {
-        let fileReader = new FileReader();
-
-        fileReader.readAsDataURL(file);
-        fileReader.onloadend = function() {
-
-            let content = fileReader.result;
-            $('#files').val(content);
-            file.previewElement.classList.add("dz-success");
-        }
-        file.previewElement.classList.add("dz-complete");
-        
-    }
-}
-</script>
-<script>
-        $('#disease').multiselect({
-            enableFiltering: true,
-            enableCaseInsensitiveFiltering: true,
-            maxHeight: 200
-        });
-    </script>
-
-    <script>
-        $('#medicine').multiselect({
-            enableFiltering: true,
-            enableCaseInsensitiveFiltering: true,
-            maxHeight: 200
-        });
-    </script>
-
-    <script>
-        $('#allergy').multiselect({
-            enableFiltering: true,
-            enableCaseInsensitiveFiltering: true,
-            maxHeight: 200
-        });
-    </script>
-
-    <script>
-        $('#EditPatient').click(function() {
-            $('#weight').removeAttr('disabled');
-            $('#place').removeAttr('disabled');
-            $('#allergy').removeAttr('disabled');
-            $('#medicine').removeAttr('disabled');
-            $('#disease').removeAttr('disabled');
-            $('#address').removeAttr('disabled');
-            $('#genero1').removeAttr('disabled');
-            $('#genero2').removeAttr('disabled');
-            $('#phone').removeAttr('disabled');
-            $('#profession').removeAttr('disabled');
-            $('#occupation').removeAttr('disabled');
-            $('#another_phone').removeAttr('disabled');
-            $('#another_email').removeAttr('disabled');
-            $('#previous_surgery').removeAttr('disabled');
-        });
-    </script>
-
-    <script>
-        // para el select de las enfermedades
-        $("#disease").change(function(){
-            var disease_id = $(this).val();     // Capta el id de la enfermedad 
-            console.log('enfermedad', disease_id); 
-            //console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-        });
-    </script>
-
-    <script>
-        // para el select de las alergias
-        $("allergy").change(function(){
-            var allergy_id = $(this).val();     // Capta el id de la alergia 
-            console.log('alergia', allergy_id);
-            console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-        });
-    </script>
-
-    <script>
-        // para el select de las medicamentos
-        $("#medicine").change(function(){
-            var medicine_id = $(this).val(); // Capta el id del medicamento 
-            console.log('medicamento', medicine_id);
-            console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-        });
-    </script>
+   
 @endsection
