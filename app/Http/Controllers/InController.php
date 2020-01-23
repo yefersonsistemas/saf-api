@@ -62,9 +62,17 @@ class InController extends Controller
     //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
+        // $day = Reservation::get();
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         // dd($day);
-
+        // $patient = Patient::where('person_id',$day->patient_id)->first();
+        // dd($patient);
+        // $employe = Employe::where('person_id', $day->person_id)->first();
+        // dd($employe);
+        // $itinerary = Itinerary::where('employe_id', $employe->id)->first();
+        // dd($itinerary);
+       
+        
         return view('dashboard.checkin.day', compact('day'));
     }
 
@@ -138,9 +146,9 @@ class InController extends Controller
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
-        $rs = Reservation::with('patient.historyPatient')->where('id', $id)
+        $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-// dd($rs->patient->id);
+                            // dd($rs->patient->image);
 
         $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 // dd($cites);

@@ -623,6 +623,7 @@ class DoctorController extends Controller
         }
     }
     
+
     //============= Procedimientos realizados en el consultorio =============
     public function procedures_realizados(Request $request){
         // dd($request);
@@ -643,12 +644,29 @@ class DoctorController extends Controller
         }
 
         $data =  implode(',', $returndata2);
+       
+        if($itinerary->procedureR_id != null){
+            $b_procedure =  explode(',', $itinerary->procedureR_id);
+            $diff= array_diff_assoc($returndata2,$b_procedure);
 
-        $itinerary->procedureR_id = $data;
-        $itinerary->save();
+            if($diff != null){
+                $string = implode(',', $diff);
+                $todo = $itinerary->procedureR_id .','. $string;
+            }else{
+                $string = null; 
+                // dd($string);
+                $todo = $itinerary->procedureR_id;
+            }        
+           
+        }else{
+            $string = $data;
+            $todo = $data;
+        }
+        $itinerary->procedureR_id = $todo;
+        $itinerary->save();    
 
-        $procedures = explode(',', $itinerary->procedureR_id); // decodificando los prcocedimientos json
-        
+        $procedures = explode(',', $string); // decodificando los prcocedimientos json
+ 
         for ($i=0; $i < count($procedures) ; $i++) { 
             $procedure[] = Procedure::find($procedures[$i]);
         }
@@ -770,35 +788,33 @@ class DoctorController extends Controller
 
         $data =  implode(',', $returndata2);
 
-        if($itinerary->exam_id == null){
-            $itinerary->exam_id = $data;
-            $itinerary->save();
+        if($itinerary->exam_id != null){
+            $b_exam =  explode(',', $itinerary->exam_id);
+            $diff= array_diff_assoc($returndata2,$b_exam);
 
-            $examenes = explode(',', $itinerary->exam_id); // decodificando los prcocedimientos json
-            for ($i=0; $i < count($examenes) ; $i++) { 
-                $examen[] = Exam::find($examenes[$i]);
-            }
-        }else{
-            $examenes = explode(',', $itinerary->exam_id); // decodificando los prcocedimientos json
-         
-            $diff_E = array_diff($returndata2,$examenes);
-       
-            if(!empty($diff_E)){
-                $examenes = implode(',', $diff_E);
-                $convertir = $itinerary->exam_id.','.$examenes ;
-                for ($i=0; $i < count($diff_E) ; $i++) { 
-                    $examen[] = Exam::find($diff_E[$i]);
-                }
+            if($diff != null){
+                $string = implode(',',$diff);                
+                $todo = $itinerary->exam_id .','. $string;
             }else{
-                $convertir = $itinerary->exam_id;
-                $examen[]=null;
+                $string = null;                 
+                $todo = $itinerary->exam_id;
             }
+          
 
-            $itinerary->exam_id = $convertir;
-            $itinerary->save();
+        }else{
+            $string = $data;
+            $todo = $data;
+        }
 
-        }   
-       
+        $itinerary->exam_id = $todo;
+        $itinerary->save();    
+
+        $examenes = explode(',', $string); // decodificando los prcocedimientos json
+ 
+        for ($i=0; $i < count($examenes) ; $i++) { 
+            $examen[] = Exam::find($examenes[$i]);
+        }
+               
         return response()->json([
             'exam' => 'Examenes guardados exitosamente',201,$examen
         ]);
@@ -952,16 +968,30 @@ class DoctorController extends Controller
 
         $data =  implode(',', $returndata2);
         
+        if($itinerary->procedure_id != null){
+            $b_procedure =  explode(',', $itinerary->procedure_id);
+            $diff= array_diff_assoc($returndata2,$b_procedure);
 
-        $itinerary->procedure_id = $data;
-        $itinerary->save();
+            if($diff != null){
+                $string = implode(',',$diff);
+                $todo = $itinerary->procedure_id .','. $string;
+            }else{
+                $string = null;                 
+                $todo = $itinerary->procedure_id;
+            }          
 
-        $procedures = explode(',', $itinerary->procedure_id); // decodificando los prcocedimientos json
-        // dd($procedures);
+        }else{
+            $string = $data;
+            $todo = $data;
+        }
+        $itinerary->procedure_id = $todo;
+        $itinerary->save();    
 
-            for ($i=0; $i < count($procedures) ; $i++) { 
-                $procedure[] = Procedure::find($procedures[$i]);
-            }
+        $procedures = explode(',', $string); // decodificando los prcocedimientos json
+ 
+        for ($i=0; $i < count($procedures) ; $i++) { 
+            $procedure[] = Procedure::find($procedures[$i]);
+        }
 
         return response()->json([
             'proceduresR' => 'Procedimientos guardados exitosamente',201, $procedure

@@ -68,7 +68,7 @@
             </div>
 
               {{-- Tabs de citas --}}
-              <div class="col-lg-12 col-md-12 mt-10">
+            <div class="col-lg-12 col-md-12 mt-10">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
                         <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Hoy</a>
@@ -149,13 +149,13 @@
                                             <td style="display: inline-block">
                                                 @if ($reservation->status == 'Pendiente')
                                                 @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
-                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                     @endif
                                                     @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
-                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                     @endif
                                                     @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
-                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                     @endif
                                                     @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
                                                     <button type="button" href="" disabled class="btn btn-success">A</button>
@@ -172,7 +172,7 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
                                                 @if ($reservation->status == 'Reprogramada')
-                                                    <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
@@ -261,13 +261,13 @@
                                                 <td style="display: inline-block">
                                                     @if ($reservation->status == 'Pendiente')
                                                     @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
-                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                         @endif
                                                         @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
-                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                         @endif
                                                         @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
-                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                         @endif
                                                         @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
                                                         <button type="button" href="" disabled class="btn btn-success">A</button>
@@ -284,7 +284,7 @@
                                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                     @endif
                                                     @if ($reservation->status == 'Reprogramada')
-                                                        <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                     @endif
@@ -374,13 +374,13 @@
                                         <td style="display: inline-block">
                                             @if ($reservation->status == 'Pendiente')
                                             @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
-                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                 @endif
                                                 @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
-                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                 @endif
                                                 @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
-                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                 @endif
                                                 @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
                                                 <button type="button" href="" disabled class="btn btn-success">A</button>
@@ -397,7 +397,7 @@
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             @endif
                                             @if ($reservation->status == 'Reprogramada')
-                                                <a href="{{ route('reservation.approved', $reservation) }}" class="btn btn-success">A</a>
+                                                <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             @endif

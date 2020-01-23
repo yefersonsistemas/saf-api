@@ -425,6 +425,8 @@
         var motivo = $('#motivo').val();
         var date = $('#picker').val();
         var person = $('#newPerson').val();
+        // let image = $('photo').val();
+        // console.log('hoaws',image);
         console.log('al enviar', date);
         console.log('haha', person);
 
