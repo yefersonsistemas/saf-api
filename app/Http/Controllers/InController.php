@@ -62,17 +62,8 @@ class InController extends Controller
     //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
-        // $day = Reservation::get();
-        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
-        // dd($day);
-        // $patient = Patient::where('person_id',$day->patient_id)->first();
-        // dd($patient);
-        // $employe = Employe::where('person_id', $day->person_id)->first();
-        // dd($employe);
-        // $itinerary = Itinerary::where('employe_id', $employe->id)->first();
-        // dd($itinerary);
-       
-        
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
+        // dd($day->first()->itinerary);
         return view('dashboard.checkin.day', compact('day'));
     }
 
