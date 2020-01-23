@@ -27,6 +27,11 @@
     <div class="container">
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
             @csrf
+            @if($mostrar == 1)
+            <a class="btn btn-primary btn-scroll text-white" id="EditPatient" data-toggle="tooltip" data-placement="left" title="Editar Historial">
+                <i class="fa fa-pencil fa-lg"></i></a>
+            @endif
+            
             <div class="card p-4">
             <h5 class="text-center">Datos de la cita</h5>
                 <div class="row mt-4 mb-2">
@@ -47,11 +52,11 @@
                 </div>
             </div>    
             <div class="card p-4">
-                @if($mostrar == 1)
+                {{-- @if($mostrar == 1)
                 <div style="margin-bottom:12px">
                         <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
                 </div>
-                @endif
+                @endif --}}
                 <h5 class="text-center">Datos Personales</h5>
                 <div class="row mt--25">
                     <div class="col-3 ml-2 mb-4">
