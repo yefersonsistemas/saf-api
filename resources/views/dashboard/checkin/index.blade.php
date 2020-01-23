@@ -130,6 +130,7 @@
                                 <tbody>
 
                                       @if($reservations != '')
+                                      {{-- sajdasjdhjkasd --}}
                                     @foreach ($reservations as $reservation)
                                         <tr style="height:40px;">
                                             <td style="text-align: center; font-size:10px; height:40px;">
