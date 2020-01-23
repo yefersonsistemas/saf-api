@@ -10,14 +10,14 @@
 
 @endsection @section('content')
 
-<div class=" py-4">
+<div class="py-4">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <form id="wizard_horizontal" method="POST" action="" class="card pl-4 pr-4">
+                <form id="wizard_horizontal" method="POST" action="" class="card pl-4 pr-4 m-0">
                     @csrf
                     <h2>Buscar Paciente</h2>
-                    <section>
+                    <section class="py-1">
                         <div class="row clearfix">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -87,7 +87,7 @@
                         </div>
                     </section>
                     <h2>Elegir Especialidad</h2>
-                    <section>
+                    <section class="py-1">
                         <div class="row justify-content-between">
                             @foreach ($specialities as $speciality)
                             {{-- <div class="col-6 col-sm-4">
@@ -129,7 +129,7 @@
                         </div>
                     </section>
                     <h2>Elegir Medico</h2>
-                    <section>
+                    <section class="py-1">
                         <div class="row justify-content-between" id="medicos">
                         </div>
                         <input type="hidden" name="doctor" id="doctor">
@@ -145,7 +145,7 @@
                         </div>
                     </section>
                     <h2>Elegir Fecha</h2>
-                    <section>
+                    <section class="py-1 align-items-center">
                         <div class="col-md-8 m-auto">
                             <div class="card card-date">
                                 <div class="card-header">
@@ -157,7 +157,7 @@
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
                                         {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
-                                        <input value="" data-provide="datepicker" id="picker" name="date" class="form-control">
+                                        <input value=""  id="picker" name="date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="inline-datepicker" data-provide="datepicker"></div>
@@ -449,7 +449,7 @@
             })
             .done(function(data) {
                 console.log(data);
-                $('#picker').datepicker({
+                $('.inline-datepicker').datepicker({
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,
