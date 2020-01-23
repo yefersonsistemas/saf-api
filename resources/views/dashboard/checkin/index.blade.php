@@ -128,6 +128,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
+
                                       @if($reservations != '')
                                     @foreach ($reservations as $reservation)
                                         <tr style="height:40px;">
