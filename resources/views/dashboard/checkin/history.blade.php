@@ -34,6 +34,7 @@
             
             <div class="card p-4">
             <h5 class="text-center">Datos de la cita</h5>
+                <h6># de Historia</h6>
                 <div class="row mt-4 mb-2">
                     <div class="col-4">
                         <label class="m-0 form-label">Fecha:</label>
