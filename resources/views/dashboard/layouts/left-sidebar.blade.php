@@ -142,7 +142,6 @@
                             <li><a href="{{ route('consultorio.create') }}"><i class="icon-home"></i>Area</a></li>
                             <li><a href="{{ route('payment.create') }}"><i class=""></i>Tipos de pagos</a></li>
                         </ul>
-                        
                     </li>
                 </div>
                 @endrole

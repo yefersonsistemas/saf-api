@@ -32,15 +32,15 @@
                 <i class="fa fa-pencil fa-lg"></i></a>
             @endif
             
-            <div class="card p-4">
+            {{-- <div class="card p-4">
                 <div class="row">
                     <div class="col-9 ml-95">
                         <h5 class="text-center">Datos de la Cita</h5>
-                    </div>
+                    </div> --}}
                     {{-- <div class="col-3 ml--70">
                     <h5>Numero de Historia:{{ $rs->patient->historyPatient->history_number }}</h5>
                     </div> --}}
-                </div>
+                {{-- </div>
                 <div class="row mt-4 mb-2">
                     <div class="col-4">
                         <label class="m-0 form-label">Fecha:</label>
@@ -57,16 +57,16 @@
                         <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
                     </div>
                 </div>
-            </div>    
-            <div class="card p-1">
+            </div>     --}}
+            <div class="card p-4">
                 {{-- @if($mostrar == 1)
                 <div style="margin-bottom:12px">
                         <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
                 </div>
                 @endif --}}
-                <h5 class="text-center ml--50 mt-20">Datos Personales</h5>
-                <div class="row mt--70">
-                    <div class="col-3 ml-4 mb-4">
+                <div class="row">
+
+                    <div class="col-2 mb-4 mt--50">
                         <div class="avatar-upload">
                             @if (!empty($rs->patient->image))
                             <div class="avatar-preview avatar-edit">
@@ -106,7 +106,97 @@
                         </div>
                     </div>
 
-                    <div class="col-8 mt-90">
+                    {{-- <div class="row mt--100">
+                    <div class="col-4 ml-30">
+                        <h5 class="text-center">Datos de la Cita</h5>
+                    </div>
+                    
+                    <div class="col-4 ml-25">
+                        <h5> Historia: # {{ $rs->patient->historyPatient->history_number }}</h5>
+                    </div>
+
+                    <div class="col-4 ml-120">
+                        <label class="m-0 form-label">Fecha:</label>
+                        <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}" style="width:215px; text-align:center">
+                    </div>
+
+                    <div class="col-4 ml--115">
+                        <label class="m-0 form-label">Médico tratante:</label>
+                        <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}" style="width:215px; text-align:center">
+                    </div>
+                    
+                    <div class="col-4 ml--115">
+                        <label class="m-0 form-label">Razón:</label>
+                        <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
+                    </div>
+                    </div> --}}
+                    
+
+                </div>
+
+
+                {{-- <div class="row">
+
+                <div class="row mt-4 mb-2">
+                    <div class="col-4 ml-120">
+                        <label class="m-0 form-label">Fecha:</label>
+                        <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}" style="width:215px; text-align:center">
+                    </div>
+
+                    <div class="col-4 ml--115">
+                        <label class="m-0 form-label">Médico tratante:</label>
+                        <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}" style="width:215px; text-align:center">
+                    </div>
+                    
+                    <div class="col-4 ml--115">
+                        <label class="m-0 form-label">Razón:</label>
+                        <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
+                    </div>
+                </div>
+
+                <h5 class="text-center ml--50 mt-20">Datos Personales</h5>
+                <div class="row mt--70">
+                    <div class="col-3 ml-4 mb-4 mt--50">
+                        <div class="avatar-upload">
+                            @if (!empty($rs->patient->image))
+                            <div class="avatar-preview avatar-edit">
+                                <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
+                                </div>
+                                <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                            </div>
+                        @else
+                        <div class="avatar-preview avatar-edit">
+                            <div id="imagePreview" style="background-image: url();">
+                            </div>
+                            <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                        </div>
+                        @endif
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h1>Selecciona un dispositivo</h1>
+                                    <div>
+                                        <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                                        <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                                        <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
+                                        <p id="estado"></p>
+                                    </div>
+                                    <video muted="muted" id="video" class="col-12"></video>
+                                    <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                                    <div class="col-12 text-center">
+                                        <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-8 mt-95">
                         <div class="row mt-4">
                             <div class="form-group col-4">
                                 <label class="m-0 form-label">DNI:</label>
@@ -131,9 +221,11 @@
                                 <label class="m-0 form-label">Apellido:</label>
                                 <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
                             </div>
+                            
                         </div>
                     </div>
-                </div>
+                </div> --}}
+
             </div>
         
             {{-- <form action="{{ route('save.history') }}" method='POST' class="card p-4">
@@ -270,7 +362,7 @@
             </div>
             
             @if($mostrar == 1)
-                <div class="card p-4">
+                <div class="card p-2">
                     <label class="form-label">Exámenes</label>
                     <div class="dropzone" id="my-dropzone">
                         <div class="fallback">
