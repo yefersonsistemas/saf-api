@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/dropzone/css/dropzone.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
     @endsection
 
     @section('title','Historia Medica')
@@ -25,8 +27,20 @@
     <div class="container">
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
             @csrf
+            @if($mostrar == 1)
+            <a class="btn btn-primary btn-scroll text-white" id="EditPatient" data-toggle="tooltip" data-placement="left" title="Editar Historial">
+                <i class="fa fa-pencil fa-lg"></i></a>
+            @endif
+            
             <div class="card p-4">
-            <h5 class="text-center">Datos de la cita</h5>
+                <div class="row">
+                    <div class="col-9 ml-95">
+                        <h5 class="text-center">Datos de la Cita</h5>
+                    </div>
+                    {{-- <div class="col-3 ml--70">
+                    <h5>Numero de Historia:{{ $rs->patient->historyPatient->history_number }}</h5>
+                    </div> --}}
+                </div>
                 <div class="row mt-4 mb-2">
                     <div class="col-4">
                         <label class="m-0 form-label">Fecha:</label>
@@ -44,15 +58,15 @@
                     </div>
                 </div>
             </div>    
-            <div class="card p-4">
-                @if($mostrar == 1)
+            <div class="card p-1">
+                {{-- @if($mostrar == 1)
                 <div style="margin-bottom:12px">
                         <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
                 </div>
-                @endif
-                <h5 class="text-center">Datos Personales</h5>
-                <div class="row mt--25">
-                    <div class="col-3 ml-2 mb-4">
+                @endif --}}
+                <h5 class="text-center ml--50 mt-20">Datos Personales</h5>
+                <div class="row mt--70">
+                    <div class="col-3 ml-4 mb-4">
                         <div class="avatar-upload">
                             @if (!empty($rs->patient->image))
                             <div class="avatar-preview avatar-edit">
@@ -92,7 +106,7 @@
                         </div>
                     </div>
 
-                    <div class="col-8 mt-4">
+                    <div class="col-8 mt-90">
                         <div class="row mt-4">
                             <div class="form-group col-4">
                                 <label class="m-0 form-label">DNI:</label>
@@ -162,7 +176,7 @@
                             
                             <div class="col-2">
                                 {{-- <div class="form-group">
-                                    <label class="form-label">Peso (Lbs)</label>
+                                    <label class="form-label">Peso</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <select name="peso" disabled class="custom-select input-group-text form-control">
@@ -330,7 +344,7 @@
                 </div>
                 
                 <div class="card p-4 row d-flex d-row justify-content-between">
-                    <div class="card p-4">
+                    {{-- <div class="card p-4"> --}}
                         <h5 class="text-center">Citas anteriores</h5>
                         @forelse ($cites as $reservation)
                             <div class="card col-4 text-justify p-4 form-control mt-2">
@@ -355,11 +369,42 @@
                                 </div>
                             </div> 
                         @empty
-                            <div>
+                            {{-- <div>
                                 <label class="m-0 form-label">No posee Citas Anteriores</label>
+                            </div> --}}
+                            <div class="container-fluid">
+                                <div class="tab-content mx-auto">
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive mb-4">
+                                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align:center">Fecha</th>
+                                                        <th style="text-align:center">Doctor</th>
+                                                        <th style="text-align:center">Especialidad</th>
+                                                        <th style="text-align:center">Motivo de la Cita</th>
+                                                        <th style="text-align:center">Proxima Cita</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($cites as $cites)
+                                                    <tr class="event-click">
+                                                        <td style="text-align:center">{{$cites->date}}</td>
+                                                        <td style="text-align:center">{{$cites->employe->person->name}} {{$cites->employe->person->lastname}}</td>
+                                                        <td style="text-align:center">{{$cites->speciality->name}}</td>
+                                                        <td style="text-align:center">{{$cites->description}}</td>
+                                                            {{-- <td style="text-align:center">{{$cites->}}</td> --}}
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>                
+                                </div>
                             </div>
+                
                         @endforelse
-                    </div>
+                    {{-- </div> --}}
                 </div>
             @endif
             
@@ -375,28 +420,28 @@
         </form>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                <form role="form" enctype="multipart/form-data" action="{{route('checkin.exams')}}" method="POST">
-                        @csrf
-                <input type="hidden" value="{{$rs->patient->historyPatient->id}}" name="patient">
-                      <div class="dropzone" id="my-dropzone">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple id="files" />
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>                    
-                        <button type="submit" class="btn btn-azuloscuro">Submit</button>
-                    </form>
+                    <div class="modal-body">
+                    <form role="form" enctype="multipart/form-data" action="{{route('checkin.exams')}}" method="POST">
+                            @csrf
+                    <input type="hidden" value="{{$rs->patient->historyPatient->id}}" name="patient">
+                            <div class="dropzone" id="my-dropzone">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple id="files" />
+                        </div>
+                    </div>                    
+                            <button type="submit" class="btn btn-azuloscuro">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-          </div>
-    </div>
+        </div>
 @endsection
 
 @section('scripts')
@@ -405,6 +450,8 @@
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
 <script>
 $boton.addEventListener("click", function() {

@@ -1,6 +1,6 @@
-@extends('dashboard.layouts.app') 
-@section('cites','active') 
-@section('newCite','active') 
+@extends('dashboard.layouts.app')
+@section('cites','active')
+@section('newCite','active')
 @section('title','Crear una nueva cita')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
@@ -146,16 +146,21 @@
                     </section>
                     <h2>Elegir Fecha</h2>
                     <section>
-                        <div class="col-md-6 m-auto">
+                        <div class="col-md-8 m-auto">
                             <div class="card card-date">
                                 <div class="card-header">
                                     <h3 class="card-title">Elegir Fecha</h3>
                                 </div>
                                 <div class="form-group mx-4">
-                                    <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off">
+                                    <div class="input-group date">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                        {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
+                                        <input value="" data-provide="datepicker" id="picker" name="date" class="form-control">
                                     </div>
                                 </div>
+                                <div class="inline-datepicker" data-provide="datepicker"></div>
                             </div>
                         </div>
                     </section>
@@ -164,7 +169,7 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
 @section('scripts')
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
@@ -360,7 +365,6 @@
             }
         }
     }
-
     function schedule() {
         $("input[name='doctor']").click(function() {
             var doctor = $(this).val();
@@ -383,7 +387,7 @@
                         allowOutsideClick:false,
                     });
                     $('#doctor').val(data.employe.id);
-                    $('#picker').datepicker({
+                    $('.inline-datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
                         startDate: data.start,
@@ -396,7 +400,16 @@
                 .fail(function(data) {
                     console.log(data);
                 })
-        });
+            });
+            $('.inline-datepicker').on('changeDate', function() {
+                $('#picker').val(
+                    $('.inline-datepicker').datepicker('getFormattedDate')
+                );
+            });
+    }
+
+    function datevalue(){
+
     }
 
     function crear() {
@@ -440,14 +453,14 @@
                     todayHighlight: true,
                     language: 'es',
                     datesDisabled: data.available,
-                    daysOfWeekDisabled: '0'
+                    daysOfWeekDisabled: '0',
                 });
+
             })
             .fail(function(data) {
                 console.log(data);
             })
     }
-
 </script>
 <script>
 

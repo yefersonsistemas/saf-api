@@ -128,8 +128,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
-                                      @if($reservations != '')
+                                    @if($reservations != '')
                                     @foreach ($reservations as $reservation)
                                     @if ($reservation->status=="Suspendida")
                                         @if (!empty($reservation->cite) )
@@ -140,7 +139,7 @@
                                         @endif
                                             <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
-                                                  <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                     {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">

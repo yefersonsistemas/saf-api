@@ -331,7 +331,7 @@ class OutController extends Controller
     //============================ imprimir factura ============================ (listo)
     public function imprimir_factura(Request $request)
     {
-     dd($request->dniC);
+    //  dd($request->dniC);
         if($request->person_id != null){
             if($request->factura != null){
                 
@@ -357,7 +357,7 @@ class OutController extends Controller
                 // dd($total);
 
                 $cirugia = Itinerary::with('person','employe.person', 'employe.doctor', 'surgeryR')->where('patient_id', $todos->patient_id )->where('employe_id',$todos->employe_id)->first();
-// dd($cirugia);
+
                 if($cirugia->surgeryR != null){
                     $total_cancelar = $cirugia->surgeryR->cost + $total;
                 }else{

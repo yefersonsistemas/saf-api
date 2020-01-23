@@ -140,7 +140,7 @@ class InController extends Controller
         // dd($reservation);
         $rs = Reservation::with('patient.historyPatient')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-// dd($rs->patient->image);
+// dd($rs->patient->id);
 
         $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
 // dd($cites);
@@ -539,19 +539,19 @@ class InController extends Controller
      * en la lista de medico
      *
      */
-    public static function horario(Request $request){
-        // dd($request);
+    // public static function horario(Request $request){
+    //     // dd($request);
 
-        if(!empty($employe)){
-            return response()->json([
-                'employe' => $employe,201
-            ]);
-        }else{
-            return response()->json([
-                'employe' => 202
-            ]);
-        }
-    }
+    //     if(!empty($employe)){
+    //         return response()->json([
+    //             'employe' => $employe,201
+    //         ]);
+    //     }else{
+    //         return response()->json([
+    //             'employe' => 202
+    //         ]);
+    //     }
+    // }
 
     /**
      *
