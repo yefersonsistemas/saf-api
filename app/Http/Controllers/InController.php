@@ -537,19 +537,19 @@ class InController extends Controller
      * en la lista de medico
      * 
      */
-    public static function horario(Request $request){
-        // dd($request);
+    // public static function horario(Request $request){
+    //     // dd($request);
         
-        if(!empty($employe)){
-            return response()->json([
-                'employe' => $employe,201
-            ]);
-        }else{
-            return response()->json([
-                'employe' => 202
-            ]);
-        }
-    }
+    //     if(!empty($employe)){
+    //         return response()->json([
+    //             'employe' => $employe,201
+    //         ]);
+    //     }else{
+    //         return response()->json([
+    //             'employe' => 202
+    //         ]);
+    //     }
+    // }
 
     /**
      *  
