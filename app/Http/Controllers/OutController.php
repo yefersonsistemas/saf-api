@@ -121,8 +121,10 @@ class OutController extends Controller
      //====================== detalles de las cirugias ============================ (listo)
      public function cirugias_detalles($id, $cirugia)
      {
+        //  dd($id);
         $tipo_cirugia = $cirugia;
         $cirugias = TypeSurgery::with('classification','procedure','equipment')->where('id', $id)->first();
+        // dd($cirugias);
         return view('dashboard.checkout.cirugias-detalles', compact('cirugias', 'tipo_cirugia'));
      }
 

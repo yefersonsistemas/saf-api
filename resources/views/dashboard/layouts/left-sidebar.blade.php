@@ -94,8 +94,7 @@
                         {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                     </div>
                 @endrole
-                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}       
-                
+                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}                      
 
 
 
