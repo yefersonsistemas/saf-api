@@ -126,7 +126,7 @@ class DoctorController extends Controller
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
-   
+//    dd($itinerary->reference);
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
 
