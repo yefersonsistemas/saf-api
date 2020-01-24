@@ -372,46 +372,36 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <div class="tab-content pb-0 pt-4" id="pills-tabContent">
                                                 <!--Examen-->
-                                                <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                <div>
+                                                <div class="tab-pane fade show active container" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                                     <h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
-                                                </div>
                                                     <div class="row">
-                                                        <div class="col-12 mt-30 d-flex justify-content-start">
-                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar examen
-                                                            </button>
-                                                        </div>
-
                                                         <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
-
                                                         <div class="col-lg-12 mx-auto">
                                                             <div class="card">
-                                                                    <div class="row">
-                                                                        <div class="card-body">
-                                                                            <div class="table-responsive">
-                                                                                <table class="table table-hover table-vcenter table-striped"
-                                                                                    cellspacing="0" id="addrowExample">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Examen Seleccionado</th>
-                                                                                            {{-- <th class="text-center">Accion</th> --}}
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    {{-- <tfoot>
-                                                                                        <tr>
-                                                                                            <th>Medicamento Seleccionado</th>
-                                                                                            <th class="text-center">Accion</th>
-                                                                                        </tr>
-                                                                                    </tfoot> --}}
-                                                                                    <tbody id="examen">
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
+                                                                <div class="card-header my-1 py-3">
+                                                                    <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar examen</button>
+                                                                </div>
+                                                                <div class="card-body py-1">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-vcenter table-striped"
+                                                                            cellspacing="0" id="addrowExample">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Examen Seleccionado</th>
+                                                                                    {{-- <th class="text-center">Accion</th> --}}
+                                                                                </tr>
+                                                                            </thead>
+                                                                            {{-- <tfoot>
+                                                                                <tr>
+                                                                                    <th>Medicamento Seleccionado</th>
+                                                                                    <th class="text-center">Accion</th>
+                                                                                </tr>
+                                                                            </tfoot> --}}
+                                                                            <tbody id="examen">
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
-
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
