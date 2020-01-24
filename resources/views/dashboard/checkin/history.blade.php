@@ -28,15 +28,10 @@
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
             @csrf
             @if($mostrar == 1)
-            <a class="btn btn-primary btn-scroll text-white" id="EditPatient" data-toggle="tooltip" data-placement="left" title="Editar Historial">
+            <a class="btn btn-azuloscuro btn-scroll text-white" id="EditPatient" data-toggle="tooltip" data-placement="left" title="Editar Historial">
                 <i class="fa fa-pencil fa-lg"></i></a>
             @endif
             <div class="card p-2">
-                {{-- @if($mostrar == 1)
-                <div style="margin-bottom:12px">
-                        <a class="btn btn-primary" id="EditPatient">Editar datos <i class="fa fa-vcard"></i></a>
-                </div>
-                @endif --}}
                 <h5 class="text-center ml--20 mt-15">Datos Personales</h5>
                 <h5 class="text-center mt-15" style="margin-top:-30px; margin-left:690px">Numero de Historia: {{ $rs->patient->historyPatient->history_number }}</h5>
                 <div class="row mt--70">
@@ -363,7 +358,41 @@
                     {{-- <div class="card p-4"> --}}
                         <h5 class="text-center">Historial de Citas</h5>
                         @forelse ($cites as $reservation)
-                            <div class="card col-4 text-justify p-4 form-control mt-2">
+                        @if ()
+                        <div class="container-fluid">
+                            <div class="tab-content mx-auto">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align:center">Fecha</th>
+                                                    <th style="text-align:center">Doctor</th>
+                                                    <th style="text-align:center">Especialidad</th>
+                                                    <th style="text-align:center">Motivo de la Cita</th>
+                                                    <th style="text-align:center">Proxima Cita</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($cites as $cites)
+                                                <tr class="event-click">
+                                                    <td style="text-align:center">{{$cites->date}}</td>
+                                                    <td style="text-align:center">{{$cites->employe->person->name}} {{$cites->employe->person->lastname}}</td>
+                                                    <td style="text-align:center">{{$cites->speciality->name}}</td>
+                                                    <td style="text-align:center">{{$cites->description}}</td>
+                                                        {{-- <td style="text-align:center">{{$cites->}}</td> --}}
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>                
+                            </div>
+                        </div>
+                        @else
+                            No ha Tenid
+                        @endif
+                            {{-- <div class="card col-4 text-justify p-4 form-control mt-2">
                                 <div>
                                     <label class="m-0 form-label">Doctor:</label>
                                     <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
@@ -383,7 +412,7 @@
                                     <label class="m-0 form-label">Razon de la cita:</label>
                                     <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
                                 </div>
-                            </div> 
+                            </div>  --}}
                         @empty
                             {{-- <div>
                                 <label class="m-0 form-label">No posee Citas Anteriores</label>
@@ -426,7 +455,7 @@
             
             @if($mostrar == 1)
                 <div>
-                    <button type="submit" class="btn btn-primary" id="submit-all"> Guardar</button>
+                    <button type="submit" class="btn btn-azuloscuro" id="submit-all"> Guardar</button>
                 </div>
             @else
                 <div>
