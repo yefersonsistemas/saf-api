@@ -126,9 +126,47 @@ class DoctorController extends Controller
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
-//    dd($itinerary->reference);
+//    dd($itinerary->reference->speciality);
+
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
+
+        foreach($speciality as $item){
+            $data[] = $item->id;
+        }
+
+        if($itinerary->reference != ''){
+            //mostrar especialidad en el editar de referir medico
+            $buscar = Speciality::find($itinerary->reference->speciality->id);
+            $buscar_id[] = $buscar->id;
+            $diff_R = array_diff($buscar_id, $data);
+
+            //mostrar empleados en el editar rederir medico para que no se repitan los datos
+            $empleados = Speciality::with('employe')->where('id', $buscar->id)->first();
+            foreach($empleados->employe as $item){
+                $data2[] = $item->id;  //medicos relacionados a la especialidad
+            }
+         
+            $buscarE_id[] =  $itinerary->reference->employe->id;
+            $diff_EM = array_diff($data2, $buscarE_id); 
+
+            foreach($diff_EM as $di) { 
+                $diff2[] = Employe::with('person')->find($di); 
+            }
+
+            // dd($diff2);
+        }else{
+            $diff_R = $data;
+        }
+
+        //buscar datos de las especialidades
+        if($diff_R != [] ){
+            foreach($diff_R as $di) { 
+                $diff[] = Speciality::find($di); 
+            }
+        }else{           
+            $diff = [];
+        }
 
          //decodificando y buscando datos de procedures realizados
             if (!empty($itinerary->procedure_id)) {
@@ -187,7 +225,7 @@ class DoctorController extends Controller
                 $diff_C = $cirugias;
             }   
 
-        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2'));
     }
 
     /**

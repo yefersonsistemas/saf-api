@@ -611,9 +611,11 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     @if($itinerary->reference != '')
                                                                                         <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @endif
-                                                                                    @foreach ($speciality as $spe)
-                                                                                        <option value="{{ $spe->id }}">{{ $spe->name }}</option>
-                                                                                    @endforeach
+                                                                                    @if($diff != '')
+                                                                                        @foreach ($diff as $spe)
+                                                                                            <option value="{{ $spe->id }}">{{ $spe->name }}</option>
+                                                                                        @endforeach
+                                                                                    @endif
                                                                                 </select>
                                                                             </div>
                                                                             <div class="col-md-8">
@@ -623,13 +625,21 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
                                                                                             <span class="custom-control-label">Médico Interno</span>
                                                                                             <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                            {{-- <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option> --}}
+                                                                                                @if(!empty($itinerary->reference))
+                                                                                                    <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
+                                                                                                    @if($diff2 != [])
+                                                                                                        @foreach ($diff2 as $spe)
+                                                                                                            <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
+                                                                                                        @endforeach
+                                                                                                    @endif   
+                                                                                                @endif
                                                                                             </select>
                                                                                         </label>
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                             <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                             @if(!empty($itinerary->reference))
                                                                                                 <span class="custom-control-label">Médico Externo</span>
+
                                                                                                 <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctor Externo" >
                                                                                             @else
                                                                                                 <span class="custom-control-label">Médico Externo</span>
