@@ -139,13 +139,12 @@ class InController extends Controller
         // dd($reservation);
         $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-                            // dd($rs->patient->image);
+                            // dd($rs->patient->historyPatient);
 
         // dd($rs);
 
-        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->where('patient_id', $rs->patient_id)->get();
+        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
         // dd($cites);
-        // ->whereNotIn('id', [$rs->id])
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
@@ -177,7 +176,9 @@ class InController extends Controller
                     'occupation'    =>  'required',
                     'profession'    =>  'required',
                     'another_email' =>  'nullable',
-                    'another_phone' =>  'nullable'
+                    'another_phone' =>  'nullable',
+                    // 'social_network'=>  'nullable',
+                    // 'about_us'      =>  'nullable',
                 ]);
 
                 $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
@@ -186,6 +187,8 @@ class InController extends Controller
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $data['another_phone'],
                     'another_email' =>  $data['another_email'],
+                    // 'social_network'=>  $data['social_network'],
+                    // 'about_us'      =>  $data['about_us'],
                     'date'          =>  Carbon::now(),
                     'reason'        =>  $reservation->description,
                     'gender'        =>  $data['gender'],
@@ -208,7 +211,7 @@ class InController extends Controller
 
                 $age = Carbon::create($request->birthdate)->diffInYears(Carbon::now());
 
-              
+
                 $patient->update([
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $request->another_phone,
@@ -222,6 +225,8 @@ class InController extends Controller
                     'occupation'    =>  $request->occupation,
                     'profession'    =>  $request->profession,
                     'previous_surgery'  => $request->previous_surgery,
+                    'social_network'=>  $request->social_network,
+                    'about_us'      =>  $request->about_us,
                 ]);
             }
 
