@@ -443,9 +443,12 @@ class DoctorController extends Controller
                             $referencia->employe_id = $request->doctor;
                             $referencia->reason = $request->reason;
                             $referencia->save();
+                            return response()->json([
+                                'reference' => 'Referencia actualizada correctamente',201,$referencia,
+                            ]);
                    
                         }else{
-                            $reference = Reference::create([
+                            $referencia = Reference::create([
                                 'patient_id'    =>  $request->patient,
                                 'specialitie_id'    =>  $request->speciality,
                                 'reason'        =>  $request->reason,
@@ -453,10 +456,11 @@ class DoctorController extends Controller
                                 'doctor'        =>  $request->doctorExterno,
                                 'branch'        =>  1,
                             ]);
+                            return response()->json([
+                                'reference' => 'Referencia actualizada correctamente',201, $referencia,
+                            ]);
                     }
-                       return response()->json([
-                           'reference' => 'Referencia actualizada correctamente',201
-                       ]);
+                     
                    }else{
                        return response()->json([
                            'reference' => 'Datos incompletos',202

@@ -601,7 +601,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
-                                                            <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
+                                                            
                                                             <input type="hidden" id="patient" name="patient" value="{{ $itinerary->patient_id }}">
                                                                 <div class="card mr-0 ml-0">
                                                                     <div class="card-body m-0">
@@ -610,6 +610,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <label class="form-label" >Especialidad:</label>
                                                                                 <select class="form-control custom-select" name="speciality" id="speciality">
                                                                                     @if($itinerary->reference != '')
+                                                                                    <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
                                                                                         <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @endif
                                                                                     @if($diff != [])
@@ -1163,8 +1164,8 @@ button[data-original-title="Help"]{ display: none; }
             }
         })
         .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
+            console.log('encontrado',data[1])         //recibe lo que retorna el metodo en la ruta definida
+            $('#reference').val(data[1].id);
             if(data[0] == 201){                  //si trae valores
                 Swal.fire({
                     title: data.reference,
