@@ -76,6 +76,11 @@ class Reservation extends Model
         return $this->hasmany('App\InputOutput','person_id');
     }
 
+    public function itinerary()
+    {
+        return $this->belongsTo('App\Itinerary', 'reservation_id');
+    }
+
     public function diagnostic($id)
     {
         $reservations = $this->where('patient_id', $id)->get();

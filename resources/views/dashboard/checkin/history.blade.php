@@ -272,7 +272,7 @@
                             <div class="col-5" style="margin-left:5px">
                                 <div class="form-group">
                                     <label class="form-label text-center">Como nos Conocio</label>
-                                    <input class="form-control" name="about_us" id="about_us" cols="60" rows="20" disabled value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->about_us: '' }}"></textarea
+                                    <input class="form-control" name="about_us" id="about_us" cols="60" rows="20" disabled value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->about_us: '' }}">
                                 </div>
                             </div>
                         </div>

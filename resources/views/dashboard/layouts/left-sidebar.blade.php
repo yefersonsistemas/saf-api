@@ -66,8 +66,8 @@
                                     <li class="@yield('medicos')">
                                         <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
                                     </li>
-                                    <li class="@yield('asignarC')">
-                                        <a href="{{ route('checkin.create') }}">Asignar Consultorio</a>
+                                    <li>
+                                        <a href="{{ route('checkin.create') }}">Ver onsultorios</a>
                                     </li>
                             </li>
     

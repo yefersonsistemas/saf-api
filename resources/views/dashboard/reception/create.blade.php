@@ -34,12 +34,12 @@
                                                     </div>
                                                     <div class="input-group-prepend">
                                                         <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
-                                                            <option value="0">...</option>
+                                                            <option value="">...</option>
                                                             <option value="N">N</option>
                                                             <option value="E">E</option>
                                                         </select>
                                                     </div>
-                                                    <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
+                                                    <input type="text" class="form-control mr-2" type="text" id="dni" maxlength="9" placeholder="Cédula" value="">
                                                     <input type="hidden" name="newPerson" id="newPerson">
                                                     <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
                                                             class="fa fa-search"></i></button>
@@ -183,7 +183,8 @@
     function stopDefAction(evt) {
         evt.preventDefault();
     }
-    var form = $('#wizard_horizontal').show();
+    var form = $('#wizard_horizontal').show()
+    ;
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
@@ -235,7 +236,17 @@
         $("#search").click(function() {
             var type_dni = $("#type_dni").val();
             var dni = $("#dni").val();
+
+            if(type_dni == '' || dni ==  '' || dni.length < 7){
+                Swal.fire({
+                    title: 'Datos incompletos.!',
+                    text: 'Por favor introduzca el documento de identidad completo.',
+                    allowOutsideClick:false,
+                });
+            }else{
+
             ajax(type_dni, dni);
+            }
         });
     }
 
@@ -253,9 +264,9 @@
                 console.log(data);
                 if (data[0] == 202) {
                     Swal.fire({
-                        title: 'Error!',
-                        text: 'Paciente no encontrado',
-                        type: 'error',
+                        title: 'Paciente no encontrado.!',
+                        text: 'Por favor realice el registro.',
+                        // type: 'error',
                         allowOutsideClick:false,
                     })
                     enabled();
