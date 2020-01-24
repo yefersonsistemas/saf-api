@@ -125,6 +125,22 @@ class InController extends Controller
         return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
+    /*
+    * muestra los consultorios
+    */
+    public function consultorio()
+    {
+        $type = TypeArea::where('name','Consultorio')->first(); // Trae los consultorio
+        // dd($type);
+        $areas = Area::with('image')->where('type_area_id',$type->id)->get(); // Trae la informacion de Consultorios
+        // dd($areas);
+
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance','areaassigment')->get();
+            // dd($employes);
+        
+        return view('dashboard.checkin.show-area', compact('areas'));
+    }
+
     /**
      *
      * busca la historia desde la lista de check-in

@@ -1307,10 +1307,10 @@ class UsersTableSeeder extends Seeder
                     'type_area_id' =>  $tipo->id,
                 ]);
         
-                factory(Area::class)->create()->each(function($area)
-                {
-                    $this->to('area', $area->id, 'App\Area');
-                });
+                // factory(Area::class)->create()->each(function($area)
+                // {
+                //     $this->to('area', $area->id, 'App\Area');
+                // });
 
             /**
              * Personas que seran los pacientes
