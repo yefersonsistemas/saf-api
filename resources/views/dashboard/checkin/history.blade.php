@@ -137,7 +137,7 @@
                                     <label class="form-label text-center">Fecha de Nacimiento</label>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input disabled name="birthdate" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->birthdate : '' }}" data-provide="datepicker" data-date-autoclose="true" class="form-control">
+                                            <input disabled name="birthdate" id="birthdate" value="{{ ($rs->patient->historyPatient->birthdate != null) ? $rs->patient->historyPatient->birthdate : '' }}" data-provide="datepicker" data-date-autoclose="true" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label text-center">Lugar de Nacimiento</label>
-                                    <input type="text" id="place" name="place" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->place : '' }}">
+                                    <input type="text" id="place" name="place" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ ($rs->patient->historyPatient->place != null) ? $rs->patient->historyPatient->place : '' }}">
                                 </div>
                             </div>
                             
@@ -176,14 +176,14 @@
                                 </div> --}}
                                 <div class="form-group">
                                     <label class="form-label text-center">Peso (Lbs)</label>
-                                    <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->weight : '' }}">
+                                    <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ ($rs->patient->historyPatient->weight != null) ? $rs->patient->historyPatient->weight : '' }}">
                                 </div>
                             </div>
                             
                             <div class="col-8">
                                 <div class="form-group">
                                     <label class="form-label text-center">Direccion</label>
-                                    <input type="text" disabled name="address" id="address" class="form-control" placeholder="Direccion" value="{{ $rs->patient->address }}">
+                                    <input type="text" disabled name="address" id="address" class="form-control" placeholder="Direccion" value="{{ ($rs->patient->address != null) ? $rs->patient->address: '' }}">
                                 </div>
                             </div>
                             
@@ -230,26 +230,26 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label text-center">Teléfono adicional</label>
-                                    <input type="text" disabled id="another_phone" name="another_phone" class="form-control" placeholder="Teléfono adicional" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->another_phone : '' }}">
+                                    <input type="text" disabled id="another_phone" name="another_phone" class="form-control" placeholder="Teléfono adicional" value="{{ ($rs->patient->historyPatient->another_phone != null) ? $rs->patient->historyPatient->another_phone : '' }}">
                                 </div>
                             </div>
                             
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label text-center">Email adicional</label>
-                                    <input type="email" disabled id="another_email" name="another_email" class="form-control" placeholder="Email" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->another_email : '' }}">
+                                    <input type="email" disabled id="another_email" name="another_email" class="form-control" placeholder="Email" value="{{ ($rs->patient->historyPatient->another_email != null) ? $rs->patient->historyPatient->another_email : '' }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label text-center">Profesión</label>
-                                    <input type="text" disabled id="profession" name="profession" class="form-control" placeholder="Profesión" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->profession : '' }}">
+                                    <input type="text" disabled id="profession" name="profession" class="form-control" placeholder="Profesión" value="{{ ($rs->patient->historyPatient->profession != null) ? $rs->patient->historyPatient->profession : '' }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label text-center">Ocupación</label>
-                                    <input type="text" disabled id="occupation" name="occupation" class="form-control" placeholder="Ocupación" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->occupation : '' }}">
+                                    <input type="text" disabled id="occupation" name="occupation" class="form-control" placeholder="Ocupación" value="{{ ($rs->patient->historyPatient->occupation != null) ? $rs->patient->historyPatient->occupation : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -265,14 +265,14 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text form-control"><i class="fa fa-instagram" style="color:#00506b;font-size:20px"></i></span>
                                     </div>
-                                <input type="text" class="form-control" placeholder="Instagram" id="social_network" name="social_network" disabled value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->social_network: '' }}">
+                                <input type="text" class="form-control" placeholder="Instagram" id="social_network" name="social_network" disabled value="{{ ($rs->patient->historyPatient->social_network != null) ? $rs->patient->historyPatient->social_network: '' }}">
                                 </div>
                             </div>
 
                             <div class="col-5" style="margin-left:5px">
                                 <div class="form-group">
                                     <label class="form-label text-center">Como nos Conocio</label>
-                                    <input class="form-control" name="about_us" id="about_us" cols="60" rows="20" disabled value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->about_us: '' }}">
+                                    <input class="form-control" name="about_us" id="about_us" cols="60" rows="20" disabled value="{{ ($rs->patient->historyPatient->about_us != null) ? $rs->patient->historyPatient->about_us: '' }}">
                                 </div>
                             </div>
                         </div>
@@ -297,50 +297,57 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-3" id="framework_form">
                             <label class="form-label text-center">Enfermedades</label>
-                            <div class="form-group multiselect_div">
-                                <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
-                                    @foreach ($disease as $enfermedades)
-                                        <option value= {{ $enfermedades->id }}
-                                            @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
-                                                selected
-                                                @endif
-                                            @endif>
-                                            {{ $enfermedades->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="card p-3" style="border-color:#00506b">
+                                <div class="form-group multiselect_div">
+                                    <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
+                                        @foreach ($disease as $enfermedades)
+                                            <option value= {{ $enfermedades->id }}
+                                                @if ($rs->patient->historyPatient != null)
+                                                @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
+                                                    selected
+                                                    @endif
+                                                @endif>
+                                                {{ $enfermedades->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
+                            
                         </div>
                         
                         <div class="col-lg-6 col-md-3" id="framework_form2">
                             <label class="form-label text-center">Medicamentos</label>
-                            <div class="form-group multiselect_div">
-                                <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
-                                    @foreach ($medicine as $medicamentos)
-                                    <option value= {{ $medicamentos->id }}
-                                    @if ($rs->patient->historyPatient != null)
-                                        @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                        selected
-                                        @endif
-                                        @endif>{{ $medicamentos->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="card p-3" style="border-color:#00506b">
+                                <div class="form-group multiselect_div">
+                                    <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
+                                        @foreach ($medicine as $medicamentos)
+                                        <option value= {{ $medicamentos->id }}
+                                        @if ($rs->patient->historyPatient != null)
+                                            @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                            selected
+                                            @endif
+                                            @endif>{{ $medicamentos->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-md-3" id="framework_form3">
                             <label class="form-label text-center">Alergias</label>
-                            <div class="form-group multiselect_div">
-                                <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
-                                    @foreach ($allergy as $alergias)
-                                    <option value= {{ $alergias->id }}
-                                    @if ($rs->patient->historyPatient != null)
-                                        @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                        selected
-                                        @endif
-                                        @endif>{{ $alergias->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="card p-3" style="border-color:#00506b">
+                                <div class="form-group multiselect_div">
+                                    <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
+                                        @foreach ($allergy as $alergias)
+                                        <option value= {{ $alergias->id }}
+                                        @if ($rs->patient->historyPatient != null)
+                                            @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
+                                            selected
+                                            @endif
+                                            @endif>{{ $alergias->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         
@@ -609,6 +616,7 @@ Dropzone.options.myDropzone = {
             $('#EditPatient').click(function() {
                 $('#weight').removeAttr('disabled');
                 $('#place').removeAttr('disabled');
+                $('#birthdate').removeAttr('disabled');
                 $('#allergy').removeAttr('disabled');
                 $('#medicine').removeAttr('disabled');
                 $('#disease').removeAttr('disabled');

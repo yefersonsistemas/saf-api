@@ -220,7 +220,7 @@ class InController extends Controller
                     'gender'        =>  $request->gender,
                     'age'           =>  $age,
                     'place'         =>  $request->place,
-                    'birthdate'     =>  Carbon::create($request->birthdate),
+                    'birthdate'     =>  $request->birthdate,
                     'weight'        =>  $request->weight,
                     'occupation'    =>  $request->occupation,
                     'profession'    =>  $request->profession,
