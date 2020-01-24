@@ -370,7 +370,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="tab-content pb-0 pt-3" id="pills-tabContent">
+                                            <div class="tab-content pb-0 pt-4" id="pills-tabContent">
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                                 <div>
