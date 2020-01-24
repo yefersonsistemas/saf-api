@@ -302,45 +302,34 @@ button[data-original-title="Help"]{ display: none; }
                                          <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
                                          <h2>Procedimientos Realizados</h2>
                                          <section class="ml-4 pb-0 pt-4">
-                                            <div class="row">
-                                                <div class="col-12 mt-30">
-                                                    <h5>Procedimientos Realizados al Paciente:</h5>
-                                                </div>
-                                                <div class="col-12 mt-10">
-                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
-                                                        <i class="fa fa-plus"></i>
-                                                        Agregar Procedimiento
-                                                    </button>
-                                                </div>
-                                                <h6 class="text-center col-12 mt-2 p-2  " style="font-weight:bold">Procedimientos Realizados</h6>
-                                                <div class="col-lg-12 mx-auto">
-                                                    <div class="card">
-                                                        <div class="row">
-                                                            <div class="card-body">
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-hover table-vcenter table-striped"
-                                                                        cellspacing="0" id="addrowExample">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Procedimiento Seleccionado</th>
-                                                                                {{-- <th class="text-center">Accion</th> --}}
-                                                                            </tr>
-                                                                        </thead>
-                                                                        {{-- <tfoot>
-                                                                            <tr>
-                                                                                <th>Procedimiento Seleccionado</th>
-                                                                                <th class="text-center">Accion</th>
-                                                                            </tr>
-                                                                        </tfoot> --}}
-                                                                        <tbody id="procesc">
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
+                                            <h5>Procedimientos Realizados al Paciente:</h5>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar Procedimiento</button>
+                                                        <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                cellspacing="0" id="addrowExample">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Procedimiento Seleccionado</th>
+                                                                        {{-- <th class="text-center">Accion</th> --}}
+                                                                    </tr>
+                                                                </thead>
+                                                                {{-- <tfoot>
+                                                                    <tr>
+                                                                        <th>Procedimiento Seleccionado</th>
+                                                                        <th class="text-center">Accion</th>
+                                                                    </tr>
+                                                                </tfoot> --}}
+                                                                <tbody id="procesc">
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                         </section>
 
                                         <h2>Plan</h2>
