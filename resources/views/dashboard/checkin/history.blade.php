@@ -24,7 +24,7 @@
         <div class="card p-4">
         </div>
     </div> --}}
-    <div class="container">
+    <div class="container mt-20">
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
             @csrf
             @if($mostrar == 1)
@@ -33,7 +33,7 @@
             @endif
             <div class="card p-2">
                 <h5 class="text-center ml--20 mt-15">Datos Personales</h5>
-                <h5 class="text-center mt-15" style="margin-top:-30px; margin-left:690px">Numero de Historia: {{ $rs->patient->historyPatient->history_number }}</h5>
+                <h5 class="text-center mt-15 history" style="margin-top:-30px; margin-left:690px">Historia: {{ $rs->patient->historyPatient->history_number }}</h5>
                 <div class="row mt--70">
                     <div class="col-3 ml-2 mb-4 mt-25">
                         <div class="avatar-upload">
@@ -355,106 +355,48 @@
                 </div>
                 
                 <div class="card p-4 row d-flex d-row justify-content-between">
-                    {{-- <div class="card p-4"> --}}
-                        <h5 class="text-center">Historial de Citas</h5>
-                        @forelse ($cites as $reservation)
-                        @if ()
-                        <div class="container-fluid">
-                            <div class="tab-content mx-auto">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive mb-4">
-                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-align:center">Fecha</th>
-                                                    <th style="text-align:center">Doctor</th>
-                                                    <th style="text-align:center">Especialidad</th>
-                                                    <th style="text-align:center">Motivo de la Cita</th>
-                                                    <th style="text-align:center">Proxima Cita</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($cites as $cites)
+                    <h5 class="text-center">Historial de Citas</h5>
+                    <div class="container-fluid">
+                        <div class="tab-content mx-auto">
+                            <div class="col-lg-12">
+                                <div class="table-responsive mb-4">
+                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center">Fecha</th>
+                                                <th style="text-align:center">Doctor</th>
+                                                <th style="text-align:center">Especialidad</th>
+                                                <th style="text-align:center">Motivo de la Cita</th>
+                                                <th style="text-align:center">Proxima Cita</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($cites as $reservation)
+                                                @if ($reservation->date != Carbon::now())
+                                            <tr class="event-click">
+                                                <td style="text-align:center">{{$reservation->date}}</td>
+                                                <td style="text-align:center">{{$reservation->employe->person->name}} {{$reservation->employe->person->lastname}}</td>
+                                                <td style="text-align:center">{{$reservation->speciality->name}}</td>
+                                                <td style="text-align:center">{{$reservation->description}}</td>
+                                                    {{-- <td style="text-align:center">{{$cites->}}</td> --}}
+                                            </tr>
+                                                @else
                                                 <tr class="event-click">
-                                                    <td style="text-align:center">{{$cites->date}}</td>
-                                                    <td style="text-align:center">{{$cites->employe->person->name}} {{$cites->employe->person->lastname}}</td>
-                                                    <td style="text-align:center">{{$cites->speciality->name}}</td>
-                                                    <td style="text-align:center">{{$cites->description}}</td>
-                                                        {{-- <td style="text-align:center">{{$cites->}}</td> --}}
+                                                    
                                                 </tr>
+                                                @endif
                                                 @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>                
-                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>                
                         </div>
-                        @else
-                            No ha Tenid
-                        @endif
-                            {{-- <div class="card col-4 text-justify p-4 form-control mt-2">
-                                <div>
-                                    <label class="m-0 form-label">Doctor:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
-                                </div>
-                                
-                                <div>
-                                    <label class="m-0 form-label">Especialidad:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->speciality->name }}">
-                                </div>
-                                
-                                <div>
-                                    <label class="m-0 form-label">Fecha de la reservacion:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
-                                </div>
-
-                                <div>
-                                    <label class="m-0 form-label">Razon de la cita:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
-                                </div>
-                            </div>  --}}
-                        @empty
-                            {{-- <div>
-                                <label class="m-0 form-label">No posee Citas Anteriores</label>
-                            </div> --}}
-                            <div class="container-fluid">
-                                <div class="tab-content mx-auto">
-                                    <div class="col-lg-12">
-                                        <div class="table-responsive mb-4">
-                                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="text-align:center">Fecha</th>
-                                                        <th style="text-align:center">Doctor</th>
-                                                        <th style="text-align:center">Especialidad</th>
-                                                        <th style="text-align:center">Motivo de la Cita</th>
-                                                        <th style="text-align:center">Proxima Cita</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($cites as $cites)
-                                                    <tr class="event-click">
-                                                        <td style="text-align:center">{{$cites->date}}</td>
-                                                        <td style="text-align:center">{{$cites->employe->person->name}} {{$cites->employe->person->lastname}}</td>
-                                                        <td style="text-align:center">{{$cites->speciality->name}}</td>
-                                                        <td style="text-align:center">{{$cites->description}}</td>
-                                                            {{-- <td style="text-align:center">{{$cites->}}</td> --}}
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>                
-                                </div>
-                            </div>
-                
-                        @endforelse
-                    {{-- </div> --}}
+                    </div>
                 </div>
             @endif
             
             @if($mostrar == 1)
-                <div>
+                <div class="">
                     <button type="submit" class="btn btn-azuloscuro" id="submit-all"> Guardar</button>
                 </div>
             @else

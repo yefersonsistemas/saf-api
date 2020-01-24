@@ -143,8 +143,9 @@ class InController extends Controller
 
         // dd($rs);
 
-        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
-        dd($cites);
+        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->where('patient_id', $rs->patient_id)->get();
+        // dd($cites);
+        // ->whereNotIn('id', [$rs->id])
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
