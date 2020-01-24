@@ -91,8 +91,31 @@ class DoctorController extends Controller
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        // dd($history);
+        // dd($history->historyPatient->disease);
+        $enfermedades = Disease::all();
         
+
+        // dd($enfermedades);
+        if($history->historyPatient->disease != null){
+            foreach($enfermedades as $item){
+                $array1[] = $item->id; 
+            }
+            // dd($array1);
+            foreach($history->historyPatient->disease as $item){
+                $array2[] = $item->id; 
+            }
+            // dd($array2);
+
+            $diff = array_diff($array1, $array2);
+            // dd($diff);
+            foreach($diff as $item){
+                $enfermedad[] = Disease::find($item); 
+            }
+        }else{
+            $enfermedad = Disease::all();
+        }
+        
+        // dd($enfermedad);
         $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first(); 
      
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
@@ -102,7 +125,7 @@ class DoctorController extends Controller
 
         $surgerys = Typesurgery::all();
 
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad'));
     }
 
     /**
@@ -768,6 +791,58 @@ class DoctorController extends Controller
             'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
             ]);
         }
+
+    //      //============= Procedimientos realizados en el consultorio =============
+    // public function agregar_enfermedad(Request $request){
+    //     // dd($request);
+    //     $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+    
+    //     $returndata2 = array();
+    //     $strArray = explode('&', $request->data);
+
+    //     foreach($strArray as $item) {
+    //         $array = explode("=", $item);
+    //         $returndata[] = $array;
+    //     }
+
+    //     for($i=0; $i < count($returndata); $i++){
+    //         for($y=1; $y <= 1; $y++){
+    //         $returndata2[$i] = $returndata[$i][$y];
+    //         }
+    //     }
+
+    //     $data =  implode(',', $returndata2);
+       
+    //     if($itinerary->procedureR_id != null){
+    //         $b_procedure =  explode(',', $itinerary->procedureR_id);
+    //         $diff= array_diff_assoc($returndata2,$b_procedure);
+
+    //         if($diff != null){
+    //             $string = implode(',', $diff);
+    //             $todo = $itinerary->procedureR_id .','. $string;
+    //         }else{
+    //             $string = null; 
+    //             // dd($string);
+    //             $todo = $itinerary->procedureR_id;
+    //         }        
+           
+    //     }else{
+    //         $string = $data;
+    //         $todo = $data;
+    //     }
+    //     $itinerary->procedureR_id = $todo;
+    //     $itinerary->save();    
+
+    //     $procedures = explode(',', $string); // decodificando los prcocedimientos json
+ 
+    //     for ($i=0; $i < count($procedures) ; $i++) { 
+    //         $procedure[] = Procedure::find($procedures[$i]);
+    //     }
+
+    //     return response()->json([
+    //         'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
+    //         ]);
+    //     }
 
         //================= actualizar procedimientos realizados ==============
         public function proceduresR_update(Request $request){

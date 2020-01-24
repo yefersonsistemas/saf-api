@@ -239,12 +239,16 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                         <h5 class="card-title text-white">Enfermedades</h5>
                                                     </div>
-                                                    <div  class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+                                                    <div  class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
                                                         @foreach ( $history->historyPatient->disease as $disease )
                                                             <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
                                                         @endforeach
+                                                    <div class="col-lg-12 d-flex justify-content-end"><button class="btn btn-info" data-toggle="modal" data-target="#enfermedad"> agregar </button></div>
                                                     </div>
                                                 </div>
+                                                
+                                            
+
 
                                                 <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -614,6 +618,39 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostar enfermedades-->
+    <div class="modal fade" id="enfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enfermedades</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="enfermedad">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @foreach ($enfermedad as $item)
+                                <div class="row">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
+                                        <span class="custom-control-label">{{ $item->name }} </span>
+                                    </label>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button  class="btn btn-success" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1040,6 +1077,54 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
+
+
+    //guardar enfermedades
+    $("#guardarEnfermedades").click(function() {
+            var reservacion = $("#reservacion").val();
+            var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
+
+            ajax_PO(enfermedad,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+        });                                                               //fin de la funcion clikea
+
+        function ajax_PO(enfermedad,reservacion) {
+        $.ajax({
+            url: "{{ route('doctor.agregar_enfermedad') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",
+                data:enfermedad,
+                id:reservacion
+            }
+        })
+        .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.enfermedad,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarProceduresC(data[1]);
+            }
+
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.procedureR2,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+
 
 
     //captar datos de los procedimientos en la consulta

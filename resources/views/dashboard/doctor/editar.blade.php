@@ -608,12 +608,16 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
-                                                                                <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                    @if($itinerary->reference != '')
+                                                                                @if($itinerary->reference != '')       
                                                                                     <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
-                                                                                        <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
+                                                                                @else
+                                                                                <input type="hidden" id="reference" name="reference" value="">
+                                                                                @endif
+                                                                                <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                                    @if($itinerary->reference != '')                                                                                   
+                                                                                         <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @endif
-                                                                                    @if($diff != [])
+                                                                                     @if($diff != [])  
                                                                                         @foreach ($diff as $spe)
                                                                                             <option value="{{ $spe->id }}">{{ $spe->name }}</option>
                                                                                         @endforeach
