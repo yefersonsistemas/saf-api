@@ -159,7 +159,7 @@
     </div>
 </div>
 
-@endsection 
+@endsection
 @section('scripts')
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>

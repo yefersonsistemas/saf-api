@@ -130,7 +130,7 @@ class UsersTableSeeder extends Seeder
             'classification_surgery_id' => $clasificacion->id,
             'branch_id' => '1',
         ]);
-        // $cirugia->employe()->attach($employe->id);
+        $cirugia->employe_surgery()->attach($employe->id);
 
         //creando especialidad
         $especialidad = factory(App\Speciality::class)->create([
@@ -172,7 +172,7 @@ class UsersTableSeeder extends Seeder
         $employe->procedures()->attach($procedimiento);
 
           //creando procedimiento
-          $procedimiento2 = factory(App\Procedure::class)->create([
+        $procedimiento2 = factory(App\Procedure::class)->create([
             'name' => 'Maxiloetmoidectomia bilateral',
             'description' => 'intervención quirúrgica avanzada de abordaje 
                             endoscópico para eliminar bloqueos y tratar infecciones, tumores 
@@ -191,7 +191,7 @@ class UsersTableSeeder extends Seeder
         $employe->procedures()->attach($procedimiento2);
 
           //creando procedimiento
-          $procedimiento3 = factory(App\Procedure::class)->create([
+        $procedimiento3 = factory(App\Procedure::class)->create([
             'name' => 'Uncinectomia bilateral',
             'description' => 'Extracción de la porción media de unciforme',
 
