@@ -123,7 +123,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <input type="hidden" name="reservacion_id" value="{{ $history->id }}">
 
                                         <h2>Información Personal</h2>
-                                        <section class="card mr-4 ml-4">
+                                        <section class="card mr-4 ml-4 py-0">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-6">
                                                     <div class="form-group">
@@ -196,7 +196,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Motivo</h2>
-                                        <section class="card mr-4 ml-4">
+                                        <section class="card mr-4 ml-4 py-0">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -228,12 +228,12 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Enfermedad Actual</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 py-0">
                                             <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 py-0">
                                             <div id="accordion">
                                                 <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -268,12 +268,12 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Examen Fisico</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 py-0">
                                             <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Estudios complementarios</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 py-0">
                                             <div class="row">
                                                 @foreach ( $cite->person->reservationPatient as $cites )
                                                     <div class="col-md-4">
@@ -290,7 +290,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Diagnostico</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 py-0">
                                             <div class="row">
                                                 <div class="col-12">
 
@@ -301,7 +301,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                          <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
                                          <h2>Procedimientos Realizados</h2>
-                                         <section class="ml-4">
+                                         <section class="ml-4 py-0">
                                             <div class="row">
                                                 <div class="col-12 mt-30">
                                                     <h5>Procedimientos Realizados al Paciente:</h5>
@@ -344,7 +344,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Plan</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 py-0">
                                             <div class="plan-steps">
                                                 <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
                                                     <li class="nav-item">

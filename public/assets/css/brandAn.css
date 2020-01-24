@@ -922,6 +922,14 @@
         .wizard>.content {
             background: #fff!important;
         }
+/* ----step doctor----- */
+.wizard.vertical > .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* -----step doctor plan---- */
         .tab-content {
     position: relative;
     display: inline-block;
@@ -989,12 +997,16 @@
     /* border-bottom: 0 none; */
     color: #00506b!important;
 }
-        .table.table_custom tr {
+/* -----fin de step doctor plan---- */
+/* -----fin de sted doctor----- */
+
+
+        /* .table.table_custom tr {
     display: flex;
     margin: 5px;
     justify-content: space-between;
     align-items: center;
-}
+} */
 
         .table.table_custom tr td {}
 
