@@ -53,8 +53,8 @@
                 <h5 class="text-center">Datos Personales</h5>
                 <div class="row mt--25">
                     <!--mostrar imagen-->
-                    {{-- <div class="col-3 ml-2 mb-4">
-                        <div class="avatar-upload">
+                    <div class="col-3 ml-2 mb-4">
+                        {{-- <div class="avatar-upload">
                             @if ($rs->patient->image == null)
                                 <div class="avatar-preview avatar-edit">                                   
                                     <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
@@ -71,8 +71,8 @@
                                 </div>
                             @endif
                     
-                        </div>
-                    </div> --}}
+                        </div> --}}
+                    </div>
                     <!-- Modal -->
                     {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -160,7 +160,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
                                     @if($rs->patient->historyPatient != null)
-                                    {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
+                                    <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}">
                                     {{-- value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->age : '' }}" --}}
                                     @else
                                     {{-- <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}"> --}}
@@ -414,7 +414,7 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
-{{-- <script>
+<script>
 $boton.addEventListener("click", function() {
     
     // Codificarlo como JSON
@@ -462,9 +462,9 @@ $boton.addEventListener("click", function() {
              $('#imagePreview').fadeIn(650)
          );        
         });
-</script> --}}
+</script>
 
-{{-- 
+
 <script>
 Dropzone.options.myDropzone = {
     url: "{{ route('checkin.exams') }}",
@@ -531,7 +531,7 @@ Dropzone.options.myDropzone = {
                 
 //             }
 //         };
-</script> --}}
+</script>
 <script>
         $('#disease').multiselect({
             enableFiltering: true,
@@ -602,4 +602,3 @@ Dropzone.options.myDropzone = {
         });
     </script>
 @endsection
-

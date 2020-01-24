@@ -62,6 +62,7 @@ class InController extends Controller
     //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
+        // $day = Reservation::get();
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         return view('dashboard.checkin.day', compact('day'));
     }
@@ -129,19 +130,21 @@ class InController extends Controller
      * busca la historia desde la lista de check-in
      * 
      */
-    public function search_history(Request $request, $id, $id2){ 
+    public function search_history($id, $id2){ 
         $mostrar = $id2;
         // dd($mostrar);
-        // dd($id);
+      
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
-        $rs = Reservation::with('patient.historyPatient')->where('id', $id)
+        $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-// dd($rs->patient->id);
+                            // dd($rs->patient->image);
 
-        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
-// dd($cites);
+        // dd($rs);
+
+        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
+        dd($cites);
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
@@ -539,7 +542,7 @@ class InController extends Controller
      */
     // public static function horario(Request $request){
     //     // dd($request);
-        
+
     //     if(!empty($employe)){
     //         return response()->json([
     //             'employe' => $employe,201

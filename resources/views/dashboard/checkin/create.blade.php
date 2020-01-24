@@ -1,6 +1,7 @@
 
 @extends('dashboard.layouts.app')
-
+@section('asignarC','active')
+@section('medicoss','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
@@ -15,11 +16,11 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 {{-- <div class="card"> --}}
                     <div class="card-body">
-                        <form id="wizard_horizontal" method="POST" action="{{ route('checkin.assigment_area') }}" class="card assigmt pr-4 pl-4 mt-20">
-                            @csrf 
+                        <form id="wizard_horizontal" method="POST" action="{{ route('checkin.assigment_area') }}" class="card assigmt pr-4 pl-4 mt-20 asignar-consultorio">
+                            @csrf
                             <h2>Seleccionar consultorio</h2>
-                            <section>
-                                <div class="card-body">
+                            <section class="py-1">
+                                <div class="card-body py-1">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($areas as $area)
                                                 @if ($area->typearea->name == 'Consultorio' && $area->status == null)
@@ -48,7 +49,7 @@
                                                         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                             <label class="imagecheck m-0 disabled">
                                                             <div class="card assigment">
-                                                                    <input name="area_id" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled> 
+                                                                    <input name="area_id" type="radio" value=" {{ $area->id}}" class="imagecheck-input"  disabled>
                                                                     {{-- @if (!empty($area->image->path))
                                                                     <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                                         <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image">
@@ -75,8 +76,8 @@
                                 </div>
                             </section>
                             <h2>Seleccionar médico</h2>
-                            <section>
-                                <div class="card-body">
+                            <section class="py-1">
+                                <div class="card-body py-1">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
                                         @foreach ($em as $employe)
                                             @if ($employe->areaassigment != null)
@@ -177,8 +178,8 @@
             // Submit form input
 
             form.submit();
-            }   
-            
+            }
+
         });
 
         function setButtonWavesEffect(event) {
@@ -208,6 +209,6 @@
 
 
     </script>
-    
+
 @endsection
 
