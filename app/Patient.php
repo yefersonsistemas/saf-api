@@ -10,6 +10,7 @@ class Patient extends Model
 
     protected $fillable = [
         'date', 'history_number', 'reason', 'person_id', 'gender', 'place', 'birthdate', 'age','weight',  'occupation', 'profession', 'another_phone', 'previous_surgery', 'employe_id', 'branch_id', 'another_email',
+        'social_network', 'about_us',
     ];
 
     public function file()

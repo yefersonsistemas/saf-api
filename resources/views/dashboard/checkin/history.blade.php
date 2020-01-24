@@ -24,7 +24,7 @@
         <div class="card p-4">
         </div>
     </div> --}}
-    <div class="container">
+    <div class="container mt-20">
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
             @csrf
             @if($mostrar == 1)
@@ -33,7 +33,7 @@
             @endif
             <div class="card p-2">
                 <h5 class="text-center ml--20 mt-15">Datos Personales</h5>
-                <h5 class="text-center mt-15" style="margin-top:-30px; margin-left:690px">Numero de Historia: {{ $rs->patient->historyPatient->history_number }}</h5>
+                <span class="text-center mt-15 history" style="margin-top:-40px; margin-left:900px">Historia: {{ $rs->patient->historyPatient->history_number }}</span>
                 <div class="row mt--70">
                     <div class="col-3 ml-2 mb-4 mt-25">
                         <div class="avatar-upload">
@@ -102,9 +102,9 @@
                             </div>
 
                             <div class="row mt-4">
-                                    <h5 class="text-center" style="margin-left:175px">Datos de la Cita</h5>
+                                <h5 class="text-center" style="margin-left:175px">Datos de la Cita</h5>
                             </div>
-                            <div class="row mt-2 mb-2">
+                            <div class="row mt-2 mb-2" style="margin-left:50px">
                                 <div class="col-3">
                                     <label class="m-0 form-label text-center">Fecha</label>
                                     <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
@@ -265,14 +265,14 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text form-control"><i class="fa fa-instagram" style="color:#00506b;font-size:20px"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Instagram" id="instagram" name="" disabled>
+                                <input type="text" class="form-control" placeholder="Instagram" id="social_network" name="social_network" disabled value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->social_network: '' }}">
                                 </div>
                             </div>
 
                             <div class="col-5" style="margin-left:5px">
                                 <div class="form-group">
                                     <label class="form-label text-center">Como nos Conocio</label>
-                                    <textarea class="form-control" name="" id="about" cols="60" rows="20" disabled></textarea>
+                                    <input class="form-control" name="about_us" id="about_us" cols="60" rows="20" disabled value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->about_us: '' }}">
                                 </div>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
             @if($mostrar == 1)
                 <div class="card p-4">
                     <label class="form-label">Exámenes</label>
-                    <div class="dropzone" id="my-dropzone">
+                    <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
                         <div class="fallback">
                             <input name="file" type="file" multiple />
                         </div>
@@ -355,111 +355,49 @@
                 </div>
                 
                 <div class="card p-4 row d-flex d-row justify-content-between">
-                    {{-- <div class="card p-4"> --}}
-                        <h5 class="text-center">Historial de Citas</h5>
-                        @forelse ($cites as $reservation)
-                        @if ()
-                        <div class="container-fluid">
-                            <div class="tab-content mx-auto">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive mb-4">
-                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-align:center">Fecha</th>
-                                                    <th style="text-align:center">Doctor</th>
-                                                    <th style="text-align:center">Especialidad</th>
-                                                    <th style="text-align:center">Motivo de la Cita</th>
-                                                    <th style="text-align:center">Proxima Cita</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($cites as $cites)
-                                                <tr class="event-click">
-                                                    <td style="text-align:center">{{$cites->date}}</td>
-                                                    <td style="text-align:center">{{$cites->employe->person->name}} {{$cites->employe->person->lastname}}</td>
-                                                    <td style="text-align:center">{{$cites->speciality->name}}</td>
-                                                    <td style="text-align:center">{{$cites->description}}</td>
-                                                        {{-- <td style="text-align:center">{{$cites->}}</td> --}}
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>                
-                            </div>
+                    <h5 class="text-center">Historial de Citas</h5>
+                    <div class="container-fluid">
+                        <div class="tab-content mx-auto">
+                            <div class="col-lg-12">
+                                <div class="table-responsive mb-4">
+                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center">Fecha</th>
+                                                <th style="text-align:center">Doctor</th>
+                                                <th style="text-align:center">Especialidad</th>
+                                                <th style="text-align:center">Motivo de la Cita</th>
+                                                <th style="text-align:center">Proxima Cita</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($cites as $reservation)
+                                            <tr class="event-click">
+                                                <td style="text-align:center">{{$reservation->date}}</td>
+                                                <td style="text-align:center">{{$reservation->employe->person->name}} {{$reservation->employe->person->lastname}}</td>
+                                                <td style="text-align:center">{{$reservation->speciality->name}}</td>
+                                                <td style="text-align:center">{{$reservation->description}}</td>
+                                                    <td style="text-align:center"></td>
+                                            </tr>
+                                            @empty
+                                                
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>                
                         </div>
-                        @else
-                            No ha Tenid
-                        @endif
-                            {{-- <div class="card col-4 text-justify p-4 form-control mt-2">
-                                <div>
-                                    <label class="m-0 form-label">Doctor:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
-                                </div>
-                                
-                                <div>
-                                    <label class="m-0 form-label">Especialidad:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->speciality->name }}">
-                                </div>
-                                
-                                <div>
-                                    <label class="m-0 form-label">Fecha de la reservacion:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
-                                </div>
-
-                                <div>
-                                    <label class="m-0 form-label">Razon de la cita:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
-                                </div>
-                            </div>  --}}
-                        @empty
-                            {{-- <div>
-                                <label class="m-0 form-label">No posee Citas Anteriores</label>
-                            </div> --}}
-                            <div class="container-fluid">
-                                <div class="tab-content mx-auto">
-                                    <div class="col-lg-12">
-                                        <div class="table-responsive mb-4">
-                                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="text-align:center">Fecha</th>
-                                                        <th style="text-align:center">Doctor</th>
-                                                        <th style="text-align:center">Especialidad</th>
-                                                        <th style="text-align:center">Motivo de la Cita</th>
-                                                        <th style="text-align:center">Proxima Cita</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($cites as $cites)
-                                                    <tr class="event-click">
-                                                        <td style="text-align:center">{{$cites->date}}</td>
-                                                        <td style="text-align:center">{{$cites->employe->person->name}} {{$cites->employe->person->lastname}}</td>
-                                                        <td style="text-align:center">{{$cites->speciality->name}}</td>
-                                                        <td style="text-align:center">{{$cites->description}}</td>
-                                                            {{-- <td style="text-align:center">{{$cites->}}</td> --}}
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>                
-                                </div>
-                            </div>
-                
-                        @endforelse
-                    {{-- </div> --}}
+                    </div>
                 </div>
             @endif
             
             @if($mostrar == 1)
-                <div>
-                    <button type="submit" class="btn btn-azuloscuro" id="submit-all"> Guardar</button>
+                <div class="">
+                    <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px"> Guardar</button>
                 </div>
             @else
                 <div>
-                    <a href="{{Route('checkin.day')}}"  class="btn btn-primary">Salir</a>
+                    <a href="{{Route('checkin.day')}}" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
                 </div>
             @endif
         </form>
@@ -639,26 +577,6 @@ Dropzone.options.myDropzone = {
         });
     </script>
 
-    <script>
-        $('#EditPatient').click(function() {
-            $('#weight').removeAttr('disabled');
-            $('#place').removeAttr('disabled');
-            $('#allergy').removeAttr('disabled');
-            $('#medicine').removeAttr('disabled');
-            $('#disease').removeAttr('disabled');
-            $('#address').removeAttr('disabled');
-            $('#genero1').removeAttr('disabled');
-            $('#genero2').removeAttr('disabled');
-            $('#phone').removeAttr('disabled');
-            $('#profession').removeAttr('disabled');
-            $('#occupation').removeAttr('disabled');
-            $('#another_phone').removeAttr('disabled');
-            $('#another_email').removeAttr('disabled');
-            $('#previous_surgery').removeAttr('disabled');
-            $('#instagram').removeAttr('disabled');
-            $('#about').removeAttr('disabled');
-        });
-    </script>
 
     <script>
         // para el select de las enfermedades
@@ -667,7 +585,7 @@ Dropzone.options.myDropzone = {
             console.log('enfermedad', disease_id); 
             //console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
         });
-    </script>
+        </script>
 
     <script>
         // para el select de las alergias
@@ -676,7 +594,7 @@ Dropzone.options.myDropzone = {
             console.log('alergia', allergy_id);
             console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
         });
-    </script>
+        </script>
 
     <script>
         // para el select de las medicamentos
@@ -685,5 +603,99 @@ Dropzone.options.myDropzone = {
             console.log('medicamento', medicine_id);
             console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
         });
-    </script>
+        </script>
+
+        <script>
+            $('#EditPatient').click(function() {
+                $('#weight').removeAttr('disabled');
+                $('#place').removeAttr('disabled');
+                $('#allergy').removeAttr('disabled');
+                $('#medicine').removeAttr('disabled');
+                $('#disease').removeAttr('disabled');
+                $('#address').removeAttr('disabled');
+                $('#genero1').removeAttr('disabled');
+                $('#genero2').removeAttr('disabled');
+                $('#phone').removeAttr('disabled');
+                $('#profession').removeAttr('disabled');
+                $('#occupation').removeAttr('disabled');
+                $('#another_phone').removeAttr('disabled');
+                $('#another_email').removeAttr('disabled');
+                $('#previous_surgery').removeAttr('disabled');
+                $('#social_network').removeAttr('disabled');
+                $('#about_us').removeAttr('disabled');
+            });
+        </script>
+        <script>
+        $("#submit-all").click(function() {
+            console.log('hello');
+            // var tipo_dni = $("#tipo_dniC").val(); 
+            // var dni = $("#dniC").val(); 
+            // var name =  $("#nameC").val();
+            // var lastname = $("#lastnameC").val();
+            // var phone = $("#phoneC").val();
+            // var email = $("#emailC").val();
+            // var address = $("#direccionC").val();
+
+        //     if(phone == ''){ phone = null; }
+        //     if(email == ''){ email=null;   }
+
+            
+
+        // if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
+            
+        //     Swal.fire({
+        //     title: 'Datos incompletos',
+        //     text: "Click OK para continuar!!",
+        //     type: 'error',
+        //     allowOutsideClick:false,
+        //     confirmButtonColor: '#3085d6',
+        //     confirmButtonText: '<a href="#otro" style="color:#fff" data-toggle="modal">OK</a>'
+        //     }).then((result) => {
+        //         if (result.value) {
+        //         }
+        //     })
+
+        // }else{
+        //     registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);  
+        // }        
+        // }); //fin de la funcion clikea
+        // //=================== funcion para registrar al cliente================
+        // function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {
+        //     console.log(phone)
+        //     console.log(address)
+        //     console.log(dni)
+        //     console.log(tipo_dni)
+        //     console.log(lastname)
+        //     console.log(name)
+        //     console.log(email)
+        //     $.ajax({ 
+        //         url: "{{ route('checkout.person') }}",  
+        //         type: "POST",                            
+        //         data: {
+        //             _token: "{{ csrf_token() }}",        
+        //             type_dni: tipo_dni,
+        //             dni:dni,
+        //             name:name,
+        //             lastname:lastname,
+        //             phone:phone,
+        //             email:email,
+        //             address:address,                           
+        //         }
+        //     })
+        //     .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+        //         console.log('esto',data);
+        //         if (data[0] == 201) {                       
+        //             Swal.fire({
+        //                 title: 'Excelente!',
+        //                 text:  'Registro satisfactorio',
+        //                 type:  'success',
+        //             })
+        //             factura_cliente(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+        //         }
+        //     })
+        //     .fail(function(data) {
+        //         console.log(data);
+        //     })
+        // } // fin de la funcion que busca datos del paciente/doctor/procedimientos
+        </script>
 @endsection

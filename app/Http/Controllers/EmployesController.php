@@ -139,7 +139,8 @@ class EmployesController extends Controller
     {
  
         $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule')->get();
-   
+        // dd( $employes);
+
         $e = collect([]);
         if ($employes->isNotEmpty()) {
             foreach($employes as $employe){
@@ -147,7 +148,7 @@ class EmployesController extends Controller
                     $e->push($employe);
                 }
             }
-            }
+        }
             return view('dashboard.checkin.doctor_todos', compact('e'));
     }
 

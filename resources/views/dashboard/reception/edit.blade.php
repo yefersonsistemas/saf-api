@@ -99,6 +99,7 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group" id="newDoctor">
                                         <label class="form-label">Médico</label>
+                                        <input type="hidden" id="editar" value="{{ $reservation->person_id }}" >
                                         <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }}" disabled id="doctor">
                                     </div>
                                 </div>
@@ -107,6 +108,7 @@
                                         <label>Fecha</label>
                                         <div class="form-group">
                                             <div class="input-group">
+                                                <input type="hidden" id="fechanueva" value="{{ $reservation->date }}">
                                                 <input id="fechas" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="{{ $reservation->date }}">
                                             </div>
                                         </div>
@@ -142,6 +144,14 @@
 
     <script>
 
+        $( document ).ready(function() {
+         var doctor = $('#editar').val();
+        //  var fecha = $('#fechanueva').val();
+
+        //  console.log('este es', doctor);
+         ajaxMedico(doctor); 
+        });
+
         $('#EditPatient').click(function() {
             // $('#type_dni').removeAttr('disabled');
             // $('#dni').removeAttr('disabled');
@@ -161,7 +171,7 @@
         });
 
         // buscando medicos mediante la especialidad
-        $("#speciality").change(function() {
+        $("#speciality").click(function() {
             var speciality = $(this).val();
             ajaxSpeciality(speciality); 
         });
@@ -185,6 +195,8 @@
 
         //cargando medicos
         function cargarMedicos(data) {
+
+            // console.log('ysbe', data)
             $('#newDoctor').empty();
             $('#newDoctor').html('<label class="form-label">Médico</label><select class="form-control custom-select" name="person_id" id="doctor1"> <option value=""> Seleccione </option> </select>');
             for (let i = 0; i < data.length; i++) {
@@ -223,16 +235,15 @@
                 console.log(data);
             })
         }
-       
+
         //cargando horario
         function cargarDate(data){
             console.log('primero',data.available);
             console.log('segundo',data.diff);
             $('#newDate').empty();
+            //cuando se usa.html es para sustituir lo que se tiene arriba
             $('#newDate').html('<label class="form-label">Fecha</label> <div class="form-group"> <div class="input-group"> <input id="fechas" data-provide="datepicker" data-date-autoclose="true" name="fecha" class="form-control datepicker"> </div> </div>');
-            fecha = new Date(2019, 10, 29);
-            fecha2 = new Date(2019, 10, 30);
-            console.log(fecha);
+            
             $('#fechas').datepicker({
                 todayHighlight: true,
                 language: 'es',
@@ -244,6 +255,7 @@
            
         $('#fechas').val();
         }
+
 
         $('#fechas').datepicker({
             todayHighlight: true,

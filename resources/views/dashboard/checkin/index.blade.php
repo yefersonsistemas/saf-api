@@ -35,6 +35,11 @@
         background-position: center;
         background-size: cover;
     }
+
+    .btn-repro{
+        background: #ff8000;
+        color: #fff;
+    }
 </style>
 
 <div class="section-body  py-4">
@@ -128,10 +133,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-<<<<<<< HEAD
-=======
 
->>>>>>> 89e57d9346cbbc95dc629747ea1df25efba42f20
                                     @if($reservations != '')
                                     @foreach ($reservations as $reservation)
                                     @if ($reservation->status=="Suspendida")
@@ -200,25 +202,25 @@
                                                     @endif
 
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
 
                                                 @if ($reservation->status == 'Aprobada')
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
 
                                                 @if ($reservation->status == 'Cancelada')
                                                     <button type="button" class="btn btn-success" disabled>A</button>
                                                     <button type="button" class="btn btn-warning" disabled>R</button>
-                                                    <button type="button" class="btn btn-secondary" disabled>S</button>
+                                                    <button type="button" class="btn btn-repro" disabled>S</button>
                                                     <button type="button" class="btn btn-danger" disabled>C</button>
                                                 @endif
                                                 @if ($reservation->status == 'Reprogramada')
                                                     <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
                                                 @if ($reservation->status == 'Suspendida')
@@ -345,7 +347,7 @@
                                                 <td><span class="badge badge-success">{{ $reservation->status }}</span></td>
                                                 <td style="display: inline-block">
                                                     <a href="" class="btn btn-warning">R</a>
-                                                    <a href="" class="btn btn-secondary">S</a>
+                                                    <a href="" class="btn btn-repro">S</a>
                                                     <a href="" class="btn btn-danger">C</a>
                                                 </td>
                                             </tr>
@@ -487,7 +489,7 @@
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td><span class="badge badge-warning">{{ $reservation->status }}</span></td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-secondary">S</a>
+                                                <a href="" class="btn btn-repro">S</a>
                                                 <a href="" class="btn btn-danger">C</a>
                                             </td>
                                         </tr>
@@ -604,7 +606,7 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-repro" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </div>
             </form>
