@@ -26,8 +26,7 @@
                                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center" style="">
                                                         <label class="imagecheck m-0">
                                                         <div class="card assigment">
-                                                                <input name="area_id" id="searcharea" type="text" value="{{ $area->id}}" >
-                                                                {{-- <input name="area_id" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input"> --}}
+                                                                <input name="area_id" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
                                                                 {{-- @if (!empty($area->image->path))
                                                                 <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                                     <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image">
