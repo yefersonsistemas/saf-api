@@ -1,4 +1,6 @@
 @extends('dashboard.layouts.app')
+@section('medicoss','active')
+@section('medicos','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">

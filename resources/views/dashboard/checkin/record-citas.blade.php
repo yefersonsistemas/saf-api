@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('cites','active')
-@section('day','active')
+@section('record','active')
 
 @php
     use Carbon\Carbon;

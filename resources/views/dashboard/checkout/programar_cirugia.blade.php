@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app') 
 @section('cites','active') 
-@section('newCite','active') 
+@section('agendar','active') 
 @section('title','Agendar Cirugia')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
