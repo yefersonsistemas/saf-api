@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                    {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-8 mt-90">
                         <div class="row mt--10">
@@ -437,7 +437,7 @@
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
-<script>
+{{-- <script>
 $boton.addEventListener("click", function() {
     
     // Codificarlo como JSON
@@ -483,10 +483,10 @@ $boton.addEventListener("click", function() {
              $('#imagePreview').fadeIn(650)
          );        
         });
-</script>
+</script> --}}
 
 
-<script>
+{{-- <script>
 Dropzone.options.myDropzone = {
     url: "{{ route('checkin.exams') }}",
     autoProcessQueue: true,
@@ -552,7 +552,7 @@ Dropzone.options.myDropzone = {
                 
 //             }
 //         };
-</script>
+</script> --}}
 <script>
         $('#disease').multiselect({
             enableFiltering: true,
