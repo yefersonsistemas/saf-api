@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <form id="wizard_horizontal" method="POST" action="{{ route('checkin.assigment_area') }}" class="card assigmt pr-4 pl-4 mt-20">
                             @csrf 
-                            <h2>Seleccionar consultorio</h2>
+                            <h2>Consultorios disponibles</h2>
                             <section>
                                 <div class="card-body">
                                     <div class="row gutters-sm d-row d-flex justify-content-between">
@@ -26,7 +26,8 @@
                                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center" style="">
                                                         <label class="imagecheck m-0">
                                                         <div class="card assigment">
-                                                                <input name="area_id" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input">
+                                                                <input name="area_id" id="searcharea" type="text" value="{{ $area->id}}" >
+                                                                {{-- <input name="area_id" id="searcharea" type="radio" value="{{ $area->id}}" class="imagecheck-input"> --}}
                                                                 {{-- @if (!empty($area->image->path))
                                                                 <figure class="imagecheck-figure border-0" style="max-height: 100px; width:170px;">
                                                                     <img src={{ Storage::url($area->image->path) }} alt="" class="imagecheck-image">

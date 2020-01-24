@@ -33,10 +33,11 @@ class AreasTableSeeder extends Seeder
             'type_area_id' =>  $type->id,
         ]);
 
-        factory(Area::class)->create([
-            'name'          => 'consultorio 3',
-            'type_area_id' =>  $type->id,
-        ]);
+        // factory(Area::class)->create([
+        //     'name'          => 'consultorio 3',
+        //     'type_area_id' =>  $type->id,
+        // ]);
+
         factory(Area::class)->create([
             'name'          => 'consultorio 4',
             'type_area_id' =>  $type->id,
@@ -51,10 +52,11 @@ class AreasTableSeeder extends Seeder
             'name'          => 'consultorio 6',
             'type_area_id' =>  $type->id,
         ]);
-        factory(Area::class)->create([
-            'name'          => 'consultorio 7',
-            'type_area_id' =>  $type->id,
-        ]);
+
+        // factory(Area::class)->create([
+        //     'name'          => 'consultorio 7',
+        //     'type_area_id' =>  $type->id,
+        // ]);
 
         factory(Area::class)->create([
             'name'          => 'consultorio 8',

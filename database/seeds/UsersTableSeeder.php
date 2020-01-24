@@ -1,5 +1,7 @@
 <?php
 
+use App\Area;
+use App\AreaAssigment;
 use App\Diagnostic;
 use App\Disease;
 use App\Employe;
@@ -21,6 +23,7 @@ use App\Typesurgery;
 use App\ClassificationSurgery;
 use App\TypeEquipment;
 use App\Sschedule;
+use App\TypeArea;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -31,6 +34,8 @@ class UsersTableSeeder extends Seeder
 
     public function run()
     {
+        Area::truncate();
+        TypeArea::truncate();
         Person::truncate();
         Position::truncate();
         Employe::truncate();
@@ -48,6 +53,9 @@ class UsersTableSeeder extends Seeder
         TypeEquipment::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
         $this->deleteDirectory(storage_path('/app/public/patient'));
+        $this->deleteDirectory(storage_path('/app/public/typearea'));
+        $this->deleteDirectory(storage_path('/app/public/area'));
+
         //Procedure::truncate();
 
         /**
@@ -602,13 +610,6 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
 
-          /**
-         * Cargo para los medicos
-         */
-        // $position = factory(App\Position::class)->create([
-        //     'name' => 'doctor',
-        // ]);
-
         /**
          * Se registra el medico
          * creado en la tabla empleado
@@ -688,47 +689,6 @@ class UsersTableSeeder extends Seeder
              'price' => 30000,
         ]);
         $employe1->procedures()->attach($pro4);
-
-         
-        /**
-         * Registro de 10 usuarios medicos de 
-         * manera automatica se crean primero 
-         * las 10 personas que seran los medicos
-         */
-        // factory(Person::class, 3)->create()->each(function ($person) use ($position) {
-            /**
-             * Por cada persona se
-             * registra en la tabla de los
-             * empleados, con su imagen
-             */
-            // $employe = factory(App\Employe::class)->create([
-            //     'person_id' => $person->id,
-            //     'position_id' => $position->id
-            // ]);
-            // $this->to('employes', $employe->id, 'App\Employe');
-
-            // $type = factory(App\TypeDoctor::class)->create([
-            //     'name' => 'Clase B',
-            // ]);
-            // $clase = factory(App\Doctor::class)->create([
-            //     'employe_id' => $employe->id,
-            //     'type_doctor_id' => $type->id,
-            //     'price' => 40000
-            // ]);
-
-            /**
-             * Especialidades para el medico
-             * y sus procedimientos
-             */
-            // $num = rand(1,3);
-            // for ($i=0; $i < $num ; $i++) { 
-                // $speciality = Speciality::inRandomOrder()->first();
-                // dd($speciality);
-                // $speciality->employe()->attach($employe->id);
-                // foreach ($speciality->procedures as $procedure) {
-                //     $procedure->employe()->attach($employe->id);
-                // }
-            // }
 
             /**
              * se crea el usuario
@@ -921,6 +881,436 @@ class UsersTableSeeder extends Seeder
                             'schedule_id'    => $employe1->schedule->first()->id,
                             'specialitie_id' => $employe1->speciality->first()->id,
                         ]);
+    //============================================================================================================
+        /*
+        * Creacion del 3er doctor
+        */
+        $person2 = Person::create([
+            'type_dni' => 'N',
+            'dni' => '15729752',
+            'name' => 'VICTORIA',
+            'lastname' => 'CANELON',
+            'address' => 'Urbanizacion el Trigal calle 6 transversal 2',
+            'phone' => '0426 - 5656745',
+            'email' => 'dravictoria@sinusandface.com',
+            'branch_id' => '1',
+        ]);
+
+        /**
+         * Se registra el medico
+         * creado en la tabla empleado
+         */
+        $employe2 = factory(App\Employe::class)->create([
+            'person_id' => $person2->id,
+            'position_id' => $position->id
+        ]);
+        $this->to('employes', $employe2->id, 'App\Employe');
+        
+         /**
+         * clase de medico
+         * 
+         */
+
+        $type = factory(App\TypeDoctor::class)->create([
+            'name' => 'Clase B',
+        ]);
+
+        $clase = factory(App\Doctor::class)->create([
+            'employe_id' => $employe2->id,
+            'type_doctor_id' => $type->id,
+            'price' => 50000,
+            'branch_id' => '1',
+        ]);
+
+        $especialidad2 = factory(App\Speciality::class)->create([
+            'name' => 'Oftalmología',
+            'description' => 'Estudia las enfermedades de ojo y su tratamiento, incluyendo el globo ocular, su musculatura, el sistema lagrimal y los párpados.',
+            'service_id' => 2,
+            'branch_id' => '1',
+            ]);
+            
+        //relacion de especialidad con el medico
+        $especialidad2->employe()->attach($employe2->id);
+
+        //procedimiento de consulta
+        $employe2->procedures()->attach($pro);
+
+        //creando procedimientos otros
+        $pro5= factory(Procedure::class)->create([
+            'name'    => 'Cateterismo o sondaje vía lagrimal.',
+             
+             'price' => 20000,
+        ]);
+        $employe2->procedures()->attach($pro5);
+
+        $pro1= factory(Procedure::class)->create([
+            'name'    => 'Chalazión y otros tumores benignos.',
+             
+             'price' => 20000,
+        ]);
+        $employe2->procedures()->attach($pro1);
+
+        $pro2= factory(Procedure::class)->create([
+            'name'    => 'Curva de tensión ocular',
+             
+             'price' => 15000,
+        ]);
+        $employe2->procedures()->attach($pro2);
+
+        $pro3= factory(Procedure::class)->create([
+            'name'    => 'Exploración vitreorretinal',
+             
+             'price' => 17000,
+        ]);
+        $employe2->procedures()->attach($pro3);
+
+        $pro4= factory(Procedure::class)->create([
+            'name'    => 'Microscopia especular',
+             
+             'price' => 30000,
+        ]);
+        $employe2->procedures()->attach($pro4);
+
+            /**
+             * se crea el usuario
+             * del empleado
+             */
+            factory(User::class)->create([
+                'email'     => $person2->email,
+                'person_id' => $person2->id,
+            ])->givePermissionTo('ver lista de pacientes')
+                ->givePermissionTo('crear historia de paciente')
+                ->givePermissionTo('crear diagnostico')
+                ->givePermissionTo('elegir examenes a realizar')
+                ->givePermissionTo('elegir procedimientos a realizar')
+                ->givePermissionTo('crear recipe')
+                ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
+
+            /**
+             * Se crea el horario del medico
+             */
+            $schedule = factory(Schedule::class, rand(1,3))->create([
+                'employe_id' => $employe2->id
+            ]);
+
+            /*
+            * Asignacion de consultorio
+            */
+
+            $typearea = factory(TypeArea::class)->create([
+                'name' => 'Consultorio'
+            ]);
+
+            //estas dos se colocaron aqui para mantener el orden en la BD
+            factory(Area::class)->create([
+                'name'          => 'consultorio 1',
+                'type_area_id' =>  $typearea->id,
+            ]);
+    
+            factory(Area::class)->create([
+                'name'          => 'consultorio 2',
+                'type_area_id' =>  $typearea->id,
+            ]);
+
+            $area = factory(Area::class)->create([
+                'name' => 'Consultorio 3',
+                'status' => 'ocupado',
+                'type_area_id' =>  $typearea->id
+            ]);
+
+            $asignada = factory(AreaAssigment::class)->create([
+                'employe_id' =>  $employe2->id,
+                'area_id' =>  $area->id
+            ]);
+
+
+            /**
+             * Personas que seran los pacientes
+             */
+            $person = Person::create([
+                'type_dni' => 'N',
+                'dni' => '15729753',
+                'name' => 'DIANA',
+                'lastname' => 'ALVAREZ',
+                'address' => 'El Paraiso',
+                'phone' => '04125656745',
+                'email' => '    dianaalvarez@gmail.com',
+                'branch_id' => '1',
+            ]);
+    
+                $this->to('person', $person->id, 'App\Person');
+                /**
+                 * Registro de la historia medica
+                 * con su fotografia
+                 */
+                $patient = factory(App\Patient::class)->create([
+                    'person_id' => $person->id,
+                    'employe_id' => $employe2->id
+                ]);
+
+                // dd($patient);
+                    
+                /**
+                 * Enfermedades del paciente
+                 */
+                for ($i=0; $i < rand(1,5) ; $i++) { 
+                    $disease = Disease::inRandomOrder()->first();
+                    $disease->patient()->attach($patient->id);
+                }
+    
+                /**
+                 * Registro de la reservacion
+                 */
+                $reservation= factory(App\Reservation::class)->create([
+                    'patient_id'     => $person->id,
+                    'person_id'      => $person2->id,
+                    'schedule_id'    => $employe2->schedule->first()->id,
+                    'specialitie_id' => $employe2->speciality->first()->id,
+                ]);
+
+    //============================================================================================================
+        /*
+        * Creacion del 4to doctor
+        */
+        $person3 = Person::create([
+            'type_dni' => 'N',
+            'dni' => '15729754',
+            'name' => 'MIGUEL',
+            'lastname' => 'BRICEÑO',
+            'address' => 'Avenida el Placer',
+            'phone' => '0414 - 5656745',
+            'email' => 'drmiguelb@sinusandface.com',
+            'branch_id' => '1',
+        ]);
+
+        /**
+         * Se registra el medico
+         * creado en la tabla empleado
+         */
+        $employe3 = factory(App\Employe::class)->create([
+            'person_id' => $person3->id,
+            'position_id' => $position->id
+        ]);
+        $this->to('employes', $employe3->id, 'App\Employe');
+        
+         /**
+         * clase de medico
+         * 
+         */
+
+        $type = factory(App\TypeDoctor::class)->create([
+            'name' => 'Clase A',
+        ]);
+
+        $clase = factory(App\Doctor::class)->create([
+            'employe_id' => $employe3->id,
+            'type_doctor_id' => $type->id,
+            'price' => 100000,
+            'branch_id' => '1',
+        ]);
+
+        $especialidad3 = factory(App\Speciality::class)->create([
+            'name' => 'Ginecología',
+            'description' => 'Estudia el sistema reproductor femenino.',
+            'service_id' => 2,
+            'branch_id' => '1',
+            ]);
+            
+        //relacion de especialidad con el medico
+        $especialidad3->employe()->attach($employe3->id);
+
+        //procedimiento de consulta
+        $employe3->procedures()->attach($pro);
+
+        //creando procedimientos otros
+        $pro5= factory(Procedure::class)->create([
+            'name'    => 'Citología de Cuello uterino.',
+             
+             'price' => 20000,
+        ]);
+        $employe3->procedures()->attach($pro5);
+
+        $pro1= factory(Procedure::class)->create([
+            'name'    => 'Colposcopias.',
+             
+             'price' => 20000,
+        ]);
+        $employe3->procedures()->attach($pro1);
+
+        $pro2= factory(Procedure::class)->create([
+            'name'    => 'Biopsias de cérvix y área genital (vulva clítoris, entre otros)',
+             
+             'price' => 15000,
+        ]);
+        $employe3->procedures()->attach($pro2);
+
+        $pro3= factory(Procedure::class)->create([
+            'name'    => 'Vaporización',
+             
+             'price' => 17000,
+        ]);
+        $employe2->procedures()->attach($pro3);
+
+        $pro4= factory(Procedure::class)->create([
+            'name'    => 'Retiro e inserción de DIU',
+             
+             'price' => 30000,
+        ]);
+        $employe3->procedures()->attach($pro4);
+
+        $pro6= factory(Procedure::class)->create([
+            'name'    => 'Resección de pólipo endometrial',
+             
+             'price' => 40000,
+        ]);
+        $employe3->procedures()->attach($pro6);
+
+            /**
+             * se crea el usuario
+             * del empleado
+             */
+            factory(User::class)->create([
+                'email'     => $person3->email,
+                'person_id' => $person3->id,
+            ])->givePermissionTo('ver lista de pacientes')
+                ->givePermissionTo('crear historia de paciente')
+                ->givePermissionTo('crear diagnostico')
+                ->givePermissionTo('elegir examenes a realizar')
+                ->givePermissionTo('elegir procedimientos a realizar')
+                ->givePermissionTo('crear recipe')
+                ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
+
+            /**
+             * Se crea el horario del medico
+             */
+            $schedule = factory(Schedule::class, rand(1,3))->create([
+                'employe_id' => $employe3->id
+            ]);
+
+
+            /*
+            * Asignacion de consultorio
+            */
+
+            //mantener orden de creacion en la bd
+            factory(Area::class)->create([
+                'name'          => 'consultorio 4',
+                'type_area_id' =>  $typearea->id,
+            ]);
+    
+            factory(Area::class)->create([
+                'name'          => 'consultorio 5',
+                'type_area_id' =>  $typearea->id,
+            ]);
+    
+            factory(Area::class)->create([
+                'name'          => 'consultorio 6',
+                'type_area_id' =>  $typearea->id,
+            ]);
+
+            $area1 = factory(Area::class)->create([
+                'name' => 'Consultorio 7',
+                'status' => 'ocupado',
+                'type_area_id' =>  $typearea->id
+            ]);
+
+            $asignada = factory(AreaAssigment::class)->create([
+                'employe_id' =>  $employe3->id,
+                'area_id' =>  $area1->id
+            ]);
+
+            /**
+             * Personas que seran los pacientes
+             */
+            $person = Person::create([
+                'type_dni' => 'N',
+                'dni' => '15729754',
+                'name' => 'ELENA',
+                'lastname' => 'PUERTA',
+                'address' => 'Las Mercedes diagonal a la Panaderia San Benito',
+                'phone' => '04125656746',
+                'email' => 'elenapuerta@gmail.com',
+                'branch_id' => '1',
+            ]);
+    
+                $this->to('person', $person->id, 'App\Person');
+                /**
+                 * Registro de la historia medica
+                 * con su fotografia
+                 */
+                $patient = factory(App\Patient::class)->create([
+                    'person_id' => $person->id,
+                    'employe_id' => $employe3->id
+                ]);
+
+                // dd($patient);
+                    
+                /**
+                 * Enfermedades del paciente
+                 */
+                for ($i=0; $i < rand(1,5) ; $i++) { 
+                    $disease = Disease::inRandomOrder()->first();
+                    $disease->patient()->attach($patient->id);
+                }
+    
+                /**
+                 * Registro de la reservacion
+                 */
+                $reservation= factory(App\Reservation::class)->create([
+                    'patient_id'     => $person->id,
+                    'person_id'      => $person3->id,
+                    'schedule_id'    => $employe3->schedule->first()->id,
+                    'specialitie_id' => $employe3->speciality->first()->id,
+                ]);
+
+                //=============================================================================================================
+                /*
+                * Creacion de areas restantes
+                */
+        
+                factory(Area::class)->create([
+                    'name'          => 'consultorio 8',
+                    'type_area_id' =>  $typearea->id,
+                ]);
+        
+                factory(Area::class)->create([
+                    'name'          => 'consultorio 9',
+                    'type_area_id' =>  $typearea->id,
+                ]);
+        
+                factory(Area::class)->create([
+                    'name'          => 'consultorio 10',
+                    'type_area_id' =>  $typearea->id,
+                ]);
+                
+                $tipo = factory(TypeArea::class)->create([
+                    'name' => 'Quirofano',
+                ]);
+        
+                factory(Area::class)->create([
+                    'name'          => 'Quirofano 1',
+                    'type_area_id' =>  $tipo->id,
+                ]);
+        
+                factory(Area::class)->create([
+                    'name'          => 'Quirofano 2',
+                    'type_area_id' =>  $tipo->id,
+                ]);
+        
+                factory(Area::class)->create([
+                    'name'          => 'Quirofano 3',
+                    'type_area_id' =>  $tipo->id,
+                ]);
+        
+                factory(Area::class)->create([
+                    'name'          => 'Quirofano 4',
+                    'type_area_id' =>  $tipo->id,
+                ]);
+        
+                factory(Area::class)->create()->each(function($area)
+                {
+                    $this->to('area', $area->id, 'App\Area');
+                });
 
             /**
              * Personas que seran los pacientes
