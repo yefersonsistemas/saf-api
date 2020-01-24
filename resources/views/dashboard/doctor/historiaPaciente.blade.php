@@ -567,32 +567,34 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                    <div class="row d-flex justify-content-center">
-                                                        <div class=" col-4">
-                                                            <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Cirugia
-                                                            </button>
-                                                        </div>
-
-                                                        <div class="col-4">
-                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Procedimiento
-                                                            </button>
-                                                        </div>
-                                                        </div>
-                                                        <div class="row d-flex mt-20 justify-content-center">
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>
+                                                    <div class="container">
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="card col-md-5 mx-2">
+                                                                <div class="card-header text-center">
+                                                                    <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
+                                                                        <i class="fa fa-plus"></i>
+                                                                        Agregar Cirugia
+                                                                    </button>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
+                                                                    <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>
+                                                                </div>
                                                             </div>
-
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>
+                                                            <div class="card col-md-5 mx-2">
+                                                                <div class="card-header text-center">
+                                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
+                                                                        <i class="fa fa-plus"></i>
+                                                                        Agregar Procedimiento
+                                                                    </button>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
+                                                                    <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                     </div>
                                                 </div>
 
@@ -1262,7 +1264,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('hh',data);
 
             for($i=0; $i < data.length; $i++){
-                cirugias='<li>'+data[$i].name+'</li>';
+                cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
                 $("#cirugias").html(cirugias);
             }
         }
@@ -1272,7 +1274,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('hh',data);
 
             for($i=0; $i < data.length; $i++){
-                procedure='<li>'+data[$i].name+'</li>';
+                procedure=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
                 $("#procedimientos").append(procedure);
             }
         }
