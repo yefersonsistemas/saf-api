@@ -76,12 +76,14 @@ ul[role="tablist"] {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-
+.asignar-consultorio .content{
+    min-height: 32.5em!important;
+}
 .wizard>.content {
     background: #fff;
     display: block;
     margin: 0.5em;
-    min-height: 33em;
+    min-height: 28em;
     overflow: hidden;
     position: relative;
     width: auto;
@@ -564,8 +566,7 @@ body,
     cursor: default;
 }
 
-
-/* 
+/*
 .datepicker table tr td {
     background: #00506b;
     color: #fff

@@ -37,22 +37,22 @@ class InController extends Controller
     /**
      * Muestra todas las listas
      * de pacientes
-     *
+     * 
      */
     public function index()
     {
         // $carbon = Carbon::now()->addDay(2)->format('Y-m-d');
         // dd($carbon);
 
-        $reservations = Reservation::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('person', 'patient.image', 'cite','patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $reservations = Reservation::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         // dd($reservations);
-        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
+        $aprobadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         // dd($aprobadas);
-        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get();
+        $canceladas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('cancel')->get(); 
         // dd($canceladas);
-        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get();
+        $reprogramadas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('reschedule')->get(); 
 // dd($reprogramadas);
-        $suspendidas = Reservation::with('person', 'patient.image', 'cite', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
+        $suspendidas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('discontinued')->get();
 // dd($suspendidas);
         // dd($reservations);
 
@@ -63,7 +63,7 @@ class InController extends Controller
     public function day()
     {
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
-        // dd($day->first()->itinerary);
+      
         return view('dashboard.checkin.day', compact('day'));
     }
 
@@ -76,25 +76,25 @@ class InController extends Controller
 
     public function approved()
     {
-        $approved = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
+        $approved = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get(); 
         return view('dashboard.checkin.approved', compact('approved'));
     }
 
     public function pending()
     {
-        $hoy = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get();
-        $horas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->addDay(2)->format('Y-m-d'))->orderBy('date', 'asc')->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get();
-        $todas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->orderBy('date', 'asc')->get();
+        $hoy = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        $horas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '=', Carbon::now()->addDay(2)->format('Y-m-d'))->orderBy('date', 'asc')->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->get(); 
+        $todas = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereNull('approved')->whereNull('discontinued')->whereNull('cancel')->whereNull('reschedule')->orderBy('date', 'asc')->get(); 
         // dd($pending);
 
         return view('dashboard.checkin.pending', compact('hoy', 'horas', 'todas'));
-
+        
     }
 
     /**
-     * Muestra las areas y medicos
-     * disponibles en la vista
-     * de asignar consultorio
+     * Muestra las areas y medicos 
+     * disponibles en la vista 
+     * de asignar consultorio 
      */
     public function create()
     {
@@ -102,7 +102,7 @@ class InController extends Controller
         // dd($type_area);
         $areas = Area::with('image')->where('type_area_id',$type->id)->get(); // Trae la informacion de Consultorios
         // dd($areas);
-
+        
         $employes = Employe::with('image','person.user', 'speciality', 'assistance','areaassigment')->get();
             // dd($employes);
         $em = collect([]);
@@ -110,7 +110,7 @@ class InController extends Controller
             foreach ($employes as $employe) {
                 if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
                     if ($employe->schedule->isNotEmpty()) {
-                        $dia = strtolower(Carbon::now()->locale('en')->dayName); //Trae los medicos del dia
+                        $dia = strtolower(Carbon::now()->locale('en')->dayName); //Trae los medicos del dia 
                         foreach ($employe->schedule as $schedule) {
                             if ($schedule->day == $dia) {
                                 $em->push($employe);
@@ -142,23 +142,25 @@ class InController extends Controller
     }
 
     /**
-     *
+     * 
      * busca la historia desde la lista de check-in
-     *
+     * 
      */
-    public function search_history(Request $request, $id, $id2){
+    public function search_history($id, $id2){ 
         $mostrar = $id2;
         // dd($mostrar);
-        // dd($id);
+      
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
         $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-                            // dd($rs->patient->image);
+                            // dd($rs->patient->historyPatient);
 
-        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
-// dd($cites);
+        // dd($rs);
+
+        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
+        // dd($cites);
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
@@ -167,15 +169,15 @@ class InController extends Controller
     }
 
      /**
-     *
-     * guarda registros nuevos y editados
+     * 
+     * guarda registros nuevos y editados 
      * en la historia del paciente
-     *
+     * 
      */
 
 
     public function guardar(Request $request, $id)  //REVISAR
-     {
+     {   
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
@@ -190,7 +192,9 @@ class InController extends Controller
                     'occupation'    =>  'required',
                     'profession'    =>  'required',
                     'another_email' =>  'nullable',
-                    'another_phone' =>  'nullable'
+                    'another_phone' =>  'nullable',
+                    // 'social_network'=>  'nullable',
+                    // 'about_us'      =>  'nullable',
                 ]);
 
                 $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
@@ -199,6 +203,8 @@ class InController extends Controller
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $data['another_phone'],
                     'another_email' =>  $data['another_email'],
+                    // 'social_network'=>  $data['social_network'],
+                    // 'about_us'      =>  $data['about_us'],
                     'date'          =>  Carbon::now(),
                     'reason'        =>  $reservation->description,
                     'gender'        =>  $data['gender'],
@@ -235,13 +241,15 @@ class InController extends Controller
                     'occupation'    =>  $request->occupation,
                     'profession'    =>  $request->profession,
                     'previous_surgery'  => $request->previous_surgery,
+                    'social_network'=>  $request->social_network,
+                    'about_us'      =>  $request->about_us,
                 ]);
             }
 
             // dd($patient);
             if($request->foto != null){
                 $image = $request->file('foto');
-                $path = $image->store('public/Person');
+                $path = $image->store('public/Person');  
                 $path = str_replace('public/', '', $path);
                 $image = new Image;
                 $image->path = $path;
@@ -253,7 +261,7 @@ class InController extends Controller
 
             if ($request->file != null) {
                 $image = $request->file('file');
-                $path = $image->store('public/exams');
+                $path = $image->store('public/exams');  
                 $path = str_replace('public/', '', $path);
                 $image = new File;
                 $image->path = $path;
@@ -271,13 +279,13 @@ class InController extends Controller
                     }
                 }
 
-
+               
 
                 if (!empty($request->medicine)){
 
                     foreach ($request->medicine as $medicine) {
                         $me = Medicine::find($medicine);
-                        $patient->medicine()->attach($me);
+                        $patient->medicine()->attach($me); 
                     }
                 }
 
@@ -285,14 +293,14 @@ class InController extends Controller
 
                     foreach ($request->allergy as $allergy) {
                         $al = Allergy::find($allergy);
-                        $patient->allergy()->attach($al);
+                        $patient->allergy()->attach($al); 
                     }
                 }
 
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
-
+         
         }
     }
 
@@ -306,7 +314,7 @@ class InController extends Controller
 
         $busqueda = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         // dd($busqueda);
-
+    
         $paciente = $busqueda->patient_id;
         $doctor = $busqueda->person_id; // en tabla person
         $employe = Employe::where('person_id', $doctor)->first();
@@ -319,8 +327,8 @@ class InController extends Controller
         $io = InputOutput::where('person_id', $p->person_id)->where('employe_id', $employe->id)->first();
         // dd($io);
         if ($io == null) {
-
-            $inputOutput= InputOutput::create([
+            
+            $inputOutput= InputOutput::create([       
                 'person_id' =>  $paciente,  //paciente tratado
                 'inside' => 'dentro',
                 'outside' => null,
@@ -372,7 +380,7 @@ class InController extends Controller
         Alert::success('Paciente dentro del consultorio');
         return redirect()->back();
     }
-
+    
 
     public function status(Request $request)
     {
@@ -417,7 +425,7 @@ class InController extends Controller
 
                 Alert::success('Cita Aprobada exitosamente');
             }
-
+            
             $reservation->status = $data['type'];
             $reservation->save();
 
@@ -460,7 +468,7 @@ class InController extends Controller
      */
     public function store(Request $request)
     {
-
+        
     }
 
     /**
@@ -505,19 +513,19 @@ class InController extends Controller
 /**
      * busca el area para la
      * asignacion del consultorio
-     *
+     * 
      */
     public static function search_area(Request $request)
     {
         // dd($request);
-        $area = Area::Where('id', $request->id)->first();
+        $area = Area::Where('id', $request->id)->first(); 
         // dd($area);
         if ($area != null) {  //si existe
             $areas= $area->name;
             return response()->json([
                 'areas' => $areas,
             ]);
-
+            
         }else{  //caso de que no exista
             return response()->json([
                 'message' => 'Consultorio no encontrado',
@@ -526,21 +534,21 @@ class InController extends Controller
     }
 
 /**
-     * busca el medico que sera asignado
+     * busca el medico que sera asignado 
      * a un consultorio
-     *
+     * 
      */
     public static function search_medico(Request $request)
     {
         // dd($request);
-        $employe = Employe::with('person')->Where('id', $request->id)->first();
+        $employe = Employe::with('person')->Where('id', $request->id)->first(); 
         // dd($area);
         if ($employe != null) {  //si existe
             $employes= $employe->person->name;
             return response()->json([
                 'employes' => $employes,
             ]);
-
+            
         }else{  //caso de que no exista
             return response()->json([
                 'message' => 'Medico no encontrado',
@@ -549,14 +557,14 @@ class InController extends Controller
     }
 
     /**
-     *
+     * 
      * busca el horario que se muestra
      * en la lista de medico
-     *
+     * 
      */
     // public static function horario(Request $request){
     //     // dd($request);
-        
+
     //     if(!empty($employe)){
     //         return response()->json([
     //             'employe' => $employe,201
@@ -569,10 +577,10 @@ class InController extends Controller
     // }
 
     /**
-     *
+     *  
      * guarda el consultorio
      * asignado al medico
-     *
+     * 
      */
 
 
@@ -581,9 +589,9 @@ class InController extends Controller
             // dd($request);
         $e = $request->employe_id;
         $a = $request->area_id;
-// si los datos no estas vacios
+// si los datos no estas vacios 
     if($e != null && $a != null){
-
+        
         $existe = AreaAssigment::where('employe_id',$e)->where('area_id', $a)->first();
 
         if(empty($existe)){
@@ -613,13 +621,13 @@ class InController extends Controller
     //     $a = Area::find($request->id);
 
     //     if (!empty($a)) {
-
+        
     //         $a->status = 'ocupado';
     //         $a->save();
 
     //         // if ($a->save()){
     //         //    return response()->json([
-    //         //         'message' => 'ocupado',
+    //         //         'message' => 'ocupado', 
     //         //     ]);
     //         // }
     //     }
@@ -632,7 +640,7 @@ class InController extends Controller
         if ($request->file != null) {
 
             $image = $request->file('file');
-            $path = $image->store('public/exams');
+            $path = $image->store('public/exams');  
             $path = str_replace('public/', '', $path);
             $image = new File;
             $image->path = $path;
@@ -644,7 +652,7 @@ class InController extends Controller
     }
 
     public function guardar_foto(){
-
+    
         $datos=json_decode(file_get_contents("php://input"));
         $imagenCodificada=$datos->pic;
         if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");

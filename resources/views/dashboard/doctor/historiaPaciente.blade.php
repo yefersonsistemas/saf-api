@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
-<style type="text/css"> button[data-original-title="Code View"], button[data-original-title="Video"], 
+<style type="text/css"> button[data-original-title="Code View"], button[data-original-title="Video"],
 button[data-original-title="Picture"], button[data-original-title="Link (CTRL+K)"],
 button[data-original-title="Help"]{ display: none; }
 </style>
@@ -115,15 +115,15 @@ button[data-original-title="Help"]{ display: none; }
                                 <!--body-->
                                 <div class="card-body">
                                     {{-- <div id="wizard_vertical"> --}}
-                                    <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST">
+                                    <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST" class="step-doctor">
                                         @csrf
-                                        <input type="hidden" name="patient_id" value="{{ $history->patient_id }}"> 
-                                        <input type="hidden" name="employe_id" value="{{ $history->person_id }}"> 
-                                        <input type="hidden" name="razon" value="{{ $history->description }}"> 
-                                        <input type="hidden" name="reservacion_id" value="{{ $history->id }}"> 
+                                        <input type="hidden" name="patient_id" value="{{ $history->patient_id }}">
+                                        <input type="hidden" name="employe_id" value="{{ $history->person_id }}">
+                                        <input type="hidden" name="razon" value="{{ $history->description }}">
+                                        <input type="hidden" name="reservacion_id" value="{{ $history->id }}">
 
                                         <h2>Información Personal</h2>
-                                        <section class="card mr-4 ml-4">
+                                        <section class="card mr-4 ml-4 pb-0 pt-4">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-6">
                                                     <div class="form-group">
@@ -146,7 +146,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="col-sm-6 col-md-6 d-flex flex-row align-items-center">
                                                     <div class="form-group col-md-8">
                                                         <label class="form-label">Fecha de nacimiento:</label>
-                                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $history->patient->historyPatient->birthdate }}" name="birthdate">        
+                                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $history->patient->historyPatient->birthdate }}" name="birthdate">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label class="form-label">Edad:</label>
@@ -196,7 +196,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Motivo</h2>
-                                        <section class="card mr-4 ml-4">
+                                        <section class="card mr-4 ml-4 pb-0 pt-4">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -228,12 +228,12 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Enfermedad Actual</h2>
-                                        <section class="ml-4">
-                                            <textarea name="enfermedad" cols="30" rows="10" class="summernote"></textarea>
+                                        <section class="ml-4 pb-0 pt -4">
+                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 pb-0 pt-4">
                                             <div id="accordion">
                                                 <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -268,12 +268,12 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Examen Fisico</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 pb-0 pt-4">
                                             <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
                                         </section>
 
                                         <h2>Estudios complementarios</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 pb-0 pt-4">
                                             <div class="row">
                                                 @foreach ( $cite->person->reservationPatient as $cites )
                                                     <div class="col-md-4">
@@ -281,7 +281,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="card-header bg-azuloscuro">
                                                                 <h5 class="card-title text-white">{{$cites->date}}</h5>
                                                             </div>
-                                                            <div class="card-body">     
+                                                            <div class="card-body">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -290,18 +290,18 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Diagnostico</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 pb-0 pt-4">
                                             <div class="row">
                                                 <div class="col-12">
 
                                                     <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
-                                                </div> 
+                                                </div>
                                             </div>
                                         </section>
 
                                          <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
                                          <h2>Procedimientos Realizados</h2>
-                                         <section class="ml-4">
+                                         <section class="ml-4 pb-0 pt-4">
                                             <div class="row">
                                                 <div class="col-12 mt-30">
                                                     <h5>Procedimientos Realizados al Paciente:</h5>
@@ -311,7 +311,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <i class="fa fa-plus"></i>
                                                         Agregar Procedimiento
                                                     </button>
-                                                </div>   
+                                                </div>
                                                 <h6 class="text-center col-12 mt-2 p-2  " style="font-weight:bold">Procedimientos Realizados</h6>
                                                 <div class="col-lg-12 mx-auto">
                                                     <div class="card">
@@ -336,15 +336,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
-                                                            </div>                                                         
+                                                            </div>
                                                         </div>
-                                                    </div>                                                                                                       
+                                                    </div>
                                                 </div>
                                             </div>
                                         </section>
 
                                         <h2>Plan</h2>
-                                        <section class="ml-4">
+                                        <section class="ml-4 pb-0 pt-2 plan">
                                             <div class="plan-steps">
                                                 <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
                                                     <li class="nav-item">
@@ -370,48 +370,38 @@ button[data-original-title="Help"]{ display: none; }
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="tab-content" id="pills-tabContent">
+                                            <div class="tab-content pb-0 pt-4" id="pills-tabContent">
                                                 <!--Examen-->
-                                                <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                <div>
+                                                <div class="tab-pane fade show active container" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
                                                     <h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
-                                                </div>
                                                     <div class="row">
-                                                        <div class="col-12 mt-30 d-flex justify-content-start">
-                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar examen
-                                                            </button>
-                                                        </div>
-
                                                         <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
-
                                                         <div class="col-lg-12 mx-auto">
                                                             <div class="card">
-                                                                    <div class="row">
-                                                                        <div class="card-body">
-                                                                            <div class="table-responsive">
-                                                                                <table class="table table-hover table-vcenter table-striped"
-                                                                                    cellspacing="0" id="addrowExample">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Examen Seleccionado</th>
-                                                                                            {{-- <th class="text-center">Accion</th> --}}
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    {{-- <tfoot>
-                                                                                        <tr>
-                                                                                            <th>Medicamento Seleccionado</th>
-                                                                                            <th class="text-center">Accion</th>
-                                                                                        </tr>
-                                                                                    </tfoot> --}}
-                                                                                    <tbody id="examen">
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
+                                                                <div class="card-header my-1 py-3">
+                                                                    <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar examen</button>
+                                                                </div>
+                                                                <div class="card-body py-1">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-vcenter table-striped"
+                                                                            cellspacing="0" id="addrowExample">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Examen Seleccionado</th>
+                                                                                    {{-- <th class="text-center">Accion</th> --}}
+                                                                                </tr>
+                                                                            </thead>
+                                                                            {{-- <tfoot>
+                                                                                <tr>
+                                                                                    <th>Medicamento Seleccionado</th>
+                                                                                    <th class="text-center">Accion</th>
+                                                                                </tr>
+                                                                            </tfoot> --}}
+                                                                            <tbody id="examen">
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
-                                                             
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -469,7 +459,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="card-footer text-right">
                                                                     <a class="btn btn-azuloscuro mb-15 text-white" id="add">
                                                                         <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
-                                                                    </a>                            
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -515,16 +505,16 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
                                                     <section>
                                                         <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
-                                                    </section>    
+                                                    </section>
                                                 </div>
-                                                
+
                                                 <!--Reposo-->
                                                 <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
                                                     <section>
                                                         <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
-                                                    </section>  
+                                                    </section>
                                                 </div>
-                                            
+
                                                 <!--Referencia-->
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
@@ -584,28 +574,28 @@ button[data-original-title="Help"]{ display: none; }
                                                                 Agregar Cirugia
                                                             </button>
                                                         </div>
-                                                            
+
                                                         <div class="col-4">
                                                             <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
                                                                 <i class="fa fa-plus"></i>
                                                                 Agregar Procedimiento
                                                             </button>
-                                                        </div>                                                            
+                                                        </div>
                                                         </div>
                                                         <div class="row d-flex mt-20 justify-content-center">
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>  
+                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>
                                                             </div>
 
                                                             <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>  
+                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <!--Proxima cita-->
                                                 {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
@@ -615,7 +605,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div> --}}
                                         </section>
-                                        
+
                                     </form>
                                     </div>
                                 </div>
@@ -623,7 +613,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -656,12 +646,12 @@ button[data-original-title="Help"]{ display: none; }
                                 </div>
                                 @endforeach
                             </div>
-                        </div> 
-                    </div>   
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
-                </form>    
+                </form>
             </div>
         </div>
     </div>
@@ -688,7 +678,7 @@ button[data-original-title="Help"]{ display: none; }
                                 @endforeach
                             </div>
                         </div>
-                    </div>   
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
@@ -726,13 +716,13 @@ button[data-original-title="Help"]{ display: none; }
                             </div>
                             @endforeach
                         </div>
-                     
+
                     </div>
                 </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarC">Guardar</button>
                     </div>
-                </form>    
+                </form>
             </div>
         </div>
     </div>
@@ -892,9 +882,9 @@ button[data-original-title="Help"]{ display: none; }
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    medicina : medicina, 
-                    dosis: dosis, 
-                    medida : medida, 
+                    medicina : medicina,
+                    dosis: dosis,
+                    medida : medida,
                     duracion: duracion,
                     indicaciones: indicaciones,
                     reservacion: reservacion,
@@ -988,18 +978,18 @@ button[data-original-title="Help"]{ display: none; }
     });
 
     $("#select").change(function(){
-            var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura 
+            var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura
             console.log('estos son ', exam_id);
             console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
     });
 
     $('#referir').click(function () {
         // console.log('referir');
-        var speciality = $("#speciality").val(); 
-        var reason = $("#reason").val(); 
-        var doctor = $("#medicoInterno").val(); 
-        var doctorExterno = $("#medicoExterno").val(); 
-        var patient = $("#patient").val();   
+        var speciality = $("#speciality").val();
+        var reason = $("#reason").val();
+        var doctor = $("#medicoInterno").val();
+        var doctorExterno = $("#medicoExterno").val();
+        var patient = $("#patient").val();
         var reservation = $("#reservacion_id").val();
         console.log('espe',speciality);
         console.log('reason',reason);
@@ -1007,26 +997,26 @@ button[data-original-title="Help"]{ display: none; }
         console.log('d e',doctorExterno);
         console.log('patient',patient);
 
-        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);                          
-        // console.log('espe',especialidad);                  
-        // ajax(dni); 
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);
+        // console.log('espe',especialidad);
+        // ajax(dni);
     });
 
     function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
         console.log("hola hoy");
-        $.ajax({ 
+        $.ajax({
             url: "{{ route('reference.store') }}",   //definiendo ruta
             type: "POST",                             //definiendo metodo
             data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 speciality:speciality,
                 reason:reason,
                 doctor:doctor,
                 doctorExterno:doctorExterno,
-                patient:patient, 
+                patient:patient,
             }
         })
-        .done(function(data) {               
+        .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
             if(data[0] == 201){                  //si trae valores
@@ -1036,7 +1026,7 @@ button[data-original-title="Help"]{ display: none; }
                     type: 'success',
                 });
             }
-            
+
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
                     title: data.reference,
@@ -1059,19 +1049,19 @@ button[data-original-title="Help"]{ display: none; }
 
             ajax_PO(procesof,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
         });                                                               //fin de la funcion clikea
-        
+
         function ajax_PO(procesof,reservacion) {
-        $.ajax({ 
+        $.ajax({
             url: "{{ route('doctor.procedures_realizados') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
-                _token: "{{ csrf_token() }}",        
-                data:procesof, 
+                _token: "{{ csrf_token() }}",
+                data:procesof,
                 id:reservacion
             }
         })
-        .done(function(data) {               
+        .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
             if(data[0] == 201){                  //si no trae valores
@@ -1082,7 +1072,7 @@ button[data-original-title="Help"]{ display: none; }
                 });
                 mostrarProceduresC(data[1]);
             }
-            
+
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
                     title: data.procedureR2,
@@ -1104,19 +1094,19 @@ button[data-original-title="Help"]{ display: none; }
 
             ajax_E(exam,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
-        
+
         function ajax_E(exam,reservacion) {
-        $.ajax({ 
+        $.ajax({
             url: "{{ route('doctor.examR') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
-                _token: "{{ csrf_token() }}",        
-                data:exam, 
+                _token: "{{ csrf_token() }}",
+                data:exam,
                 id:reservacion
             }
         })
-        .done(function(data) {               
+        .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
             console.log('gfhdg', data[1]);
 
@@ -1128,7 +1118,7 @@ button[data-original-title="Help"]{ display: none; }
                 });
                 mostrarExamen(data[1]);
             }
-            
+
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
                     title: data.exam2,
@@ -1150,20 +1140,20 @@ button[data-original-title="Help"]{ display: none; }
 
             ajax(proce,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
-        
+
         function ajax(proce,reservacion) {
-        $.ajax({ 
+        $.ajax({
             url: "{{ route('doctor.proceduresP') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
-                _token: "{{ csrf_token() }}",        
-                data:proce, 
+                _token: "{{ csrf_token() }}",
+                data:proce,
                 id:reservacion
             }
         })
-        .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+        .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1173,7 +1163,7 @@ button[data-original-title="Help"]{ display: none; }
                 });
                 mostrarProcedure(data[1]);
             }
-            
+
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
                     title: data.reference,
@@ -1188,7 +1178,7 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-    // mostrando posibles procedimientos 
+    // mostrando posibles procedimientos
     function mostrarProcedure(data){
         console.log('hh',data);
 
@@ -1196,10 +1186,10 @@ button[data-original-title="Help"]{ display: none; }
             procedure='<p style="text-align:center">'+data[$i].name+'</p>';
             $("#procedimientos").append(procedure);
         }
-        
+
     }
 
-    // mostrando posibles procedimientos 
+    // mostrando posibles procedimientos
     function mostrarExamen(data){
         console.log('hh',data);
 
@@ -1218,19 +1208,19 @@ button[data-original-title="Help"]{ display: none; }
 
             ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
-        
+
         function ajax_S(surgery,reservacion) {
-        $.ajax({ 
+        $.ajax({
             url: "{{ route('doctor.surgerysP') }}",   //definiendo ruta
             type: "POST",
             dataType:'json',                             //definiendo metodo
             data: {
-                _token: "{{ csrf_token() }}",        
-                data:surgery, 
+                _token: "{{ csrf_token() }}",
+                data:surgery,
                 id:reservacion
             }
         })
-        .done(function(data) {               
+        .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
             if(data[0] == 201){                  //si no trae valores
@@ -1241,7 +1231,7 @@ button[data-original-title="Help"]{ display: none; }
                 });
                 mostrarSurgery(data[1]);
             }
-            
+
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
                     title: data.surgerysR2,
@@ -1255,7 +1245,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
-    
+
     function mostrarProceduresC(data){
             console.log('hh',data);
 
@@ -1264,9 +1254,9 @@ button[data-original-title="Help"]{ display: none; }
                 // procesc='<li>'+data[$i].name+'</li>';
                 procesc='<tr><td><div class="col-6" >'+data[$i].name+'</div></td></tr>'
                 $("#procesc").append(procesc);
-            }            
+            }
         }
-        
+
     //mostrando posibles cirugias
     function mostrarSurgery(data){
             console.log('hh',data);
@@ -1277,15 +1267,15 @@ button[data-original-title="Help"]{ display: none; }
             }
         }
 
-        // mostrando posibles procedimientos 
+        // mostrando posibles procedimientos
         function mostrarProcedure(data){
             console.log('hh',data);
-    
+
             for($i=0; $i < data.length; $i++){
                 procedure='<li>'+data[$i].name+'</li>';
                 $("#procedimientos").append(procedure);
-            }            
+            }
         }
-    
+
 </script>
 @endsection

@@ -21,7 +21,7 @@
 @extends('dashboard.layouts.app')
 
 @section('citas de pacientes','active')
-@section('all','active')
+@section('citas','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
@@ -222,11 +222,15 @@
                                             <div class="card-body">
                                                 <h5 class="card-title color_titulo">Posible cirugia</h5>
                                                 @if($itinerary->typesurgery != null)
-                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->id, 'hospitalaria']) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                @if($itinerary->typesurgery->classification_surgery_id == 1)
+                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                @else
+                                                <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                @endif
                                                     <span class="titulos">Descripcion: </span><span>{{ $itinerary->typesurgery->description }}</span><br>
                                                     <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>                                               
                                                     <span class="titulos">costo: </span><span>{{ $itinerary->typesurgery->cost }}</span><br>
-                                            <span><a href="{{ route('checkout.programar_cirugia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                    <span><a href="{{ route('checkout.programar_cirugia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
                                                 @else
                                                     <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                 @endif

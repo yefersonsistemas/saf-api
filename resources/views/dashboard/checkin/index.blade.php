@@ -134,7 +134,7 @@
                                 </tfoot>
                                 <tbody>
 
-                                      @if($reservations != '')
+                                    @if($reservations != '')
                                     @foreach ($reservations as $reservation)
                                     @if ($reservation->status=="Suspendida")
                                         @if (!empty($reservation->cite) )

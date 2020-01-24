@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('citas de pacientes','active')
-@section('all','active')
+@section('facturacion','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
@@ -201,9 +201,15 @@
                                                     </tr>
                                                 </table>
                                             </div><br>
-                                            <div class="row d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="redirect()"> <i class="fa fa-print"> </i> Imprimir</button>
+                                            <div class="row">
+                                                <div class="col-6 d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="redirect()"> <i class="fa fa-print"> </i> Imprimir</button>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-start">
+                                                    <a href="{{route('checkout.index')}}" class="btn btn-boo pr-5 pl-5 mr-3">Salir</a>
+                                                </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -309,8 +315,8 @@
             if(email == ''){ email=null;   }
 
             
-                       
-           if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
+
+        if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
             
             Swal.fire({
             title: 'Datos incompletos',
@@ -324,11 +330,9 @@
                 }
             })
 
-           }else{
+        }else{
             registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);  
-           }        
-          
-           
+        }        
         }); //fin de la funcion clikea
         //=================== funcion para registrar al cliente================
         function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {

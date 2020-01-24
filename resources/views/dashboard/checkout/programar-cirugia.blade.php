@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app') 
 @section('cites','active') 
-@section('newCite','active') 
+@section('agendar','active') 
 @section('title','Agendar Cirugia')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
@@ -135,15 +135,15 @@
                                         <label class="imagecheck m-0">
                                             <div class="card assigment">
                                                 <input type="radio" name="area_id" value="{{ $quirofano->id }}" id="area_id" class="imagecheck-input">
-                                                @if (!empty($quirofano->image->path))
+                                                {{-- @if (!empty($quirofano->image->path))
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                     <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
                                                 </figure>
-                                                @else
+                                                @else --}}
                                                 <figure class="imagecheck-figure border-0 text-center">
                                                     <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                                 </figure>
-                                                @endif
+                                                {{-- @endif --}}
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                     <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
                                                     <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
@@ -157,15 +157,15 @@
                                     <label class="imagecheck m-0">
                                         <div class="card assigment">
                                             <input type="radio" name="area_id" value="" id="area_id" class="imagecheck-input" disabled>
-                                            @if (!empty($quirofano->image->path))
+                                            {{-- @if (!empty($quirofano->image->path))
                                             <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                 <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
                                             </figure>
-                                            @else
+                                            @else --}}
                                             <figure class="imagecheck-figure border-0 text-center">
                                                 <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
                                             </figure>
-                                            @endif
+                                            {{-- @endif --}}
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                 <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
                                                 <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $quirofano->status }}</span> </h6>
@@ -206,7 +206,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <div id='wrap'>
+                        {{-- <div id='wrap'>
                         <div id='external-events'>
                             <h4>Draggable Events</h4>
                             <div id='external-events-list'>
@@ -226,7 +226,7 @@
                     
                         <div style='clear:both'></div>
                     
-                        </div>
+                        </div> --}}
 
                     </section>
                 </form>

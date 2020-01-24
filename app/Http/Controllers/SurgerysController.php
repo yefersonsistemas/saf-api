@@ -77,7 +77,7 @@ public function create_surgery(){
         if (!is_null($person)) {
             $patient = Patient::with('person')->where('person_id', $person->id)->first();
             return response()->json([
-               'patient' => $patient, 201
+            'patient' => $patient, 201
             ]);
         }else{
             return response()->json([
@@ -88,8 +88,8 @@ public function create_surgery(){
 
     public function search_doctor(Request $request){    //medicos asociado a una cirugia
         
-        $surgery = Typesurgery::with('employe_surgery.person', 'employe_surgery.image')->where('id', $request->id)->first();
-        
+        $surgery = Typesurgery::with('employe_surgery.person', 'employe_surgery.image','employe_surgery.person.image')->where('id', $request->id)->first();
+        // dd($surgery);
         if (!is_null($surgery)) {
 
             return response()->json([

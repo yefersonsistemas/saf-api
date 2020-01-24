@@ -436,9 +436,9 @@ var Dropzone = function(_Emitter) {
                 /**
                  * The text used before any files are dropped.
                  */
-                dictDefaultMessage: '<div><h1><i class="fa fa-file-photo-o fa-2x"></i></h1></div><div class="mt-4"><h6 style="font-weight:bold"><u>Arrastre los Archivos Aquí</u></h6></div>',
+                dictDefaultMessage: '<div><h1 style="color:#00506b"><i class="fa fa-file-photo-o fa-2x"></i></h1></div><div class="mt-4"><h5 style="font-weight:bold;color:#00506b">Arrastre los Archivos Aquí</h5></div>',
 
-                /**
+                /*
                  * The text that replaces the default message text it the browser is not supported.
                  */
                 dictFallbackMessage: "Su navegador no admite la carga de archivos de arrastrar y soltar.",

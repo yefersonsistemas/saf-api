@@ -535,40 +535,32 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             <th>Acciones</th>
                                                                                         </tr>
                                                                                     </thead>
-                                                                                    <tfoot>
-                                                                                        <tr>
-                                                                                            <th>Medicamento Seleccionado</th>
-                                                                                            <th>Dosis</th>
-                                                                                            <th>Medidas</th>
-                                                                                            <th>Duracion</th>
-                                                                                            <th>Indicaciones</th>
-                                                                                            <th>Acciones</th>
-                                                                                        </tr>
-                                                                                    </tfoot>
                                                                                     <tbody id="addRow">
-                                                                                        {{-- @foreach ($itinerary->recipe->medicine as $item)
-                                                                                            <tr>
-                                                                                            <td>{{$item->name}}</td>
-                                                                                            <td>{{$item->treatment->doses}}</td>
-                                                                                            <td>{{$item->treatment->measure}}</td>
-                                                                                            <td>{{$item->treatment->duration}}</td>
-                                                                                            <td>{{$item->treatment->indications}}</td>
-                                                                                            <td class="actions">
-                                                                                                <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden="">
-                                                                                                    <i class="icon-drawer" aria-hidden="true"></i> 
-                                                                                                </button> 
-                                                                                                <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden="">
-                                                                                                    <i class="icon-close" aria-hidden="true"></i> 
-                                                                                                </button> 
-                                                                                                <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit">
-                                                                                                    <i class="icon-pencil" aria-hidden="true"></i> 
-                                                                                                </button> 
-                                                                                                <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
-                                                                                                    <i class="icon-trash" aria-hidden="true"></i>
-                                                                                                </button>
-                                                                                            </td>
-                                                                                            </tr>
-                                                                                        @endforeach --}}
+                                                                                        @if($itinerary->recipe != '') 
+                                                                                            @foreach ($itinerary->recipe->medicine as $item)
+                                                                                                <tr>
+                                                                                                <td>{{$item->name}}</td>
+                                                                                                <td>{{$item->treatment->doses}}</td>
+                                                                                                <td>{{$item->treatment->measure}}</td>
+                                                                                                <td>{{$item->treatment->duration}}</td>
+                                                                                                <td>{{$item->treatment->indications}}</td>
+                                                                                                <td class="actions">
+                                                                                                    <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden="">
+                                                                                                        <i class="icon-drawer" aria-hidden="true"></i> 
+                                                                                                    </button> 
+                                                                                                    <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden="">
+                                                                                                        <i class="icon-close" aria-hidden="true"></i> 
+                                                                                                    </button> 
+                                                                                                    <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit">
+                                                                                                        <i class="icon-pencil" aria-hidden="true"></i> 
+                                                                                                    </button> 
+                                                                                                    <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
+                                                                                                        <i class="icon-trash" aria-hidden="true"></i>
+                                                                                                    </button>
+                                                                                                </td>
+                                                                                                </tr>
+                                                                                            @endforeach
+                                                                                        @endif
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
@@ -609,49 +601,68 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
-                                                            <input type="hidden" id="patient" name="patient" value="{{ $reservation->patient_id }}">
+                                                            
+                                                            <input type="hidden" id="patient" name="patient" value="{{ $itinerary->patient_id }}">
                                                                 <div class="card mr-0 ml-0">
                                                                     <div class="card-body m-0">
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
                                                                                 <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                {{-- <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
-                                                                                    @foreach ($speciality as $spe)
-                                                                                        <option value="{{ $spe->id }}">{{ $spe->name }}</option>
-                                                                                    @endforeach --}}
+                                                                                    @if($itinerary->reference != '')
+                                                                                    <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
+                                                                                        <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
+                                                                                    @endif
+                                                                                    @if($diff != [])
+                                                                                        @foreach ($diff as $spe)
+                                                                                            <option value="{{ $spe->id }}">{{ $spe->name }}</option>
+                                                                                        @endforeach
+                                                                                    @endif
                                                                                 </select>
                                                                             </div>
                                                                             <div class="col-md-8">
                                                                                 <div class="form-group" style=" margin-top:8px;">
-                                                                                        <div class="custom-controls-stacked d-flex justify-content-between">
-                                                                                            <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                    <div class="custom-controls-stacked d-flex justify-content-between">
+                                                                                        <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                            @if(!empty($itinerary->reference->employe_id))
+                                                                                                <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno" checked>
+                                                                                            @else
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
-                                                                                                <span class="custom-control-label">Médico Interno</span>
-                                                                                                <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                {{-- <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option> --}}
-                                                                                                </select>
-                                                                                            </label>
-                                                                                            <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
-                                                                                                <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
-                                                                                                @if(!empty($itinerary->reference->doctor))
-                                                                                                    <span class="custom-control-label">Médico Externo</span>
-                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctor Externo" >
-                                                                                                @else
-                                                                                                    <span class="custom-control-label">Médico Externo</span>
-                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
+                                                                                            @endif
+                                                                                            <span class="custom-control-label">Médico Interno</span>
+                                                                                            <select class="form-control custom-select" name="doctor" id="medicoInterno">
+                                                                                                @if(!empty($itinerary->reference->employe_id))
+                                                                                                    <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
+                                                                                                    @if($diff2 != [])
+                                                                                                        @foreach ($diff2 as $spe)
+                                                                                                            <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
+                                                                                                        @endforeach
+                                                                                                    @endif   
                                                                                                 @endif
-                                                                                            </label>
-                                                                                        </div>
+                                                                                            </select>
+                                                                                        </label>
+                                                                                        <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                            @if(!empty($itinerary->reference->doctor))
+                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo" checked>
+                                                                                                <span class="custom-control-label">Médico Externo</span>
+                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctor Externo" >
+                                                                                            @else
+                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
+                                                                                                <span class="custom-control-label">Médico Externo</span>
+                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
+                                                                                            @endif
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
+
                                                                             <div class="col-lg-12 col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label class="form-label">Razon</label>
                                                                                      @if(!empty($itinerary->reference->reason))
-                                                                                    <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon">{{$itinerary->reference->reason}}</textarea>
+                                                                                        <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon">{{$itinerary->reference->reason}}</textarea>
                                                                                     @else
-                                                                                    <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
+                                                                                        <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
                                                                                     @endif 
                                                                                 </div>
                                                                             </div>
@@ -1067,7 +1078,7 @@ button[data-original-title="Help"]{ display: none; }
         }
     })
 
-    $("#speciality").change(function() {
+    $("#speciality").click(function() {
         var speciality = $(this).val();
         $.ajax({
                 url: "{{ route('search.medic') }}",
@@ -1123,6 +1134,7 @@ button[data-original-title="Help"]{ display: none; }
         var reason = $("#reason").val(); 
         var doctor = $("#medicoInterno").val(); 
         var doctorExterno = $("#medicoExterno").val(); 
+        var reference = $("#reference").val();   
         var patient = $("#patient").val();   
         var reservation = $("#reservacion_id").val();
         console.log('espe',speciality);
@@ -1131,15 +1143,15 @@ button[data-original-title="Help"]{ display: none; }
         console.log('d e',doctorExterno);
         console.log('patient',patient);
 
-        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);                          
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
     });
 
-    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference) {
         console.log("hola hoy");
         $.ajax({ 
-            url: "{{ route('reference.store') }}",   //definiendo ruta
+            url: "{{ route('doctor.reference_update') }}",   //definiendo ruta
             type: "POST",                             //definiendo metodo
             data: {
                 _token: "{{ csrf_token() }}",        
@@ -1147,12 +1159,13 @@ button[data-original-title="Help"]{ display: none; }
                 reason:reason,
                 doctor:doctor,
                 doctorExterno:doctorExterno,
-                patient:patient, 
+                reference:reference, 
+                patient:patient,
             }
         })
         .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
+            console.log('encontrado',data[1])         //recibe lo que retorna el metodo en la ruta definida
+            $('#reference').val(data[1].id);
             if(data[0] == 201){                  //si trae valores
                 Swal.fire({
                     title: data.reference,
