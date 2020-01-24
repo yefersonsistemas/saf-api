@@ -930,6 +930,7 @@
 }
 
 /* -----step doctor plan---- */
+
         .tab-content {
     position: relative;
     display: inline-block;
@@ -938,6 +939,11 @@
     overflow: auto;
     /* border-top: 1px solid #00506b; */
     padding-top: 20px;
+}
+.plan .tab-content {
+
+    height: 28em !important;
+
 }
 .wizard.vertical>.steps>ul>li a {
     font-weight: bold;
