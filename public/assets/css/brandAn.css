@@ -929,6 +929,16 @@
     align-items: center;
 }
 
+.steps a{
+    color: #00506b;
+}
+.wizard > .steps .current a, .wizard > .steps .current a:hover, .wizard > .steps .current a:active {
+    background: #00506b !important;
+}
+.wizard > .steps .done a, .wizard > .steps .done a:hover, .wizard > .steps .done a:active {
+    background: #4d7286 !important;
+    color: #fff;
+}
 /* -----step doctor plan---- */
 
         .tab-content {
