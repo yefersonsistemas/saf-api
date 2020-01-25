@@ -311,6 +311,17 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div>
+                                    <ul class="list-group" style="list-style:none">
+                                        @foreach ($disease as $disease)
+                                        @if ($rs->patient->historyPatient->disease->contains($disease->id))
+                                            <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</li>
+                                        @else
+                                            
+                                        @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                             
                         </div>
@@ -329,6 +340,16 @@
                                             @endif>{{ $medicamentos->name }}</option>
                                         @endforeach
                                     </select>
+                                    <div>
+                                    <ul class="list-group" style="list-style:none">
+                                        @foreach ($medicine as $medicine)
+                                        @if ($rs->patient->historyPatient->medicine->contains($medicine->id))
+                                            <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</li>
+                                        @else
+                                        @endif
+                                        @endforeach
+                                    </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -348,13 +369,24 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div>
+                                    <ul class="list-group" style="list-style:none">
+                                    @foreach ($allergy as $allergy)
+                                    @if ($rs->patient->historyPatient->allergy->contains($allergy->id))
+                                    <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$allergy->name}}</li>
+                                    @else
+                                        
+                                    @endif
+                                    @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="col-lg-6 col-md-3">
                             <div class="form-group col-12">
                                 <label class="form-label text-center">Cirugias previas</label>
-                                <input  type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->previous_surgery : ''  }}" name="previous_surgery" disabled>
+                                <input style="height:85px" type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->previous_surgery : ''  }}" name="previous_surgery" disabled>
                                 {{-- <textarea class="form-control" disabled id="previous_surgery" name="cirugia" cols="63" rows="5">{{ $rs->patient->historyPatient->previous_surgery  }}</textarea> --}}
                             </div>
                         </div>
@@ -483,12 +515,12 @@ $boton.addEventListener("click", function() {
             })
         //Reanudar reproducción
         $video.play();
-  
+
         $('.avatar-preview').load(
             $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
-             $('#imagePreview').hide(),
-             $('#imagePreview').fadeIn(650)
-         );        
+            $('#imagePreview').hide(),
+            $('#imagePreview').fadeIn(650)
+        );        
         });
 </script>
 
