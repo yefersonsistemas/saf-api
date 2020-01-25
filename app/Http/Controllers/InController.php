@@ -133,7 +133,7 @@ class InController extends Controller
     public function search_history($id, $id2){ 
         $mostrar = $id2;
         // dd($mostrar);
-      
+    
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
@@ -152,7 +152,7 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
-     /**
+    /**
      * 
      * guarda registros nuevos y editados 
      * en la historia del paciente
@@ -161,7 +161,7 @@ class InController extends Controller
 
 
     public function guardar(Request $request, $id)  //REVISAR
-     {   
+    {   
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
@@ -253,7 +253,7 @@ class InController extends Controller
                 $image->fileable_id = $patient->id;
                 $image->branch_id = 1;
                 $image->save();
-             }
+            }
 
             if (!is_null($patient)) {
                 if (!empty($request->disease)) {
@@ -262,8 +262,6 @@ class InController extends Controller
                         $patient->disease()->sync($request->disease);
                     }
                 }
-
-               
 
                 if (!empty($request->medicine)){
 
@@ -284,7 +282,6 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
-         
         }
     }
 
