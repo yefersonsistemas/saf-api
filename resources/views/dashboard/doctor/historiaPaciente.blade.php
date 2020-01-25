@@ -235,36 +235,61 @@ button[data-original-title="Help"]{ display: none; }
                                         <h2>Antecedentes</h2>
                                         <section class="ml-4 pb-0 pt-4">
                                             <div id="accordion">
+                                                <!--agregar enfermedad-->
                                                 <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                        <h5 class="card-title text-white">Enfermedades</h5>
+                                                        <div class="row">
+                                                           <div class="col-6">
+                                                            <h5 class="card-title text-white">Enfermedades</h5>
+                                                           </div>
+                                                            <div class="col-6 d-flex justify-content-end">
+                                                                <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades"> agregar </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div  class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+                                                    <div  class="collapse card-body list-group row mostrar_enfermedad" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                         @foreach ( $history->historyPatient->disease as $disease )
                                                             <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
-                                                        @endforeach
-                                                    <div class="col-lg-12 d-flex justify-content-end"><button class="btn btn-info" data-toggle="modal" data-target="#enfermedad"> agregar </button></div>
-                                                    </div>
+                                                        @endforeach                                                   
+                                                    </div>                                                 
+                                                   
                                                 </div>
                                                 
                                             
-
-
+                                                <!--agregar alergias-->
                                                 <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        <h5 class="card-title text-white">Alergias</h5>
+                                                        
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <h5 class="card-title text-white">Alergias</h5>
+                                                            </div>
+                                                             <div class="col-6 d-flex justify-content-end">
+                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#alergias"> agregar </button>
+                                                             </div>
+                                                         </div>
                                                     </div>
-                                                    <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                    <div id="collapseTwo" class="collapse card-body list-group mostrar_alergias" aria-labelledby="headingTwo" data-parent="#accordion">
                                                         @foreach ( $history->historyPatient->allergy as $allergy )
                                                             <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
                                                         @endforeach
                                                     </div>
                                                 </div>
+
+                                                <!--agregar cirugias-->
                                                 <div class="card">
                                                     <div class="card-header bg-azuloscuro" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        <h5 class="card-title text-white">Cirugias Previas</h5>
+                                                       
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <h5 class="card-title text-white">Cirugias Previas</h5>
+                                                            </div>
+                                                             <div class="col-6 d-flex justify-content-end">
+                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias"> agregar </button>
+                                                             </div>
+                                                         </div>
                                                     </div>
-                                                    <div id="collapseThree" class="collapse list-group card-body" aria-labelledby="headingThree" data-parent="#accordion">
+                                                    <div id="collapseThree" class="collapse list-group card-body cirugias" aria-labelledby="headingThree" data-parent="#accordion">
                                                         <a class="list-group-item list-group-item-action">{{ $cite->previous_surgery }}</a>
                                                     </div>
                                                 </div>
@@ -623,7 +648,7 @@ button[data-original-title="Help"]{ display: none; }
     </div>
 
     <!-- Modal para mostar enfermedades-->
-    <div class="modal fade" id="enfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -636,14 +661,16 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                @foreach ($enfermedad as $item)
-                                <div class="row">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
-                                        <span class="custom-control-label">{{ $item->name }} </span>
-                                    </label>
-                                </div>
-                                @endforeach
+                                @if($enfermedad != null)
+                                    @foreach ($enfermedad as $item)
+                                        <div class="row">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
+                                                <span class="custom-control-label">{{ $item->name }} </span>
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -654,6 +681,76 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     </div>
+
+      <!-- Modal para mostar alergias-->
+      <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Alergias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="form_alergias">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                @if($alergia != null)
+                                    @foreach ($alergia as $item)
+                                        <div class="row">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
+                                                <span class="custom-control-label">{{ $item->name }} </span>
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button  class="btn btn-success" data-dismiss="modal" id="guardarAlergias">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal para mostrar cirugias-->
+        <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="" id="form_cirugias">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="custom-controls-stacked">
+                                    {{-- @if($alergias != null)
+                                        @foreach ($alergias as $item)
+                                            <div class="row">
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
+                                                    <span class="custom-control-label">{{ $item->name }} </span>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    @endif --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button  class="btn btn-success" data-dismiss="modal" id="guardarCirugias">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1080,14 +1177,14 @@ button[data-original-title="Help"]{ display: none; }
 
 
     //guardar enfermedades
-    $("#guardarEnfermedades").click(function() {
+    $("#guardarEnfermedad").click(function() {
             var reservacion = $("#reservacion").val();
             var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
-
-            ajax_PO(enfermedad,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+        console.log("hh",enfermedad);
+            ajax_enfermedad(enfermedad,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
         });                                                               //fin de la funcion clikea
 
-        function ajax_PO(enfermedad,reservacion) {
+        function ajax_enfermedad(enfermedad,reservacion) {
         $.ajax({
             url: "{{ route('doctor.agregar_enfermedad') }}",   //definiendo ruta
             type: "POST",
@@ -1107,12 +1204,12 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-                mostrarProceduresC(data[1]);
+                mostrarEnfermedad(data[1]);
             }
 
             if (data[0] == 202) {                       //si no trae valores
                 Swal.fire({
-                    title: data.procedureR2,
+                    title: data.enfermedad,
                     text:  'Click en OK para continuar',
                     type:  'error',
                 })
@@ -1124,7 +1221,74 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
+   // mostrando posibles procedimientos
+   function mostrarEnfermedad(data){
+        console.log('ken',data[0].name);
 
+        for($i=0; $i < data.length; $i++){
+            enfermedad = '<a class="list-group-item list-group-item-action">'+data[$i].name+'</a>';
+            // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
+            $(".mostrar_enfermedad").append(enfermedad);
+        }
+
+    }
+
+        //guardar enfermedades
+        $("#guardarAlergias").click(function() {
+            var reservacion = $("#reservacion").val();
+            var datos = $("#form_alergias").serialize();          //asignando el valor que se ingresa en el campo
+        console.log("hh",datos);
+            ajax_enfermedad(datos,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+        });                                                               //fin de la funcion clikea
+
+        function ajax_enfermedad(datos,reservacion) {
+        $.ajax({
+            url: "{{ route('doctor.agregar_alergias') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",
+                data:datos,
+                id:reservacion
+            }
+        })
+        .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.alergia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarAlergias(data[1]);
+            }
+
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.alergia,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+   // mostrando posibles procedimientos
+   function mostrarAlergias(data){
+        console.log('ken',data[0].name);
+
+        for($i=0; $i < data.length; $i++){
+            alergia = '<a class="list-group-item list-group-item-action">'+data[$i].name+'</a>';
+            // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
+            $(".mostrar_alergias").append(alergia);
+        }
+
+    }
 
 
     //captar datos de los procedimientos en la consulta
