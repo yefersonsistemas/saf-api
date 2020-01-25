@@ -24,7 +24,7 @@
                                     <div class="card-header">
                                         <h2 class="card-title">Datos del paciente</h2>
                                     </div>
-                                    <div class="card-body ">
+                                    <div class="card-body py-0">
                                         <div class="col-lg-4  col-md-6">
                                             <div class="form-group d-flex flex-row  align-items-center">
                                                 <div class="input-group">
@@ -47,8 +47,19 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-6 mb-2">
-                                                <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="">
+                                            <div class="col-4 d-flex justify-content-center">
+                                                <div class="avatar-upload">
+                                                    <div class="avatar-preview avatar-edit">
+                                                        <div id="imagePreview" style="background-image: url();">
+                                                        </div>
+                                                        <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                                                    </div>
+                                                {{-- <div class="avatar-preview avatar-edit">
+                                                    <div id="imagePreview" style="background-image: url();">
+                                                    </div>
+                                                    <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                                                </div> --}}
+                                                </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
@@ -169,15 +180,77 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h1>Selecciona un dispositivo</h1>
+                <div>
+                    <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                    <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
+                    <input type="hidden" name="patient" id="patient-id" value="">
+                    <input type="hidden" name="image" id="imagen-id" value="">
+                    <p id="estado"></p>
+                </div>
+                <video muted="muted" id="video" class="col-12"></video>
+                <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('scripts')
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('js/brandAn.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
-{{--
-<script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
+{{--<script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
+<script>
+    $boton.addEventListener("click", function() {
+        // Codificarlo como JSON
+        //Pausar reproducción
+        $video.pause();
+            //Obtener contexto del canvas y dibujar sobre él
+            let contexto = $canvas.getContext("2d");
+            $canvas.width = $video.videoWidth;
+            $canvas.height = $video.videoHeight;
+            contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
+            let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+            let datafoto=encodeURIComponent(foto);
+                var data1 = {
+                    "tokenmodalfoto": $('#tokenfoto').val(),
+                    "idpatient":$('#patient-id').val(),
+                    "idimage":$('#imagen-id').val(),
+                    "pic":datafoto
+                    };
+            const datos=JSON.stringify(data1)
+            $estado.innerHTML = "Enviando foto. Por favor, espera...";
+            fetch("{{ route('search.patient') }}", {
+                method: "POST",
+                body: datos,
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded",
+                    'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+                },
+            }).then(function(response) {
+                // console.log(response.json());
+                    return response.json();
+                }).then(nombreDeLaFoto => {
+                    // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                    console.log("La foto fue enviada correctamente");
+                    $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+                })
+            //Reanudar reproducción
+            $video.play();
+            });
+    </script>
 
 <script>
     function stopDefAction(evt) {
@@ -261,7 +334,7 @@
                 }
             })
             .done(function(data) {
-                console.log(data);
+                console.log(data.person.image.path);
                 if (data[0] == 202) {
                     Swal.fire({
                         title: 'Paciente no encontrado.!',
@@ -293,6 +366,11 @@
         $('#address').val(data.person.address);
         $('#phone').val(data.person.phone);
         $('#newPerson').val(data.person.id);
+              $('.avatar-preview').load(
+                $('#imagePreview').css('background-image', `url(/storage/${data.person.image.path})`),
+                 $('#imagePreview').hide(),
+                 $('#imagePreview').fadeIn(650)
+             );
 
         $("#photo").attr('disabled', true);
         $(".dropify-wrapper").addClass('disabled');

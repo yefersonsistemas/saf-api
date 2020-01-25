@@ -243,7 +243,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Enfermedades</h5>
                                                            </div>
                                                             <div class="col-6 d-flex justify-content-end">
-                                                                <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades"> agregar </button>
+                                                                <a class="btn btn-info" data-toggle="modal" data-target="#enfermedades"> agregar </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -331,45 +331,34 @@ button[data-original-title="Help"]{ display: none; }
                                          <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
                                          <h2>Procedimientos Realizados</h2>
                                          <section class="ml-4 pb-0 pt-4">
-                                            <div class="row">
-                                                <div class="col-12 mt-30">
-                                                    <h5>Procedimientos Realizados al Paciente:</h5>
-                                                </div>
-                                                <div class="col-12 mt-10">
-                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
-                                                        <i class="fa fa-plus"></i>
-                                                        Agregar Procedimiento
-                                                    </button>
-                                                </div>
-                                                <h6 class="text-center col-12 mt-2 p-2  " style="font-weight:bold">Procedimientos Realizados</h6>
-                                                <div class="col-lg-12 mx-auto">
-                                                    <div class="card">
-                                                        <div class="row">
-                                                            <div class="card-body">
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-hover table-vcenter table-striped"
-                                                                        cellspacing="0" id="addrowExample">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Procedimiento Seleccionado</th>
-                                                                                {{-- <th class="text-center">Accion</th> --}}
-                                                                            </tr>
-                                                                        </thead>
-                                                                        {{-- <tfoot>
-                                                                            <tr>
-                                                                                <th>Procedimiento Seleccionado</th>
-                                                                                <th class="text-center">Accion</th>
-                                                                            </tr>
-                                                                        </tfoot> --}}
-                                                                        <tbody id="procesc">
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
+                                            <h5>Procedimientos Realizados al Paciente:</h5>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar Procedimiento</button>
+                                                        <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                cellspacing="0" id="addrowExample">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Procedimiento Seleccionado</th>
+                                                                        {{-- <th class="text-center">Accion</th> --}}
+                                                                    </tr>
+                                                                </thead>
+                                                                {{-- <tfoot>
+                                                                    <tr>
+                                                                        <th>Procedimiento Seleccionado</th>
+                                                                        <th class="text-center">Accion</th>
+                                                                    </tr>
+                                                                </tfoot> --}}
+                                                                <tbody id="procesc">
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                         </section>
 
                                         <h2>Plan</h2>
@@ -596,32 +585,34 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                    <div class="row d-flex justify-content-center">
-                                                        <div class=" col-4">
-                                                            <button type="button"  class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Cirugia
-                                                            </button>
-                                                        </div>
-
-                                                        <div class="col-4">
-                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Procedimiento
-                                                            </button>
-                                                        </div>
-                                                        </div>
-                                                        <div class="row d-flex mt-20 justify-content-center">
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>
+                                                    <div class="container">
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="card col-md-5 mx-2">
+                                                                <div class="card-header text-center">
+                                                                    <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
+                                                                        <i class="fa fa-plus"></i>
+                                                                        Agregar Cirugia
+                                                                    </button>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
+                                                                    <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>
+                                                                </div>
                                                             </div>
-
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>
+                                                            <div class="card col-md-5 mx-2">
+                                                                <div class="card-header text-center">
+                                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
+                                                                        <i class="fa fa-plus"></i>
+                                                                        Agregar Procedimiento
+                                                                    </button>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
+                                                                    <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                     </div>
                                                 </div>
 
@@ -1511,7 +1502,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('hh',data);
 
             for($i=0; $i < data.length; $i++){
-                cirugias='<li>'+data[$i].name+'</li>';
+                cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
                 $("#cirugias").html(cirugias);
             }
         }
@@ -1521,7 +1512,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('hh',data);
 
             for($i=0; $i < data.length; $i++){
-                procedure='<li>'+data[$i].name+'</li>';
+                procedure=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
                 $("#procedimientos").append(procedure);
             }
         }
