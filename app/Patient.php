@@ -19,7 +19,7 @@ class Patient extends Model
 
     public function person()
     {
-        return $this->belongsTo('App\Person');
+        return $this->belongsTo('App\Person','person_id');
     }
 
     public function disease()
@@ -56,7 +56,7 @@ class Patient extends Model
     {
         return $this->hasMany('App\Diagnostic');
     }
-    
+
     public function allergie()
     {
         return $this->belongsToMany('App\Allergy');

@@ -31,7 +31,7 @@ class Person extends Model
     {
         return $this->hasOne('App\Employe');
     }
-    
+
     public function historyPatient()  //relacion con paciente
     {
         return $this->hasOne('App\Patient');
@@ -41,7 +41,7 @@ class Person extends Model
     {
         return $this->belongsTo('App\Visitor');
     }
-    
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');
@@ -74,10 +74,10 @@ class Person extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Patient');
+        return $this->belongsTo('App\Patient','patient_id');
     }
 
-    
+
     public function itinerary()
     {
         return $this->belongsTo('App\Itinerary', 'patient_id');
