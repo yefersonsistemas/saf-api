@@ -134,11 +134,10 @@ class InController extends Controller
         // dd($type);
         $areas = Area::with('image')->where('type_area_id',$type->id)->get(); // Trae la informacion de Consultorios
         // dd($areas);
+        $dia = strtolower(Carbon::now()->locale('en')->dayName);  //da el nombre del dia en ingles
+        // dd($dia);
 
-        $employes = Employe::with('image','person.user', 'speciality', 'assistance','areaassigment')->get();
-            // dd($employes);
-        
-        return view('dashboard.checkin.show-area', compact('areas'));
+        return view('dashboard.checkin.show-area', compact('areas', 'dia'));
     }
 
     /**

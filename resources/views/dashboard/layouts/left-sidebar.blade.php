@@ -67,7 +67,7 @@
                                         <a href="{{ route('checkin.doctor_todos') }}">Todos los médicos</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('checkin.consultorio') }}">Ver onsultorios</a>
+                                        <a href="{{ route('checkin.consultorio') }}">Asistencia</a>
                                     </li>
                             </li>
     
