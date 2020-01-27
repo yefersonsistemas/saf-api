@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-4 d-flex justify-content-center">
-                                                <input type="hidden" value="" name="file">
+                                                <input type="hidden" name="file" id="foto">
                                                 <div class="avatar-upload">
                                                     <div class="avatar-preview avatar-edit">
                                                         <div id="imagePreview" style="background-image: url();">
@@ -249,8 +249,9 @@
                             $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
                                         $('.avatar-preview').load(
                                             $('#imagePreview').css('background-image', `url(/storage/${nombreDeLaFoto})`),
+                                            $('#foto').val(nombreDeLaFoto),
                                              $('#imagePreview').hide(),
-                                             $('#imagePreview').fadeIn(650)
+                                             $('#imagePreview').fadeIn(650),
                                          );
                         })
             //Reanudar reproducción
