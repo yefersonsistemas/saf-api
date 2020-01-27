@@ -48,6 +48,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-4 d-flex justify-content-center">
+                                                <input type="hidden" value="" name="file">
                                                 <div class="avatar-upload">
                                                     <div class="avatar-preview avatar-edit">
                                                         <div id="imagePreview" style="background-image: url();">
@@ -226,27 +227,32 @@
             let datafoto=encodeURIComponent(foto);
                 var data1 = {
                     "tokenmodalfoto": $('#tokenfoto').val(),
-                    "idpatient":$('#patient-id').val(),
-                    "idimage":$('#imagen-id').val(),
                     "pic":datafoto
                     };
-            const datos=JSON.stringify(data1)
+            const datos=JSON.stringify(data1);
             $estado.innerHTML = "Enviando foto. Por favor, espera...";
-            fetch("{{ route('search.patient') }}", {
+            fetch("{{ route('cita.foto') }}", {
                 method: "POST",
                 body: datos,
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded",
                     'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
                 },
-            }).then(function(response) {
-                // console.log(response.json());
-                    return response.json();
-                }).then(nombreDeLaFoto => {
-                    // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                    console.log("La foto fue enviada correctamente");
-                    $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-                })
+            }).then(resultado => {
+                            // A los datos los decodificamos como texto plano
+                            return resultado.text()
+                        })
+                        .then(nombreDeLaFoto => {
+                            console.log(nombreDeLaFoto);
+                            // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                            console.log("La foto fue enviada correctamente");
+                            $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+                                        $('.avatar-preview').load(
+                                            $('#imagePreview').css('background-image', `url(/storage/${nombreDeLaFoto})`),
+                                             $('#imagePreview').hide(),
+                                             $('#imagePreview').fadeIn(650)
+                                         );
+                        })
             //Reanudar reproducción
             $video.play();
             });

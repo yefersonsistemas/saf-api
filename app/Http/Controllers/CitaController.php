@@ -80,6 +80,33 @@ class CitaController extends Controller
         }
     }
 
+    public function tomar_foto(){
+        $datos=json_decode(file_get_contents("php://input"));
+
+        $imagenCodificada=$datos->pic;
+
+        if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
+        //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
+
+        $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", urldecode($imagenCodificada));
+        //Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
+        //todo el contenido lo guardamos en un archivo
+
+        $imagenDecodificada = base64_decode($imagenCodificadaLimpia);
+        //Calcular un nombre único
+
+        $nombreImagenGuardada = "foto_" . uniqid() . ".png";
+        //Escribir el archivo
+
+        file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
+        $path=("person/".$nombreImagenGuardada);
+            // return response()->json([
+            //     'foto' => $path,
+            //     'Mensaje'=>'Imagen guardada correctamente'
+            //     ]);
+        return($path);
+    }
+
     public function store(CreateReservationRequest $request)
     {
                 // dd($request->image);
@@ -95,8 +122,6 @@ class CitaController extends Controller
                 'status'    => 'Pendiente',
                 'branch_id' => 1
             ]);
-
-
             $request->person = $person->id;
         }
 
