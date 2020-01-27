@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('status', 'InController@status')->name('checkin.status');
         Route::post('exams_previos', 'InController@exams_previos')->name('checkin.exams');
         Route::post('guardar_foto', 'InController@guardar_foto')->name('checkin.avatar');
+        Route::get('change/{id}', 'InController@change')->name('checkin.cambiar');
 
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');

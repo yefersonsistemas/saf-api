@@ -140,6 +140,17 @@ class InController extends Controller
         return view('dashboard.checkin.show-area', compact('areas', 'dia'));
     }
 
+    public function change($id)
+    {
+        $area = Area::find($id);
+        // dd($area);
+
+        $area->status = 'ocupado';
+        $area->update();
+
+        return redirect()->back();
+    }
+
     /**
      * 
      * busca la historia desde la lista de check-in
