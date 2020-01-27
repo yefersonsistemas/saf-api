@@ -100,18 +100,17 @@ class DoctorController extends Controller
             foreach($enfermedades as $item){
                 $array1[] = $item->id; 
             }
-            // dd($array1);
+
             foreach($history->historyPatient->disease as $item){
                 $array2[] = $item->id; 
             }
-            // dd($array2);
+           
 
             $diff = array_diff($array1, $array2);
-            // dd($diff);
+        
             if($diff != []){
                 foreach($diff as $item){
                     $enfermedad[] = Disease::find($item); 
-                    // dd($enfermedad);
                 }
             }else{
                 $enfermedad = [];
@@ -194,6 +193,7 @@ class DoctorController extends Controller
             $data[] = $item->id;
         }
 
+        //datos de la referencia
         if($itinerary->reference != ''){
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
@@ -219,7 +219,6 @@ class DoctorController extends Controller
                 $diff2 = [];
             }
             
-
             // dd($diff2);
         }else{
             $diff_R = $data;
@@ -877,7 +876,7 @@ class DoctorController extends Controller
         return response()->json([
             'enfermedad' => 'Enfermedad agregada exitosamente',201,$enfermedad
             ]);
-        }
+    }
 
      //============= agregar alergias a la historia en el doctor =============
     public function agregar_alergias(Request $request){
@@ -928,57 +927,25 @@ class DoctorController extends Controller
         return response()->json([
             'enfermedad' => 'Alergia agregada exitosamente',201,$alergia
             ]);
-        }
+    }
 
             //============= agregar cirugias a la historia en el doctor =============
     public function agregar_cirugias(Request $request){
-        // dd($request->id);
-        // $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-    
-        $returndata2 = array();
-        $strArray = explode('&', $request->data);
 
-        foreach($strArray as $item) {
-            $array = explode("=", $item);
-            $returndata[] = $array;
-        }
-
-        for($i=0; $i < count($returndata); $i++){
-            for($y=1; $y <= 1; $y++){
-            $returndata2[$i] = $returndata[$i][$y];
-            }
-        }
-        // dd($returndata2);
-
-        $reservation = Reservation::with('patient.historyPatient.disease')->where('id',$request->id)->first();
-        // dd($reservation->patient->historyPatient->id);
-        $patients = Patient::where('person_id', $reservation->patient->id)->first();
-
-        $enfermedades = Disease::all();
-        foreach($reservation->patient->historyPatient->disease as $item){
-            $array1[] = $item->id; 
-        }
-
-        $merge_enfermedad= array_merge($returndata2,$array1);
-        $diff = array_diff($returndata2,$array1);
-        // dd($diff);
-                      
-        //guardando examens en la tabla diagnostic_exam
-            foreach($merge_enfermedad as $item){
-                $b_enfermedad = Disease::find($item);
-                $b_enfermedad->patient()->sync($patients);
-            } 
-
-            // dd($merge_enfermedad);
-
-            foreach($diff as $item){
-                $enfermedad[] = Disease::find($item); 
-            }
-       
+        $reservation = Reservation::find($request->id);
+        
+        $cirugia = Patient::where('person_id', $reservation->patient_id)->first();
+        if($cirugia != null){
+            $cirugia->previous_surgery = $request->data;
+            $cirugia->save();
+        }else{
+            $cirugia = null;
+        }    
+               
         return response()->json([
-            'enfermedad' => 'Enfermedad agregada exitosamente',201,$enfermedad
+            'Cirugia' => 'Cirugia agregada exitosamente',201,$cirugia
             ]);
-        }
+    }
 
         //================= actualizar procedimientos realizados ==============
         public function proceduresR_update(Request $request){

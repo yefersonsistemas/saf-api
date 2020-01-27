@@ -278,10 +278,10 @@ button[data-original-title="Help"]{ display: none; }
 
                                                 <!--agregar cirugias-->
                                                 <div class="card">
-                                                    <div class="card-header bg-azuloscuro" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    <div class="card-header bg-azuloscuro">
                                                        
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-6"  id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                                 <h5 class="card-title text-white">Cirugias Previas</h5>
                                                             </div>
                                                              <div class="col-6 d-flex justify-content-end">
@@ -290,7 +290,7 @@ button[data-original-title="Help"]{ display: none; }
                                                          </div>
                                                     </div>
                                                     <div id="collapseThree" class="collapse list-group card-body cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-                                                        <a class="list-group-item list-group-item-action">{{ $cite->previous_surgery }}</a>
+                                                        <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery }}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -708,40 +708,31 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
 
-        <!-- Modal para mostrar cirugias-->
-        <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="" id="form_cirugias">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="custom-controls-stacked">
-                                    {{-- @if($alergias != null)
-                                        @foreach ($alergias as $item)
-                                            <div class="row">
-                                                <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
-                                                    <span class="custom-control-label">{{ $item->name }} </span>
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    @endif --}}
-                                </div>
+    <!-- Modal para mostrar cirugias-->
+    <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>                                
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button  class="btn btn-success" data-dismiss="modal" id="guardarCirugias">Agregar</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button  class="btn btn-success" data-dismiss="modal" id="guardarCirugias">Agregar</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1123,8 +1114,6 @@ button[data-original-title="Help"]{ display: none; }
         console.log('patient',patient);
 
         ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);
-        // console.log('espe',especialidad);
-        // ajax(dni);
     });
 
     function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
@@ -1167,7 +1156,7 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
 
-    //guardar enfermedades
+    //=================guardar enfermedades================
     $("#guardarEnfermedad").click(function() {
             var reservacion = $("#reservacion").val();
             var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
@@ -1225,7 +1214,7 @@ button[data-original-title="Help"]{ display: none; }
     } 
 
         //guardar enfermedades
-        $("#guardarAlergias").click(function() {
+    $("#guardarAlergias").click(function() {
             var reservacion = $("#reservacion").val();
             var datos = $("#form_alergias").serialize();          //asignando el valor que se ingresa en el campo
         console.log("hh",datos);
@@ -1279,6 +1268,58 @@ button[data-original-title="Help"]{ display: none; }
             $(".mostrar_alergias").append(alergia);
         }
 
+    }
+
+            //guardar enfermedades
+    $("#guardarCirugias").click(function() {
+            var reservacion = $("#reservacion").val();
+            var datos = $("#form_cirugias").val(); 
+            console.log("kenwherly",datos);
+            ajax_cirugia(datos,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+        });                                                               //fin de la funcion clikea
+
+        function ajax_cirugia(datos,reservacion) {
+        $.ajax({
+            url: "{{ route('doctor.agregar_cirugias') }}",   //definiendo ruta
+            type: "POST",
+            dataType:'json',                             //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",
+                data:datos,
+                id:reservacion,
+            }
+        })
+        .done(function(data) {
+            console.log('encontrado',data[1].previous_surgery)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarCirugia(data[1]);
+            }
+
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+   // mostrando posibles procedimientos
+   function mostrarCirugia(data){
+        console.log('ken',data);
+            cirugia = data.previous_surgery;
+            $("#a_cirugia").html(cirugia);
     }
 
 
