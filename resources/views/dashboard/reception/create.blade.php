@@ -33,15 +33,18 @@
                                                                 class="fa fa-id-card"></i></span>
                                                     </div>
                                                     <div class="input-group-prepend">
-                                                        <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
+                                                        <select name="type_dni" id="type_dni"
+                                                            class="custom-select input-group-text bg-white">
                                                             <option value="0">...</option>
                                                             <option value="N">N</option>
                                                             <option value="E">E</option>
                                                         </select>
                                                     </div>
-                                                    <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
+                                                    <input type="text" class="form-control mr-2" type="text" id="dni"
+                                                        placeholder="Cédula" value="">
                                                     <input type="hidden" name="newPerson" id="newPerson">
-                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
+                                                    <button type="button" id="search"
+                                                        class="btn btn-azuloscuro text-white "><i
                                                             class="fa fa-search"></i></button>
                                                 </div>
                                             </div>
@@ -53,9 +56,12 @@
                                                     <div class="avatar-preview avatar-edit">
                                                         <div id="imagePreview" style="background-image: url();">
                                                         </div>
-                                                        <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                                                        <button type="button" data-toggle="modal"
+                                                            data-target="#photoModal"
+                                                            class="btn btn-azuloscuro position-absolute btn-camara"><i
+                                                                class="fa fa-camera"></i></button>
                                                     </div>
-                                                {{-- <div class="avatar-preview avatar-edit">
+                                                    {{-- <div class="avatar-preview avatar-edit">
                                                     <div id="imagePreview" style="background-image: url();">
                                                     </div>
                                                     <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
@@ -65,31 +71,36 @@
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
-                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre">
+                                                    <input type="text" id="name" name="name" disabled
+                                                        class="form-control" placeholder="Nombre">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Apellido</label>
-                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido">
+                                                    <input type="text" disabled id="lastname" name="lastname"
+                                                        class="form-control" placeholder="Apellido">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Correo Electrónico</label>
-                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico">
+                                                    <input type="text" disabled id="email" name="email"
+                                                        class="form-control" placeholder="Correo Electrónico">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Dirección</label>
-                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección">
+                                                    <input type="text" disabled id="address" name="address"
+                                                        class="form-control" placeholder="Dirección">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
-                                                    <input type="number" disabled id="phone" name="phone" class="form-control" placeholder="Teléfono">
+                                                    <input type="number" disabled id="phone" name="phone"
+                                                        class="form-control" placeholder="Teléfono">
                                                 </div>
                                             </div>
                                         </div>
@@ -106,83 +117,87 @@
                                     <label class="imagecheck mb-3">
                                         <div class="card max-card text-center">
                                             <div class="card-header text-center ">
-                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                                <figure class="imagecheck-figure border-0">
-                                                    <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image max-img">
-                                                </figure>
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $speciality->name }}</h5>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div> --}}
-                                <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                    <label class="imagecheck m-0">
-                                    <div class="card assigment">
-                                            <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                            @if (!empty($speciality->image->path))
-                                            <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
-                                            </figure>
-                                            @else
-                                            <figure class="imagecheck-figure border-0 text-center">
-                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
-                                            </figure>
-                                            @endif
-                                            <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                                <h6 class="font-weight-bold" style="font-size:15px">{{ $speciality->name }}</h6>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                            @endforeach
-                            <input type="hidden" name="speciality" id="speciality">
+                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}"
+                            id="" class="imagecheck-input">
+                            <figure class="imagecheck-figure border-0">
+                                <img src="{{ Storage::url($speciality->image->path) }}" alt=""
+                                    class="imagecheck-image max-img">
+                            </figure>
                         </div>
-                    </section>
-                    <h2>Elegir Medico</h2>
-                    <section class="py-1">
-                        <div class="row justify-content-between" id="medicos">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $speciality->name }}</h5>
                         </div>
-                        <input type="hidden" name="doctor" id="doctor">
+            </div>
+            </label>
+        </div> --}}
+        <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
+            <label class="imagecheck m-0">
+                <div class="card assigment">
+                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
+                    @if (!empty($speciality->image->path))
+                    <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
+                        <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt=""
+                            class="imagecheck-image w-auto">
+                    </figure>
+                    @else
+                    <figure class="imagecheck-figure border-0 text-center">
+                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                    </figure>
+                    @endif
+                    <div class="card-body text-center pt-4" style="height:70px; width:170px">
+                        <h6 class="font-weight-bold" style="font-size:15px">{{ $speciality->name }}</h6>
+                    </div>
+                </div>
+            </label>
+        </div>
+        @endforeach
+        <input type="hidden" name="speciality" id="speciality">
+    </div>
+    </section>
+    <h2>Elegir Medico</h2>
+    <section class="py-1">
+        <div class="row justify-content-between" id="medicos">
+        </div>
+        <input type="hidden" name="doctor" id="doctor">
 
-                    </section>
-                    <h2>Motivo De La Consulta</h2>
-                    <section class="container">
-                        <div class="col-md-9 m-auto ">
-                            <div class="form-group mb-0">
-                                <label class="form-label">Motivo de la consula</label>
-                                <textarea rows="5" id="motivo" class="form-control" placeholder="Motivo de la Consulta"></textarea>
-                            </div>
-                        </div>
-                    </section>
-                    <h2>Elegir Fecha</h2>
-                    <section class="py-1 align-items-center">
-                        <div class="col-md-8 m-auto">
-                            <div class="card card-date">
-                                <div class="card-header">
-                                    <h3 class="card-title">Elegir Fecha</h3>
-                                </div>
-                                <div class="form-group mx-4">
-                                    <div class="input-group date">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                        {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
-                                        <input value=""  id="picker" name="date" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="inline-datepicker" data-provide="datepicker"></div>
-                            </div>
-                        </div>
-                    </section>
-                </form>
+    </section>
+    <h2>Motivo De La Consulta</h2>
+    <section class="container">
+        <div class="col-md-9 m-auto ">
+            <div class="form-group mb-0">
+                <label class="form-label">Motivo de la consula</label>
+                <textarea rows="5" id="motivo" class="form-control" placeholder="Motivo de la Consulta"></textarea>
             </div>
         </div>
-    </div>
+    </section>
+    <h2>Elegir Fecha</h2>
+    <section class="py-1 align-items-center">
+        <div class="col-md-8 m-auto">
+            <div class="card card-date">
+                <div class="card-header">
+                    <h3 class="card-title">Elegir Fecha</h3>
+                </div>
+                <div class="form-group mx-4">
+                    <div class="input-group date">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                        {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
+                        <input value="" id="picker" name="date" class="form-control">
+                    </div>
+                </div>
+                <div class="inline-datepicker" data-provide="datepicker"></div>
+            </div>
+        </div>
+    </section>
+    </form>
+</div>
+</div>
+</div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -213,51 +228,53 @@
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 {{--<script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
 <script>
-    $boton.addEventListener("click", function() {
+    $boton.addEventListener("click", function () {
         // Codificarlo como JSON
         //Pausar reproducción
         $video.pause();
-            //Obtener contexto del canvas y dibujar sobre él
-            let contexto = $canvas.getContext("2d");
-            $canvas.width = $video.videoWidth;
-            $canvas.height = $video.videoHeight;
-            contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+        //Obtener contexto del canvas y dibujar sobre él
+        let contexto = $canvas.getContext("2d");
+        $canvas.width = $video.videoWidth;
+        $canvas.height = $video.videoHeight;
+        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
-            let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-            let datafoto=encodeURIComponent(foto);
-                var data1 = {
-                    "tokenmodalfoto": $('#tokenfoto').val(),
-                    "pic":datafoto
-                    };
-            const datos=JSON.stringify(data1);
-            $estado.innerHTML = "Enviando foto. Por favor, espera...";
-            fetch("{{ route('cita.foto') }}", {
+        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+        let datafoto = encodeURIComponent(foto);
+        var data1 = {
+            "tokenmodalfoto": $('#tokenfoto').val(),
+            "pic": datafoto
+        };
+        const datos = JSON.stringify(data1);
+        $estado.innerHTML = "Enviando foto. Por favor, espera...";
+        fetch("{{ route('cita.foto') }}", {
                 method: "POST",
                 body: datos,
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded",
-                    'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+                    'X-CSRF-TOKEN': data1.tokenmodalfoto, // <--- aquí el token
                 },
             }).then(resultado => {
-                            // A los datos los decodificamos como texto plano
-                            return resultado.text()
-                        })
-                        .then(nombreDeLaFoto => {
-                            console.log(nombreDeLaFoto);
-                            // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                            console.log("La foto fue enviada correctamente");
-                            $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-                                        $('.avatar-preview').load(
-                                            $('#imagePreview').css('background-image', `url(/storage/${nombreDeLaFoto})`),
-                                            $('#foto').val(nombreDeLaFoto),
-                                             $('#imagePreview').hide(),
-                                             $('#imagePreview').fadeIn(650),
-                                         );
-                        })
-            //Reanudar reproducción
-            $video.play();
-            });
-    </script>
+                // A los datos los decodificamos como texto plano
+                return resultado.text()
+            })
+            .then(nombreDeLaFoto => {
+                console.log(nombreDeLaFoto);
+                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                console.log("La foto fue enviada correctamente");
+                $estado.innerHTML =
+                    `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+                $('.avatar-preview').load(
+                    $('#imagePreview').css('background-image', `url(/storage/${nombreDeLaFoto})`),
+                    $('#foto').val(nombreDeLaFoto),
+                    $('#imagePreview').hide(),
+                    $('#imagePreview').fadeIn(650),
+                );
+            })
+        //Reanudar reproducción
+        $video.play();
+    });
+
+</script>
 
 <script>
     function stopDefAction(evt) {
@@ -275,12 +292,13 @@
             finish: "Finalizar",
             next: "Siguiente",
             previous: "Anterior",
-            loading: "Cargando ..."},
-        onInit: function(event, currentIndex) {
+            loading: "Cargando ..."
+        },
+        onInit: function (event, currentIndex) {
             setButtonWavesEffect(event);
             search();
         },
-        onStepChanged: function(event, currentIndex, priorIndex) {
+        onStepChanged: function (event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
             if (currentIndex === 1) {
                 speciality();
@@ -290,18 +308,18 @@
                 schedule();
             }
         },
-        onFinished: function(event, currentIndex) {
+        onFinished: function (event, currentIndex) {
             crear();
             Swal.fire({
-            title: 'Cita Agendada!',
-            text: "Click OK para cerrar!!",
-            type: 'success',
-            allowOutsideClick:false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
+                title: 'Cita Agendada!',
+                text: "Click OK para cerrar!!",
+                type: 'success',
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '<a href="{{ route('
+                checkin.day ') }}" style="color:#fff">OK</a>'
             }).then((result) => {
-                if (result.value) {
-                }
+                if (result.value) {}
             })
         }
     });
@@ -312,7 +330,7 @@
     }
 
     function search() {
-        $("#search").click(function() {
+        $("#search").click(function () {
             var type_dni = $("#type_dni").val();
             var dni = $("#dni").val();
             ajax(type_dni, dni);
@@ -329,14 +347,14 @@
                     dni: dni
                 }
             })
-            .done(function(data) {
+            .done(function (data) {
                 console.log(data.person.image.path);
                 if (data[0] == 202) {
                     Swal.fire({
                         title: 'Error!',
                         text: 'Paciente no encontrado',
                         type: 'error',
-                        allowOutsideClick:false,
+                        allowOutsideClick: false,
                     })
                     enabled();
                 }
@@ -345,12 +363,12 @@
                         title: 'Excelente!',
                         text: 'Paciente encontrado',
                         type: 'success',
-                        allowOutsideClick:false,
+                        allowOutsideClick: false,
                     })
                     disabled(data);
                 }
             })
-            .fail(function(data) {
+            .fail(function (data) {
                 console.log(data);
             })
     }
@@ -362,11 +380,11 @@
         $('#address').val(data.person.address);
         $('#phone').val(data.person.phone);
         $('#newPerson').val(data.person.id);
-              $('.avatar-preview').load(
-                $('#imagePreview').css('background-image', `url(/storage/${data.person.image.path})`),
-                 $('#imagePreview').hide(),
-                 $('#imagePreview').fadeIn(650)
-             );
+        $('.avatar-preview').load(
+            $('#imagePreview').css('background-image', `url(/storage/${data.person.image.path})`),
+            $('#imagePreview').hide(),
+            $('#imagePreview').fadeIn(650)
+        );
 
         $("#photo").attr('disabled', true);
         $(".dropify-wrapper").addClass('disabled');
@@ -400,7 +418,7 @@
     }
 
     function speciality() {
-        $("input[name='speciality']").click(function() {
+        $("input[name='speciality']").click(function () {
             var speciality = $(this).val();
             $.ajax({
                     url: "{{ route('search.medic') }}",
@@ -410,25 +428,25 @@
                         id: speciality,
                     }
                 })
-                .done(function(data) {
+                .done(function (data) {
                     Swal.fire({
                         title: 'Realizado!',
                         text: 'Click en OK para continuar',
                         type: 'success',
-                        allowOutsideClick:false,
+                        allowOutsideClick: false,
                     });
                     $('#speciality').val(data[0].id);
                     cargarMedicos(data);
                 })
-                .fail(function(data) {
+                .fail(function (data) {
                     console.log(data);
                 })
         });
     }
 
     function cargarMedicos(data) {
-        console.log('dataaaa',data.length);
-        console.log('imagen',data[0].employe[0].image.path);
+        console.log('dataaaa', data.length);
+        console.log('imagen', data[0].employe[0].image.path);
         console.log(data[0].employe.length);
         $('#medicos').empty();
         for (let i = 0; i < data.length; i++) {
@@ -450,8 +468,9 @@
             }
         }
     }
+
     function schedule() {
-        $("input[name='doctor']").click(function() {
+        $("input[name='doctor']").click(function () {
             var doctor = $(this).val();
             console.log(doctor);
             $.ajax({
@@ -462,14 +481,14 @@
                         id: doctor,
                     }
                 })
-                .done(function(data) {
-                    console.log('Doctores:',data);
-                    console.log('Fechas disponibles de los Doctores',data.available);
+                .done(function (data) {
+                    console.log('Doctores:', data);
+                    console.log('Fechas disponibles de los Doctores', data.available);
                     Swal.fire({
                         title: 'Médico seleccionado!',
                         text: 'Click en OK para continuar',
                         type: 'success',
-                        allowOutsideClick:false,
+                        allowOutsideClick: false,
                     });
                     $('#doctor').val(data.employe.id);
                     $('.inline-datepicker').datepicker({
@@ -477,23 +496,23 @@
                         language: 'es',
                         startDate: data.start,
                         endDate: data.end,
-                        daysOfWeekHighlighted: [0,6],
+                        daysOfWeekHighlighted: [0, 6],
                         datesDisabled: data.diff,
                     });
                     $('#fecha').val();
                 })
-                .fail(function(data) {
+                .fail(function (data) {
                     console.log(data);
                 })
-            });
-            $('.inline-datepicker').on('changeDate', function() {
-                $('#picker').val(
-                    $('.inline-datepicker').datepicker('getFormattedDate')
-                );
-            });
+        });
+        $('.inline-datepicker').on('changeDate', function () {
+            $('#picker').val(
+                $('.inline-datepicker').datepicker('getFormattedDate')
+            );
+        });
     }
 
-    function datevalue(){
+    function datevalue() {
 
     }
 
@@ -534,7 +553,7 @@
                     person: person,
                 }
             })
-            .done(function(data) {
+            .done(function (data) {
                 console.log(data);
                 $('.inline-datepicker').datepicker({
                     todayHighlight: true,
@@ -544,10 +563,11 @@
                 });
 
             })
-            .fail(function(data) {
+            .fail(function (data) {
                 console.log(data);
             })
     }
+
 </script>
 <script>
 
