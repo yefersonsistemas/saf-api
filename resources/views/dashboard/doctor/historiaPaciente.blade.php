@@ -243,7 +243,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Enfermedades</h5>
                                                            </div>
                                                             <div class="col-6 d-flex justify-content-end">
-                                                                <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades"> agregar </button>
+                                                                <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:15px;"><i class="fa fa-plus"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -265,7 +265,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <h5 class="card-title text-white">Alergias</h5>
                                                             </div>
                                                              <div class="col-6 d-flex justify-content-end">
-                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#alergias"> agregar </button>
+                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:15px;"><i class="fa fa-plus"></i></button>
                                                              </div>
                                                          </div>
                                                     </div>
@@ -285,7 +285,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <h5 class="card-title text-white">Cirugias Previas</h5>
                                                             </div>
                                                              <div class="col-6 d-flex justify-content-end">
-                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias"> agregar </button>
+                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:15px;"><i class="fa fa-plus"></i></button>
                                                              </div>
                                                          </div>
                                                     </div>
@@ -666,7 +666,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button  class="btn btn-success" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -701,7 +701,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button  class="btn btn-success" data-dismiss="modal" id="guardarAlergias">Agregar</button>
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -727,7 +727,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button  class="btn btn-success" data-dismiss="modal" id="guardarCirugias">Agregar</button>
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -765,7 +765,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</button>
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -796,7 +796,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Guardar</button>
+                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -836,7 +836,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarC">Guardar</button>
+                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -874,7 +874,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</button>
+                    <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
             </div>

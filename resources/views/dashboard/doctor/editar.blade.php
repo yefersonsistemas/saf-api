@@ -311,7 +311,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <h5>Procedimientos Realizados al Paciente:</h5>
                                                 </div>
                                                 <div class="col-12 mt-10">
-                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel">
                                                         <i class="fa fa-plus"></i>
                                                         Agregar Procedimiento
                                                     </button>
@@ -330,12 +330,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <th class="text-center">Accion</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tfoot>
-                                                                            <tr>
-                                                                                <th>Procedimiento Seleccionado</th>
-                                                                                <th class="text-center">Accion</th>
-                                                                            </tr>
-                                                                        </tfoot>
                                                                         <tbody id="ocultar_procedureR">
                                                                             @if(!empty($r_patient->procedures))
                                                                             @foreach ($r_patient->procedures as $proces)
@@ -398,7 +392,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                     <div class="row">
                                                         <div class="col-12 mt-30 d-flex justify-content-start">
-                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
+                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-verdePastel">
                                                                 <i class="fa fa-plus"></i>
                                                                 Agregar examen
                                                             </button>
@@ -420,12 +414,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                         <th class="text-center">Eliminar examen</th>
                                                                                                     </tr>
                                                                                                 </thead>
-                                                                                                <tfoot>
-                                                                                                    <tr>
-                                                                                                        <th>Medicamento Seleccionado</th>
-                                                                                                        <th class="text-center">Eliminar examen</th>
-                                                                                                    </tr>
-                                                                                                </tfoot>
                                                                                                 <tbody id="ocultar_examen">
                                                                                                     @if(!empty($r_patient->exam))
                                                                                                         @foreach ($r_patient->exam as $exam)
@@ -684,14 +672,14 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
                                                     <div class="row d-flex justify-content-center">
                                                         <div class=" col-4">
-                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#surgerys">
+                                                            <button type="button" class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
                                                                 <i class="fa fa-plus"></i>
                                                                 Agregar Cirugia
                                                             </button>
                                                         </div>
                                                         
                                                         <div class="col-4">
-                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
+                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
                                                                 <i class="fa fa-plus"></i>
                                                                 Agregar Procedimiento
                                                             </button>
@@ -785,7 +773,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div> 
                     </div>   
                     <div class="modal-footer">
-                        <button  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</button>
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>    
             </div>
@@ -825,7 +813,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Agregar</button>
+                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -865,7 +853,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarC">Guardar</button>
+                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                     </div>
                 </form>    
             </div>
@@ -905,7 +893,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</button>
+                    <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
             </div>
