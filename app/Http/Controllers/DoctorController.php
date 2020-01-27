@@ -825,8 +825,7 @@ class DoctorController extends Controller
         return response()->json([
             'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
             ]);
-        }
-
+    }
 
 
     // //============= Procedimientos realizados en el consultorio =============
@@ -874,6 +873,7 @@ class DoctorController extends Controller
                 $enfermedad[] = Disease::find($item); 
             }
        
+            // dd($enfermedad);
         return response()->json([
             'enfermedad' => 'Enfermedad agregada exitosamente',201,$enfermedad
             ]);
@@ -924,6 +924,7 @@ class DoctorController extends Controller
                 $alergia[] = Allergy::find($item); 
             }
        
+            // dd($alergia);
         return response()->json([
             'enfermedad' => 'Alergia agregada exitosamente',201,$alergia
             ]);

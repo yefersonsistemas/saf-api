@@ -237,13 +237,13 @@ button[data-original-title="Help"]{ display: none; }
                                             <div id="accordion">
                                                 <!--agregar enfermedad-->
                                                 <div class="card">
-                                                    <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    <div class="card-header bg-azuloscuro" >
                                                         <div class="row">
-                                                           <div class="col-6">
+                                                           <div class="col-6" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                             <h5 class="card-title text-white">Enfermedades</h5>
                                                            </div>
                                                             <div class="col-6 d-flex justify-content-end">
-                                                                <a class="btn btn-info" data-toggle="modal" data-target="#enfermedades"> agregar </a>
+                                                                <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades"> agregar </button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -251,17 +251,17 @@ button[data-original-title="Help"]{ display: none; }
                                                         @foreach ( $history->historyPatient->disease as $disease )
                                                             <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
                                                         @endforeach                                                   
-                                                    </div>                                                 
+                                                    </div>                                               
                                                    
                                                 </div>
                                                 
                                             
                                                 <!--agregar alergias-->
                                                 <div class="card">
-                                                    <div class="card-header bg-azuloscuro" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    <div class="card-header bg-azuloscuro" >
                                                         
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-6" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                                 <h5 class="card-title text-white">Alergias</h5>
                                                             </div>
                                                              <div class="col-6 d-flex justify-content-end">
@@ -691,7 +691,7 @@ button[data-original-title="Help"]{ display: none; }
                                     @foreach ($alergia as $item)
                                         <div class="row">
                                             <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
+                                                <input type="checkbox" class="custom-control-input" name="name_alergia" value="{{ $item->id }}">
                                                 <span class="custom-control-label">{{ $item->name }} </span>
                                             </label>
                                         </div>
@@ -1222,17 +1222,17 @@ button[data-original-title="Help"]{ display: none; }
             $(".mostrar_enfermedad").append(enfermedad);
         }
 
-    }
+    } 
 
         //guardar enfermedades
         $("#guardarAlergias").click(function() {
             var reservacion = $("#reservacion").val();
             var datos = $("#form_alergias").serialize();          //asignando el valor que se ingresa en el campo
         console.log("hh",datos);
-            ajax_enfermedad(datos,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
+            ajax_alergia(datos,reservacion);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
         });                                                               //fin de la funcion clikea
 
-        function ajax_enfermedad(datos,reservacion) {
+        function ajax_alergia(datos,reservacion) {
         $.ajax({
             url: "{{ route('doctor.agregar_alergias') }}",   //definiendo ruta
             type: "POST",
