@@ -939,6 +939,10 @@
     background: #4d7286 !important;
     color: #fff;
 }
+
+.wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active {
+    background: #00506b !important;
+}
 /* -----step doctor plan---- */
 
         .tab-content {

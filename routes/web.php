@@ -137,6 +137,10 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::post('doctor/referenceUpdate', 'DoctorController@reference_update')->name('doctor.reference_update');  // actualizar referecnia
 
+
+        Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen
+        Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
+        Route::post('doctor/cirugias', 'DoctorController@agregar_cirugias')->name('doctor.agregar_cirugias');  // eliminar examen
         //-------------------elimnar-------------------
         Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
         

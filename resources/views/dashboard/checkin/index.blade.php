@@ -103,7 +103,7 @@
                 </ul>
             </div>
 
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content container-fluid" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -133,7 +133,6 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
                                     @if($reservations != '')
                                     @foreach ($reservations as $reservation)
                                     @if ($reservation->status=="Suspendida")
