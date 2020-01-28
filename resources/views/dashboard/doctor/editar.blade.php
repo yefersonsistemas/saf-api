@@ -1452,15 +1452,6 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             }
-            
-            // if (data[0] == 202) {                       //si no trae valores
-            //     Swal.fire({
-            //         title: data.proceduresR,
-            //         text:  'Click en OK para continuar',
-            //         type:  'error',
-            //     })
-            //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-            // }
         })
         .fail(function(data) {
             console.log(data);

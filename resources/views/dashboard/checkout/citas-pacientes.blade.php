@@ -57,8 +57,9 @@
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
                     <div class="card-body">
-                        <h6>Pacientes atendidos</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>                             
+                        <h6>Atendidos Hoy</h6>
+                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3>
+                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
             </div>
@@ -317,9 +318,21 @@
                                               <!--FACTURAR-->
                                               <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                 @if($itinerary->procedureR_id != null)
-                                                    <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                        <i class="fa fa-print"> </i> Facturar
-                                                    </a>
+                                                    @if($itinerary->billing == null)                                                    
+                                                        <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                            <i class="fa fa-print"> </i> Facturar
+                                                        </a>
+                                                    @else
+                                                        @if($itinerary->billing->person_id == null) 
+                                                            <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                <i class="fa fa-print"> </i> Facturar
+                                                            </a>
+                                                        @else
+                                                            <a target="_blank" href="{{ route('checkout.imprimir_factura2', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                <i class="fa fa-print"> </i> Imprimir factura
+                                                            </a>
+                                                        @endif
+                                                    @endif
                                                 @endif
                                             </div>
 

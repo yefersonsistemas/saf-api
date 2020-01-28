@@ -120,7 +120,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <input type="hidden" name="patient_id" value="{{ $history->patient_id }}">
                                         <input type="hidden" name="employe_id" value="{{ $history->person_id }}">
                                         <input type="hidden" name="razon" value="{{ $history->description }}">
-                                        <input type="hidden" name="reservacion_id" value="{{ $history->id }}">
+                                        <input type="hidden" name="reservacion_id" id="reservacion_id" value="{{ $history->id }}">
 
                                         <h2>Información Personal</h2>
                                         <section class="card mr-4 ml-4 pb-0 pt-4">
@@ -344,15 +344,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Procedimiento Seleccionado</th>
-                                                                        {{-- <th class="text-center">Accion</th> --}}
-                                                                    </tr>
-                                                                </thead>
-                                                                {{-- <tfoot>
-                                                                    <tr>
-                                                                        <th>Procedimiento Seleccionado</th>
                                                                         <th class="text-center">Accion</th>
                                                                     </tr>
-                                                                </tfoot> --}}
+                                                                </thead>
                                                                 <tbody id="procesc">
                                                                 </tbody>
                                                             </table>
@@ -406,7 +400,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Examen Seleccionado</th>
-                                                                                    {{-- <th class="text-center">Accion</th> --}}
+                                                                                    <th class="text-center">Accion</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             {{-- <tfoot>
@@ -1067,7 +1061,7 @@ button[data-original-title="Help"]{ display: none; }
             })
     });
 
-    //cargar medicos
+    //=================== cargar medicos ================
     function cargarMedicos(data) {
         $('#medicoInterno').empty();
         for (let i = 0; i < data.length; i++) {
@@ -1097,6 +1091,8 @@ button[data-original-title="Help"]{ display: none; }
             console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
     });
 
+
+    //================= referir medico =============
     $('#referir').click(function () {
         // console.log('referir');
         var speciality = $("#speciality").val();
@@ -1199,7 +1195,7 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-   // mostrando posibles procedimientos
+   //=================  mostrando posibles procedimientos===================
    function mostrarEnfermedad(data){
         console.log('ken',data[0].name);
 
@@ -1268,7 +1264,7 @@ button[data-original-title="Help"]{ display: none; }
 
     }
 
-            //guardar enfermedades
+    //========================= guardar cirugias ==================
     $("#guardarCirugias").click(function() {
             var reservacion = $("#reservacion").val();
             var datos = $("#form_cirugias").val(); 
@@ -1313,15 +1309,15 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-   // mostrando posibles procedimientos
+   // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
         console.log('ken',data);
-            cirugia = data.previous_surgery;
-            $("#a_cirugia").html(cirugia);
+        cirugia = data.previous_surgery;
+        $("#a_cirugia").html(cirugia);
     }
 
 
-    //captar datos de los procedimientos en la consulta
+    //============= captar datos de los procedimientos en la consulta===========
     $("#guardarO").click(function() {
             var reservacion = $("#reservacion").val();
             var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
@@ -1366,7 +1362,59 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-    //examenes a realizar (paciente)
+     //=============== mostrando procedimientos realizados ===============
+    function mostrarProceduresC(data){
+        console.log('hh',data);
+
+        //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
+        for($i=0; $i < data.length; $i++){
+            procesc='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            $("#procesc").append(procesc);
+        }
+    }
+
+       //================ eliminar examen seleccionado ==========
+       $(function() {
+        $(document).on('click', '.procedureP_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log(reservacion);
+            console.log('id', id);    
+            $("#"+id).hide();
+
+            $.ajax({
+                url: "{{ route('doctor.procedureR_eliminar2') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.procedure,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+    
+    //=================== examenes a realizar (paciente) =================
     $("#guardarE").click(function() {
             var reservacion = $("#reservacion").val();
             var exam = $("#exam").serialize();          //asignando el valor que se ingresa en el campo
@@ -1412,7 +1460,61 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-    //captar datos de los posibles procedimientos
+    //==================== mostrando examenes ===================
+    function mostrarExamen(data){
+        console.log('hh',data);
+
+            //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
+        for($i=0; $i < data.length; $i++){
+            examen='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-8" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><div class="col-2"  ><input id="'+data[$i].id+'" type="button" class="exam_id btn btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></div></td></tr>'
+            $("#examen").append(examen);
+        }
+    }
+
+
+    //================ eliminar examen seleccionado ==========
+    $(function() {
+        $(document).on('click', '.exam_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log(reservacion);
+            console.log('id', id);    
+            $("#"+id).hide();
+
+            $.ajax({
+                url: "{{ route('doctor.exam_eliminar2') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.exam,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+    
+
+    //================= captar datos de los posibles procedimientos ============
     $("#guardarP").click(function() {
             var reservacion = $("#reservacion").val();
             var proce = $("#posible-procedures").serialize();          //asignando el valor que se ingresa en el campo
@@ -1457,29 +1559,19 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-    // mostrando posibles procedimientos
-    function mostrarProcedure(data){
+   //================ mostrando posibles procedimientos =============
+   function mostrarProcedure(data){
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procedure='<p style="text-align:center">'+data[$i].name+'</p>';
+            procedure=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
             $("#procedimientos").append(procedure);
         }
-
     }
 
-    // mostrando posibles procedimientos
-    function mostrarExamen(data){
-        console.log('hh',data);
-
-            //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
-        for($i=0; $i < data.length; $i++){
-            examen='<tr><td><div class="col-6" >'+data[$i].name+'</div></td></tr>'
-            $("#examen").append(examen);
-        }
-    }
-
-    //captar datos de las posibles cirugias
+ 
+   
+    //=============== captar datos de las posibles cirugias===============
     $("#guardarC").click(function() {
 
             var reservacion = $("#reservacion").val();
@@ -1524,37 +1616,19 @@ button[data-original-title="Help"]{ display: none; }
             console.log(data);
         })
     } // fin de la funcion
+  
 
-    function mostrarProceduresC(data){
-            console.log('hh',data);
-
-            //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
-            for($i=0; $i < data.length; $i++){
-                // procesc='<li>'+data[$i].name+'</li>';
-                procesc='<tr><td><div class="col-6" >'+data[$i].name+'</div></td></tr>'
-                $("#procesc").append(procesc);
-            }
-        }
-
-    //mostrando posibles cirugias
+    //================= mostrando posibles cirugias ================
     function mostrarSurgery(data){
-            console.log('hh',data);
+        console.log('hh',data);
 
-            for($i=0; $i < data.length; $i++){
-                cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
-                $("#cirugias").html(cirugias);
-            }
+        for($i=0; $i < data.length; $i++){
+            cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
+            $("#cirugias").html(cirugias);
         }
+    }
 
-        // mostrando posibles procedimientos
-        function mostrarProcedure(data){
-            console.log('hh',data);
-
-            for($i=0; $i < data.length; $i++){
-                procedure=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
-                $("#procedimientos").append(procedure);
-            }
-        }
+ 
 
 </script>
 @endsection

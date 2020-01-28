@@ -44,7 +44,7 @@ class OutController extends Controller
     public function index()
     {
         $procedures_id = array(); 
-        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation')->get(); // esta es una coleccion
+        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         // dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
@@ -270,8 +270,8 @@ class OutController extends Controller
             $tipo_moneda = TypeCurrency::all();
             $tipo_pago = TypePayment::all();
 
-            $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $request->patient_id)->first();
-            // dd($itinerary->surgeryR->name);
+            $itinerary = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR','billing')->where('patient_id', $request->patient_id)->first();
+            // dd($itinerary->billing);
             $fecha = Carbon::now()->format('Y-m-d');
             $procedures = explode(',', $itinerary->procedureR_id); // decodificando los prcocedimientos json
 
@@ -286,28 +286,32 @@ class OutController extends Controller
                 $procedimientos = $procedures;
             }
 
-            $factura = billing::where('patient_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)
-            ->whereDate('created_at', Carbon::now()->format('Y-m-d'))->first();
-
-            // dd($factura);
-            if($factura == null){
+            if($itinerary->billing == null){
                 $crear_factura = Billing::create([
                     'patient_id'  => $itinerary->patient_id,
                     'employe_id'     => $itinerary->employe_id,
                     'branch_id' => 1,
                 ]);
-            }else{
-                $crear_factura = $factura;
-            }
 
-            if($procedimientos[0] != ''){
-                for ($i=0; $i < count($procedimientos) ; $i++) { 
-                    $procedure[] = Procedure::find($procedimientos[$i]);
-                    $crear_factura->procedure()->sync($procedure[$i]);
+                $itinerary->billing_id = $crear_factura->id;
+                $itinerary->save();
+
+                if($procedimientos[0] != ''){
+                    for ($i=0; $i < count($procedimientos) ; $i++) { 
+                        $procedure[] = Procedure::find($procedimientos[$i]);
+                        $crear_factura->procedure()->attach($procedure[$i]);
+                    }
+                }else{ 
+                    $procedure = 0;
                 }
+                  
             }else{
-                $procedure = 0;
-            }
+                $crear_factura = $itinerary->billing;
+                $b_procedure = Billing::with('procedure')->where('id',$crear_factura->id)->first();
+                foreach($b_procedure->procedure as $item) { 
+                    $procedure[] = $item;
+                }
+            }              
 
             return view('dashboard.checkout.factura', compact('tipo_moneda','fecha', 'tipo_pago','procedure','itinerary','crear_factura','total'));
         }else{
@@ -387,6 +391,42 @@ class OutController extends Controller
             return redirect()->back();
         }
     }
+
+      //============================ imprimir factura ============================ (listo)
+      public function imprimir_factura2($id)
+      {
+        $itinerary = Itinerary::with('employe','billing.procedure')->where('id',$id)->first();
+
+        $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'procedure','typepayment' , 'typecurrency')->where('id',$itinerary->billing_id)->first();
+            
+        $cirugia = Itinerary::with('person','employe.person', 'employe.doctor', 'surgeryR')->where('id', $itinerary->id )->first();
+
+        $total = 0;
+        $fecha = Carbon::now()->format('Y-m-d');
+
+        foreach($todos->procedure as $proce) { 
+            if($proce->name != 'Consulta médica'){
+                $total += $proce->price;
+            }
+            if($proce->name == 'Consulta médica'){
+                $total += $todos->employe->doctor->price;
+            }                       
+        }
+
+        if($cirugia->surgeryR != null){
+            $total_cancelar = $cirugia->surgeryR->cost + $total;
+        }else{
+            $total_cancelar = $total;
+        }
+
+        $num_factura = str_pad($itinerary->billing_id, 5, '0', STR_PAD_LEFT);
+
+        $pdf = PDF::loadView('dashboard.checkout.print', compact('todos','cirugia','total_cancelar','fecha', 'num_factura'));
+        
+        return $pdf->stream('factura.pdf');
+
+    }
+
 
     //============================ imprimir examen ============================ (listo)
     public function imprimir_examen(Request $request)
