@@ -317,9 +317,21 @@
                                               <!--FACTURAR-->
                                               <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                 @if($itinerary->procedureR_id != null)
-                                                    <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                        <i class="fa fa-print"> </i> Facturar
-                                                    </a>
+                                                    @if($itinerary->billing == null)                                                    
+                                                        <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                            <i class="fa fa-print"> </i> Facturar
+                                                        </a>
+                                                    @else
+                                                        @if($itinerary->billing->person_id == null) 
+                                                            <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                <i class="fa fa-print"> </i> Facturar
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                <i class="fa fa-print"> </i> Imprimir
+                                                            </a>
+                                                        @endif
+                                                    @endif
                                                 @endif
                                             </div>
 
