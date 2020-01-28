@@ -28,6 +28,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 
+
 class UsersTableSeeder extends Seeder
 {
     use ImageFactory;
@@ -132,7 +133,7 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
         $cirugia->employe_surgery()->attach($employe->id);
-        // $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
+        $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
 
         //creando especialidad
         $especialidad = factory(App\Speciality::class)->create([

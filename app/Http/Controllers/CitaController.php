@@ -19,6 +19,7 @@ use App\Surgery;
 use App\Itinerary;
 use App\Doctor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CitaController extends Controller
@@ -82,7 +83,7 @@ class CitaController extends Controller
 
     public function store(CreateReservationRequest $request)
     {
-                // dd($request->image);
+        dd($request);
         if ($request->person == 'nuevo') {
             $person = Person::create([
                 'type_dni'  => $request->type_dni,
@@ -180,6 +181,7 @@ class CitaController extends Controller
                     'branch_id' => 1,
                 ]);
             }
+            // return Redirect('checkin.day')->withSuccess('Cita Creada')
             return response()->json([
                 'message' => 'Cita creada',
             ]);

@@ -158,7 +158,7 @@ class InController extends Controller
     public function search_history($id, $id2){ 
         $mostrar = $id2;
         // dd($mostrar);
-      
+    
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
@@ -177,7 +177,7 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
-     /**
+    /**
      * 
      * guarda registros nuevos y editados 
      * en la historia del paciente
@@ -186,7 +186,7 @@ class InController extends Controller
 
 
     public function guardar(Request $request, $id)  //REVISAR
-     {   
+    {   
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
@@ -202,8 +202,8 @@ class InController extends Controller
                     'profession'    =>  'required',
                     'another_email' =>  'nullable',
                     'another_phone' =>  'nullable',
-                    // 'social_network'=>  'nullable',
-                    // 'about_us'      =>  'nullable',
+                    'social_network'=>  'nullable',
+                    'about_us'      =>  'nullable',
                 ]);
 
                 $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
@@ -212,8 +212,8 @@ class InController extends Controller
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $data['another_phone'],
                     'another_email' =>  $data['another_email'],
-                    // 'social_network'=>  $data['social_network'],
-                    // 'about_us'      =>  $data['about_us'],
+                    'social_network'=>  $data['social_network'],
+                    'about_us'      =>  $data['about_us'],
                     'date'          =>  Carbon::now(),
                     'reason'        =>  $reservation->description,
                     'gender'        =>  $data['gender'],
@@ -231,11 +231,10 @@ class InController extends Controller
             }
 
             $patient = Patient::where('person_id', $person->id)->first();
-            // dd($request->another_phone);
+            // dd($patient);
             if ($person->historyPatient != null) {
 
                 $age = Carbon::create($request->birthdate)->diffInYears(Carbon::now());
-
 
                 $patient->update([
                     'history_number'=> $this->numberHistory(),
@@ -245,7 +244,7 @@ class InController extends Controller
                     'gender'        =>  $request->gender,
                     'age'           =>  $age,
                     'place'         =>  $request->place,
-                    'birthdate'     =>  Carbon::create($request->birthdate),
+                    'birthdate'     =>  $request->birthdate,
                     'weight'        =>  $request->weight,
                     'occupation'    =>  $request->occupation,
                     'profession'    =>  $request->profession,
@@ -254,6 +253,20 @@ class InController extends Controller
                     'about_us'      =>  $request->about_us,
                 ]);
             }
+
+            $patients = Person::find($patient->person_id);
+
+            $data = $request->validate([
+                'address' => 'nullable'
+            ]);
+
+            if($person->historyPatient != null) {
+
+                $patients->update([
+                    'address'=> $request->address,
+                ]);
+            }
+            
 
             // dd($patient);
             if($request->foto != null){
@@ -278,7 +291,7 @@ class InController extends Controller
                 $image->fileable_id = $patient->id;
                 $image->branch_id = 1;
                 $image->save();
-             }
+            }
 
             if (!is_null($patient)) {
                 if (!empty($request->disease)) {
@@ -287,8 +300,6 @@ class InController extends Controller
                         $patient->disease()->sync($request->disease);
                     }
                 }
-
-               
 
                 if (!empty($request->medicine)){
 
@@ -309,7 +320,6 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
-         
         }
     }
 
@@ -692,6 +702,40 @@ class InController extends Controller
                 'Mensaje'=>'Imagen guardada correctamente'
                 ]);
         // exit($nombreImagenGuardada);
+    }
+
+    public function diseases(Request $request){
+        // dd($request);
+    // Aqui se realiza la relacion entre paciente y enfermeda, tambien se busca al paciente correspondiente a la historia
+    $patient = Patient::with('disease')->where('person_id',$request->id)->first();
+    
+    // Aqui se realiza el recorrido las enfermedades del paciente que estan en la DB.
+    for ($i=0; $i < count($patient->disease); $i++) { 
+        $patientd[] = $patient->disease[$i]->id;
+    }
+    // dd($patientd);
+    // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
+    for ($i=0; $i < count($request->data); $i++) { 
+        // dd($request->data);
+        $disease = Disease::find($request->data[$i]);
+        
+        $disease->patient()->sync($patient);
+    }
+    // dd($disease);
+        // $diff = $request->data->diff($patientd);
+    
+    $diff= array_diff($request->data,$patientd);
+
+    // dd($diff);
+    for ($i=0; $i < count($diff); $i++) { 
+        // dd($request->data);
+        $diseases[] = Disease::find($diff[$i]);
+    }
+    // dd($diseases);
+
+    return response()->json([
+        'data' => 'Enfermedad Agregada Exitosamente',$diseases,201
+        ]);
     }
 }
 

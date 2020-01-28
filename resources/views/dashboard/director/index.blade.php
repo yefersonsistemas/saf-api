@@ -17,7 +17,7 @@
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="col-lg-12">
                     <div class="table-responsive mb-4">
-                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-image">
                             <thead>
                                 <tr>
                                     <th>Foto</th>
@@ -43,11 +43,12 @@
                             <tbody>
                                 @foreach ($employes as $employe)
                                     <tr>
+                                    
                                         <td>
                                             @if (!empty($employe->image->path))
-                                                <img class="rounded circle" width="150px" height="auto" src="{{ Storage::url($employe->image->path) }}" alt="">
+                                                <img class="img-fluid" style="max-width:100%; height:3em" src="{{ Storage::url($employe->image->path) }}" alt="">
                                             @else
-                                                <img src="" alt="" >
+                                                <img src="" alt="">
                                             @endif
                                         </td>
                                         <td>{{ $employe->person->type_dni }} - {{ $employe->person->dni }}</td>
@@ -56,15 +57,15 @@
                                         <td>{{ $employe->position->name }}</td>
                                         <td>
                                             @if ($employe->position->name == 'doctor')
-                                            <a href="{{ route('doctores.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('empleado.delete', $employe) }}" method="POST">
+                                                <form action="{{ route('empleado.delete', $employe) }}" method="POST">
+                                                <a href="{{ route('doctores.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                 @method('delete')
                                                 @csrf
                                             </form>
                                             @elseif ($employe->position->name != 'doctor')
-                                            <a href="{{ route('empleado.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('empleado.delete', $employe) }}" method="POST">
+                                                <form action="{{ route('empleado.delete', $employe) }}" method="POST">
+                                                <a href="{{ route('empleado.edit', $employe->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                 @method('delete')
                                                 @csrf

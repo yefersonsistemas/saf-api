@@ -14,8 +14,8 @@ class TypeSurgeriesTableSeeder extends Seeder
      */
     public function run()
     {
-        Typesurgery::truncate();
-        $this->deleteDirectory(storage_path('/app/public/surgeries'));
+        // Typesurgery::truncate();
+        // $this->deleteDirectory(storage_path('/app/public/surgeries'));
         
 
         factory(Typesurgery::class, 5)->create()->each(function ($cirugia) {

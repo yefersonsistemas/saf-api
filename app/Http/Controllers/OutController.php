@@ -281,22 +281,29 @@ class OutController extends Controller
                 $procedimientos= array_merge($procedures,$procedures_for);
 
             }elseif($procedures_for != null && $procedures[0] == ''){ 
-                $procedimientos= $procedures_for;
-                
+                $procedimientos= $procedures_for;                
             }else{ 
                 $procedimientos = $procedures;
             }
 
-            $crear_factura = Billing::create([
-                'patient_id'  => $itinerary->patient_id,
-                'employe_id'     => $itinerary->employe_id,
-                'branch_id' => 1,
-            ]);
+            $factura = billing::where('patient_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)
+            ->whereDate('created_at', Carbon::now()->format('Y-m-d'))->first();
+
+            // dd($factura);
+            if($factura == null){
+                $crear_factura = Billing::create([
+                    'patient_id'  => $itinerary->patient_id,
+                    'employe_id'     => $itinerary->employe_id,
+                    'branch_id' => 1,
+                ]);
+            }else{
+                $crear_factura = $factura;
+            }
 
             if($procedimientos[0] != ''){
                 for ($i=0; $i < count($procedimientos) ; $i++) { 
                     $procedure[] = Procedure::find($procedimientos[$i]);
-                    $crear_factura->procedure()->attach($procedure[$i]);
+                    $crear_factura->procedure()->sync($procedure[$i]);
                 }
             }else{
                 $procedure = 0;
@@ -333,7 +340,7 @@ class OutController extends Controller
     //============================ imprimir factura ============================ (listo)
     public function imprimir_factura(Request $request)
     {
-    //  dd($request->dniC);
+    //  dd($request->person_id);
         if($request->person_id != null){
             if($request->factura != null){
                 
