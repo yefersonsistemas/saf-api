@@ -94,6 +94,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
 
         Route::post('imprimir', 'OutController@imprimir_factura')->name('checkout.imprimir_factura');           // mostrar factura
+        Route::get('imprimir/itinerary/{id}', 'OutController@imprimir_factura2')->name('checkout.imprimir_factura2');           // mostrar factura
+
         Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
         Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
               Route::get('constancia/{id}','OutController@imprimir_constancia')->name('checkout.imprimir_constancia');  // imprimir constancia

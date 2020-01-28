@@ -327,8 +327,8 @@
                                                                 <i class="fa fa-print"> </i> Facturar
                                                             </a>
                                                         @else
-                                                            <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                                <i class="fa fa-print"> </i> Imprimir
+                                                            <a target="_blank" href="{{ route('checkout.imprimir_factura2', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                <i class="fa fa-print"> </i> Imprimir factura
                                                             </a>
                                                         @endif
                                                     @endif
