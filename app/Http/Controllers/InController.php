@@ -63,7 +63,6 @@ class InController extends Controller
     public function day()
     {
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
-      
         return view('dashboard.checkin.day', compact('day'));
     }
 

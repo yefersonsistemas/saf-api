@@ -55,6 +55,7 @@ class UsersTableSeeder extends Seeder
         $this->deleteDirectory(storage_path('/app/public/patient'));
         $this->deleteDirectory(storage_path('/app/public/typearea'));
         $this->deleteDirectory(storage_path('/app/public/area'));
+        $this->deleteDirectory(storage_path('/app/public/surgeries'));
 
         //Procedure::truncate();
 
@@ -131,6 +132,7 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
         $cirugia->employe_surgery()->attach($employe->id);
+        // $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
 
         //creando especialidad
         $especialidad = factory(App\Speciality::class)->create([
