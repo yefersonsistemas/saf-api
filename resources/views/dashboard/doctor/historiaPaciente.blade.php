@@ -827,12 +827,11 @@ button[data-original-title="Help"]{ display: none; }
                                     </label>
                                 </div>
                                 <div class="col-3">
-                                    <span>{{ $surgery->cost }} </span>
+                                    <span>{{ $surgery->cost }}</span>
                                 </div>
                             </div>
                             @endforeach
                         </div>
-
                     </div>
                 </div>
                     <div class="modal-footer">
@@ -937,7 +936,6 @@ button[data-original-title="Help"]{ display: none; }
         onFinished: function (event, currentIndex)
         {
             var form = $(this);
-
 
             form.submit();
         },
