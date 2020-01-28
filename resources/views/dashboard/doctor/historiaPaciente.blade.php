@@ -299,9 +299,9 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                         </section>
 
-                                         <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
-                                         <h2>Procedimientos Realizados</h2>
-                                         <section class="ml-4">
+                                        <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
+                                        <h2>Procedimientos Realizados</h2>
+                                        <section class="ml-4">
                                             <div class="row">
                                                 <div class="col-12 mt-30">
                                                     <h5>Procedimientos Realizados al Paciente:</h5>
@@ -373,9 +373,9 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="tab-content" id="pills-tabContent">
                                                 <!--Examen-->
                                                 <div class="tab-pane fade show active" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-                                                <div>
+                                                {{-- <div>
                                                     <h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
-                                                </div>
+                                                </div> --}}
                                                     <div class="row">
                                                         <div class="col-12 mt-30 d-flex justify-content-start">
                                                             <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
@@ -411,7 +411,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                             
                                                             </div>
                                                         </div>
                                                     </div>
@@ -721,12 +720,11 @@ button[data-original-title="Help"]{ display: none; }
                                     </label>
                                 </div>
                                 <div class="col-3">
-                                    <span>{{ $surgery->cost }} </span>
+                                    <span>{{ $surgery->cost }}</span>
                                 </div>
                             </div>
                             @endforeach
                         </div>
-                     
                     </div>
                 </div>
                     <div class="modal-footer">
@@ -831,7 +829,6 @@ button[data-original-title="Help"]{ display: none; }
         onFinished: function (event, currentIndex)
         {
             var form = $(this);
-
 
             form.submit();
         },

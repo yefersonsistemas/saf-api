@@ -312,7 +312,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <ul class="list-group" style="list-style:none">
+                                    <ul class="list-group" style="list-style:none" id="enfermedades">
                                         @foreach ($disease as $disease)
                                         @if ($rs->patient->historyPatient->disease->contains($disease->id))
                                             <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</li>
@@ -620,11 +620,52 @@ Dropzone.options.myDropzone = {
     <script>
         // para el select de las enfermedades
         $("#disease").change(function(){
-            var disease_id = $(this).val();     // Capta el id de la enfermedad 
-            console.log('enfermedad', disease_id); 
-            //console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            var disease_id = $(this).val(); // Capta el id de la enfermedad
+            var patient_id = $('#patient-id').val();
+            console.log('enfermedad', disease_id);
+            console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+
+            enfermedades(disease_id, patient_id);
         });
-        </script>
+
+        function enfermedades(disease_id, patient_id){
+            console.log(disease_id);
+
+            $.ajax({ 
+                url: "{{ route('checkin.diseases') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    data:disease_id,
+                    id:patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  'Actualizacion de Enfermedades Exitosa',
+                        type:  'success',
+                    })
+                        show_diseases(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+
+        function show_diseases(data){
+        console.log('hhddd',data);
+
+        for($i=0; $i < data.length; $i++){
+            enfermedad ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</li>';
+            $("#enfermedades").append(enfermedad);
+        }
+    }
+
+    </script>
 
     <script>
         // para el select de las alergias
@@ -666,8 +707,8 @@ Dropzone.options.myDropzone = {
             });
         </script>
         <script>
-        $("#submit-all").click(function() {
-            console.log('hello');
+        // $("#submit-all").click(function() {
+        //     console.log('hello');
             // var tipo_dni = $("#tipo_dniC").val(); 
             // var dni = $("#dniC").val(); 
             // var name =  $("#nameC").val();
