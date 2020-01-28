@@ -62,7 +62,7 @@ public function create_surgery(){
     // dd($cirugias);
     $surgeries = Typesurgery::all();
     $tipo = TypeArea::where('name', 'Quirofano')->first();
-    $quirofano = Area::where('type_area_id', $tipo->id)->get();     
+    $quirofano = Area::with('image')->where('type_area_id', $tipo->id)->get();     
 
     return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
 }
