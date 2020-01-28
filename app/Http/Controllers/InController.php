@@ -62,16 +62,7 @@ class InController extends Controller
     //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
-        // $day = Reservation::get();
-        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
-        // dd($day);
-        // $patient = Patient::where('person_id',$day->patient_id)->first();
-        // dd($patient);
-        // $employe = Employe::where('person_id', $day->person_id)->first();
-        // dd($employe);
-        // $itinerary = Itinerary::where('employe_id', $employe->id)->first();
-        // dd($itinerary);
-
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
 
         return view('dashboard.checkin.day', compact('day'));
     }
@@ -134,24 +125,41 @@ class InController extends Controller
         return view('dashboard.checkin.create', compact('areas', 'em'));
     }
 
+    /*
+    * muestra los consultorios
+    */
+    public function consultorio()
+    {
+        $type = TypeArea::where('name','Consultorio')->first(); // Trae los consultorio
+        // dd($type);
+        $areas = Area::with('image')->where('type_area_id',$type->id)->get(); // Trae la informacion de Consultorios
+        // dd($areas);
+        $dia = strtolower(Carbon::now()->locale('en')->dayName);  //da el nombre del dia en ingles
+        // dd($dia);
+
+        return view('dashboard.checkin.show-area', compact('areas', 'dia'));
+    }
+
     /**
      *
      * busca la historia desde la lista de check-in
      *
      */
-    public function search_history(Request $request, $id, $id2){
+    public function search_history($id, $id2){
         $mostrar = $id2;
         // dd($mostrar);
-        // dd($id);
+
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
         $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-                            // dd($rs->patient->image);
+                            // dd($rs->patient->historyPatient);
 
-        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $request->patient_id)->get();
-// dd($cites);
+        // dd($rs);
+
+        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
+        // dd($cites);
         $disease = Disease::get();
         $medicine = Medicine::get();
         $allergy = Allergy::get();
@@ -183,7 +191,9 @@ class InController extends Controller
                     'occupation'    =>  'required',
                     'profession'    =>  'required',
                     'another_email' =>  'nullable',
-                    'another_phone' =>  'nullable'
+                    'another_phone' =>  'nullable',
+                    // 'social_network'=>  'nullable',
+                    // 'about_us'      =>  'nullable',
                 ]);
 
                 $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
@@ -192,6 +202,8 @@ class InController extends Controller
                     'history_number'=> $this->numberHistory(),
                     'another_phone' =>  $data['another_phone'],
                     'another_email' =>  $data['another_email'],
+                    // 'social_network'=>  $data['social_network'],
+                    // 'about_us'      =>  $data['about_us'],
                     'date'          =>  Carbon::now(),
                     'reason'        =>  $reservation->description,
                     'gender'        =>  $data['gender'],
@@ -228,6 +240,8 @@ class InController extends Controller
                     'occupation'    =>  $request->occupation,
                     'profession'    =>  $request->profession,
                     'previous_surgery'  => $request->previous_surgery,
+                    'social_network'=>  $request->social_network,
+                    'about_us'      =>  $request->about_us,
                 ]);
             }
 

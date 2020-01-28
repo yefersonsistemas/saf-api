@@ -4140,3 +4140,12 @@ th .factura {
     background: #00ba88;
     color: #fff;
 }
+
+.history{
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.75);
+    padding: 10px;
+    border-radius: 5px;
+    width: 120px;
+    background: #00506b;
+    color: #fff;
+}

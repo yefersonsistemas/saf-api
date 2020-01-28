@@ -24,6 +24,11 @@
     .dataTables_filter label input:focus{
         border: 2px solid #00506b;
     }
+
+    .btn-repro{
+        background: #ff8000;
+        color: #fff;
+    }
 </style>
 
 <div class="section-body  py-4">
@@ -127,7 +132,7 @@
                                         
                                         <td style="display: inline-block">
                                             <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                            <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                         </td>
 
@@ -135,7 +140,7 @@
                                             <!--Si no a llegado a las instalaciones-->
                                             @if($reservation->patient->inputoutput->isEmpty())
                                                 <div>
-                                                    <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-secondary">E</a>
+                                                    <a href="{{ route ('checkin.statusIn', $reservation->patient_id) }}" class="btn btn-repro">E</a>
                                                 </div>
                                             @endif
 
@@ -158,14 +163,14 @@
                                             <!--Si no ha llegado a las instalaciones-->
                                             @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
                                                 <div>
-                                                    <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero" disabled>E</button>
+                                                    <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-repro primero" disabled>E</button>
                                                 </div>
                                             @endif
 
                                             <!--Si esta en espera-->
                                             @if(empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside))
                                                 <div>
-                                                    <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-secondary primero">E</a>
+                                                    <a href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-repro primero">E</a>
                                                 </div>
                                             @endif
 
@@ -216,7 +221,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-repro" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </div>
             </form>

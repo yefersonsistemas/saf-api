@@ -601,7 +601,8 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
-                                                            <input type="hidden" id="patient" name="patient" value="{{ $reservation->patient_id }}">
+                                                            
+                                                            <input type="hidden" id="patient" name="patient" value="{{ $itinerary->patient_id }}">
                                                                 <div class="card mr-0 ml-0">
                                                                     <div class="card-body m-0">
                                                                         <div class="row">
@@ -609,9 +610,10 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <label class="form-label" >Especialidad:</label>
                                                                                 <select class="form-control custom-select" name="speciality" id="speciality">
                                                                                     @if($itinerary->reference != '')
+                                                                                    <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
                                                                                         <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @endif
-                                                                                    @if($diff != '')
+                                                                                    @if($diff != [])
                                                                                         @foreach ($diff as $spe)
                                                                                             <option value="{{ $spe->id }}">{{ $spe->name }}</option>
                                                                                         @endforeach
@@ -622,10 +624,14 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <div class="form-group" style=" margin-top:8px;">
                                                                                     <div class="custom-controls-stacked d-flex justify-content-between">
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
-                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
+                                                                                            @if(!empty($itinerary->reference->employe_id))
+                                                                                                <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno" checked>
+                                                                                            @else
+                                                                                                <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
+                                                                                            @endif
                                                                                             <span class="custom-control-label">Médico Interno</span>
                                                                                             <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                @if(!empty($itinerary->reference))
+                                                                                                @if(!empty($itinerary->reference->employe_id))
                                                                                                     <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
                                                                                                     @if($diff2 != [])
                                                                                                         @foreach ($diff2 as $spe)
@@ -636,12 +642,12 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             </select>
                                                                                         </label>
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
-                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
-                                                                                            @if(!empty($itinerary->reference))
+                                                                                            @if(!empty($itinerary->reference->doctor))
+                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo" checked>
                                                                                                 <span class="custom-control-label">Médico Externo</span>
-
-                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctor Externo" >
+                                                                                                    <input type="text" id="medicoExterno" class="form-control"  required placeholder="" value="{{$itinerary->reference->doctor}}" name="doctor Externo" >
                                                                                             @else
+                                                                                            <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                                 <span class="custom-control-label">Médico Externo</span>
                                                                                                 <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
                                                                                             @endif
@@ -1072,7 +1078,7 @@ button[data-original-title="Help"]{ display: none; }
         }
     })
 
-    $("#speciality").change(function() {
+    $("#speciality").click(function() {
         var speciality = $(this).val();
         $.ajax({
                 url: "{{ route('search.medic') }}",
@@ -1128,6 +1134,7 @@ button[data-original-title="Help"]{ display: none; }
         var reason = $("#reason").val(); 
         var doctor = $("#medicoInterno").val(); 
         var doctorExterno = $("#medicoExterno").val(); 
+        var reference = $("#reference").val();   
         var patient = $("#patient").val();   
         var reservation = $("#reservacion_id").val();
         console.log('espe',speciality);
@@ -1136,15 +1143,15 @@ button[data-original-title="Help"]{ display: none; }
         console.log('d e',doctorExterno);
         console.log('patient',patient);
 
-        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);                          
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference);                          
         // console.log('espe',especialidad);                  
         // ajax(dni); 
     });
 
-    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference) {
         console.log("hola hoy");
         $.ajax({ 
-            url: "{{ route('reference.store') }}",   //definiendo ruta
+            url: "{{ route('doctor.reference_update') }}",   //definiendo ruta
             type: "POST",                             //definiendo metodo
             data: {
                 _token: "{{ csrf_token() }}",        
@@ -1152,12 +1159,13 @@ button[data-original-title="Help"]{ display: none; }
                 reason:reason,
                 doctor:doctor,
                 doctorExterno:doctorExterno,
-                patient:patient, 
+                reference:reference, 
+                patient:patient,
             }
         })
         .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
+            console.log('encontrado',data[1])         //recibe lo que retorna el metodo en la ruta definida
+            $('#reference').val(data[1].id);
             if(data[0] == 201){                  //si trae valores
                 Swal.fire({
                     title: data.reference,

@@ -315,8 +315,8 @@
             if(email == ''){ email=null;   }
 
             
-                       
-           if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
+
+        if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
             
             Swal.fire({
             title: 'Datos incompletos',
@@ -330,11 +330,9 @@
                 }
             })
 
-           }else{
+        }else{
             registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);  
-           }        
-          
-           
+        }        
         }); //fin de la funcion clikea
         //=================== funcion para registrar al cliente================
         function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {

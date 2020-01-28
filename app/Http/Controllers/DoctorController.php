@@ -131,6 +131,7 @@ class DoctorController extends Controller
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
 
+        // dd($speciality);
         foreach($speciality as $item){
             $data[] = $item->id;
         }
@@ -139,7 +140,8 @@ class DoctorController extends Controller
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
             $buscar_id[] = $buscar->id;
-            $diff_R = array_diff($buscar_id, $data);
+            // dd($buscar_id);
+            $diff_R = array_diff($data, $buscar_id);
 
             //mostrar empleados en el editar rederir medico para que no se repitan los datos
             $empleados = Speciality::with('employe')->where('id', $buscar->id)->first();
@@ -147,12 +149,18 @@ class DoctorController extends Controller
                 $data2[] = $item->id;  //medicos relacionados a la especialidad
             }
          
-            $buscarE_id[] =  $itinerary->reference->employe->id;
-            $diff_EM = array_diff($data2, $buscarE_id); 
-
-            foreach($diff_EM as $di) { 
-                $diff2[] = Employe::with('person')->find($di); 
+            if($itinerary->reference->employe_id != null){ 
+                    $buscarE_id[] =  $itinerary->reference->employe->id;
+                    $diff_EM = array_diff($data2, $buscarE_id); 
+                    foreach($diff_EM as $di) { 
+                        $diff2[] = Employe::with('person')->find($di); 
+                    }
+                    $diff_doctor = null;
+            }else{
+                $diff_doctor = $itinerary->reference->doctor;
+                $diff2 = [];
             }
+            
 
             // dd($diff2);
         }else{
@@ -168,6 +176,7 @@ class DoctorController extends Controller
             $diff = [];
         }
 
+        // dd($diff);
          //decodificando y buscando datos de procedures realizados
             if (!empty($itinerary->procedure_id)) {
                 $proceduresP_id = explode(',', $itinerary->procedure_id); //decodificando los procedimientos en $encontrado
@@ -225,7 +234,7 @@ class DoctorController extends Controller
                 $diff_C = $cirugias;
             }   
 
-        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor'));
     }
 
     /**
@@ -417,6 +426,52 @@ class DoctorController extends Controller
             ]);
          }
     }
+
+       // ================================= referir doctor ======================================
+       public function reference_update(Request $request)
+       {
+        //    dd($request);
+           $referencia = Reference::find($request->reference);            
+   
+               if($request->doctor != null  || $request->doctorExterno != null){
+   
+                   if($request->speciality != null && $request->reason != null){
+   
+                        if($referencia != null){
+                            $referencia->specialitie_id = $request->speciality;
+                            $referencia->doctor = $request->doctorExterno;
+                            $referencia->employe_id = $request->doctor;
+                            $referencia->reason = $request->reason;
+                            $referencia->save();
+                            return response()->json([
+                                'reference' => 'Referencia actualizada correctamente',201,$referencia,
+                            ]);
+                   
+                        }else{
+                            $referencia = Reference::create([
+                                'patient_id'    =>  $request->patient,
+                                'specialitie_id'    =>  $request->speciality,
+                                'reason'        =>  $request->reason,
+                                'employe_id'    =>  $request->doctor,
+                                'doctor'        =>  $request->doctorExterno,
+                                'branch'        =>  1,
+                            ]);
+                            return response()->json([
+                                'reference' => 'Referencia actualizada correctamente',201, $referencia,
+                            ]);
+                    }
+                     
+                   }else{
+                       return response()->json([
+                           'reference' => 'Datos incompletos',202
+                       ]);
+                   }
+               }{
+                   return response()->json([
+                       'reference' => 'Datos incompletos',202
+                   ]);
+               }
+     }
 
 
     // ================================= crear recipe y guardar medicinas con tratamientos ======================================

@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente dentro del consultorio
         Route::get('insideOffice/{id}', 'InController@insideOffice')->name('checkin.insideOffice'); // cambia estado depaciente a dentro del consultorio
         Route::get('assigment', 'InController@create')->name('checkin.create');                    //asigna consultorio
+        Route::get('mostrar', 'InController@consultorio')->name('checkin.consultorio');  //muestra los consultorios
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('medicos/list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
@@ -133,6 +134,8 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::post('doctor/proceduresUpdate', 'DoctorController@procedures_update')->name('doctor.procedures_actualizar');  // guardar los procedimientos realizados en la consulta
         Route::post('doctor/surgeryUpdate', 'DoctorController@surgerysP_update')->name('doctor.surgery_actualizar');  // guardar los procedimientos realizados en la consulta
+
+        Route::post('doctor/referenceUpdate', 'DoctorController@reference_update')->name('doctor.reference_update');  // actualizar referecnia
 
         //-------------------elimnar-------------------
         Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
