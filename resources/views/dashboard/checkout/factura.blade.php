@@ -10,7 +10,7 @@
 @section('title','Proceso de facturación')
 
 @section('content')
-    <form action="{{ route('checkout.imprimir_factura') }}" method="POST">
+    <form action="{{ route('checkout.imprimir_factura') }}" method="POST" target="_blank">
         @csrf 
         <div class="section-body py-3 row">
             <div class="section-body py-3 col-10 ml-5 ">
@@ -327,9 +327,9 @@
             if(phone == ''){ phone = null; }
             if(email == ''){ email=null;   }
 
-            
+            console.log('cedule',dni.length);
 
-        if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
+        if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 || name == '' || lastname == '' || address == ''){
             
             Swal.fire({
             title: 'Datos incompletos',
@@ -388,13 +388,13 @@
         //================================== para porder mostrar en el documento html ==========================
         function factura_cliente(data) {
             console.log('ken',data);
+            $("input[type=submit]").removeAttr("disabled"); 
             $('#dni_c').text(data.cliente.dni); 
             $('#name_c').text(data.cliente.name);
             $('#lastname_c').text(data.cliente.lastname);
             $('#phone_c').text(data.cliente.phone)
             $('#person_id').val(data.cliente.id);
             console.log(data.cliente.id)
-            $("input[type=submit]").removeAttr("disabled"); 
         } // fin de la funcion que muestra datos en el html
         // ==================== ejecuta el que va a cancelar es el paciente =====================
         $("#paciente").click(function() {
@@ -422,6 +422,13 @@
         }); //fin de la funcion clikea
     }); //fin del documento
 
+// abrir un PDF en una pestaña nueva
+$("#deshabilitado").click(function() {
+// window.open('http://ejemplo.com/archivo.pdf', '_blank');
+ 
+// redirigir la pestaña actual a otra URL
+window.location.href = '/citas/deldia';
+});
     </script>
     {{-- <script>
         function redirect() {
