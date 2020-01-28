@@ -337,6 +337,7 @@ class UsersTableSeeder extends Seeder
                 'classification_surgery_id' => $clasificacion->id,
                 'branch_id' => '1',
             ]);
+            $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
     
 
         /**

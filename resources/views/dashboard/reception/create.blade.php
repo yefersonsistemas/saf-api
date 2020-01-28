@@ -33,28 +33,35 @@
                                                                 class="fa fa-id-card"></i></span>
                                                     </div>
                                                     <div class="input-group-prepend">
-                                                        <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
+                                                        <select name="type_dni" id="type_dni"
+                                                            class="custom-select input-group-text bg-white">
                                                             <option value="">...</option>
                                                             <option value="N">N</option>
                                                             <option value="E">E</option>
                                                         </select>
                                                     </div>
-                                                    <input type="text" class="form-control mr-2" type="text" id="dni" maxlength="9" placeholder="Cédula" value="">
+                                                    <input type="text" class="form-control mr-2" type="text" id="dni"
+                                                        maxlength="9" placeholder="Cédula" value="">
                                                     <input type="hidden" name="newPerson" id="newPerson">
-                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white "><i
+                                                    <button type="button" id="search"
+                                                        class="btn btn-azuloscuro text-white "><i
                                                             class="fa fa-search"></i></button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4 d-flex justify-content-center">
+                                                <input type="hidden" name="file" id="foto">
                                                 <div class="avatar-upload">
                                                     <div class="avatar-preview avatar-edit">
                                                         <div id="imagePreview" style="background-image: url();">
                                                         </div>
-                                                        <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                                                        <button disabled type="button" data-toggle="modal"
+                                                            data-target="#photoModal"
+                                                            class="btn btn-azuloscuro position-absolute btn-camara"><i
+                                                                class="fa fa-camera"></i></button>
                                                     </div>
-                                                {{-- <div class="avatar-preview avatar-edit">
+                                                    {{-- <div class="avatar-preview avatar-edit">
                                                     <div id="imagePreview" style="background-image: url();">
                                                     </div>
                                                     <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
@@ -64,31 +71,36 @@
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
-                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre">
+                                                    <input type="text" id="name" name="name" disabled
+                                                        class="form-control" placeholder="Nombre">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Apellido</label>
-                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido">
+                                                    <input type="text" disabled id="lastname" name="lastname"
+                                                        class="form-control" placeholder="Apellido">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Correo Electrónico</label>
-                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico">
+                                                    <input type="text" disabled id="email" name="email"
+                                                        class="form-control" placeholder="Correo Electrónico">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Dirección</label>
-                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección">
+                                                    <input type="text" disabled id="address" name="address"
+                                                        class="form-control" placeholder="Dirección">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
-                                                    <input type="number" disabled id="phone" name="phone" class="form-control" placeholder="Teléfono">
+                                                    <input type="number" disabled id="phone" name="phone"
+                                                        class="form-control" placeholder="Teléfono">
                                                 </div>
                                             </div>
                                         </div>
@@ -105,83 +117,87 @@
                                     <label class="imagecheck mb-3">
                                         <div class="card max-card text-center">
                                             <div class="card-header text-center ">
-                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                                <figure class="imagecheck-figure border-0">
-                                                    <img src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image max-img">
-                                                </figure>
-                                            </div>
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $speciality->name }}</h5>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div> --}}
-                                <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                    <label class="imagecheck m-0">
-                                    <div class="card assigment">
-                                            <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
-                                            @if (!empty($speciality->image->path))
-                                            <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt="" class="imagecheck-image w-auto">
-                                            </figure>
-                                            @else
-                                            <figure class="imagecheck-figure border-0 text-center">
-                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
-                                            </figure>
-                                            @endif
-                                            <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                                <h6 class="font-weight-bold" style="font-size:15px">{{ $speciality->name }}</h6>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                            @endforeach
-                            <input type="hidden" name="speciality" id="speciality">
+                                                    <input type="radio" name="speciality" value="{{ $speciality->id }}"
+                            id="" class="imagecheck-input">
+                            <figure class="imagecheck-figure border-0">
+                                <img src="{{ Storage::url($speciality->image->path) }}" alt=""
+                                    class="imagecheck-image max-img">
+                            </figure>
                         </div>
-                    </section>
-                    <h2>Elegir Medico</h2>
-                    <section class="py-1">
-                        <div class="row justify-content-between" id="medicos">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $speciality->name }}</h5>
                         </div>
-                        <input type="hidden" name="doctor" id="doctor">
+            </div>
+            </label>
+        </div> --}}
+        <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
+            <label class="imagecheck m-0">
+                <div class="card assigment">
+                    <input type="radio" name="speciality" value="{{ $speciality->id }}" id="" class="imagecheck-input">
+                    @if (!empty($speciality->image->path))
+                    <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
+                        <img width="100%" height="100%" src="{{ Storage::url($speciality->image->path) }}" alt=""
+                            class="imagecheck-image w-auto">
+                    </figure>
+                    @else
+                    <figure class="imagecheck-figure border-0 text-center">
+                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                    </figure>
+                    @endif
+                    <div class="card-body text-center pt-4" style="height:70px; width:170px">
+                        <h6 class="font-weight-bold" style="font-size:15px">{{ $speciality->name }}</h6>
+                    </div>
+                </div>
+            </label>
+        </div>
+        @endforeach
+        <input type="hidden" name="speciality" id="speciality">
+    </div>
+    </section>
+    <h2>Elegir Medico</h2>
+    <section class="py-1">
+        <div class="row justify-content-between" id="medicos">
+        </div>
+        <input type="hidden" name="doctor" id="doctor">
 
-                    </section>
-                    <h2>Motivo De La Consulta</h2>
-                    <section class="container">
-                        <div class="col-md-9 m-auto ">
-                            <div class="form-group mb-0">
-                                <label class="form-label">Motivo de la consula</label>
-                                <textarea rows="5" id="motivo" class="form-control" placeholder="Motivo de la Consulta"></textarea>
-                            </div>
-                        </div>
-                    </section>
-                    <h2>Elegir Fecha</h2>
-                    <section class="py-1 align-items-center">
-                        <div class="col-md-8 m-auto">
-                            <div class="card card-date">
-                                <div class="card-header">
-                                    <h3 class="card-title">Elegir Fecha</h3>
-                                </div>
-                                <div class="form-group mx-4">
-                                    <div class="input-group date">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                        {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
-                                        <input value=""  id="picker" name="date" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="inline-datepicker" data-provide="datepicker"></div>
-                            </div>
-                        </div>
-                    </section>
-                </form>
+    </section>
+    <h2>Motivo De La Consulta</h2>
+    <section class="container">
+        <div class="col-md-9 m-auto ">
+            <div class="form-group mb-0">
+                <label class="form-label">Motivo de la consula</label>
+                <textarea rows="5" id="motivo" class="form-control" placeholder="Motivo de la Consulta"></textarea>
             </div>
         </div>
-    </div>
+    </section>
+    <h2>Elegir Fecha</h2>
+    <section class="py-1 align-items-center">
+        <div class="col-md-8 m-auto">
+            <div class="card card-date">
+                <div class="card-header">
+                    <h3 class="card-title">Elegir Fecha</h3>
+                </div>
+                <div class="form-group mx-4">
+                    <div class="input-group date">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                        {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
+                        <input value="" id="picker" name="date" class="form-control">
+                    </div>
+                </div>
+                <div class="inline-datepicker" data-provide="datepicker"></div>
+            </div>
+        </div>
+    </section>
+    </form>
+</div>
+</div>
+</div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -189,14 +205,14 @@
                 <div>
                     <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                     <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
-                    <input type="hidden" name="patient" id="patient-id" value="">
+                    <input type="hidden" name="patient" id="person-id" value="">
                     <input type="hidden" name="image" id="imagen-id" value="">
                     <p id="estado"></p>
                 </div>
                 <video muted="muted" id="video" class="col-12"></video>
                 <canvas id="canvas" style="display: none;" name="foto"></canvas>
                 <div class="col-12 text-center">
-                    <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
+                    <button type="button" class="btn btn-azuloscuro text-white" id="boton" data-dismiss="modal">Tomar foto</button>
                 </div>
             </div>
         </div>
@@ -226,31 +242,44 @@
             let datafoto=encodeURIComponent(foto);
                 var data1 = {
                     "tokenmodalfoto": $('#tokenfoto').val(),
-                    "idpatient":$('#patient-id').val(),
-                    "idimage":$('#imagen-id').val(),
                     "pic":datafoto
                     };
-            const datos=JSON.stringify(data1)
+            const datos=JSON.stringify(data1);
             $estado.innerHTML = "Enviando foto. Por favor, espera...";
-            fetch("{{ route('search.patient') }}", {
+            fetch("{{ route('cita.foto') }}", {
                 method: "POST",
                 body: datos,
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded",
                     'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
                 },
-            }).then(function(response) {
-                // console.log(response.json());
-                    return response.json();
-                }).then(nombreDeLaFoto => {
-                    // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                    console.log("La foto fue enviada correctamente");
-                    $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-                })
+            }).then(resultado => {
+                            // A los datos los decodificamos como texto plano
+                            return resultado.text()
+                        })
+                        .then(nombreDeLaFoto => {
+                            console.log(nombreDeLaFoto);
+                            // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                            console.log("La foto fue enviada correctamente");
+                            // let timerInterval
+                            Swal.fire({
+                                    type: 'success',
+                                    title: 'La foto fue guardada con Exíto',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                $estado.innerHTML = '';
+                                $('.avatar-preview').load(
+                                    $('#imagePreview').css('background-image', `url(/storage/${nombreDeLaFoto})`),
+                                    $('#foto').val(nombreDeLaFoto),
+                                    $('#imagePreview').hide(),
+                                    $('#imagePreview').fadeIn(650),
+                                    );
+                        })
             //Reanudar reproducción
-            $video.play();
+            // $video.play();
             });
-    </script>
+</script>
 
 <script>
     function stopDefAction(evt) {
@@ -337,7 +366,6 @@
                 }
             })
             .done(function(data) {
-                console.log(data.person.image.path);
                 if (data[0] == 202) {
                     Swal.fire({
                         title: 'Paciente no encontrado.!',
@@ -369,11 +397,13 @@
         $('#address').val(data.person.address);
         $('#phone').val(data.person.phone);
         $('#newPerson').val(data.person.id);
-              $('.avatar-preview').load(
-                $('#imagePreview').css('background-image', `url(/storage/${data.person.image.path})`),
-                 $('#imagePreview').hide(),
-                 $('#imagePreview').fadeIn(650)
-             );
+        $('.avatar-preview').load(
+            $('#person-id').val(data.person.id),
+            $('#imagen-id').val(data.person.image.id),
+            $('#imagePreview').css('background-image', `url(/storage/${data.person.image.path})`),
+                $('#imagePreview').hide(),
+                $('#imagePreview').fadeIn(650)
+        );
 
         $("#photo").attr('disabled', true);
         $(".dropify-wrapper").addClass('disabled');
@@ -394,7 +424,6 @@
         $('#email').val('');
         $('#address').val('');
         $('#phone').val('');
-
         $("#photo").removeAttr('disabled');
         $(".dropify-wrapper").removeClass('disabled');
         $('#name').removeAttr('disabled');
@@ -404,6 +433,12 @@
         $('#phone').removeAttr('disabled');
         $('#submit').removeAttr('disabled');
         $('#newPerson').val('nuevo');
+        $('.btn-camara').removeAttr('disabled');
+        $('.avatar-preview').load(
+            $('#imagePreview').css('background-image', `url()`),
+                $('#imagePreview').hide(),
+                $('#imagePreview').fadeIn(650)
+        );
     }
 
     function speciality() {
@@ -517,8 +552,8 @@
         var motivo = $('#motivo').val();
         var date = $('#picker').val();
         var person = $('#newPerson').val();
-        // let image = $('photo').val();
-        // console.log('hoaws',image);
+        var image = $('#foto').val();
+        console.log('hoaws',image);
         console.log('al enviar', date);
         console.log('haha', person);
 
@@ -539,6 +574,7 @@
                     motivo: motivo,
                     date: date,
                     person: person,
+                    image: image
                 }
             })
             .done(function(data) {
@@ -554,7 +590,7 @@
             .fail(function(data) {
                 console.log(data);
             })
-    }
+        }
 </script>
 <script>
 
