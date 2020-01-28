@@ -797,7 +797,7 @@ class DoctorController extends Controller
        
         if($itinerary->procedureR_id != null){
             $b_procedure =  explode(',', $itinerary->procedureR_id);
-            $diff= array_diff_assoc($returndata2,$b_procedure);
+            $diff= array_diff($returndata2,$b_procedure);
 
             if($diff != null){
                 $string = implode(',', $diff);
@@ -1038,6 +1038,36 @@ class DoctorController extends Controller
             }
         }
 
+
+          //================eliminar examen ===================
+    public function procedureR_eliminar2(Request $request){
+    
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $procedures = explode(',', $itinerary->procedureR_id);
+
+        $procedure = null;
+        for($i=0; $i < count($procedures); $i++) {
+            if($request->id != $procedures[$i]){
+                $procedure[] = $procedures[$i];
+            }
+        }
+        // dd($procedure);
+        
+        //actualizando campo de examenes
+        if($procedure != null){
+            $itinerary->procedureR_id = implode(',', $procedure);
+            $itinerary->save();
+        }else{
+            $itinerary->procedureR_id = null;
+            $itinerary->save();
+        }
+
+        return response()->json([
+            'procedure' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
         
     //======================= Examenes a realizar(paciente) ==================
     public function examR(Request $request){
@@ -1061,8 +1091,9 @@ class DoctorController extends Controller
 
         if($itinerary->exam_id != null){
             $b_exam =  explode(',', $itinerary->exam_id);
-            $diff= array_diff_assoc($returndata2,$b_exam);
+            $diff= array_diff($returndata2,$b_exam);
 
+            // dd($diff);
             if($diff != null){
                 $string = implode(',',$diff);                
                 $todo = $itinerary->exam_id .','. $string;
@@ -1182,8 +1213,37 @@ class DoctorController extends Controller
         }
     }
 
-
     //================eliminar examen ===================
+    public function exam_eliminar2(Request $request){
+    
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $examenes = explode(',', $itinerary->exam_id);
+
+        $exam = null;
+        for($i=0; $i < count($examenes); $i++) {
+            if($request->id != $examenes[$i]){
+                $exam[] = $examenes[$i];
+            }
+        }
+
+        //actualizando campo de examenes
+        if($exam != null){
+            $itinerary->exam_id = implode(',', $exam);
+            $itinerary->save();
+        }else{
+            $itinerary->exam_id = null;
+            $itinerary->save();
+        }
+
+        return response()->json([
+            'exam' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
+
+
+    //================eliminar examen desde el actualizar===================
     public function exam_eliminar(Request $request){
 
         $diagnostic = Diagnostic::find($request->diagnostic_id);
@@ -1241,7 +1301,7 @@ class DoctorController extends Controller
         
         if($itinerary->procedure_id != null){
             $b_procedure =  explode(',', $itinerary->procedure_id);
-            $diff= array_diff_assoc($returndata2,$b_procedure);
+            $diff= array_diff($returndata2,$b_procedure);
 
             if($diff != null){
                 $string = implode(',',$diff);
