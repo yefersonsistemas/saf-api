@@ -303,7 +303,7 @@ class OutController extends Controller
             if($procedimientos[0] != ''){
                 for ($i=0; $i < count($procedimientos) ; $i++) { 
                     $procedure[] = Procedure::find($procedimientos[$i]);
-                    $crear_factura->procedure()->attach($procedure[$i]);
+                    $crear_factura->procedure()->sync($procedure[$i]);
                 }
             }else{
                 $procedure = 0;
