@@ -131,7 +131,17 @@ class InController extends Controller
     {
         $type = TypeArea::where('name','Consultorio')->first(); // Trae los consultorio
         // dd($type);
-        $areas = Area::with('image')->where('type_area_id',$type->id)->get(); // Trae la informacion de Consultorios
+
+        $areas = Area::with('image')->where('type_area_id',$type->id)->whereTime('created_at', '=', '15:07')->get(); // Trae la informacion de Consultorios
+
+            foreach($areas as $item){
+                $item->status = null;
+                $item->update();
+
+            }
+        //limpia los campos  al cumplir la hora y al refrescar la pagina
+        
+       
         // dd($areas);
         $dia = strtolower(Carbon::now()->locale('en')->dayName);  //da el nombre del dia en ingles
         // dd($dia);
