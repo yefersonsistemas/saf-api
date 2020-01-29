@@ -145,6 +145,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/cirugias', 'DoctorController@agregar_cirugias')->name('doctor.agregar_cirugias');  // eliminar examen
         //-------------------elimnar-------------------
         Route::post('doctor/eliminar/examen/actualizar', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
+        Route::post('doctor/eliminar/procedimientos_realizados/actualizar', 'DoctorController@procedureR_eliminar')->name('doctor.procedureR_eliminar');  // eliminar examen
+        // Route::post('doctor/eliminar/posible_cirugia/actualizar', 'DoctorController@cirugiaR_eliminar')->name('doctor.cirugiaP_eliminar');
+
         Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar2')->name('doctor.exam_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/procedure', 'DoctorController@procedureR_eliminar2')->name('doctor.procedureR_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen

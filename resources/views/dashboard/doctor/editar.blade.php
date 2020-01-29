@@ -338,8 +338,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
                                                                                         </td>
                                                                                         <td id="{{ $proces->id }}" class=" d-flex justify-content-center">
-                                                                                            <input id="{{ $proces->id }}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
-                                                                                                value="g">
+                                                                                            <input id="{{ $proces->id }}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen"
+                                                                                                value="Eliminar">
                                                                                         </td>
                                                                                     </tr>
                                                                                 @endforeach
@@ -670,24 +670,92 @@ button[data-original-title="Help"]{ display: none; }
 
                                                 <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                    <div class="row d-flex justify-content-center">
-                                                        <div class=" col-4">
-                                                            <button type="button" class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Cirugia
-                                                            </button>
+                                                    {{-- <div class="row d-flex justify-content-center"> --}}
+                                                        <div class="row">
+                                                            <div class="col-lg-12 mx-auto">
+                                                                <div class="card">
+                                                                    <div class="card-header text-start">
+                                                                        <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
+                                                                        <i class="fa fa-plus"></i>
+                                                                        Agregar Cirugia
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="card-body py-1">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Posible Cirugía</th>
+                                                                                        <th class="text-center">Accion</th>
+                                                                                    </tr>
+                                                                                </thead>
+
+                                                                                <tbody id="ocultar_cirugia">
+                                                                                    {{-- @if(!empty($itinerary->typesurgery))
+                                                                                    @foreach ($surgery as $surge)
+                                                                                    <li>{{ $surge->name }}</li>
+                                                                                    @endforeach
+                                                                                @endif  --}}
+                                                                                    @if(!empty($itinerary->typesurgery))
+                                                                                        @foreach ($surgery as $surge)
+                                                                                            <tr id="{{$surge->id}}">
+                                                                                                <td>
+                                                                                                    <div class="col-6" >{{$surge->name}}</div> 
+                                                                                                </td>
+                                                                                                <td id="{{$surge->id}}" class="d-flex justify-content-center">
+                                                                                                <input id="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="cirugiaP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia"
+                                                                                                        value="Eliminar">
+                                                                                                </td>
+                                                                                                {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
+
+                                                                                            </tr>
+                                                                                        @endforeach
+                                                                                    @endif
+                                                                                </tbody>
+
+                                                                                <tbody id="cirugias">
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        
-                                                        <div class="col-4">
-                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Procedimiento
-                                                            </button>
-                                                        </div>                                                            
-                                                    </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-12 mx-auto">
+                                                                <div class="card">
+                                                                    <div class="card-header text-start">
+                                                                        <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
+                                                                            <i class="fa fa-plus"></i>
+                                                                            Agregar Procedimiento
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="card-body py-1">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Posibles procedimientos </th>
+                                                                                        <th class="text-center">Accion</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="procedimientos">
+                                                                                   
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                          
+                                                    {{-- </div> --}}
                                                         <!------------------------------listar cirugias y procedimientos---------------------->
-                                                        <div class="row d-flex mt-20 justify-content-center">
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
+                                                        {{-- <div class="row d-flex mt-20 justify-content-center"> --}}
+                                                            {{-- <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
                                                                 <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;">
                                                                     @if(!empty($itinerary->typesurgery))
@@ -697,9 +765,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                     @endif                                                            
                                                                     
                                                                 </ul>  
-                                                            </div>
+                                                            </div> --}}
 
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
+                                                            {{-- <div class="col-5 mt-30 p-4 card ml-2">
                                                                 <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
                                                                 <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;">
                                                                     @if(!empty($procedures))
@@ -708,12 +776,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                         @endforeach
                                                                     @endif
                                                                 </ul>  
-                                                                {{-- <ul id="procedimientos1">
-
-                                                                </ul> --}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                            </div> --}}
+                                                        {{-- </div> --}}
+                                                    {{-- </div> --}}
                                                 </div>
                                                 
                                                 <!------------------------------PROXIMA CITA---------------------->
@@ -1238,7 +1303,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>'
+            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>'
             $("#procesc").append(procesc);
         }
         
@@ -1419,33 +1484,132 @@ button[data-original-title="Help"]{ display: none; }
 
     
     //============= mostrando posibles cirugias ================== (listo)
+    // function mostrarSurgery(data){
+    //     for($i=0; $i < data.length; $i++){           
+    //         // cirugias='<li>'+data[$i].name+'</li>';
+    //         cirugias='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="cirugiaP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia" value="Eliminar"></td></tr>';
+    //         $("#cirugias").html(cirugias);
+    //     }        
+    // }
+
     function mostrarSurgery(data){
-        for($i=0; $i < data.length; $i++){           
-            cirugias='<li>'+data[$i].name+'</li>';
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            // cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
             $("#cirugias").html(cirugias);
-        }        
+        }
     }
 
+    //================ eliminar examen seleccionado ==========
+    $(function() {
+            $(document).on('click', '.exam_id', function(event) {
+                let id = this.id;
+                var diagnostic = $("#diagnostic_id").val();
+                var reservacion = $("#reservacion_id").val();
+                console.log(reservacion);
+                $("#"+id).hide();
+                
+                    // $('option:selected').removeAttr('selected');
 
-//================ eliminar examen seleccionado ==========
-$(function() {
-        $(document).on('click', '.exam_id', function(event) {
+                $.ajax({
+                    url: "{{ route('doctor.exam_eliminar') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    diagnostic_id:diagnostic,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {               
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.exam,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+             
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+
+
+            });
+
+        
+        });
+
+          //================ eliminar examen seleccionado ==========
+    $(function() {
+            $(document).on('click', '.procedureR_id', function(event) {
+                let id = this.id;
+                var diagnostic = $("#diagnostic_id").val();
+                var reservacion = $("#reservacion_id").val();
+                console.log(reservacion);
+                $("#"+id).hide();
+                
+                    // $('option:selected').removeAttr('selected');
+
+                $.ajax({
+                    url: "{{ route('doctor.procedureR_eliminar') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    diagnostic_id:diagnostic,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {               
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.procedure,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+
+
+            });
+
+        
+        });
+
+
+  //================ eliminar posibole cirugia seleccionado ==========
+  $(function() {
+        $(document).on('click', '.cirugiaP_id', function(event) {
             let id = this.id;
-            var diagnostic = $("#diagnostic_id").val();
             var reservacion = $("#reservacion_id").val();
             console.log(reservacion);
+            console.log('id', id);    
             $("#"+id).hide();
-            
-                // $('option:selected').removeAttr('selected');
 
             $.ajax({
-                url: "{{ route('doctor.exam_eliminar') }}",
+                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
                 type: 'POST',
                 dataType:'json',   
                 data: {
                 _token: "{{ csrf_token() }}",        
                 id:id,
-                diagnostic_id:diagnostic,
                 reservacion_id:reservacion,
             }
 
@@ -1455,33 +1619,21 @@ $(function() {
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
-                    title: data.exam,
+                    title: data.cirugia,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
 
             }
             
-            // if (data[0] == 202) {                       //si no trae valores
-            //     Swal.fire({
-            //         title: data.proceduresR,
-            //         text:  'Click en OK para continuar',
-            //         type:  'error',
-            //     })
-            //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-            // }
         })
         .fail(function(data) {
             console.log(data);
-        })
-
+        })  
 
         });
-
-       
+    
     });
-
-
 
 </script>
 

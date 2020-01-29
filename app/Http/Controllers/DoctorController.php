@@ -1068,6 +1068,42 @@ class DoctorController extends Controller
         ]);
 
     }
+
+    //================eliminar examen desde el actualizar===================
+    public function procedureR_eliminar(Request $request){
+
+        $diagnostic = Diagnostic::find($request->diagnostic_id);
+        $procedure = Procedure::find($request->id);
+
+        //borrando examen de la tabla pivote diagnostic_exam
+        $diagnostic->procedures()->detach($procedure);
+    
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $procedures = explode(',', $itinerary->procedureR_id);
+
+        $proce = null;
+        for($i=0; $i < count($procedures); $i++) {
+            if($request->id != $procedures[$i]){
+                $proce[] = $procedures[$i];
+            }
+        }
+
+        //actualizando campo de examenes
+        if($proce != null){
+            $itinerary->procedureR_id = implode(',', $proce);
+            $itinerary->save();
+        }else{
+            $itinerary->procedureR_id = null;
+            $itinerary->save();
+        }
+
+        // dd($itinerary->procedureR_id);
+        return response()->json([
+            'procedure' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
     
         
     //======================= Examenes a realizar(paciente) ==================
