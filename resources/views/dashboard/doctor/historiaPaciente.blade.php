@@ -333,7 +333,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Plan</h2>
-                                        <section class="ml-4 pb-0 pt-2 plan">
+                                        <section class="p-0 pt-2 plan">
                                             <div class="plan-steps">
                                                 <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
                                                     <li class="nav-item">
