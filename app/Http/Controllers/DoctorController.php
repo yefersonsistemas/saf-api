@@ -1154,6 +1154,7 @@ class DoctorController extends Controller
             $examen[] = Exam::find($examenes[$i]);
         }
                
+        // dd($examen);
         return response()->json([
             'exam' => 'Examenes guardados exitosamente',201,$examen
         ]);
@@ -1252,18 +1253,18 @@ class DoctorController extends Controller
 
     //================eliminar examen ===================
     public function exam_eliminar2(Request $request){
-    
+    // dd($request->id);
         //buscando en itinerary para actualizar campo
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $examenes = explode(',', $itinerary->exam_id);
-
+// dd($examenes);
         $exam = null;
         for($i=0; $i < count($examenes); $i++) {
             if($request->id != $examenes[$i]){
                 $exam[] = $examenes[$i];
             }
         }
-
+// dd($exam);
         //actualizando campo de examenes
         if($exam != null){
             $itinerary->exam_id = implode(',', $exam);
