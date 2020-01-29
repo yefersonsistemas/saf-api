@@ -640,7 +640,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Enfermedades</h5>
@@ -675,7 +675,7 @@ button[data-original-title="Help"]{ display: none; }
 
       <!-- Modal para mostar alergias-->
       <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Alergias</h5>
@@ -684,7 +684,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 410px; overflow-y: scroll !important">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($alergia != null)

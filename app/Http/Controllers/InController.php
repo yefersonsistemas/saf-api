@@ -704,13 +704,48 @@ class InController extends Controller
     // dd($diff);
     for ($i=0; $i < count($diff); $i++) { 
         // dd($request->data);
-        $diseases[] = Disease::find($diff[$i]);
+        $diseases[] = Disease::find($diff);
     }
     // dd($diseases);
 
     return response()->json([
         'data' => 'Enfermedad Agregada Exitosamente',$diseases,201
         ]);
+    }
+
+    public function medicines(Request $request){
+        // dd($request);
+        $patient = Patient::with('medicine')->where('person_id', $request->id)->first();
+        dd($patient->medicine);
+
+        if(count($patient->medicine) != null) {
+            for ($i=0; $i < count($patient->medicine); $i++) { 
+                $patientm[] = $patient->medicine[$i]->id;
+            }
+            // dd($patientm);
+        }
+        // for ($i=0; $i < count($request->data); $i++) { 
+            
+        //     $medicine = Medicine::find($request->data[$i]);
+        //     // dd($medicine);
+        //     $medicine->patient()->sync($patient);
+        // }
+
+        // // if ($patient->medicines != null ) {
+        //     $diff= array_diff($request->data, $patientm);
+        // // } else {
+        // //     $diff = $request->data;
+        // // }
+        
+        // for ($i=0; $i < count($diff); $i++) {
+        //     // dd($diff);
+        //     $medicines[] = Medicine::find($diff);
+
+        // }
+        // // dd($medicines);
+        // return response()->json([
+        //     'data' => 'Medicamento Agregado Exitosamente',$medicines,201
+        //     ]);
     }
 }
 

@@ -1475,58 +1475,58 @@ button[data-original-title="Help"]{ display: none; }
 
     //================ eliminar procedure seleccionado ==========
    
-    $(function() {
-        $(document).on('click', 'input[type="button"]', function(event) {
-            let id = this.id;
-            var diagnostic = $("#diagnostic_id").val();
-            var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            $("#"+id).hide();
+    // $(function() {
+    //     $(document).on('click', 'input[type="button"]', function(event) {
+    //         let id = this.id;
+    //         var diagnostic = $("#diagnostic_id").val();
+    //         var reservacion = $("#reservacion_id").val();
+    //         console.log(reservacion);
+    //         $("#"+id).hide();
             
-                // $('option:selected').removeAttr('selected');
+    //             // $('option:selected').removeAttr('selected');
 
-            $.ajax({
-                url: "{{ route('doctor.exam_eliminar') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}",        
-                id:id,
-                diagnostic_id:diagnostic,
-                reservacion_id:reservacion,
-            }
+    //         $.ajax({
+    //             url: "{{ route('doctor.exam_eliminar') }}",
+    //             type: 'POST',
+    //             dataType:'json',   
+    //             data: {
+    //             _token: "{{ csrf_token() }}",        
+    //             id:id,
+    //             diagnostic_id:diagnostic,
+    //             reservacion_id:reservacion,
+    //         }
 
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+    //         })
+    //         .done(function(data) {               
+    //         console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
 
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.exam,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
+    //         if(data[0] == 202){                  //si no trae valores
+    //             Swal.fire({
+    //                 title: data.exam,
+    //                 text: 'Click en OK para continuar',
+    //                 type: 'success',
+    //             });
 
-            }
+    //         }
             
-            // if (data[0] == 202) {                       //si no trae valores
-            //     Swal.fire({
-            //         title: data.proceduresR,
-            //         text:  'Click en OK para continuar',
-            //         type:  'error',
-            //     })
-            //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-            // }
-        })
-        .fail(function(data) {
-            console.log(data);
-        })
+    //         // if (data[0] == 202) {                       //si no trae valores
+    //         //     Swal.fire({
+    //         //         title: data.proceduresR,
+    //         //         text:  'Click en OK para continuar',
+    //         //         type:  'error',
+    //         //     })
+    //         //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+    //         // }
+    //     })
+    //     .fail(function(data) {
+    //         console.log(data);
+    //     })
 
 
-        });
+    //     });
 
        
-    });
+    // });
 
 
 </script>
