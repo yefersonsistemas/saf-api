@@ -961,6 +961,7 @@
 }
 .wizard.vertical>.steps>ul>li a {
     font-weight: bold;
+    background: lightgray;
 }
         .plan-steps>ul {
             position: relative;
