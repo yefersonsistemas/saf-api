@@ -1011,6 +1011,19 @@
             /* margin-bottom: -1px; */
             box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
         }
+
+        @media screen and (max-width:1440px){
+            .plan-steps>ul>li>a {
+                padding: 10px!important;
+                font-size: 12px;
+            }
+
+            .plan-steps .nav-pills .nav-link.active,
+        .plan-steps .nav-pills .show>.nav-link {
+            padding: 10px!important;
+            font-size: 12px;
+        }
+        }
         .plan-steps>ul>li>a:hover {
     background: rgba(0, 80, 107, .25);
     /* border: 1px solid #00506b; */
