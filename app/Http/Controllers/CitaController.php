@@ -69,8 +69,10 @@ class CitaController extends Controller
         return view('dashboard.reception.create', compact('specialities'));
     }
 
-    public function search_patient(Request $request){
+    public function search_patient(Request $request){ //buscador de personas en agendar cita
+
         $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,201

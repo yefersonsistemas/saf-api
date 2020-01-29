@@ -168,6 +168,7 @@ class InController extends Controller
     public function search_history($id, $id2){
         $mostrar = $id2;
         // dd($mostrar);
+    
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
@@ -195,7 +196,7 @@ class InController extends Controller
 
 
     public function guardar(Request $request, $id)  //REVISAR
-     {
+    {   
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
@@ -309,8 +310,6 @@ class InController extends Controller
                         $patient->disease()->sync($request->disease);
                     }
                 }
-
-
 
                 if (!empty($request->medicine)){
 

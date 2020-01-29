@@ -1039,7 +1039,7 @@ class DoctorController extends Controller
         }
 
 
-          //================eliminar examen ===================
+    //================eliminar examen ===================
     public function procedureR_eliminar2(Request $request){
     
         //buscando en itinerary para actualizar campo
@@ -1068,6 +1068,43 @@ class DoctorController extends Controller
         ]);
 
     }
+
+    //================eliminar examen desde el actualizar===================
+    public function procedureR_eliminar(Request $request){
+
+        $diagnostic = Diagnostic::find($request->diagnostic_id);
+        $procedure = Procedure::find($request->id);
+
+        //borrando examen de la tabla pivote diagnostic_exam
+        $diagnostic->procedures()->detach($procedure);
+    
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $procedures = explode(',', $itinerary->procedureR_id);
+
+        $proce = null;
+        for($i=0; $i < count($procedures); $i++) {
+            if($request->id != $procedures[$i]){
+                $proce[] = $procedures[$i];
+            }
+        }
+
+        //actualizando campo de examenes
+        if($proce != null){
+            $itinerary->procedureR_id = implode(',', $proce);
+            $itinerary->save();
+        }else{
+            $itinerary->procedureR_id = null;
+            $itinerary->save();
+        }
+
+        // dd($itinerary->procedureR_id);
+        return response()->json([
+            'procedure' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
+    
         
     //======================= Examenes a realizar(paciente) ==================
     public function examR(Request $request){
@@ -1117,6 +1154,7 @@ class DoctorController extends Controller
             $examen[] = Exam::find($examenes[$i]);
         }
                
+        // dd($examen);
         return response()->json([
             'exam' => 'Examenes guardados exitosamente',201,$examen
         ]);
@@ -1215,7 +1253,7 @@ class DoctorController extends Controller
 
     //================eliminar examen ===================
     public function exam_eliminar2(Request $request){
-    
+   
         //buscando en itinerary para actualizar campo
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $examenes = explode(',', $itinerary->exam_id);
@@ -1226,7 +1264,6 @@ class DoctorController extends Controller
                 $exam[] = $examenes[$i];
             }
         }
-
         //actualizando campo de examenes
         if($exam != null){
             $itinerary->exam_id = implode(',', $exam);
@@ -1402,6 +1439,35 @@ class DoctorController extends Controller
         }
     }
 
+
+    //================eliminar posibles procedimientos ===================
+    public function procedureP_eliminar2(Request $request){
+
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $procedures = explode(',', $itinerary->procedure_id);
+
+        $procedure = null;
+        for($i=0; $i < count($procedures); $i++) {
+            if($request->id != $procedures[$i]){
+                $procedure[] = $procedures[$i];
+            }
+        }
+        
+        //actualizando campo de examenes
+        if($procedure != null){
+            $itinerary->procedure_id = implode(',', $procedure);
+            $itinerary->save();
+        }else{
+            $itinerary->procedure_id = null;
+            $itinerary->save();
+        }
+
+        return response()->json([
+            'procedure' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
     //Candidato a cirugias
     public function surgerysP(Request $request){
 
@@ -1474,6 +1540,20 @@ class DoctorController extends Controller
                 'surgerysR' => 'Seleccione una cirugia',202
             ]);
         }
+    }
+
+      //================eliminar posibles procedimientos ===================
+      public function cirugiaP_eliminar2(Request $request){
+
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+
+        $itinerary->typesurgery_id = null;
+        $itinerary->save();
+     
+        return response()->json([
+            'cirugia' => 'Cirugia eliminada correctamente',202
+        ]);
+
     }
 
 }
