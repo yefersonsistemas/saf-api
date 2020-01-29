@@ -229,7 +229,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4 pb-0 pt -4">
-                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote required" ></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -269,7 +269,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                         <h2>Examen Fisico</h2>
                                         <section class="ml-4 pb-0 pt-4">
-                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote required"></textarea>
                                         </section>
 
                                         <h2>Estudios complementarios</h2>
@@ -294,7 +294,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="row">
                                                 <div class="col-12">
 
-                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote required" ></textarea>
                                                 </div>
                                             </div>
                                         </section>
@@ -798,8 +798,8 @@ button[data-original-title="Help"]{ display: none; }
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
         stepsOrientation: 'vertical',
-        enableAllSteps: true,
-        enablePagination: true,
+        // enableAllSteps: true,
+        // enablePagination: true,
         labels: {
             cancel: "Cancelar",
             current: "Paso actual:",
