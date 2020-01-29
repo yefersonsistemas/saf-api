@@ -52,6 +52,7 @@
                         @endif
                         </div>
                     </div>
+                    <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
                     <!-- Modal -->
                     {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -340,8 +341,9 @@
                                             @endif>{{ $medicamentos->name }}</option>
                                         @endforeach
                                     </select>
-                                    <div>
-                                    <ul class="list-group" style="list-style:none">
+                                </div>
+                                <div>
+                                    <ul class="list-group" style="list-style:none" id="medicamentos">
                                         @foreach ($medicine as $medicine)
                                         @if ($rs->patient->historyPatient->medicine->contains($medicine->id))
                                             <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</li>
@@ -352,7 +354,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
 
                         <div class="col-lg-6 col-md-3" id="framework_form3">
                             <label class="form-label text-center">Alergias</label>
@@ -393,9 +395,9 @@
                     </div>
                 </div>
                 
-                <div class="card p-4 row d-flex d-row justify-content-between">
+                <div class="card p-4 d-flex d-row justify-content-between">
                     <h5 class="text-center">Historial de Citas</h5>
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="margin-bottom: -250px;">
                         <div class="tab-content mx-auto">
                             <div class="col-lg-12">
                                 <div class="table-responsive mb-4">
@@ -432,7 +434,8 @@
             
             @if($mostrar == 1)
                 <div class="">
-                    <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px"> Guardar</button>
+                    <a href="{{Route('checkin.day')}}" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
+                    <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px" disabled>Guardar</button>
                 </div>
             @else
                 <div>
@@ -616,7 +619,6 @@ Dropzone.options.myDropzone = {
         });
     </script>
 
-
     <script>
         // para el select de las enfermedades
         $("#disease").change(function(){
@@ -630,7 +632,6 @@ Dropzone.options.myDropzone = {
 
         function enfermedades(disease_id, patient_id){
             console.log(disease_id);
-
             $.ajax({ 
                 url: "{{ route('checkin.diseases') }}",  
                 type: "POST",                            
@@ -641,14 +642,14 @@ Dropzone.options.myDropzone = {
                 }
             })
             .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                console.log('esto',data);
+                console.log('esto',data[0][0]);
                 if (data[1] == 201) {                       
                     Swal.fire({
                         title: 'Excelente!',
-                        text:  'Actualizacion de Enfermedades Exitosa',
+                        text:  'Enfermedad Agregada con Exito!',
                         type:  'success',
                     })
-                        show_diseases(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                        show_diseases(data[0][0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
                 }
             })
             .fail(function(data) {
@@ -670,19 +671,73 @@ Dropzone.options.myDropzone = {
     <script>
         // para el select de las alergias
         $("allergy").change(function(){
-            var allergy_id = $(this).val();     // Capta el id de la alergia 
+            var allergy_id = $(this).val(); // Capta el id de la alergia 
+            var patient_id = $('#patient-id').val();    
             console.log('alergia', allergy_id);
             console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            alergias(allergy_id,patient_id)
         });
-        </script>
+
+        // function alergias(allergy_id,patient_id){
+        //     console.log('alergia', allergy_id);
+        //     $.ajax({
+        //         url: "{{ route('checkin.allergys') }}",  
+        //         type: "POST",                            
+        //         data: {
+        //             _token: "{{ csrf_token() }}",        
+        //             data:allergy_id,
+        //             id:patient_id,                          
+        //         }
+        //     })
+        // }
+    </script>
 
     <script>
         // para el select de las medicamentos
         $("#medicine").change(function(){
             var medicine_id = $(this).val(); // Capta el id del medicamento 
+            var patient_id = $('#patient-id').val();
             console.log('medicamento', medicine_id);
             console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+            medicamentos(medicine_id,patient_id);
         });
+
+        function medicamentos(medicine_id,patient_id){
+            // console.log('lalala',medicine_id);
+            $.ajax({ 
+                url: "{{ route('checkin.medicines') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    data:medicine_id,
+                    id:patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data[0][0]);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  'Medicamento Agregado con Exito!',
+                        type:  'success',
+                    })
+                        show_medicines(data[0][0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+
+        function show_medicines(data){
+            console.log('hhddd',data);
+
+        for($i=0; $i < data.length; $i++){
+            console.log(data.length);
+            medicina ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</li>';
+            $("#medicamentos").append(medicina);
+        }
+        }
         </script>
 
         <script>
@@ -704,6 +759,7 @@ Dropzone.options.myDropzone = {
                 $('#previous_surgery').removeAttr('disabled');
                 $('#social_network').removeAttr('disabled');
                 $('#about_us').removeAttr('disabled');
+                $('#submit-all').removeAttr('disabled');
             });
         </script>
         <script>

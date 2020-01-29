@@ -168,7 +168,6 @@ class InController extends Controller
     public function search_history($id, $id2){
         $mostrar = $id2;
         // dd($mostrar);
-    
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
@@ -187,16 +186,16 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
-    /**
-     * 
-     * guarda registros nuevos y editados 
+     /**
+     *
+     * guarda registros nuevos y editados
      * en la historia del paciente
      *
      */
 
 
     public function guardar(Request $request, $id)  //REVISAR
-    {   
+     {
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
@@ -273,7 +272,7 @@ class InController extends Controller
             if($person->historyPatient != null) {
 
                 $patients->update([
-                    'address'=> $request->address,
+                    'address'=> $data['address'],
                 ]);
             }
             
@@ -310,6 +309,8 @@ class InController extends Controller
                         $patient->disease()->sync($request->disease);
                     }
                 }
+
+
 
                 if (!empty($request->medicine)){
 
@@ -716,15 +717,16 @@ class InController extends Controller
     }
 
     public function diseases(Request $request){
-        // dd($request);
+
     // Aqui se realiza la relacion entre paciente y enfermeda, tambien se busca al paciente correspondiente a la historia
     $patient = Patient::with('disease')->where('person_id',$request->id)->first();
     
     // Aqui se realiza el recorrido las enfermedades del paciente que estan en la DB.
+    if($patient->disease->first() != null)
     for ($i=0; $i < count($patient->disease); $i++) { 
         $patientd[] = $patient->disease[$i]->id;
     }
-    // dd($patientd);
+
     // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
     for ($i=0; $i < count($request->data); $i++) { 
         // dd($request->data);
@@ -732,21 +734,57 @@ class InController extends Controller
         
         $disease->patient()->sync($patient);
     }
-    // dd($disease);
-        // $diff = $request->data->diff($patientd);
     
-    $diff= array_diff($request->data,$patientd);
-
-    // dd($diff);
-    for ($i=0; $i < count($diff); $i++) { 
-        // dd($request->data);
-        $diseases[] = Disease::find($diff[$i]);
+    if ($patient->disease->first() != null) {
+        $diff = array_diff($request->data,$patientd);
+    } else {
+        $diff = $request->data;
     }
-    // dd($diseases);
+    
+
+    for ($i=0; $i < count($diff); $i++) { 
+
+        $diseases[] = Disease::find($diff);
+    }
 
     return response()->json([
         'data' => 'Enfermedad Agregada Exitosamente',$diseases,201
         ]);
+    }
+
+    public function medicines(Request $request){
+        // dd($request);
+        $patient = Patient::with('medicine')->where('person_id', $request->id)->first();
+        // dd($patient->medicine->first());
+
+        if($patient->medicine->first() != null) {
+            for ($i=0; $i < count($patient->medicine); $i++) { 
+                $patientm[] = $patient->medicine[$i]->id;
+            }
+        }
+        // dd($patient);
+        for ($i=0; $i < count($request->data); $i++) { 
+            
+            $medicine = Medicine::find($request->data[$i]);
+            // dd($medicine);
+            $medicine->patient()->sync($patient);
+        }
+
+        if ($patient->medicine->first() != null ) {
+            $diff= array_diff($request->data, $patientm);
+        } else {
+            $diff = $request->data;
+        }
+        // dd($diff);
+        for ($i=0; $i < count($diff); $i++) {
+            // dd($diff);
+            $medicines[] = Medicine::find($diff);
+
+        }
+        // dd($medicines[0][0]->name);
+        return response()->json([
+            'data' => 'Medicamento Agregado Exitosamente',$medicines,201
+            ]);
     }
 }
 

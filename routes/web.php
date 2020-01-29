@@ -77,6 +77,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
 
         Route::post('patient/diseases','InController@diseases')->name('checkin.diseases');
+        Route::post('patient/allergys','InController@allergys')->name('checkin.allergys');
+        Route::post('patient/medicines','InController@medicines')->name('checkin.medicines');
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
     });
 
