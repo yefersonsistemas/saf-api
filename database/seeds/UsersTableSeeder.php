@@ -372,6 +372,28 @@ class UsersTableSeeder extends Seeder
             'employe_id' => $employe->id
         ]);
 
+        /*
+        * Area a que pertenece
+        */
+        $typearea = factory(TypeArea::class)->create([
+            'name' => 'Consultorio'
+        ]);
+
+        factory(Area::class)->create([
+            'name'          => 'consultorio 1',
+            'type_area_id' =>  $typearea->id,
+        ]);
+
+
+        $area = factory(Area::class)->create([
+            'name'          => 'consultorio 2',
+            'type_area_id' =>  $typearea->id,
+        ]);
+
+        $asignada = factory(AreaAssigment::class)->create([
+            'employe_id' =>  $employe->id,
+            'area_id' =>  $area->id
+        ]);
 
         /**
          * Personas que seran los pacientes
@@ -712,6 +734,25 @@ class UsersTableSeeder extends Seeder
                 'employe_id' => $employe1->id
             ]);
 
+            factory(Area::class)->create([
+                'name'          => 'consultorio 3',
+                'type_area_id' =>  $typearea->id,
+            ]);
+    
+            factory(Area::class)->create([
+                'name'          => 'consultorio 4',
+                'type_area_id' =>  $typearea->id,
+            ]);
+
+            $area1 = factory(Area::class)->create([
+                'name'          => 'consultorio 5',
+                'type_area_id' =>  $typearea->id,
+            ]);
+
+            $asignada = factory(AreaAssigment::class)->create([
+                'employe_id' =>  $employe1->id,
+                'area_id' =>  $area1->id
+            ]);
 
             /**
              * Personas que seran los pacientes
@@ -997,30 +1038,20 @@ class UsersTableSeeder extends Seeder
             * Asignacion de consultorio
             */
 
-            $typearea = factory(TypeArea::class)->create([
-                'name' => 'Consultorio'
-            ]);
-
-            //estas dos se colocaron aqui para mantener el orden en la BD
             factory(Area::class)->create([
-                'name'          => 'consultorio 1',
-                'type_area_id' =>  $typearea->id,
-            ]);
-    
-            factory(Area::class)->create([
-                'name'          => 'consultorio 2',
+                'name'          => 'consultorio 6',
                 'type_area_id' =>  $typearea->id,
             ]);
 
-            $area = factory(Area::class)->create([
-                'name' => 'Consultorio 3',
+            $area2 = factory(Area::class)->create([
+                'name' => 'Consultorio 7',
                 'status' => 'ocupado',
                 'type_area_id' =>  $typearea->id
             ]);
 
             $asignada = factory(AreaAssigment::class)->create([
                 'employe_id' =>  $employe2->id,
-                'area_id' =>  $area->id
+                'area_id' =>  $area2->id
             ]);
 
 
@@ -1191,32 +1222,20 @@ class UsersTableSeeder extends Seeder
             /*
             * Asignacion de consultorio
             */
-
-            //mantener orden de creacion en la bd
             factory(Area::class)->create([
-                'name'          => 'consultorio 4',
-                'type_area_id' =>  $typearea->id,
-            ]);
-    
-            factory(Area::class)->create([
-                'name'          => 'consultorio 5',
-                'type_area_id' =>  $typearea->id,
-            ]);
-    
-            factory(Area::class)->create([
-                'name'          => 'consultorio 6',
+                'name'          => 'consultorio 8',
                 'type_area_id' =>  $typearea->id,
             ]);
 
-            $area1 = factory(Area::class)->create([
-                'name' => 'Consultorio 7',
+            $area3 = factory(Area::class)->create([
+                'name' => 'Consultorio 9',
                 'status' => 'ocupado',
                 'type_area_id' =>  $typearea->id
             ]);
 
             $asignada = factory(AreaAssigment::class)->create([
                 'employe_id' =>  $employe3->id,
-                'area_id' =>  $area1->id
+                'area_id' =>  $area3->id
             ]);
 
             /**
@@ -1268,16 +1287,7 @@ class UsersTableSeeder extends Seeder
                 * Creacion de areas restantes
                 */
         
-                factory(Area::class)->create([
-                    'name'          => 'consultorio 8',
-                    'type_area_id' =>  $typearea->id,
-                ]);
-        
-                factory(Area::class)->create([
-                    'name'          => 'consultorio 9',
-                    'type_area_id' =>  $typearea->id,
-                ]);
-        
+               
                 factory(Area::class)->create([
                     'name'          => 'consultorio 10',
                     'type_area_id' =>  $typearea->id,
@@ -1307,10 +1317,10 @@ class UsersTableSeeder extends Seeder
                     'type_area_id' =>  $tipo->id,
                 ]);
         
-                factory(Area::class)->create()->each(function($area)
-                {
-                    $this->to('area', $area->id, 'App\Area');
-                });
+                // factory(Area::class)->create()->each(function($area)
+                // {
+                //     $this->to('area', $area->id, 'App\Area');
+                // });
 
             /**
              * Personas que seran los pacientes
