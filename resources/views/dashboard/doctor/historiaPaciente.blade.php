@@ -229,7 +229,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                         <h2>Enfermedad Actual</h2>
                                         <section class="ml-4 pb-0 pt -4">
-                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote" ></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -298,7 +298,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                         <h2>Examen Fisico</h2>
                                         <section class="ml-4 pb-0 pt-4">
-                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote required"></textarea>
                                         </section>
 
                                         <h2>Estudios complementarios</h2>
@@ -323,7 +323,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="row">
                                                 <div class="col-12">
 
-                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote required" ></textarea>
                                                 </div>
                                             </div>
                                         </section>
@@ -356,7 +356,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Plan</h2>
-                                        <section class="ml-4 pb-0 pt-2 plan">
+                                        <section class="p-0 pt-2 plan">
                                             <div class="plan-steps">
                                                 <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
                                                     <li class="nav-item">
@@ -422,7 +422,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
                                                     <div class="row clearfix">
                                                         <div class="col-lg-12 mx-auto">
-                                                            <div class="card">
+                                                            <div class="card mx-2">
                                                                 <div class="card-body">
                                                                     <h3 class="card-title">Agregar Medicamento</h3>
                                                                     <div class="row">
@@ -514,14 +514,14 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
 
                                                 <!--Informe medico-->
-                                                <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
+                                                <div class="tab-pane fade mx-2" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
                                                     <section>
                                                         <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
                                                     </section>
                                                 </div>
 
                                                 <!--Reposo-->
-                                                <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
+                                                <div class="tab-pane fade mx-2" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
                                                     <section>
                                                         <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
                                                     </section>
@@ -853,7 +853,7 @@ button[data-original-title="Help"]{ display: none; }
                             @foreach ($procesm->procedures as $proces)
                             <div class="row">
                                 <div class="col-9 mt-3">
-                                <label class="custom-control custom-checkbox">
+                                <label class="custom-control custom-checkbox d-flex">
                                     <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
                                     <span class="custom-control-label">{{ $proces->name }} </span>
                                 </label>
@@ -916,8 +916,8 @@ button[data-original-title="Help"]{ display: none; }
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
         stepsOrientation: 'vertical',
-        enableAllSteps: true,
-        enablePagination: true,
+        // enableAllSteps: true,
+        // enablePagination: true,
         labels: {
             cancel: "Cancelar",
             current: "Paso actual:",
