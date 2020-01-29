@@ -1044,7 +1044,7 @@
             .plan-steps .nav-pills .nav-link.active,
         .plan-steps .nav-pills .show>.nav-link {
             padding: 10px!important;
-            font-size: 13px;
+            font-size: 13px!important;
         }
         }
         .plan-steps>ul>li>a:hover {
