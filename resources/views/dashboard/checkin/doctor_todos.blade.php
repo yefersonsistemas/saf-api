@@ -25,6 +25,7 @@
                                     <th>Apellido</th>
                                     <th class="text-center">Especialidad</th>
                                     <th class="text-center">Horario</th>
+                                    <th>Consultorio</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -35,6 +36,7 @@
                                     <th>Apellido</th>
                                     <th class="text-center">Especialidad</th>
                                     <th class="text-center">Horario</th>
+                                    <th class="">Consultorio</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -51,17 +53,21 @@
                                     <td>{{ $employe->person->name }}</td>
                                     <td>{{ $employe->person->lastname }}</td>
                                     <td class="d-flex justify-content-center">     <!--Especialidad-->
-                                       <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-eye"></i></a>
+                                        <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-eye"></i></a>
                                     </td>
                                     <td class="justify-content-center text-center">   <!--Ver horario del medico-->
                                         <input type="hidden" id="id" value="{{ $employe->person->id }}">
                                         <a class="btn btn-info"  style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fa fa-eye"></i></a>
                                     </td>
-                                </tr>
+                                    {{-- @foreach ($e as $item) --}}
+                                    @if($employe->areaassigment != null)   
+                                        <td class="text-center">{{$employe->areaassigment->area->name}}</td>
+                                    @endif
+                                </tr>                                  
                                 @endforeach
                             </tbody>
                         </table>
-                     </div>
+                    </div>
                 </div> 
             </div>
         </div>

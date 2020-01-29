@@ -132,15 +132,15 @@ class EmployesController extends Controller
             }
         }
 
-         return view('dashboard.checkin.doctor', compact('em'));
+        return view('dashboard.checkin.doctor', compact('em'));
     }
 
     public function doctor_on_todos()//todos los medicos
     {
- 
-        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule')->get();
-        // dd( $employes);
 
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule','areaassigment.area')->get();
+        // dd($employes->first()->areaassigment->area);
+        $consultorio = 
         $e = collect([]);
         if ($employes->isNotEmpty()) {
             foreach($employes as $employe){
@@ -149,6 +149,7 @@ class EmployesController extends Controller
                 }
             }
         }
+            // dd($e);
             return view('dashboard.checkin.doctor_todos', compact('e'));
     }
 

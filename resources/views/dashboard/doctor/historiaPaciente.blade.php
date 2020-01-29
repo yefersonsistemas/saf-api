@@ -649,7 +649,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 410px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($enfermedad != null)
@@ -673,8 +673,8 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
 
-      <!-- Modal para mostar alergias-->
-      <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal para mostar alergias-->
+    <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -684,7 +684,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body" style="max-height: 410px; overflow-y: scroll !important">
+                    <div class="modal-body" style="max-height: 410px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($alergia != null)
@@ -853,7 +853,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="posible-procedures">
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 410px;">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
