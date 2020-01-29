@@ -735,7 +735,7 @@ button[data-original-title="Help"]{ display: none; }
                             @foreach ($procesm->procedures as $proces)
                             <div class="row">
                                 <div class="col-9 mt-3">
-                                <label class="custom-control custom-checkbox">
+                                <label class="custom-control custom-checkbox d-flex">
                                     <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
                                     <span class="custom-control-label">{{ $proces->name }} </span>
                                 </label>
