@@ -403,12 +403,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     <th class="text-center">Accion</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            {{-- <tfoot>
-                                                                                <tr>
-                                                                                    <th>Medicamento Seleccionado</th>
-                                                                                    <th class="text-center">Accion</th>
-                                                                                </tr>
-                                                                            </tfoot> --}}
                                                                             <tbody id="examen">
                                                                             </tbody>
                                                                         </table>
@@ -637,33 +631,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        {{-- <div class="row d-flex justify-content-center">
-                                                            <div class="card col-md-5 mx-2">
-                                                                <div class="card-header text-center">
-                                                                    <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
-                                                                        <i class="fa fa-plus"></i>
-                                                                        Agregar Cirugia
-                                                                    </button>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                    <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card col-md-5 mx-2">
-                                                                <div class="card-header text-center">
-                                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
-                                                                        <i class="fa fa-plus"></i>
-                                                                        Agregar Procedimiento
-                                                                    </button>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                    <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>
-                                                                </div>
-                                                            </div>
-                                                        </div> --}}
                                                     </div>
                                                     </div>
                                                 </div>
@@ -1368,11 +1335,11 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
    // ================== mostrando cirugias ==================
-   function mostrarCirugia(data){
-        console.log('ken',data);
-        cirugia = data.previous_surgery;
-        $("#a_cirugia").html(cirugia);
-    }
+//    function mostrarCirugia(data){
+//         console.log('ken',data);
+//         cirugia = data.previous_surgery;
+//         $("#a_cirugia").html(cirugia);
+//     }
 
 
     //============= captar datos de los procedimientos en la consulta===========
@@ -1719,8 +1686,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
-            // cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
+            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
         }
     }

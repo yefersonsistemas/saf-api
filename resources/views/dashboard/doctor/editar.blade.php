@@ -692,11 +692,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 </thead>
 
                                                                                 <tbody id="ocultar_cirugia">
-                                                                                    {{-- @if(!empty($itinerary->typesurgery))
-                                                                                    @foreach ($surgery as $surge)
-                                                                                    <li>{{ $surge->name }}</li>
-                                                                                    @endforeach
-                                                                                @endif  --}}
                                                                                     @if(!empty($itinerary->typesurgery))
                                                                                         @foreach ($surgery as $surge)
                                                                                             <tr id="{{$surge->id}}">
@@ -707,13 +702,10 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <input id="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="cirugiaP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia"
                                                                                                         value="Eliminar">
                                                                                                 </td>
-                                                                                                {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
-
                                                                                             </tr>
                                                                                         @endforeach
                                                                                     @endif
                                                                                 </tbody>
-
                                                                                 <tbody id="cirugias">
                                                                                 </tbody>
                                                                             </table>
@@ -742,43 +734,29 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <th class="text-center">Accion</th>
                                                                                     </tr>
                                                                                 </thead>
-                                                                                <tbody id="procedimientos">
-                                                                                   
+                                                                                <tbody>
+                                                                                    @if(!empty($procedures))
+                                                                                        @foreach ($procedures as $item)
+                                                                                            <tr id="{{$item->id}}">
+                                                                                                <td id="{{$item->id}}">
+                                                                                                    <div class="col-6" >{{$item->name}}</div> 
+                                                                                                </td>
+                                                                                                <td id="{{$item->id}}" class="d-flex justify-content-center">
+                                                                                                <input id="{{$item->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado"
+                                                                                                        value="Eliminar">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        @endforeach
+                                                                                    @endif
+                                                                                </tbody>
+                                                                                <tbody id="procedimientos">                                                                                   
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                          
-                                                    {{-- </div> --}}
-                                                        <!------------------------------listar cirugias y procedimientos---------------------->
-                                                        {{-- <div class="row d-flex mt-20 justify-content-center"> --}}
-                                                            {{-- <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;">
-                                                                    @if(!empty($itinerary->typesurgery))
-                                                                        @foreach ($surgery as $surge)
-                                                                        <li>{{ $surge->name }}</li>
-                                                                        @endforeach
-                                                                    @endif                                                            
-                                                                    
-                                                                </ul>  
-                                                            </div> --}}
-
-                                                            {{-- <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;">
-                                                                    @if(!empty($procedures))
-                                                                        @foreach ($procedures as $proces)
-                                                                        <li>{{ $proces->name }}</li>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </ul>  
-                                                            </div> --}}
-                                                        {{-- </div> --}}
-                                                    {{-- </div> --}}
+                                                        </div>                                                    
                                                 </div>
                                                 
                                                 <!------------------------------PROXIMA CITA---------------------->
@@ -1303,7 +1281,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>'
+            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado" value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
         }
         
@@ -1360,20 +1338,11 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
    //==============  mostrando lista de examenes  ================
-//    function mostrarExamen(data){
-//         console.log('hh',data);
-
-//         for($i=0; $i < data.length; $i++){
-//             examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" class="exam_id btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>';
-//             $("#examen").append(examen);
-//         }
-//     }
-
     function mostrarExamen(data){
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen" value="Eliminar"></td></tr>';
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen seleccionado" value="Eliminar"></td></tr>';
             $("#examen").append(examen);
         }
     }
@@ -1429,7 +1398,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procedure='<li>'+data[$i].name+'</li>';
+            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div id="'+data[$i].id+'" class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
         }
     }
@@ -1484,20 +1453,11 @@ button[data-original-title="Help"]{ display: none; }
 
     
     //============= mostrando posibles cirugias ================== (listo)
-    // function mostrarSurgery(data){
-    //     for($i=0; $i < data.length; $i++){           
-    //         // cirugias='<li>'+data[$i].name+'</li>';
-    //         cirugias='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="cirugiaP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia" value="Eliminar"></td></tr>';
-    //         $("#cirugias").html(cirugias);
-    //     }        
-    // }
-
-    function mostrarSurgery(data){
+     function mostrarSurgery(data){
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
             cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
-            // cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
             $("#cirugias").html(cirugias);
         }
     }
@@ -1509,7 +1469,7 @@ button[data-original-title="Help"]{ display: none; }
                 var diagnostic = $("#diagnostic_id").val();
                 var reservacion = $("#reservacion_id").val();
                 console.log(reservacion);
-                $("#"+id).hide();
+                $("#"+id).remove();
                 
                     // $('option:selected').removeAttr('selected');
 
@@ -1555,7 +1515,7 @@ button[data-original-title="Help"]{ display: none; }
                 var diagnostic = $("#diagnostic_id").val();
                 var reservacion = $("#reservacion_id").val();
                 console.log(reservacion);
-                $("#"+id).hide();
+                $("#"+id).remove();
                 
                     // $('option:selected').removeAttr('selected');
 
@@ -1601,7 +1561,7 @@ button[data-original-title="Help"]{ display: none; }
             var reservacion = $("#reservacion_id").val();
             console.log(reservacion);
             console.log('id', id);    
-            $("#"+id).hide();
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.cirugiaP_eliminar2') }}",
@@ -1634,6 +1594,47 @@ button[data-original-title="Help"]{ display: none; }
         });
     
     });
+
+        //================ eliminar posibles procedimiento seleccionado ==========
+        $(function() {
+            $(document).on('click', '.procedureP_id', function(event) {
+                let id = this.id;
+                var reservacion = $("#reservacion_id").val();
+                console.log(reservacion);
+                console.log('id', id);    
+                $("#"+id).remove();
+
+                $.ajax({
+                    url: "{{ route('doctor.procedureP_eliminar2') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {               
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.procedure,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+                
+            })
+            .fail(function(data) {
+                console.log(data);
+            })  
+
+            });
+        
+        });
 
 </script>
 
