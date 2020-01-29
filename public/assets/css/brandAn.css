@@ -1023,6 +1023,7 @@
             font-size: 13px!important;
         }
         }
+
         @media screen and (max-width:1320px){
             .plan-steps>ul>li>a {
                 padding: 10px!important;
@@ -1035,6 +1036,7 @@
             font-size: 10px!important;
         }
         }
+
         @media screen and (max-width:1200px){
             .plan-steps>ul>li>a {
                 padding: 10px!important;
@@ -1046,6 +1048,36 @@
             padding: 10px!important;
             font-size: 13px!important;
         }
+        }
+        @media screen and (max-width:1024px){
+            .plan-steps>ul>li {
+                width: 30%;
+                text-align: center;
+            }
+            .plan-steps>ul>li>a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        @media screen and (max-width:800px){
+            .plan-steps>ul>li {
+                width: 40%;
+                text-align: center;
+            }
+            .plan-steps>ul>li>a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        @media screen and (max-width:520px){
+            .plan-steps>ul>li {
+                width: 100%;
+                text-align: center;
+            }
+            .plan-steps>ul>li>a {
+                width: 100%;
+                text-align: center;
+            }
         }
         .plan-steps>ul>li>a:hover {
     background: rgba(0, 80, 107, .25);
