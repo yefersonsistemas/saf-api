@@ -337,7 +337,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <td>
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
                                                                                         </td>
-                                                                                        <td class="actions d-flex justify-content-center">
+                                                                                        <td id="{{ $proces->id }}" class=" d-flex justify-content-center">
                                                                                             <input id="{{ $proces->id }}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
                                                                                                 value="g">
                                                                                         </td>
@@ -421,9 +421,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                                 <td>
                                                                                                                     <div class="col-6" >{{$exam->name}}</div> 
                                                                                                                 </td>
-                                                                                                                <td class="actions d-flex justify-content-center">
-                                                                                                                <input id="{{$exam->id}}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
-                                                                                                                        value="g">
+                                                                                                                <td class="d-flex justify-content-center">
+                                                                                                                <input id="{{$exam->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen"
+                                                                                                                        value="Eliminar">
                                                                                                                 </td>
                                                                                                                 {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
 
@@ -1295,15 +1295,23 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
    //==============  mostrando lista de examenes  ================
-   function mostrarExamen(data){
+//    function mostrarExamen(data){
+//         console.log('hh',data);
+
+//         for($i=0; $i < data.length; $i++){
+//             examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" class="exam_id btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>';
+//             $("#examen").append(examen);
+//         }
+//     }
+
+    function mostrarExamen(data){
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>';
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen" value="Eliminar"></td></tr>';
             $("#examen").append(examen);
         }
     }
-
 
     //=============  captar datos de los posibles procedimientos ==========
     $("#guardarP").click(function() {
@@ -1418,56 +1426,10 @@ button[data-original-title="Help"]{ display: none; }
         }        
     }
 
-    //================ eliminar examen seleccionado ==========
-    $(function() {
-        $(document).on('click', 'input[type="button"]', function(event) {
-            let id = this.id;
-            var diagnostic = $("#diagnostic_id").val();
-            var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            $("#"+id).hide();
-            
-                // $('option:selected').removeAttr('selected');
 
-            $.ajax({
-                url: "{{ route('doctor.exam_eliminar') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}",        
-                id:id,
-                diagnostic_id:diagnostic,
-                reservacion_id:reservacion,
-            }
-
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.exam,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-        })
-        .fail(function(data) {
-            console.log(data);
-        })
-
-
-        });
-
-       
-    });
-
-
-    //================ eliminar procedure seleccionado ==========
-   
-    $(function() {
-        $(document).on('click', 'input[type="button"]', function(event) {
+//================ eliminar examen seleccionado ==========
+$(function() {
+        $(document).on('click', '.exam_id', function(event) {
             let id = this.id;
             var diagnostic = $("#diagnostic_id").val();
             var reservacion = $("#reservacion_id").val();
@@ -1518,6 +1480,7 @@ button[data-original-title="Help"]{ display: none; }
 
        
     });
+
 
 
 </script>
