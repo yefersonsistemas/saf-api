@@ -42,7 +42,8 @@
                                 <div class="row gutters-sm d-row d-flex justify-content-between">
                                     @foreach ($areas as $area)
                                             @if ($area->typearea->name == 'Consultorio' && $area->status == null)
-                                                @if ($area->areaassigment != null  )
+                                                @if ($area->areaassigment != null  )  
+                                                {{-- si $area->areaassigment == null no mostrara nada en in --}}
                                                 @foreach ($area->areaassigment->employe->schedule as $item)
                                                     @if($item->turn == 'mañana' && $item->day == $dia)
                                                         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center" style="">
