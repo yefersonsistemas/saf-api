@@ -24,6 +24,11 @@ class Itinerary extends Model  //guarda toda la informacion del paciente durante
         return $this->belongsTo('App\Employe','employe_id');
     }
 
+    public function billing()
+    {
+        return $this->belongsTo('App\Billing','billing_id');
+    }
+
     // public function patient()
     // {
     //     return $this->belongsTo('App\Patient', 'patient_id');

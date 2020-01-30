@@ -69,10 +69,15 @@ class CitaController extends Controller
         return view('dashboard.reception.create', compact('specialities'));
     }
 
+<<<<<<< HEAD
     public function search_patient(Request $request){ //buscador de personas en agendar cita
 
         $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
 
+=======
+    public function search_patient(Request $request){
+        $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+>>>>>>> 4d7f1eb10248d911f8e5528467501c0566f489a5
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,201
@@ -108,7 +113,11 @@ class CitaController extends Controller
 
     public function store(CreateReservationRequest $request)
     {
+<<<<<<< HEAD
         dd($request);
+=======
+        // dd($request);
+>>>>>>> 4d7f1eb10248d911f8e5528467501c0566f489a5
         if ($request->person == 'nuevo') {
             $person = Person::create([
                 'type_dni'  => $request->type_dni,

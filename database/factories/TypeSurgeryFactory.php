@@ -18,6 +18,7 @@ $factory->define(Typesurgery::class, function (Faker $faker) {
         'cost' =>$faker->randomFloat,
         'description' =>$faker->sentence(5),
         'classification_surgery_id' =>$claSurgery->id,
+        'day_hospitalization' => $faker->randomDigit,
         'branch_id' => $branchoffice->id,
     ];
 });

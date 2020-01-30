@@ -109,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <div class="row d-flex justify-content-between">
+                            <div class="row d-flex justify-content-between  mt-2">
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                     <label class="form-label">Cargo </label>
@@ -139,12 +139,30 @@
                                 </div> 
                                 @endcan
 
-                                @can('asignar permisos')
-                                <div class="col-lg-3 mt-4">
-                                    <button disabled type="button" id="boton" class="btn btn-info" style="width: 230px" data-toggle="modal" data-target="#permission"> Agregar Permisos </button>
+                                @can('asignar consultorio')
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Asignar Consultorio</label>
+                                        <select name="area_id" class="custom-select input-group-text bg-white form-control">
+                                            <option value="0">Ninguna selección</option>
+                                            @foreach ($area as $consultorio)
+                                            @if ($consultorio->areaassigment == null)
+                                            <option value={{$consultorio->id}}>{{$consultorio->name}}  </option>
+                                            @else
+                                            <option disabled style="color:red" value={{$consultorio->id}}>{{$consultorio->name}}  (Asignado)</option>
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 @endcan
                             </div> 
+
+                            @can('asignar permisos')
+                                <div class="row d-flex justify-content-end mt-3">
+                                    <button disabled type="button" id="boton" class="btn btn-info mr-2" style="width: 225px" data-toggle="modal" data-target="#permission"> Agregar Permisos </button>
+                                </div>
+                                @endcan
 
                             @if ($errors->any())
                                 <div class="alert alert-danger">

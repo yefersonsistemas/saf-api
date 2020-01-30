@@ -180,14 +180,13 @@
                                             {{-- El paciente ha ingresado al consultorio --}}
                                             @if(!empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                             <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                            {{-- @if ($reservation->itinerary != null && $reservation->patient->inputoutput == null)
-                                                @if ($reservation->patient->inputoutput->inside_office != null && $reservation->patient->inputoutput->outside == null) --}}
-                                                    <a href="{{ route ('checkin.insideOffice', $reservation->id) }}" data-toggle="tooltip" data-placement="left" title="Marcar cuando el paciente entre al consultorio" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
-                                                    
-                                                {{-- @elseif ($reservation->patient->inputoutput->inside_office != null && $reservation->patient->inputoutput->outside != null)
-                                                <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                @endif
-                                            @endif --}}
+                                           
+                                           
+                                           <a href="{{ route ('checkin.insideOffice', $reservation->id) }}" data-toggle="tooltip" data-placement="left" title="Marcar cuando el paciente entre al consultorio" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                           
+                                           {{-- <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button> --}}
+                                     
+                                                
                                             <button class="btn btn-danger state state_2" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             <button class="btn btn-danger state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             @endif
