@@ -82,19 +82,20 @@
 
 
                 <div class="tab-pane fade show active" id="pills-position" role="tabpanel" aria-labelledby="pills-position-tab">
-                    <div class="col-lg-10 align-center">
-                        <div class="ml-5">
-                        <div class="table-responsive mb-4">
+                    <div class="col-lg-12 align-center">
+                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
+                                        <th>descripcion</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead> 
                                 <tfoot>
                                     <tr>
                                         <th>Nombre</th>
+                                        <th>descripcion</th>
                                         <th>Acción</th>
                                     </tr>
                                 </tfoot>              
@@ -102,9 +103,10 @@
                                     @foreach ($positions as $position)
                                         <tr>
                                             <td>{{ $position->name }}</td>
+                                            <td>{{ $position->description }}</td>
                                             <td style="display: inline-block">
                                                 @can('modificar cargo')
-                                                <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>  
                                                @endcan
                                                 @can('eliminar cargo')
                                                 <form action="{{ route('cargo.delete', $position) }}" method="POST">
@@ -119,7 +121,6 @@
                                 </tbody>
                             </table>
                         </div>
-                     </div>
                     </div>  
                 </div>
                 
@@ -211,7 +212,7 @@
                         </div>
                     </div> 
                 </div> 
-
+                
                 <div class="tab-pane fade" id="pills-procedure" role="tabpanel" aria-labelledby="pills-procedure-tab">
                     <div class="col-lg-12 ">
                         <div class="table-responsive mb-4">
