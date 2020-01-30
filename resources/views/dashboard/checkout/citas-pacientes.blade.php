@@ -83,6 +83,9 @@
                     <li class="nav-item mb-1">
                         <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-4 pl-4"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las instalaciones</a>
                     </li>
+                    <li class="nav-item mb-1">
+                        <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-4 pl-4"  id="pills-total-tab" data-toggle="pill" href="#total" role="tab" aria-controls="total" aria-selected="false">Todas las citas</a>
+                    </li>
                 </ul><br>
             </div>
 
@@ -610,7 +613,7 @@
                                 </div>
                             </div>
                         @endif
-                        
+
                         @endforeach
                         </div>
                 </div>
