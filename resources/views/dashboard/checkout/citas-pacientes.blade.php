@@ -69,19 +69,19 @@
 
                 <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end "  id="pills-tab" role="tablist">
                     <li class="nav-item mb-1">
-                        <a class="aprobadas pt-0 pb-0 pr-4 pl-4"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas aprobadas</a>
+                        <a class="nav-link btn-block  btn-outline-dark aprobadas pt-0 pb-0 pr-4 pl-4"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas aprobadas</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="espera pt-0 pb-0 pr-4 pl-4" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="false"> <i class="icon-clock"></i>&nbsp; En espera</a>
+                        <a class="nav-link btn-block espera pt-0 pb-0 pr-4 pl-4 btn-outline-warning" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="false"> <i class="icon-clock"></i>&nbsp; En espera</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="dentro pt-0 pb-0 pr-4 pl-4" id="pills-dentro-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del consultorio</a>
+                        <a class="nav-link btn-outline-success dentro pt-0 pb-0 pr-4 pl-4" id="pills-dentro-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del consultorio</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="fuera pt-0 pb-0 pr-4 pl-4 active" id="pills-fuera_office-tab" data-toggle="pill" href="#fuera_office" role="tab" aria-controls="fuera_office" aria-selected="true">Fuera del consultorio</a>
+                        <a class="nav-link fuera btn-outline-danger pt-0 pb-0 pr-4 pl-4 active" id="pills-fuera_office-tab" data-toggle="pill" href="#fuera_office" role="tab" aria-controls="fuera_office" aria-selected="true">Fuera del consultorio</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="todos pt-0 pb-0 pr-4 pl-4"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las instalaciones</a>
+                        <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-4 pl-4"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las instalaciones</a>
                     </li>
                 </ul><br>
             </div>
@@ -610,6 +610,7 @@
                                 </div>
                             </div>
                         @endif
+                        
                         @endforeach
                         </div>
                 </div>
