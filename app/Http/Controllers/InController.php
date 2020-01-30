@@ -158,10 +158,6 @@ class InController extends Controller
     public function search_history($id, $id2){
         $mostrar = $id2;
         // dd($mostrar);
-<<<<<<< HEAD
-=======
-
->>>>>>> 4d7f1eb10248d911f8e5528467501c0566f489a5
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
@@ -183,10 +179,6 @@ class InController extends Controller
      /**
      *
      * guarda registros nuevos y editados
-<<<<<<< HEAD
-=======
-
->>>>>>> 4d7f1eb10248d911f8e5528467501c0566f489a5
      * en la historia del paciente
      *
      */
@@ -308,10 +300,6 @@ class InController extends Controller
                     }
                 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4d7f1eb10248d911f8e5528467501c0566f489a5
 
                 if (!empty($request->medicine)){
 
@@ -332,10 +320,6 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
-<<<<<<< HEAD
-=======
-
->>>>>>> 4d7f1eb10248d911f8e5528467501c0566f489a5
         }
     }
 

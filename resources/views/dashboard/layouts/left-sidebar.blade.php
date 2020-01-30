@@ -67,10 +67,6 @@
                                         <a href="{{ route('checkin.doctor_todos') }}"><i class="fa fa-users"></i> &nbsp;&nbsp;Todos los médicos</a>
                                     </li>
                                     <li>
-<<<<<<< HEAD
-                                        <a href="{{ route('checkin.create') }}"><i class="fa fa-hospital"></i> &nbsp;&nbsp;Ver Consultorios</a>
-=======
->>>>>>> 4d7f1eb10248d911f8e5528467501c0566f489a5
                                         <a href="{{ route('checkin.consultorio') }}">Asistencia</a>
                                     </li>
                             </li>
