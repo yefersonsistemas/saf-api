@@ -1795,6 +1795,10 @@ class UsersTableSeeder extends Seeder
         ])->givePermissionTo(Permission::all())
         ->assignRole(Role::all());
 
+        factory(Position::class)->create([
+            'name'    => 'mantenimiento',
+        ]);
+
         // $position = factory(App\Position::class)->create([
         //     'name' => 'logistica',
         // ]);

@@ -177,7 +177,7 @@ class EmployesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         // dd(strlen($request->contra));
         $data = $request->validate([
             'name' => 'required',
