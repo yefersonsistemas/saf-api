@@ -854,12 +854,17 @@ button[data-original-title="Help"]{ display: none; }
                             <div class="row">
                                 <div class="col-9 mt-3">
                                     <label class="custom-control custom-checkbox">
+                                        @if ($surgery->classification->name == 'hospitalaria')
+                                            
                                         <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
                                         <span class="custom-control-label">{{ $surgery->name }}</span>
+                                        @endif
                                     </label>
                                 </div>
                                 <div class="col-3">
+                                    @if ($surgery->classification->name == 'hospitalaria')
                                     <span>{{ $surgery->cost }}</span>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
