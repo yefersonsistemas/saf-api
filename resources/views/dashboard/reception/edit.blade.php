@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class=" p-4">
                 <div class="col-lg-12">
-                    <form class="card" method="POST" action="{{ route('reservations.update', $reservation) }}">
+                    <form class="card" method="POST" action="{{ route('reservations.update', $reservation) }}" autocomplete="off">
                         @csrf
                         @method('PUT')
                         <div class="card-body">
@@ -109,7 +109,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input type="hidden" id="fechanueva" value="{{ $reservation->date }}">
-                                                <input id="fechas" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="{{ $reservation->date }}">
+                                                <input id="fechas" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="03/03/2020">
                                             </div>
                                         </div>
                                     </div>
