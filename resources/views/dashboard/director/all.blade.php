@@ -32,49 +32,49 @@
             <div class="col-md-2 mt-3">
                 <ul class="nav row nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block  mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-success " id="pills-position-tab" data-toggle="pill" href="#pills-position" role="tab" aria-controls="pills-position" aria-selected="true">Cargos</a>
+                        <a class="nav-link btn-block  mb-2 p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro " id="pills-position-tab" data-toggle="pill" href="#pills-position" role="tab" aria-controls="pills-position" aria-selected="true">Cargos</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center  btn btn-outline-success" id="pills-service-tab" data-toggle="pill" href="#pills-service" role="tab" aria-controls="pills-service" aria-selected="false">Servicios</a>
+                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center  btn btn btn-azuloscuro" id="pills-service-tab" data-toggle="pill" href="#pills-service" role="tab" aria-controls="pills-service" aria-selected="false">Servicios</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center  btn btn-outline-success" id="pills-speciality-tab" data-toggle="pill" href="#pills-speciality" role="tab" aria-controls="pills-speciality" aria-selected="false">Especialidades</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center  btn btn btn-azuloscuro" id="pills-speciality-tab" data-toggle="pill" href="#pills-speciality" role="tab" aria-controls="pills-speciality" aria-selected="false">Especialidades</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-procedure-tab" data-toggle="pill" href="#pills-procedure" role="tab" aria-controls="pills-procedure" aria-selected="false">Procedimientos</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-procedure-tab" data-toggle="pill" href="#pills-procedure" role="tab" aria-controls="pills-procedure" aria-selected="false">Procedimientos</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-surgery-tab" data-toggle="pill" href="#pills-surgery" role="tab" aria-controls="pills-surgery" aria-selected="false">Cirugías</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-surgery-tab" data-toggle="pill" href="#pills-surgery" role="tab" aria-controls="pills-surgery" aria-selected="false">Cirugías</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-allergy-tab" data-toggle="pill" href="#pills-allergy" role="tab" aria-controls="pills-allergy" aria-selected="false">Alergias</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-allergy-tab" data-toggle="pill" href="#pills-allergy" role="tab" aria-controls="pills-allergy" aria-selected="false">Alergias</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-disease-tab" data-toggle="pill" href="#pills-disease" role="tab" aria-controls="pills-disease" aria-selected="false">Enfermedades</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-disease-tab" data-toggle="pill" href="#pills-disease" role="tab" aria-controls="pills-disease" aria-selected="false">Enfermedades</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-medicine-tab" data-toggle="pill" href="#pills-medicine" role="tab" aria-controls="pills-medicine" aria-selected="false">Medicinas</a>
+                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-medicine-tab" data-toggle="pill" href="#pills-medicine" role="tab" aria-controls="pills-medicine" aria-selected="false">Medicinas</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-exam-tab" data-toggle="pill" href="#pills-exam" role="tab" aria-controls="pills-exam" aria-selected="false">Exámenes</a>
+                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-exam-tab" data-toggle="pill" href="#pills-exam" role="tab" aria-controls="pills-exam" aria-selected="false">Exámenes</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-type-tab" data-toggle="pill" href="#pills-type" role="tab" aria-controls="pills-type" aria-selected="false">Tipo de area</a>
+                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-type-tab" data-toggle="pill" href="#pills-type" role="tab" aria-controls="pills-type" aria-selected="false">Tipo de area</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-area-tab" data-toggle="pill" href="#pills-area" role="tab" aria-controls="pills-area" aria-selected="false">Area</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-area-tab" data-toggle="pill" href="#pills-area" role="tab" aria-controls="pills-area" aria-selected="false">Area</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-claseDoctor-tab" data-toggle="pill" href="#pills-claseDoctor" role="tab" aria-controls="pills-claseDoctor" aria-selected="false">Clase del doctor</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-claseDoctor-tab" data-toggle="pill" href="#pills-claseDoctor" role="tab" aria-controls="pills-claseDoctor" aria-selected="false">Clase del doctor</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-doctor-tab" data-toggle="pill" href="#pills-doctor" role="tab" aria-controls="pills-doctor" aria-selected="false">Precio de Consulta</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-doctor-tab" data-toggle="pill" href="#pills-doctor" role="tab" aria-controls="pills-doctor" aria-selected="false">Precio de Consulta</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-payment-tab" data-toggle="pill" href="#pills-payment" role="tab" aria-controls="pills-payment" aria-selected="false">Tipos de pagos</a>
+                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-payment-tab" data-toggle="pill" href="#pills-payment" role="tab" aria-controls="pills-payment" aria-selected="false">Tipos de pagos</a>
                     </li>
                     <li class="nav-item col-md-12">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-type-surgery-tab" data-toggle="pill" href="#pills-type-surgery" role="tab" aria-controls="pills-type-surgery" aria-selected="false">Tipo de Cirugías</a>
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn btn-azuloscuro" id="pills-type-surgery-tab" data-toggle="pill" href="#pills-type-surgery" role="tab" aria-controls="pills-type-surgery" aria-selected="false">Tipo de Cirugías</a>
                     </li>
                 </ul>
             </div>
@@ -104,7 +104,7 @@
                                         <tr>
                                             <td>{{ $position->name }}</td>
                                             <td>{{ $position->description }}</td>
-                                            <td style="display: inline-block">
+                                            <td >
                                                 @can('modificar cargo')
                                                 <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>  
                                                @endcan
@@ -123,6 +123,7 @@
                         </div>
                     </div>  
                 </div>
+
                 
                 <div class="tab-pane fade" id="pills-service" role="tabpanel" aria-labelledby="pills-service-tab">
                     <div class="col-lg-12 align-center">                     
@@ -621,8 +622,11 @@
                         </div>
                     </div> 
                 </div>
-                <div class="tab-pane fade" id="pills-doctor" role="tabpanel" aria-labelledby="pills-doctor-tab">
-                    <div class="col-lg-12 align-center">
+
+                
+                
+                 <div class="tab-pane fade" id="pills-doctor" role="tabpanel" aria-labelledby="pills-doctor-tab">
+                    <div class="col-lg-12">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
@@ -640,7 +644,7 @@
                                         <th>Precio</th>
                                         <th>Acciones</th>
                                     </tr>
-                                </tfoot> 
+                                </tfoot>
                                 <tbody>
                                     @foreach ($doctors as $doctor)
                                         <tr>
@@ -665,7 +669,8 @@
                             </table>
                         </div>
                     </div> 
-                </div>
+                </div> 
+                
                 <div class="tab-pane fade" id="pills-payment" role="tabpanel" aria-labelledby="pills-payment-tab">
                     <div class="col-lg-10 align-center">
                         <div class="ml-5">
@@ -750,6 +755,7 @@
                         </div>
                     </div>  
                 </div>
+
             </div>
         </div>
     </div>

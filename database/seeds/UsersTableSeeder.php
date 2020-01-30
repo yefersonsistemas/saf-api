@@ -188,6 +188,9 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
 
+  
+
+
         //relacion de la cirugia con el procedimiento
         $procedimiento2->speciality()->attach($especialidad);
         $cirugia->procedure()->attach($procedimiento2);
@@ -208,6 +211,8 @@ class UsersTableSeeder extends Seeder
         $cirugia->procedure()->attach($procedimiento3);
         $employe->procedures()->attach($procedimiento3);
 
+
+
             //creando procedimiento
         $procedimiento4 = factory(App\Procedure::class)->create([
             'name' => 'Antrostomía bilateral',
@@ -216,48 +221,121 @@ class UsersTableSeeder extends Seeder
             'price' => 2500,
             // 'speciality_id' => $especialidad->id,
             'branch_id' => '1',
-        ]);
+
+            ]);
+
+          //relacion de la cirugia con el procedimiento
+        $procedimiento4->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($procedimiento4);
+        $employe->procedures()->attach($procedimiento4);
+
+
+
+
+            
+       
 
         //relacion de la cirugia con el procedimiento
         // $especialidad->procedures()->attach($procedimiento);
         $cirugia->procedure()->attach($procedimiento4);
         $employe->procedures()->attach($procedimiento4);
 
+
+
+
+        //=========================  Procedimientos otros  PRUEBA LUIS RAMOS ==========================
+
+
+            //creando procedimiento
+            $procedimiento5 = factory(App\Procedure::class)->create([
+                'name' => 'Cura post operatoria (rinoplastia, blefaroplastia,otoplastia, bichectomia)',
+                'description' => 'Voluptatem consequatur qui quasi voluptas esse.',
+                'price' => 1500,
+                // 'speciality_id' => $especialidad->id,
+                'branch_id' => '1',
+            ]);
+
+            //relacion de la cirugia con el procedimiento
+            $procedimiento5->speciality()->attach($especialidad);
+            $cirugia->procedure()->attach($procedimiento5);
+            $employe->procedures()->attach($procedimiento5);
+
+
+
+
+        
+
         //=========================  Procedimientos otros ==========================
 
         $pro1= factory(Procedure::class)->create([
             'name'    => 'Cura post operatoria (rinoplastia, blefaroplastia,otoplastia, bichectomia)',
             'price' => 15000,
+            'branch_id' => '1',
+
         ]);
         $employe->procedures()->attach($pro1);
 
+        //relacion de la cirugia con el procedimiento
+        $pro1->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro1);
+        $employe->procedures()->attach($pro1);
+
+
         $pro2= factory(Procedure::class)->create([
             'name'    => 'Colocación de botox estético (acido hialuronico, toxina botulínica)',
-           
              'price' => 35000,
+             'branch_id' => '1',
+
         ]);
         $employe->procedures()->attach($pro2);
 
+     //relacion de la cirugia con el procedimiento
+        $pro2->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro2);
+        $employe->procedures()->attach($pro2);
+
+
         $pro3= factory(Procedure::class)->create([
-            'name'    => 'Plasma rico en plaquetas (estético)',
-            
+            'name'    => 'Plasma rico en plaquetas (estético)',          
              'price' => 25000,
+             'branch_id' => '1',
+
         ]);
         $employe->procedures()->attach($pro3);
 
+        //relacion de la cirugia con el procedimiento
+        $pro3->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro3);
+        $employe->procedures()->attach($pro3);
+
+
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Colocación de hilos PDO',
-             
              'price' => 18000,
+             'branch_id' => '1',            
         ]);
         $employe->procedures()->attach($pro4);
 
+          //relacion de la cirugia con el procedimiento
+          $pro4->speciality()->attach($especialidad);
+          $cirugia->procedure()->attach($pro4);
+          $employe->procedures()->attach($pro4);
+
+
         $pro5= factory(Procedure::class)->create([
-            'name'    => ' Nutrición facial (peelin, microdermacioin)',
-             
+             'name'    => ' Nutrición facial (peelin, microdermacioin)',           
              'price' => 22000,
+             'branch_id' => '1',            
         ]);
+
         $employe->procedures()->attach($pro5);
+
+        //relacion de la cirugia con el procedimiento
+          $pro5->speciality()->attach($especialidad);
+          $cirugia->procedure()->attach($pro5);
+          $employe->procedures()->attach($pro5);
+
+
 
         $pro6= factory(Procedure::class)->create([
             'name'    => ' Dermapen',
