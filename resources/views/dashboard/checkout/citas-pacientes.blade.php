@@ -526,7 +526,7 @@
                                             <!--Posibles cirugias-->
                                             <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                                 <div class="card-body">
-                                                    <h5 class="card-title color_titulo">Posible cirugia</h5>
+                                                    <h5 class="card-title color_titulo">Posible cirugias</h5>
                                                     @if($itinerary->typesurgery != null)
                                                     @if($itinerary->typesurgery->classification_surgery_id == 1)
                                                         <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>

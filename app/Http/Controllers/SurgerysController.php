@@ -43,7 +43,7 @@ class SurgerysController extends Controller
      */
     // para agendar cirugia cuando el paciente se encuentra en el itinerario 
     public function create($id){
-
+// dd($id);
         $tipo = TypeArea::where('name', 'Quirofano')->first();
         
         $quirofano = Area::with('typearea','image')->where('type_area_id', $tipo->id)->get();     
@@ -52,6 +52,7 @@ class SurgerysController extends Controller
 
         $medico = Typesurgery::with('employe_surgery.person.image')->where('id', $paciente->typesurgery->id)->first();
 
+        // dd($medico);
         return view('dashboard.checkout.programar_cirugia', compact('quirofano', 'paciente', 'medico'));
 }
 

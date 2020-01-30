@@ -233,12 +233,14 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                             </div>
                                                     </div>
-                                                    <div  class="collapse card-body list-group row mostrar_enfermedad" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                        @foreach ( $history->historyPatient->disease as $disease )
-                                                            <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
-                                                        @endforeach
+                                                    <div  class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
+                                                       <div class=" mostrar_enfermedad">
+                                                            @foreach ( $history->historyPatient->disease as $disease )
+                                                                <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
+                                                            @endforeach
+                                                       </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar enfermedad</button>
+                                                            <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -260,7 +262,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
                                                         @endforeach
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -279,9 +281,9 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                             </div>
                                                     <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-                                                        <!-- @foreach ( $history->historyPatient as $patient ) -->
+                                                      @if($cite->previous_surgery != null)
                                                         <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery  }}</a>
-                                                        <!-- @endforeach -->
+                                                    @endif
                                                         <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                         </div>
@@ -709,12 +711,12 @@ button[data-original-title="Help"]{ display: none; }
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body m-3">
+                    <div class="modal-body m-3" style="max-height:410px">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($alergia != null)
@@ -1346,11 +1348,11 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
    // ================== mostrando cirugias ==================
-//    function mostrarCirugia(data){
-//         console.log('ken',data);
-//         cirugia = data.previous_surgery;
-//         $("#a_cirugia").html(cirugia);
-//     }
+   function mostrarCirugia(data){
+        console.log('ken',data);
+        cirugia = data.previous_surgery;
+        $("#a_cirugia").html(cirugia);
+    }
 
 
     //============= captar datos de los procedimientos en la consulta===========
