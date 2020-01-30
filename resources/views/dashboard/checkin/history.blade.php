@@ -299,19 +299,21 @@
                         <div class="col-lg-6 col-md-3" id="framework_form">
                             <label class="form-label text-center">Enfermedades</label>
                             <div class="card p-3" style="border-color:#00506b">
-                                <div class="form-group multiselect_div w-75">
-                                    <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
-                                        @foreach ($disease as $enfermedades)
-                                            <option value= {{ $enfermedades->id }}
-                                                @if ($rs->patient->historyPatient != null)
-                                                @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
-                                                    disabled
-                                                @endif
-                                                @endif>
-                                                {{ $enfermedades->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="mt-1">
+                                <div class="row">
+                                    <div class="form-group multiselect_div col-10">
+                                        <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
+                                            @foreach ($disease as $enfermedades)
+                                                <option value= {{ $enfermedades->id }}
+                                                    @if ($rs->patient->historyPatient != null)
+                                                    @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
+                                                        disabled
+                                                    @endif
+                                                    @endif>
+                                                    {{ $enfermedades->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
                                         <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaenfermedad">
                                             <i class="fa fa-plus-circle"></i>
                                         </button>
@@ -334,19 +336,21 @@
                         
                         <div class="col-lg-6 col-md-3" id="framework_form2">
                             <label class="form-label text-center">Medicamentos</label>
-                            <div class="card p-3" style="border-color:#00506b">
-                                <div class="form-group multiselect_div w-75">
-                                    <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
-                                        @foreach ($medicine as $medicamentos)
-                                        <option value= {{ $medicamentos->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                            disabled
-                                            @endif
-                                            @endif>{{ $medicamentos->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="mt-1">
+                            <div class="row card p-3" style="border-color:#00506b">
+                                <div class="row">
+                                    <div class="form-group multiselect_div col-10">
+                                        <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
+                                            @foreach ($medicine as $medicamentos)
+                                            <option value= {{ $medicamentos->id }}
+                                            @if ($rs->patient->historyPatient != null)
+                                                @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
+                                                disabled
+                                                @endif
+                                                @endif>{{ $medicamentos->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
                                         <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevomedicamento">
                                             <i class="fa fa-plus-circle"></i>
                                         </button>
@@ -367,18 +371,20 @@
                         <div class="col-lg-6 col-md-3" id="framework_form3">
                             <label class="form-label text-center">Alergias</label>
                             <div class="card p-3" style="border-color:#00506b">
-                                <div class="form-group multiselect_div w-75">
-                                    <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
-                                        @foreach ($allergy as $alergias)
-                                        <option value= {{ $alergias->id }}
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                            disabled selected
-                                            @endif
-                                            @endif>{{ $alergias->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="mt-1">
+                                <div class="row">
+                                    <div class="form-group multiselect_div col-10">
+                                        <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
+                                            @foreach ($allergy as $alergias)
+                                            <option value= {{ $alergias->id }}
+                                            @if ($rs->patient->historyPatient != null)
+                                                @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
+                                                disabled selected
+                                                @endif
+                                                @endif>{{ $alergias->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
                                         <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaalergia">
                                             <i class="fa fa-plus-circle"></i>
                                         </button>
@@ -492,12 +498,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST">
-                    @csrf
+                    
                 <div class="modal-body">
                     <input type="text" placeholder="Nombre de la Enfermedad" name="name" value="{{ old('name') }}" class="form-control" required id="newdisease">
                 </div>
-
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -507,11 +511,9 @@
                     </ul>
                 </div>
                 @endif
-
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
-                </form>
             </div>
         </div>
     </div>
@@ -526,12 +528,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST" >
-                    @csrf
+                    
                 <div class="modal-body">
                     <input type="text" placeholder="Nombre de la Alergia" name="name" value="{{ old('name') }}" class="form-control" required id="newallergy">
                 </div>
-
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -541,11 +541,9 @@
                     </ul>
                 </div>
                 @endif
-
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
-                </form>
             </div>
         </div>
     </div>
@@ -560,12 +558,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST">
-                    @csrf
                 <div class="modal-body">
                     <input type="text" placeholder="Nombre del Medicamento" name="name" value="{{ old('name') }}" class="form-control" required id="newmedicine">
                 </div>
-
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -578,7 +573,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-azuloscuro" id="medicineR" data-dismiss="modal">Guardar</button>
                 </div>
-                </form>
             </div>
         </div>
     </div>
