@@ -45,6 +45,7 @@ class OutController extends Controller
     {
         $procedures_id = array(); 
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
+        $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         // dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
@@ -57,7 +58,11 @@ class OutController extends Controller
                 }
             }
         }
-        return view('dashboard.checkout.citas-pacientes', compact('itinerary'));
+
+        $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
+// dd($confirmadas->first()->speciality);
+        $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera'));
     }
 
 

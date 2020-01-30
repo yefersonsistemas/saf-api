@@ -16,3 +16,7 @@
     width: 200px;
     vertical-align: top;
 }
+
+.btn-outline-negro:link {
+    background: #000;
+}

@@ -403,12 +403,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     <th class="text-center">Accion</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            {{-- <tfoot>
-                                                                                <tr>
-                                                                                    <th>Medicamento Seleccionado</th>
-                                                                                    <th class="text-center">Accion</th>
-                                                                                </tr>
-                                                                            </tfoot> --}}
                                                                             <tbody id="examen">
                                                                             </tbody>
                                                                         </table>
@@ -580,29 +574,60 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
                                                     <div class="container">
-                                                        <div class="row d-flex justify-content-center">
-                                                            <div class="card col-md-5 mx-2">
-                                                                <div class="card-header text-center">
-                                                                    <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
-                                                                        <i class="fa fa-plus"></i>
-                                                                        Agregar Cirugia
-                                                                    </button>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                    <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;"></ul>
+
+                                                        <div class="tab-pane fade show active container" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 mx-auto">
+                                                                    <div class="card">
+                                                                        <div class="card-header text-start">
+                                                                            <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
+                                                                            <i class="fa fa-plus"></i>
+                                                                            Agregar Cirugia
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="card-body py-1">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-vcenter table-striped"
+                                                                                    cellspacing="0" id="addrowExample">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Posible Cirugía</th>
+                                                                                            <th class="text-center">Accion</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody id="cirugias">
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="card col-md-5 mx-2">
-                                                                <div class="card-header text-center">
-                                                                    <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
-                                                                        <i class="fa fa-plus"></i>
-                                                                        Agregar Procedimiento
-                                                                    </button>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                    <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;"></ul>
+                                                            <div class="row">
+                                                                <div class="col-lg-12 mx-auto">
+                                                                    <div class="card">
+                                                                        <div class="card-header text-start">
+                                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
+                                                                                <i class="fa fa-plus"></i>
+                                                                                Agregar Procedimiento
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="card-body py-1">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-vcenter table-striped"
+                                                                                    cellspacing="0" id="addrowExample">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Posibles procedimientos </th>
+                                                                                            <th class="text-center">Accion</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody id="procedimientos">
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1310,11 +1335,11 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
    // ================== mostrando cirugias ==================
-   function mostrarCirugia(data){
-        console.log('ken',data);
-        cirugia = data.previous_surgery;
-        $("#a_cirugia").html(cirugia);
-    }
+//    function mostrarCirugia(data){
+//         console.log('ken',data);
+//         cirugia = data.previous_surgery;
+//         $("#a_cirugia").html(cirugia);
+//     }
 
 
     //============= captar datos de los procedimientos en la consulta===========
@@ -1368,19 +1393,18 @@ button[data-original-title="Help"]{ display: none; }
 
         //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
         for($i=0; $i < data.length; $i++){
-            procesc='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            procesc='<tr  id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro procedureR_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
         }
     }
 
        //================ eliminar examen seleccionado ==========
        $(function() {
-        $(document).on('click', '.procedureP_id', function(event) {
+        $(document).on('click', '.procedureR_id', function(event) {
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            console.log('id', id);    
-            $("#"+id).hide();
+            console.log(reservacion);   
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.procedureR_eliminar2') }}",
@@ -1435,7 +1459,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-            console.log('gfhdg', data[1]);
+            console.log('examen creado', data[1]);
 
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1463,10 +1487,8 @@ button[data-original-title="Help"]{ display: none; }
     //==================== mostrando examenes ===================
     function mostrarExamen(data){
         console.log('hh',data);
-
-            //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
-        for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-8" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><div class="col-2"  ><input id="'+data[$i].id+'" type="button" class="exam_id btn btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></div></td></tr>'
+            for($i=0; $i < data.length; $i++){
+            examen='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn-azuloscuro exam_id btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#examen").append(examen);
         }
     }
@@ -1477,9 +1499,9 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '.exam_id', function(event) {
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            console.log('id', id);    
-            $("#"+id).hide();
+            console.log('reservacion examwe',reservacion);
+            console.log('exam id', id);    
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.exam_eliminar2') }}",
@@ -1564,11 +1586,52 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procedure=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
+            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            // procedure=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
             $("#procedimientos").append(procedure);
         }
     }
 
+    //================ eliminar examen seleccionado ==========
+    $(function() {
+            $(document).on('click', '.procedureP_id', function(event) {
+                let id = this.id;
+                var reservacion = $("#reservacion_id").val();
+                console.log(reservacion);
+                console.log('id', id);    
+                $("#"+id).remove();
+
+                $.ajax({
+                    url: "{{ route('doctor.procedureP_eliminar2') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {               
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.procedure,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+                
+            })
+            .fail(function(data) {
+                console.log(data);
+            })  
+
+            });
+        
+        });
  
    
     //=============== captar datos de las posibles cirugias===============
@@ -1623,10 +1686,52 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            cirugias=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
+            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
         }
     }
+
+    
+    //================ eliminar examen seleccionado ==========
+    $(function() {
+        $(document).on('click', '.cirugiaP_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log(reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
 
  
 

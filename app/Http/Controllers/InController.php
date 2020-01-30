@@ -158,11 +158,7 @@ class InController extends Controller
     public function search_history($id, $id2){
         $mostrar = $id2;
         // dd($mostrar);
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> e1907dcc5e611fdb916208110ac367151f261ae9
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
@@ -181,26 +177,17 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
-<<<<<<< HEAD
-    /**
-     * 
-     * guarda registros nuevos y editados 
-=======
      /**
      *
      * guarda registros nuevos y editados
->>>>>>> e1907dcc5e611fdb916208110ac367151f261ae9
+
      * en la historia del paciente
      *
      */
 
 
     public function guardar(Request $request, $id)  //REVISAR
-<<<<<<< HEAD
-    {   
-=======
      {
->>>>>>> e1907dcc5e611fdb916208110ac367151f261ae9
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
@@ -315,11 +302,7 @@ class InController extends Controller
                     }
                 }
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> e1907dcc5e611fdb916208110ac367151f261ae9
                 if (!empty($request->medicine)){
 
                     foreach ($request->medicine as $medicine) {
@@ -339,10 +322,7 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
-<<<<<<< HEAD
-=======
 
->>>>>>> e1907dcc5e611fdb916208110ac367151f261ae9
         }
     }
 

@@ -12,7 +12,7 @@ class AreaAssigmentsTableSeeder extends Seeder
      */
     public function run()
     {
-        AreaAssigment::truncate();
-        //factory(AreaAssigment::class, 20)->create();
+        // AreaAssigment::truncate();
+        // factory(AreaAssigment::class, 20)->create();
     }
 }
