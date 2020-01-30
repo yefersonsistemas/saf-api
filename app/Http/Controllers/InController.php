@@ -709,27 +709,54 @@ class InController extends Controller
 
     // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
     for ($i=0; $i < count($request->data); $i++) { 
-        // dd($request->data);
         $disease = Disease::find($request->data[$i]);
-        
         $disease->patient()->sync($patient);
     }
-    
+
     if ($patient->disease->first() != null) {
         $diff = array_diff($request->data,$patientd);
     } else {
         $diff = $request->data;
     }
-    
 
     for ($i=0; $i < count($diff); $i++) { 
-
         $diseases[] = Disease::find($diff);
     }
 
     return response()->json([
         'data' => 'Enfermedad Agregada Exitosamente',$diseases,201
         ]);
+    }
+
+    public function allergys(Request $request){
+        // Aqui se realiza la relacion entre paciente y alergias, tambien se busca al paciente correspondiente a la historia
+        $patient = Patient::with('allergy')->where('person_id', $request->id)->first();
+        // Aqui se realiza el recorrido las enfermedades del paciente que estan en la DB.
+        if($patient->allergy->first() != null) {
+            for ($i=0; $i < count($patient->allergy); $i++) { 
+                $patienta[] = $patient->allergy[$i]->id;
+            }
+        }
+        // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
+        for ($i=0; $i < count($request->data); $i++) { 
+            $allergy = Allergy::find($request->data[$i]);
+            $allergy->patient()->sync($patient);
+        }
+
+        if ($patient->allergy->first() != null ) {
+            $diff= array_diff($request->data, $patienta);
+        } else {
+            $diff = $request->data;
+        }
+
+        for ($i=0; $i < count($diff); $i++) {
+
+            $allergies[] = Allergy::find($diff);
+        }
+        // dd($allergies[0][0]->name);
+        return response()->json([
+            'data' => 'Alergia Agregada',$allergies,201
+            ]);
     }
 
     public function medicines(Request $request){
@@ -766,5 +793,6 @@ class InController extends Controller
             'data' => 'Medicamento Agregado Exitosamente',$medicines,201
             ]);
     }
+
 }
 

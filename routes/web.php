@@ -75,9 +75,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
 
-        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases');
-        Route::post('patient/allergys','InController@allergys')->name('checkin.allergys');
-        Route::post('patient/medicines','InController@medicines')->name('checkin.medicines');
+        
+        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases'); //para agregar las enfermedades que tiene el paciente
+        Route::post('patient/allergys','InController@allergys')->name('checkin.allergys'); //para agregar las alergias que tiene el paciente
+        Route::post('patient/medicines','InController@medicines')->name('checkin.medicines'); //para agregar las medicamentos que toma el paciente
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
     });
 

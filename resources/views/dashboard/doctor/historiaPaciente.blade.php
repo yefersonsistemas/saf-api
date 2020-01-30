@@ -649,7 +649,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 410px;">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($enfermedad != null)
@@ -684,7 +684,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body" style="max-height: 410px;">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($alergia != null)
@@ -710,7 +710,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
@@ -719,7 +719,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="">
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>                                
@@ -745,7 +745,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="proceduresC-office">
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @foreach ($procesm->procedures as $proces)
@@ -784,7 +784,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 <form action="" id="exam">
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group" style="max-height: 415px;">
                             <div class="custom-controls-stacked">
                                 @foreach ($exams as $exam)
                                 <label class="custom-control custom-checkbox">
@@ -814,7 +814,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="posible-surgerys">
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
 
                         <div class="custom-controls-stacked">
@@ -853,7 +853,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="posible-procedures">
-                <div class="modal-body" style="max-height: 410px;">
+                <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
