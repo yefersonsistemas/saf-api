@@ -21,6 +21,9 @@
     .dataTables_filter label input:focus{
         border: 2px solid #00506b;
     }
+    .btn_azul{
+        color:#00506b
+    }
 </style>
 
 @can('ver lista de registros')
@@ -84,7 +87,7 @@
                 <div class="tab-pane fade show active" id="pills-position" role="tabpanel" aria-labelledby="pills-position-tab">
                     <div class="col-lg-12 align-center">
                          <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -101,21 +104,24 @@
                                 </tfoot>              
                                 <tbody>
                                     @foreach ($positions as $position)
+
+
                                         <tr>
                                             <td>{{ $position->name }}</td>
                                             <td>{{ $position->description }}</td>
-                                            <td >
-                                                @can('modificar cargo')
-                                                <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>  
-                                               @endcan
+                                            <td> 
                                                 @can('eliminar cargo')
                                                 <form action="{{ route('cargo.delete', $position) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
-                                                    @csrf
-                                                </form> 
                                                 @endcan
-                                            </td>
+                                                    @csrf
+                                                    @can('modificar cargo')
+                                                    <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>  
+                                                   @endcan
+                                                </form> 
+                                               
+                                          </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -128,7 +134,7 @@
                 <div class="tab-pane fade" id="pills-service" role="tabpanel" aria-labelledby="pills-service-tab">
                     <div class="col-lg-12 align-center">                     
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -148,15 +154,15 @@
                                         <tr>
                                             <td>{{ $service->name }}</td>
                                             <td>{{ $service->description }}</td>
-                                            <td style="display: inline-block">
-                                                @can('modificar servicios')
-                                                <a href="{{ route('servicio.edit', $service->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                            <td style="display: inline-block">                                              
                                                 @can('eliminar servicios')
                                                 <form action="{{ route('servicio.delete', $service) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar servicios')
+                                                    <a href="{{ route('servicio.edit', $service->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -171,9 +177,9 @@
                 <div class="tab-pane fade" id="pills-speciality" role="tabpanel" aria-labelledby="pills-speciality-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
-                                    <tr>
+                                    <tr class="align-center ">
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Servicio</th>
@@ -181,7 +187,7 @@
                                     </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr>
+                                    <tr class ="align-center">
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Servicio</th>
@@ -191,18 +197,19 @@
                                 <tbody>
                                     @foreach ($specialitys as $speciality)
                                         <tr>
-                                            <td>{{ $speciality->name }}</td>
+                                            <td class ="align-center">{{ $speciality->name }}</td>
                                             <td>{{ $speciality->description }}</td>
-                                            <td>{{ $speciality->service->name }}</td>
+                                            <td class ="align-center">{{ $speciality->service->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar especialidad')
-                                                <a href="{{ route('especialidad.edit', $speciality->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                             
                                                 @can('eliminar especialidad')
                                                 <form action="{{ route('especialidad.delete', $speciality) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar especialidad')
+                                                    <a href="{{ route('especialidad.edit', $speciality->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -217,9 +224,9 @@
                 <div class="tab-pane fade" id="pills-procedure" role="tabpanel" aria-labelledby="pills-procedure-tab">
                     <div class="col-lg-12 ">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
-                                    <tr>
+                                    <tr class ="align-center">
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Precio</th>
@@ -228,7 +235,8 @@
                                     </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr>
+                                  
+                                    <tr class ="align-center" >
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Precio</th>
@@ -237,17 +245,20 @@
                                     </tr>
                                 </tfoot> 
                                 <tbody>
-                                    @foreach ($procedures as $procedure)
+                                     @foreach ($procedures as $procedure)                                    
                                         <tr>
                                             <td>{{ $procedure->name }}</td>
                                             <td>{{ $procedure->description }}</td>
-                                            <td>{{ $procedure->price }}</td>
+                                            <td>{{ $procedure->price }}</td>                                                                                 
                                             @foreach ($procedure->speciality as $item)
                                             <td>{{ $item->name }}</td>
-                                            @endforeach
-                                            <td style="display: inline-block">
+                                            @endforeach                                      
+                                        @if(empty($procedure->speciality))
+                                        <td>{{ $procedure->name }}</td>
+                                        @endif
+                                             <td style="display: inline-block">
                                                 @can('modificar procedimiento')
-                                                <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
                                                 @endcan
                                                 @can('eliminar procedimiento')
                                                 <form action="{{ route('procedimiento.delete', $procedure) }}" method="POST">
@@ -268,9 +279,9 @@
                 <div class="tab-pane fade" id="pills-surgery" role="tabpanel" aria-labelledby="pills-surgery-tab">
                     <div class="col-lg-12 align-center">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
-                                    <tr>
+                                    <tr class ="align-center">
                                         <th>Nombre</th>
                                         <th>Duración</th>
                                         <th>Precio</th>
@@ -280,7 +291,7 @@
                                     </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr>
+                                    <tr class ="align-center">
                                         <th>Nombre</th>
                                         <th>Duración</th>
                                         <th>Precio</th>
@@ -299,7 +310,7 @@
                                             <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
                                                 @can('modificar cirugias')
-                                                <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
                                                @endcan
                                                @can('eliminar cirugias')
                                                 <form action="{{ route('cirugia.delete', $surgery) }}" method="POST">
@@ -321,7 +332,7 @@
                     <div class="col-lg-10 align-center">
                         <div class="ml-5">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -339,14 +350,15 @@
                                         <tr>
                                             <td>{{ $allergy->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar alergias')
-                                                <a href="{{ route('alergia.edit', $allergy->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                             
                                                 @can('eliminar alergias')
                                                 <form action="{{ route('alergia.delete', $allergy) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar alergias')
+                                                    <a href="{{ route('alergia.edit', $allergy->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -363,7 +375,7 @@
                     <div class="col-lg-10 align-center">
                         <div class="ml-5">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -381,14 +393,15 @@
                                         <tr>
                                             <td>{{ $disease->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar enfermedades')
-                                                <a href="{{ route('enfermedad.edit', $disease->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                                
                                                 @can('eliminar enfermedades')
                                                 <form action="{{ route('enfermedad.delete', $disease) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar enfermedades')
+                                                <a href="{{ route('enfermedad.edit', $disease->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -399,12 +412,13 @@
                         </div>
                       </div>
                     </div> 
-                </div>
+                </div> 
+
                 <div class="tab-pane fade" id="pills-medicine" role="tabpanel" aria-labelledby="pills-medicine-tab">
                     <div class="col-lg-10 align-center">
                         <div class="ml-5">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -422,14 +436,15 @@
                                         <tr>
                                             <td>{{ $medicine->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar medicina')
-                                                <a href="{{ route('medicina.edit', $medicine->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                               
                                                 @can('eliminar medicina')
                                                 <form action="{{ route('medicina.delete', $medicine) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar medicina')
+                                                    <a href="{{ route('medicina.edit', $medicine->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -446,7 +461,7 @@
                     <div class="col-lg-10 align-center">
                         <div class="ml-5">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -464,14 +479,15 @@
                                         <tr>
                                             <td>{{ $exam->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar examenes')
-                                                <a href="{{ route('examen.edit', $exam->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                               
                                                 @can('eliminar examenes')
                                                 <form action="{{ route('examen.delete', $exam) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar examenes')
+                                                    <a href="{{ route('examen.edit', $exam->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -487,7 +503,7 @@
                 <div class="tab-pane fade" id="pills-type" role="tabpanel" aria-labelledby="pills-type-tab">
                     <div class="col-lg-12 align-center">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -508,14 +524,15 @@
                                             <td>{{ $type->name }}</td>
                                             <td>{{ $type->description }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar tipo de area')
-                                                <a href="{{ route('tipo-area.edit', $type->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                                
                                                 @can('eliminar tipo de area')
                                                 <form action="{{ route('tipo.delete', $type) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar tipo de area')
+                                                <a href="{{ route('tipo-area.edit', $type->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -526,10 +543,11 @@
                         </div>
                     </div> 
                 </div> 
+
                 <div class="tab-pane fade" id="pills-area" role="tabpanel" aria-labelledby="pills-area-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
@@ -563,7 +581,7 @@
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
                                                 @can('modificar area')
-                                                <a href="{{ route('area.edit', $area->id) }}" title="Editar" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('area.edit', $area->id) }}" title="Editar" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
                                                 @endcan
                                                 @can('eliminar area')
                                                 <form action="{{ route('area.delete', $area) }}" method="POST">
@@ -580,10 +598,11 @@
                         </div>
                     </div>  
                 </div>
+
                 <div class="tab-pane fade" id="pills-claseDoctor" role="tabpanel" aria-labelledby="pills-claseDoctor-tab">
                     <div class="col-lg-12 align-center">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -604,14 +623,15 @@
                                             <td>{{ $clase->name }}</td>
                                             <td>{{ $clase->comission }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar clase de doctor')
-                                                <a href="{{route('clase.edit', $clase->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                               
                                                 @can('eliminar clase de doctor')
                                                 <form action="{{ route('clase.delete', $clase) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar clase de doctor')
+                                                    <a href="{{route('clase.edit', $clase->id)}}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -624,11 +644,11 @@
                 </div>
 
                 
-                
-                 <div class="tab-pane fade" id="pills-doctor" role="tabpanel" aria-labelledby="pills-doctor-tab">
+                 
+                  <div class="tab-pane fade" id="pills-doctor" role="tabpanel" aria-labelledby="pills-doctor-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -652,14 +672,15 @@
                                             <td>{{ $doctor->typedoctor->name }}</td>
                                             <td>{{ $doctor->price }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar precio de consulta')
-                                                <a href="{{ route('precio.edit', $doctor->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                               
                                                 @can('eliminar precio de consulta')
                                                 <form action="{{ route('consulta.delete', $doctor) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar precio de consulta')
+                                                    <a href="{{ route('precio.edit', $doctor->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -670,12 +691,12 @@
                         </div>
                     </div> 
                 </div> 
-                
+                 
                 <div class="tab-pane fade" id="pills-payment" role="tabpanel" aria-labelledby="pills-payment-tab">
                     <div class="col-lg-10 align-center">
                         <div class="ml-5">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -693,14 +714,15 @@
                                         <tr>
                                             <td>{{ $payment->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar tipo de pago')
-                                                <a href="{{ route('pago.edit', $payment->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                               
                                                 @can('eliminar tipo de pago')
                                                 <form action="{{ route('pago.delete', $payment) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar tipo de pago')
+                                                    <a href="{{ route('pago.edit', $payment->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
@@ -716,7 +738,7 @@
                 <div class="tab-pane fade" id="pills-type-surgery" role="tabpanel" aria-labelledby="pills-type-surgery-tab">
                     <div class="col-lg-12 align-center">
                         <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                            <table class="table table-striped  table-bordered js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -737,14 +759,15 @@
                                             <td>{{ $classification->name }}</td>
                                             <td>{{ $classification->description }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar tipo de cirugias')
-                                                <a href="{{ route('tipo-cirugia.edit', $classification->id) }}" title="Editar" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                               
                                                 @can('eliminar tipo de cirugias')
                                                 <form action="{{ route('clasificacion.delete', $classification) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar tipo de cirugias')
+                                                    <a href="{{ route('tipo-cirugia.edit', $classification->id) }}" title="Editar" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
