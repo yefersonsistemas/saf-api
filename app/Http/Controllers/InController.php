@@ -311,7 +311,6 @@ class InController extends Controller
                 }
 
 
-
                 if (!empty($request->medicine)){
 
                     foreach ($request->medicine as $medicine) {
