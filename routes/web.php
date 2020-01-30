@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('status', 'InController@status')->name('checkin.status');
         Route::post('exams_previos', 'InController@exams_previos')->name('checkin.exams');
         Route::post('guardar_foto', 'InController@guardar_foto')->name('checkin.avatar');
+        Route::get('change/{id}', 'InController@change')->name('checkin.cambiar');
 
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
@@ -75,10 +76,14 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
 
+<<<<<<< HEAD
         
         Route::post('patient/diseases','InController@diseases')->name('checkin.diseases'); //para agregar las enfermedades que tiene el paciente
         Route::post('patient/allergys','InController@allergys')->name('checkin.allergys'); //para agregar las alergias que tiene el paciente
         Route::post('patient/medicines','InController@medicines')->name('checkin.medicines'); //para agregar las medicamentos que toma el paciente
+=======
+        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases');
+>>>>>>> 163b16ec6e640d5925bf608b88dcb2059b4571ee
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
     });
 
@@ -99,6 +104,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
 
         Route::post('imprimir', 'OutController@imprimir_factura')->name('checkout.imprimir_factura');           // mostrar factura
+        Route::get('imprimir/itinerary/{id}', 'OutController@imprimir_factura2')->name('checkout.imprimir_factura2');           // mostrar factura
+
         Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
         Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
               Route::get('constancia/{id}','OutController@imprimir_constancia')->name('checkout.imprimir_constancia');  // imprimir constancia
@@ -147,8 +154,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
         Route::post('doctor/cirugias', 'DoctorController@agregar_cirugias')->name('doctor.agregar_cirugias');  // eliminar examen
         //-------------------elimnar-------------------
-        Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
+        Route::post('doctor/eliminar/examen/actualizar', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
+        Route::post('doctor/eliminar/procedimientos_realizados/actualizar', 'DoctorController@procedureR_eliminar')->name('doctor.procedureR_eliminar');  // eliminar examen
+        // Route::post('doctor/eliminar/posible_cirugia/actualizar', 'DoctorController@cirugiaR_eliminar')->name('doctor.cirugiaP_eliminar');
 
+        Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar2')->name('doctor.exam_eliminar2');  // eliminar examen
+        Route::post('doctor/eliminar/procedure', 'DoctorController@procedureR_eliminar2')->name('doctor.procedureR_eliminar2');  // eliminar examen
+        Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen
+        Route::post('doctor/eliminar/cirugia', 'DoctorController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar examen
+        
     });
 
     Route::group(['middleware' => ['role:director']], function(){

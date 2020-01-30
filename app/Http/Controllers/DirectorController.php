@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Allergy;
 use App\Area;
+use App\AreaAssigment;
 use App\Disease;
 use App\Doctor;
 use App\Person;
@@ -80,8 +81,12 @@ class DirectorController extends Controller
         $procedure = Procedure::get();
         $clases = TypeDoctor::get();
         $permissions = Permission::all();
+        $type = TypeArea::where('name', 'Consultorio')->first();
+        // dd($type);
+        $area = Area::with('areaassigment.employe')->where('type_area_id', $type->id)->get();
+        // dd($area);
 
-        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases', 'permissions'));
+        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases', 'permissions', 'area'));
     }
 
     /**
@@ -115,12 +120,14 @@ class DirectorController extends Controller
             'address'   => $data['address'],
             'branch_id' => 1
         ]);
+        // dd($person);
 
         $employe = Employe::create([
             'person_id' => $person->id,
             'position_id'   =>$request->position_id,
             'branch_id' => 1
         ]);
+        // dd($employe);
             
         $user = User::create([
             'email'      => $person->email,
@@ -128,8 +135,10 @@ class DirectorController extends Controller
             'person_id'  => $person->id,
             'branch_id' => 1
         ]);
+        // dd($user);
 
         $cargo = Position::find($request->position_id);
+        // dd($cargo);
 
         $user->assignRole($cargo->name);
 
@@ -154,6 +163,18 @@ class DirectorController extends Controller
                 }
             }
         }
+
+        if ($request->area_id != null) {
+           
+            $area = AreaAssigment::create([
+                'employe_id' => $employe->id,
+                'area_id'    => $request->area_id,
+                'branch_id' => 1
+            ]);
+        }
+
+        // dd($area);
+    
           
         if ($request->image != null) {
             $image = $request->file('image');

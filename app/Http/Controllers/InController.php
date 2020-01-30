@@ -63,7 +63,6 @@ class InController extends Controller
     public function day()
     {
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
-
         return view('dashboard.checkin.day', compact('day'));
     }
 
@@ -138,6 +137,17 @@ class InController extends Controller
         // dd($dia);
 
         return view('dashboard.checkin.show-area', compact('areas', 'dia'));
+    }
+
+    public function change($id)
+    {
+        $area = Area::find($id);
+        // dd($area);
+
+        $area->status = 'ocupado';
+        $area->update();
+
+        return redirect()->back();
     }
 
     /**
@@ -290,7 +300,10 @@ class InController extends Controller
                     }
                 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 163b16ec6e640d5925bf608b88dcb2059b4571ee
 
                 if (!empty($request->medicine)){
 
@@ -311,6 +324,10 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 163b16ec6e640d5925bf608b88dcb2059b4571ee
         }
     }
 

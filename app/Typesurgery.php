@@ -12,6 +12,11 @@ class Typesurgery extends Model //tipos de cirugias
         'name', 'duration', 'cost', 'description', 'day_hospitalization','classification_surgery_id', 'branch_id'
     ];
 
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
     public function employe()
     {
         return $this->belongsTo('App\Employe');

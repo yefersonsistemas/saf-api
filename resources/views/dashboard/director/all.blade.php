@@ -29,56 +29,56 @@
         <div class="row clearfix">
 
             {{-- Tabs de registros --}}
-            <div class="col-md-12 mt-3">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item col-md-2">
+            <div class="col-md-2 mt-3">
+                <ul class="nav row nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block  mb-2 p-2 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-position-tab" data-toggle="pill" href="#pills-position" role="tab" aria-controls="pills-position" aria-selected="true">Cargos</a>
                     </li>
-                    <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-service-tab" data-toggle="pill" href="#pills-service" role="tab" aria-controls="pills-service" aria-selected="false">Servicios</a>
+                    <li class="nav-item col-md-12">
+                        <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center  btn btn-outline-success" id="pills-service-tab" data-toggle="pill" href="#pills-service" role="tab" aria-controls="pills-service" aria-selected="false">Servicios</a>
                     </li>
-                    <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-danger" id="pills-speciality-tab" data-toggle="pill" href="#pills-speciality" role="tab" aria-controls="pills-speciality" aria-selected="false">Especialidades</a>
+                    <li class="nav-item col-md-12">
+                        <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center  btn btn-outline-danger" id="pills-speciality-tab" data-toggle="pill" href="#pills-speciality" role="tab" aria-controls="pills-speciality" aria-selected="false">Especialidades</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-procedure-tab" data-toggle="pill" href="#pills-procedure" role="tab" aria-controls="pills-procedure" aria-selected="false">Procedimientos</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-surgery-tab" data-toggle="pill" href="#pills-surgery" role="tab" aria-controls="pills-surgery" aria-selected="false">Cirugías</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-primary" id="pills-allergy-tab" data-toggle="pill" href="#pills-allergy" role="tab" aria-controls="pills-allergy" aria-selected="false">Alergias</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-disease-tab" data-toggle="pill" href="#pills-disease" role="tab" aria-controls="pills-disease" aria-selected="false">Enfermedades</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-danger" id="pills-medicine-tab" data-toggle="pill" href="#pills-medicine" role="tab" aria-controls="pills-medicine" aria-selected="false">Medicinas</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-exam-tab" data-toggle="pill" href="#pills-exam" role="tab" aria-controls="pills-exam" aria-selected="false">Exámenes</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-type-tab" data-toggle="pill" href="#pills-type" role="tab" aria-controls="pills-type" aria-selected="false">Tipo de area</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-area-tab" data-toggle="pill" href="#pills-area" role="tab" aria-controls="pills-area" aria-selected="false">Area</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-claseDoctor-tab" data-toggle="pill" href="#pills-claseDoctor" role="tab" aria-controls="pills-claseDoctor" aria-selected="false">Clase del doctor</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-doctor-tab" data-toggle="pill" href="#pills-doctor" role="tab" aria-controls="pills-doctor" aria-selected="false">Precio de Consulta</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2 p-2 d-flex flex-row justify-content-center btn btn-outline-danger" id="pills-payment-tab" data-toggle="pill" href="#pills-payment" role="tab" aria-controls="pills-payment" aria-selected="false">Tipos de pagos</a>
                     </li>
-                    <li class="nav-item col-md-2">
+                    <li class="nav-item col-md-12">
                         <a class="nav-link btn-block mb-2  p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-type-surgery-tab" data-toggle="pill" href="#pills-type-surgery" role="tab" aria-controls="pills-type-surgery" aria-selected="false">Tipo de Cirugías</a>
                     </li>
                 </ul>
             </div>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content col-10" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-position" role="tabpanel" aria-labelledby="pills-position-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
