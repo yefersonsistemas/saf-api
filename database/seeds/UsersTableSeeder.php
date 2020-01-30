@@ -28,6 +28,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 
+
 class UsersTableSeeder extends Seeder
 {
     use ImageFactory;
@@ -55,6 +56,7 @@ class UsersTableSeeder extends Seeder
         $this->deleteDirectory(storage_path('/app/public/patient'));
         $this->deleteDirectory(storage_path('/app/public/typearea'));
         $this->deleteDirectory(storage_path('/app/public/area'));
+        $this->deleteDirectory(storage_path('/app/public/surgeries'));
 
         //Procedure::truncate();
 
@@ -131,6 +133,7 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
         $cirugia->employe_surgery()->attach($employe->id);
+        $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
 
         //creando especialidad
         $especialidad = factory(App\Speciality::class)->create([
@@ -334,6 +337,7 @@ class UsersTableSeeder extends Seeder
                 'classification_surgery_id' => $clasificacion->id,
                 'branch_id' => '1',
             ]);
+            $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
     
 
         /**

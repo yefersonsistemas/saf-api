@@ -55,7 +55,7 @@
                                                                     <div class="card-body text-center" style="background:#EEEBEB;" style="max-height: 100px; width:170px;">
                                                                         <h6 class="font-weight-bold">{{ $area->name}} </h6>
                                                                         <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
-                                                                    <button type="button" class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">desocupado</button>
+                                                                        <a href="{{route('checkin.cambiar', $area->id)}}" class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">por llegar</a>
                                                                         {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">desocupado</span></h6> --}}
                                                                     </div>
                                                                 </div>
@@ -81,7 +81,7 @@
                                                                                 @if ($area->areaassigment != null)
                                                                                 <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
                                                                                 @endif
-                                                                                <button type="button" class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">{{ $area->status }}</button>
+                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">asistente</h6>
                                                                                 {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6> --}}
                                                                             </div>
                                                                         </div>
@@ -138,7 +138,7 @@
                                                                                 @if ($area->areaassigment != null)
                                                                                 <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
                                                                                 @endif
-                                                                                <button type="button" class="badge badge-light pl-3 pr-3 pb-1" style="color: #00ad88">{{ $area->status }}</button>
+                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">{{ $area->status }}</h6>
                                                                                 {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6> --}}
                                                                             </div>
                                                                         </div>

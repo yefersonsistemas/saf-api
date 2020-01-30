@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('status', 'InController@status')->name('checkin.status');
         Route::post('exams_previos', 'InController@exams_previos')->name('checkin.exams');
         Route::post('guardar_foto', 'InController@guardar_foto')->name('checkin.avatar');
+        Route::get('change/{id}', 'InController@change')->name('checkin.cambiar');
 
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
@@ -74,6 +75,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('patient/create/{reservation}', 'CitaController@createHistory')->name('patients.generate');
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
+
+        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases');
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
     });
 

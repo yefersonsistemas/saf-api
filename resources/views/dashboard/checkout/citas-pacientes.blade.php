@@ -57,8 +57,9 @@
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
                     <div class="card-body">
-                        <h6>Pacientes atendidos</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>                             
+                        <h6>Atendidos Hoy</h6>
+                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3>
+                        {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
             </div>

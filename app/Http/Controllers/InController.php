@@ -63,7 +63,6 @@ class InController extends Controller
     public function day()
     {
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
-
         return view('dashboard.checkin.day', compact('day'));
     }
 
@@ -140,6 +139,17 @@ class InController extends Controller
         return view('dashboard.checkin.show-area', compact('areas', 'dia'));
     }
 
+    public function change($id)
+    {
+        $area = Area::find($id);
+        // dd($area);
+
+        $area->status = 'ocupado';
+        $area->update();
+
+        return redirect()->back();
+    }
+
     /**
      *
      * busca la historia desde la lista de check-in
@@ -148,7 +158,7 @@ class InController extends Controller
     public function search_history($id, $id2){
         $mostrar = $id2;
         // dd($mostrar);
-    
+
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
@@ -167,16 +177,17 @@ class InController extends Controller
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
     }
 
-    /**
-     * 
-     * guarda registros nuevos y editados 
+     /**
+     *
+     * guarda registros nuevos y editados
+
      * en la historia del paciente
      *
      */
 
 
     public function guardar(Request $request, $id)  //REVISAR
-    {   
+     {
         //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
@@ -291,6 +302,7 @@ class InController extends Controller
                     }
                 }
 
+
                 if (!empty($request->medicine)){
 
                     foreach ($request->medicine as $medicine) {
@@ -310,6 +322,7 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
+
         }
     }
 
