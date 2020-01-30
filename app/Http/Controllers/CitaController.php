@@ -18,6 +18,7 @@ use App\Patient;
 use App\Surgery;
 use App\Itinerary;
 use App\Doctor;
+use App\Image;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -68,8 +69,10 @@ class CitaController extends Controller
         return view('dashboard.reception.create', compact('specialities'));
     }
 
-    public function search_patient(Request $request){
+    public function search_patient(Request $request){ //buscador de personas en agendar cita
+
         $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,201
@@ -79,6 +82,28 @@ class CitaController extends Controller
                 'message' => 'No encontrado',202
             ]);
         }
+    }
+
+    public function tomar_foto(){
+        $datos=json_decode(file_get_contents("php://input"));
+        $imagenCodificada=$datos->pic;
+
+        if(strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
+        //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
+
+        $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", urldecode($imagenCodificada));
+        //Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
+        //todo el contenido lo guardamos en un archivo
+
+        $imagenDecodificada = base64_decode($imagenCodificadaLimpia);
+        //Calcular un nombre único
+
+        $nombreImagenGuardada = "foto_" . uniqid() . ".png";
+        //Escribir el archivo
+
+        file_put_contents(public_path("storage\\person\\".$nombreImagenGuardada), $imagenDecodificada);
+        $path=("person/".$nombreImagenGuardada);
+        return($path);
     }
 
     public function store(CreateReservationRequest $request)
@@ -96,38 +121,34 @@ class CitaController extends Controller
                 'status'    => 'Pendiente',
                 'branch_id' => 1
             ]);
-
-
             $request->person = $person->id;
+        }
+
+        if ($request->image != null) {
+            $image = new Image;
+            $image->path = $request->image;
+            $image->imageable_type = "App\Person";
+            $image->imageable_id =$person->id;
+            $image->branch_id = 1;
+            $image->save();
         }
 
         $b_patient = Patient::where('person_id', $request->person)->first();
         // $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
         if($b_patient == null){
+            // dd($b_patient);
             $patient = Patient::create([
                 'history_number' => $this->numberHistory(),
-                'date'          =>  $request->date,
-                'person_id'     =>  $request->person,
+                'date'          =>  Carbon::now()->format('Y-m-d'),
+                'person_id'     =>  $person->id,
                 'employe_id'    =>  $request->doctor,
                 'reason'        =>  $request->motivo,
                 'branch_id'     =>  1,
-            ]);
-        }
+                ]);
+            }
 
+        // dd($patient);
 
-        if ($request->image != null) {
-            $image = $request->file('image');
-            $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
-            $path = str_replace('public/', '', $path);
-            $image = new Image;
-            $image->path = $path;
-            $image->imageable_type = "App\Employe";
-            $image->imageable_id = $employe->id;
-            $image->branch_id = 1;
-            $image->save();
-        }
-
-                // dd($patient);
 
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
@@ -145,6 +166,7 @@ class CitaController extends Controller
             'specialitie_id' => $request->speciality,
             'branch_id' => 1,
         ]);
+        // dd($reservation);
 
         return $reservation;
 

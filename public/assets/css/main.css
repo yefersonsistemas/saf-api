@@ -11286,6 +11286,7 @@ textarea[cols] {
 }
 
 .custom-checkbox .custom-control-input {
+    box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
     left: 0
 }
 
@@ -17330,7 +17331,8 @@ svg {
 }
 
 .dark-mode .custom-checkbox .custom-control-label:before {
-    background-color: #343a40
+    background-color: #343a40;
+    box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
 }
 
 .dark-mode .input-group-text,
