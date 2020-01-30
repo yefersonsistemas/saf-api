@@ -239,7 +239,16 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                     <div  class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
                                                         @foreach ( $reservation->historyPatient->disease as $disease )
-                                                            <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
+                                                        <div class="row" id="{{$disease->id}}">
+                                                            <div class="col-9">
+                                                                <a class="list-group-item list-group-item-action row ">{{ $disease->name }}</a>
+                                                            </div> 
+                                                            <div class="col-3">
+                                                                <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar enfermedad seleccionado"
+                                                                    value="Eliminar">
+                                                            </div>
+                                                        </div>      
+                                                            {{-- <a class="list-group-item list-group-item-action">{{ $disease->name }}</a> --}}
                                                         @endforeach
                                                     </div>
                                                 </div>
@@ -250,7 +259,15 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                     <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
                                                         @foreach ( $reservation->historyPatient->allergy as $allergy )
-                                                            <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
+                                                        <div class="row" id="{{$allergy->id}}">
+                                                            <div class="col-9">
+                                                                <a class="list-group-item list-group-item-action row ">{{ $allergy->name }}</a>
+                                                            </div> 
+                                                            <div class="col-3">
+                                                                <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar alergia seleccionado"
+                                                                    value="Eliminar">
+                                                            </div>
+                                                        </div> 
                                                         @endforeach
                                                     </div>
                                                 </div>
@@ -1635,6 +1652,131 @@ button[data-original-title="Help"]{ display: none; }
             });
         
         });
+
+
+           //================ eliminar examen seleccionado ==========
+    $(function() {
+        $(document).on('click', '.cirugiaP_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log(reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+
+
+      //================ eliminar enfermedad seleccionado ==========
+      $(function() {
+        $(document).on('click', '.enfermedad_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.enfermedad_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.enfermedad,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+
+       //================ eliminar enfermedad seleccionado ==========
+       $(function() {
+        $(document).on('click', '.alergia_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.alergia_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.alergia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
 
 </script>
 

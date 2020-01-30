@@ -786,17 +786,17 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @foreach ($procesm->procedures as $proces)
-                                <div class="row">
-                                    <div class="col-9 mt-3">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
-                                        <span class="custom-control-label">{{ $proces->name }} </span>
-                                    </label>
+                                    <div class="row" id="{{$proces->id}}">
+                                        <div class="col-9 mt-3">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                            <span class="custom-control-label">{{ $proces->name }} </span>
+                                        </label>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>{{ $proces->price }} </span>
+                                        </div>
                                     </div>
-                                    <div class="col-3">
-                                        <span>{{ $proces->price }} </span>
-                                    </div>
-                                </div>
                                 @endforeach
                             </div>
                         </div>
