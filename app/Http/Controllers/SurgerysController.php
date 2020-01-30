@@ -108,13 +108,15 @@ public function create_surgery(){
     //agenda la cirugia
     public function store(Request $request)
     {   
+        // dd($request);
         //datos a guardar en la tabla surgeries
         $p = $request->patient_id;
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
-        $d = $request->date;
+        $d = Carbon::create($request->date);
 
+        // dd($d);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
