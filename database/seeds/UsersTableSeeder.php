@@ -52,6 +52,7 @@ class UsersTableSeeder extends Seeder
         Procedure::truncate();
         ClassificationSurgery::truncate();
         TypeEquipment::truncate();
+        AreaAssigment::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
         $this->deleteDirectory(storage_path('/app/public/patient'));
         $this->deleteDirectory(storage_path('/app/public/typearea'));
