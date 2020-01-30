@@ -83,9 +83,9 @@
                     <li class="nav-item mb-1">
                         <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-4 pl-4"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las instalaciones</a>
                     </li>
-                    <li class="nav-item mb-1">
+                    {{-- <li class="nav-item mb-1">
                         <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-4 pl-4"  id="pills-total-tab" data-toggle="pill" href="#total" role="tab" aria-controls="total" aria-selected="false">Todas las citas</a>
-                    </li>
+                    </li> --}}
                 </ul><br>
             </div>
 
@@ -166,24 +166,24 @@
 
                                             <!--Medico tratente-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                <div class="card-body row">
-                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->person->name }} </span>  <span class="text-muted">{{ $item->person->lastname }}</span> <span class="text-muted"><i class="fe fe-phone"></i> {{ $item->person->phone }}</span></div>
                                                 </div>
                                             </div>  
 
                                              <!--Motivo de la cita-->
                                              <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                <div class="card-body row">
-                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad</h5></div>
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->speciality->name }} </span></div>
                                                 </div>
                                             </div> 
 
                                             <!--Motivo de la cita-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                <div class="card-body row">
-                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de la cita</h5></div>
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de cita:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->description }} </span></div>
                                                 </div>
                                             </div> 
@@ -274,9 +274,25 @@
 
                                                 <!--Medico tratente-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                    <div class="card-body row">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $es->person->name }} </span>  <span class=" mb-2 text-muted">{{ $es->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $es->person->phone }}</span></div>
+                                                    </div>
+                                                </div>  
+
+                                                 <!--Especialidad-->
+                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Especialidad:</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $es->speciality->name }} </span> </div>
+                                                    </div>
+                                                </div>  
+
+                                                 <!--Motivo de la cita-->
+                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Motivo de cita:</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $es->description}} </span> </div>
                                                     </div>
                                                 </div>  
                 
@@ -366,9 +382,25 @@
 
                                                 <!--Medico tratente-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                    <div class="card-body row">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $dentro->person->name }} </span>  <span class=" mb-2 text-muted">{{ $dentro->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $dentro->person->phone }}</span></div>
+                                                    </div>
+                                                </div>  
+
+                                                  <!--Especialidad-->
+                                                  <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $dentro->speciality->name }} </span> </div>
+                                                    </div>
+                                                </div>  
+
+                                                  <!--Motivo de cita-->
+                                                  <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de cita</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $dentro->description}} </span> </div>
                                                     </div>
                                                 </div>  
                 
@@ -384,7 +416,7 @@
                 
                 <!----------------------Fuera del consultorio----------------------->
                 <div class="tab-pane fade show active" id="fuera_office" role="tabpanel" aria-labelledby="pills-fuera_office-tab">
-                    <div  class="accordion" id="accordionExample" id="todas" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div  class="accordion" id="accordionExampleff" id="fuera_office" role="tabpanel" aria-labelledby="pills-fuera_office-tab">
                         @foreach ($itinerary as $itinerary)
                         @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                             {{-- @if($itinerary->status == 'dentro') <!--esta en espera-->
@@ -422,7 +454,7 @@
                                             <!--Nombre del paciente-->
                                             <div class="col-7">                                            
                                                 <h2 class=" mb-0 p-0" >
-                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
+                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#fuera_office{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
                                                         {{ $itinerary->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $itinerary->person->name }} {{ $itinerary->person->lastname }}  
                                                 </button>
                                                 </h2>
@@ -471,7 +503,7 @@
                                 </div>
 
                                 <!--informacion del paciente reservacion y demas-->
-                                <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div id="fuera_office{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExampleff">
                                     <div class="col-md-12 col-lg-9 col-sm-12">
                                         <div class="row card-body d-flex justify-content-lg-between">
 
@@ -481,7 +513,15 @@
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $itinerary->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $itinerary->employe->person->phone }}</span></div>
                                                 </div>
-                                            </div>  
+                                            </div> 
+                                            
+                                              <!--Especialidad-->
+                                              {{-- <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad</div>
+                                                    <div class="col-md-8"><span class="text-muted">  {{ $itinerary->speciality->name }} </span> </div>
+                                                </div>
+                                            </div>  --}}
                                                 
                                             <!--Posibles cirugias-->
                                             <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
@@ -690,7 +730,7 @@
                                 </div>
 
                                 <!--informacion del paciente reservacion y demas-->
-                                <div id="fuera{{ $fuera->person->type_dni }}{{ $fuera->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div id="fuera{{ $fuera->person->type_dni }}{{ $fuera->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample5">
                                     <div class="col-md-12 col-lg-9 col-sm-12">
                                         <div class="row card-body d-flex justify-content-lg-between">
 
@@ -714,8 +754,7 @@
                                                     @endif
                                                         <span class="titulos">Descripcion: </span><span>{{ $fuera->typesurgery->description }}</span><br>
                                                         <span class="titulos">Duracion: </span><span>{{ $fuera->typesurgery->duration }}</span> <br>                                               
-                                                        <span class="titulos">costo: </span><span>{{ $fuera->typesurgery->cost }}</span><br>
-                                                        <span><a href="{{ route('checkout.programar_cirugia', $fuera->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                        <span class="titulos">costo: </span><span>{{ $fuera->typesurgery->cost }}</span><br>                                                       
                                                     @else
                                                         <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                     @endif
@@ -738,79 +777,6 @@
                                                 </div>                                                
                                             </div> 
             
-                                        </div>
-                                    </div>
-
-                                    <!--Acciones-->
-                                    <div class="col-md-12 col-lg-3 col-sm-12">
-                                        <div class="row d-flex justify-content-end" style="width: 18rem;">
-                                            <div class="card-body">
-                                                <!--EXAMEN-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($fuera->exam_id != null)
-                                                        <a href="{{ route('checkout.imprimir_examen', $fuera->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                        <i class="fa fa-print"></i> Examen
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--RECETARIO-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($fuera->recipe_id != null)
-                                                        <a href="{{ route('checkout.imprimir_recipe', $fuera->recipe_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Recetario
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--REFERENCIA-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($fuera->reference_id != null)
-                                                        <a href="{{ route('checkout.imprimir_referencia', $fuera->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Referencia
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--REPOSO-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($fuera->repose_id != null)
-                                                        <a href="{{ route('checkout.imprimir_reposo', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Reposo
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--INFORME-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($fuera->report_medico_id != null)
-                                                        <a href="{{ route('checkout.imprimir_informe', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Informe
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--FACTURAR-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($fuera->procedureR_id != null)
-                                                        @if($fuera->billing == null)                                                    
-                                                            <a href="{{ route('checkout.facturacionLista', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                                <i class="fa fa-print"> </i> Facturar
-                                                            </a>
-                                                        @else
-                                                            @if($fuera->billing->person_id == null) 
-                                                                <a href="{{ route('checkout.facturacionLista', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                                    <i class="fa fa-print"> </i> Facturar
-                                                                </a>
-                                                            @else
-                                                                <a target="_blank" href="{{ route('checkout.imprimir_factura2', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                                    <i class="fa fa-print"> </i> Imprimir factura
-                                                                </a>
-                                                            @endif
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                            </div>                                                
                                         </div>
                                     </div>
                                 </div>
