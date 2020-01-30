@@ -311,9 +311,11 @@
                                                 {{ $enfermedades->name }}</option>
                                         @endforeach
                                     </select>
-                                    <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaenfermedad" style="margin-top: -55px; margin-left: 285px;">
-                                        Registrar
-                                    </button>
+                                    <div class="mt-1">
+                                        <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaenfermedad">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div>
                                     <ul class="list-group" style="list-style:none" id="enfermedades">
@@ -344,9 +346,11 @@
                                             @endif>{{ $medicamentos->name }}</option>
                                         @endforeach
                                     </select>
-                                    <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevomedicamento" style="margin-top: -55px; margin-left: 285px;">
-                                        Registrar
-                                    </button>
+                                    <div class="mt-1">
+                                        <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevomedicamento">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div>
                                     <ul class="list-group" style="list-style:none" id="medicamentos">
@@ -369,14 +373,16 @@
                                         <option value= {{ $alergias->id }}
                                         @if ($rs->patient->historyPatient != null)
                                             @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                            disabled
+                                            disabled selected
                                             @endif
                                             @endif>{{ $alergias->name }}</option>
                                         @endforeach
                                     </select>
-                                    <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaalergia" style="margin-top: -55px; margin-left: 285px;">
-                                        Registrar
-                                    </button>
+                                    <div class="mt-1">
+                                        <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaalergia">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div>
                                     <ul class="list-group" style="list-style:none" id="alergias">
@@ -481,7 +487,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">registrar Enfermedad</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Registrar Enfermedad</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -489,11 +495,21 @@
                 <form action="" method="POST">
                     @csrf
                 <div class="modal-body">
-                    <input type="text" name="" id="" class="form-control">
+                    <input type="text" placeholder="Nombre de la Enfermedad" name="name" value="{{ old('name') }}" class="form-control" required id="newdisease">
                 </div>
+
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-azuloscuro">Save changes</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
                 </form>
             </div>
@@ -505,19 +521,29 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">registrar Alergia</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Alergia</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST">
+                <form action="" method="POST" >
                     @csrf
                 <div class="modal-body">
-                    <input type="text" name="" id="" class="form-control">
+                    <input type="text" placeholder="Nombre de la Alergia" name="name" value="{{ old('name') }}" class="form-control" required id="newallergy">
                 </div>
+
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-azuloscuro">Save changes</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
                 </form>
             </div>
@@ -529,7 +555,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">registrar Alergia</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Medicamento</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -537,11 +563,20 @@
                 <form action="" method="POST">
                     @csrf
                 <div class="modal-body">
-                    <input type="text" name="" id="" class="form-control">
+                    <input type="text" placeholder="Nombre del Medicamento" name="name" value="{{ old('name') }}" class="form-control" required id="newmedicine">
                 </div>
+
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-azuloscuro">Save changes</button>
+                    <button type="button" class="btn btn-azuloscuro" id="medicineR" data-dismiss="modal">Guardar</button>
                 </div>
                 </form>
             </div>
@@ -710,7 +745,7 @@ Dropzone.options.myDropzone = {
     function alergias(allergy_id,patient_id){
         console.log('alergia,paciente', allergy_id, patient_id);
         $.ajax({ 
-                url: "{{ route('checkin.allergys') }}",  
+                url: "{{ route('checkin.allergies') }}",  
                 type: "POST",                            
                 data: {
                     _token: "{{ csrf_token() }}",        
@@ -790,7 +825,6 @@ Dropzone.options.myDropzone = {
             $("#enfermedades").append(enfermedad);
         }
     }
-
     </script>
 
     <script>
@@ -863,6 +897,132 @@ Dropzone.options.myDropzone = {
                 $('#submit-all').removeAttr('disabled');
             });
         </script>
+
+        <script>
+        $('#diseaseR').click(function(){
+            var name = $('#newdisease').val();
+            var patient_id = $('#patient-id').val();
+            console.log(name, patient_id);
+            nuevaenfermedad(name,patient_id);
+        });
+
+        function nuevaenfermedad(name,patient_id){
+            console.log(name,patient_id);
+            $.ajax({ 
+                url: "{{ route('checkin.diseases_create') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    name: name,
+                    id:patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  data.data,
+                        type:  'success',
+                    })
+
+
+                    agregar_diseases(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+        function agregar_diseases(data){
+        console.log('hhddd',data);
+            enfermedad ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</li>';
+            $("#enfermedades").append(enfermedad);
+        }
+        </script>
+
+        <script>
+        $('#allergyR').click(function(){
+            var name = $('#newallergy').val();
+            var patient_id = $('#patient-id').val();
+            console.log(name, patient_id);
+            nuevaalergia(name,patient_id);
+        });
+
+        function nuevaalergia(name,patient_id){
+            console.log(name,patient_id);
+            $.ajax({ 
+                url: "{{ route('checkin.allergies_create') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    name: name,
+                    id: patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  data.data,
+                        type:  'success',
+                    })
+                    agregar_allergies(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+        function agregar_allergies(data){
+        console.log('hhddd',data);
+            alergia ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</li>';
+            $("#alergias").append(alergia);
+        }
+        </script>
+
+        <script>
+        $('#medicineR').click(function(){
+            var name = $('#newmedicine').val();
+            var patient_id = $('#patient-id').val();
+            console.log(name, patient_id);
+            nuevaalergia(name,patient_id);
+        });
+
+        function nuevaalergia(name,patient_id){
+            console.log(name,patient_id);
+            $.ajax({ 
+                url: "{{ route('checkin.medicines_create') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    name: name,
+                    id: patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  data.data,
+                        type:  'success',
+                    })
+                    agregar_medicines(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+        function agregar_medicines(data){
+        console.log('hhddd',data);
+            medicamento ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</li>';
+            $("#medicamentos").append(medicamento);
+        }
+        </script>
+
         <script>
         // $("#submit-all").click(function() {
         //     console.log('hello');
