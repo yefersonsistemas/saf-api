@@ -109,7 +109,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input type="hidden" id="fechanueva" value="{{ $reservation->date }}">
-                                                <input id="fechas" name="fecha" data-provide="datepicker" autocomplete="off" data-date-autoclose="true" class="form-control datepicker" value="03/03/2020">
+                                            <input id="fechas" name="fecha" data-provide="datepicker" data-date-autoclose="true" class="form-control datepicker" value="">
                                             </div>
                                         </div>
                                     </div>

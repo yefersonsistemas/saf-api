@@ -175,13 +175,20 @@
                                                         <i class="fa fa-eye"></i> Realizar consulta
                                                     </a>
                                                     @endif
-                                                @elseif(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
+                                                @endif
+                                                @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                     @if(!($reservation->patient->historyPatient->diagnostic->isEmpty()))
                                                         <a href="{{ route('doctor.editar', $reservation->id) }}" class="badge badge-success btn p-2">
                                                             <i class="fa fa-eye"></i> Editar consulta
                                                         </a>
                                                     @endif
-                                                @else
+                                                @endif
+                                                @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))
+                                                <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
+                                                    <i class="fa fa-eye"></i> Consulta realizada
+                                                </button>
+                                                @endif
+                                                @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                     <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
                                                         <i class="fa fa-eye"></i> Realizar consulta
                                                     </button>
