@@ -257,16 +257,16 @@
                                         <td>{{ $procedure->name }}</td>
                                         @endif
                                              <td style="display: inline-block">
-                                                @can('modificar procedimiento')
-                                                <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
-                                                @endcan
                                                 @can('eliminar procedimiento')
                                                 <form action="{{ route('procedimiento.delete', $procedure) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form>
+                                                   @can('modificar procedimiento')
+                                                <a href="{{ route('procedure.edit', $procedure->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
                                                 @endcan
+                                            </form>
+                                           @endcan
                                             </td>
                                         </tr>
                                     @endforeach
@@ -309,14 +309,16 @@
                                             <td>{{ $surgery->description }}</td>
                                             <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar cirugias')
-                                                <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
-                                               @endcan
-                                               @can('eliminar cirugias')
+
+                                                @can('eliminar cirugias')
                                                 <form action="{{ route('cirugia.delete', $surgery) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                @can('modificar cirugias')
+                                                <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                               @endcan
+                                            
                                                 </form>
                                                 @endcan
                                             </td>
@@ -580,14 +582,15 @@
                                             <td>{{ $area->status }}</td>
                                             <td>{{ $area->typearea->name }}</td>
                                             <td style="display: inline-block">
-                                                @can('modificar area')
-                                                <a href="{{ route('area.edit', $area->id) }}" title="Editar" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
-                                                @endcan
+                                               
                                                 @can('eliminar area')
                                                 <form action="{{ route('area.delete', $area) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
+                                                    @can('modificar area')
+                                                    <a href="{{ route('area.edit', $area->id) }}" title="Editar" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                                    @endcan
                                                 </form>
                                                 @endcan
                                             </td>
