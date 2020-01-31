@@ -299,17 +299,19 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-                                                    @if($cite->previous_surgery != null)
-                                                    <div class="row" id="cirugia{{$cite->id}}">
-                                                        <div class="col-9" id="cirugia{{$cite->id}}">
-                                                            <a class="list-group-item list-group-item-action row" id="a_cirugia">{{ $cite->previous_surgery }}</a>
+                                                   <div id="agregar_cirugia">
+                                                        @if($cite->previous_surgery != null)
+                                                        <div class="row" id="cirugia{{$cite->id}}">
+                                                            <div class="col-9" id="cirugia{{$cite->id}}">
+                                                                <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
+                                                            </div> 
+                                                            <div class="col-3" id="cirugia{{$cite->id}}">
+                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
+                                                                    value="Eliminar">
+                                                            </div>
                                                         </div> 
-                                                        <div class="col-3" id="cirugia{{$cite->id}}">
-                                                            <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugias"
-                                                                value="Eliminar">
-                                                        </div>
-                                                    </div> 
-                                                    @endif 
+                                                        @endif 
+                                                   </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                             <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                     </div>
@@ -1256,8 +1258,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-            enfermedad = '<a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a>';
-            // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
+            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $(".mostrar_enfermedad").append(enfermedad);
         }
     }
@@ -1356,8 +1357,9 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-            alergia = '<a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a>';
+            // alergia = '<a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a>';
             // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
+            alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $(".mostrar_alergias").append(alergia);
         }
     }
@@ -1453,9 +1455,10 @@ button[data-original-title="Help"]{ display: none; }
 
    // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
-        console.log('ken',data);
-        cirugia = data.previous_surgery;
-        $("#a_cirugia").html(cirugia);
+        console.log('kenhh',data);
+        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9" id="cirugia'+data.id+'"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3" id="cirugia'+data.id+'"><input id="cirugia'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+        console.log(cirugia);
+        $("#agregar_cirugia").html(cirugia);
     }
 
     //================ eliminar cirugia previa  ==========

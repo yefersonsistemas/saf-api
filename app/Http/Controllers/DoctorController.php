@@ -947,12 +947,13 @@ class DoctorController extends Controller
         $reservation = Reservation::find($request->id);
         
         $cirugia = Patient::where('person_id', $reservation->patient_id)->first();
+        // dd($cirugia);
         if($cirugia != null){
             $cirugia->previous_surgery = $request->data;
             $cirugia->save();
         }else{
             $cirugia = null;
-        }    
+        }
                
         return response()->json([
             'Cirugia' => 'Cirugia agregada exitosamente',201,$cirugia
