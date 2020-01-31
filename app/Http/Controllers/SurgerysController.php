@@ -20,6 +20,7 @@ use App\Typesurgery;
 use App\Itinerary;
 use App\Doctor;
 use App\Area;
+use App\Reservationsurgery;
 use App\TypeArea;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -147,9 +148,15 @@ public function create_surgery(){
                 $operation->operation = true;
                 $operation->save();
 
+                //Relacion de paciente con la cirugia
                 $surgery->patient()->attach($p);
-                // $surgery->reservation()->attach($operation);
 
+                //llena los campos de la tabla Reservation_Surgery
+                $relation = Reservationsurgery::create([
+                    'reservation_id' => $request->reservation_id,
+                    'surgery_id' => $surgery->id,
+                    'branch_id' => 1
+                ]);
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{

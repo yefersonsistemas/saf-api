@@ -13,7 +13,19 @@
 @section('title','Lista de Cirugias')
 
 @section('content')
+<style>
+    .dataTables_filter label{
+        color: #434a54;
+    }
+    .dataTables_filter label input:focus{
+        border: 2px solid #00506b;
+    }
 
+    .btn-repro{
+        background: #ff8000;
+        color: #fff;
+    }
+</style>
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
@@ -43,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 mt--20">
+            <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                         <thead>
@@ -54,6 +66,7 @@
                                 <th>Doctor</th>
                                 <th>Operación</th>
                                 <th>Quirofano</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -63,13 +76,12 @@
                                 <th>Paciente</th>
                                 <th>Doctor</th>
                                 <th>Operación</th>
-                                <th>Quirofano</th>                                
+                                <th>Quirofano</th>
+                                <th>Acciones</th>                                
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach ($surgeries as $surgeries)
-                            {{-- @if (empty($reservation->cancel) && empty($reservation->discontinued) && empty($reservation->reschedule)) --}}
-                                
                             <tr style="height:40px;">
                                 @foreach ($surgeries->patient as $patient)
                                 <td style="text-align: center; font-size:10px; height:40px;">
@@ -99,8 +111,13 @@
                                     <td>{{$surgeries->employe->person->name}} {{$surgeries->employe->person->lastname}}</td>
                                     <td>{{$surgeries->typesurgeries->name}}</td>
                                     <td>{{$surgeries->area->name}}</td>
+                                    <td style="display: inline-block">
+                                        <a type="button" href="" disabled class="btn btn-success">A</a>
+                                        <a href="" class="btn btn-warning" href="">R</a>
+                                        <a type="button" class="btn btn-repro" href="">S</a>
+                                        <a type="button" class="btn btn-danger" href="">C</a>
+                                    </td>
                                 </tr>
-                                {{-- @endif--}}
                             @endforeach 
                         </tbody>
                     </table>
