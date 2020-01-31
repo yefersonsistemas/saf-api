@@ -837,6 +837,7 @@
                                 <div class="form-group">
                                     <div class="custom-controls-stacked">
                                         @foreach ($surgerys as $surgery)
+                                        @if ($surgery->classification->name == 'hospitalaria')
                                         <div class="row">
                                             <div class="col">
                                                 <label class="custom-control custom-checkbox">
@@ -845,11 +846,10 @@
                                                 </label>
                                             </div>
                                             <div class="col">
-                                                @if ($surgery->classification->name == 'hospitalaria')
                                                 <span>{{ $surgery->cost }}</span>
-                                                @endif
                                             </div>
                                         </div>
+                                        @endif
                                         @endforeach
                                     </div>
                                 </div>
@@ -857,6 +857,7 @@
                             <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">
                                 <div class="custom-controls-stacked">
                                     @foreach ($surgerys as $surgery)
+                                        @if ($surgery->classification->name == 'ambulatoria')
                                         <div class="row">
                                             <div class="col">
                                                 <label class="custom-control custom-checkbox">
@@ -865,11 +866,10 @@
                                                     </label>
                                             </div>
                                             <div class="col">
-                                                @if ($surgery->classification->name == 'ambulatoria')
                                                 <span>{{ $surgery->cost }}</span>
-                                                @endif
                                             </div>
                                         </div>
+                                        @endif
                                     @endforeach
                                     </div>
                                 </div>
