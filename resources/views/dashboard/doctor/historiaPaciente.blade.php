@@ -234,7 +234,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                    <div class=" mostrar_enfermedad">
+                                                    <div id=" mostrar_enfermedad">
                                                         @foreach ( $history->historyPatient->disease as $disease )
                                                         <div class="row" id="{{$disease->id}}">
                                                             <div class="col-9">
@@ -266,7 +266,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                    <div class="mostrar_alergias">
+                                                    <div id="mostrar_alergias">
                                                         @foreach ( $history->historyPatient->allergy as $allergy )
                                                             <div class="row" id="{{$allergy->id}}">
                                                                 <div class="col-9">
@@ -685,7 +685,7 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="enfermedad">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked modal_enfermedad">
+                            <div class="custom-controls-stacked" id="modal_enfermedad">
                                 @if($enfermedad != null)
                                     @foreach ($enfermedad as $item)
                                         <div class="row" id="quitar{{$item->id}}">
@@ -720,7 +720,7 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="form_alergias">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked modal_alergias">
+                            <div class="custom-controls-stacked" id="modal_alergias">
                                 @if($alergia != null)
                                     @foreach ($alergia as $item)
                                         <div class="row" id="quitarAlergia{{$item->id}}">
@@ -781,7 +781,7 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="proceduresC-office">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked modal_procedureR">
+                            <div class="custom-controls-stacked" id="modal_procedureR">
                                 @foreach ($procesm->procedures as $proces)
                                 <div class="row " id="quitar_procedureR{{$proces->id}}">
                                     <div class="col-9">
@@ -819,7 +819,7 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="exam">
                     <div class="modal-body m-3">
                         <div class="form-group">
-                            <div class="custom-controls-stacked modal_examen">
+                            <div class="custom-controls-stacked" id="modal_examen">
                                 @foreach ($exams as $exam)
                                 <label class="custom-control custom-checkbox" id="quitar_examen{{$exam->id}}">
                                     <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
@@ -1258,7 +1258,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
         for($i=0; $i < data.length; $i++){
             enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
-            $(".mostrar_enfermedad").append(enfermedad);
+            $("#mostrar_enfermedad").append(enfermedad);
             $("#quitar"+data[$i].id).remove();
         }
     }
@@ -1286,7 +1286,7 @@ button[data-original-title="Help"]{ display: none; }
             .done(function(data) {               
             console.log('enfermedad modal',data[1])         //recibe lo que retorna el metodo en la ruta definida  
             agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
-            $(".modal_enfermedad").append(agregar);
+            $("#modal_enfermedad").append(agregar);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1360,7 +1360,7 @@ button[data-original-title="Help"]{ display: none; }
 
         for($i=0; $i < data.length; $i++){
            alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
-            $(".mostrar_alergias").append(alergia);
+            $("#mostrar_alergias").append(alergia);
             $("#quitarAlergia"+data[$i].id).remove();
         }
     }
@@ -1585,7 +1585,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
             agregar_procedureR = '<div class="row " id="quitar_procedureR'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
-             $(".modal_procedureR").append(agregar_procedureR);
+             $("#modal_procedureR").append(agregar_procedureR);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1686,8 +1686,8 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-             agregar_examen =  '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
-             $(".modal_examen").append(agregar_examen);
+             agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
+             $("#modal_examen").append(agregar_examen);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
