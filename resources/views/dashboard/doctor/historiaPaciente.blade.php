@@ -238,10 +238,10 @@ button[data-original-title="Help"]{ display: none; }
                                                         @foreach ( $history->historyPatient->disease as $disease )
                                                         <div class="row" id="{{$disease->id}}">
                                                             <div class="col-9">
-                                                                <a class="list-group-item list-group-item-action row ">{{ $disease->name }}</a>
+                                                                <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
                                                             </div> 
                                                             <div class="col-3">
-                                                                <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar enfermedad seleccionado"
+                                                                <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                     value="Eliminar">
                                                             </div>
                                                         </div>                                                           
@@ -265,15 +265,15 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="collapseTwo" class="collapse card-body list-group mostrar_alergias" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
                                                     <div class="mostrar_alergias">
                                                         @foreach ( $history->historyPatient->allergy as $allergy )
                                                             <div class="row" id="{{$allergy->id}}">
                                                                 <div class="col-9">
-                                                                    <a class="list-group-item list-group-item-action row ">{{ $allergy->name }}</a>
+                                                                    <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
                                                                 </div> 
                                                                 <div class="col-3">
-                                                                    <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar alergia seleccionado"
+                                                                    <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                         value="Eliminar">
                                                                 </div>
                                                             </div>     
@@ -1256,7 +1256,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-            enfermedad = '<a class="list-group-item list-group-item-action">'+data[$i].name+'</a>';
+            enfermedad = '<a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a>';
             // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
             $(".mostrar_enfermedad").append(enfermedad);
         }
@@ -1307,9 +1307,10 @@ button[data-original-title="Help"]{ display: none; }
 
     //================ guardar alergias =================
     $("#guardarAlergias").click(function() {
-            var reservacion = $("#reservacion").val();
-            var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
+        var reservacion = $("#reservacion").val();
+        var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
         console.log("hh",datos);
+        
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1355,7 +1356,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-            alergia = '<a class="list-group-item list-group-item-action">'+data[$i].name+'</a>';
+            alergia = '<a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a>';
             // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
             $(".mostrar_alergias").append(alergia);
         }

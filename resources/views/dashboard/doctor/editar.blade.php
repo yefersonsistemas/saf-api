@@ -241,7 +241,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         @foreach ( $reservation->historyPatient->disease as $disease )
                                                         <div class="row" id="{{$disease->id}}">
                                                             <div class="col-9">
-                                                                <a class="list-group-item list-group-item-action row ">{{ $disease->name }}</a>
+                                                                <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
                                                             </div> 
                                                             <div class="col-3">
                                                                 <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar enfermedad seleccionado"
@@ -261,7 +261,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         @foreach ( $reservation->historyPatient->allergy as $allergy )
                                                         <div class="row" id="{{$allergy->id}}">
                                                             <div class="col-9">
-                                                                <a class="list-group-item list-group-item-action row ">{{ $allergy->name }}</a>
+                                                                <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
                                                             </div> 
                                                             <div class="col-3">
                                                                 <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar alergia seleccionado"

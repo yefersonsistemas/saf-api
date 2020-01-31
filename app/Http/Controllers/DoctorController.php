@@ -889,8 +889,6 @@ class DoctorController extends Controller
 
      //============= agregar alergias a la historia en el doctor =============
     public function agregar_alergias(Request $request){
-        // dd($request->data);
-        // $itinerary = Itinerary::where('reservation_id', $request->id)->first();
     
         $returndata2 = array();
         $strArray = explode('&', $request->data);
@@ -912,21 +910,26 @@ class DoctorController extends Controller
         $patients = Patient::where('person_id', $reservation->patient->id)->first();
 
         $alergias = Allergy::all();
-        foreach($reservation->patient->historyPatient->allergy as $item){
-            $array1[] = $item->id; 
+        $array1=array();
+        if($reservation->patient->historyPatient->allergy->first() != null){
+            foreach($reservation->patient->historyPatient->allergy as $item){
+                $array1[] = $item->id; 
+            }
         }
 
-        $merge_alergias= array_merge($returndata2,$array1);
-        $diff = array_diff($returndata2,$array1);
-        // dd($diff);
+        if($array1 != []){
+            $merge_alergias= array_merge($returndata2,$array1);
+            $diff = array_diff($returndata2,$array1);
+        }else{
+            $merge_alergias = $returndata2;
+            $diff = $returndata2;
+        }           
                       
         //guardando examens en la tabla diagnostic_exam
             foreach($merge_alergias as $item){
                 $b_alergia = Allergy::find($item);
                 $b_alergia->patient()->sync($patients);
             } 
-
-            // dd($merge_enfermedad);
 
             foreach($diff as $item){
                 $alergia[] = Allergy::find($item); 
