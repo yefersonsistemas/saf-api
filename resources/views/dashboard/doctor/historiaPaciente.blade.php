@@ -222,7 +222,7 @@ button[data-original-title="Help"]{ display: none; }
                                     <section class="ml-4 pb-0 pt-4">
                                         <div id="accordion">
                                             <!--agregar enfermedad-->
-                                            <div class="card">
+                                            <div class="card border border-info rounded">
                                                 <div class="card-header bg-azuloscuro" >
                                                     <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                         <div class="col-8">
@@ -254,14 +254,14 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
 
                                             <!--agregar alergias-->
-                                            <div class="card">
+                                            <div class="card border border-info rounded">
                                                 <div class="card-header bg-azuloscuro" >
                                                     <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Alergias</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">VER MAS</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -287,7 +287,7 @@ button[data-original-title="Help"]{ display: none; }
 
                                             <!--agregar cirugias-->
 
-                                            <div class="card">
+                                            <div class="card border border-info rounded">
                                                 <div class="card-header bg-azuloscuro" >
                                                     <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <div class="col-8">
@@ -1256,7 +1256,6 @@ button[data-original-title="Help"]{ display: none; }
    //=================  mostrando enfermedades ===================
    function mostrarEnfermedad(data){
         console.log('ken',data[0].name);
-
         for($i=0; $i < data.length; $i++){
             enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $(".mostrar_enfermedad").append(enfermedad);
@@ -1357,9 +1356,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-            // alergia = '<a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a>';
-            // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
-            alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $(".mostrar_alergias").append(alergia);
         }
     }
