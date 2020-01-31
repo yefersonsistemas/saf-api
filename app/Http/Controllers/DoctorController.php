@@ -1470,6 +1470,7 @@ class DoctorController extends Controller
             }
         }
         
+        $proce = Procedure::find($request->id);
         //actualizando campo de examenes
         if($procedure != null){
             $itinerary->procedure_id = implode(',', $procedure);
@@ -1480,7 +1481,7 @@ class DoctorController extends Controller
         }
 
         return response()->json([
-            'procedure' => 'Examen eliminado correctamente',202
+            'procedure' => 'Examen eliminado correctamente',202,$proce,
         ]);
 
     }
@@ -1563,11 +1564,14 @@ class DoctorController extends Controller
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
+        $cirugia = Typesurgery::find($itinerary->typesurgery_id);
+        // dd($cirugia);
+
         $itinerary->typesurgery_id = null;
         $itinerary->save();
      
         return response()->json([
-            'cirugia' => 'Cirugia eliminada correctamente',202
+            'cirugia' => 'Cirugia eliminada correctamente',202,$cirugia,
         ]);
 
     }

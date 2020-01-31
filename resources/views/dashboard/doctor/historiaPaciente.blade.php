@@ -851,9 +851,9 @@ button[data-original-title="Help"]{ display: none; }
                 <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
 
-                        <div class="custom-controls-stacked">
+                        <div class="custom-controls-stacked" id="modal_cirugiaP">
                             @foreach ($surgerys as $surgery)
-                            <div class="row">
+                            <div class="row" id="quitar_cirugia{{$surgery->id}}">
                                 <div class="col-9 mt-3">
                                     <label class="custom-control custom-checkbox">
                                         @if ($surgery->classification->name == 'hospitalaria')
@@ -894,9 +894,9 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="posible-procedures">
                 <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
-                        <div class="custom-controls-stacked">
+                        <div class="custom-controls-stacked" id="modal_procedureP">
                             @foreach ($procesm->procedures as $proces)
-                            <div class="row">
+                            <div class="row" id="quitar_procedureP{{$proces->id}}">
                                 <div class="col-9 mt-3">
                                 <label class="custom-control custom-checkbox d-flex">
                                     <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
@@ -1762,7 +1762,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
-         
+            $("#quitar_procedureP"+data[$i].id).remove();         
         }
     }
 
@@ -1788,6 +1788,8 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            agregar_procedureP = '<div class="row" id="quitar_procedureP'+data[1].id+'"><div class="col-9 mt-3"><label class="custom-control custom-checkbox d-flex"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
+          $('#modal_procedureP').append(agregar_procedureP);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1863,6 +1865,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
+            $("#quitar_cirugia"+data[$i].id).remove();   
         }
     }
 
@@ -1888,6 +1891,8 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            agregar_cirugiaP = data[1].name;
+            $("#modal_cirugiaP").append(agregar_cirugiaP);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
