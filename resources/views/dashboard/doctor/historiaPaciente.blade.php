@@ -241,15 +241,15 @@
                                                         <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">Ver Mas</p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div id="collapseOne" class="collapse card-body list-group" aria-labelledby="headingOne" data-parent="#accordion">
-                                                <div class="mostrar_enfermedad">
-                                                    @foreach ( $history->historyPatient->disease as $disease )
-                                                    <a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
-                                                    @endforeach
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-end mt-4">
-                                                    <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+                                                    <div class=" mostrar_enfermedad">
+                                                        @foreach ( $history->historyPatient->disease as $disease )
+                                                        <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="col-12 d-flex justify-content-end mt-4">
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -288,6 +288,14 @@
                                                     <div class="col-4 d-flex justify-content-end">
                                                         <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">Ver Mas</p>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
+                                                @if($cite->previous_surgery != null)
+                                                <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery  }}</a>
+                                                @endif
+                                                <div class="col-12 d-flex justify-content-end mt-4">
+                                                    <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                 </div>
                                             </div>
                                             <div id="collapseThree" class="collapse card-body list-group" aria-labelledby="headingThree" data-parent="#accordion">
@@ -825,7 +833,7 @@
                         <!-- Nav tabs -->
                         <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
                             <li role="presentation" class="active nav-item">
-                                <a class="nav-link active" href="#hospitalariaTab" aria-controls="hospitalariaTab" role="tab" data-toggle="tab">Cirugias Hospitalarias</a>
+                                <a class="nav-link" href="#hospitalariaTab" aria-controls="hospitalariaTab" role="tab" data-toggle="tab">Cirugias Hospitalarias</a>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" href="#ambulatoriaTab" aria-controls="ambulatoriaTab" role="tab" data-toggle="tab">Cirugias Ambulatorias</a>
@@ -837,7 +845,6 @@
                                 <div class="form-group">
                                     <div class="custom-controls-stacked">
                                         @foreach ($surgerys as $surgery)
-                                        @if ($surgery->classification->name == 'hospitalaria')
                                         <div class="row">
                                             <div class="col">
                                                 <label class="custom-control custom-checkbox">
@@ -846,36 +853,20 @@
                                                 </label>
                                             </div>
                                             <div class="col">
+                                                @if ($surgery->classification->name == 'hospitalaria')
                                                 <span>{{ $surgery->cost }}</span>
+                                                @endif
                                             </div>
                                         </div>
-                                        @endif
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">
-                                <div class="custom-controls-stacked">
-                                    @foreach ($surgerys as $surgery)
-                                        @if ($surgery->classification->name == 'ambulatoria')
-                                        <div class="row">
-                                            <div class="col">
-                                                <label class="custom-control custom-checkbox">
-                                                    <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id  }}">
-                                                    <span class="custom-control-label">{{ $surgery->name }}</span>
-                                                    </label>
-                                            </div>
-                                            <div class="col">
-                                                <span>{{ $surgery->cost }}</span>
-                                            </div>
-                                        </div>
-                                        @endif
-                                    @endforeach
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">browseTab</div>
                         </div>
                     </div>
+                </div>
                 <div class="modal-footer p-2">
                     <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                 </div>
