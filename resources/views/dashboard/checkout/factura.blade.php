@@ -88,6 +88,7 @@
                                                     <span class="h6 h66"><i class="fa fa-shopping-cart mr-1" style="font-size:18px"></i> Pagado por:</span>
                                                 </div>
                                                 <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mt-2">
+                                                    <input type="hidden" id="dni_C" val="">
                                                     <span class="text form-control p-1"><i class="fa fa-address-card pl-1"></i>&nbsp;<span id="dni_c" class="text text-left"></span></span>
                                                 </div>
                                                 <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mt-2">
@@ -203,7 +204,8 @@
                                             </div><br>
                                             <div class="row">
                                                 <div class="col-6 d-flex justify-content-end">
-                                                    <button type="submit" class="btn btn-boo pr-5 pl-5 mr-3" onclick="redirect()"> <i class="fa fa-print"> </i> Imprimir</button>
+                                                    {{-- <button disabled type="submit" class="btn btn-boo pr-5 pl-5 mr-3" id="deshabilitado"><i class="fa fa-print"> </i> Imprimir</button> --}}
+                                                    <input id="deshabilidato" disabled class="btn btn-boo pr-5 pl-5 mr-3" type="submit" value="Imprimir" />
                                                 </div>
                                                 <div class="col-6 d-flex justify-content-start">
                                                     <a href="{{route('checkout.index')}}" class="btn btn-boo pr-5 pl-5 mr-3">Salir</a>
@@ -296,7 +298,18 @@
     });
         </script>
         <script>
+//             $(document).ready(function(){
+//      $('input[type="submit"]').attr('disabled','disabled');
+//      $('input[type="text"]').keypress(function(){
+//             if($(this).val() != ''){
+//                $('input[type="submit"]').removeAttr('disabled');
+//             }
+//      });
+//  });
+
+
     $(document).ready(function(){
+        $('input[type="submit"]').attr('disabled','disabled');
         function financial(x) {
             return Number.parseFloat(x).toFixed(2);
         }
@@ -314,9 +327,9 @@
             if(phone == ''){ phone = null; }
             if(email == ''){ email=null;   }
 
-            
+            console.log('cedule',dni.length);
 
-        if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
+        if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 || name == '' || lastname == '' || address == ''){
             
             Swal.fire({
             title: 'Datos incompletos',
@@ -375,6 +388,7 @@
         //================================== para porder mostrar en el documento html ==========================
         function factura_cliente(data) {
             console.log('ken',data);
+            $("input[type=submit]").removeAttr("disabled"); 
             $('#dni_c').text(data.cliente.dni); 
             $('#name_c').text(data.cliente.name);
             $('#lastname_c').text(data.cliente.lastname);
@@ -385,6 +399,7 @@
         // ==================== ejecuta el que va a cancelar es el paciente =====================
         $("#paciente").click(function() {
             console.log('hola')
+            $("input[type=submit]").removeAttr("disabled"); 
             var dni = $("#dni").text(); 
             var name = $("#name").text(); 
             var phone = $("#phone").text(); 
@@ -396,10 +411,24 @@
             $('#name_c').text(name);
             $('#phone_c').text(phone); 
             $('#person_id').val(id); 
+
+            // $('#deshabilitado').removeAttr("disabled");
+
+            // $( "input:radio" ).on("click",function(){
+           
+  
+//   });
             // }
         }); //fin de la funcion clikea
     }); //fin del documento
 
+// abrir un PDF en una pestaña nueva
+$("#deshabilitado").click(function() {
+// window.open('http://ejemplo.com/archivo.pdf', '_blank');
+ 
+// redirigir la pestaña actual a otra URL
+window.location.href = '/citas/deldia';
+});
     </script>
     {{-- <script>
         function redirect() {

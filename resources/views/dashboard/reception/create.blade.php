@@ -321,10 +321,13 @@
             type: 'success',
             allowOutsideClick:false,
             confirmButtonColor: '#3085d6',
-            confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
-            }).then((result) => {
-                if (result.value) {
-                }
+            // confirmButtonText: '<a href="{{ route('checkin.day') }}" style="color:#fff">OK</a>'
+            })
+            // .then((result) => {
+            //     if (result.value) {
+            //     }
+            .then(function(){
+                window.location.href = '{{ route('checkin.day') }}'
             })
         }
     });

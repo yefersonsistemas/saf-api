@@ -28,6 +28,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 
+
 class UsersTableSeeder extends Seeder
 {
     use ImageFactory;
@@ -51,10 +52,12 @@ class UsersTableSeeder extends Seeder
         Procedure::truncate();
         ClassificationSurgery::truncate();
         TypeEquipment::truncate();
+        AreaAssigment::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
         $this->deleteDirectory(storage_path('/app/public/patient'));
         $this->deleteDirectory(storage_path('/app/public/typearea'));
         $this->deleteDirectory(storage_path('/app/public/area'));
+        $this->deleteDirectory(storage_path('/app/public/surgeries'));
 
         //Procedure::truncate();
 
@@ -131,6 +134,7 @@ class UsersTableSeeder extends Seeder
             'branch_id' => '1',
         ]);
         $cirugia->employe_surgery()->attach($employe->id);
+        $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
 
         //creando especialidad
         $especialidad = factory(App\Speciality::class)->create([
@@ -334,6 +338,7 @@ class UsersTableSeeder extends Seeder
                 'classification_surgery_id' => $clasificacion->id,
                 'branch_id' => '1',
             ]);
+            $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
     
 
         /**
@@ -368,9 +373,28 @@ class UsersTableSeeder extends Seeder
          * Se crea el horario del medico
          */
             
-        $schedule = factory(Schedule::class, rand(1,3))->create([
+        // $schedule = factory(Schedule::class, rand(1,3))->create([
+        //     'employe_id' => $employe->id
+        // ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'thursday',
+            'turn' => 'tarde',
             'employe_id' => $employe->id
         ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'tuesday',
+            'turn' => 'tarde',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'monday',
+            'turn' => 'mañana',
+            'employe_id' => $employe->id
+        ]);
+
 
         /*
         * Area a que pertenece
@@ -730,7 +754,25 @@ class UsersTableSeeder extends Seeder
             /**
              * Se crea el horario del medico
              */
-            $schedule = factory(Schedule::class, rand(1,3))->create([
+            // $schedule = factory(Schedule::class, rand(1,3))->create([
+            //     'employe_id' => $employe1->id
+            // ]);
+
+            factory(Schedule::class)->create([
+                'day' => 'thursday',
+                'turn' => 'tarde',
+                'employe_id' => $employe1->id
+            ]);
+    
+            factory(Schedule::class)->create([
+                'day' => 'wednesday',
+                'turn' => 'mañana',
+                'employe_id' => $employe1->id
+            ]);
+    
+            factory(Schedule::class)->create([
+                'day' => 'monday',
+                'turn' => 'mañana',
                 'employe_id' => $employe1->id
             ]);
 
@@ -1030,7 +1072,25 @@ class UsersTableSeeder extends Seeder
             /**
              * Se crea el horario del medico
              */
-            $schedule = factory(Schedule::class, rand(1,3))->create([
+            // $schedule = factory(Schedule::class, rand(1,3))->create([
+            //     'employe_id' => $employe2->id
+            // ]);
+
+            factory(Schedule::class)->create([
+                'day' => 'thursday',
+                'turn' => 'tarde',
+                'employe_id' => $employe2->id
+            ]);
+    
+            factory(Schedule::class)->create([
+                'day' => 'wednesday',
+                'turn' => 'mañana',
+                'employe_id' => $employe2->id
+            ]);
+    
+            factory(Schedule::class)->create([
+                'day' => 'tuesday',
+                'turn' => 'mañana',
                 'employe_id' => $employe2->id
             ]);
 
@@ -1214,7 +1274,25 @@ class UsersTableSeeder extends Seeder
             /**
              * Se crea el horario del medico
              */
-            $schedule = factory(Schedule::class, rand(1,3))->create([
+            // $schedule = factory(Schedule::class, rand(1,3))->create([
+            //     'employe_id' => $employe3->id
+            // ]);
+
+            factory(Schedule::class)->create([
+                'day' => 'thursday',
+                'turn' => 'tarde',
+                'employe_id' => $employe3->id
+            ]);
+    
+            factory(Schedule::class)->create([
+                'day' => 'wednesday',
+                'turn' => 'tarde',
+                'employe_id' => $employe3->id
+            ]);
+    
+            factory(Schedule::class)->create([
+                'day' => 'tuesday',
+                'turn' => 'tarde',
                 'employe_id' => $employe3->id
             ]);
 
@@ -1789,6 +1867,10 @@ class UsersTableSeeder extends Seeder
 
         ])->givePermissionTo(Permission::all())
         ->assignRole(Role::all());
+
+        factory(Position::class)->create([
+            'name'    => 'mantenimiento',
+        ]);
 
         // $position = factory(App\Position::class)->create([
         //     'name' => 'logistica',

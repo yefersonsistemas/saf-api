@@ -20,6 +20,7 @@ use App\Itinerary;
 use App\Doctor;
 use App\Image;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CitaController extends Controller
@@ -68,10 +69,8 @@ class CitaController extends Controller
         return view('dashboard.reception.create', compact('specialities'));
     }
 
-    public function search_patient(Request $request){ //buscador de personas en agendar cita
-
+    public function search_patient(Request $request){
         $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
-
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,201
@@ -202,6 +201,7 @@ class CitaController extends Controller
                     'branch_id' => 1,
                 ]);
             }
+            // return Redirect('checkin.day')->withSuccess('Cita Creada')
             return response()->json([
                 'message' => 'Cita creada',
             ]);

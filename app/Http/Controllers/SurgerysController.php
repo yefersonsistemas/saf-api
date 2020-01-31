@@ -43,7 +43,7 @@ class SurgerysController extends Controller
      */
     // para agendar cirugia cuando el paciente se encuentra en el itinerario 
     public function create($id){
-
+// dd($id);
         $tipo = TypeArea::where('name', 'Quirofano')->first();
         
         $quirofano = Area::with('typearea','image')->where('type_area_id', $tipo->id)->get();     
@@ -52,6 +52,7 @@ class SurgerysController extends Controller
 
         $medico = Typesurgery::with('employe_surgery.person.image')->where('id', $paciente->typesurgery->id)->first();
 
+        // dd($medico);
         return view('dashboard.checkout.programar_cirugia', compact('quirofano', 'paciente', 'medico'));
 }
 
@@ -62,7 +63,7 @@ public function create_surgery(){
     // dd($cirugias);
     $surgeries = Typesurgery::all();
     $tipo = TypeArea::where('name', 'Quirofano')->first();
-    $quirofano = Area::where('type_area_id', $tipo->id)->get();     
+    $quirofano = Area::with('image')->where('type_area_id', $tipo->id)->get();     
 
     return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
 }
@@ -108,13 +109,15 @@ public function create_surgery(){
     //agenda la cirugia
     public function store(Request $request)
     {   
+        // dd($request);
         //datos a guardar en la tabla surgeries
         $p = $request->patient_id;
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
-        $d = $request->date;
+        $d = Carbon::create($request->date);
 
+        // dd($d);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		

@@ -26,6 +26,7 @@ use App\Recipe;
 use App\Repose;
 use App\ReportMedico;
 use App\InputOutput;
+use App\Allergy;
 // use App\Redirect;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -91,8 +92,64 @@ class DoctorController extends Controller
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        // dd($history);
+        //----------------mostrar enfermedades----------
+        $enfermedades = Disease::all();
         
+
+        if($history->historyPatient->disease != null){
+            foreach($enfermedades as $item){
+                $array1[] = $item->id; 
+            }
+
+            foreach($history->historyPatient->disease as $item){
+                $array2[] = $item->id; 
+            }
+           
+
+            $diff = array_diff($array1, $array2);
+        
+            if($diff != []){
+                foreach($diff as $item){
+                    $enfermedad[] = Disease::find($item); 
+                }
+            }else{
+                $enfermedad = [];
+            }
+           
+        }else{           
+            $enfermedad = Disease::all();
+        }
+
+        //----------------mostrar alergias---------------
+          $alergias = Allergy::all();
+        //   dd($alergias);
+          if($history->historyPatient->allergy != null){
+            foreach($alergias as $item){
+                $array1[] = $item->id; 
+            }
+            // dd($array1);
+            foreach($history->historyPatient->allergy as $item){
+                $array2[] = $item->id; 
+            }
+            // dd($array2);
+
+            $diff_A = array_diff($array1, $array2);
+            // dd($diff);
+            if($diff_A != []){
+                foreach($diff_A as $item){
+                    $alergia[] = Allergy::find($item); 
+                    // dd($enfermedad);
+                }
+            }else{
+                $alergia = [];
+            }
+           
+        }else{           
+            $alergia = Allergy::all();
+        }
+
+        //-------------mostrar cirugias--------------
+      
         $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first(); 
      
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
@@ -102,7 +159,7 @@ class DoctorController extends Controller
 
         $surgerys = Typesurgery::all();
 
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia'));
     }
 
     /**
@@ -136,6 +193,7 @@ class DoctorController extends Controller
             $data[] = $item->id;
         }
 
+        //datos de la referencia
         if($itinerary->reference != ''){
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
@@ -161,7 +219,6 @@ class DoctorController extends Controller
                 $diff2 = [];
             }
             
-
             // dd($diff2);
         }else{
             $diff_R = $data;
@@ -740,7 +797,7 @@ class DoctorController extends Controller
        
         if($itinerary->procedureR_id != null){
             $b_procedure =  explode(',', $itinerary->procedureR_id);
-            $diff= array_diff_assoc($returndata2,$b_procedure);
+            $diff= array_diff($returndata2,$b_procedure);
 
             if($diff != null){
                 $string = implode(',', $diff);
@@ -767,7 +824,128 @@ class DoctorController extends Controller
         return response()->json([
             'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
             ]);
+    }
+
+
+    // //============= Procedimientos realizados en el consultorio =============
+    public function agregar_enfermedad(Request $request){
+        // dd($request->id);
+        // $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+    
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
         }
+
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        }
+        // dd($returndata2);
+
+        $reservation = Reservation::with('patient.historyPatient.disease')->where('id',$request->id)->first();
+        // dd($reservation->patient->historyPatient->id);
+        $patients = Patient::where('person_id', $reservation->patient->id)->first();
+
+        $enfermedades = Disease::all();
+        foreach($reservation->patient->historyPatient->disease as $item){
+            $array1[] = $item->id; 
+        }
+
+        $merge_enfermedad= array_merge($returndata2,$array1);
+        $diff = array_diff($returndata2,$array1);
+        // dd($diff);
+                      
+        //guardando examens en la tabla diagnostic_exam
+            foreach($merge_enfermedad as $item){
+                $b_enfermedad = Disease::find($item);
+                $b_enfermedad->patient()->sync($patients);
+            } 
+
+            // dd($merge_enfermedad);
+
+            foreach($diff as $item){
+                $enfermedad[] = Disease::find($item); 
+            }
+       
+            // dd($enfermedad);
+        return response()->json([
+            'enfermedad' => 'Enfermedad agregada exitosamente',201,$enfermedad
+            ]);
+    }
+
+     //============= agregar alergias a la historia en el doctor =============
+    public function agregar_alergias(Request $request){
+        // dd($request->data);
+        // $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+    
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        }
+        // dd($returndata2);
+
+        $reservation = Reservation::with('patient.historyPatient.allergy')->where('id',$request->id)->first();
+        // dd($reservation->patient->historyPatient->id);
+        $patients = Patient::where('person_id', $reservation->patient->id)->first();
+
+        $alergias = Allergy::all();
+        foreach($reservation->patient->historyPatient->allergy as $item){
+            $array1[] = $item->id; 
+        }
+
+        $merge_alergias= array_merge($returndata2,$array1);
+        $diff = array_diff($returndata2,$array1);
+        // dd($diff);
+                      
+        //guardando examens en la tabla diagnostic_exam
+            foreach($merge_alergias as $item){
+                $b_alergia = Allergy::find($item);
+                $b_alergia->patient()->sync($patients);
+            } 
+
+            // dd($merge_enfermedad);
+
+            foreach($diff as $item){
+                $alergia[] = Allergy::find($item); 
+            }
+       
+            // dd($alergia);
+        return response()->json([
+            'enfermedad' => 'Alergia agregada exitosamente',201,$alergia
+            ]);
+    }
+
+            //============= agregar cirugias a la historia en el doctor =============
+    public function agregar_cirugias(Request $request){
+
+        $reservation = Reservation::find($request->id);
+        
+        $cirugia = Patient::where('person_id', $reservation->patient_id)->first();
+        if($cirugia != null){
+            $cirugia->previous_surgery = $request->data;
+            $cirugia->save();
+        }else{
+            $cirugia = null;
+        }    
+               
+        return response()->json([
+            'Cirugia' => 'Cirugia agregada exitosamente',201,$cirugia
+            ]);
+    }
 
         //================= actualizar procedimientos realizados ==============
         public function proceduresR_update(Request $request){
@@ -860,6 +1038,73 @@ class DoctorController extends Controller
             }
         }
 
+
+    //================eliminar examen ===================
+    public function procedureR_eliminar2(Request $request){
+    
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $procedures = explode(',', $itinerary->procedureR_id);
+
+        $procedure = null;
+        for($i=0; $i < count($procedures); $i++) {
+            if($request->id != $procedures[$i]){
+                $procedure[] = $procedures[$i];
+            }
+        }
+        // dd($procedure);
+        
+        //actualizando campo de examenes
+        if($procedure != null){
+            $itinerary->procedureR_id = implode(',', $procedure);
+            $itinerary->save();
+        }else{
+            $itinerary->procedureR_id = null;
+            $itinerary->save();
+        }
+
+        return response()->json([
+            'procedure' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
+
+    //================eliminar examen desde el actualizar===================
+    public function procedureR_eliminar(Request $request){
+
+        $diagnostic = Diagnostic::find($request->diagnostic_id);
+        $procedure = Procedure::find($request->id);
+
+        //borrando examen de la tabla pivote diagnostic_exam
+        $diagnostic->procedures()->detach($procedure);
+    
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $procedures = explode(',', $itinerary->procedureR_id);
+
+        $proce = null;
+        for($i=0; $i < count($procedures); $i++) {
+            if($request->id != $procedures[$i]){
+                $proce[] = $procedures[$i];
+            }
+        }
+
+        //actualizando campo de examenes
+        if($proce != null){
+            $itinerary->procedureR_id = implode(',', $proce);
+            $itinerary->save();
+        }else{
+            $itinerary->procedureR_id = null;
+            $itinerary->save();
+        }
+
+        // dd($itinerary->procedureR_id);
+        return response()->json([
+            'procedure' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
+    
         
     //======================= Examenes a realizar(paciente) ==================
     public function examR(Request $request){
@@ -883,8 +1128,9 @@ class DoctorController extends Controller
 
         if($itinerary->exam_id != null){
             $b_exam =  explode(',', $itinerary->exam_id);
-            $diff= array_diff_assoc($returndata2,$b_exam);
+            $diff= array_diff($returndata2,$b_exam);
 
+            // dd($diff);
             if($diff != null){
                 $string = implode(',',$diff);                
                 $todo = $itinerary->exam_id .','. $string;
@@ -908,6 +1154,7 @@ class DoctorController extends Controller
             $examen[] = Exam::find($examenes[$i]);
         }
                
+        // dd($examen);
         return response()->json([
             'exam' => 'Examenes guardados exitosamente',201,$examen
         ]);
@@ -1004,8 +1251,36 @@ class DoctorController extends Controller
         }
     }
 
-
     //================eliminar examen ===================
+    public function exam_eliminar2(Request $request){
+   
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $examenes = explode(',', $itinerary->exam_id);
+
+        $exam = null;
+        for($i=0; $i < count($examenes); $i++) {
+            if($request->id != $examenes[$i]){
+                $exam[] = $examenes[$i];
+            }
+        }
+        //actualizando campo de examenes
+        if($exam != null){
+            $itinerary->exam_id = implode(',', $exam);
+            $itinerary->save();
+        }else{
+            $itinerary->exam_id = null;
+            $itinerary->save();
+        }
+
+        return response()->json([
+            'exam' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
+
+
+    //================eliminar examen desde el actualizar===================
     public function exam_eliminar(Request $request){
 
         $diagnostic = Diagnostic::find($request->diagnostic_id);
@@ -1063,7 +1338,7 @@ class DoctorController extends Controller
         
         if($itinerary->procedure_id != null){
             $b_procedure =  explode(',', $itinerary->procedure_id);
-            $diff= array_diff_assoc($returndata2,$b_procedure);
+            $diff= array_diff($returndata2,$b_procedure);
 
             if($diff != null){
                 $string = implode(',',$diff);
@@ -1164,6 +1439,35 @@ class DoctorController extends Controller
         }
     }
 
+
+    //================eliminar posibles procedimientos ===================
+    public function procedureP_eliminar2(Request $request){
+
+        //buscando en itinerary para actualizar campo
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+        $procedures = explode(',', $itinerary->procedure_id);
+
+        $procedure = null;
+        for($i=0; $i < count($procedures); $i++) {
+            if($request->id != $procedures[$i]){
+                $procedure[] = $procedures[$i];
+            }
+        }
+        
+        //actualizando campo de examenes
+        if($procedure != null){
+            $itinerary->procedure_id = implode(',', $procedure);
+            $itinerary->save();
+        }else{
+            $itinerary->procedure_id = null;
+            $itinerary->save();
+        }
+
+        return response()->json([
+            'procedure' => 'Examen eliminado correctamente',202
+        ]);
+
+    }
     //Candidato a cirugias
     public function surgerysP(Request $request){
 
@@ -1236,6 +1540,20 @@ class DoctorController extends Controller
                 'surgerysR' => 'Seleccione una cirugia',202
             ]);
         }
+    }
+
+      //================eliminar posibles procedimientos ===================
+      public function cirugiaP_eliminar2(Request $request){
+
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+
+        $itinerary->typesurgery_id = null;
+        $itinerary->save();
+     
+        return response()->json([
+            'cirugia' => 'Cirugia eliminada correctamente',202
+        ]);
+
     }
 
 }

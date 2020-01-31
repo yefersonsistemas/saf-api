@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Allergy;
 use App\Area;
+use App\AreaAssigment;
 use App\Disease;
 use App\Doctor;
 use App\Person;
@@ -24,6 +25,8 @@ use App\TypeDoctor;
 use App\Typesurgery;
 use App\User;
 use App\ClassificationSurgery;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 
 class DirectorController extends Controller
@@ -80,8 +83,12 @@ class DirectorController extends Controller
         $procedure = Procedure::get();
         $clases = TypeDoctor::get();
         $permissions = Permission::all();
+        $type = TypeArea::where('name', 'Consultorio')->first();
+        // dd($type);
+        $area = Area::with('areaassigment.employe')->where('type_area_id', $type->id)->get();
+        // dd($area);
 
-        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases', 'permissions'));
+        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases', 'permissions', 'area'));
     }
 
     /**
@@ -92,7 +99,7 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         
         $data = $request->validate([
             'name' => 'required',
@@ -115,12 +122,14 @@ class DirectorController extends Controller
             'address'   => $data['address'],
             'branch_id' => 1
         ]);
+        // dd($person);
 
         $employe = Employe::create([
             'person_id' => $person->id,
             'position_id'   =>$request->position_id,
             'branch_id' => 1
         ]);
+        // dd($employe);
             
         $user = User::create([
             'email'      => $person->email,
@@ -128,8 +137,10 @@ class DirectorController extends Controller
             'person_id'  => $person->id,
             'branch_id' => 1
         ]);
+        // dd($user);
 
         $cargo = Position::find($request->position_id);
+        // dd($cargo);
 
         $user->assignRole($cargo->name);
 
@@ -154,6 +165,18 @@ class DirectorController extends Controller
                 }
             }
         }
+
+        if ($request->area_id != null) {
+           
+            $area = AreaAssigment::create([
+                'employe_id' => $employe->id,
+                'area_id'    => $request->area_id,
+                'branch_id' => 1
+            ]);
+        }
+
+        // dd($area);
+    
           
         if ($request->image != null) {
             $image = $request->file('image');
@@ -241,18 +264,29 @@ class DirectorController extends Controller
         $doctor->save();
 
         $user->permissions()->sync($request->perms);
+        if ($request->image != null) {
+            if ( $employe->image == null) {
+               
+                $image = $request->file('image');
+                $path = $image->store('public/employes');  
+                $path = str_replace('public/', '', $path);
+                $image = new Image;
+                $image->path = $path;
+                $image->imageable_type = "App\Employe";
+                $image->imageable_id = $employe->id;
+                $image->branch_id = 1;
+                $image->save();
+            }else{
+                // dd($employe->image->path);
+                Storage::disk('public')->delete($employe->image->path); //elimina la img de storage
+                
 
-       if ($request->image != null) {
-           
-           $image = $request->file('image');
-           $path = $image->store('public/employes');  
-           $path = str_replace('public/', '', $path);
-           $image = new Image;
-           $image->path = $path;
-           $image->imageable_type = "App\Employe";
-           $image->imageable_id = $employe->id;
-           $image->branch_id = 1;
-           $image->save();
+                $image = $request->file('image');
+                $path = $image->store('public/employes');  
+                $path = str_replace('public/', '', $path);
+                $employe->image->path = $path;
+                $employe->image->save();
+            }
         }
 
        return redirect()->route('employe.index')->withSuccess('Registro modificado'); 

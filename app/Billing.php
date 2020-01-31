@@ -12,6 +12,11 @@ class Billing extends Model //facturacion
         'person_id', 'patient_id', 'employe_id', 'type_payment_id', 'type_currency_id', 'branch_id'
     ];
 
+    public function itinerary()
+    {
+        return $this->belongsTo('App\Itinerary');
+    }
+
     public function employe()
     {
         return $this->belongsTo('App\Employe');

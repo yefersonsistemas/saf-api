@@ -30,6 +30,7 @@ class CreateItineraryTable extends Migration
             $table->string('status')->nullable();
             $table->unsignedBigInteger('report_medico_id')->nullable();
             $table->unsignedBigInteger('repose_id')->nullable();
+            $table->unsignedBigInteger('billing_id')->nullable();
 
             $table->timestamps();
 
@@ -86,6 +87,11 @@ class CreateItineraryTable extends Migration
             $table->foreign('repose_id')
             ->references('id')
             ->on('reposes')
+            ->onDelete('CASCADE');
+
+            $table->foreign('billing_id')
+            ->references('id')
+            ->on('billings')
             ->onDelete('CASCADE');
         });
     }

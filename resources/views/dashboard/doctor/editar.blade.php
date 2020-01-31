@@ -311,7 +311,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <h5>Procedimientos Realizados al Paciente:</h5>
                                                 </div>
                                                 <div class="col-12 mt-10">
-                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-success">
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel">
                                                         <i class="fa fa-plus"></i>
                                                         Agregar Procedimiento
                                                     </button>
@@ -330,12 +330,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <th class="text-center">Accion</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tfoot>
-                                                                            <tr>
-                                                                                <th>Procedimiento Seleccionado</th>
-                                                                                <th class="text-center">Accion</th>
-                                                                            </tr>
-                                                                        </tfoot>
                                                                         <tbody id="ocultar_procedureR">
                                                                             @if(!empty($r_patient->procedures))
                                                                             @foreach ($r_patient->procedures as $proces)
@@ -343,9 +337,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <td>
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
                                                                                         </td>
-                                                                                        <td class="actions d-flex justify-content-center">
-                                                                                            <input id="{{ $proces->id }}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
-                                                                                                value="g">
+                                                                                        <td id="{{ $proces->id }}" class=" d-flex justify-content-center">
+                                                                                            <input id="{{ $proces->id }}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen"
+                                                                                                value="Eliminar">
                                                                                         </td>
                                                                                     </tr>
                                                                                 @endforeach
@@ -398,7 +392,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                     <div class="row">
                                                         <div class="col-12 mt-30 d-flex justify-content-start">
-                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-success">
+                                                            <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-verdePastel">
                                                                 <i class="fa fa-plus"></i>
                                                                 Agregar examen
                                                             </button>
@@ -420,12 +414,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                         <th class="text-center">Eliminar examen</th>
                                                                                                     </tr>
                                                                                                 </thead>
-                                                                                                <tfoot>
-                                                                                                    <tr>
-                                                                                                        <th>Medicamento Seleccionado</th>
-                                                                                                        <th class="text-center">Eliminar examen</th>
-                                                                                                    </tr>
-                                                                                                </tfoot>
                                                                                                 <tbody id="ocultar_examen">
                                                                                                     @if(!empty($r_patient->exam))
                                                                                                         @foreach ($r_patient->exam as $exam)
@@ -433,9 +421,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                                 <td>
                                                                                                                     <div class="col-6" >{{$exam->name}}</div> 
                                                                                                                 </td>
-                                                                                                                <td class="actions d-flex justify-content-center">
-                                                                                                                <input id="{{$exam->id}}" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"
-                                                                                                                        value="g">
+                                                                                                                <td class="d-flex justify-content-center">
+                                                                                                                <input id="{{$exam->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen"
+                                                                                                                        value="Eliminar">
                                                                                                                 </td>
                                                                                                                 {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
 
@@ -608,12 +596,16 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
-                                                                                <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                    @if($itinerary->reference != '')
+                                                                                @if($itinerary->reference != '')       
                                                                                     <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
-                                                                                        <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
+                                                                                @else
+                                                                                <input type="hidden" id="reference" name="reference" value="">
+                                                                                @endif
+                                                                                <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                                    @if($itinerary->reference != '')                                                                                   
+                                                                                         <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @endif
-                                                                                    @if($diff != [])
+                                                                                     @if($diff != [])  
                                                                                         @foreach ($diff as $spe)
                                                                                             <option value="{{ $spe->id }}">{{ $spe->name }}</option>
                                                                                         @endforeach
@@ -678,50 +670,93 @@ button[data-original-title="Help"]{ display: none; }
 
                                                 <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                    <div class="row d-flex justify-content-center">
-                                                        <div class=" col-4">
-                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#surgerys">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Cirugia
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <div class="col-4">
-                                                            <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-success">
-                                                                <i class="fa fa-plus"></i>
-                                                                Agregar Procedimiento
-                                                            </button>
-                                                        </div>                                                            
-                                                    </div>
-                                                        <!------------------------------listar cirugias y procedimientos---------------------->
-                                                        <div class="row d-flex mt-20 justify-content-center">
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Cirugia/as</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="cirugias" style="font-size:14px;">
-                                                                    @if(!empty($itinerary->typesurgery))
-                                                                        @foreach ($surgery as $surge)
-                                                                        <li>{{ $surge->name }}</li>
-                                                                        @endforeach
-                                                                    @endif                                                            
-                                                                    
-                                                                </ul>  
-                                                            </div>
+                                                    {{-- <div class="row d-flex justify-content-center"> --}}
+                                                        <div class="row">
+                                                            <div class="col-lg-12 mx-auto">
+                                                                <div class="card">
+                                                                    <div class="card-header text-start">
+                                                                        <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
+                                                                        <i class="fa fa-plus"></i>
+                                                                        Agregar Cirugia
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="card-body py-1">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Posible Cirugía</th>
+                                                                                        <th class="text-center">Accion</th>
+                                                                                    </tr>
+                                                                                </thead>
 
-                                                            <div class="col-5 mt-30 p-4 card ml-2">
-                                                                <h6 class="text-center" style="font-weight:bold">Posible Procedimiento/tos</h6>
-                                                                <ul class="text-start pl-4 pr-4" id="procedimientos" style="font-size:14px;">
-                                                                    @if(!empty($procedures))
-                                                                        @foreach ($procedures as $proces)
-                                                                        <li>{{ $proces->name }}</li>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </ul>  
-                                                                {{-- <ul id="procedimientos1">
-
-                                                                </ul> --}}
+                                                                                <tbody id="ocultar_cirugia">
+                                                                                    @if(!empty($itinerary->typesurgery))
+                                                                                        @foreach ($surgery as $surge)
+                                                                                            <tr id="{{$surge->id}}">
+                                                                                                <td>
+                                                                                                    <div class="col-6" >{{$surge->name}}</div> 
+                                                                                                </td>
+                                                                                                <td id="{{$surge->id}}" class="d-flex justify-content-center">
+                                                                                                <input id="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="cirugiaP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia"
+                                                                                                        value="Eliminar">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        @endforeach
+                                                                                    @endif
+                                                                                </tbody>
+                                                                                <tbody id="cirugias">
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-12 mx-auto">
+                                                                <div class="card">
+                                                                    <div class="card-header text-start">
+                                                                        <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
+                                                                            <i class="fa fa-plus"></i>
+                                                                            Agregar Procedimiento
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="card-body py-1">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Posibles procedimientos </th>
+                                                                                        <th class="text-center">Accion</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @if(!empty($procedures))
+                                                                                        @foreach ($procedures as $item)
+                                                                                            <tr id="{{$item->id}}">
+                                                                                                <td id="{{$item->id}}">
+                                                                                                    <div class="col-6" >{{$item->name}}</div> 
+                                                                                                </td>
+                                                                                                <td id="{{$item->id}}" class="d-flex justify-content-center">
+                                                                                                <input id="{{$item->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado"
+                                                                                                        value="Eliminar">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        @endforeach
+                                                                                    @endif
+                                                                                </tbody>
+                                                                                <tbody id="procedimientos">                                                                                   
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                    
                                                 </div>
                                                 
                                                 <!------------------------------PROXIMA CITA---------------------->
@@ -781,7 +816,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div> 
                     </div>   
                     <div class="modal-footer">
-                        <button  class="btn btn-success" data-dismiss="modal" id="guardarO">Guardar</button>
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>    
             </div>
@@ -821,7 +856,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>   
                     <div class="modal-footer">
-                        <button class="btn btn-success" data-dismiss="modal" id="guardarE">Agregar</button>
+                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -861,7 +896,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" data-dismiss="modal" id="guardarC">Guardar</button>
+                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                     </div>
                 </form>    
             </div>
@@ -901,7 +936,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" id="guardarP" data-dismiss="modal">Guardar</button>
+                    <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
             </div>
@@ -1246,7 +1281,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>'
+            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado" value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
         }
         
@@ -1303,15 +1338,14 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
    //==============  mostrando lista de examenes  ================
-   function mostrarExamen(data){
+    function mostrarExamen(data){
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="actions d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="g"></td></tr>';
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen seleccionado" value="Eliminar"></td></tr>';
             $("#examen").append(examen);
         }
     }
-
 
     //=============  captar datos de los posibles procedimientos ==========
     $("#guardarP").click(function() {
@@ -1364,7 +1398,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procedure='<li>'+data[$i].name+'</li>';
+            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div id="'+data[$i].id+'" class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
         }
     }
@@ -1419,88 +1453,123 @@ button[data-original-title="Help"]{ display: none; }
 
     
     //============= mostrando posibles cirugias ================== (listo)
-    function mostrarSurgery(data){
-        for($i=0; $i < data.length; $i++){           
-            cirugias='<li>'+data[$i].name+'</li>';
+     function mostrarSurgery(data){
+        console.log('hh',data);
+
+        for($i=0; $i < data.length; $i++){
+            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
-        }        
+        }
     }
 
     //================ eliminar examen seleccionado ==========
     $(function() {
-        $(document).on('click', 'input[type="button"]', function(event) {
-            let id = this.id;
-            var diagnostic = $("#diagnostic_id").val();
-            var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            $("#"+id).hide();
-            
-                // $('option:selected').removeAttr('selected');
+            $(document).on('click', '.exam_id', function(event) {
+                let id = this.id;
+                var diagnostic = $("#diagnostic_id").val();
+                var reservacion = $("#reservacion_id").val();
+                console.log(reservacion);
+                $("#"+id).remove();
+                
+                    // $('option:selected').removeAttr('selected');
 
-            $.ajax({
-                url: "{{ route('doctor.exam_eliminar') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}",        
-                id:id,
-                diagnostic_id:diagnostic,
-                reservacion_id:reservacion,
-            }
+                $.ajax({
+                    url: "{{ route('doctor.exam_eliminar') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    diagnostic_id:diagnostic,
+                    reservacion_id:reservacion,
+                }
 
+                })
+                .done(function(data) {               
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.exam,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+             
             })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.exam,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-            
-            // if (data[0] == 202) {                       //si no trae valores
-            //     Swal.fire({
-            //         title: data.proceduresR,
-            //         text:  'Click en OK para continuar',
-            //         type:  'error',
-            //     })
-            //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-            // }
-        })
-        .fail(function(data) {
-            console.log(data);
-        })
+            .fail(function(data) {
+                console.log(data);
+            })
 
 
+            });
+
+        
         });
 
-       
-    });
-
-
-    //================ eliminar procedure seleccionado ==========
-   
+          //================ eliminar examen seleccionado ==========
     $(function() {
-        $(document).on('click', 'input[type="button"]', function(event) {
+            $(document).on('click', '.procedureR_id', function(event) {
+                let id = this.id;
+                var diagnostic = $("#diagnostic_id").val();
+                var reservacion = $("#reservacion_id").val();
+                console.log(reservacion);
+                $("#"+id).remove();
+                
+                    // $('option:selected').removeAttr('selected');
+
+                $.ajax({
+                    url: "{{ route('doctor.procedureR_eliminar') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    diagnostic_id:diagnostic,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {               
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.procedure,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+
+
+            });
+
+        
+        });
+
+
+  //================ eliminar posibole cirugia seleccionado ==========
+  $(function() {
+        $(document).on('click', '.cirugiaP_id', function(event) {
             let id = this.id;
-            var diagnostic = $("#diagnostic_id").val();
             var reservacion = $("#reservacion_id").val();
             console.log(reservacion);
-            $("#"+id).hide();
-            
-                // $('option:selected').removeAttr('selected');
+            console.log('id', id);    
+            $("#"+id).remove();
 
             $.ajax({
-                url: "{{ route('doctor.exam_eliminar') }}",
+                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
                 type: 'POST',
                 dataType:'json',   
                 data: {
                 _token: "{{ csrf_token() }}",        
                 id:id,
-                diagnostic_id:diagnostic,
                 reservacion_id:reservacion,
             }
 
@@ -1510,32 +1579,62 @@ button[data-original-title="Help"]{ display: none; }
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
-                    title: data.exam,
+                    title: data.cirugia,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
 
             }
             
-            // if (data[0] == 202) {                       //si no trae valores
-            //     Swal.fire({
-            //         title: data.proceduresR,
-            //         text:  'Click en OK para continuar',
-            //         type:  'error',
-            //     })
-            //     // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-            // }
         })
         .fail(function(data) {
             console.log(data);
-        })
-
+        })  
 
         });
-
-       
+    
     });
 
+        //================ eliminar posibles procedimiento seleccionado ==========
+        $(function() {
+            $(document).on('click', '.procedureP_id', function(event) {
+                let id = this.id;
+                var reservacion = $("#reservacion_id").val();
+                console.log(reservacion);
+                console.log('id', id);    
+                $("#"+id).remove();
+
+                $.ajax({
+                    url: "{{ route('doctor.procedureP_eliminar2') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {               
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.procedure,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+                
+            })
+            .fail(function(data) {
+                console.log(data);
+            })  
+
+            });
+        
+        });
 
 </script>
 

@@ -59,15 +59,15 @@
                                         <label class="imagecheck m-0">
                                             <div class="card assigment">
                                                 <input type="radio" name="area_id" value="{{ $quirofano->id }}" id="area_id" class="imagecheck-input">
-                                                @if (!empty($quirofano->image->path))
+                                                {{-- @if (!empty($quirofano->image->path)) --}}
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                    <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                    <img width="100%" height="100%" src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image w-auto">
                                                 </figure>
-                                                @else
+                                                {{-- @else
                                                 <figure class="imagecheck-figure border-0 text-center">
                                                     <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                                 </figure>
-                                                @endif
+                                                @endif --}}
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                     <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
                                                     <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
@@ -81,15 +81,15 @@
                                     <label class="imagecheck m-0">
                                         <div class="card assigment">
                                             <input type="radio" class="imagecheck-input" disabled>
-                                            @if (!empty($quirofano->image->path))
+                                            {{-- @if (!empty($quirofano->image->path)) --}}
                                             <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image w-auto">
+                                                <img width="100%" height="100%" src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
-                                            @else
+                                            {{-- @else
                                             <figure class="imagecheck-figure border-0 text-center">
                                                 <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                             </figure>
-                                            @endif
+                                            @endif --}}
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                 <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
                                                 <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $quirofano->status }}</span> </h6>
@@ -213,8 +213,6 @@
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
-
-
 
     $("input[name='employe_id']").click(function(){
         var doctor = $(this).val();

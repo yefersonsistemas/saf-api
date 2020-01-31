@@ -39,13 +39,13 @@
                                                                 class="fa fa-id-card"></i></span>
                                                     </div>
                                                     <div class="input-group-prepend">
-                                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white required">
+                                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
                                                         <option>...</option>
                                                         <option>N</option>
                                                         <option>E</option>
                                                     </select>
                                                     </div>
-                                                    <input type="text" class="form-control mr-2 required number" type="text" id="dni" placeholder="Cédula" value="">
+                                                    <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
                                                     <input type="hidden" name="patient_id" id="patient_id" value="">
                                                     <button type="button" id="search" class="btn btn-azuloscuro text-white" ><i
                                                             class="fa fa-search"></i></button>
@@ -54,36 +54,36 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-4 col-md-6 mb-2">
-                                                <input id="photo" type="file" class="dropify required" disabled name="photo" data-default-file="" value="">
+                                                <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="" value="">
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
-                                                    <input type="text" id="name" name="name" disabled class="form-control required" placeholder="Nombre" value="">
+                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre" value="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Apellido</label>
-                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control required" placeholder="Apellido" value="">
+                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido" value="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Correo Electrónico</label>
-                                                    <input type="text" disabled id="email" name="email" class="form-control required email" placeholder="Correo Electrónico" value="">
+                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico" value="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Dirección</label>
-                                                    <input type="text" disabled id="address" name="address" class="form-control required" placeholder="Dirección" value="">
+                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección" value="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
-                                                    <input type="number" disabled id="phone" name="phone" class="form-control required number" placeholder="Teléfono" value="">
+                                                    <input type="number" disabled id="phone" name="phone" class="form-control number" placeholder="Teléfono" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -254,12 +254,11 @@
 {{--
 <script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
 
-
 <script>
-    function stopDefAction(evt) {
+        function stopDefAction(evt) {
         evt.preventDefault();
     }
-    var form = $('#wizard_horizontal').show();
+var form = $('#wizard_horizontal').show();
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
@@ -291,12 +290,10 @@
             }
         },
     });
-
     function setButtonWavesEffect(event) {
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
-
     function search() {
         $("#search").click(function() {
             var type_dni = $("#type_dni").val();
