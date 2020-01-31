@@ -257,10 +257,12 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                             </div>
                                                             </div>
-                                                    <div id="collapseTwo" class="collapse card-body list-group mostrar_alergias" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                        @foreach ( $history->historyPatient->allergy as $allergy )
+                                                    <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                        <div class="mostrar_alergias">
+                                                            @foreach ( $history->historyPatient->allergy as $allergy )
                                                             <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
-                                                        @endforeach
+                                                            @endforeach
+                                                        </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                         </div>
@@ -436,7 +438,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Medicamento</label>
-                                                                                <select class="form-control custom-select" name="medicamento">
+                                                                                <select class="form-control custom-select" id="medicamento" name="medicamento">
                                                                                     <option value="0">Seleccione</option>
                                                                                     @foreach ($medicines as $medicine)
                                                                                         <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
@@ -447,13 +449,13 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-sm-6 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Dosis</label>
-                                                                                <input type="text" class="form-control" name="dosis" placeholder="3">
+                                                                                <input type="text" id="dosis" class="form-control" name="dosis" placeholder="3">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Medida</label>
-                                                                                <select name="medida" class="form-control custom-select">
+                                                                                <select name="medida" id="medida" class="form-control custom-select">
                                                                                     <option value="0">Seleccione</option>
                                                                                     <option value="CC">CC</option>
                                                                                     <option value="G">G</option>
@@ -464,7 +466,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-sm-6 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Duracion</label>
-                                                                                <input type="text" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
+                                                                                <input type="text" id="duracion" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -472,7 +474,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="col-md-12">
                                                                     <div class="form-group mb-0">
                                                                         <label class="form-label">Indicaciones</label>
-                                                                        <textarea rows="5" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
+                                                                        <textarea rows="5" id="indicacion" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer text-right">
@@ -1000,6 +1002,13 @@ button[data-original-title="Help"]{ display: none; }
         patient         = $("input[id='patient']").val();
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
+
+        //con val obtengo  y assigno
+        $('#indicacion').val(''); //aqui dice que se limpie o que asigne vacio cuando se cliquea el boton de agregar
+        $('#medicamento').val('');
+        $('#dosis').val('');
+        $('#medida').val('');
+        $('#duracion').val('');
 
         console.log("1",medicina);
         console.log("2",dosis);

@@ -91,6 +91,10 @@
 
             <div class="tab-content container-fluid" id="pills-tabContent">
 
+                <div>
+                    
+                </div>
+
                 <!---------------------------Citas aprobadas------------------------------->
                 <div class="tab-pane fade" id="aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">
                     <div  class="accordion" id="accordionExample2" id="aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">

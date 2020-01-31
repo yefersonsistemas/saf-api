@@ -378,7 +378,7 @@ class UsersTableSeeder extends Seeder
         // ]);
 
         factory(Schedule::class)->create([
-            'day' => 'thursday',
+            'day' => 'friday',
             'turn' => 'tarde',
             'employe_id' => $employe->id
         ]);
@@ -759,7 +759,7 @@ class UsersTableSeeder extends Seeder
             // ]);
 
             factory(Schedule::class)->create([
-                'day' => 'thursday',
+                'day' => 'friday',
                 'turn' => 'tarde',
                 'employe_id' => $employe1->id
             ]);
@@ -1077,7 +1077,7 @@ class UsersTableSeeder extends Seeder
             // ]);
 
             factory(Schedule::class)->create([
-                'day' => 'thursday',
+                'day' => 'friday',
                 'turn' => 'tarde',
                 'employe_id' => $employe2->id
             ]);
@@ -1279,7 +1279,7 @@ class UsersTableSeeder extends Seeder
             // ]);
 
             factory(Schedule::class)->create([
-                'day' => 'thursday',
+                'day' => 'friday',
                 'turn' => 'tarde',
                 'employe_id' => $employe3->id
             ]);
