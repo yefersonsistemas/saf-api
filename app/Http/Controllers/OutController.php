@@ -667,8 +667,8 @@ class OutController extends Controller
     }
 
     public function surgeries_list(){
-    $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient','employe.person','typesurgeries','area')->get();
-    // dd($surgeries);
+    $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person','employe.person','typesurgeries','area')->get();
+    dd($surgeries);
     return  view('dashboard.checkout.lista_cirugias', compact('surgeries'));
     }
 

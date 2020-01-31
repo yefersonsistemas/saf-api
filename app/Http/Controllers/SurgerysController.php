@@ -114,25 +114,26 @@ public function create_surgery(){
     {   
         // dd($request);
         //datos a guardar en la tabla surgeries
-        $p = $request->patient_id;
+        $p = Patient::where('person_id',$request->patient_id)->first(); //tabla trayendo id del paciente
+        // dd($p);
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
         $d = Carbon::create($request->date)->format('Y-m-d');
 
-        $patient = Patient::where('person_id',$p)->first();
+        
         // dd($patient);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
-                'patient_id' => $p,
+                'patient_id' => $p->id,
                 'type_surgery_id' => $ts,
                 'employe_id' => $e,
                 'area_id' => $a,
                 'date'=> $d,
                 'branch_id' => 1,
                 ]);
-                $surgery->patient()->attach($patient);
+
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
                 
@@ -141,12 +142,13 @@ public function create_surgery(){
                     $a->status = 'ocupado';
                     $a->save();
                 }
-
                 //actualizando el campo opertion de la tabla reservation
                 $operation = Reservation::find($request->reservation_id);
                 $operation->operation = true;
                 $operation->save();
 
+                $surgery->patient()->attach($p);
+                
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
