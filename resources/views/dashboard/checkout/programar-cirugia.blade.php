@@ -11,6 +11,7 @@
 <link href='{{asset('assets\fullcalendar\packages\timegrid\main.css')}}' rel='stylesheet' />
 <link href='{{asset('assets\fullcalendar\packages\list\main.css')}}' rel='stylesheet' />
 <link href='{{asset('assets\fullcalendar\css\style.css')}}' rel='stylesheet' />
+<link rel="stylesheet" href=" {{ asset('\assets\plugins\parsleyjs\css\parsley.css') }} ">
 {{-- <link rel="stylesheet" href="{{ asset('assets\plugins\fullcalendar\fullcalendar.min.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 
@@ -20,7 +21,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-            <form id="wizard_horizontal" method="POST" action="{{route('surgerys.store')}}" class="card pl-4 pr-4">
+            <form id="wizard_horizontal" method="POST" action="{{route('surgerys.store')}}" class="card pl-4 pr-4" novalidate="">
                     @csrf
                     <h2>Buscar Paciente</h2>
                     <section>
@@ -39,13 +40,13 @@
                                                                 class="fa fa-id-card"></i></span>
                                                     </div>
                                                     <div class="input-group-prepend">
-                                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
+                                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white" required="">
                                                         <option>...</option>
                                                         <option>N</option>
                                                         <option>E</option>
                                                     </select>
                                                     </div>
-                                                    <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
+                                                    <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="" required="">
                                                     <input type="hidden" name="patient_id" id="patient_id" value="">
                                                     <button type="button" id="search" class="btn btn-azuloscuro text-white" ><i
                                                             class="fa fa-search"></i></button>
@@ -54,36 +55,36 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-4 col-md-6 mb-2">
-                                                <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="" value="">
+                                                <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="" value="" required="">
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
-                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre" value="">
+                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Apellido</label>
-                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido" value="">
+                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Correo Electrónico</label>
-                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico" value="">
+                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Dirección</label>
-                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección" value="">
+                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
-                                                    <input type="number" disabled id="phone" name="phone" class="form-control number" placeholder="Teléfono" value="">
+                                                    <input type="number" disabled id="phone" name="phone" class="form-control number" placeholder="Teléfono" value="" required="">
                                                 </div>
                                             </div>
                                         </div>
@@ -250,6 +251,8 @@
 <script src='{{asset('assets\fullcalendar\packages\list\main.js')}}'></script>
 <script src='{{asset('assets\fullcalendar\js\calendar.js')}}'></script>
 <script src='{{asset('assets\fullcalendar\packages\core\locales-all.js')}}'></script>
+<script src=" {{ asset('assets\plugins\parsleyjs\js\parsley.min.js') }} "></script>
+<script src=" {{ asset('assets\js\form\parsleyjs.js') }} "></script>
 {{-- <script src="{{ asset('assets\js\page\calendar.js') }}"></script> --}}
 {{--
 <script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
@@ -289,6 +292,10 @@ var form = $('#wizard_horizontal').show();
                 quirofano();
             }
         },
+        onFinished: function(event, currentIndex) {
+            var form = $(this);
+            form.submit();
+        }
     });
     function setButtonWavesEffect(event) {
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
