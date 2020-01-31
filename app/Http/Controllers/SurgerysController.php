@@ -148,7 +148,8 @@ public function create_surgery(){
                 $operation->save();
 
                 $surgery->patient()->attach($p);
-                
+                // $surgery->reservation()->attach($operation);
+
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{

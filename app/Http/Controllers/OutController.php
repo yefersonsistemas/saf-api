@@ -489,7 +489,7 @@ class OutController extends Controller
         ->where('id', $itinerary->reservation_id )->first();      
         $fecha = Carbon::now()->format('Y/m/d');
 
-        $pdf = PDF::loadview('dashboard.checkout.print_constancia', compact('itinerary','especialidad',fecha ));
+        $pdf = PDF::loadview('dashboard.checkout.print_constancia', compact('itinerary','especialidad','fecha' ));
         return $pdf->stream('constancia.pdf');
     }
 
@@ -667,8 +667,8 @@ class OutController extends Controller
     }
 
     public function surgeries_list(){
-    $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person','employe.person','typesurgeries','area')->get();
-    dd($surgeries);
+    $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
+    // dd($surgeries);
     return  view('dashboard.checkout.lista_cirugias', compact('surgeries'));
     }
 
