@@ -214,8 +214,8 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                         <h2>Enfermedad Actual</h2>
-                                        <section class="ml-4 pb-0 pt-4">
-                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote"></textarea>
+                                        <section class="ml-4 pb-0 pt -4">
+                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote" ></textarea>
                                         </section>
 
                                         <h2>Antecedentes</h2>
@@ -231,16 +231,16 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="col-4 d-flex justify-content-end">
                                                                 <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">Ver Mas</p>
                                                             </div>
-                                                        </div>
-                                                </div>
-                                                <div  class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                    <div class="mostrar_enfermedad">
-                                                        @foreach ( $history->historyPatient->disease as $disease )
-                                                            <a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
-                                                        @endforeach
                                                     </div>
-                                                    <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar enfermedad</button>
+                                                    <div  class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
+                                                       <div class=" mostrar_enfermedad">
+                                                            @foreach ( $history->historyPatient->disease as $disease )
+                                                                <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
+                                                            @endforeach
+                                                       </div>
+                                                        <div class="col-12 d-flex justify-content-end mt-4">
+                                                            <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -264,7 +264,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         @endforeach
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar Alergia</button>
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -279,6 +279,14 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="col-4 d-flex justify-content-end">
                                                                 <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">Ver Mas</p>
                                                             </div>
+                                                            </div>
+                                                            </div>
+                                                    <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
+                                                      @if($cite->previous_surgery != null)
+                                                        <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery  }}</a>
+                                                    @endif
+                                                        <div class="col-12 d-flex justify-content-end mt-4">
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                         </div>
                                                     </div>
                                                     <div id="collapseThree" class="collapse card-body list-group" aria-labelledby="headingThree" data-parent="#accordion">
@@ -426,7 +434,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
                                                     <div class="row clearfix">
                                                         <div class="col-lg-12 mx-auto">
-                                                            <div class="card">
+                                                            <div class="card mx-2">
                                                                 <div class="card-body">
                                                                     <h3 class="card-title">Agregar Medicamento</h3>
                                                                     <div class="row">
@@ -518,14 +526,14 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
 
                                                 <!--Informe medico-->
-                                                <div class="tab-pane fade" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
+                                                <div class="tab-pane fade mx-2" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
                                                     <section>
                                                         <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
                                                     </section>
                                                 </div>
 
                                                 <!--Reposo-->
-                                                <div class="tab-pane fade" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
+                                                <div class="tab-pane fade mx-2" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
                                                     <section>
                                                         <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
                                                     </section>
@@ -638,7 +646,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2 text-center" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
@@ -647,7 +655,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body m-3">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($enfermedad != null)
@@ -673,16 +681,16 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar alergias-->
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body m-3">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @if($alergia != null)
@@ -708,7 +716,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -717,7 +725,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="">
-                    <div class="modal-body m-2">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>                                
@@ -743,7 +751,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="proceduresC-office">
-                    <div class="modal-body m-3">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 @foreach ($procesm->procedures as $proces)
@@ -812,7 +820,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="posible-surgerys">
-                <div class="modal-body m-3">
+                <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
 
                         <div class="custom-controls-stacked">
@@ -820,12 +828,17 @@ button[data-original-title="Help"]{ display: none; }
                             <div class="row">
                                 <div class="col-9 mt-3">
                                     <label class="custom-control custom-checkbox">
+                                        @if ($surgery->classification->name == 'hospitalaria')
+                                            
                                         <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
                                         <span class="custom-control-label">{{ $surgery->name }}</span>
+                                        @endif
                                     </label>
                                 </div>
                                 <div class="col-3">
+                                    @if ($surgery->classification->name == 'hospitalaria')
                                     <span>{{ $surgery->cost }}</span>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
@@ -851,13 +864,13 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="posible-procedures">
-                <div class="modal-body m-3">
+                <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
                             @foreach ($procesm->procedures as $proces)
                             <div class="row">
                                 <div class="col-9 mt-3">
-                                <label class="custom-control custom-checkbox">
+                                <label class="custom-control custom-checkbox d-flex">
                                     <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
                                     <span class="custom-control-label">{{ $proces->name }} </span>
                                 </label>
@@ -1311,11 +1324,11 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-   // mostrando posibles procedimientos
+   // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
         console.log('ken',data);
-            cirugia = data.previous_surgery;
-            $("#a_cirugia").html(cirugia);
+        cirugia = data.previous_surgery;
+        $("#a_cirugia").html(cirugia);
     }
 
 

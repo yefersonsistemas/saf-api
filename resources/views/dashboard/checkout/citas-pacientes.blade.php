@@ -69,23 +69,23 @@
 
                 <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end "  id="pills-tab" role="tablist">
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-block  btn-outline-dark aprobadas pt-0 pb-0 pr-4 pl-4"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas aprobadas</a>
+                        <a class="nav-link btn-block  btn-outline-dark aprobadas pt-0 pb-0 pr-3 pl-3"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas aprobadas</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-block espera pt-0 pb-0 pr-4 pl-4 btn-outline-warning" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="false"> <i class="icon-clock"></i>&nbsp; En espera</a>
+                        <a class="nav-link btn-block espera pt-0 pb-0 pr-3 pl-3 btn-outline-warning" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="false"> <i class="icon-clock"></i>&nbsp; En espera</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-outline-success dentro pt-0 pb-0 pr-4 pl-4" id="pills-dentro-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del consultorio</a>
+                        <a class="nav-link btn-outline-success dentro pt-0 pb-0 pr-3 pl-3" id="pills-dentro-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del consultorio</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link fuera btn-outline-danger pt-0 pb-0 pr-4 pl-4 active" id="pills-fuera_office-tab" data-toggle="pill" href="#fuera_office" role="tab" aria-controls="fuera_office" aria-selected="true">Fuera del consultorio</a>
+                        <a class="nav-link fuera btn-outline-danger pt-0 pb-0 pr-3 pl-3 active" id="pills-fuera_office-tab" data-toggle="pill" href="#fuera_office" role="tab" aria-controls="fuera_office" aria-selected="true">Fuera del consultorio</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-4 pl-4"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las instalaciones</a>
+                        <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-3 pl-3"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las instalaciones</a>
                     </li>
-                    <li class="nav-item mb-1">
-                        <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-4 pl-4"  id="pills-total-tab" data-toggle="pill" href="#total" role="tab" aria-controls="total" aria-selected="false">Todas las citas</a>
-                    </li>
+                    {{-- <li class="nav-item mb-1">
+                        <a class="nav-link btn-outline-info total pt-0 pb-0 pr-3 pl-3"  id="pills-total-tab" data-toggle="pill" href="#total" role="tab" aria-controls="total" aria-selected="false">Todas</a>
+                    </li> --}}
                 </ul><br>
             </div>
 
@@ -166,24 +166,24 @@
 
                                             <!--Medico tratente-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                <div class="card-body row">
-                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->person->name }} </span>  <span class="text-muted">{{ $item->person->lastname }}</span> <span class="text-muted"><i class="fe fe-phone"></i> {{ $item->person->phone }}</span></div>
                                                 </div>
                                             </div>  
 
                                              <!--Motivo de la cita-->
                                              <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                <div class="card-body row">
-                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad</h5></div>
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->speciality->name }} </span></div>
                                                 </div>
                                             </div> 
 
                                             <!--Motivo de la cita-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                <div class="card-body row">
-                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de la cita</h5></div>
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de cita:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->description }} </span></div>
                                                 </div>
                                             </div> 
@@ -274,9 +274,25 @@
 
                                                 <!--Medico tratente-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                    <div class="card-body row">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $es->person->name }} </span>  <span class=" mb-2 text-muted">{{ $es->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $es->person->phone }}</span></div>
+                                                    </div>
+                                                </div>  
+
+                                                 <!--Especialidad-->
+                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Especialidad:</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $es->speciality->name }} </span> </div>
+                                                    </div>
+                                                </div>  
+
+                                                 <!--Motivo de la cita-->
+                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Motivo de cita:</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $es->description}} </span> </div>
                                                     </div>
                                                 </div>  
                 
@@ -366,9 +382,25 @@
 
                                                 <!--Medico tratente-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
-                                                    <div class="card-body row">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $dentro->person->name }} </span>  <span class=" mb-2 text-muted">{{ $dentro->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $dentro->person->phone }}</span></div>
+                                                    </div>
+                                                </div>  
+
+                                                  <!--Especialidad-->
+                                                  <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $dentro->speciality->name }} </span> </div>
+                                                    </div>
+                                                </div>  
+
+                                                  <!--Motivo de cita-->
+                                                  <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                    <div class="card-body row mb-0 p-0 pt-3">
+                                                        <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de cita</h5></div>
+                                                        <div class="col-md-8"><span class="text-muted">  {{ $dentro->description}} </span> </div>
                                                     </div>
                                                 </div>  
                 
@@ -384,7 +416,7 @@
                 
                 <!----------------------Fuera del consultorio----------------------->
                 <div class="tab-pane fade show active" id="fuera_office" role="tabpanel" aria-labelledby="pills-fuera_office-tab">
-                    <div  class="accordion" id="accordionExample" id="todas" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div  class="accordion" id="accordionExampleff" id="fuera_office" role="tabpanel" aria-labelledby="pills-fuera_office-tab">
                         @foreach ($itinerary as $itinerary)
                         @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
                             {{-- @if($itinerary->status == 'dentro') <!--esta en espera-->
@@ -422,7 +454,7 @@
                                             <!--Nombre del paciente-->
                                             <div class="col-7">                                            
                                                 <h2 class=" mb-0 p-0" >
-                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
+                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#fuera_office{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
                                                         {{ $itinerary->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $itinerary->person->name }} {{ $itinerary->person->lastname }}  
                                                 </button>
                                                 </h2>
@@ -471,7 +503,7 @@
                                 </div>
 
                                 <!--informacion del paciente reservacion y demas-->
-                                <div id="{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div id="fuera_office{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExampleff">
                                     <div class="col-md-12 col-lg-9 col-sm-12">
                                         <div class="row card-body d-flex justify-content-lg-between">
 
@@ -481,12 +513,20 @@
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $itinerary->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $itinerary->employe->person->phone }}</span></div>
                                                 </div>
-                                            </div>  
+                                            </div> 
+                                            
+                                              <!--Especialidad-->
+                                              {{-- <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                <div class="card-body row mb-0 p-0 pt-3">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad</div>
+                                                    <div class="col-md-8"><span class="text-muted">  {{ $itinerary->speciality->name }} </span> </div>
+                                                </div>
+                                            </div>  --}}
                                                 
                                             <!--Posibles cirugias-->
                                             <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                                 <div class="card-body">
-                                                    <h5 class="card-title color_titulo">Posible cirugia</h5>
+                                                    <h5 class="card-title color_titulo">Posible cirugias</h5>
                                                     @if($itinerary->typesurgery != null)
                                                     @if($itinerary->typesurgery->classification_surgery_id == 1)
                                                         <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
@@ -690,7 +730,7 @@
                                 </div>
 
                                 <!--informacion del paciente reservacion y demas-->
-                                <div id="fuera{{ $fuera->person->type_dni }}{{ $fuera->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div id="fuera{{ $fuera->person->type_dni }}{{ $fuera->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample5">
                                     <div class="col-md-12 col-lg-9 col-sm-12">
                                         <div class="row card-body d-flex justify-content-lg-between">
 
@@ -714,8 +754,7 @@
                                                     @endif
                                                         <span class="titulos">Descripcion: </span><span>{{ $fuera->typesurgery->description }}</span><br>
                                                         <span class="titulos">Duracion: </span><span>{{ $fuera->typesurgery->duration }}</span> <br>                                               
-                                                        <span class="titulos">costo: </span><span>{{ $fuera->typesurgery->cost }}</span><br>
-                                                        <span><a href="{{ route('checkout.programar_cirugia', $fuera->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                        <span class="titulos">costo: </span><span>{{ $fuera->typesurgery->cost }}</span><br>                                                       
                                                     @else
                                                         <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                     @endif
@@ -740,79 +779,6 @@
             
                                         </div>
                                     </div>
-
-                                    <!--Acciones-->
-                                    <div class="col-md-12 col-lg-3 col-sm-12">
-                                        <div class="row d-flex justify-content-end" style="width: 18rem;">
-                                            <div class="card-body">
-                                                <!--EXAMEN-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($fuera->exam_id != null)
-                                                        <a href="{{ route('checkout.imprimir_examen', $fuera->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                        <i class="fa fa-print"></i> Examen
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--RECETARIO-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($fuera->recipe_id != null)
-                                                        <a href="{{ route('checkout.imprimir_recipe', $fuera->recipe_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Recetario
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--REFERENCIA-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($fuera->reference_id != null)
-                                                        <a href="{{ route('checkout.imprimir_referencia', $fuera->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Referencia
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--REPOSO-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($fuera->repose_id != null)
-                                                        <a href="{{ route('checkout.imprimir_reposo', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Reposo
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--INFORME-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($fuera->report_medico_id != null)
-                                                        <a href="{{ route('checkout.imprimir_informe', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i> Informe
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--FACTURAR-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($fuera->procedureR_id != null)
-                                                        @if($fuera->billing == null)                                                    
-                                                            <a href="{{ route('checkout.facturacionLista', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                                <i class="fa fa-print"> </i> Facturar
-                                                            </a>
-                                                        @else
-                                                            @if($fuera->billing->person_id == null) 
-                                                                <a href="{{ route('checkout.facturacionLista', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                                    <i class="fa fa-print"> </i> Facturar
-                                                                </a>
-                                                            @else
-                                                                <a target="_blank" href="{{ route('checkout.imprimir_factura2', $fuera->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                                    <i class="fa fa-print"> </i> Imprimir factura
-                                                                </a>
-                                                            @endif
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                            </div>                                                
-                                        </div>
-                                    </div>
                                 </div>
 
                             </div>
@@ -820,6 +786,237 @@
                          @endforeach
                     </div>
                 </div>
+
+
+                 <!----------------------Total de citas----------------------->
+                 {{-- <div class="tab-pane fade" id="total" role="tabpanel" aria-labelledby="pills-total-tab">
+                    <div  class="accordion" id="accordionExample" id="total" role="tabpanel" aria-labelledby="pills-total-tab">
+                        @foreach ($itinerary as $todas) --}}
+                        {{-- @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside)) --}}
+                            {{-- @if($todas->status == 'dentro') <!--esta en espera-->
+                                <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">
+                            @endif
+
+                            @if($todas->status == 'dentro_office')<!--dentro del consultorio-->
+                                <div class="card" style="border-radius:3px; border:2px solid  #00ad88">
+                            @endif
+
+                            @if($todas->status == 'fuera_office')<!--fuera del consultorio-->
+                                <div class="card " style="border-radius:3px; border:2px solid #B40404">
+                            @endif
+
+                            @if($todas->status == 'fuera')<!--fuera de las instalaciones-->
+                                <div class="card " style="border-radius:3px; border:2px solid #ccc">
+                            @endif
+
+                            @if($todas->status == '')<!--si no ha llegado a las instalaciones-->
+                                <div class="card " style="border-radius:3px; border:2px solid #000">
+                            @endif --}}
+{{--  --}}
+                                {{-- <div class="row card-header pl-5 pr-5 heig" id="headingOne"> --}}
+
+                                    {{-- <div class="col-lg-8 col-md-8">
+                                        <div class="row">
+                                            <!--Imagen del paciente-->
+                                            <div class="col-3" style="max-height: 100px; ">
+                                                @if (!empty($todas->person->image->path))
+                                                <img class="rounded circle" width="100%" height="100%"  src="{{ Storage::url($todas->person->image->path) }}" alt="">
+                                                @else
+                                                <img src="" alt="">
+                                                @endif
+                                            </div>
+                                            <!--Nombre del paciente-->
+                                            <div class="col-7">                                            
+                                                <h2 class=" mb-0 p-0" >
+                                                <button class="btn botom" type="button" data-toggle="collapse" data-target="#total{{ $todas->person->type_dni }}{{ $todas->person->id }}" aria-expanded="true" aria-controls="{{ $todas->person->name }}">
+                                                        {{ $todas->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $todas->person->name }} {{ $todas->person->lastname }}  
+                                                </button>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    {{-- <div class=" col-lg-4 col-md-4 ">
+                                        <div class="d-flex justify-content-end container text-center mt-2 pt-1" id="ID_element_0">
+                                            @if($todas->person->inputoutput->isEmpty())
+                                                <button class="btn btn-danger state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
+
+                                            @if(!empty($todas->person->inputoutput->first()->inside) && empty($todas->person->inputoutput->first()->inside_office) && empty($todas->person->inputoutput->first()->outside_office) && empty($todas->person->inputoutput->first()->outside))
+                                                <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_1 mr-1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
+
+                                            @if(!empty($todas->person->inputoutput->first()->inside_office) && !empty($todas->person->inputoutput->first()->inside)  && empty($todas->person->inputoutput->first()->outside_office) && empty($todas->person->inputoutput->first()->outside))
+                                                <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
+
+                                            @if(!empty($todas->person->inputoutput->first()->inside_office) && !empty($todas->person->inputoutput->first()->inside) && !empty($todas->person->inputoutput->first()->outside_office) && empty($todas->person->inputoutput->first()->outside))
+                                                <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <a href="{{ route ('checkout.statusOut', $itinerary->id) }}" data-toggle="tooltip" data-placement="left" title="Marcar cuando el paciente salga de las instalaciones"class="btn btn-danger state state_3 mr-1" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
+                                            @endif
+
+                                            @if(!empty($todas->person->inputoutput->first()->inside_office) && !empty($todas->person->inputoutput->first()->inside) && !empty($todas->person->inputoutput->first()->outside_office) && !empty($todas->person->inputoutput->first()->outside))
+                                                <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state  mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
+
+                                        </div>
+                                    </div> --}}
+                                {{-- </div> --}}
+
+                                <!--informacion del paciente reservacion y demas-->
+                                {{-- <div id="total{{ $todas->person->type_dni }}{{ $todas->person->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="col-md-12 col-lg-9 col-sm-12">
+                                        <div class="row card-body d-flex justify-content-lg-between"> --}}
+
+                                            <!--Medico tratente-->
+                                            {{-- <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                <div class="card-body row">
+                                                    <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
+                                                    <div class="col-md-8"><span class="text-muted">  {{ $todas->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $todas->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $todas->employe->person->phone }}</span></div>
+                                                </div>
+                                            </div>  --}}
+                                                
+                                            <!--Posibles cirugias-->
+                                            {{-- <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title color_titulo">Posible cirugia</h5>
+                                                    @if($todas->typesurgery != null)
+                                                    @if($todas->typesurgery->classification_surgery_id == 1)
+                                                        <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$todas->typesurgery->id, 1]) }}">{{ $todas->typesurgery->name }}</a></span><br>
+                                                    @else
+                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$todas->typesurgery->id, 2]) }}">{{ $todas->typesurgery->name }}</a></span><br>
+                                                    @endif
+                                                        <span class="titulos">Descripcion: </span><span>{{ $todas->typesurgery->description }}</span><br>
+                                                        <span class="titulos">Duracion: </span><span>{{ $todas->typesurgery->duration }}</span> <br>                                               
+                                                        <span class="titulos">costo: </span><span>{{ $todas->typesurgery->cost }}</span><br>
+                                                        <span><a href="{{ route('checkout.programar_cirugia', $todas->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                    @else
+                                                        <span class="mb-2 text-muted">Sin cirugia</span><br>
+                                                    @endif
+                                                </div>                                            
+                                            </div>  --}}
+                                                
+                                            <!--Posibles procedimientos-->
+                                            {{-- <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title color_titulo">Posibles procedimientos</h5>
+                                                    @if ($todas->procedures != null)
+                                                        <ul>
+                                                            @foreach ($todas->procedures as $proce)
+                                                                <li> <span class="mb-2 text-muted">{{ $proce->name }} </span></li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <span class="mb-2 text-muted">Sin procedimientos</span><br>
+                                                    @endif
+                                                </div>                                                
+                                            </div> 
+            
+                                        </div>
+                                    </div> --}}
+
+                                    <!--Acciones-->
+                                    {{-- <div class="col-md-12 col-lg-3 col-sm-12">
+                                        <div class="row d-flex justify-content-end" style="width: 18rem;">
+                                            <div class="card-body"> --}}
+                                                <!--EXAMEN-->
+                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
+                                                    @if($todas->exam_id != null)
+                                                        <a href="{{ route('checkout.imprimir_examen', $todas->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                        <i class="fa fa-print"></i> Examen
+                                                        </a>
+                                                    @endif
+                                                </div> --}}
+
+                                                <!--RECETARIO-->
+                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
+                                                    @if($todas->recipe_id != null)
+                                                        <a href="{{ route('checkout.imprimir_recipe', $todas->recipe_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                            <i class="fa fa-print"> </i> Recetario
+                                                        </a>
+                                                    @endif
+                                                </div> --}}
+
+                                              
+
+                                                <!--REFERENCIA-->
+                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
+                                                    @if($todas->reference_id != null)
+                                                        <a href="{{ route('checkout.imprimir_referencia', $todas->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
+                                                            <i class="fa fa-print"> </i> Referencia
+                                                        </a>
+                                                    @endif
+                                                </div> --}}
+
+                                                <!--REPOSO-->
+                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                    @if($todas->repose_id != null)
+                                                        <a href="{{ route('checkout.imprimir_reposo', $todas->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                                            <i class="fa fa-print"> </i> Reposo
+                                                        </a>
+                                                    @endif
+                                                </div> --}}
+
+                                                <!--INFORME-->
+                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                    @if($todas->report_medico_id != null)
+                                                        <a href="{{ route('checkout.imprimir_informe', $todas->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                                            <i class="fa fa-print"> </i> Informe
+                                                        </a>
+                                                    @endif
+                                                </div> --}}
+
+                                                <!--FACTURAR-->
+                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                    @if($todas->procedureR_id != null)
+                                                        @if($todas->billing == null)                                                    
+                                                            <a href="{{ route('checkout.facturacionLista', $todas->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                <i class="fa fa-print"> </i> Facturar
+                                                            </a>
+                                                        @else
+                                                            @if($todas->billing->person_id == null) 
+                                                                <a href="{{ route('checkout.facturacionLista', $todas->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                    <i class="fa fa-print"> </i> Facturar
+                                                                </a>
+                                                            @else
+                                                                <a target="_blank" href="{{ route('checkout.imprimir_factura2', $todas->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                                    <i class="fa fa-print"> </i> Imprimir factura
+                                                                </a>
+                                                            @endif
+                                                        @endif
+                                                    @endif
+                                                </div> --}}
+
+                                                <!--CITA-->
+                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 mb-2 ml-3">
+                                                    <a  href="" class="btn btn-gene abarca text-start" >
+                                                        <i class="fa fa-calendar-plus-o"></i> Cita
+                                                    </a>
+                                                </div> --}}
+                                            {{-- </div>                                                
+                                        </div> --}}
+                                    {{-- </div> --}}
+                                {{-- </div>
+                            </div> --}}
+                        {{-- @endif --}}
+
+                        {{-- @endforeach --}}
+                        {{-- </div> --}}
+                {{-- </div> --}}
+                
 
             </div>
 
