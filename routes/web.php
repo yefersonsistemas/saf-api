@@ -139,6 +139,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+        Route::get('doctor/surgeries/list','DoctorController@surgeries_list')->name('doctor.lista_cirugias');
 
         //-----------actualizar registros-------------
         Route::post('doctor/examUpdate', 'DoctorController@exam_update')->name('doctor.exam_actualizar');  // guardar los procedimientos realizados en la consulta

@@ -1556,4 +1556,7 @@ class DoctorController extends Controller
 
     }
 
+    public function surgeries_list(){
+        return view('dashboard.doctor.lista_cirugias');
+    }
 }
