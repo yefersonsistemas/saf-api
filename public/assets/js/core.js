@@ -163,7 +163,7 @@ $(document).ready(function() {
     $('.theme_switch').on('click', function() {
         $('body').toggleClass('theme-dark');
     });
-
+    // Se agregaron .removeClass('d-block'); para lograr el funcionamiento del left-sidebar y nav-bar
     //=========== permite hacer los cambios en el menu de director para escoger distinto rol ============
     $('#in').on('click', function(){
         $('.checkIn').removeClass('d-none');//remueve el display por lo que se puede ver

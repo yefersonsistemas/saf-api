@@ -35,7 +35,7 @@
                     </div>
                 @endrole --}}
 
-
+                <!-- Se agregó el @yield('inrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('IN')
                     <div class="">
                         @role('director')
@@ -80,8 +80,7 @@
                     </div> 
                 @endrole
 
-
-
+                <!-- Se agregó el @yield('docrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('doctor')
                     <div class="">
                         @role('director')
@@ -97,6 +96,7 @@
                     {{-- FIN DEL MODULO DE LOS DOCTORES --}}                      
 
 
+                <!-- Se agregó el @yield('outrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
 
                 @role('OUT')
                 <div class="">
