@@ -915,50 +915,6 @@ button[data-original-title="Help"]{ display: none; }
     </div>
 </div>
 
-
-    <!-- <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
-                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" id="posible-surgerys">
-                <div class="modal-body" style="max-height: 415px;">
-                    <div class="form-group">
-
-                        <div class="custom-controls-stacked">
-                            @foreach ($surgerys as $surgery)
-                            <div class="row">
-                                <div class="col-9 mt-3">
-                                    <label class="custom-control custom-checkbox">
-                                        @if ($surgery->classification->name == 'hospitalaria')
-
-                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
-                                        <span class="custom-control-label">{{ $surgery->name }}</span>
-                                        @endif
-                                    </label>
-                                </div>
-                                <div class="col-3">
-                                    @if ($surgery->classification->name == 'hospitalaria')
-                                    <span>{{ $surgery->cost }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                    <div class="modal-footer p-2">
-                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
