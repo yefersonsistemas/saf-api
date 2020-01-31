@@ -1710,7 +1710,7 @@ button[data-original-title="Help"]{ display: none; }
     
     });
 
-        }
+        
 
 </script>
 @endsection

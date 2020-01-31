@@ -1457,6 +1457,45 @@ button[data-original-title="Help"]{ display: none; }
         $("#a_cirugia").html(cirugia);
     }
 
+    //================ eliminar cirugia previa  ==========
+    $(function() {
+        $(document).on('click', '.borrar_cirugia', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.cirugia_borrar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}", 
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    });
+    
 
     //-------------------------------PROCEDIMIENTOS REALIZADOS ------------------------------------------
 
