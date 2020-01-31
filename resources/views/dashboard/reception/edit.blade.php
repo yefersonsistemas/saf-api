@@ -2,6 +2,8 @@
 
 @section('cites','active')
 @section('all','active')
+@section('inrol','d-block')
+@section('dire','d-none')
 
 @section('title','Actualizar cita')
 

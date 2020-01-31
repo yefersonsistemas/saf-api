@@ -1,6 +1,8 @@
 @extends('dashboard.layouts.app')
 
 @section('title','Crear Historia Médica')
+@section('inrol','d-block')
+@section('dire','d-none')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">

@@ -169,28 +169,39 @@ $(document).ready(function() {
         $('.checkIn').removeClass('d-none');//remueve el display por lo que se puede ver
         $('.director').addClass('d-none');
         $('.checkOut').addClass('d-none');
-        $('.doctor').addClass('d-none');
+        $('.checkIn').removeClass('d-block');
+        $('.checkOut').removeClass('d-block');
+        $('.doctor').removeClass('d-block');
     });
     $('#dir').on('click', function(){
         $('.checkIn').addClass('d-none');
+        $('.checkIn').removeClass('d-block');
         $('.director').removeClass('d-none');
         $('.checkOut').addClass('d-none');
+        $('.checkOut').removeClass('d-block');
+        $('.doctor').removeClass('d-block');
         $('.doctor').addClass('d-none');
     })
     $('#doc').on('click', function(){
         $('.checkIn').addClass('d-none');
+        $('.checkIn').removeClass('d-block');
         $('.director').addClass('d-none');
         $('.checkOut').addClass('d-none');
+        $('.checkOut').removeClass('d-block');
+        $('.doctor').removeClass('d-block');
         $('.doctor').removeClass('d-none');
     })
     $('#out').on('click', function(){
         $('.checkIn').addClass('d-none');
+        $('.checkIn').removeClass('d-block');
         $('.director').addClass('d-none');
         $('.checkOut').removeClass('d-none');
+        $('.checkOut').addClass('d-block');
+        $('.doctor').removeClass('d-block');
         $('.doctor').addClass('d-none');
     })
 
-    
+
 });
 
 
