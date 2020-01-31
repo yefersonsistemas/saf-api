@@ -236,7 +236,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div  class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                     <div class="mostrar_enfermedad">
                                                         @foreach ( $history->historyPatient->disease as $disease )
-                                                            <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
+                                                            <a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
                                                         @endforeach
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
@@ -260,7 +260,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
                                                     <div class="mostrar_alergias">
                                                         @foreach ( $history->historyPatient->allergy as $allergy )
-                                                            <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
+                                                            <a class="list-group-item list-group-item-action"><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
                                                         @endforeach
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
@@ -672,7 +672,7 @@ button[data-original-title="Help"]{ display: none; }
     </div>
 
     <!-- Modal para mostar alergias-->
-    <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="max-height: auto;">
+    <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
@@ -1259,7 +1259,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-            alergia = '<a class="list-group-item list-group-item-action">'+data[$i].name+'</a>';
+            alergia =<i class="fa fa-check text-verdePastel mr-2"></i>'<a class="list-group-item list-group-item-action">'+data[$i].name+'</a>';
             // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
             $(".mostrar_alergias").append(alergia);
         }
@@ -1514,13 +1514,13 @@ button[data-original-title="Help"]{ display: none; }
                     title: data.surgerysR2,
                     text:  'Click en OK para continuar',
                     type:  'error',
-                })
+                });
                 // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
             }
-        })
+        });
         .fail(function(data) {
             console.log(data);
-        })
+        });
     } // fin de la funcion
 
     function mostrarProceduresC(data){
@@ -1552,6 +1552,7 @@ button[data-original-title="Help"]{ display: none; }
                 procedure=`<li style="list-style: none;"><i class="fa fa-check text-verdePastel mr-2"></i>'${data[$i].name}'</li>`;
                 $("#procedimientos").append(procedure);
             }
+        }
         }
 
 </script>
