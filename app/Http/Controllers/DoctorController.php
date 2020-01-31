@@ -1456,7 +1456,7 @@ class DoctorController extends Controller
     }
 
 
-    //================eliminar posibles procedimientos ===================
+    //================ eliminar posibles procedimientos ===================
     public function procedureP_eliminar2(Request $request){
 
         //buscando en itinerary para actualizar campo
@@ -1485,7 +1485,7 @@ class DoctorController extends Controller
         ]);
 
     }
-    //Candidato a cirugias
+    //============== guardando Candidato a cirugias===============
     public function surgerysP(Request $request){
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
@@ -1520,7 +1520,7 @@ class DoctorController extends Controller
         ]);
     }
 
-     //Candidato a cirugias
+     //===================== actualizar Candidato a cirugias ====================
      public function surgerysP_update(Request $request){
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
@@ -1565,7 +1565,6 @@ class DoctorController extends Controller
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
         $cirugia = Typesurgery::find($itinerary->typesurgery_id);
-        // dd($cirugia);
 
         $itinerary->typesurgery_id = null;
         $itinerary->save();
@@ -1576,7 +1575,7 @@ class DoctorController extends Controller
 
     }
 
-
+    //===================eliminar enfermedades ==========================
     public function enfermedad_eliminar(Request $request){
 
         $reservation = Reservation::find($request->reservacion_id);
@@ -1592,6 +1591,7 @@ class DoctorController extends Controller
         ]);
     }
 
+    //===================eliminar alergia ==========================
     public function alergia_eliminar(Request $request){
 
         $reservation = Reservation::find($request->reservacion_id);
@@ -1608,6 +1608,7 @@ class DoctorController extends Controller
         ]);
     }
 
+    //===================eliminar cirugias previas ==========================
     public function cirugia_borrar(Request $request){
 
     $reservation = Reservation::find($request->reservacion_id);
