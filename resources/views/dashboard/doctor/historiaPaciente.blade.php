@@ -991,7 +991,7 @@ button[data-original-title="Help"]{ display: none; }
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
 
-    //--------------------------------------------------RECIPE -----------------------------------
+    //--------------------------------------------------RECIPE -------------------------------------
 
     //================================= Para el recipe============================
     $('#add').click(function () {
@@ -1146,7 +1146,7 @@ button[data-original-title="Help"]{ display: none; }
     });
 
 
-    //---------------------------------------- REFERENCIA MEDICA -----------------------------------
+    //---------------------------------------- REFERENCIA MEDICA ----------------------------------------
 
     //================= referir medico =============
     $('#referir').click(function () {
@@ -1206,7 +1206,7 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
 
-    //-------------------------------------------ENFERMEDADES -------------------------------------
+    //-------------------------------------------ENFERMEDADES -------------------------------------------
 
     //=================guardar enfermedades================
     $("#guardarEnfermedad").click(function() {
@@ -1303,7 +1303,7 @@ button[data-original-title="Help"]{ display: none; }
     
     });
 
-    //-------------------------------------------- ALERGIAS ----------------------------------------
+    //-------------------------------------------- ALERGIAS -----------------------------------------------
 
     //================ guardar alergias =================
     $("#guardarAlergias").click(function() {
@@ -1403,7 +1403,7 @@ button[data-original-title="Help"]{ display: none; }
     });
 
 
-    //--------------------------------------- CIRUGIAS PREVIAS--------------------------------------------
+    //------------------------------------------- CIRUGIAS PREVIAS--------------------------------------------
 
     //========================= guardar cirugias ==================
     $("#guardarCirugias").click(function() {
