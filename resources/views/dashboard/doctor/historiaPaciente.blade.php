@@ -236,8 +236,16 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                     <div class=" mostrar_enfermedad">
                                                         @foreach ( $history->historyPatient->disease as $disease )
-                                                        <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
-                                                        @endforeach
+                                                        <div class="row" id="{{$disease->id}}">
+                                                            <div class="col-9">
+                                                                <a class="list-group-item list-group-item-action row ">{{ $disease->name }}</a>
+                                                            </div> 
+                                                            <div class="col-3">
+                                                                <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar enfermedad seleccionado"
+                                                                    value="Eliminar">
+                                                            </div>
+                                                        </div>                                                           
+                                                    @endforeach    
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
@@ -258,9 +266,19 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div id="collapseTwo" class="collapse card-body list-group mostrar_alergias" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                    @foreach ( $history->historyPatient->allergy as $allergy )
-                                                        <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
-                                                    @endforeach
+                                                    <div class="mostrar_alergias">
+                                                        @foreach ( $history->historyPatient->allergy as $allergy )
+                                                            <div class="row" id="{{$allergy->id}}">
+                                                                <div class="col-9">
+                                                                    <a class="list-group-item list-group-item-action row ">{{ $allergy->name }}</a>
+                                                                </div> 
+                                                                <div class="col-3">
+                                                                    <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar alergia seleccionado"
+                                                                        value="Eliminar">
+                                                                </div>
+                                                            </div>     
+                                                         @endforeach
+                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                     </div>
@@ -282,31 +300,22 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
                                                     @if($cite->previous_surgery != null)
-                                                        <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery  }}</a>
-                                                    @endif
+                                                    <div class="row" id="cirugia{{$cite->id}}">
+                                                        <div class="col-9" id="cirugia{{$cite->id}}">
+                                                            <a class="list-group-item list-group-item-action row" id="a_cirugia">{{ $cite->previous_surgery }}</a>
+                                                        </div> 
+                                                        <div class="col-3" id="cirugia{{$cite->id}}">
+                                                            <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugias"
+                                                                value="Eliminar">
+                                                        </div>
+                                                    </div> 
+                                                    @endif 
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                             <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                     </div>
                                                 </div>
                                             </div>
-
-
-                                            <!-- <div class="card">
-                                                <div class="card-header bg-azuloscuro">
-                                                <div class="row">
-                                                <div class="col-6"  id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                <h5 class="card-title text-white">Cirugias Previas</h5>
-                                                </div>
-                                                <div class="col-6 d-flex justify-content-end">
-                                                <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
-                                                </div>
-                                                </div>
-                                                </div>
-                                                <div id="collapseThree" class="collapse list-group card-body cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-                                                    <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery }}</a>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                        </div>
                                     </section>
 
                                     <h2>Examen Fisico</h2>
@@ -1253,6 +1262,47 @@ button[data-original-title="Help"]{ display: none; }
         }
     }
 
+    //================ eliminar enfermedad seleccionado ==========
+    $(function() {
+        $(document).on('click', '.enfermedad_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.enfermedad_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.enfermedad,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+
     //-------------------------------------------- ALERGIAS ----------------------------------------
 
     //================ guardar alergias =================
@@ -1309,8 +1359,49 @@ button[data-original-title="Help"]{ display: none; }
             // enfermedad='<p style="text-align:center">'+data[$i].name+'</p>';
             $(".mostrar_alergias").append(alergia);
         }
-
     }
+
+    //================ eliminar enfermedad seleccionado ==========
+    $(function() {
+        $(document).on('click', '.alergia_id', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.alergia_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.alergia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+
 
     //--------------------------------------- CIRUGIAS PREVIAS--------------------------------------------
 
@@ -1762,6 +1853,9 @@ button[data-original-title="Help"]{ display: none; }
         });
 
     });
+
+
+
 
 
 

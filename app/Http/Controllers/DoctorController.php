@@ -92,7 +92,7 @@ class DoctorController extends Controller
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        // dd($history);
+        // dd($history->historyPatient);
         //----------------mostrar enfermedades----------
         $enfermedades = Disease::all();
         
@@ -1569,11 +1569,12 @@ class DoctorController extends Controller
     public function enfermedad_eliminar(Request $request){
 
         $reservation = Reservation::find($request->reservacion_id);
-     
+    //  dd($reservation);
         $disease = Disease::find($request->id);
+        // dd($disease);
 
         $patient = Patient::where('person_id',$reservation->patient_id)->first();
-
+// dd($patient);
         $disease->patient()->detach($patient);
         // dd($patient);
 
