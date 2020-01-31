@@ -852,13 +852,21 @@ class DoctorController extends Controller
         $patients = Patient::where('person_id', $reservation->patient->id)->first();
 
         $enfermedades = Disease::all();
-        foreach($reservation->patient->historyPatient->disease as $item){
-            $array1[] = $item->id; 
+        $array1=array();
+        if($reservation->patient->historyPatient->disease->first() != null){
+            foreach($reservation->patient->historyPatient->disease as $item){
+                $array1[] = $item->id; 
+            }
         }
 
-        $merge_enfermedad= array_merge($returndata2,$array1);
-        $diff = array_diff($returndata2,$array1);
-        // dd($diff);
+        
+        if($array1 != []){
+            $merge_enfermedad= array_merge($returndata2,$array1);
+            $diff = array_diff($returndata2,$array1);
+        }else{
+            $merge_enfermedad = $returndata2;
+            $diff = $returndata2;
+        }
                       
         //guardando examens en la tabla diagnostic_exam
             foreach($merge_enfermedad as $item){
@@ -1589,6 +1597,22 @@ class DoctorController extends Controller
         return response()->json([
             'alergia' => 'Alergia eliminada correctamente',202
         ]);
+
+
+    }
+
+    public function cirugia_borrar(Request $request){
+
+    $reservation = Reservation::find($request->reservacion_id);
+
+    $patient = Patient::where('person_id',$reservation->patient_id)->first();
+
+    $patient->previous_surgery= null;
+    $patient->save();
+
+    return response()->json([
+        'cirugias' => 'Cirugias previas eliminada correctamente',202
+    ]);
 
 
     }

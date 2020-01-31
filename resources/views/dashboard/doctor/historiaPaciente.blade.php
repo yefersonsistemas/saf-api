@@ -308,7 +308,15 @@ button[data-original-title="Help"]{ display: none; }
                                                          </div>
                                                     </div>
                                                     <div id="collapseThree" class="collapse list-group card-body cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-                                                        <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery }}</a>
+                                                        <div class="row" id="cirugia{{$cite->id}}">
+                                                            <div class="col-9" id="cirugia{{$cite->id}}">
+                                                                <a class="list-group-item list-group-item-action row" id="a_cirugia">{{ $cite->previous_surgery }}</a>
+                                                            </div> 
+                                                            <div class="col-3" id="cirugia{{$cite->id}}">
+                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugias"
+                                                                    value="Eliminar">
+                                                            </div>
+                                                        </div>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -1353,11 +1361,11 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
    // ================== mostrando cirugias ==================
-//    function mostrarCirugia(data){
-//         console.log('ken',data);
-//         cirugia = data.previous_surgery;
-//         $("#a_cirugia").html(cirugia);
-//     }
+   function mostrarCirugia(data){
+        console.log('ken',data);
+        cirugia = data.previous_surgery;
+        $("#a_cirugia").html(cirugia);
+    }
 
 
     //============= captar datos de los procedimientos en la consulta===========
@@ -1819,6 +1827,46 @@ button[data-original-title="Help"]{ display: none; }
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
                     title: data.alergia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+
+       //================ eliminar enfermedad seleccionado ==========
+       $(function() {
+        $(document).on('click', '.borrar_cirugia', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.cirugia_borrar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}", 
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });

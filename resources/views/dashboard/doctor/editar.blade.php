@@ -276,7 +276,15 @@ button[data-original-title="Help"]{ display: none; }
                                                         <h5 class="card-title text-white">Cirugias Previas</h5>
                                                     </div>
                                                     <div id="collapseThree" class="collapse list-group card-body" aria-labelledby="headingThree" data-parent="#accordion">
-                                                        <a class="list-group-item list-group-item-action">{{ $cite->previous_surgery }}</a>
+                                                        <div class="row" id="cirugia{{$cite->id}}">
+                                                            <div class="col-9">
+                                                                <a class="list-group-item list-group-item-action row ">{{ $cite->previous_surgery }}</a>
+                                                            </div> 
+                                                            <div class="col-3">
+                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugias"
+                                                                    value="Eliminar">
+                                                            </div>
+                                                        </div>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -1763,6 +1771,47 @@ button[data-original-title="Help"]{ display: none; }
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
                     title: data.alergia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
+
+    
+       //================ eliminar enfermedad seleccionado ==========
+       $(function() {
+        $(document).on('click', '.borrar_cirugia', function(event) {
+            let id = this.id;
+            var reservacion = $("#reservacion_id").val();
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
+
+            $.ajax({
+                url: "{{ route('doctor.cirugia_borrar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}", 
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
