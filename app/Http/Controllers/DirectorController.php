@@ -25,6 +25,8 @@ use App\TypeDoctor;
 use App\Typesurgery;
 use App\User;
 use App\ClassificationSurgery;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 
 class DirectorController extends Controller
@@ -97,7 +99,7 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         
         $data = $request->validate([
             'name' => 'required',
@@ -262,18 +264,29 @@ class DirectorController extends Controller
         $doctor->save();
 
         $user->permissions()->sync($request->perms);
+        if ($request->image != null) {
+            if ( $employe->image == null) {
+               
+                $image = $request->file('image');
+                $path = $image->store('public/employes');  
+                $path = str_replace('public/', '', $path);
+                $image = new Image;
+                $image->path = $path;
+                $image->imageable_type = "App\Employe";
+                $image->imageable_id = $employe->id;
+                $image->branch_id = 1;
+                $image->save();
+            }else{
+                // dd($employe->image->path);
+                Storage::disk('public')->delete($employe->image->path); //elimina la img de storage
+                
 
-       if ($request->image != null) {
-           
-           $image = $request->file('image');
-           $path = $image->store('public/employes');  
-           $path = str_replace('public/', '', $path);
-           $image = new Image;
-           $image->path = $path;
-           $image->imageable_type = "App\Employe";
-           $image->imageable_id = $employe->id;
-           $image->branch_id = 1;
-           $image->save();
+                $image = $request->file('image');
+                $path = $image->store('public/employes');  
+                $path = str_replace('public/', '', $path);
+                $employe->image->path = $path;
+                $employe->image->save();
+            }
         }
 
        return redirect()->route('employe.index')->withSuccess('Registro modificado'); 

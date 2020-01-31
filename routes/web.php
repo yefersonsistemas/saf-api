@@ -50,7 +50,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inside/{registro}', 'InController@statusIn')->name('checkin.statusIn'); // cambia estado depaciente dentro del consultorio
         Route::get('insideOffice/{id}', 'InController@insideOffice')->name('checkin.insideOffice'); // cambia estado depaciente a dentro del consultorio
         Route::get('assigment', 'InController@create')->name('checkin.create');                    //asigna consultorio
-        Route::get('mostrar', 'InController@consultorio')->name('checkin.consultorio');  //muestra los consultorios
         Route::post('assigment/create', 'InController@assigment_area')->name('checkin.assigment_area');
         Route::post('create', 'InController@store')->name('checkin.store');
         Route::get('medicos/list', 'EmployesController@doctor_on_day')->name('checkin.doctor');
@@ -61,6 +60,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('status', 'InController@status')->name('checkin.status');
         Route::post('exams_previos', 'InController@exams_previos')->name('checkin.exams');
         Route::post('guardar_foto', 'InController@guardar_foto')->name('checkin.avatar');
+        Route::get('mostrar', 'InController@consultorio')->name('checkin.consultorio');  //muestra los consultorios
         Route::get('change/{id}', 'InController@change')->name('checkin.cambiar');
 
         // Recepcion
@@ -76,8 +76,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
 
-        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases');
+        
+        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases'); //para agregar las enfermedades que tiene el paciente
+        Route::post('patient/allergies','InController@allergies')->name('checkin.allergies'); //para agregar las alergias que tiene el paciente
+        Route::post('patient/medicines','InController@medicines')->name('checkin.medicines'); //para agregar las medicamentos que toma el paciente
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
+
+        Route::POST('patient/diseases/create', 'InController@diseases_create')->name('checkin.diseases_create');
+        Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
+        Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
     });
 
     //======================= rutas para el usuario ckeckout ====================
@@ -110,7 +117,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('programar/{id}','SurgerysController@create')->name('checkout.programar_cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
         Route::get('programar_cirugia','SurgerysController@create_surgery')->name('checkout.programar-cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
-        Route::post('search/checkout/patients','SurgerysController@search_patients')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
+        Route::post('search/checkout/patients','SurgerysController@search_patients_out')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
         // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');

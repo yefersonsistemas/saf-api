@@ -43,7 +43,7 @@ class SurgerysController extends Controller
      */
     // para agendar cirugia cuando el paciente se encuentra en el itinerario 
     public function create($id){
-
+// dd($id);
         $tipo = TypeArea::where('name', 'Quirofano')->first();
         
         $quirofano = Area::with('typearea','image')->where('type_area_id', $tipo->id)->get();     
@@ -52,6 +52,7 @@ class SurgerysController extends Controller
 
         $medico = Typesurgery::with('employe_surgery.person.image')->where('id', $paciente->typesurgery->id)->first();
 
+        // dd($medico);
         return view('dashboard.checkout.programar_cirugia', compact('quirofano', 'paciente', 'medico'));
 }
 
@@ -67,15 +68,17 @@ public function create_surgery(){
     return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
 }
 
+    
     //buscar paciente
-    public function search_patients(Request $request){
+    public function search_patients_out(Request $request){
 
         // dd($request);
         $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
-
-        if (!is_null($person)) {
-            $patient = Patient::with('person')->where('person_id', $person->id)->first();
+        $patient = Patient::with('person')->where('person_id', $person->id)->first();
+        // dd($patient);
+        if (!is_null($patient)) {
+            // $patient = Patient::with('person')->where('person_id', $person->id)->first();
             return response()->json([
             'patient' => $patient, 201
             ]);
@@ -85,6 +88,7 @@ public function create_surgery(){
             ]);
         }
     }
+
 
     public function search_doctor(Request $request){    //medicos asociado a una cirugia
         
@@ -108,13 +112,15 @@ public function create_surgery(){
     //agenda la cirugia
     public function store(Request $request)
     {   
+        // dd($request);
         //datos a guardar en la tabla surgeries
         $p = $request->patient_id;
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
-        $d = $request->date;
+        $d = Carbon::create($request->date);
 
+        // dd($d);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		

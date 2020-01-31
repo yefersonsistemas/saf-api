@@ -322,12 +322,11 @@
                 console.log('ee', data);
                 if (data[0] == 202) {
                     Swal.fire({
-                        // title: 'Ha Ingresado Un Dato Incorrecto!',
-                        text: 'Ha Ingresado Un Dato Incorrecto!',
+                        title: data.message,
+                        text: 'Datos Incorrectos o la Persona No es Paciente',
                         type: 'error',
                         allowOutsideClick:false,
                     })
-                    // enabled();
                 }
                 if (data[0] == 201) {
                     Swal.fire({
@@ -363,25 +362,6 @@
         // $("#photo").val(data.person.photo);
         // $('.dropify-render')
     }
-
-    // function enabled() {
-    //     $("#photo").val('');
-    //     $('#name').val('');
-    //     $('#lastname').val('');
-    //     $('#email').val('');
-    //     $('#address').val('');
-    //     $('#phone').val('');
-
-    //     $("#photo").removeAttr('disabled');
-    //     $(".dropify-wrapper").removeClass('disabled');
-    //     $('#name').removeAttr('disabled');
-    //     $('#lastname').removeAttr('disabled');
-    //     $('#email').removeAttr('disabled');
-    //     $('#address').removeAttr('disabled');
-    //     $('#phone').removeAttr('disabled');
-    //     $('#submit').removeAttr('disabled');
-    //     $('#patient_id').val('nuevo');
-    // }
 
     function surgery() {
         $("input[name='type_surgery_id']").click(function() {

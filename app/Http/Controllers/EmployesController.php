@@ -17,6 +17,7 @@ use App\AreaAssigment;
 use App\Image;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
 
@@ -132,15 +133,15 @@ class EmployesController extends Controller
             }
         }
 
-         return view('dashboard.checkin.doctor', compact('em'));
+        return view('dashboard.checkin.doctor', compact('em'));
     }
 
     public function doctor_on_todos()//todos los medicos
     {
- 
-        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule')->get();
-        // dd( $employes);
 
+        $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule','areaassigment.area')->get();
+        // dd($employes->first()->areaassigment->area);
+        $consultorio = 
         $e = collect([]);
         if ($employes->isNotEmpty()) {
             foreach($employes as $employe){
@@ -149,6 +150,7 @@ class EmployesController extends Controller
                 }
             }
         }
+            // dd($e);
             return view('dashboard.checkin.doctor_todos', compact('e'));
     }
 
@@ -175,7 +177,7 @@ class EmployesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         // dd(strlen($request->contra));
         $data = $request->validate([
             'name' => 'required',
@@ -269,6 +271,7 @@ class EmployesController extends Controller
     public function edit($id)
     {
         $employe = Employe::with('person.user', 'position', 'image')->find($id);
+        // dd($employe);
         $position = Position::all();
         $permissions = Permission::all();
         $buscar_P = Position::where('id', $employe->position->id)->first(); 
@@ -307,17 +310,29 @@ class EmployesController extends Controller
         // dd($request->perms);
         $user->permissions()->sync($request->perms);
 
-       if ($request->image != null) {
-           
-           $image = $request->file('image');
-           $path = $image->store('public/employes');  
-           $path = str_replace('public/', '', $path);
-           $image = new Image;
-           $image->path = $path;
-           $image->imageable_type = "App\Employe";
-           $image->imageable_id = $employe->id;
-           $image->branch_id = 1;
-           $image->save();
+        if ($request->image != null) {
+            if ( $employe->image == null) {
+               
+                $image = $request->file('image');
+                $path = $image->store('public/employes');  
+                $path = str_replace('public/', '', $path);
+                $image = new Image;
+                $image->path = $path;
+                $image->imageable_type = "App\Employe";
+                $image->imageable_id = $employe->id;
+                $image->branch_id = 1;
+                $image->save();
+            }else{
+                // dd($employe->image->path);
+                Storage::disk('public')->delete($employe->image->path); //permite eliminar la foto en storage
+                
+
+                $image = $request->file('image');
+                $path = $image->store('public/employes');  
+                $path = str_replace('public/', '', $path);
+                $employe->image->path = $path;
+                $employe->image->save();
+            }
         }
 
 

@@ -42,7 +42,8 @@
                                 <div class="row gutters-sm d-row d-flex justify-content-between">
                                     @foreach ($areas as $area)
                                             @if ($area->typearea->name == 'Consultorio' && $area->status == null)
-                                                @if ($area->areaassigment != null  )
+                                                @if ($area->areaassigment != null  )  
+                                                {{-- si $area->areaassigment == null no mostrara nada en in --}}
                                                 @foreach ($area->areaassigment->employe->schedule as $item)
                                                     @if($item->turn == 'mañana' && $item->day == $dia)
                                                         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center" style="">
@@ -112,7 +113,7 @@
                                                                     <div class="card-body text-center" style="background:#EEEBEB;" style="max-height: 100px; width:170px;">
                                                                         <h6 class="font-weight-bold">{{ $area->name}} </h6>
                                                                         <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
-                                                                        <button type="button" class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">desocupado</button>
+                                                                        <a href="{{route('checkin.cambiar', $area->id)}}" class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">por llegar</a>
                                                                         {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">desocupado</span></h6> --}}
                                                                     </div>
                                                                 </div>
@@ -138,7 +139,7 @@
                                                                                 @if ($area->areaassigment != null)
                                                                                 <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
                                                                                 @endif
-                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">{{ $area->status }}</h6>
+                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">asistente</h6>
                                                                                 {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6> --}}
                                                                             </div>
                                                                         </div>
