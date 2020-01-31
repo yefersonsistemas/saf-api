@@ -685,10 +685,10 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="enfermedad">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
+                            <div class="custom-controls-stacked modal_enfermedad">
                                 @if($enfermedad != null)
                                     @foreach ($enfermedad as $item)
-                                        <div class="row">
+                                        <div class="row" id="quitar{{$item->id}}">
                                             <label class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
                                                 <span class="custom-control-label">{{ $item->name }} </span>
@@ -1212,8 +1212,8 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarEnfermedad").click(function() {
             var reservacion = $("#reservacion").val();
             var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
-        console.log("hh",enfermedad);
-    ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+            console.log("hh",enfermedad);
+            ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
     function ajax_enfermedad(enfermedad,reservacion) {
@@ -1257,8 +1257,9 @@ button[data-original-title="Help"]{ display: none; }
    function mostrarEnfermedad(data){
         console.log('ken',data[0].name);
         for($i=0; $i < data.length; $i++){
-            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $(".mostrar_enfermedad").append(enfermedad);
+            $("#quitar"+data[$i].id).remove();
         }
     }
 
@@ -1270,7 +1271,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('jajja',reservacion);
             console.log('id', id);    
             $("#"+id).remove();
-
+          
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
                 type: 'POST',
@@ -1283,7 +1284,9 @@ button[data-original-title="Help"]{ display: none; }
 
             })
             .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+            console.log('enfermedad modal',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+            $(".modal_enfermedad").append(agregar);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({

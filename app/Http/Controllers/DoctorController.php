@@ -1583,7 +1583,7 @@ class DoctorController extends Controller
         // dd($patient);
 
         return response()->json([
-            'enfermedad' => 'Enfermedad eliminada correctamente',202
+            'enfermedad' => 'Enfermedad eliminada correctamente',202,$disease
         ]);
 
 
