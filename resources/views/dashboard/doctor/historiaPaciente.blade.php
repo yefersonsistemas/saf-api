@@ -62,612 +62,602 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
             </div>
 
-                {{-- --------Step-----------}}
-                <div class="row clearfix">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="card position-relative">
+            {{-- --------Step-----------}}
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card position-relative">
 
-                        <!--Inicio de informacion paciente-->
-                        <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro text-white position-absolute ml-3"><i class="icon-action-undo mx-auto"></i></a>
-                        <div class="container">
-                            <div class="row my-3 d-flex flex-row align-items-center">
-                                <div class="col-3 ml-4">
+                    <!--Inicio de informacion paciente-->
+                    <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro text-white position-absolute ml-3"><i class="icon-action-undo mx-auto"></i></a>
+                    <div class="container">
+                        <div class="row my-3 d-flex flex-row align-items-center">
+                            <div class="col-3 ml-4">
                                 <label class="m-0 d-block p-2 form-label">Nro. Historia: <span class="badge badge-dark">{{ $history->patient->historyPatient->history_number }}</span></label>
+                            </div>
+                            <div class="col-3">
+                                <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
+                            </div>
+                            <div class="col">
+                                <div class=" d-flex align-items-center">
+                                    <label class="m-0 d-block p-2 form-label">DNI:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <select name="type_dni" class="custom-select input-group-text border-0 bg-white" disabled="">
+                                                <option value="{{ $history->patient->type_dni }}">
+                                                    {{ $history->patient->type_dni }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control border-0 bg-white dni" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $history->patient->dni }}" name="dniP">
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
+                                <div class=" d-flex align-items-center">
+                                    <label class="m-0 d-block p-2 form-label">Nombre:</label>
+                                    <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->patient->name }}" name="nameP">
                                 </div>
-                                <div class="col">
-                                    <div class=" d-flex align-items-center">
-                                        <label class="m-0 d-block p-2 form-label">DNI:</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <select name="type_dni" class="custom-select input-group-text border-0 bg-white" disabled="">
-                                                        <option value="{{ $history->patient->type_dni }}">
-                                                            {{ $history->patient->type_dni }}
-</option>
-</select>
-                                                </div>
-                                                <input type="text" class="form-control border-0 bg-white dni" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $history->patient->dni }}" name="dniP">
-                                            </div>
-                                    </div>
-                                    <div class=" d-flex align-items-center">
-                                        <label class="m-0 d-block p-2 form-label">Nombre:</label>
-                                        <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->patient->name }}" name="nameP">
-                                    </div>
-                                    <div class=" d-flex align-items-center">
-                                        <label class="m-0 d-block p-2 form-label">Apellido:</label>
-                                        <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->patient->lastname }}" name="lastnameP">
-                                    </div>
+                                <div class=" d-flex align-items-center">
+                                    <label class="m-0 d-block p-2 form-label">Apellido:</label>
+                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->patient->lastname }}" name="lastnameP">
+                                </div>
+                        |   </div>
                         </div>
-                        </div>
-<hr style="border: 0;
-    height: 1px;
-    background: #333;
-    background-image: linear-gradient(to right, #ccc, #333, #ccc);">
-                                    <!--Fin de informacion paciente-->
-                                <!--body-->
-                                <div class="card-group">
-                                    {{-- <div id="wizard_vertical"> --}}
-                                    <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST" class="step-doctor">
-                                        @csrf
-                                        <input type="hidden" name="patient_id" value="{{ $history->patient_id }}">
-                                        <input type="hidden" name="employe_id" value="{{ $history->person_id }}">
-                                        <input type="hidden" name="razon" value="{{ $history->description }}">
-                                        <input type="hidden" name="reservacion_id" id="reservacion_id" value="{{ $history->id }}">
+                            <hr style="border: 0;
+                            height: 1px;
+                            background: #333;
+                            background-image: linear-gradient(to right, #ccc, #333, #ccc);">
+                                <!--Fin de informacion paciente-->
+                            <!--body-->
+                            <div class="card-group">
+                                {{-- <div id="wizard_vertical"> --}}
+                                <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST" class="step-doctor">
+                                    @csrf
+                                    <input type="hidden" name="patient_id" value="{{ $history->patient_id }}">
+                                    <input type="hidden" name="employe_id" value="{{ $history->person_id }}">
+                                    <input type="hidden" name="razon" value="{{ $history->description }}">
+                                    <input type="hidden" name="reservacion_id" id="reservacion_id" value="{{ $history->id }}">
 
-                                        <h2>Información Personal</h2>
-                                        <section class="card mr-4 ml-4 pb-0 pt-4">
+                                    <h2>Información Personal</h2>
+                                    <section class="card mr-4 ml-4 pb-0 pt-4">
                                         <article class="ml-3 my-auto">
-<h6>Dirección:</h6>
+                                            <h6>Dirección:</h6>
                                             <input type="text" class="form-control border-0 bg-white" disabled="" name="addressP" placeholder="dirección" value="{{ $history->patient->address }}">
                                         </article>
                                         <article class="ml-3 my-auto">
-<h6>Correo:</h6>
+                                            <h6>Correo:</h6>
                                             <input type="emailP" class="form-control border-0 bg-white" disabled="" placeholder="Email" value="{{ $history->patient->email }}">
                                         </article>
                                         <article class="ml-3 my-auto">
-                                        <h6>Lugar de nacimiento:</h6>
+                                            <h6>Lugar de nacimiento:</h6>
                                             <input type="text" class="form-control border-0 bg-white"  disabled="" placeholder="Lugar de Nacimiento" value="{{ $history->patient->historyPatient->place }}" name="place">
                                         </article>
                                         <div class="card-group">
-                                        <div class="card">
-                                            <div class="card-body">
-                                            <h6 class="card-title">Fecha de nacimiento:</h6>
-                                            <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $history->patient->historyPatient->birthdate }}" name="birthdate">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Fecha de nacimiento:</h6>
+                                                    <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Fecha de naciemiento" disabled="" value="{{ $history->patient->historyPatient->birthdate }}" name="birthdate">
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Edad:</h6>
+                                                    <input type="number" class="form-control border-0 bg-white " placeholder="Edad" disabled="" name="age" value="{{ $history->patient->historyPatient->age }}">
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Genero:</h6>
+                                                    <div class="form-check ladymen p-0">
+                                                        <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
+                                                            <input type="radio" id="genero1" name="gender" class="form-check-input" {{ $history->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} disabled value="Masculino">
+                                                            <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
+                                                            <input  type="radio" id="genero2" name="gender" class="form-check-input"  {{ $history->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} disabled value="Femenino">
+                                                            <label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-group">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Telefono:</h5>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Telefono" name="phone" value="{{ $history->patient->phone }}">
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                        <h5 class="card-title">Profesión:</h5>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Profesión" name="profession" value="{{ $history->patient->historyPatient->profession }}">
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Ocupación:</h5>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Ocupación" name="occupation" value="{{ $history->patient->historyPatient->occupation }}">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                            <h6 class="card-title">Edad:</h6>
-                                            <input type="number" class="form-control border-0 bg-white " placeholder="Edad" disabled="" name="age" value="{{ $history->patient->historyPatient->age }}">
+                                    </section>
+
+                                    <h2>Motivo</h2>
+                                    <section class="card mr-4 ml-4 pb-0 pt-4">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="m-0 form-label">Fecha:</label>
+                                                    <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Proxima Cita" disabled="" value="{{ $history->date }}" name=proxCita>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="m-0 form-label">Medico Tratante:</label>
+                                                    <div class="input-group d-flex flex-row align-items-center">
+                                                        <label for="" class="m-0">Dr.(a) </label>
+                                                        <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
+                                                        <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
+                                                        <input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
+
+                                                        <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
+                                                        <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="m-0 form-label">Razon:</label>
+                                                    <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->description }}" name="razon">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                            <h6 class="card-title">Genero:</h6>
-                                            <div class="form-check ladymen p-0">
-<div class="custom-control custom-radio custom-control-inline p-0 mr-1">
-<input type="radio" id="genero1" name="gender" class="form-check-input" {{ $history->patient->historyPatient->gender == 'Femenino' ? 'checked':'' }} disabled value="Masculino">
-<label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
-</div>
-<div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-<input  type="radio" id="genero2" name="gender" class="form-check-input"  {{ $history->patient->historyPatient->gender == 'Masculino' ? 'checked':'' }} disabled value="Femenino">
-<label class="form-check-label" for="genero2"><span><i class="fa fa-male"></i></span></label>
-</div>
-</div>
-</div>
-</div>
-</div>
-                                                        <div class="card-group">
-                                                        <div class="card">
-<div class="card-body">
-                                                            <h5 class="card-title">Telefono:</h5>
-<input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Telefono" name="phone" value="{{ $history->patient->phone }}">
-</div>
-</div>
-                                                        <div class="card">
-<div class="card-body">
-                                                            <h5 class="card-title">Profesión:</h5>
-<input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Profesión" name="profession" value="{{ $history->patient->historyPatient->profession }}">
-</div>
-</div>
-                                                        <div class="card">
-<div class="card-body">
-                                                            <h5 class="card-title">Ocupación:</h5>
-<input type="text" class="form-control border-0 bg-white" disabled="" placeholder="Ocupación" name="occupation" value="{{ $history->patient->historyPatient->occupation }}">
-</div>
-</div>
-</div>
+                                    </section>
 
-                                        </section>
+                                    <h2>Enfermedad Actual</h2>
+                                    <section class="ml-4 pb-0 pt -4">
+                                        <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote" ></textarea>
+                                    </section>
 
-<h2>Motivo</h2>
-                                        <section class="card mr-4 ml-4 pb-0 pt-4">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="m-0 form-label">Fecha:</label>
-                                                        <input data-provide="datepicker" data-date-autoclose="true" class="form-control border-0 bg-white" placeholder="Proxima Cita" disabled="" value="{{ $history->date }}" name=proxCita>
+                                    <h2>Antecedentes</h2>   
+                                    <section class="ml-4 pb-0 pt-4">
+                                        <div id="accordion">
+                                            <!--agregar enfermedad-->
+                                            <div class="card">
+                                                <div class="card-header bg-azuloscuro" >
+                                                    <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                        <div class="col-8">
+                                                            <h5 class="card-title text-white">Enfermedades</h5>
+                                                        </div>
+                                                        <div class="col-4 d-flex justify-content-end">
+                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="m-0 form-label">Medico Tratante:</label>
-                                                        <div class="input-group d-flex flex-row align-items-center">
-<label for="" class="m-0">Dr.(a) </label>
-<input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
-<input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
-<input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
-
-<input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
-<input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
-</div>
+                                                <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
+                                                    <div class=" mostrar_enfermedad">
+                                                        @foreach ( $history->historyPatient->disease as $disease )
+                                                        <a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
+                                                        @endforeach
                                                     </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="m-0 form-label">Razon:</label>
-                                                        <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->description }}" name="razon">
+                                                    <div class="col-12 d-flex justify-content-end mt-4">
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </section>
 
-                                        <h2>Enfermedad Actual</h2>
-                                        <section class="ml-4 pb-0 pt -4">
-                                            <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote" ></textarea>
-                                        </section>
-
-<h2>Antecedentes</h2>
-                                        <section class="ml-4 pb-0 pt-4">
-                                            <div id="accordion">
-                                                <!--agregar enfermedad-->
-                                                <div class="card">
-                                                    <div class="card-header bg-azuloscuro" >
-                                                        <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-<div class="col-8">
-<h5 class="card-title text-white">Enfermedades</h5>
-</div>
-<div class="col-4 d-flex justify-content-end">
-<p class="card-title text-white" style="font-size:12px;">VER MAS</p>
-</div>
-</div>
-                                                    </div>
-                                                    <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                       <div class=" mostrar_enfermedad">
-@foreach ( $history->historyPatient->disease as $disease )
-<a class="list-group-item list-group-item-action">{{ $disease->name }}</a>
-@endforeach
-</div>
-                                                        <div class="col-12 d-flex justify-content-end mt-4">
-<button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-</div>
+                                            <!--agregar alergias-->
+                                            <div class="card">
+                                                <div class="card-header bg-azuloscuro" >
+                                                    <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                        <div class="col-8">
+                                                            <h5 class="card-title text-white">Alergias</h5>
+                                                        </div>
+                                                        <div class="col-4 d-flex justify-content-end">
+                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <!--agregar alergias-->
-                                                <div class="card">
-                                                    <div class="card-header bg-azuloscuro" >
-<div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-<div class="col-8">
-<h5 class="card-title text-white">Alergias</h5>
-</div>
-<div class="col-4 d-flex justify-content-end">
-<p class="card-title text-white" style="font-size:12px;">VER MAS</p>
-</div>
-</div>
-</div>
-                                                    <div id="collapseTwo" class="collapse card-body list-group mostrar_alergias" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                        @foreach ( $history->historyPatient->allergy as $allergy )
-                                                            <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
-@endforeach
-                                                        <div class="col-12 d-flex justify-content-end mt-4">
+                                                <div id="collapseTwo" class="collapse card-body list-group mostrar_alergias" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                    @foreach ( $history->historyPatient->allergy as $allergy )
+                                                        <a class="list-group-item list-group-item-action">{{ $allergy->name }}</a>
+                                                    @endforeach
+                                                    <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-</div>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <!--agregar cirugias-->
+                                            <!--agregar cirugias-->
 
-                                                <div class="card">
-                                                    <div class="card-header bg-azuloscuro" >
-<div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-<div class="col-8">
-<h5 class="card-title text-white">Cirugias Previas</h5>
-</div>
-<div class="col-4 d-flex justify-content-end">
-<p class="card-title text-white" style="font-size:12px;">VER MAS</p>
-</div>
-</div>
-</div>
-                                                    <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-@if($cite->previous_surgery != null)
+                                            <div class="card">
+                                                <div class="card-header bg-azuloscuro" >
+                                                    <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                        <div class="col-8">
+                                                            <h5 class="card-title text-white">Cirugias Previas</h5>
+                                                        </div>
+                                                        <div class="col-4 d-flex justify-content-end">
+                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
+                                                    @if($cite->previous_surgery != null)
                                                         <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery  }}</a>
                                                     @endif
-                                                        <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
-</div>
+                                                    <div class="col-12 d-flex justify-content-end mt-4">
+                                                            <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                     </div>
                                                 </div>
+                                            </div>
 
 
-                                                <!-- <div class="card">
-                                                    <div class="card-header bg-azuloscuro">
-                                                        <div class="row">
-<div class="col-6"  id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-<h5 class="card-title text-white">Cirugias Previas</h5>
-</div>
-<div class="col-6 d-flex justify-content-end">
-<button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
-</div>
-</div>
-                                                    </div>
-                                                    <div id="collapseThree" class="collapse list-group card-body cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-                                                        <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery }}</a>
+                                            <!-- <div class="card">
+                                                <div class="card-header bg-azuloscuro">
+                                                <div class="row">
+                                                <div class="col-6"  id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <h5 class="card-title text-white">Cirugias Previas</h5>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-end">
+                                                <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                <div id="collapseThree" class="collapse list-group card-body cirugias" aria-labelledby="headingThree" data-parent="#accordion">
+                                                    <a class="list-group-item list-group-item-action" id="a_cirugia">{{ $cite->previous_surgery }}</a>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </section>
+
+                                    <h2>Examen Fisico</h2>
+                                    <section class="ml-4 pb-0 pt-4">
+                                        <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
+                                    </section>
+
+                                    <h2>Estudios complementarios</h2>
+                                    <section class="ml-4 pb-0 pt-4">
+                                        <div class="row">
+                                            @foreach ( $cite->person->reservationPatient as $cites )
+                                                <div class="col-md-4">
+                                                    <div class="card">
+                                                        <div class="card-header bg-azuloscuro">
+                                                            <h5 class="card-title text-white">{{$cites->date}}</h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div> -->
-                                        </section>
+                                            @endforeach
+                                        </div>
+                                    </section>
 
-                                        <h2>Examen Fisico</h2>
-                                        <section class="ml-4 pb-0 pt-4">
-                                            <textarea name="examen_fisico" id="" cols="30" rows="10" class="summernote"></textarea>
-                                        </section>
+                                    <h2>Diagnostico</h2>
+                                    <section class="ml-4 pb-0 pt-4">
+                                        <div class="row">
+                                            <div class="col-12">
 
-                                        <h2>Estudios complementarios</h2>
+                                                <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
+                                        <h2>Procedimientos Realizados</h2>
                                         <section class="ml-4 pb-0 pt-4">
-                                            <div class="row">
-                                                @foreach ( $cite->person->reservationPatient as $cites )
-                                                    <div class="col-md-4">
+                                            <h5>Procedimientos Realizados al Paciente:</h5>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar Procedimiento</button>
+                                                    <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-vcenter table-striped"
+                                                        cellspacing="0" id="addrowExample">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Procedimiento Seleccionado</th>
+                                                                    <th class="text-center">Accion</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="procesc">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </section>
+
+                                    <h2>Plan</h2>
+                                    <section class="ml-4 pb-0 pt-2 plan">
+                                        <div class="plan-steps">
+                                            <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="pills-examenes-tab" data-toggle="pill" href="#pills-examenes" role="tab" aria-controls="pills-examenes" aria-selected="true">Examenes</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="pills-recetario-tab" data-toggle="pill" href="#pills-recetario" role="tab" aria-controls="pills-recetario" aria-selected="false">Recetario</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="pills-informe-tab" data-toggle="pill" href="#pills-informe" role="tab" aria-controls="pills-informe" aria-selected="false">Informe médico</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="pills-reposo-tab" data-toggle="pill" href="#pills-reposo" role="tab" aria-controls="pills-reposo" aria-selected="false">Reposo</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="pills-referencia-tab" data-toggle="pill" href="#pills-referencia" role="tab" aria-controls="pills-referencia" aria-selected="false">Referir a otro médico</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="pills-candidato-tab" data-toggle="pill" href="#pills-candidato" role="tab" aria-controls="pills-candidato" aria-selected="false">Candidato A:</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-content pb-0 pt-4" id="pills-tabContent">
+                                            <!--Examen-->
+                                            <div class="tab-pane fade show active container" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
+                                                <h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
+                                                <div class="row">
+                                                    <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
+                                                    <div class="col-lg-12 mx-auto">
                                                         <div class="card">
-<div class="card-header bg-azuloscuro">
-<h5 class="card-title text-white">{{$cites->date}}</h5>
-</div>
-<div class="card-body">
-</div>
-</div>
+                                                            <div class="card-header my-1 py-3">
+                                                                <button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar examen</button>
+                                                            </div>
+                                                            <div class="card-body py-1">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover table-vcenter table-striped"
+                                                                    cellspacing="0" id="addrowExample">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Examen Seleccionado</th>
+                                                                                <th class="text-center">Accion</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="examen">
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                @endforeach
+                                                </div>
                                             </div>
-                                        </section>
+                                            <!--Recetario-->
+                                            <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
+                                                <div class="row clearfix">
+                                                    <div class="col-lg-12 mx-auto">
+                                                        <div class="card mx-2">
+                                                            <div class="card-body">
+                                                                <h3 class="card-title">Agregar Medicamento</h3>
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Medicamento</label>
+                                                                            <select class="form-control custom-select" id="medicamento" name="medicamento">
+                                                                                <option value="0">Seleccione</option>
+                                                                                @foreach ($medicines as $medicine)
+                                                                                <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-3">
+                                                                        <div class="form-group">
+                                                                        <label class="form-label">Dosis</label>
+                                                                        <input type="text" id="dosis" class="form-control" name="dosis" placeholder="3">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Medida</label>
+                                                                            <select name="medida" id="medida" class="form-control custom-select">
+                                                                                <option value="0">Seleccione</option>
+                                                                                <option value="CC">CC</option>
+                                                                                <option value="G">G</option>
+                                                                                <option value="ML">ML</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-3">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Duracion</label>
+                                                                            <input type="text" id="duracion" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
+                                                                        </div>
+                                                                    </div>
 
-<h2>Diagnostico</h2>
-                                        <section class="ml-4 pb-0 pt-4">
-                                            <div class="row">
-                                                <div class="col-12">
-
-                                                    <textarea name="diagnostic" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group mb-0">
+                                                                    <label class="form-label">Indicaciones</label>
+                                                                    <textarea rows="5" id="indicacion" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer text-right">
+                                                                <a class="btn btn-azuloscuro mb-15 text-white" id="add">
+                                                                <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 mx-auto">
+                                                        <div class="card">
+                                                            <div class="row">
+                                                                <div class="card-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-vcenter table-striped"
+                                                                        cellspacing="0" id="addrowExample">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Medicamento Seleccionado</th>
+                                                                                    <th>Dosis</th>
+                                                                                    <th>Medidas</th>
+                                                                                    <th>Duracion</th>
+                                                                                    <th>Indicaciones</th>
+                                                                                    <th>Acciones</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="addRow">
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </section>
 
-<!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
-                                         <h2>Procedimientos Realizados</h2>
-                                         <section class="ml-4 pb-0 pt-4">
-<h5>Procedimientos Realizados al Paciente:</h5>
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar Procedimiento</button>
-                                                        <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="table-responsive">
-<table class="table table-hover table-vcenter table-striped"
-cellspacing="0" id="addrowExample">
-<thead>
-<tr>
-<th>Procedimiento Seleccionado</th>
-<th class="text-center">Accion</th>
-</tr>
-</thead>
-<tbody id="procesc">
-</tbody>
-</table>
-</div>
-                                                    </div>
-                                                </div>
-                                        </section>
-
-                                        <h2>Plan</h2>
-                                        <section class="ml-4 pb-0 pt-2 plan">
-                                            <div class="plan-steps">
-                                                <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" id="pills-examenes-tab" data-toggle="pill" href="#pills-examenes" role="tab" aria-controls="pills-examenes" aria-selected="true">Examenes</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="pills-recetario-tab" data-toggle="pill" href="#pills-recetario" role="tab" aria-controls="pills-recetario" aria-selected="false">Recetario</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="pills-informe-tab" data-toggle="pill" href="#pills-informe" role="tab" aria-controls="pills-informe" aria-selected="false">Informe médico</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="pills-reposo-tab" data-toggle="pill" href="#pills-reposo" role="tab" aria-controls="pills-reposo" aria-selected="false">Reposo</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="pills-referencia-tab" data-toggle="pill" href="#pills-referencia" role="tab" aria-controls="pills-referencia" aria-selected="false">Referir a otro médico</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="pills-candidato-tab" data-toggle="pill" href="#pills-candidato" role="tab" aria-controls="pills-candidato" aria-selected="false">Candidato A:</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
-                                                    </li>
-                                                </ul>
+                                            <!--Informe medico-->
+                                            <div class="tab-pane fade mx-2" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
+                                                <section>
+                                                    <textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                </section>
                                             </div>
-                                            <div class="tab-content pb-0 pt-4" id="pills-tabContent">
-<!--Examen-->
-                                                <div class="tab-pane fade show active container" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-<h5>Examenes Medicos Que El Paciente Se Debe Realizar:</h5>
-                                                    <div class="row">
-                                                        <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
-                                                        <div class="col-lg-12 mx-auto">
-<div class="card">
-<div class="card-header my-1 py-3">
-<button type="button" data-toggle="modal" data-target="#examenes" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar examen</button>
-</div>
-<div class="card-body py-1">
-<div class="table-responsive">
-<table class="table table-hover table-vcenter table-striped"
-cellspacing="0" id="addrowExample">
-<thead>
-<tr>
-<th>Examen Seleccionado</th>
-<th class="text-center">Accion</th>
-</tr>
-</thead>
-<tbody id="examen">
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-                                                    </div>
-                                                </div>
-<!--Recetario-->
-                                                <div class="tab-pane fade" id="pills-recetario" role="tabpanel" aria-labelledby="pills-recetario-tab">
-                                                    <div class="row clearfix">
-                                                        <div class="col-lg-12 mx-auto">
-<div class="card mx-2">
-<div class="card-body">
-<h3 class="card-title">Agregar Medicamento</h3>
-<div class="row">
-<div class="col-md-3">
-<div class="form-group">
-<label class="form-label">Medicamento</label>
-<select class="form-control custom-select" id="medicamento" name="medicamento">
-<option value="0">Seleccione</option>
-@foreach ($medicines as $medicine)
-<option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
-@endforeach
-</select>
-</div>
-</div>
-<div class="col-sm-6 col-md-3">
-<div class="form-group">
-<label class="form-label">Dosis</label>
-<input type="text" id="dosis" class="form-control" name="dosis" placeholder="3">
-</div>
-</div>
-<div class="col-md-3">
-<div class="form-group">
-<label class="form-label">Medida</label>
-<select name="medida" id="medida" class="form-control custom-select">
-<option value="0">Seleccione</option>
-<option value="CC">CC</option>
-<option value="G">G</option>
-<option value="ML">ML</option>
-</select>
-</div>
-</div>
-<div class="col-sm-6 col-md-3">
-<div class="form-group">
-<label class="form-label">Duracion</label>
-<input type="text" id="duracion" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group mb-0">
-<label class="form-label">Indicaciones</label>
-<textarea rows="5" id="indicacion" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
-</div>
-</div>
-<div class="card-footer text-right">
-<a class="btn btn-azuloscuro mb-15 text-white" id="add">
-<i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
-</a>
-</div>
-</div>
-</div>
-                                                        <div class="col-lg-12 mx-auto">
-<div class="card">
-<div class="row">
-<div class="card-body">
-<div class="table-responsive">
-<table class="table table-hover table-vcenter table-striped"
-cellspacing="0" id="addrowExample">
-<thead>
-<tr>
-<th>Medicamento Seleccionado</th>
-<th>Dosis</th>
-<th>Medidas</th>
-<th>Duracion</th>
-<th>Indicaciones</th>
-<th>Acciones</th>
-</tr>
-</thead>
-{{-- <tfoot>
-<tr>
-<th>Medicamento Seleccionado</th>
-<th>Dosis</th>
-<th>Medidas</th>
-<th>Duracion</th>
-<th>Indicaciones</th>
-<th>Acciones</th>
-</tr>
-</tfoot> --}}
-<tbody id="addRow">
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-                                                    </div>
-                                                </div>
 
-                                                <!--Informe medico-->
-                                                <div class="tab-pane fade mx-2" id="pills-informe" role="tabpanel" aria-labelledby="pills-informe-tab">
-<section>
-<textarea name="reporte" id="" cols="30" rows="10" class="summernote"></textarea>
-</section>
-                                                </div>
+                                            <!--Reposo-->
+                                            <div class="tab-pane fade mx-2" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
+                                                <section>
+                                                    <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
+                                                </section>
+                                            </div>
 
-<!--Reposo-->
-                                                <div class="tab-pane fade mx-2" id="pills-reposo" role="tabpanel" aria-labelledby="pills-reposo-tab">
-<section>
-<textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
-</section>
-                                                </div>
-
-<!--Referencia-->
-                                                <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
-                                                    <div class="container mt-2 p-0">
-                                                        <div class="col-lg-12 mx-auto m-0 ">
+                                            <!--Referencia-->
+                                            <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
+                                                <div class="container mt-2 p-0">
+                                                    <div class="col-lg-12 mx-auto m-0 ">
                                                         <input type="hidden" id="patient" name="patient" value="{{ $history->patient_id }}">
-<div class="card mr-0 ml-0">
-<div class="card-body m-0">
-                                                                    {{-- <h3 class="card-title">Datos del Médico</h3> --}}
-<div class="row">
-<div class="col-sm-6 col-md-4">
-<label class="form-label" >Especialidad:</label>
-<select class="form-control custom-select" name="speciality" id="speciality">
-<option value="0" >Seleccione</option>
-@foreach ($specialities as $speciality)
-<option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
-@endforeach
-</select>
-</div>
-<div class="col-md-8">
-<div class="form-group" style=" margin-top:8px;">
-<div class="custom-controls-stacked d-flex justify-content-between">
-<label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
-<input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
-<span class="custom-control-label">Médico Interno</span>
-<select class="form-control custom-select" name="doctor" id="medicoInterno">
-<option value="null">Médico Interno</option>
-</select>
-</label>
-<label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
-<input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
-<span class="custom-control-label">Médico Externo</span>
-<input type="text" id="medicoExterno" class="form-control" required placeholder="" name="doctorExterno" >
-</label>
-</div>
-</div>
-</div>
-<div class="col-lg-12 col-md-12">
-<div class="form-group">
-<label class="form-label">Razon</label>
-<textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
-</div>
-</div>
-</div>
-</div>
-<div class=" text-center row d-flex justify-content-end mb-4 mr-4">
-<a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
-</div>
-</div>
-</div>
+                                                        <div class="card mr-0 ml-0">
+                                                            <div class="card-body m-0">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 col-md-4">
+                                                                        <label class="form-label" >Especialidad:</label>
+                                                                        <select class="form-control custom-select" name="speciality" id="speciality">
+                                                                            <option value="0" >Seleccione</option>
+                                                                            @foreach ($specialities as $speciality)
+                                                                            <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="form-group" style=" margin-top:8px;">
+                                                                            <div class="custom-controls-stacked d-flex justify-content-between">
+                                                                                <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                    <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
+                                                                                    <span class="custom-control-label">Médico Interno</span>
+                                                                                    <select class="form-control custom-select" name="doctor" id="medicoInterno">
+                                                                                        <option value="null">Médico Interno</option>
+                                                                                    </select>
+                                                                                </label>
+                                                                                <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
+                                                                                    <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
+                                                                                    <span class="custom-control-label">Médico Externo</span>
+                                                                                    <input type="text" id="medicoExterno" class="form-control" required placeholder="" name="doctorExterno" >
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label">Razon</label>
+                                                                            <textarea name="reason" id="reason" cols="30" rows="10" class="form-control text-razon" placeholder="Razon"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" text-center row d-flex justify-content-end mb-4 mr-4">
+                                                                <a id="referir" class="btn btn-azuloscuro pr-4 pl-4 text-white">Generar referencia</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
-                                                    <div class="container">
+                                            </div>
 
-                                                        <div class="tab-pane fade show active container" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
-<div class="row">
-<div class="col-lg-12 mx-auto">
-<div class="card">
-<div class="card-header text-start">
-<button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
-<i class="fa fa-plus"></i>
-Agregar Cirugia
-</button>
-</div>
-<div class="card-body py-1">
-<div class="table-responsive">
-<table class="table table-hover table-vcenter table-striped"
-cellspacing="0" id="addrowExample">
-<thead>
-<tr>
-<th>Posible Cirugía</th>
-<th class="text-center">Accion</th>
-</tr>
-</thead>
-<tbody id="cirugias">
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-lg-12 mx-auto">
-<div class="card">
-<div class="card-header text-start">
-<button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
-<i class="fa fa-plus"></i>
-Agregar Procedimiento
-</button>
-</div>
-<div class="card-body py-1">
-<div class="table-responsive">
-<table class="table table-hover table-vcenter table-striped"
-cellspacing="0" id="addrowExample">
-<thead>
-<tr>
-<th>Posibles procedimientos </th>
-<th class="text-center">Accion</th>
-</tr>
-</thead>
-<tbody id="procedimientos">
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-                                                    </div>
+                                            <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
+                                                <div class="container">
+
+                                                    <div class="tab-pane fade show active container" id="pills-examenes" role="tabpanel" aria-labelledby="pills-examenes-tab">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 mx-auto">
+                                                                <div class="card">
+                                                                    <div class="card-header text-start">
+                                                                        <button type="button"  class="btn btn-verdePastel" data-toggle="modal" data-target="#surgerys">
+                                                                            <i class="fa fa-plus"></i>
+                                                                            Agregar Cirugia
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="card-body py-1">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Posible Cirugía</th>
+                                                                                        <th class="text-center">Accion</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="cirugias">
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12 mx-auto">
+                                                                <div class="card">
+                                                                    <div class="card-header text-start">
+                                                                        <button type="button" data-toggle="modal" data-target="#proces" class="btn btn-verdePastel">
+                                                                        <i class="fa fa-plus"></i>
+                                                                        Agregar Procedimiento
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="card-body py-1">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Posibles procedimientos </th>
+                                                                                        <th class="text-center">Accion</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="procedimientos">
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                                <!--Proxima cita-->
-                                                {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
-                                                    <div class="container">
-                                                        <div class="col-lg-12 mx-auto">
-Proxima cita...
-</div>
+                                            <!--Proxima cita-->
+                                            {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                <div class="container">
+                                                    <div class="col-lg-12 mx-auto">
+                                                    Proxima cita...
                                                     </div>
-                                                </div> --}}
-                                        </section>
+                                                </div>
+                                            </div> --}}
+                                    </section>
 
-                                    </form>
-                                    </div>
-                                </div>
-                                <!--Fin del body-->
+                                </form>
+                            </div>
                         </div>
+                            <!--Fin del body-->
                     </div>
                 </div>
-
             </div>
+
+        </div>
         </div>
     </div>
 
@@ -991,7 +981,7 @@ Proxima cita...
     }
 
     //--------------------------------------------------RECIPE -----------------------------------
-    
+
     //================================= Para el recipe============================
     $('#add').click(function () {
         console.log('hola');
