@@ -155,7 +155,7 @@
                                             <button type="button" class="btn btn-repro" disabled>S</button>
                                             <button type="button" class="btn btn-danger" disabled>C</button>
                                         @endif
-                                        
+                                    
                                         @if (!empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))
                                             <button disabled class="btn btn-warning">R</button>
                                             <button type="button" class="btn btn-repro" disabled>S</button>

@@ -900,6 +900,7 @@
         }
         
         .custom-control-label::before {
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, .75);
             top: .1rem;
         }
         
@@ -984,7 +985,7 @@
             display: inline-block;
             border: 1px solid transparent;
             /* border-bottom: 0 none; */
-            padding: 10px 10px;
+            padding: 10px;
             text-decoration: none;
             margin-top: 4px;
             transition: ease all .4s;
@@ -1015,7 +1016,7 @@
             background: #00506b !important;
             border: 1px solid transparent;
             /* border-bottom: 0 none; */
-            padding: 15px 10px 10px 10px!important;
+            padding: 10px!important;
             margin-top: 0;
             color: #fff!important;
             font-weight: bold;
@@ -1023,19 +1024,80 @@
             box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
         }
         
-        @media screen and (max-width:1440px) {
-            .plan-steps>ul>li>a {
-                padding: 10px!important;
-                font-size: 12px;
+        <<<<<<< HEAD @media screen and (max-width:1440px) {
+            =======@media screen and (max-width: 1440px) {
+                >>>>>>> 63041786cc4da1d7b225f396ad995a0320b4c720 .plan-steps>ul>li>a {
+                    padding: 10px!important;
+                    font-size: 13px!important;
+                }
+                .plan-steps .nav-pills .nav-link.active,
+                .plan-steps .nav-pills .show>.nav-link {
+                    padding: 10px!important;
+                    font-size: 13px!important;
+                }
             }
-            .plan-steps .nav-pills .nav-link.active,
-            .plan-steps .nav-pills .show>.nav-link {
+            @media screen and (max-width:1320px) {
+                .plan-steps>ul>li>a {
+                    padding: 10px!important;
+                    font-size: 10px!important;
+                }
+                .plan-steps .nav-pills .nav-link.active,
+                .plan-steps .nav-pills .show>.nav-link {
+                    padding: 10px!important;
+                    font-size: 10px!important;
+                }
+            }
+            @media screen and (max-width:1200px) {
+                .plan-steps>ul>li>a {
+                    padding: 10px!important;
+                    font-size: 13px!important;
+                }
+                .plan-steps .nav-pills .nav-link.active,
+                <<<<<<< HEAD .plan-steps .nav-pills .show>.nav-link {
+                    padding: 10px!important;
+                    font-size: 12px;
+                }
+            }
+            =======.plan-steps .nav-pills .show>.nav-link {
                 padding: 10px!important;
-                font-size: 12px;
+                font-size: 13px!important;
             }
         }
         
-        .plan-steps>ul>li>a:hover {
+        @media screen and (max-width:1024px) {
+            .plan-steps>ul>li {
+                width: 30%;
+                text-align: center;
+            }
+            .plan-steps>ul>li>a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media screen and (max-width:800px) {
+            .plan-steps>ul>li {
+                width: 40%;
+                text-align: center;
+            }
+            .plan-steps>ul>li>a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media screen and (max-width:520px) {
+            .plan-steps>ul>li {
+                width: 100%;
+                text-align: center;
+            }
+            .plan-steps>ul>li>a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        >>>>>>>63041786cc4da1d7b225f396ad995a0320b4c720 .plan-steps>ul>li>a:hover {
             background: rgba(0, 80, 107, .25);
             /* border: 1px solid #00506b; */
             /* border-bottom: 0 none; */

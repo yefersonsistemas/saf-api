@@ -4002,6 +4002,23 @@ th .factura {
     color: #fff;
 }
 
+.total{
+    border: 2px solid #26D8CA;
+    background: #fff;
+    color: #000;
+    border-radius: 5px;
+}
+
+.total:hover {
+    background: #26D8CA;
+    color: #fff;
+}
+
+.total:active {
+    background: #26D8CA;
+    color: #fff;
+}
+
 .btn-fuera {
     color: #B40404;
     font-weight: bold;

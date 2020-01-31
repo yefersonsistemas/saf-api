@@ -687,4 +687,5 @@
             }
         };
     </script>
+    
 @endsection

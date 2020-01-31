@@ -131,7 +131,17 @@ class InController extends Controller
     {
         $type = TypeArea::where('name','Consultorio')->first(); // Trae los consultorio
         // dd($type);
-        $areas = Area::with('image')->where('type_area_id',$type->id)->get(); // Trae la informacion de Consultorios
+
+        // $areas = Area::with('image')->where('type_area_id',$type->id)->whereTime('created_at', '=', '15:07')->get(); // Trae la informacion de Consultorios
+
+        //     foreach($areas as $item){
+        //         $item->status = null;
+        //         $item->update();
+
+        //     }
+        //limpia los campos  al cumplir la hora y al refrescar la pagina
+        
+        $areas = Area::with('image')->where('type_area_id',$type->id)->get();
         // dd($areas);
         $dia = strtolower(Carbon::now()->locale('en')->dayName);  //da el nombre del dia en ingles
         // dd($dia);
@@ -159,7 +169,6 @@ class InController extends Controller
         $mostrar = $id2;
         // dd($mostrar);
 
-
         // $reservation = Reservation::find($id);
         // dd($reservation);
         $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
@@ -180,7 +189,6 @@ class InController extends Controller
      /**
      *
      * guarda registros nuevos y editados
-
      * en la historia del paciente
      *
      */
@@ -264,7 +272,7 @@ class InController extends Controller
             if($person->historyPatient != null) {
 
                 $patients->update([
-                    'address'=> $request->address,
+                    'address'=> $data['address'],
                 ]);
             }
             
@@ -322,7 +330,6 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
-
         }
     }
 
@@ -708,38 +715,179 @@ class InController extends Controller
         exit($path);
     }
 
-    public function diseases(Request $request){
-        // dd($request);
+    public function diseases(Request $request){ //Metodo para agregar enfermedades al paciente en el multiselect de editar historia
+
     // Aqui se realiza la relacion entre paciente y enfermeda, tambien se busca al paciente correspondiente a la historia
     $patient = Patient::with('disease')->where('person_id',$request->id)->first();
     
     // Aqui se realiza el recorrido las enfermedades del paciente que estan en la DB.
+    if($patient->disease->first() != null)
     for ($i=0; $i < count($patient->disease); $i++) { 
         $patientd[] = $patient->disease[$i]->id;
     }
-    // dd($patientd);
+
     // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
     for ($i=0; $i < count($request->data); $i++) { 
-        // dd($request->data);
         $disease = Disease::find($request->data[$i]);
-        
         $disease->patient()->sync($patient);
     }
-    // dd($disease);
-        // $diff = $request->data->diff($patientd);
-    
-    $diff= array_diff($request->data,$patientd);
 
-    // dd($diff);
-    for ($i=0; $i < count($diff); $i++) { 
-        // dd($request->data);
-        $diseases[] = Disease::find($diff[$i]);
+    if ($patient->disease->first() != null) {
+        $diff = array_diff($request->data,$patientd);
+    } else {
+        $diff = $request->data;
     }
-    // dd($diseases);
+
+    for ($i=0; $i < count($diff); $i++) { 
+        $diseases[] = Disease::find($diff);
+    }
 
     return response()->json([
-        'data' => 'Enfermedad Agregada Exitosamente',$diseases,201
+        'data' => 'Enfermedad Agregada',$diseases,201
         ]);
     }
+
+    public function allergies(Request $request){ //Metodo para agregar alergias al paciente en el multiselect de editar historia
+        // Aqui se realiza la relacion entre paciente y alergias, tambien se busca al paciente correspondiente a la historia
+        $patient = Patient::with('allergy')->where('person_id', $request->id)->first();
+        // Aqui se realiza el recorrido las enfermedades del paciente que estan en la DB.
+        if($patient->allergy->first() != null) {
+            for ($i=0; $i < count($patient->allergy); $i++) { 
+                $patienta[] = $patient->allergy[$i]->id;
+            }
+        }
+        // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
+        for ($i=0; $i < count($request->data); $i++) { 
+            $allergy = Allergy::find($request->data[$i]);
+            $allergy->patient()->sync($patient);
+        }
+
+        if ($patient->allergy->first() != null ) {
+            $diff= array_diff($request->data, $patienta);
+        } else {
+            $diff = $request->data;
+        }
+
+        for ($i=0; $i < count($diff); $i++) {
+
+            $allergies[] = Allergy::find($diff);
+        }
+        // dd($allergies[0][0]->name);
+        return response()->json([
+            'data' => 'Alergia Agregada',$allergies,201
+            ]);
+    }
+
+    public function medicines(Request $request){ //Metodo para agregar medicina al paciente en el multiselect de editar historia
+        // dd($request);
+        $patient = Patient::with('medicine')->where('person_id', $request->id)->first();
+        // dd($patient->medicine->first());
+
+        if($patient->medicine->first() != null) {
+            for ($i=0; $i < count($patient->medicine); $i++) { 
+                $patientm[] = $patient->medicine[$i]->id;
+            }
+        }
+        // dd($patient);
+        for ($i=0; $i < count($request->data); $i++) { 
+            
+            $medicine = Medicine::find($request->data[$i]);
+            // dd($medicine);
+            $medicine->patient()->sync($patient);
+        }
+
+        if ($patient->medicine->first() != null ) {
+            $diff= array_diff($request->data, $patientm);
+        } else {
+            $diff = $request->data;
+        }
+        // dd($diff);
+        for ($i=0; $i < count($diff); $i++) {
+            // dd($diff);
+            $medicines[] = Medicine::find($diff);
+
+        }
+        // dd($medicines[0][0]->name);
+        return response()->json([
+            'data' => 'Medicamento Agregado Exitosamente',$medicines,201
+            ]);
+    }
+
+    public function diseases_create(Request $request){ //Metodo para crear enfermedad si no existe en el multiselect de editar historia
+        //buscar paciente
+        $patient = Patient::where('person_id', $request->id)->first();
+        
+        $data = $request->validate([
+            'name' => 'required',
+            ]);
+            
+        // dd($data);
+            
+        $disease = Disease::create([
+            'name' => $data['name'],
+            'branch_id' => 1
+            ]);
+        // dd($disease);
+        // guardar en tabla pivote con el registro de paciente y enfermedad
+
+        $disease->patient()->attach($patient);
+        // dd($disease);
+        // Enviar el registro de enfermedad 
+        return response()->json([
+            'data' => 'Enfermedad Agregada',$disease,201
+            ]);
+    }
+
+    public function allergies_create(Request $request){ //Metodo para crear alergia si no existe en el multiselect de editar historia
+        //buscar paciente
+        $patient = Patient::where('person_id', $request->id)->first();
+        
+        $data = $request->validate([
+            'name' => 'required',
+            ]);
+            
+        // dd($data);
+            
+        $allergy = Allergy::create([
+            'name' => $data['name'],
+            'branch_id' => 1
+            ]);
+        // dd($allergy);
+        // guardar en tabla pivote con el registro de paciente y enfermedad
+
+        $allergy->patient()->attach($patient);
+        // dd($allergy);
+        // Enviar el registro de enfermedad 
+        return response()->json([
+            'data' => 'Alergia Agregada',$allergy,201
+            ]);
+    }
+
+    public function medicines_create(Request $request){ //Metodo para crear medicina si no existe en el multiselect de editar historia
+    
+        //buscar paciente
+        $patient = Patient::where('person_id', $request->id)->first();
+        
+        $data = $request->validate([
+            'name' => 'required',
+            ]);
+            
+        // dd($data);
+            
+        $medicine = Medicine::create([
+            'name' => $data['name'],
+            'branch_id' => 1
+            ]);
+        // dd($medicine);
+        // guardar en tabla pivote con el registro de paciente y enfermedad
+
+        $medicine->patient()->attach($patient);
+        // dd($medicine);
+        // Enviar el registro de enfermedad 
+        return response()->json([
+            'data' => 'Medicamento Agregado',$medicine,201
+            ]);
+    }
+
 }
 
