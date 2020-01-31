@@ -68,15 +68,17 @@ public function create_surgery(){
     return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
 }
 
+    
     //buscar paciente
-    public function search_patients(Request $request){
+    public function search_patients_out(Request $request){
 
         // dd($request);
         $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
-
-        if (!is_null($person)) {
-            $patient = Patient::with('person')->where('person_id', $person->id)->first();
+        $patient = Patient::with('person')->where('person_id', $person->id)->first();
+        // dd($patient);
+        if (!is_null($patient)) {
+            // $patient = Patient::with('person')->where('person_id', $person->id)->first();
             return response()->json([
             'patient' => $patient, 201
             ]);
@@ -86,6 +88,7 @@ public function create_surgery(){
             ]);
         }
     }
+
 
     public function search_doctor(Request $request){    //medicos asociado a una cirugia
         

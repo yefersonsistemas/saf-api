@@ -76,10 +76,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
 
-        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases');
-        Route::post('patient/allergys','InController@allergys')->name('checkin.allergys');
-        Route::post('patient/medicines','InController@medicines')->name('checkin.medicines');
+        
+        Route::post('patient/diseases','InController@diseases')->name('checkin.diseases'); //para agregar las enfermedades que tiene el paciente
+        Route::post('patient/allergies','InController@allergies')->name('checkin.allergies'); //para agregar las alergias que tiene el paciente
+        Route::post('patient/medicines','InController@medicines')->name('checkin.medicines'); //para agregar las medicamentos que toma el paciente
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
+
+        Route::POST('patient/diseases/create', 'InController@diseases_create')->name('checkin.diseases_create');
+        Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
+        Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
     });
 
     //======================= rutas para el usuario ckeckout ====================
@@ -112,7 +117,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('programar/{id}','SurgerysController@create')->name('checkout.programar_cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
         Route::get('programar_cirugia','SurgerysController@create_surgery')->name('checkout.programar-cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
-        Route::post('search/checkout/patients','SurgerysController@search_patients')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
+        Route::post('search/checkout/patients','SurgerysController@search_patients_out')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
         // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');

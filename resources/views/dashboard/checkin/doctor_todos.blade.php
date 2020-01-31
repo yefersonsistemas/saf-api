@@ -36,7 +36,7 @@
                                     <th>Apellido</th>
                                     <th class="text-center">Especialidad</th>
                                     <th class="text-center">Horario</th>
-                                    <th class="">Consultorio</th>
+                                    <th class="text-center">Consultorio</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -59,9 +59,10 @@
                                         <input type="hidden" id="id" value="{{ $employe->person->id }}">
                                         <a class="btn btn-info"  style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fa fa-eye"></i></a>
                                     </td>
-                                    {{-- @foreach ($e as $item) --}}
-                                    @if($employe->areaassigment != null)   
-                                        <td class="text-center">{{$employe->areaassigment->area->name}}</td>
+                                    @if ($employe->areaassigment != null)
+                                        <td>{{$employe->areaassigment->area->name}}</td>
+                                    @else
+                                        <td>Sin Consultorio</td>    
                                     @endif
                                 </tr>                                  
                                 @endforeach
