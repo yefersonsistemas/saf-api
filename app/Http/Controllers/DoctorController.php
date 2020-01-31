@@ -1066,6 +1066,8 @@ class DoctorController extends Controller
             }
         }
         // dd($procedure);
+        $proce = Procedure::find($request->id);
+        // dd($proce);
         
         //actualizando campo de examenes
         if($procedure != null){
@@ -1077,7 +1079,7 @@ class DoctorController extends Controller
         }
 
         return response()->json([
-            'procedure' => 'Examen eliminado correctamente',202
+            'procedure' => 'Procedimiento eliminado correctamente',202,$proce,
         ]);
 
     }
@@ -1113,7 +1115,7 @@ class DoctorController extends Controller
 
         // dd($itinerary->procedureR_id);
         return response()->json([
-            'procedure' => 'Examen eliminado correctamente',202
+            'procedure' => 'Procedure eliminado correctamente',202,
         ]);
 
     }
@@ -1277,6 +1279,7 @@ class DoctorController extends Controller
                 $exam[] = $examenes[$i];
             }
         }
+        $examen = Exam::find($request->id);
         //actualizando campo de examenes
         if($exam != null){
             $itinerary->exam_id = implode(',', $exam);
@@ -1287,7 +1290,7 @@ class DoctorController extends Controller
         }
 
         return response()->json([
-            'exam' => 'Examen eliminado correctamente',202
+            'exam' => 'Examen eliminado correctamente',202,$examen,
         ]);
 
     }
@@ -1573,38 +1576,32 @@ class DoctorController extends Controller
     public function enfermedad_eliminar(Request $request){
 
         $reservation = Reservation::find($request->reservacion_id);
-    //  dd($reservation);
+
         $disease = Disease::find($request->id);
-        // dd($disease);
 
         $patient = Patient::where('person_id',$reservation->patient_id)->first();
-// dd($patient);
+
         $disease->patient()->detach($patient);
-        // dd($patient);
 
         return response()->json([
             'enfermedad' => 'Enfermedad eliminada correctamente',202,$disease
         ]);
-
-
     }
 
     public function alergia_eliminar(Request $request){
 
         $reservation = Reservation::find($request->reservacion_id);
      
-        $alergia = Allergy::find($request->id);
+        $b_alergia = Allergy::find($request->id);
 
         $patient = Patient::where('person_id',$reservation->patient_id)->first();
 
-        $alergia->patient()->detach($patient);
-        // dd($patient);
+        $b_alergia->patient()->detach($patient);
+        // dd($alergia);
 
         return response()->json([
-            'alergia' => 'Alergia eliminada correctamente',202
+            'alergia' => 'Alergia eliminada correctamente',202,$b_alergia
         ]);
-
-
     }
 
     public function cirugia_borrar(Request $request){

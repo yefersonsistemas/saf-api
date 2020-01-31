@@ -720,10 +720,10 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="form_alergias">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
+                            <div class="custom-controls-stacked modal_alergias">
                                 @if($alergia != null)
                                     @foreach ($alergia as $item)
-                                        <div class="row">
+                                        <div class="row" id="quitarAlergia{{$item->id}}">
                                             <label class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="name_alergia" value="{{ $item->id }}">
                                                 <span class="custom-control-label">{{ $item->name }} </span>
@@ -781,9 +781,9 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="proceduresC-office">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
+                            <div class="custom-controls-stacked modal_procedureR">
                                 @foreach ($procesm->procedures as $proces)
-                                <div class="row">
+                                <div class="row " id="quitar_procedureR{{$proces->id}}">
                                     <div class="col-9">
                                     <label class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
@@ -819,9 +819,9 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="exam">
                     <div class="modal-body m-3">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
+                            <div class="custom-controls-stacked modal_examen">
                                 @foreach ($exams as $exam)
-                                <label class="custom-control custom-checkbox">
+                                <label class="custom-control custom-checkbox" id="quitar_examen{{$exam->id}}">
                                     <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
                                     <span class="custom-control-label">{{ $exam->name }}</span>
                                 </label>
@@ -1330,7 +1330,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
+           
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
                     title: data.alergia,
@@ -1361,6 +1361,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
            alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $(".mostrar_alergias").append(alergia);
+            $("#quitarAlergia"+data[$i].id).remove();
         }
     }
 
@@ -1385,7 +1386,9 @@ button[data-original-title="Help"]{ display: none; }
 
             })
             .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+            // console.log('alergia',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+            $(".modal_alergias").append(agregarAlergia);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1410,9 +1413,9 @@ button[data-original-title="Help"]{ display: none; }
 
     //========================= guardar cirugias ==================
     $("#guardarCirugias").click(function() {
-            var reservacion = $("#reservacion").val();
-            var datos = $("#form_cirugias").val();
-            console.log("kenwherly",datos);
+        var reservacion = $("#reservacion").val();
+        var datos = $("#form_cirugias").val();
+        console.log("kenwherly",datos);
         ajax_cirugia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1482,6 +1485,7 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {               
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+            $("#form_cirugias").val('');
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1551,15 +1555,14 @@ button[data-original-title="Help"]{ display: none; }
      //=============== mostrando procedimientos realizados ===============
     function mostrarProceduresC(data){
         console.log('hh',data);
-
-        //<td class="actions d-flex justify-content-center"><button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td>
         for($i=0; $i < data.length; $i++){
-            procesc='<tr  id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro procedureR_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            procesc='<tr  id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6">'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro procedureR_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
+            $("#quitar_procedureR"+data[$i].id).remove();
         }
     }
 
-    //================ eliminar examen seleccionado ==========
+    //================ eliminar procedure realizado seleccionado ==========
     $(function() {
         $(document).on('click', '.procedureR_id', function(event) {
             let id = this.id;
@@ -1580,6 +1583,9 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            agregar_procedureR = '<div class="row " id="quitar_procedureR'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
+             $(".modal_procedureR").append(agregar_procedureR);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1653,6 +1659,7 @@ button[data-original-title="Help"]{ display: none; }
             for($i=0; $i < data.length; $i++){
             examen='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn-azuloscuro exam_id btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#examen").append(examen);
+            $("#quitar_examen"+data[$i].id).remove();
         }
     }
 
@@ -1679,6 +1686,8 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+             agregar_examen =  '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
+             $(".modal_examen").append(agregar_examen);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1753,6 +1762,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
+         
         }
     }
 
