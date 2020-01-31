@@ -120,7 +120,8 @@ public function create_surgery(){
         $a = $request->area_id;
         $d = Carbon::create($request->date)->format('Y-m-d');
 
-        // dd($d);
+        $patient = Patient::where('person_id',$p)->first();
+        // dd($patient);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
@@ -131,7 +132,7 @@ public function create_surgery(){
                 'date'=> $d,
                 'branch_id' => 1,
                 ]);
-                
+                $surgery->patient()->attach($patient);
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
                 
