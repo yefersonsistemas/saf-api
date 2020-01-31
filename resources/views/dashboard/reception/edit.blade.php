@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class=" p-4">
                 <div class="col-lg-12">
-                    <form class="card" method="POST" action="{{ route('reservations.update', $reservation) }}">
+                    <form class="card" method="POST" action="{{ route('reservations.update', $reservation) }}" autocomplete="off">
                         @csrf
                         @method('PUT')
                         <div class="card-body">

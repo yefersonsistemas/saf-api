@@ -934,10 +934,10 @@
     color: #00506b;
 }
 .wizard > .steps .current a, .wizard > .steps .current a:hover, .wizard > .steps .current a:active {
-    background: #00506b !important;
+    background: #00be88 !important;
 }
 .wizard > .steps .done a, .wizard > .steps .done a:hover, .wizard > .steps .done a:active {
-    background: #9cd4c1 !important;
+    background: #9dc8e2 !important;
     color: #00506b !important;
 }
 
