@@ -1,26 +1,6 @@
-{{-- @extends('layouts.app')
-
-@section('title', citas de pacientes)
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Citas de pacientes</div>
-
-                <div class="card-body">
-                
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}
-
 @extends('dashboard.layouts.app')
 
-@section('citas de pacientes','active')
+@section('Lista de Cirugias','active')
 @section('all','active')
 
 @section('css')
@@ -30,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
-@section('title','Citas de pacientes')
+@section('title','Lista de Cirugias')
 
 @section('content')
 
