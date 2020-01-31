@@ -230,8 +230,8 @@ class OutController extends Controller
         }
         
         //----- para el precio de la corigia----
-        $total_S=0;      
-        if(!empty($itinerary->surgeryR)){ 
+        $total_S=0;
+        if(!empty($itinerary->surgeryR)){
             $total_S = $itinerary->surgeryR->cost;
         }else{
             $total_S = null;
@@ -666,4 +666,6 @@ class OutController extends Controller
         ]);
     }
 
+
+    
 }

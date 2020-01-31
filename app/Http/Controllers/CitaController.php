@@ -70,7 +70,10 @@ class CitaController extends Controller
     }
 
     public function search_patient(Request $request){
+        // dd($request);
         $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+
+        // dd($person);
         if (!is_null($person)) {
             return response()->json([
                 'person' => $person,201

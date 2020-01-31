@@ -159,7 +159,6 @@ class InController extends Controller
         $mostrar = $id2;
         // dd($mostrar);
 
-
         // $reservation = Reservation::find($id);
         // dd($reservation);
         $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
@@ -180,7 +179,6 @@ class InController extends Controller
      /**
      *
      * guarda registros nuevos y editados
-
      * en la historia del paciente
      *
      */
@@ -322,7 +320,6 @@ class InController extends Controller
                 Alert::success('Guardado exitosamente');
                 return redirect()->route('checkin.day');
             }
-
         }
     }
 

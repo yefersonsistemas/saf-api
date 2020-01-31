@@ -96,6 +96,7 @@ class DoctorController extends Controller
         //----------------mostrar enfermedades----------
         $enfermedades = Disease::all();
         
+// dd($history->historyPatient);
 
         if($history->historyPatient->disease->first() != null){
             foreach($enfermedades as $item){
@@ -154,7 +155,7 @@ class DoctorController extends Controller
      
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
-
+// dd($cite);
         $exams = Exam::all();
 
         $surgerys = Typesurgery::all();
