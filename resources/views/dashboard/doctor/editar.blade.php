@@ -238,18 +238,25 @@ button[data-original-title="Help"]{ display: none; }
                                                         <h5 class="card-title text-white">Enfermedades</h5>
                                                     </div>
                                                     <div  class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
-                                                        @foreach ( $reservation->historyPatient->disease as $disease )
-                                                        <div class="row" id="{{$disease->id}}">
-                                                            <div class="col-9">
-                                                                <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
-                                                            </div> 
-                                                            <div class="col-3">
-                                                                <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar enfermedad seleccionado"
-                                                                    value="Eliminar">
-                                                            </div>
-                                                        </div>      
-                                                            {{-- <a class="list-group-item list-group-item-action">{{ $disease->name }}</a> --}}
-                                                        @endforeach
+                                                        <div id=" mostrar_enfermedad">
+                                                            @foreach ( $reservation->historyPatient->disease as $disease )
+                                                            <div class="row" id="{{$disease->id}}">
+                                                                <div class="col-9">
+                                                                    <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
+                                                                </div> 
+                                                                <div class="col-3">
+                                                                    <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                        value="Eliminar">
+                                                                </div>
+                                                            </div>  
+                                                            @endforeach    
+                                                        </div>
+
+                                                        <div class="col-12 d-flex justify-content-end mt-4">
+                                                            <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        </div>                                                   
+
+                                                       
                                                     </div>
                                                 </div>
 
@@ -264,7 +271,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
                                                             </div> 
                                                             <div class="col-3">
-                                                                <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar alergia seleccionado"
+                                                                <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
                                                                     value="Eliminar">
                                                             </div>
                                                         </div> 
@@ -281,7 +288,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <a class="list-group-item list-group-item-action row ">{{ $cite->previous_surgery }}</a>
                                                             </div> 
                                                             <div class="col-3">
-                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugias"
+                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
                                                                     value="Eliminar">
                                                             </div>
                                                         </div>  
@@ -806,6 +813,42 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     {{-- </div> --}}
+
+    <!-- Modal para mostar enfermedades-->
+    {{-- <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-2 text-center" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                        <h6><span aria-hidden="true">&times;</span></h6>
+                    </button>
+                </div>
+                <form action="" id="enfermedad">
+                    <div class="modal-body" style="max-height: 415px;">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked" id="modal_enfermedad">
+                                @if($enfermedad != null)
+                                    @foreach ($enfermedad as $item)
+                                        <div class="row" id="quitar{{$item->id}}">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
+                                                <span class="custom-control-label">{{ $item->name }} </span>
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer p-2">
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> --}}
+
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
