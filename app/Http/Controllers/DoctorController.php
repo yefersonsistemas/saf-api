@@ -27,6 +27,7 @@ use App\Repose;
 use App\ReportMedico;
 use App\InputOutput;
 use App\Allergy;
+use App\User;
 // use App\Redirect;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -1555,8 +1556,16 @@ class DoctorController extends Controller
         ]);
 
     }
-
+    //=================Lista de las Cirugias Asociadad al Doctor====================//
     public function surgeries_list(){
+        $id = Auth::id();
+        // dd($id);
+        $person = User::find($id);
+            // dd($person);
+        $employe = Employe::with('person')->where('person_id',$person->person_id)->first();
+    
+        $all = Surgery::with('patient','typesurgeries','area')->where('employe_id', $employe->id)->get();
+            dd($all); 
         return view('dashboard.doctor.lista_cirugias');
     }
 }

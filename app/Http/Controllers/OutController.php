@@ -667,6 +667,7 @@ class OutController extends Controller
     }
 
     public function surgeries_list(){
+
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
 
     // $approved =

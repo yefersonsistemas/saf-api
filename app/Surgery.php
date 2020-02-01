@@ -14,7 +14,7 @@ class Surgery extends Model
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->belongsTo('App\Employe','employe_id');
     }
 
     public function typesurgeries()
