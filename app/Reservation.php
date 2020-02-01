@@ -80,6 +80,10 @@ class Reservation extends Model
     {
         return $this->belongsTo('App\Itinerary', 'reservation_id');
     }
+    public function surgery()
+    {
+        return $this->hasOne('App\Surgery');
+    }
 
     public function diagnostic($id)
     {

@@ -502,7 +502,7 @@ class OutController extends Controller
         ->where('id', $itinerary->reservation_id )->first();      
         $fecha = Carbon::now()->format('Y/m/d');
 
-        $pdf = PDF::loadview('dashboard.checkout.print_constancia', compact('itinerary','especialidad',fecha ));
+        $pdf = PDF::loadview('dashboard.checkout.print_constancia', compact('itinerary','especialidad','fecha' ));
         return $pdf->stream('constancia.pdf');
     }
 
@@ -561,13 +561,13 @@ class OutController extends Controller
 
 
       //========================= Citas del dia (las que estan aprobadas) ======================
-      public function index_dia()
-      {
-          $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+    public function index_dia()
+    {
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         //   $itinerary = Itinerary::all();
         //   dd($day);
-          return view('dashboard.checkout.citas-pacientesDia', compact('day'));
-      }
+        return view('dashboard.checkout.citas-pacientesDia', compact('day'));
+    }
 
     public function store(Request $request)
     {
@@ -679,6 +679,18 @@ class OutController extends Controller
         ]);
     }
 
+    public function surgeries_list(){
 
-    
+    $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
+
+    // $approved =
+
+    // $reschedule =
+
+    // $canceled =
+
+    // dd($surgeries);
+    return  view('dashboard.checkout.lista_cirugias', compact('surgeries'));
+    }
+
 }

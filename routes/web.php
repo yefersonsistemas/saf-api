@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('imprimir/examen/{id}', 'OutController@imprimir_examen')->name('checkout.imprimir_examen');           // imprimir examen
         Route::get('imprimir/recipe/{id}', 'OutController@imprimir_recipe')->name('checkout.imprimir_recipe');           // imprimir recipe
-              Route::get('constancia/{id}','OutController@imprimir_constancia')->name('checkout.imprimir_constancia');  // imprimir constancia
+        Route::get('constancia/{id}','OutController@imprimir_constancia')->name('checkout.imprimir_constancia');  // imprimir constancia
         Route::get('reposo/{id}','OutController@imprimir_reposo')->name('checkout.imprimir_reposo');  // imprimir reposo medico
         Route::get('referencia/{id}','OutController@imprimir_referencia')->name('checkout.imprimir_referencia'); // imprimir referencia medica
         Route::get('informe/{id}','OutController@imprimir_informe')->name('checkout.imprimir_informe'); // imprimir informe medico
@@ -121,7 +121,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/checkout/patients','SurgerysController@search_patients_out')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
-        // Route::get('citas/deldia', 'OutController@index_dia')->name('checkout.index_dia');
+        Route::get('surgeries/list', 'OutController@surgeries_list')->name('checkout.lista_cirugias'); //Lista de cirugias
     });
 
     Route::group(['middleware' => ['role:doctor, director']], function () {
@@ -140,6 +140,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+        Route::get('doctor/surgeries/list','DoctorController@surgeries_list')->name('doctor.lista_cirugias');
 
         //-----------actualizar registros-------------
         Route::post('doctor/examUpdate', 'DoctorController@exam_update')->name('doctor.exam_actualizar');  // guardar los procedimientos realizados en la consulta

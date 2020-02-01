@@ -20,6 +20,7 @@ use App\Typesurgery;
 use App\Itinerary;
 use App\Doctor;
 use App\Area;
+use App\Reservationsurgery;
 use App\TypeArea;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -43,13 +44,13 @@ class SurgerysController extends Controller
      */
     // para agendar cirugia cuando el paciente se encuentra en el itinerario 
     public function create($id){
-// dd($id);
+        // dd($id);
         $tipo = TypeArea::where('name', 'Quirofano')->first();
-        
+
         $quirofano = Area::with('typearea','image')->where('type_area_id', $tipo->id)->get();     
         //aqui trae los datos asociados al parametro(cuando el paciente agenda el dia que fue candidato a cirugia)
         $paciente = Itinerary::with('person','typesurgery')->where('id',$id)->first();
-
+        // dd($paciente);
         $medico = Typesurgery::with('employe_surgery.person.image')->where('id', $paciente->typesurgery->id)->first();
 
         // dd($medico);
@@ -114,32 +115,48 @@ public function create_surgery(){
     {   
         // dd($request);
         //datos a guardar en la tabla surgeries
-        $p = $request->patient_id;
+        $p = Patient::where('person_id',$request->patient_id)->first(); //tabla trayendo id del paciente
+        // dd($p);
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
-        $d = Carbon::create($request->date);
+        $d = Carbon::create($request->date)->format('Y-m-d');
 
-        // dd($d);
+        
+        // dd($patient);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
-                'patient_id' => $p,
+                'patient_id' => $p->id,
                 'type_surgery_id' => $ts,
                 'employe_id' => $e,
                 'area_id' => $a,
                 'date'=> $d,
                 'branch_id' => 1,
                 ]);
-                
+
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
-
+                
                 if (!empty($a)) {
                     
                     $a->status = 'ocupado';
                     $a->save();
                 }
+                //actualizando el campo opertion de la tabla reservation
+                $operation = Reservation::find($request->reservation_id);
+                $operation->operation = true;
+                $operation->save();
+
+                //Relacion de paciente con la cirugia
+                $surgery->patient()->attach($p);
+
+                //llena los campos de la tabla Reservation_Surgery
+                $relation = Reservationsurgery::create([
+                    'reservation_id' => $request->reservation_id,
+                    'surgery_id' => $surgery->id,
+                    'branch_id' => 1
+                ]);
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{

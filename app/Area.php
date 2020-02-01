@@ -46,4 +46,5 @@ class Area extends Model //deptos
     {
         return $this->belongsTo('App\Classification');
     }
+
 }
