@@ -157,6 +157,7 @@ class UsersTableSeeder extends Seeder
                 'branch_id' => '1',
             ]);
 
+            $pro->speciality()->attach($especialidad);
             $employe->procedures()->attach($pro);
 
         //creando procedimiento
@@ -1987,6 +1988,10 @@ class UsersTableSeeder extends Seeder
 
         $position = factory(App\Position::class)->create([
             'name' => 'IN',
+            'description' => 'Se ecarga de llevar control de citas,
+             agendar y reservar nuevas citas, facilita resultados anteriores de
+             examenes. ',
+
         ]);
 
         $employe = factory(App\Employe::class)->create([
@@ -2029,6 +2034,8 @@ class UsersTableSeeder extends Seeder
 
         $position = factory(App\Position::class)->create([
             'name' => 'OUT',
+            'description' => 'Se ecarga de facturar, explicar y promocionar cirugias,
+             agenda nuevas cirugias. ',
         ]);
 
         $employe = factory(App\Employe::class)->create([
@@ -2077,6 +2084,8 @@ class UsersTableSeeder extends Seeder
 
         $position = factory(App\Position::class)->create([
             'name' => 'director',
+            'description' => 'Se encarga de prever, organizar, mandar, 
+            coordinar y controlar las actividades de la organización. ',
         ]);
 
         $employe = factory(App\Employe::class)->create([
@@ -2094,6 +2103,8 @@ class UsersTableSeeder extends Seeder
 
         factory(Position::class)->create([
             'name'    => 'mantenimiento',
+            'description' => 'Se ecarga de proveer un ambiente limpio
+            , y ordenado en las instalaciones ',
         ]);
 
         // $position = factory(App\Position::class)->create([

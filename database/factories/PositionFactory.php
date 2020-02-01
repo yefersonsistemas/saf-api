@@ -11,6 +11,7 @@ $branchoffice = Branch::inRandomOrder()->first();
 
     return [
         'name' =>$faker->word,
+        'description' =>$faker->sentence(8),
         'branch_id' => $branchoffice->id,
     ];
 });
