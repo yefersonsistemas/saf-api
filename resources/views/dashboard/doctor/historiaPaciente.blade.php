@@ -234,7 +234,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                    <div id=" mostrar_enfermedad">
+                                                    <div id="mostrar_enfermedad">
                                                         @foreach ( $history->historyPatient->disease as $disease )
                                                         <div class="row" id="{{$disease->id}}">
                                                             <div class="col-9">
