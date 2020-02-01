@@ -62,6 +62,7 @@
                     </div>
                 </div>
             </div>
+            
 
             <!--lista de reservaciones confirmadas-->
             <div class="container mt--15">

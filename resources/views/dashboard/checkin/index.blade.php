@@ -103,6 +103,7 @@
                 </ul>
             </div>
 
+            {{-- lista de todas --}}
             <div class="tab-content container-fluid" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="col-lg-12 col-md-12">
@@ -287,6 +288,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- lista aprobadas --}}
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -343,11 +345,73 @@
                                                 <td>{{ $reservation->patient->lastname }}</td>
                                                 <td>{{ $reservation->person->name }}</td>
                                                 <td>{{ $reservation->speciality->name }}</td>
-                                                <td><span class="badge badge-success">{{ $reservation->status }}</span></td>
+                                                {{-- <td><span class="badge badge-success">{{ $reservation->status }}</span></td> --}}
+                                                <td>
+                                                    @if ($reservation->status == 'Aprobada')
+                                                        <span class="badge badge-success">{{ $reservation->status }}</span>
+                                                    @endif
+                                                    @if ($reservation->status == 'Cancelada')
+                                                        <span class="badge badge-danger">{{ $reservation->status }}</span>
+                                                    @endif
+                                                    @if ($reservation->status == 'Reprogramada')
+                                                        <span class="badge badge-secondary">{{ $reservation->status }}</span>
+                                                    @endif
+                                                    @if ($reservation->status == 'Suspendida')
+                                                        <span class="badge badge-warning">{{ $reservation->status }}</span>
+                                                    @endif
+                                                    @if ($reservation->status == 'Pendiente')
+                                                        <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
+                                                    @endif
+                                                </td>
+    
                                                 <td style="display: inline-block">
-                                                    <a href="" class="btn btn-warning">R</a>
-                                                    <a href="" class="btn btn-repro">S</a>
-                                                    <a href="" class="btn btn-danger">C</a>
+                                                    @if ($reservation->status == 'Pendiente')
+                                                      @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
+                                                        @endif
+                                                        @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
+                                                        @endif
+                                                        @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
+                                                        @endif
+                                                        @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
+                                                        <button type="button" href="" disabled class="btn btn-success">A</button>
+                                                        @endif
+    
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                        <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                    @endif
+    
+                                                    @if ($reservation->status == 'Aprobada')
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                        <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                    @endif
+    
+                                                    @if ($reservation->status == 'Cancelada')
+                                                        <button type="button" class="btn btn-success" disabled>A</button>
+                                                        <button type="button" class="btn btn-warning" disabled>R</button>
+                                                        <button type="button" class="btn btn-repro" disabled>S</button>
+                                                        <button type="button" class="btn btn-danger" disabled>C</button>
+                                                    @endif
+                                                    @if ($reservation->status == 'Reprogramada')
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
+                                                        <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                    @endif
+                                                    @if ($reservation->status == 'Suspendida')
+                                                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
+                                                        {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
+    
+                                                        <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                            <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                            <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                            @method('delete')
+                                                            @csrf
+                                                        </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endif
@@ -359,6 +423,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- lista canceladas --}}
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -431,6 +496,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- lista reprogramadas --}}
                 <div class="tab-pane fade" id="pills-reprogram" role="tabpanel" aria-labelledby="pills-reprogram-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -486,10 +552,45 @@
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
-                                            <td><span class="badge badge-warning">{{ $reservation->status }}</span></td>
+                                            <td>
+                                                @if ($reservation->status == 'Pendiente')
+                                                    <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
+                                                @endif
+                                            </td>
                                             <td style="display: inline-block">
-                                                <a href="" class="btn btn-repro">S</a>
-                                                <a href="" class="btn btn-danger">C</a>
+                                                @if ($reservation->status == 'Pendiente')
+                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                @endif
+
+                                                @if ($reservation->status == 'Aprobada')
+                                                    
+                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                @endif
+
+                                                @if ($reservation->status == 'Cancelada')
+                                                    <button type="button" class="btn btn-success" disabled>A</button>
+                                                    <button type="button" class="btn btn-warning" disabled>R</button>
+                                                    <button type="button" class="btn btn-repro" disabled>S</button>
+                                                    <button type="button" class="btn btn-danger" disabled>C</button>
+                                                @endif
+                                                @if ($reservation->status == 'Reprogramada')
+                                                   
+                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                @endif
+                                                @if ($reservation->status == 'Suspendida')
+                                                    {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
+                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
+
+                                                    <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                        <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                        @method('delete')
+                                                        @csrf
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -499,6 +600,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- lista suspendidas --}}
                 <div class="tab-pane fade" id="pills-suspendidas" role="tabpanel" aria-labelledby="pills-suspendidas-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -560,15 +662,42 @@
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
-                                            <td><span class="badge badge-secondary">{{ $reservation->status }}</span></td>
+                                            <td>
+                                                @if ($reservation->status == 'Suspendida')
+                                                    <span class="badge badge-secondary">{{ $reservation->status }}</span>
+                                                @endif
+                                            </td>
                                             <td style="display: inline-block">
+                                                @if ($reservation->status == 'Pendiente')
+                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                @endif
 
-                                                <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
-                                                    <a href="" class="btn btn-warning">R</a>
-                                                    <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
-                                                    @method('delete')
-                                                    @csrf
-                                                </form>
+                                                {{-- @if ($reservation->status == 'Aprobada')
+                                                 <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                @endif
+
+                                                @if ($reservation->status == 'Cancelada')
+                                                    <button type="button" class="btn btn-success" disabled>A</button>
+                                                    <button type="button" class="btn btn-warning" disabled>R</button>
+                                                    <button type="button" class="btn btn-repro" disabled>S</button>
+                                                    <button type="button" class="btn btn-danger" disabled>C</button>
+                                                @endif
+                                                @if ($reservation->status == 'Reprogramada')
+                                                   
+                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                @endif --}}
+                                                @if ($reservation->status == 'Suspendida')
+                                                    {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
+                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
+
+                                                    <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
+                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
+                                                        <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                                        @method('delete')
+                                                        @csrf
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
