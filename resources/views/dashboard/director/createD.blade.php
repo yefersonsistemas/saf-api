@@ -40,7 +40,7 @@
                                                     <option value="E">E</option>
                                                 </select>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
+                                            <input maxlength="9"  type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
                                         </div>
                                     </div>
                                         
@@ -52,7 +52,7 @@
                                         </div>
                         
                                         <div class="col-lg-4">
-                                            <div class="form-group"> 
+                                            <div class="form-group">
                                                 <label class="form-label">Apellido</label>
                                                 <input type="text" class="form-control" placeholder="Apellido" name="lastname" value="{{ old('lastname') }}" required>
                                             </div>
@@ -132,7 +132,7 @@
         
                                 @can('registrar precio de consulta')
                                 <div class="col-lg-3 col-md-3">
-                                    <div class="form-group"> 
+                                    <div class="form-group">
                                         <label class="form-label">Precio de Consulta</label>
                                         <input type="text"  class="form-control validanumericos" placeholder="Precio" name="price" value="{{ old('price') }}" required>
                                     </div>
@@ -179,7 +179,7 @@
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
                         {{-- <a class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b" data-toggle="modal" data-target="#staticBackdrop">Crear usuario</a> --}}
                         <button type="button" onclick="enableBtn()" class="btn btn mr-2 pr-4 pl-4 text-white" style="background:#00506b" data-toggle="modal" data-target="#staticBackdrop">Crear usuario</button>
-                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
+                        <button id="enviar" type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
                         <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>
                     </div>
                 </div>
@@ -341,7 +341,7 @@ function mostrarPassword(){
             eye.type = "password";
             $('#icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
         }
-    } 
+    }
 
     $(document).ready(function () {
     //CheckBox mostrar contraseña
@@ -351,9 +351,24 @@ function mostrarPassword(){
 });
 </script>
 
+<script>
+function enviardni() {
+        $("#search").click(function() {
+            var type_dni = $("#type_dni").val();
+            var dni = $("#dni").val();
+
+            if(type_dni == '' || dni ==  '' || dni.length < 7){
+                Swal.fire({
+                    title: 'Datos incompletos.!',
+                    text: 'Por favor introduzca el documento de identidad completo.',
+                    allowOutsideClick:false,
+                });
+            }else{
+
+            ajax(type_dni, dni);
+            }
+        });
+    }
+
+
 @endsection
-
-
-
-
-    

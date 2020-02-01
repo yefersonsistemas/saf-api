@@ -11,7 +11,7 @@
 
 @section('content')
     <form action="{{ route('checkout.imprimir_factura') }}" method="POST" target="_blank">
-        @csrf 
+        @csrf
         <div class="section-body py-3 row">
             <div class="section-body py-3 col-10 ml-5 ">
                 <div class="container">
@@ -165,7 +165,6 @@
                                                                     <td colspan="5" class="text-left pl-4">
                                                                         <div class="text-muted">{{ $item->name }}</div>
                                                                     </td>
-                                                                
                                                                     <td class="text-right" style="width: 1%">{{ number_format($itinerary->employe->doctor->price,2) }}</td>
                                                                 </tr>
                                                             @else
@@ -174,7 +173,6 @@
                                                                     <td colspan="5" class="text-left pl-4">
                                                                         <div class="text-muted">{{ $item->name }}</div>
                                                                     </td>
-                                                                
                                                                     <td class="text-right" style="width: 1%">{{ number_format($item->price,2) }}</td>
                                                                 </tr>
                                                             @endif
@@ -236,6 +234,25 @@
                 </div>
                 <div class="modal-body pr-5 pl-5 pt-4">
                     <form >
+
+                        <div class="form-group d-flex flex-row  align-items-center">
+                            <div class="input-group">
+                                <div class="input-group-prepend bg-white">
+                                    <span class="input-group-text btn-turquesa"><i class="fa fa-id-card"></i></span>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
+                                        <option value="">...</option>
+                                        <option value="N">N</option>
+                                        <option value="E">E</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control mr-2" id="buscar_dni" maxlength="9" placeholder="Buscar cédula cliente existente" value="">
+                                <input type="hidden" name="newPerson" >
+                                <a id="buscar" class="btn btn-azuloscuro text-white "><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="input-group ">
                                 <div class="input-group-prepend">
@@ -274,7 +291,6 @@
                                 <textarea id="direccionC" required name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
                             </div>
                         </div>
-                       
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -314,10 +330,74 @@
             return Number.parseFloat(x).toFixed(2);
         }
 
+
+        // INICIO DE BUSCAR PACIENTE A FACTURAR
+        $("#buscar").click(function() {
+            var type_dni = $("#type_dni").val();
+            var dni = $("#buscar_dni").val();
+            if(type_dni == '' || dni ==  '' || dni.length < 7){
+                Swal.fire({
+                    title: 'Datos incompletos.!',
+                    text: 'Por favor introduzca el documento de identidad completo.',
+                    allowOutsideClick:false,
+                });
+            }else{
+
+            buscar(type_dni, dni);
+            }
+        });
+
+
+        function buscar(type_dni, dni) {
+            $.ajax({
+                url: "{{ route('search.patient') }}",
+                type: "POST",
+                data: {
+                _token: "{{ csrf_token() }}",
+                type_dni:type_dni,
+                dni:dni,
+                }
+            })
+            .done(function(data) {
+                console.log('recibido',data);
+                if (data[0] == 202) {
+                    Swal.fire({
+                        title: 'Persona no encontrada.!',
+                        text: 'Por favor realice el registro.',
+                        allowOutsideClick:false,
+                    })
+                    enabled();
+                }
+                if (data[0] == 201) {
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text: 'Paciente encontrado',
+                        type: 'success',
+                        allowOutsideClick:false,
+                    })
+                    mostrar_persona(data.person);
+                }
+                                      //recibe lo que retorna el metodo en la ruta definida
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+
+        function mostrar_persona(data) {
+        $('#nameC').val(data.name);
+        $('#lastnameC').val(data.lastname);
+        $('#emailC').val(data.email);
+        $('#direccionC').val(data.address);
+        $('#phoneC').val(data.phone);
+        $('#tipo_dniC').val(data.type_dni);
+        $('#dniC').val(data.dni);
+    }
+
         // ==================== ejecuta cuando se clikea el boton de registrar otro =====================
         $("#registrar").click(function() {
-            var tipo_dni = $("#tipo_dniC").val(); 
-            var dni = $("#dniC").val(); 
+            var tipo_dni = $("#tipo_dniC").val();
+            var dni = $("#dniC").val();
             var name =  $("#nameC").val();
             var lastname = $("#lastnameC").val();
             var phone = $("#phoneC").val();
@@ -344,8 +424,8 @@
             })
 
         }else{
-            registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);  
-        }        
+            registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);
+        }
         }); //fin de la funcion clikea
         //=================== funcion para registrar al cliente================
         function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {
@@ -356,18 +436,18 @@
             console.log(lastname)
             console.log(name)
             console.log(email)
-            $.ajax({ 
-                url: "{{ route('checkout.person') }}",  
-                type: "POST",                            
+            $.ajax({
+                url: "{{ route('checkout.person') }}",
+                type: "POST",
                 data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     type_dni: tipo_dni,
                     dni:dni,
                     name:name,
                     lastname:lastname,
                     phone:phone,
                     email:email,
-                    address:address,                           
+                    address:address,
                 }
             })
             .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
