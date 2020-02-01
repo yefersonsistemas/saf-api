@@ -40,6 +40,9 @@
         background: #ff8000;
         color: #fff;
     }
+    .btn-enabled{
+        color: #E6E6E6;
+    }
 </style>
 
 <div class="section-body  py-4">
@@ -213,10 +216,10 @@
                                                 @endif
 
                                                 @if ($reservation->status == 'Cancelada')
-                                                    <button type="button" class="btn btn-success" disabled>A</button>
-                                                    <button type="button" class="btn btn-warning" disabled>R</button>
-                                                    <button type="button" class="btn btn-repro" disabled>S</button>
-                                                    <button type="button" class="btn btn-danger" disabled>C</button>
+                                                    <button type="button" class="btn btn-secondary" disabled>A</button>
+                                                    <button type="button" class="btn btn-secondary" disabled>R</button>
+                                                    <button type="button" class="btn btn-secondary" disabled>S</button>
+                                                    <button type="button" class="btn btn-secondary" disabled>C</button>
                                                 @endif
                                                 @if ($reservation->status == 'Reprogramada')
                                                     <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
