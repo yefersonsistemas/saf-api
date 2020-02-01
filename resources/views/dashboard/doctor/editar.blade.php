@@ -637,7 +637,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     @if($itinerary->reference != '')                                                                                   
                                                                                          <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @endif
-                                                                                     @if($diff != [])  
+                                                                                     @if($diff != null)  
                                                                                         @foreach ($diff as $spe)
                                                                                             <option value="{{ $spe->id }}">{{ $spe->name }}</option>
                                                                                         @endforeach
@@ -815,7 +815,7 @@ button[data-original-title="Help"]{ display: none; }
     {{-- </div> --}}
 
     <!-- Modal para mostar enfermedades-->
-    {{-- <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2 text-center" style="background-color: #00506b; color: #fff;">
@@ -847,7 +847,7 @@ button[data-original-title="Help"]{ display: none; }
                 </form>
             </div>
         </div>
-    </div> --}}
+    </div>
 
 
     {{-- modal de procedimientos en la consulta --}}
@@ -1788,7 +1788,7 @@ button[data-original-title="Help"]{ display: none; }
     
     });
 
-       //================ eliminar enfermedad seleccionado ==========
+       //================ eliminar alergia seleccionado ==========
        $(function() {
         $(document).on('click', '.alergia_id', function(event) {
             let id = this.id;

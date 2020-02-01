@@ -188,8 +188,31 @@ class DoctorController extends Controller
 
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
+        $enfermedades = Disease::all();
 
-        // dd($speciality);
+        if($reservation->historyPatient->disease->first() != null){
+            foreach($enfermedades as $item){
+                $array1[] = $item->id; 
+            }
+
+            foreach($reservation->historyPatient->disease as $item){
+                $array2[] = $item->id; 
+            }
+           
+            $diff = array_diff($array1, $array2);
+     
+            if($diff != null){
+                foreach($diff as $item){
+                    $enfermedad[] = Disease::find($item); 
+                }
+            }else{
+                $enfermedad = [];
+            }
+
+        }else{           
+            $enfermedad = Disease::all();
+        }
+
         foreach($speciality as $item){
             $data[] = $item->id;
         }
@@ -199,7 +222,7 @@ class DoctorController extends Controller
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
             $buscar_id[] = $buscar->id;
-            // dd($buscar_id);
+     
             $diff_R = array_diff($data, $buscar_id);
 
             //mostrar empleados en el editar rederir medico para que no se repitan los datos
@@ -228,13 +251,14 @@ class DoctorController extends Controller
         //buscar datos de las especialidades
         if($diff_R != [] ){
             foreach($diff_R as $di) { 
-                $diff[] = Speciality::find($di); 
+                $diff2[] = Speciality::find($di); 
             }
         }else{           
-            $diff = [];
+            $diff2 = [];
         }
 
-        // dd($diff);
+        $diff = $diff2; 
+
          //decodificando y buscando datos de procedures realizados
             if (!empty($itinerary->procedure_id)) {
                 $proceduresP_id = explode(',', $itinerary->procedure_id); //decodificando los procedimientos en $encontrado
@@ -291,8 +315,9 @@ class DoctorController extends Controller
             }else{
                 $diff_C = $cirugias;
             }   
+            // dd($diff);
 
-        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad'));
     }
 
     /**
