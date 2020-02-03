@@ -230,12 +230,12 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Enfermedades</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            <p class="text-capitalize card-title text-white" style="font-size:12px;cursor: pointer;">Ver Mas</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                    <div id=" mostrar_enfermedad">
+                                                    <div id="mostrar_enfermedad">
                                                         @foreach ( $history->historyPatient->disease as $disease )
                                                         <div class="row" id="{{$disease->id}}">
                                                             <div class="col-9">
@@ -262,7 +262,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Alergias</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: initial;">VER MAS</p>
+                                                            <p class="text-capitalize card-title text-white" style="font-size:12px; cursor: pointer;">Ver Mas</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -295,7 +295,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Cirugias Previas</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            <p class="text-capitalize card-title text-white" style="font-size:12px;cursor: pointer;">Ver Mas</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -709,6 +709,7 @@ button[data-original-title="Help"]{ display: none; }
     </div>
 
     <!-- Modal para mostar alergias-->
+
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -719,7 +720,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 415px">
                         <div class="form-group">
                             <div class="custom-controls-stacked" id="modal_alergias">
                                 @if($alergia != null)
