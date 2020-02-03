@@ -92,11 +92,8 @@ class DoctorController extends Controller
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        // dd($history->historyPatient);
         //----------------mostrar enfermedades----------
         $enfermedades = Disease::all();
-        
-// dd($history->historyPatient);
 
         if($history->historyPatient->disease->first() != null){
             foreach($enfermedades as $item){
@@ -123,23 +120,21 @@ class DoctorController extends Controller
 
         //----------------mostrar alergias---------------
           $alergias = Allergy::all();
-        //   dd($alergias);
+     
           if($history->historyPatient->allergy->first() != null){
             foreach($alergias as $item){
                 $array1[] = $item->id; 
             }
-            // dd($array1);
+   
             foreach($history->historyPatient->allergy as $item){
                 $array2[] = $item->id; 
             }
-            // dd($array2);
 
             $diff_A = array_diff($array1, $array2);
-            // dd($diff);
             if($diff_A != []){
                 foreach($diff_A as $item){
                     $alergia[] = Allergy::find($item); 
-                    // dd($enfermedad);
+    
                 }
             }else{
                 $alergia = [];
@@ -155,7 +150,7 @@ class DoctorController extends Controller
      
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
-// dd($cite);
+
         $exams = Exam::all();
 
         $surgerys = Typesurgery::all();
@@ -190,6 +185,7 @@ class DoctorController extends Controller
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
 
+        //---------------------mostrar enfermedades-----------------
         if($reservation->historyPatient->disease->first() != null){
             foreach($enfermedades as $item){
                 $array1[] = $item->id; 
@@ -245,7 +241,7 @@ class DoctorController extends Controller
             $data[] = $item->id;
         }
 
-        //datos de la referencia
+        //-----------------datos de la referencia-----------------
         if($itinerary->reference != ''){
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
@@ -299,6 +295,7 @@ class DoctorController extends Controller
                 $procedures = null;
             }
             
+            // dd($procedures);
         //decodificando y buscando datos de examenes
             if (!empty($itinerary->exam_id)) {
                 $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
@@ -321,7 +318,7 @@ class DoctorController extends Controller
             }else{
                 $diff_PR = $procesm->procedures;
             }
-    
+
         // buscando diferencia de examenes 
             if ($itinerary->exam_id != null) {
                 $diff_E = $examenes->diff($exams);
@@ -335,7 +332,7 @@ class DoctorController extends Controller
             }else{
                 $diff_P = $procesm->procedures;
             }
-            
+         
         // buscando posibles cirugias
             $surgery = array($itinerary->typesurgery);
             if(!empty($itinerary->typesurgery)){
@@ -1166,9 +1163,9 @@ class DoctorController extends Controller
             $itinerary->save();
         }
 
-        // dd($itinerary->procedureR_id);
+        // dd($procedure);
         return response()->json([
-            'procedure' => 'Procedure eliminado correctamente',202,
+            'procedure' => 'Procedure eliminado correctamente',202,$procedure,
         ]);
 
     }

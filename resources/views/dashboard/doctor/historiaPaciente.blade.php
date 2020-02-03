@@ -1296,7 +1296,7 @@ button[data-original-title="Help"]{ display: none; }
             ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
-    function ajax_enfermedad(enfermedad,reservacion) {
+    function ajax_enfermedad(enfermedad,reservacion){
         $.ajax({
             url: "{{ route('doctor.agregar_enfermedad') }}", //definiendo ruta
             type: "POST",
@@ -1439,7 +1439,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $("#mostrar_alergias").append(alergia);
             $("#quitarAlergia"+data[$i].id).remove();
         }
@@ -1465,8 +1465,7 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {               
-            // console.log('alergia',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {  
             agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_alergias").append(agregarAlergia);
 
