@@ -134,6 +134,7 @@ class OutController extends Controller
      }
 
 
+
     //============================ buscanco paciente ============================ (listo)
     public function search_patient(Request $request){
 
@@ -143,51 +144,104 @@ class OutController extends Controller
 
         if(!empty($person)){
 
-            $itinerary = Itinerary::where('patient_id', $person->id)->first();
+            $itinerary = Itinerary::where('patient_id', $person->id)->first(); 
+                                                                            // dd($itinerary);          
             if(!empty($itinerary)){
 
-                $all = collect([]); //definiendo una coleccion|
-                $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
-                // dd($encontrado);
-                $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
+                if(!empty($itinerary->billing_id)){
 
-                if($procedures[0] != ''){ 
-                    foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
-                    $procedures[] = $proce->procedureR_id;
-                    }
+                    $billing = Billing::find($itinerary->billing_id);
 
-                    for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
-                        $procedureS[] = Procedure::find($procedures[$i]);
+                                                                            // dd($billing->person_id);
+                    if(!empty($billing->person_id)){
+
+                                                                            // dd($billing->person_id);
+                    return response()->json([
+                        'pago' => 'Pago', 300
+                    ]);
+                    //   return redirect()->route('checkout.index');
+                    }else{
+                        $all = collect([]); //definiendo una coleccion|
+                        $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
+                        // dd($encontrado);
+                        $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
+    
+                        if($procedures[0] != ''){ 
+                            foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
+                            $procedures[] = $proce->procedureR_id;
+                            }
+    
+                            for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
+                                $procedureS[] = Procedure::find($procedures[$i]);
+                            }
+                            
+                            $all->push($procedureS);  // colocando los procedimientos en colas ordenados
+                        }else{
+                            $procedureS = null;
+                        }
+    
+                        if (!is_null($encontrado)) {
+                            return response()->json([
+                                'encontrado' => $encontrado,201,
+                                'procedureS'  => $procedureS,
+                            ]);
+                        }else{
+                            return response()->json([
+                                'encontrado' => 'persona no encontrado', 202
+                            ]);
+                        }
+    
                     }
                     
-                    $all->push($procedureS);  // colocando los procedimientos en colas ordenados
                 }else{
-                    $procedureS = null;
-                }
+                    $all = collect([]); //definiendo una coleccion|
+                    $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
+                    // dd($encontrado);
+                    $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
 
-                if (!is_null($encontrado)) {
-                    return response()->json([
-                        'encontrado' => $encontrado,201,
-                        'procedureS'  => $procedureS,
-                    ]);
-                }else{
-                    return response()->json([
-                        'encontrado' => 'persona no encontrado', 202
-                    ]);
+                    if($procedures[0] != ''){ 
+                        foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
+                        $procedures[] = $proce->procedureR_id;
+                        }
+
+                        for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
+                            $procedureS[] = Procedure::find($procedures[$i]);
+                        }
+                        
+                        $all->push($procedureS);  // colocando los procedimientos en colas ordenados
+                    }else{
+                        $procedureS = null;
+                    }
+
+                    if (!is_null($encontrado)) {
+                        return response()->json([
+                            'encontrado' => $encontrado,201,
+                            'procedureS'  => $procedureS,
+                        ]);
+                    }else{
+                        return response()->json([
+                            'encontrado' => 'persona no encontrado', 202
+                        ]);
+                    }
+
                 }
 
             }else{
                 return response()->json([
                     'encontrado' => 'paciente no encontrado', 202
                 ]);
-            }
-
-        }else{
-            return response()->json([
-                'encontrado' => 'paciente no registrado',202
-            ]);
 
             }
+          
+                }else{
+                    return response()->json([
+                        'encontrado' => 'paciente no  registrado',202
+                    ]);
+
+                    }
+
+            // cuando viene vacio el imput de cedula
+
         }else{
             return response()->json([
                 'encontrado' => 'Debe ingresar un valor de busqueda',202
@@ -196,6 +250,7 @@ class OutController extends Controller
     }
 
  
+
     //============== buscando procedimiento y mostrando en la vista para generar factura============== (listo)
     public function create(){
         $procedimientos = Procedure::all();
