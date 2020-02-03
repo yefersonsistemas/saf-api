@@ -985,8 +985,8 @@ class DoctorController extends Controller
             ]);
     }
 
-        //================= actualizar procedimientos realizados ==============
-        public function proceduresR_update(Request $request){
+    //================= actualizar procedimientos realizados ==============
+    public function proceduresR_update(Request $request){
             $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
             //buscando procedimientos
@@ -1589,7 +1589,8 @@ class DoctorController extends Controller
 
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
 
-        $cirugia = Typesurgery::find($itinerary->typesurgery_id);
+        $cirugia = Typesurgery::with('classification')->find($itinerary->typesurgery_id);
+        // dd($cirugia);
 
         $itinerary->typesurgery_id = null;
         $itinerary->save();
