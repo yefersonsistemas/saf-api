@@ -81,7 +81,7 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($surgeries as $surgeries)
+                            @foreach ($today as $surgeries)
                             <tr style="height:40px;">
                                 @foreach ($surgeries->patient as $patient)
                                 <td style="text-align: center; font-size:10px; height:40px;">

@@ -680,9 +680,11 @@ class OutController extends Controller
     }
 
     public function surgeries_list(){
-
-    $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
-
+    
+    $all = Surgery::with('patient.person.image','employe.person','typesurgeries','area')->get();
+    // dd($all);
+    $today = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
+    // dd($today);
     // $approved =
 
     // $reschedule =
@@ -690,7 +692,7 @@ class OutController extends Controller
     // $canceled =
 
     // dd($surgeries);
-    return  view('dashboard.checkout.lista_cirugias', compact('surgeries'));
+    return  view('dashboard.checkout.lista_cirugias', compact('all','today'));
     }
 
 }

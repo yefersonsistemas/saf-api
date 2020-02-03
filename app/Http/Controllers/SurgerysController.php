@@ -160,7 +160,7 @@ public function create_surgery(){
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
-            return redirect()->back()->withError('Cirugia no Agendada!');
+            return redirect()->back()->withError('Cirugia no Agendada, Verifique los Datos!');
         }
 
     }
