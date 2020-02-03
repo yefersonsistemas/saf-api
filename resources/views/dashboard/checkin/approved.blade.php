@@ -2,6 +2,8 @@
 
 @section('cites','active')
 @section('approved','active')
+@section('inrol','d-block')
+@section('dire','d-none')
 
 @php
     use Carbon\Carbon;

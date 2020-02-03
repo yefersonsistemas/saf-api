@@ -2,7 +2,8 @@
 @extends('dashboard.layouts.app')
 
 @section('doctor','active')
-
+@section('docrol','d-block')
+@section('dire','d-none')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
@@ -218,7 +219,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote" ></textarea>
                                     </section>
 
-                                    <h2>Antecedentes</h2>   
+                                    <h2>Antecedentes</h2>
                                     <section class="ml-4 pb-0 pt-4">
                                         <div id="accordion">
                                             <!--agregar enfermedad-->
@@ -239,13 +240,13 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row" id="{{$disease->id}}">
                                                             <div class="col-9">
                                                                 <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
-                                                            </div> 
+                                                            </div>
                                                             <div class="col-3">
                                                                 <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                     value="Eliminar">
                                                             </div>
-                                                        </div>                                                           
-                                                    @endforeach    
+                                                        </div>
+                                                    @endforeach
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
@@ -261,7 +262,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Alergias</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">VER MAS</p>
+                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: initial;">VER MAS</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -271,13 +272,13 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="row" id="{{$allergy->id}}">
                                                                 <div class="col-9">
                                                                     <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
-                                                                </div> 
+                                                                </div>
                                                                 <div class="col-3">
                                                                     <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                         value="Eliminar">
                                                                 </div>
-                                                            </div>     
-                                                         @endforeach
+                                                            </div>
+                                                        @endforeach
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
@@ -299,19 +300,19 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
-                                                   <div id="agregar_cirugia">
+                                                    <div id="agregar_cirugia">
                                                         @if($cite->previous_surgery != null)
                                                         <div class="row" id="cirugia{{$cite->id}}">
                                                             <div class="col-9" id="cirugia{{$cite->id}}">
                                                                 <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
-                                                            </div> 
+                                                            </div>
                                                             <div class="col-3" id="cirugia{{$cite->id}}">
                                                                 <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
                                                                     value="Eliminar">
                                                             </div>
-                                                        </div> 
-                                                        @endif 
-                                                   </div>
+                                                        </div>
+                                                        @endif
+                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                             <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                     </div>
@@ -838,48 +839,84 @@ button[data-original-title="Help"]{ display: none; }
     </div>
 
     {{-- modal de posibles cirugias --}}
+
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
-                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" id="posible-surgerys">
-                <div class="modal-body" style="max-height: 415px;">
-                    <div class="form-group">
-
-                        <div class="custom-controls-stacked" id="modal_cirugiaP">
-                            @foreach ($surgerys as $surgery)
-                            <div class="row" id="quitar_cirugia{{$surgery->id}}">
-                                <div class="col-9 mt-3">
-                                    <label class="custom-control custom-checkbox">
-                                        @if ($surgery->classification->name == 'hospitalaria')
-
-                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
-                                        <span class="custom-control-label">{{ $surgery->name }}</span>
-                                        @endif
-                                    </label>
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
+                <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" id="posible-surgerys">
+                        <div class="modal-body ml-4 pb-0 pt-2 plan">
+                            <div class="plan-steps">
+                                <!-- Nav tabs -->
+                                <ul style="list-style: none !important" class="nav nav-pills" id="pills-tab" role="tablist">
+                                    <li role="presentation" class="active nav-item">
+                                        <a class="nav-link active" href="#hospitalariaTab" aria-controls="hospitalariaTab" role="tab" data-toggle="tab">Cirugias Hospitalarias</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" href="#ambulatoriaTab" aria-controls="ambulatoriaTab" role="tab" data-toggle="tab">Cirugias Ambulatorias</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="hospitalariaTab">
+                                        <div class="form-group">
+                                            <div class="custom-controls-stacked">
+                                                @foreach ($surgerys as $surgery)
+                                                @if ($surgery->classification->name == 'hospitalaria')
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                                            <span class="custom-control-label">{{ $surgery->name }}</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col">
+                                                        <span>{{ $surgery->cost }}</span>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">
+                                    <div class="form-group">
+                                            <div class="custom-controls-stacked">
+                                                @foreach ($surgerys as $surgery)
+                                                @if ($surgery->classification->name == 'ambulatoria')
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="custom-control custom-checkbox">
+                                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                                        <span class="custom-control-label">{{ $surgery->name }}</span>
+                                                        </label>
+                                                </div>
+                                                <div class="col">
+                                                    <span>{{ $surgery->cost }}</span>
+                                                </div>
+                                        </div>
+                                            @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    @if ($surgery->classification->name == 'hospitalaria')
-                                    <span>{{ $surgery->cost }}</span>
-                                    @endif
                                 </div>
                             </div>
-                            @endforeach
+                        </div>
+                        <div class="modal-footer p-2">
+                            <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                         </div>
                     </div>
                 </div>
-                    <div class="modal-footer p-2">
-                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
-                    </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

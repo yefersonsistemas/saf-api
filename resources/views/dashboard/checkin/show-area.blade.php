@@ -1,4 +1,7 @@
 @extends('dashboard.layouts.app')
+@section('inrol','d-block')
+@section('dire','d-none')
+
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">

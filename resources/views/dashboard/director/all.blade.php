@@ -102,13 +102,13 @@
                                             <td style="display: inline-block">
                                                 @can('modificar cargo')
                                                 <a href="{{ route('cargo.edit', $position->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                               @endcan
+                                                @endcan
                                                 @can('eliminar cargo')
                                                 <form action="{{ route('cargo.delete', $position) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')
                                                     @csrf
-                                                </form> 
+                                                </form>
                                                 @endcan
                                             </td>
                                         </tr>
@@ -116,8 +116,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>  
-                </div> 
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-service" role="tabpanel" aria-labelledby="pills-service-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -155,7 +155,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-speciality" role="tabpanel" aria-labelledby="pills-speciality-tab">
                     <div class="col-lg-12">
@@ -200,8 +200,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div>   
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-procedure" role="tabpanel" aria-labelledby="pills-procedure-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -250,8 +250,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div>  
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-surgery" role="tabpanel" aria-labelledby="pills-surgery-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -287,8 +287,8 @@
                                             <td style="display: inline-block">
                                                 @can('modificar cirugias')
                                                 <a href="{{ route('cirugia.edit', $surgery->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                               @endcan
-                                               @can('eliminar cirugias')
+                                                @endcan
+                                                @can('eliminar cirugias')
                                                 <form action="{{ route('cirugia.delete', $surgery) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>
                                                     @method('delete')

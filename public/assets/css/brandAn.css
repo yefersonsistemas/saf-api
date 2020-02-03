@@ -960,6 +960,8 @@
     height: 28em !important;
 
 }
+
+
 .wizard.vertical>.steps>ul>li a {
     font-weight: bold;
     background: lightgray;

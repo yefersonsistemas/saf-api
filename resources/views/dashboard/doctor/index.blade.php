@@ -1,6 +1,8 @@
 @extends('dashboard.layouts.app')
 
 @section('doctor','active')
+@section('docrol','d-block')
+@section('dire','d-none')
 
 @php
     use Carbon\Carbon;
