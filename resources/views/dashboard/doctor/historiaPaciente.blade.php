@@ -1445,7 +1445,7 @@ button[data-original-title="Help"]{ display: none; }
         }
     }
 
-    //================ eliminar enfermedad seleccionado ==========
+    //================ eliminar alergia seleccionado ==========
     $(function() {
         $(document).on('click', '.alergia_id', function(event) {
             let id = this.id;
@@ -1898,6 +1898,8 @@ button[data-original-title="Help"]{ display: none; }
             var reservacion = $("#reservacion").val();
             var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
 
+            //por si hay una cirugia en la lista
+
             ajax_S(surgery,reservacion); // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
 
@@ -1940,13 +1942,36 @@ button[data-original-title="Help"]{ display: none; }
 
     //======================== mostrando posibles cirugias ======================
     function mostrarSurgery(data){
-        console.log('hh',data);
+        // console.log('hh',data[0].classification.name);
+        // var ver = $('#cirugias').txt();
+        // console.log(ver);
 
         for($i=0; $i < data.length; $i++){
-            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
+            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" name="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" name="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" name="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" name="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
-            $("#quitar_cirugia"+data[$i].id).remove();   
+            $("#quitar_cirugia"+data[0].id).remove();  
         }
+        
+            // var id = $("input[name='cirugia_posible']").val();
+            // var name = $("input[name='cirugia_posible_name']").val();
+            // var cost = $("input[name='cirugia_posible_costo']").val();
+            // var clasificacion = $("input[name='cirugia_posible_clasificacion']").val();
+
+            // console.log("id",id);
+            // console.log("name",name);
+            // console.log("costo",cost);
+            // console.log("clasificacion",clasificacion);
+        
+            // if(id != '' && name != '' && cost != ''){
+            //     agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
+               
+            //     if(clasificacion == 'hospitalaria'){
+            //         $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
+            //     }else{
+            //         $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
+            //     }
+            // }
+         
     }
 
     //======================= eliminar posible cirugia seleccionada ==============

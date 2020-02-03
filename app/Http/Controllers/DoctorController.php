@@ -213,6 +213,34 @@ class DoctorController extends Controller
             $enfermedad = Disease::all();
         }
 
+
+         //----------------mostrar alergias---------------
+         $alergias = Allergy::all();
+      
+           if($reservation->historyPatient->allergy->first() != null){
+             foreach($alergias as $item){
+                 $array1[] = $item->id; 
+             }
+  
+             foreach($reservation->historyPatient->allergy as $item){
+                 $array2[] = $item->id; 
+             }
+ 
+             $diff_A = array_diff($array1, $array2);
+     
+             if($diff_A != []){
+                 foreach($diff_A as $item){
+                     $alergia[] = Allergy::find($item); 
+                 }
+             }else{
+                 $alergia = [];
+             }
+            
+         }else{           
+             $alergia = Allergy::all();
+         }
+
+
         foreach($speciality as $item){
             $data[] = $item->id;
         }
@@ -317,7 +345,7 @@ class DoctorController extends Controller
             }   
             // dd($diff);
 
-        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia'));
     }
 
     /**
@@ -1537,7 +1565,7 @@ class DoctorController extends Controller
         $surgerys = explode(',', $itinerary->typesurgery_id); // decodificando los prcocedimientos json
         
         for ($i=0; $i < count($surgerys) ; $i++) { 
-                    $surgery[] = TypeSurgery::find($surgerys[$i]);
+                    $surgery[] = TypeSurgery::with('classification')->find($surgerys[$i]);
                 }
 
         return response()->json([
