@@ -691,9 +691,7 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif --}}
                                                 @if ($reservation->status == 'Suspendida')
-                                                    {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
-                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
-
+                                                
                                                     <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
                                                         <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                         <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
