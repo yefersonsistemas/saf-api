@@ -1660,7 +1660,7 @@ class DoctorController extends Controller
         $employe = Employe::with('person')->where('person_id',$person->person_id)->first();
     
         $all = Surgery::with('patient','typesurgeries','area')->where('employe_id', $employe->id)->get();
-            dd($all); 
+            // dd($all); 
         return view('dashboard.doctor.lista_cirugias');
     }
 }
