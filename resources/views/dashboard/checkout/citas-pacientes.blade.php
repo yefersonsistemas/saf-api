@@ -66,6 +66,21 @@
                 </div>
             </div>
 
+            <form method="GET" action="{{ route('checkout.index') }}">
+                <label class="form-label">Buscar:</label>
+                <div class="input-group">
+                    
+                    <input type="text" class="form-control" placeholder="Buscar Pacientes"
+                        aria-label="Buscar Pacientes" name="patient" aria-describedby="Buscar Pacientes">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="search">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                </div>
+            </form>
+
+          
             <!--lista de reservaciones confirmadas-->
             <div class="col-lg-12 col-md-12 mt-10">
 
@@ -92,6 +107,10 @@
             </div>
 
             <div class="tab-content container-fluid" id="pills-tabContent">
+
+                <div>
+                    
+                </div>
 
                 <!---------------------------Citas aprobadas------------------------------->
                 <div class="tab-pane fade" id="aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">
@@ -123,10 +142,10 @@
                                     <div class=" col-lg-4 col-md-4 ">
                                         <div class="d-flex justify-content-end container text-center mt-2 pt-1" id="ID_element_0">
                                             @if($item->patient->inputoutput->isEmpty())
-                                                <button class="btn btn-danger state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             @endif
 
                                             @if(!empty($item->patient->inputoutput->first()->inside) && empty($item->patient->inputoutput->first()->inside_office) && empty($item->patient->inputoutput->first()->outside_office) && empty($item->patient->inputoutput->first()->outside))
@@ -339,10 +358,10 @@
                                         <div class=" col-lg-4 col-md-4 ">
                                             <div class="d-flex justify-content-end container text-center mt-2 pt-1" id="ID_element_0">
                                                 @if($dentro->patient->inputoutput->isEmpty())
-                                                    <button class="btn btn-danger state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                    <button class="btn btn-danger state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                    <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                    <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-secondary state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-secondary state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-secondary state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-secondary state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
     
                                                 @if(!empty($dentro->patient->inputoutput->first()->inside) && empty($dentro->patient->inputoutput->first()->inside_office) && empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
@@ -466,10 +485,10 @@
                                     <div class=" col-lg-4 col-md-4 ">
                                         <div class="d-flex justify-content-end container text-center mt-2 pt-1" id="ID_element_0">
                                             @if($itinerary->person->inputoutput->isEmpty())
-                                                <button class="btn btn-danger state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             @endif
 
                                             @if(!empty($itinerary->person->inputoutput->first()->inside) && empty($itinerary->person->inputoutput->first()->inside_office) && empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
@@ -693,10 +712,10 @@
                                     <div class=" col-lg-4 col-md-4 ">
                                         <div class="d-flex justify-content-end container text-center mt-2 pt-1" id="ID_element_0">
                                             @if($fuera->person->inputoutput->isEmpty())
-                                                <button class="btn btn-danger state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-secondary state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             @endif
 
                                             @if(!empty($fuera->person->inputoutput->first()->inside) && empty($fuera->person->inputoutput->first()->inside_office) && empty($fuera->person->inputoutput->first()->outside_office) && empty($fuera->person->inputoutput->first()->outside))

@@ -52,6 +52,7 @@ class DirectorController extends Controller
     //    dd($specialitys);
        $procedures = Procedure::with('speciality')->get();
     //    dd($procedures);
+   
        $surgerys = Typesurgery::with('classification')->get();
        $allergys = Allergy::get();
        $diseases = Disease::get();
