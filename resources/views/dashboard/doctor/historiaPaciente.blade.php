@@ -229,7 +229,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Enfermedades</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -261,7 +261,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Alergias</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">VER MAS</p>
+                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -294,7 +294,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Cirugias Previas</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
