@@ -754,8 +754,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <td>
                                                                                                     <div class="col-6" >{{$surge->name}}</div> 
                                                                                                 </td>
-                                                                                                <td id="{{$surge->id}}" class="d-flex justify-content-center">
-                                                                                                <input id="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="cirugiaP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia"
+                                                                                                <td class="d-flex justify-content-center">
+                                                                                                <input id="cirugiaP_id" name="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                                                         value="Eliminar">
                                                                                                 </td>
                                                                                             </tr>
