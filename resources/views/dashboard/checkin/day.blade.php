@@ -2,6 +2,8 @@
 
 @section('cites','active')
 @section('day','active')
+@section('inrol','d-block')
+@section('dire','d-none')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
@@ -247,11 +249,11 @@
                         <label for="message-text" class="col-form-label">Motivo:</label>
                         <textarea class="form-control" name="motivo" id="message-text"></textarea>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-repro" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                </div>
+                </div>           
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-azuloscuro"  >Guardar</button>
+                </div> 
             </form>
         </div>
     </div>

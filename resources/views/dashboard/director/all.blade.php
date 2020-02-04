@@ -137,15 +137,15 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 150px">Nombre</th>
-                                        <th>Descripcion</th>
-                                        <th>Acción</th>
+                                        <th style="width: 250px">Descripcion</th>
+                                        <th class="align-center">Acción</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Descripcion</th>
-                                        <th>Acción</th>
+                                        <th class="align-center">Acción</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>

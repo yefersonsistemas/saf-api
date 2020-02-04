@@ -2,6 +2,8 @@
 
 @section('cites','active')
 @section('all','active')
+@section('inrol','d-block')
+@section('dire','d-none')
 
 @php
     use Carbon\Carbon;
@@ -608,8 +610,8 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-repro" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-azuloscuro">Guardar</button>
                 </div>
             </form>
         </div>

@@ -8,21 +8,23 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Citas de pacientes</div>
-
-                <div class="card-body">
                 
+                <div class="card-body">
+                    
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection --}}
-
-@extends('dashboard.layouts.app')
-
-@section('citas de pacientes','active')
-@section('citas','active')
-
+    @endsection --}}
+    
+    @extends('dashboard.layouts.app')
+    
+    @section('citas de pacientes','active')
+    @section('citas','active')
+    @section('outrol','d-block')
+    @section('dire','d-none')
+    
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">

@@ -8439,7 +8439,8 @@ a:hover {
     padding-left: 7.5px
 }
 
-.form-control,
+
+/* .form-control,
 .dataTables_wrapper .dataTables_filter {
     border-color: #E8E9E9;
     font-size: 14px;
@@ -8468,7 +8469,7 @@ a:hover {
     width: 20px;
     height: 20px;
     line-height: 20px
-}
+} */
 
 .w30 {
     width: 30px;

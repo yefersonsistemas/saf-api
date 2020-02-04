@@ -263,18 +263,7 @@ class UsersTableSeeder extends Seeder
 
         //=========================  Procedimientos otros ==========================
 
-        $pro1= factory(Procedure::class)->create([
-            'name'    => 'Cura post operatoria (rinoplastia, blefaroplastia,otoplastia, bichectomia)',
-            'price' => 15000,
-            'branch_id' => '1',
-
-        ]);
-        $employe->procedures()->attach($pro1);
-
-        //relacion de la cirugia con el procedimiento
-        $pro1->speciality()->attach($especialidad);
-        $cirugia->procedure()->attach($pro1);
-        $employe->procedures()->attach($pro1);
+   
 
 
         $pro2= factory(Procedure::class)->create([

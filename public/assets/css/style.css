@@ -4002,7 +4002,7 @@ th .factura {
     color: #fff;
 }
 
-.total{
+.total {
     border: 2px solid #26D8CA;
     background: #fff;
     color: #000;
@@ -4174,6 +4174,6 @@ th .factura {
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    color: #6a6a6a;
-    background-color: #e1e1e1;
+    color: #494848;
+    background-color: #8a8787;
 }

@@ -2,6 +2,8 @@
 
 @section('cites','active')
 @section('pending','active')
+@section('inrol','d-block')
+@section('dire','d-none')
 
 @php
     use Carbon\Carbon;
@@ -454,7 +456,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-azuloscuro">Guardar</button>
                 </div>
             </form>
         </div>
