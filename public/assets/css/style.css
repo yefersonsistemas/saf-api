@@ -3684,52 +3684,8 @@ p.remarcado {
     right: 17px;
 }
 
-.page-item.disabled .page-link {
-    color: #fff;
-    pointer-events: none;
-    cursor: auto;
-    background: #00ba88;
-    /* border-color: #00ba88; */
-    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
-    /* margin-right: 10px; */
-}
 
-.page-item:first-child .page-link {
-    color: #fff;
-    background: #00ba88;
-}
-
-.page-item:first-child .page-link:active {
-    color: #fff;
-    background: #00ba88;
-    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
-}
-
-.page-item.active .page-link:active {
-    z-index: 1;
-    color: #fff;
-    background-color: #00ba88;
-    /* border-color: #00ba88; */
-    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
-}
-
-.page-item.active .page-link {
-    z-index: 1;
-    color: #fff;
-    background-color: #00ba88;
-    /* border-color: #00ba88; */
-    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
-}
-
-.page-item:last-child .page-link {
-    color: #fff;
-    background: #00ba88;
-}
-
-.h_menu.rtl .metismenu>li:last-child .collapse {
-    left: 0;
-    right: auto
-}
+/*------------------------------------------------------- ESTILOS QUE MANEJAN EL PAGINADOR Y LOS REGISTROS A MOSNTRAR  */
 
 
 /* estilos para el usuario */
@@ -3759,6 +3715,52 @@ span.titulos {
         height:150px; */
     background: #000;
 }
+
+
+/*-------- BOTON ANTERIOR ---------*/
+
+
+/* .page-item:first-child .page-link {
+    color: #fff;
+    background: #00ba88;
+} */
+
+
+/*-------- BOTON ANTERIOR ---------*/
+
+
+/* .page-item:last-child .page-link {
+    color: #fff;
+    background: #00ba88;
+} */
+
+
+/* ------DIFUMINA EL NUMERO--------  */
+
+
+/* .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #00ba88;
+    border-color: #0000000c;
+    box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+} */
+
+
+/* ----EFECTOS VERDE Y SOMBRA NEGRA EN LOS BOTONES-----  */
+
+
+/* .page-item.disabled .page-link {
+    color: #fff;
+    pointer-events: none;
+    cursor: auto;
+    background: #00ba88;
+    /* border-color: #00ba88; */
+
+
+/* box-shadow: inset 1px 1px 7px 3px rgba(0, 0, 0, .6);
+    margin-right: 10px;
+} */
 
 .tamano img {
     width: 100%;
@@ -4158,11 +4160,20 @@ th .factura {
     color: #fff;
 }
 
-.history{
+.history {
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.75);
     padding: 10px;
     border-radius: 5px;
     width: 120px;
     background: #00506b;
     color: #fff;
+}
+
+
+/* ----------------------------COLOR DEL BOTON DESPUES DE SER USADO EN LA PANTALLA DE ADMINISTRADOR LISTA */
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #6a6a6a;
+    background-color: #e1e1e1;
 }

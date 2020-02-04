@@ -22,6 +22,6 @@ class PositionsTableSeeder extends Seeder
             'name'    => 'mantenimiento',
         ]);
 
-         //factory(Position::class, 5)->create();
+         factory(Position::class, 5)->create();
     }
 }

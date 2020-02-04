@@ -235,6 +235,7 @@ class CitaController extends Controller
                     'branch_id'         => 1,
                 ]);
                 Alert::success('Cita suspendida exitosamente');
+                $reservation->reschedule = null; //esto por si ya ha sido reprogramada y vuelve a suspender no se repita en las listas
 
             }elseif ($data['type'] == 'Cancelada') {
                 if ($reservation->discontinued != null) {
@@ -317,7 +318,7 @@ class CitaController extends Controller
 
     public function update(Reservation $cite, Request $request)
     {
-        // dd($cite);
+        // dd($cite);  //esta es la reservacion
         // dd($request);
         if (!is_null($cite)) {
             $cite->status = 'Pendiente';
@@ -358,6 +359,8 @@ class CitaController extends Controller
                 $cite->reschedule = Carbon::now();
                 $cite->schedule_id = $schedule->id;
             }
+
+            $cite->discontinued = null; //para que se actualice el registro y no aparezca en lista suspendida si se reprograma
             $cite->save();
 
 

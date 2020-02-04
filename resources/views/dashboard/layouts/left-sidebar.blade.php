@@ -56,7 +56,6 @@
 
                         </li>
                         <li class="@yield('medicoss')">
-                           
                                 <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-user-md"></i>&nbsp;&nbsp;<span>Médicos</span></a>
                                 <ul>
                                     <li>
@@ -69,8 +68,7 @@
                                         <a href="{{ route('checkin.consultorio') }}">Asistencia</a>
                                     </li>
                             </li>
-    
-                        </li>
+                        </li> 
                         {{-- <div class="card bg-indigo" style="background-color: #00506b;">
                             <div class="card-body text-center">
                                 <div class="inline-datepicker datepicker-reception fill_bg"></div>
@@ -89,6 +87,7 @@
 
                         <li class="g_heading">Doctor</li>
                         <li class="@yield('doctor')"><a href=" {{ route('doctor.index')  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a></li>
+                        <li class="@yield('doctor')"><a href="{{ route('doctor.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
                         {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                     </div>
                 @endrole
@@ -105,10 +104,10 @@
 
                     <li class="g_heading">Check-OUT</li>
                     <li  class="@yield('citas')"><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Citas del día</span></a></li>                                          
+                    <li class="@yield('facturacion')"><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturación</span></a></li>
                     <li class="@yield('cirugias')"><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;<span>Cirugías</span></a></li> 
                     <li class="@yield('agendar')"><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a></li>                        
-                    <li class="@yield('facturacion')"><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturación</span></a></li><br><br>
-                    {{-- <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li> --}}
+                    <li class="@yield('facturacion')"><a href="{{ route('checkout.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
                 </div>
                 @endrole
 

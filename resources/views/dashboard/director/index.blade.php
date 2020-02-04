@@ -9,6 +9,7 @@
 
 @section('title','Lista de empleados')
 
+
 @section('content')
 @can('ver lista de empleados')
 <div class="section-body  py-4">

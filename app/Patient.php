@@ -44,7 +44,7 @@ class Patient extends Model
     public function surgery()
     {
          return $this->belongsToMany('App\Surgery','patient_surgery')
-                      ->withPivot('surgery_id','id');
+                    ->withPivot('surgery_id','id');
     }
 
     public function procedure()

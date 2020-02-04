@@ -154,14 +154,16 @@ class UsersTableSeeder extends Seeder
                 'name'    => 'Consulta médica',
                 'description' => 'Solo consulta',
                 'price' => 5000,
+                'branch_id' => '1',
             ]);
+
+            $pro->speciality()->attach($especialidad);
             $employe->procedures()->attach($pro);
 
         //creando procedimiento
         $procedimiento = factory(App\Procedure::class)->create([
             'name' => 'Septoplastia endoscópica',
-            'description' => 'La septoplastía es uno de los procedimientos quirúrgicos 
-                                más frecuentes en otorrinolaringología, cuya principal
+            'description' => 'La septoplastía es uno de los procedimientos quirúrgicos, cuya principal
                                 indicación es la presencia de desviación septal nasal 
                                 significativa',
             'price' => 2500,
@@ -178,12 +180,8 @@ class UsersTableSeeder extends Seeder
           //creando procedimiento
         $procedimiento2 = factory(App\Procedure::class)->create([
             'name' => 'Maxiloetmoidectomia bilateral',
-            'description' => 'intervención quirúrgica avanzada de abordaje 
-                            endoscópico para eliminar bloqueos y tratar infecciones, tumores 
-                            benignos y malignos en los senos maxilares y etmoidales, con el 
-                            manejo avanzado de la pared lateral nasal se manejan patologías
-                            como el papiloma nasal invertido y sinusitis de origen dental que
-                            comprometen los senos descritos',
+            'description' => 'Procedimiento utilizado para eliminar los bloqueos en los senos 
+            (espacios llenos de aire en algunos de los huesos del cráneo).',
             'price' => 1200,
             // 'speciality_id' => $especialidad->id,
             'branch_id' => '1',
@@ -209,6 +207,8 @@ class UsersTableSeeder extends Seeder
         $cirugia->procedure()->attach($procedimiento3);
         $employe->procedures()->attach($procedimiento3);
 
+
+
             //creando procedimiento
         $procedimiento4 = factory(App\Procedure::class)->create([
             'name' => 'Antrostomía bilateral',
@@ -217,55 +217,134 @@ class UsersTableSeeder extends Seeder
             'price' => 2500,
             // 'speciality_id' => $especialidad->id,
             'branch_id' => '1',
-        ]);
+
+            ]);
+
+          //relacion de la cirugia con el procedimiento
+        $procedimiento4->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($procedimiento4);
+        $employe->procedures()->attach($procedimiento4);
+
+
+
+
+            
+       
 
         //relacion de la cirugia con el procedimiento
         // $especialidad->procedures()->attach($procedimiento);
         $cirugia->procedure()->attach($procedimiento4);
         $employe->procedures()->attach($procedimiento4);
 
+
+
+
+        //=========================  Procedimientos otros  PRUEBA LUIS RAMOS ==========================
+
+
+            //creando procedimiento
+            $procedimiento5 = factory(App\Procedure::class)->create([
+                'name' => 'Cura post operatoria (rinoplastia, blefaroplastia,otoplastia, bichectomia)',
+                'description' => 'Voluptatem consequatur qui quasi voluptas esse.',
+                'price' => 1500,
+                // 'speciality_id' => $especialidad->id,
+                'branch_id' => '1',
+            ]);
+
+            //relacion de la cirugia con el procedimiento
+            $procedimiento5->speciality()->attach($especialidad);
+            $cirugia->procedure()->attach($procedimiento5);
+            $employe->procedures()->attach($procedimiento5);
+
+
+
+
+        
+
         //=========================  Procedimientos otros ==========================
 
         $pro1= factory(Procedure::class)->create([
             'name'    => 'Cura post operatoria (rinoplastia, blefaroplastia,otoplastia, bichectomia)',
             'price' => 15000,
+            'branch_id' => '1',
+
         ]);
         $employe->procedures()->attach($pro1);
 
+        //relacion de la cirugia con el procedimiento
+        $pro1->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro1);
+        $employe->procedures()->attach($pro1);
+
+
         $pro2= factory(Procedure::class)->create([
             'name'    => 'Colocación de botox estético (acido hialuronico, toxina botulínica)',
-           
              'price' => 35000,
+             'branch_id' => '1',
+
         ]);
         $employe->procedures()->attach($pro2);
 
+     //relacion de la cirugia con el procedimiento
+        $pro2->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro2);
+        $employe->procedures()->attach($pro2);
+
+
         $pro3= factory(Procedure::class)->create([
-            'name'    => 'Plasma rico en plaquetas (estético)',
-            
+            'name'    => 'Plasma rico en plaquetas (estético)',          
              'price' => 25000,
+             'branch_id' => '1',
+
         ]);
         $employe->procedures()->attach($pro3);
 
+        //relacion de la cirugia con el procedimiento
+        $pro3->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro3);
+        $employe->procedures()->attach($pro3);
+
+
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Colocación de hilos PDO',
-             
              'price' => 18000,
+             'branch_id' => '1',            
         ]);
         $employe->procedures()->attach($pro4);
 
+          //relacion de la cirugia con el procedimiento
+          $pro4->speciality()->attach($especialidad);
+          $cirugia->procedure()->attach($pro4);
+          $employe->procedures()->attach($pro4);
+
+
         $pro5= factory(Procedure::class)->create([
-            'name'    => ' Nutrición facial (peelin, microdermacioin)',
-             
+             'name'    => ' Nutrición facial (peelin, microdermacioin)',           
              'price' => 22000,
+             'branch_id' => '1',            
         ]);
+
         $employe->procedures()->attach($pro5);
 
+        //relacion de la cirugia con el procedimiento
+          $pro5->speciality()->attach($especialidad);
+          $cirugia->procedure()->attach($pro5);
+          $employe->procedures()->attach($pro5);
+
+
         $pro6= factory(Procedure::class)->create([
-            'name'    => ' Dermapen',
-             
+            'name'    => ' Dermapen',            
              'price' => 22000,
+             'branch_id' => '1',            
         ]);
         $employe->procedures()->attach($pro6);
+
+        //relacion de la cirugia con el procedimiento
+        $pro6->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro6);
+        $employe->procedures()->attach($pro6);
+
+
 
         $tipo_equipo = factory(App\TypeEquipment::class)->create([
             'name' => 'quirurgico',
@@ -378,7 +457,7 @@ class UsersTableSeeder extends Seeder
         // ]);
 
         factory(Schedule::class)->create([
-            'day' => 'thursday',
+            'day' => 'friday',
             'turn' => 'tarde',
             'employe_id' => $employe->id
         ]);
@@ -702,39 +781,78 @@ class UsersTableSeeder extends Seeder
 
         //creando procedimientos otros
         $pro= factory(Procedure::class)->create([
-            'name'    => 'Cura post-operatoria (por nasosinusal o tumores, retiros de puntos, aspiración en cada fosa nasal)',
-             
+             'name'    => 'Cura post-operatoria (por nasosinusal o tumores, retiros de puntos, aspiración en cada fosa nasal)',            
              'price' => 10000,
+             'branch_id' => '1',
         ]);
         $employe1->procedures()->attach($pro);
 
+        //relacion de la cirugia con el procedimiento
+        $pro->speciality()->attach($especialidad);
+        $cirugia->procedure()->attach($pro);
+        $employe->procedures()->attach($pro);
+
+
+
+
         $pro1= factory(Procedure::class)->create([
             'name'    => 'Cauterización al paciente (por hemorragia)',
-             
-             'price' => 20000,
+            'branch_id' => '1',            
+            'price' => 20000,
         ]);
+
         $employe1->procedures()->attach($pro1);
 
-        $pro2= factory(Procedure::class)->create([
-            'name'    => 'Aspiración en oídos (ya sea por cuerpo extraño u otocerumen en ambos oídos)',
-             
-             'price' => 15000,
-        ]);
-        $employe1->procedures()->attach($pro2);
+         //relacion de la cirugia con el procedimiento
+         $pro1->speciality()->attach($especialidad);
+         $cirugia->procedure()->attach($pro1);
+         $employe->procedures()->attach($pro1);
+
+
+        // $pro2= factory(Procedure::class)->create([
+        //     'name'    => 'Aspiración en oídos (ya sea por cuerpo extraño u otocerumen en ambos oídos)',
+        //     'branch_id' => '1',             
+        //     'price' => 15000,
+        // ]);
+
+        // $employe1->procedures()->attach($pro2);
+
+        //   //relacion de la cirugia con el procedimiento
+        //   $pro2->speciality()->attach($especialidad);
+        //   $cirugia->procedure()->attach($pro2);
+        //   $employe->procedures()->attach($pro2);
+
+
 
         $pro3= factory(Procedure::class)->create([
             'name'    => 'Bloqueo esfenopalatino',
-             
-             'price' => 17000,
+            'branch_id' => '1',
+            'price' => 17000,
         ]);
+
         $employe1->procedures()->attach($pro3);
+        
+         //relacion de la cirugia con el procedimiento
+          $pro3->speciality()->attach($especialidad);
+          $cirugia->procedure()->attach($pro3);
+          $employe->procedures()->attach($pro3);
+
+
 
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Estudio de NASOVIDEOLARINGOSCOPIA (en consulta con óptica)',
-             
-             'price' => 30000,
+            'description' => 'Es un estudio de excepcional utilidad en niños con alteraciones de la voz(disfonía)
+             y alteraciones obstructivas de la respiración.',
+            'branch_id' => '1',
+            'price' => 30000,
         ]);
+
         $employe1->procedures()->attach($pro4);
+
+        //relacion de la cirugia con el procedimiento
+          $pro4->speciality()->attach($especialidad);
+          $cirugia->procedure()->attach($pro4);
+          $employe->procedures()->attach($pro4);
 
             /**
              * se crea el usuario
@@ -759,7 +877,7 @@ class UsersTableSeeder extends Seeder
             // ]);
 
             factory(Schedule::class)->create([
-                'day' => 'thursday',
+                'day' => 'friday',
                 'turn' => 'tarde',
                 'employe_id' => $employe1->id
             ]);
@@ -1021,38 +1139,89 @@ class UsersTableSeeder extends Seeder
         //creando procedimientos otros
         $pro5= factory(Procedure::class)->create([
             'name'    => 'Cateterismo o sondaje vía lagrimal.',
-             
+            'description' => 'El sondaje de vías lagrimales es un procedimiento quirúrgico que se emplea para
+             tratar la obstrucción congénita del conducto lagrimal, una condición muy frecuente en niños recién 
+             nacidos o con pocos meses de edad.',
+            'branch_id' => '1',
              'price' => 20000,
         ]);
         $employe2->procedures()->attach($pro5);
 
+          //relacion de la cirugia con el procedimiento
+          $pro5->speciality()->attach($especialidad2);
+          $cirugia->procedure()->attach($pro5);
+          $employe->procedures()->attach($pro5);
+
         $pro1= factory(Procedure::class)->create([
             'name'    => 'Chalazión y otros tumores benignos.',
-             
-             'price' => 20000,
+            'description' => 'Un chalazión es un quiste que resulta de las secreciones de aceite atrapado en una
+             de las muchas glándulas en los párpados superiores o inferiores. ',
+            'branch_id' => '1',
+            'price' => 20000,
         ]);
+
         $employe2->procedures()->attach($pro1);
+
+          //relacion de la cirugia con el procedimiento
+          $pro1->speciality()->attach($especialidad2);
+          $cirugia->procedure()->attach($pro1);
+          $employe->procedures()->attach($pro1);
+
+
 
         $pro2= factory(Procedure::class)->create([
             'name'    => 'Curva de tensión ocular',
-             
+            'description' => 'La curva de tensión ocular, es un examen o método oftalmológico que nos permite comprender 
+            el mecanismo fisiopatológico del daño producido en la mayor parte de los glacuomas y avala el concepto de la
+             etiopatogenia de la enfermedad',
+            'branch_id' => '1',
              'price' => 15000,
         ]);
+
         $employe2->procedures()->attach($pro2);
+
+         //relacion de la cirugia con el procedimiento
+          $pro2->speciality()->attach($especialidad2);
+          $cirugia->procedure()->attach($pro2);
+          $employe->procedures()->attach($pro2);
+
+
+
+
 
         $pro3= factory(Procedure::class)->create([
             'name'    => 'Exploración vitreorretinal',
-             
+            'description' => 'es una prueba rutinaria que permite obtener información de las estructuras más importantes
+             de la parte posterior del globo ocular, así como realizar el diagnóstico y seguimiento de diversas patologías 
+             oftalmológicas',
+            'branch_id' => '1',
              'price' => 17000,
         ]);
+
         $employe2->procedures()->attach($pro3);
+
+            //relacion de la cirugia con el procedimiento
+            $pro3->speciality()->attach($especialidad2);
+            $cirugia->procedure()->attach($pro3);
+            $employe->procedures()->attach($pro3);
+
+        
 
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Microscopia especular',
-             
-             'price' => 30000,
+            'description' => 'es un procedimiento rápido e indoloro. El microscopio de luz reflejada 
+            brilla en la córnea y captura imágenes que se reflejan en la interfaz óptica entre el endotelio y el humor acuoso.',
+           'branch_id' => '1',            
+            'price' => 30000,
         ]);
+
         $employe2->procedures()->attach($pro4);
+
+            //relacion de la cirugia con el procedimiento
+            $pro4->speciality()->attach($especialidad2);
+            $cirugia->procedure()->attach($pro4);
+            $employe->procedures()->attach($pro4);
+
 
             /**
              * se crea el usuario
@@ -1077,7 +1246,7 @@ class UsersTableSeeder extends Seeder
             // ]);
 
             factory(Schedule::class)->create([
-                'day' => 'thursday',
+                'day' => 'friday',
                 'turn' => 'tarde',
                 'employe_id' => $employe2->id
             ]);
@@ -1216,45 +1385,101 @@ class UsersTableSeeder extends Seeder
         //creando procedimientos otros
         $pro5= factory(Procedure::class)->create([
             'name'    => 'Citología de Cuello uterino.',
-             
-             'price' => 20000,
+            'description' => 'La citología cervical es
+             una prueba diagnóstica en la que se examinan 
+             células del cuello uterino.',
+            'branch_id' => '1',
+            'price' => 20000,
         ]);
+
         $employe3->procedures()->attach($pro5);
+
+        //relacion de la cirugia con el procedimiento
+        $pro5->speciality()->attach($especialidad3);
+        $cirugia->procedure()->attach($pro5);
+        $employe->procedures()->attach($pro5);
+
 
         $pro1= factory(Procedure::class)->create([
             'name'    => 'Colposcopias.',
-             
+            'description' => 'Una colposcopía es una manera de
+             lograr una vista aumentada del cuello uterino.',
+             'branch_id' => '1',
              'price' => 20000,
         ]);
+
         $employe3->procedures()->attach($pro1);
+
+        //relacion de la cirugia con el procedimiento
+        $pro1->speciality()->attach($especialidad3);
+        $cirugia->procedure()->attach($pro1);
+        $employe->procedures()->attach($pro1);
+
+
+
 
         $pro2= factory(Procedure::class)->create([
             'name'    => 'Biopsias de cérvix y área genital (vulva clítoris, entre otros)',
-             
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+            para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+            'branch_id' => '1',
              'price' => 15000,
         ]);
+
         $employe3->procedures()->attach($pro2);
+
+       //relacion de la cirugia con el procedimiento
+        $pro2->speciality()->attach($especialidad3);
+        $cirugia->procedure()->attach($pro2);
+        $employe->procedures()->attach($pro2);
 
         $pro3= factory(Procedure::class)->create([
             'name'    => 'Vaporización',
-             
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+             para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+            'branch_id' => '1',
              'price' => 17000,
         ]);
+
         $employe2->procedures()->attach($pro3);
+
+            //relacion de la cirugia con el procedimiento
+            $pro3->speciality()->attach($especialidad3);
+            $cirugia->procedure()->attach($pro3);
+            $employe->procedures()->attach($pro3);
 
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Retiro e inserción de DIU',
-             
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+             para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+            'branch_id' => '1',
              'price' => 30000,
         ]);
+
         $employe3->procedures()->attach($pro4);
+
+          //relacion de la cirugia con el procedimiento
+          $pro4->speciality()->attach($especialidad3);
+          $cirugia->procedure()->attach($pro4);
+          $employe->procedures()->attach($pro4);
+
+
 
         $pro6= factory(Procedure::class)->create([
             'name'    => 'Resección de pólipo endometrial',
-             
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+            para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+           'branch_id' => '1',
              'price' => 40000,
         ]);
+
         $employe3->procedures()->attach($pro6);
+
+        //relacion de la cirugia con el procedimiento
+        $pro6->speciality()->attach($especialidad3);
+        $cirugia->procedure()->attach($pro6);
+        $employe->procedures()->attach($pro6);
+
 
             /**
              * se crea el usuario
@@ -1279,7 +1504,7 @@ class UsersTableSeeder extends Seeder
             // ]);
 
             factory(Schedule::class)->create([
-                'day' => 'thursday',
+                'day' => 'friday',
                 'turn' => 'tarde',
                 'employe_id' => $employe3->id
             ]);
@@ -1763,6 +1988,10 @@ class UsersTableSeeder extends Seeder
 
         $position = factory(App\Position::class)->create([
             'name' => 'IN',
+            'description' => 'Se ecarga de llevar control de citas,
+             agendar y reservar nuevas citas, facilita resultados anteriores de
+             examenes. ',
+
         ]);
 
         $employe = factory(App\Employe::class)->create([
@@ -1805,6 +2034,8 @@ class UsersTableSeeder extends Seeder
 
         $position = factory(App\Position::class)->create([
             'name' => 'OUT',
+            'description' => 'Se ecarga de facturar, explicar y promocionar cirugias,
+             agenda nuevas cirugias. ',
         ]);
 
         $employe = factory(App\Employe::class)->create([
@@ -1853,6 +2084,8 @@ class UsersTableSeeder extends Seeder
 
         $position = factory(App\Position::class)->create([
             'name' => 'director',
+            'description' => 'Se encarga de prever, organizar, mandar, 
+            coordinar y controlar las actividades de la organización. ',
         ]);
 
         $employe = factory(App\Employe::class)->create([
@@ -1870,6 +2103,8 @@ class UsersTableSeeder extends Seeder
 
         factory(Position::class)->create([
             'name'    => 'mantenimiento',
+            'description' => 'Se ecarga de proveer un ambiente limpio
+            , y ordenado en las instalaciones ',
         ]);
 
         // $position = factory(App\Position::class)->create([

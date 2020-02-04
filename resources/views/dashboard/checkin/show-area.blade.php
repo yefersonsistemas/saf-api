@@ -59,7 +59,8 @@
                                                                     <div class="card-body text-center" style="background:#EEEBEB;" style="max-height: 100px; width:170px;">
                                                                         <h6 class="font-weight-bold">{{ $area->name}} </h6>
                                                                         <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
-                                                                        <a href="{{route('checkin.cambiar', $area->id)}}" class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">por llegar</a>
+                                                                        <a href="{{route('checkin.cambiar', $area->id)}}" class="badge badge-danger text-white pl-3 pr-3 pb-1" style="animation: pulse 2s infinite">Por llegar</a>
+                                                                        {{-- <span class="status-icon" style="padding: 5px; animation: pulse 2s infinite;background: red;margin-top: 10px;"></span> --}}
                                                                         {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">desocupado</span></h6> --}}
                                                                     </div>
                                                                 </div>
@@ -85,7 +86,8 @@
                                                                                 @if ($area->areaassigment != null)
                                                                                 <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
                                                                                 @endif
-                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">asistente</h6>
+                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="animation: pulse 2s infinite">Asistente</h6>
+                                                                                {{-- <span class="status-icon" style="padding: 5px; animation: pulse 2s infinite;background: #00ad88;margin-top: 10px;"></span> --}}
                                                                                 {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6> --}}
                                                                             </div>
                                                                         </div>
@@ -116,7 +118,8 @@
                                                                     <div class="card-body text-center" style="background:#EEEBEB;" style="max-height: 100px; width:170px;">
                                                                         <h6 class="font-weight-bold">{{ $area->name}} </h6>
                                                                         <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
-                                                                        <a href="{{route('checkin.cambiar', $area->id)}}" class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">por llegar</a>
+                                                                        <a href="{{route('checkin.cambiar', $area->id)}}" class="badge badge-danger text-white pl-3 pr-3 pb-1" style="animation: pulse 2s infinite">Por llegar</a>
+                                                                        {{-- <span class="status-icon" style="padding: 5px; animation: pulse 2s infinite;background: red;margin-top: 10px;"></span> --}}
                                                                         {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">desocupado</span></h6> --}}
                                                                     </div>
                                                                 </div>
@@ -142,7 +145,8 @@
                                                                                 @if ($area->areaassigment != null)
                                                                                 <h6 class="font-doc">{{$area->areaassigment->employe->person->name}}</h6>
                                                                                 @endif
-                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">asistente</h6>
+                                                                                {{-- <span class="status-icon" style="padding: 5px; animation: pulse 2s infinite;background: #00ad88;margin-top: 10px;"></span> --}}
+                                                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff; animation: pulse 2s infinite">Asistente</h6>
                                                                                 {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6> --}}
                                                                             </div>
                                                                         </div>

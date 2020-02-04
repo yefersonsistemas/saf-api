@@ -36,6 +36,14 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
+        //contador de citas al mes
+        // $reserva = Reservation::get();
+        // dd($reserva);
+        // $dia = Carbon::now()->format('Y-m');
+        // dd($dia);
+        
+
+
         // $atendidos = $day->map(function ($item, $key) {
         //     if (!empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && !empty($item->patient->inputoutput->first()->outside_office)){
         //         return $item;
