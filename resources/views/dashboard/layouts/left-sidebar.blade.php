@@ -35,11 +35,11 @@
                     </div>
                 @endrole --}}
 
-
+                <!-- Se agregó el @yield('inrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('IN')
                     <div class="">
                         @role('director')
-                        <div class="checkIn animated fadeIn d-none">
+                        <div class="checkIn animated fadeIn d-none  @yield('inrol')" >
                         @endrole   
                         <li class="g_heading">Check-IN</li>                      
                         <li class="@yield('cites')">
@@ -53,9 +53,8 @@
                                 <li class="@yield('record')"><a href="{{ route('checkin.record') }}"><i class="fa fa-inbox"></i>&nbsp;&nbsp;Historial de citas</a></li>
                                 {{-- <li class="@yield('newCite')"><a href="{{ route('checkin.') }}">Nueva Cita</a></li> --}}
                             </ul>
-    
-    
-                        </li> 
+
+                        </li>
                         <li class="@yield('medicoss')">
                                 <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-user-md"></i>&nbsp;&nbsp;<span>Médicos</span></a>
                                 <ul>
@@ -75,16 +74,15 @@
                                 <div class="inline-datepicker datepicker-reception fill_bg"></div>
                             </div>
                         </div> --}}
-                    </div> 
+                    </div>
                 @endrole
 
-
-
+                <!-- Se agregó el @yield('docrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('doctor')
                     <div class="">
                         @role('director')
-                        <div class="doctor animated fadeIn d-none">
-                        @endrole   
+                        <div class="doctor animated fadeIn d-none @yield('docrol')">
+                        @endrole
 
 
                         <li class="g_heading">Doctor</li>
@@ -93,15 +91,16 @@
                         {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                     </div>
                 @endrole
-                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}                      
+                    {{-- FIN DEL MODULO DE LOS DOCTORES --}}
 
 
+                <!-- Se agregó el @yield('outrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
 
                 @role('OUT')
                 <div class="">
                     @role('director')
-                    <div class="checkOut animated fadeIn d-none">
-                    @endrole   
+                    <div class="checkOut animated fadeIn d-none @yield('outrol')">
+                    @endrole
 
                     <li class="g_heading">Check-OUT</li>
                     <li  class="@yield('citas')"><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Citas del día</span></a></li>                                          
@@ -116,7 +115,7 @@
 
 
                 @role('director')
-                <div class="director animated fadeIn">
+                <div class="director animated fadeIn @yield('dire')">
                     <li class="g_heading">Director</li> 
                     <li><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Lista de Empleados</a></li>
                     <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;&nbsp;Lista de Registros</a></li>

@@ -8,21 +8,23 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Citas de pacientes</div>
-
-                <div class="card-body">
                 
+                <div class="card-body">
+                    
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection --}}
-
-@extends('dashboard.layouts.app')
-
-@section('citas de pacientes','active')
-@section('citas','active')
-
+    @endsection --}}
+    
+    @extends('dashboard.layouts.app')
+    
+    @section('citas de pacientes','active')
+    @section('citas','active')
+    @section('outrol','d-block')
+    @section('dire','d-none')
+    
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
@@ -64,19 +66,20 @@
                 </div>
             </div>
 
-            <form method="GET" action="{{ route('checkout.index') }}">
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <label class="form-label">Buscar:</label>
                 <div class="input-group">
                     
                     <input type="text" class="form-control" placeholder="Buscar Pacientes"
-                        aria-label="Buscar Pacientes" name="patient" aria-describedby="Buscar Pacientes">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="search">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
+                    aria-label="Buscar Pacientes" name="patient" aria-describedby="Buscar Pacientes">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="search">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
                 </div>
-            </form>
+            </div>
+      
 
           
             <!--lista de reservaciones confirmadas-->

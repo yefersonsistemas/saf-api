@@ -39,7 +39,7 @@
                                                     <option value="E">E</option>
                                                 </select>
                                             </div>
-                                            <input maxlength="9" type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
+                                            <input minlength="7" maxlength="9" type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
                                         </div>
                                     </div>
                                     

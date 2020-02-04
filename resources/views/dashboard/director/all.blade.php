@@ -219,7 +219,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="tab-pane fade" id="pills-procedure" role="tabpanel" aria-labelledby="pills-procedure-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -272,7 +271,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="tab-pane fade" id="pills-surgery" role="tabpanel" aria-labelledby="pills-surgery-tab">
                     <div class="col-lg-12  ">
                         <div class="table-responsive mb-4">
@@ -306,7 +304,6 @@
                                             <td>{{ $surgery->description }}</td>
                                             <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
-
                                                 @can('eliminar cirugias')
                                                 <form action="{{ route('cirugia.delete', $surgery) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>

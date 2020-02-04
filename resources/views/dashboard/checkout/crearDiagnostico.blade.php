@@ -1,5 +1,8 @@
 @extends('dashboard.layouts.app')
- @section('doctor','active') 
+ @section('doctor','active')
+
+@section('outrol','d-block')
+@section('dire','d-none')
 
  @section('css')
  <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
