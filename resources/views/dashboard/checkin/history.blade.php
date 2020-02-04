@@ -338,6 +338,7 @@
                                                         <tr>
                                                             @if ($rs->patient->historyPatient->disease->contains($disease->id))
                                                                 <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</td>
+                                                                </td>
                                                             @else
                                                         
                                                             @endif
