@@ -353,30 +353,30 @@ button[data-original-title="Help"]{ display: none; }
                                     </section>
 
                                     <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
-                                    <h2>Procedimientos Realizados</h2>
-                                    <section class="ml-4 pb-0 pt-4">
-                                        <h5>Procedimientos Realizados al Paciente:</h5>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar Procedimiento</button>
-                                                <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover table-vcenter table-striped"
-                                                    cellspacing="0" id="addrowExample">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Procedimiento Seleccionado</th>
-                                                                <th class="text-center">Accion</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="procesc">
-                                                        </tbody>
-                                                    </table>
+                                        <h2>Procedimientos Realizados</h2>
+                                        <section class="ml-4 pb-0 pt-4">
+                                            <h5>Procedimientos Realizados al Paciente:</h5>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <button type="button" data-toggle="modal" data-target="#proceconsul" class="btn btn-verdePastel"><i class="fa fa-plus"></i>Agregar Procedimiento</button>
+                                                    <h6 class="text-center" style="font-weight:bold">Procedimientos Realizados</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-vcenter table-striped"
+                                                        cellspacing="0" id="addrowExample">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Procedimiento Seleccionado</th>
+                                                                    <th class="text-center">Accion</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="procesc">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     </section>
 
                                     <h2>Plan</h2>
@@ -837,7 +837,8 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
 
-      <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- modal de posibles cirugias --}}
+    <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
@@ -847,74 +848,38 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="posible-surgerys">
-                    <div class="modal-body ml-4 pb-0 pt-2 plan">
-                        <div class="plan-steps">
-                            <!-- Nav tabs -->
-                            <ul style="list-style: none !important" class="nav nav-pills row" id="pills-tab" role="tablist">
-                                <li role="presentation" class="active nav-item col-5">
-                                    <a class="nav-link active" href="#hospitalariaTab" aria-controls="hospitalariaTab" role="tab" data-toggle="tab">Cirugias Hospitalarias</a>
-                                </li>
-                                <li class="nav-item col-5" role="presentation">
-                                    <a class="nav-link" href="#ambulatoriaTab" aria-controls="ambulatoriaTab" role="tab" data-toggle="tab">Cirugias Ambulatorias</a>
-                                </li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="hospitalariaTab">
-                                    <div class="form-group">
-                                        <div class="custom-controls-stacked" id="modal_cirugiaP_hospitalaria">
-                                            @foreach ($surgerys as $surgery)
-                                            @if ($surgery->classification->name == 'hospitalaria')
-                                            <div class="row"  id="quitar_cirugia{{$surgery->id}}">
-                                                <div class="col-9">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
-                                                        <span class="custom-control-label">{{ $surgery->name }}</span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-3">
-                                                    <span>{{ $surgery->cost }}</span>
-                                                </div>
-                                            </div>
-                                            @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
+                <div class="modal-body" style="max-height: 415px;">
+                    <div class="form-group">
+
+                        <div class="custom-controls-stacked" id="modal_cirugiaP">
+                            @foreach ($surgerys as $surgery)
+                            <div class="row" id="quitar_cirugia{{$surgery->id}}">
+                                <div class="col-9 mt-3">
+                                    <label class="custom-control custom-checkbox">
+                                        @if ($surgery->classification->name == 'hospitalaria')
+
+                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                        <span class="custom-control-label">{{ $surgery->name }}</span>
+                                        @endif
+                                    </label>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">
-                                    <div class="form-group">
-                                        <div class="custom-controls-stacked" id="modal_cirugiaP_ambulatoria">
-                                            @foreach ($surgerys as $surgery)
-                                                @if ($surgery->classification->name == 'ambulatoria')
-                                                    <div class="row"  id="quitar_cirugia{{$surgery->id}}">
-                                                        <div class="col-9">
-                                                            <label class="custom-control custom-checkbox">
-                                                            <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
-                                                            <span class="custom-control-label">{{ $surgery->name }}</span>
-                                                            </label>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <span>{{ $surgery->cost }}</span>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
+                                <div class="col-3">
+                                    @if ($surgery->classification->name == 'hospitalaria')
+                                    <span>{{ $surgery->cost }}</span>
+                                    @endif
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
-                        <div class="modal-footer p-2">
-                            <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
-                        </div>
-                        </div>
+                </div>
+                    <div class="modal-footer p-2">
+                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1251,7 +1216,7 @@ button[data-original-title="Help"]{ display: none; }
             ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
-    function ajax_enfermedad(enfermedad,reservacion){
+    function ajax_enfermedad(enfermedad,reservacion) {
         $.ajax({
             url: "{{ route('doctor.agregar_enfermedad') }}", //definiendo ruta
             type: "POST",
@@ -1292,18 +1257,20 @@ button[data-original-title="Help"]{ display: none; }
    function mostrarEnfermedad(data){
         console.log('ken',data[0].name);
         for($i=0; $i < data.length; $i++){
-            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input id="enfermedad_id" name="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $("#mostrar_enfermedad").append(enfermedad);
-            $("div").remove("#quitar"+data[$i].id);
+            $("#quitar"+data[$i].id).remove();
         }
     }
 
     //================ eliminar enfermedad seleccionado ==========
     $(function() {
-        $(document).on('click', '#enfermedad_id', function(event) {
-            let id = this.name;
+        $(document).on('click', '.enfermedad_id', function(event) {
+            let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id);   
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
           
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
@@ -1316,7 +1283,8 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {                      //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {               
+            console.log('enfermedad modal',data[1])         //recibe lo que retorna el metodo en la ruta definida  
             agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_enfermedad").append(agregar);
 
@@ -1326,7 +1294,9 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }            
+
+            }
+            
         })
         .fail(function(data) {
             console.log(data);
@@ -1342,6 +1312,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarAlergias").click(function() {
         var reservacion = $("#reservacion").val();
         var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
+        console.log("hh",datos);
         
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
@@ -1388,18 +1359,20 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input id="alergia_id" name="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $("#mostrar_alergias").append(alergia);
-            $("div").remove("#quitarAlergia"+data[$i].id);
+            $("#quitarAlergia"+data[$i].id).remove();
         }
     }
 
-    //================ eliminar alergia seleccionado ==========
+    //================ eliminar enfermedad seleccionado ==========
     $(function() {
-        $(document).on('click', '#alergia_id', function(event) {
-            let id = this.name;
+        $(document).on('click', '.alergia_id', function(event) {
+            let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id);   
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
@@ -1412,9 +1385,10 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {  
+            .done(function(data) {               
+            // console.log('alergia',data[1])         //recibe lo que retorna el metodo en la ruta definida  
             agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
-            $("#modal_alergias").append(agregarAlergia);
+            $(".modal_alergias").append(agregarAlergia);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1422,7 +1396,9 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }            
+
+            }
+            
         })
         .fail(function(data) {
             console.log(data);
@@ -1439,6 +1415,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarCirugias").click(function() {
         var reservacion = $("#reservacion").val();
         var datos = $("#form_cirugias").val();
+        console.log("kenwherly",datos);
         ajax_cirugia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1481,16 +1458,20 @@ button[data-original-title="Help"]{ display: none; }
 
    // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
-        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3"><input id="borrar_cirugia" na,e="cirugia'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+        console.log('kenhh',data);
+        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9" id="cirugia'+data.id+'"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3" id="cirugia'+data.id+'"><input id="cirugia'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+        console.log(cirugia);
         $("#agregar_cirugia").html(cirugia);
     }
 
     //================ eliminar cirugia previa  ==========
     $(function() {
-        $(document).on('click', '#borrar_cirugia', function(event) {
-            let id = this.name;
+        $(document).on('click', '.borrar_cirugia', function(event) {
+            let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id);   
+            console.log('jajja',reservacion);
+            console.log('id', id);    
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
@@ -1502,7 +1483,8 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {               //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
             $("#form_cirugias").val('');
 
             if(data[0] == 202){                  //si no trae valores
@@ -1511,7 +1493,9 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }            
+
+            }
+            
         })
         .fail(function(data) {
             console.log(data);
@@ -1572,18 +1556,19 @@ button[data-original-title="Help"]{ display: none; }
     function mostrarProceduresC(data){
         console.log('hh',data);
         for($i=0; $i < data.length; $i++){
-            procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureR_id" name="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            procesc='<tr  id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6">'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro procedureR_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
-            $("div").remove("#quitar_procedureR"+data[$i].id);
+            $("#quitar_procedureR"+data[$i].id).remove();
         }
     }
 
     //================ eliminar procedure realizado seleccionado ==========
     $(function() {
-        $(document).on('click', '#procedureR_id', function(event) {
-            let id = this.name;
+        $(document).on('click', '.procedureR_id', function(event) {
+            let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            console.log(reservacion);
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.procedureR_eliminar2') }}",
@@ -1672,19 +1657,21 @@ button[data-original-title="Help"]{ display: none; }
     function mostrarExamen(data){
         console.log('hh',data);
             for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="exam_id" name="'+data[$i].id+'" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            examen='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" class="btn-azuloscuro exam_id btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#examen").append(examen);
-            $("label").remove("#quitar_examen"+data[$i].id);
+            $("#quitar_examen"+data[$i].id).remove();
         }
     }
 
 
     //================ eliminar examen seleccionado ==========
     $(function() {
-        $(document).on('click', '#exam_id', function(event) {
-            let id = this.name;
+        $(document).on('click', '.exam_id', function(event) {
+            let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            console.log('reservacion examwe',reservacion);
+            console.log('exam id', id);
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.exam_eliminar2') }}",
@@ -1697,7 +1684,8 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {     //recibe lo que retorna el metodo en la ruta definida
+            .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
              agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
              $("#modal_examen").append(agregar_examen);
 
@@ -1707,7 +1695,9 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+
             }
+
         })
         .fail(function(data) {
             console.log(data);
@@ -1770,18 +1760,20 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureP_id" name="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></td></tr>'
+            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
-            $("div").remove("#quitar_procedureP"+data[$i].id);         
+            $("#quitar_procedureP"+data[$i].id).remove();         
         }
     }
 
     //================ eliminar posible procedimiento seleccionado ==========
     $(function() {
-        $(document).on('click', '#procedureP_id', function(event) {
-            let id = this.name;
+        $(document).on('click', '.procedureP_id', function(event) {
+            let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            console.log(reservacion);
+            console.log('id', id);
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.procedureP_eliminar2') }}",
@@ -1826,8 +1818,6 @@ button[data-original-title="Help"]{ display: none; }
             var reservacion = $("#reservacion").val();
             var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
 
-            //por si hay una cirugia en la lista
-
             ajax_S(surgery,reservacion); // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
 
@@ -1870,44 +1860,23 @@ button[data-original-title="Help"]{ display: none; }
 
     //======================== mostrando posibles cirugias ======================
     function mostrarSurgery(data){
-        // console.log('hh',data[0].classification.name);
-        // var ver = $('#cirugias').txt();
-        // console.log(ver);
+        console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" name="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" name="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" name="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" name="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="cirugiaP_id" name="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
+            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
-            $("div").remove("#quitar_cirugia"+data[0].id);  
+            $("#quitar_cirugia"+data[$i].id).remove();   
         }
-        
-            // var id = $("input[name='cirugia_posible']").val();
-            // var name = $("input[name='cirugia_posible_name']").val();
-            // var cost = $("input[name='cirugia_posible_costo']").val();
-            // var clasificacion = $("input[name='cirugia_posible_clasificacion']").val();
-
-            // console.log("id",id);
-            // console.log("name",name);
-            // console.log("costo",cost);
-            // console.log("clasificacion",clasificacion);
-        
-            // if(id != '' && name != '' && cost != ''){
-            //     agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
-               
-            //     if(clasificacion == 'hospitalaria'){
-            //         $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
-            //     }else{
-            //         $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
-            //     }
-            // }
-         
     }
 
     //======================= eliminar posible cirugia seleccionada ==============
     $(function() {
-        $(document).on('click', '#cirugiaP_id', function(event) {
-            let id = this.name;
+        $(document).on('click', '.cirugiaP_id', function(event) {
+            let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            console.log(reservacion);
+            console.log('id', id);
+            $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.cirugiaP_eliminar2') }}",
@@ -1922,14 +1891,8 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
-            agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].cost+'</span></div></div>'
-
-            if(data[1].classification.name == 'hospitalaria'){
-                $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
-            }else{
-                $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
-            }           
+            agregar_cirugiaP = data[1].name;
+            $("#modal_cirugiaP").append(agregar_cirugiaP);
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1937,7 +1900,9 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
+
             }
+
         })
         .fail(function(data) {
             console.log(data);

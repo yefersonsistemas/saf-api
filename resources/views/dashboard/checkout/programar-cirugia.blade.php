@@ -1,7 +1,9 @@
-@extends('dashboard.layouts.app') 
-@section('cites','active') 
-@section('agendar','active') 
+@extends('dashboard.layouts.app')
+@section('cites','active')
+@section('agendar','active')
 @section('title','Agendar Cirugia')
+@section('outrol','d-block')
+@section('dire','d-none')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
