@@ -221,7 +221,7 @@ button[data-original-title="Help"]{ display: none; }
                                     <h2>Antecedentes</h2>   
                                     <section class="ml-4 pb-0 pt-4">
                                         <div id="accordion">
-                                            <!--agregar enfermedad-->
+                                            <!-------------------agregar enfermedad-------------------->
                                             <div class="card border border-info rounded">
                                                 <div class="card-header bg-azuloscuro" >
                                                     <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -253,7 +253,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                             </div>
 
-                                            <!--agregar alergias-->
+                                            <!----------------agregar alergias----------------->
                                             <div class="card border border-info rounded">
                                                 <div class="card-header bg-azuloscuro" >
                                                     <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -285,7 +285,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                             </div>
 
-                                            <!--agregar cirugias-->
+                                            <!--------------------agregar cirugias------------->
 
                                             <div class="card border border-info rounded">
                                                 <div class="card-header bg-azuloscuro" >
