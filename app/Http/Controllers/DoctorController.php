@@ -1376,7 +1376,7 @@ class DoctorController extends Controller
         }
 
         return response()->json([
-            'exam' => 'Examen eliminado correctamente',202
+            'exam' => 'Examen eliminado correctamente',202,$exams,
         ]);
 
     }

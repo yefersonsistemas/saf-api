@@ -254,7 +254,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
                                                                 </div> 
                                                                 <div class="col-3">
-                                                                    <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                    <input name="{{$disease->id}}" id="enfermedad_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class=" btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                         value="Eliminar">
                                                                 </div>
                                                             </div>                                                           
@@ -286,7 +286,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
                                                                     </div> 
                                                                     <div class="col-3">
-                                                                        <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                        <input name="{{$allergy->id}}" id="alergia_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                             value="Eliminar">
                                                                     </div>
                                                                 </div>     
@@ -314,11 +314,11 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div id="agregar_cirugia">
                                                             @if($cite->previous_surgery != null)
                                                             <div class="row" id="cirugia{{$cite->id}}">
-                                                                <div class="col-9" id="cirugia{{$cite->id}}">
+                                                                <div class="col-9">
                                                                     <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
                                                                 </div> 
                                                                 <div class="col-3" id="cirugia{{$cite->id}}">
-                                                                    <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
+                                                                    <input name="cirugia{{$cite->id}}" id="borrar_cirugia" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
                                                                         value="Eliminar">
                                                                 </div>
                                                             </div> 
@@ -404,8 +404,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <td>
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
                                                                                         </td>
-                                                                                        <td id="{{ $proces->id }}" class=" d-flex justify-content-center">
-                                                                                            <input id="{{ $proces->id }}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                                        <td class=" d-flex justify-content-center">
+                                                                                            <input name="{{ $proces->id }}" id="procedureR_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class=" btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip"
                                                                                                 value="Eliminar">
                                                                                         </td>
                                                                                     </tr>
@@ -464,55 +464,44 @@ button[data-original-title="Help"]{ display: none; }
                                                                 Agregar examen
                                                             </button>
                                                         </div>
-                                                        {{-- <div class="col-12 mt-30 p-4  card ml-2"> --}}
-                                                            <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
-                                                            {{-- <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"> --}}
-                                                            
-                                                                    <div class="col-lg-12 mx-auto">
-                                                                        <div class="card">
-                                                                                <div class="row">
-                                                                                    <div class="card-body">
-                                                                                        <div class="table-responsive">
-                                                                                            <table class="table table-hover table-vcenter table-striped"
-                                                                                                cellspacing="0" id="addrowExample">
-                                                                                                <thead>
-                                                                                                    <tr>
-                                                                                                        <th>Examen Seleccionado</th>
-                                                                                                        <th class="text-center">Eliminar examen</th>
-                                                                                                    </tr>
-                                                                                                </thead>
-                                                                                                <tbody id="ocultar_examen">
-                                                                                                    @if(!empty($r_patient->exam))
-                                                                                                        @foreach ($r_patient->exam as $exam)
-                                                                                                            <tr id="{{$exam->id}}">
-                                                                                                                <td>
-                                                                                                                    <div class="col-6" >{{$exam->name}}</div> 
-                                                                                                                </td>
-                                                                                                                <td class="d-flex justify-content-center">
-                                                                                                                <input id="{{$exam->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen"
-                                                                                                                        value="Eliminar">
-                                                                                                                </td>
-                                                                                                                {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
-
-                                                                                                            </tr>
-                                                                                                        @endforeach
-                                                                                                    @endif
-                                                                                                </tbody>
-                                                                                                <tbody id="examen">
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
+                                                            <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>                                                            
+                                                                <div class="col-lg-12 mx-auto">
+                                                                    <div class="card">
+                                                                            <div class="row">
+                                                                                <div class="card-body">
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-hover table-vcenter table-striped"
+                                                                                            cellspacing="0" id="addrowExample">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Examen Seleccionado</th>
+                                                                                                    <th class="text-center">Eliminar examen</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody id="ocultar_examen">
+                                                                                                @if(!empty($r_patient->exam))
+                                                                                                    @foreach ($r_patient->exam as $exam)
+                                                                                                        <tr id="{{$exam->id}}">
+                                                                                                            <td>
+                                                                                                                <div class="col-6" >{{$exam->name}}</div> 
+                                                                                                            </td>
+                                                                                                            <td class="d-flex justify-content-center">
+                                                                                                            <input name="{{$exam->id}}" id="exam_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                                                                    value="Eliminar">
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    @endforeach
+                                                                                                @endif
+                                                                                            </tbody>
+                                                                                            <tbody id="examen">
+                                                                                            </tbody>
+                                                                                        </table>
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
                                                                          
                                                                         </div>
                                                                     </div>
-
-                                                                    {{-- <div class="row">
-                                                                      
-                                                                    </div> --}}
-                                                               
-                                                        {{-- </div> --}}
                                                     </div>
                                                 </div>
 
@@ -805,11 +794,11 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     @if(!empty($procedures))
                                                                                         @foreach ($procedures as $item)
                                                                                             <tr id="{{$item->id}}">
-                                                                                                <td id="{{$item->id}}">
+                                                                                                <td>
                                                                                                     <div class="col-6" >{{$item->name}}</div> 
                                                                                                 </td>
-                                                                                                <td id="{{$item->id}}" class="d-flex justify-content-center">
-                                                                                                <input id="{{$item->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado"
+                                                                                                <td class="d-flex justify-content-center">
+                                                                                                <input name="{{$item->id}}" id="procedureP_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip"
                                                                                                         value="Eliminar">
                                                                                                 </td>
                                                                                             </tr>
@@ -982,47 +971,37 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     </div>
-
+ 
     {{-- modal de los examenes --}}
     <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Examenes</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="exam">
-                    <div class="modal-body">
+                    <div class="modal-body m-3">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                @if($exams != null)
-                                    @foreach ($exams as $item)
-                                    <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
-                                        <span class="custom-control-label">{{ $item->name }}</span>
-                                    </label>
-                                    @endforeach
-                                @endif
-
-                                @foreach ($diff_E as $demas)
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{$demas->id}}">
-                                    <span class="custom-control-label">{{ $demas->name }}</span>
+                            <div class="custom-controls-stacked" id="modal_examen">
+                                @foreach ($diff_E as $exam)
+                                <label class="custom-control custom-checkbox" id="quitar_examen{{$exam->id}}">
+                                    <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
+                                    <span class="custom-control-label">{{ $exam->name }}</span>
                                 </label>
                                 @endforeach
                             </div>
                         </div>
-                    </div>   
-                    <div class="modal-footer">
-                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Agregar</button>
+                    </div>
+                    <div class="modal-footer p-2">
+                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     
     {{-- modal de posibles cirugias --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1065,37 +1044,37 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="posible-procedures">
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
-                        <div class="custom-controls-stacked">
+                        <div class="custom-controls-stacked" id="modal_procedureP">
                             @if($diff_P != null)
-                                @foreach ($diff_P as $item)
-                                <label class="custom-control custom-checkbox">
-                                <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
-                                    <span class="custom-control-label">{{ $item->name }}</span>
-                                </label>
+                                @foreach ($diff_P as $proces)
+                                <div class="row" id="quitar_procedureP{{$proces->id}}">
+                                    <div class="col-9 mt-3">
+                                    <label class="custom-control custom-checkbox d-flex">
+                                        <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                        <span class="custom-control-label">{{ $proces->name }} </span>
+                                    </label>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>{{ $proces->price }} </span>
+                                    </div>
+                                </div>
                                 @endforeach
                             @endif
-
-                            @foreach ($diff_P as $demas)
-                            <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
-                                <span class="custom-control-label">{{ $demas->name }}</span>
-                            </label>
-                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer p-2">
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
@@ -1434,7 +1413,7 @@ button[data-original-title="Help"]{ display: none; }
    function mostrarEnfermedad(data){
         console.log('ken',data[0].name);
         for($i=0; $i < data.length; $i++){
-            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input name="'+data[$i].id+'" id="enfermedad_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $("#mostrar_enfermedad").append(enfermedad);
             $("#quitar"+data[$i].id).remove();
         }
@@ -1442,12 +1421,10 @@ button[data-original-title="Help"]{ display: none; }
 
      //================ eliminar enfermedad seleccionado ==========
      $(function() {
-        $(document).on('click', '.enfermedad_id', function(event) {
-            let id = this.id;
+        $(document).on('click', '#enfermedad_id', function(event) {
+            let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
+            $("div").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
@@ -1460,9 +1437,7 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-            console.log('enfermedad modal',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {                //recibe lo que retorna el metodo en la ruta definida  
             agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_enfermedad").append(agregar);
 
@@ -1472,9 +1447,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-
-            }
-            
+            }            
         })
         .fail(function(data) {
             console.log(data);
@@ -1538,7 +1511,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('ken',data[0].name);
 
         for($i=0; $i < data.length; $i++){
-           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9" id="'+data[$i].id+'"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3" id="'+data[$i].id+'"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input name="'+data[$i].id+'" id="alergia_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></div></div>',
             $("#mostrar_alergias").append(alergia);
             $("#quitarAlergia"+data[$i].id).remove();
         }
@@ -1546,12 +1519,10 @@ button[data-original-title="Help"]{ display: none; }
 
     //================ eliminar alergia seleccionado ==========
     $(function() {
-        $(document).on('click', '.alergia_id', function(event) {
-            let id = this.id;
+        $(document).on('click', '#alergia_id', function(event) {
+            let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
+            $("div").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
@@ -1564,8 +1535,7 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {               
-            // console.log('alergia',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {                 //recibe lo que retorna el metodo en la ruta definida  
             agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_alergias").append(agregarAlergia);
 
@@ -1595,7 +1565,6 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarCirugias").click(function() {
         var reservacion = $("#reservacion").val();
         var datos = $("#form_cirugias").val();
-        // console.log("kenwherly",datos);
         ajax_cirugia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1638,20 +1607,16 @@ button[data-original-title="Help"]{ display: none; }
 
    // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
-        console.log('kenhh',data);
-        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9" id="cirugia'+data.id+'"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3" id="cirugia'+data.id+'"><input id="cirugia'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
-        console.log(cirugia);
+        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3"><input name="cirugia'+data.id+'" id="borrar_cirugia" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></div></div>',
         $("#agregar_cirugia").html(cirugia);
     }
 
     //================ eliminar cirugia previa  ==========
     $(function() {
-        $(document).on('click', '.borrar_cirugia', function(event) {
-            let id = this.id;
+        $(document).on('click', '#borrar_cirugia', function(event) {
+            let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
+            $("div").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
@@ -1683,46 +1648,7 @@ button[data-original-title="Help"]{ display: none; }
 
         });
     });
-   
-       //================ eliminar enfermedad seleccionado ==========
-       $(function() {
-        $(document).on('click', '.borrar_cirugia', function(event) {
-            let id = this.id;
-            var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
 
-            $.ajax({
-                url: "{{ route('doctor.cirugia_borrar') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}", 
-                reservacion_id:reservacion,
-            }
-
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.cirugia,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-            
-        })
-        .fail(function(data) {
-            console.log(data);
-        })  
-
-        });
-    
-    });
 
     //---------------------------------- PROCEDIMIENTOS REALIZADOS -------------------------------
     //=================== captar datos de los procedimientos realizados =======================
@@ -1781,7 +1707,7 @@ button[data-original-title="Help"]{ display: none; }
     function mostrarProceduresC(data){
         console.log('hh',data);
         for($i=0; $i < data.length; $i++){
-            procesc='<tr  id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6">'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro procedureR_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"  value="Eliminar"></td></tr>'
+            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureR_id" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default" data-toggle="tooltip"  value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
             $("#quitar_procedureR"+data[$i].id).remove();
         }
@@ -1789,12 +1715,11 @@ button[data-original-title="Help"]{ display: none; }
 
     //================ eliminar procedimiento seleccionado ==========
     $(function() {
-        $(document).on('click', '.procedureR_id', function(event) {
-            let id = this.id;
+        $(document).on('click', '#procedureR_id', function(event) {
+            let id = this.name;
             var diagnostic = $("#diagnostic_id").val();
             var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            $("#"+id).remove();
+            $("tr").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.procedureR_eliminar') }}",
@@ -1886,24 +1811,25 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-   //==============  mostrando lista de examenes  ================
+
+    //==================== mostrando examenes ===================
     function mostrarExamen(data){
         console.log('hh',data);
-
-        for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen seleccionado" value="Eliminar"></td></tr>';
+            for($i=0; $i < data.length; $i++){
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="exam_id" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#examen").append(examen);
+            $("#quitar_examen"+data[$i].id).remove();
         }
     }
 
-    //================ eliminar examen seleccionado ==========
+
+   //================ eliminar examen seleccionado ==========
     $(function() {
-        $(document).on('click', '.exam_id', function(event) {
-            let id = this.id;
+        $(document).on('click', '#exam_id', function(event) {
+            let id = this.name;
             var diagnostic = $("#diagnostic_id").val();
             var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            $("#"+id).remove();            
+            $("tr").remove("#"+id);            
 
             $.ajax({
                 url: "{{ route('doctor.exam_eliminar') }}",
@@ -1918,7 +1844,9 @@ button[data-original-title="Help"]{ display: none; }
 
             })
             .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida 
+            agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
+             $("#modal_examen").append(agregar_examen); 
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1984,25 +1912,24 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-  
-    //============ mostrando posibles procedimientos =============== 
-    function mostrarProcedure(data){
+
+  //================ mostrando posibles procedimientos =============
+  function mostrarProcedure(data){
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div id="'+data[$i].id+'" class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado" value="Eliminar"></td></tr>'
+            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureP_id" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
+            $("#quitar_procedureP"+data[$i].id).remove();         
         }
     }
 
     //================ eliminar posibles procedimiento seleccionado ==========
     $(function() {
-        $(document).on('click', '.procedureP_id', function(event) {
-            let id = this.id;
+        $(document).on('click', '#procedureP_id', function(event) {
+            let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
+            $("tr").remove( "#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.procedureP_eliminar2') }}",
@@ -2016,16 +1943,18 @@ button[data-original-title="Help"]{ display: none; }
 
             })
             .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+               
+                agregar_procedureP = '<div class="row" id="quitar_procedureP'+data[1].id+'"><div class="col-9 mt-3"><label class="custom-control custom-checkbox d-flex"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
+                $('#modal_procedureP').append(agregar_procedureP);
 
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.procedure,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.procedure,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
 
-            }
+                }
             
         })
         .fail(function(data) {

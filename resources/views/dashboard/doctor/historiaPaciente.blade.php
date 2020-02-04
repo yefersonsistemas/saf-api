@@ -837,52 +837,7 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
 
-    {{-- modal de posibles cirugias --}}
-    {{-- <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
-                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" id="posible-surgerys">
-                <div class="modal-body" style="max-height: 415px;">
-                    <div class="form-group">
-
-                        <div class="custom-controls-stacked" id="modal_cirugiaP">
-                            @foreach ($surgerys as $surgery)
-                            <div class="row" id="quitar_cirugia{{$surgery->id}}">
-                                <div class="col-9 mt-3">
-                                    <label class="custom-control custom-checkbox">
-                                        @if ($surgery->classification->name == 'hospitalaria')
-
-                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
-                                        <span class="custom-control-label">{{ $surgery->name }}</span>
-                                        @endif
-                                    </label>
-                                </div>
-                                <div class="col-3">
-                                    @if ($surgery->classification->name == 'hospitalaria')
-                                    <span>{{ $surgery->cost }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                    <div class="modal-footer p-2">
-                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
-
-
-    <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
@@ -1348,9 +1303,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '.enfermedad_id', function(event) {
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
+            $("div").remove("#"+id);   
           
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
@@ -1363,8 +1316,7 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {               
-            console.log('enfermedad modal',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {                      //recibe lo que retorna el metodo en la ruta definida  
             agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_enfermedad").append(agregar);
 
@@ -1374,9 +1326,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-
-            }
-            
+            }            
         })
         .fail(function(data) {
             console.log(data);
@@ -1392,7 +1342,6 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarAlergias").click(function() {
         var reservacion = $("#reservacion").val();
         var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
-        console.log("hh",datos);
         
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
@@ -1450,9 +1399,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '.alergia_id', function(event) {
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
+            $("div").remove("#"+id);   
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
@@ -1475,9 +1422,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-
-            }
-            
+            }            
         })
         .fail(function(data) {
             console.log(data);
@@ -1548,9 +1493,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '.borrar_cirugia', function(event) {
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
+            $("div").remove("#"+id);   
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
@@ -1572,9 +1515,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-
-            }
-            
+            }            
         })
         .fail(function(data) {
             console.log(data);
@@ -1647,7 +1588,7 @@ button[data-original-title="Help"]{ display: none; }
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
             console.log(reservacion);
-            $("#"+id).remove();
+            $("tr").remove("#"+id);   
 
             $.ajax({
                 url: "{{ route('doctor.procedureR_eliminar2') }}",
@@ -1748,9 +1689,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '.exam_id', function(event) {
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            console.log('reservacion examwe',reservacion);
-            console.log('exam id', id);
-            $("#"+id).remove();
+            $("tr").remove("#"+id);   
 
             $.ajax({
                 url: "{{ route('doctor.exam_eliminar2') }}",
@@ -1763,8 +1702,7 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            .done(function(data) {     //recibe lo que retorna el metodo en la ruta definida
              agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
              $("#modal_examen").append(agregar_examen);
 
@@ -1774,9 +1712,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-
             }
-
         })
         .fail(function(data) {
             console.log(data);
@@ -1839,7 +1775,7 @@ button[data-original-title="Help"]{ display: none; }
         console.log('hh',data);
 
         for($i=0; $i < data.length; $i++){
-            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
             $("#quitar_procedureP"+data[$i].id).remove();         
         }
@@ -1850,9 +1786,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '.procedureP_id', function(event) {
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            console.log('id', id);
-            $("#"+id).remove();
+            $("tr").remove("#"+id);   
 
             $.ajax({
                 url: "{{ route('doctor.procedureP_eliminar2') }}",
@@ -1980,7 +1914,7 @@ button[data-original-title="Help"]{ display: none; }
             var reservacion = $("#reservacion_id").val();
             console.log(reservacion);
             console.log('id', id);
-            $("#"+id).remove();
+            $("tr").remove("#"+id);   
 
             $.ajax({
                 url: "{{ route('doctor.cirugiaP_eliminar2') }}",
