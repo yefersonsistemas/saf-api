@@ -323,15 +323,30 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <ul class="list-group" style="list-style:none" id="enfermedades">
-                                        @foreach ($disease as $disease)
-                                        @if ($rs->patient->historyPatient->disease->contains($disease->id))
-                                            <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</li>
-                                        @else
-                                            
-                                        @endif
-                                        @endforeach
-                                    </ul>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-vcenter table-striped"
+                                            cellspacing="0" id="addrowExample">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Enfermedad</th>
+                                                        <th class="text-center">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="addRow">
+                                                    @foreach ($disease as $disease)
+                                                        <tr>
+                                                            @if ($rs->patient->historyPatient->disease->contains($disease->id))
+                                                                <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</td>
+                                                            @else
+                                                        
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>                            
                         </div>
