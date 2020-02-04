@@ -76,16 +76,24 @@ public function create_surgery(){
         // dd($request);
         $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
-        $patient = Patient::with('person')->where('person_id', $person->id)->first();
-        // dd($patient);
-        if (!is_null($patient)) {
-            // $patient = Patient::with('person')->where('person_id', $person->id)->first();
-            return response()->json([
-            'patient' => $patient, 201
-            ]);
+        
+        if (!is_null($person)) {
+            $patient = Patient::with('person')->where('person_id', $person->id)->first();
+            // dd($patient);
+        
+            if (!is_null($patient)) {
+                // $patient = Patient::with('person')->where('person_id', $person->id)->first();
+                return response()->json([
+                'patient' => $patient, 201
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No encontrado',202
+                ]);
+            }
         }else{
             return response()->json([
-                'message' => 'No encontrado',202
+                'message' => 'Persona no registrada',202
             ]);
         }
     }
