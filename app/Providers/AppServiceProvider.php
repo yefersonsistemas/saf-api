@@ -37,10 +37,11 @@ class AppServiceProvider extends ServiceProvider
         }
 
         //contador de citas al mes
-        // $reserva = Reservation::get();
-        // dd($reserva);
         // $dia = Carbon::now()->format('Y-m');
-        // dd($dia);
+        // // dd($dia);
+        // $reserva = Reservation::where('date', $dia)->get();
+        // dd($reserva);
+       
         
 
 

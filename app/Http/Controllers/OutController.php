@@ -41,7 +41,7 @@ use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 class OutController extends Controller
 {
     //=================== listando los pacientes del dia ================== (listo)
-    public function index(Request $request)
+    public function index()
     {
         $procedures_id = array(); 
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
@@ -63,12 +63,8 @@ class OutController extends Controller
 // dd($confirmadas->first()->speciality);
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
         
-        if ($request->patient != null) {
-        
-        $patients = Person::with('patient')->where('dni', $request->patient)->first();
-        }
 
-        return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera', 'patients'));
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera'));
     }
 
     // public function buscador(Request $request)

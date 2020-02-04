@@ -66,19 +66,20 @@
                 </div>
             </div>
 
-            <form method="GET" action="{{ route('checkout.index') }}">
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <label class="form-label">Buscar:</label>
                 <div class="input-group">
                     
                     <input type="text" class="form-control" placeholder="Buscar Pacientes"
-                        aria-label="Buscar Pacientes" name="patient" aria-describedby="Buscar Pacientes">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="search">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
+                    aria-label="Buscar Pacientes" name="patient" aria-describedby="Buscar Pacientes">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="search">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
                 </div>
-            </form>
+            </div>
+      
 
           
             <!--lista de reservaciones confirmadas-->

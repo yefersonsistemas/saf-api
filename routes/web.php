@@ -89,7 +89,6 @@ Route::group(['middleware' => 'auth'], function (){
 
     //======================= rutas para el usuario ckeckout ====================
         Route::group(['middleware' => ['role:OUT, director']], function () {
-        Route::get('buscar', 'OutController@buscador')->name('buscar.out');     
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
