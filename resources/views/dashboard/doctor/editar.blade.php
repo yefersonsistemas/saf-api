@@ -248,7 +248,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                     <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                         <div id="mostrar_enfermedad">
-                                                            @foreach ( $reservation->historyPatient->disease as $disease )
+                                                            @foreach ( $reservation->patient->historyPatient->disease as $disease )
                                                             <div class="row" id="{{$disease->id}}">
                                                                 <div class="col-9">
                                                                     <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
@@ -280,7 +280,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                     <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
                                                         <div id="mostrar_alergias">
-                                                            @foreach ( $reservation->historyPatient->allergy as $allergy )
+                                                            @foreach ( $reservation->patient->historyPatient->allergy as $allergy )
                                                                 <div class="row" id="{{$allergy->id}}">
                                                                     <div class="col-9">
                                                                         <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>

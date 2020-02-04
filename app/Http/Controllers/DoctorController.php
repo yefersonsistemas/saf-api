@@ -93,15 +93,16 @@ class DoctorController extends Controller
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
+        // dd($history->patient->historyPatient->disease);
         //----------------mostrar enfermedades----------
         $enfermedades = Disease::all();
 
-        if($history->historyPatient->disease->first() != null){
+        if($history->patient->historyPatient->disease->first() != null){
             foreach($enfermedades as $item){
                 $array1[] = $item->id; 
             }
 
-            foreach($history->historyPatient->disease as $item){
+            foreach($history->patient->historyPatient->disease as $item){
                 $array2[] = $item->id; 
             }
            
@@ -122,12 +123,12 @@ class DoctorController extends Controller
         //----------------mostrar alergias---------------
           $alergias = Allergy::all();
      
-          if($history->historyPatient->allergy->first() != null){
+          if($history->patient->historyPatient->allergy->first() != null){
             foreach($alergias as $item){
                 $array1[] = $item->id; 
             }
    
-            foreach($history->historyPatient->allergy as $item){
+            foreach($history->patient->historyPatient->allergy as $item){
                 $array2[] = $item->id; 
             }
 
@@ -182,17 +183,18 @@ class DoctorController extends Controller
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
 //    dd($itinerary->reference->speciality);
 
+
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
 
         //---------------------mostrar enfermedades-----------------
-        if($reservation->historyPatient->disease->first() != null){
+        if($reservation->patient->historyPatient->disease->first() != null){
             foreach($enfermedades as $item){
                 $array1[] = $item->id; 
             }
 
-            foreach($reservation->historyPatient->disease as $item){
+            foreach($reservation->patient->historyPatient->disease as $item){
                 $array2[] = $item->id; 
             }
            
@@ -214,12 +216,12 @@ class DoctorController extends Controller
          //----------------mostrar alergias---------------
          $alergias = Allergy::all();
       
-           if($reservation->historyPatient->allergy->first() != null){
+           if($reservation->patient->historyPatient->allergy->first() != null){
              foreach($alergias as $item){
                  $array1[] = $item->id; 
              }
   
-             foreach($reservation->historyPatient->allergy as $item){
+             foreach($reservation->patient->historyPatient->allergy as $item){
                  $array2[] = $item->id; 
              }
  
