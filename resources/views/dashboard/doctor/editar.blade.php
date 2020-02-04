@@ -1368,7 +1368,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarEnfermedad").click(function() {
             var reservacion = $("#reservacion").val();
             var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
-            console.log("hh",enfermedad);
+   
             ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1415,7 +1415,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input name="'+data[$i].id+'" id="enfermedad_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $("#mostrar_enfermedad").append(enfermedad);
-            $("#quitar"+data[$i].id).remove();
+            $("div").remove("#quitar"+data[$i].id);
         }
     }
 
@@ -1513,7 +1513,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
            alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input name="'+data[$i].id+'" id="alergia_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></div></div>',
             $("#mostrar_alergias").append(alergia);
-            $("#quitarAlergia"+data[$i].id).remove();
+            $("div").remove("#quitarAlergia"+data[$i].id);
         }
     }
 
@@ -1658,9 +1658,6 @@ button[data-original-title="Help"]{ display: none; }
             var procesof = $("#procedure").serialize();          //asignando el valor que se ingresa en el campo
             var diagnostic = $("#diagnostic_id").val();
 
-            console.log(reservacion);
-            console.log(procesof);
-            console.log(diagnostic);
             ajax_PO(procesof,reservacion,diagnostic);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
         });                                                               //fin de la funcion clikea
         
@@ -1709,7 +1706,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             procesc='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureR_id" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default" data-toggle="tooltip"  value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
-            $("#quitar_procedureR"+data[$i].id).remove();
+            $("div").remove("#quitar_procedureR"+data[$i].id);
         }
     }
 
@@ -1818,7 +1815,7 @@ button[data-original-title="Help"]{ display: none; }
             for($i=0; $i < data.length; $i++){
             examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="exam_id" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#examen").append(examen);
-            $("#quitar_examen"+data[$i].id).remove();
+            $("label").remove("#quitar_examen"+data[$i].id);
         }
     }
 
@@ -1920,7 +1917,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureP_id" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
-            $("#quitar_procedureP"+data[$i].id).remove();         
+            $("div").remove("#quitar_procedureP"+data[$i].id);         
         }
     }
 
@@ -2030,9 +2027,7 @@ button[data-original-title="Help"]{ display: none; }
     $(function() {
         $(document).on('click', '.cirugiaP_id', function(event) {
             let id = this.id;
-            var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            console.log('id', id);    
+            var reservacion = $("#reservacion_id").val();  
             $("#"+id).remove();
 
                 $.ajax({
