@@ -298,6 +298,7 @@
 
                 <div class="card p-4 d-flex justify-content-between">
                     <div class="row">
+                        <!---------------------------Enfermedades-------------------------->
                         <div class="col-lg-6 col-md-3" id="framework_form">
                             <label class="form-label text-center">Enfermedades</label>
                             <div class="card p-3" style="border-color:#00506b">
@@ -332,10 +333,10 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            </div>
-                            
+                            </div>                            
                         </div>
                         
+                        <!------------------------Medicamentos--------------------------->
                         <div class="col-lg-6 col-md-3" id="framework_form2">
                             <label class="form-label text-center">Medicamentos</label>
                             <div class="row card p-3" style="border-color:#00506b">
@@ -370,6 +371,10 @@
                                     </div>
                                 </div>
                         </div>
+
+                    </div>
+                    <div class="row">
+                        <!------------------------Alergias-------------------------------->
                         <div class="col-lg-6 col-md-3" id="framework_form3">
                             <label class="form-label text-center">Alergias</label>
                             <div class="card p-3" style="border-color:#00506b">
@@ -406,6 +411,7 @@
                             </div>
                         </div>
                         
+                        <!------------------------------Cirugias previas-------------------------------->
                         <div class="col-lg-6 col-md-3">
                             <div class="form-group col-12">
                                 <label class="form-label text-center">Cirugias previas</label>

@@ -700,7 +700,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
+                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
             </div>

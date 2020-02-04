@@ -261,7 +261,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         @endforeach    
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
                                                         </div>
                                                     </div>
                                                 </div>
