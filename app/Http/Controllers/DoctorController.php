@@ -337,11 +337,14 @@ class DoctorController extends Controller
         // buscando posibles cirugias
             $surgery = array($itinerary->typesurgery);
             if(!empty($itinerary->typesurgery)){
-                $diff_C = $cirugias->diff($surgery);
+                $diff_CC = $cirugias->diff($surgery);
             }else{
-                $diff_C = $cirugias;
-            }   
-            // dd($diff);
+                $diff_CC = $cirugias;
+            }
+
+            foreach($diff_CC as $item){
+                $diff_C[] = TypeSurgery::with('classification')->find($item->id);
+            }
 
         return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia'));
     }
@@ -1592,7 +1595,7 @@ class DoctorController extends Controller
             }
 
             if($itinerary->typesurgery_id != $returndata2[0]){
-                $surgery[] = TypeSurgery::find($returndata2[0]);
+                $surgery[] = TypeSurgery::with('classification')->find($returndata2[0]);
             }else{
                 $surgery[] = null;
             }
