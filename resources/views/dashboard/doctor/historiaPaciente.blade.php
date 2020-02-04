@@ -1126,7 +1126,6 @@ button[data-original-title="Help"]{ display: none; }
                 }
             })
             .done(function(data) {
-                console.log(data);
                 cargarMedicos(data);
             })
             .fail(function(data) {
@@ -1159,28 +1158,19 @@ button[data-original-title="Help"]{ display: none; }
     });
 
     $("#select").change(function(){
-            var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura
-            console.log('estos son ', exam_id);
-            console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
+        var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura
     });
-
 
     //---------------------------------------- REFERENCIA MEDICA ----------------------------------------
 
     //================= referir medico =============
     $('#referir').click(function () {
-        // console.log('referir');
         var speciality = $("#speciality").val();
         var reason = $("#reason").val();
         var doctor = $("#medicoInterno").val();
         var doctorExterno = $("#medicoExterno").val();
         var patient = $("#patient").val();
         var reservation = $("#reservacion_id").val();
-        console.log('espe',speciality);
-        console.log('reason',reason);
-        console.log('d',doctor);
-        console.log('d e',doctorExterno);
-        console.log('patient',patient);
 
         ajaxReferencia(speciality, reason, doctor, doctorExterno, patient);
     });
@@ -1229,10 +1219,10 @@ button[data-original-title="Help"]{ display: none; }
 
     //=================guardar enfermedades================
     $("#guardarEnfermedad").click(function() {
-            var reservacion = $("#reservacion").val();
-            var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
-            console.log("hh",enfermedad);
-            ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+        var reservacion = $("#reservacion").val();
+        var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
+        
+        ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
     function ajax_enfermedad(enfermedad,reservacion){
@@ -1263,8 +1253,7 @@ button[data-original-title="Help"]{ display: none; }
                     title: data.enfermedad,
                     text:  'Click en OK para continuar',
                     type:  'error',
-                })
-                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                })       // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
             }
         })
         .fail(function(data) {
@@ -1274,11 +1263,10 @@ button[data-original-title="Help"]{ display: none; }
 
    //=================  mostrando enfermedades ===================
    function mostrarEnfermedad(data){
-        console.log('ken',data[0].name);
         for($i=0; $i < data.length; $i++){
             enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input id="enfermedad_id" name="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $("#mostrar_enfermedad").append(enfermedad);
-            $("div").remove("#quitar"+data[$i].id);
+            $("div").remove("#quitar"+data[$i].id); //quitar del modal
         }
     }
 
@@ -1300,9 +1288,9 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {                      //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
             agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
-            $("#modal_enfermedad").append(agregar);
+            $("#modal_enfermedad").append(agregar); //agregar en el modal
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1341,8 +1329,7 @@ button[data-original-title="Help"]{ display: none; }
                 id:reservacion
             }
         })
-        .done(function(data) {
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+        .done(function(data) {        //recibe lo que retorna el metodo en la ruta definida
            
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
@@ -1358,8 +1345,7 @@ button[data-original-title="Help"]{ display: none; }
                     title: data.alergia,
                     text:  'Click en OK para continuar',
                     type:  'error',
-                })
-                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                })        // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
             }
         })
         .fail(function(data) {
@@ -1369,12 +1355,10 @@ button[data-original-title="Help"]{ display: none; }
 
    //====================  mostrando alergias =============
    function mostrarAlergias(data){
-        console.log('ken',data[0].name);
-
         for($i=0; $i < data.length; $i++){
            alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input id="alergia_id" name="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
             $("#mostrar_alergias").append(alergia);
-            $("div").remove("#quitarAlergia"+data[$i].id);
+            $("div").remove("#quitarAlergia"+data[$i].id); //quitar del modal alergia
         }
     }
 
@@ -1383,7 +1367,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#alergia_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id);   
+            $("div").remove("#"+id);    //quitar de la lista de alergias
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
@@ -1394,11 +1378,10 @@ button[data-original-title="Help"]{ display: none; }
                 id:id,
                 reservacion_id:reservacion,
             }
-
-            })
+        })
             .done(function(data) {  
             agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
-            $("#modal_alergias").append(agregarAlergia);
+            $("#modal_alergias").append(agregarAlergia); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1464,7 +1447,7 @@ button[data-original-title="Help"]{ display: none; }
    // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
         cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3"><input id="borrar_cirugia" na,e="cirugia'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
-        $("#agregar_cirugia").html(cirugia);
+        $("#agregar_cirugia").html(cirugia); 
     }
 
     //================ eliminar cirugia previa  ==========
@@ -1472,7 +1455,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#borrar_cirugia', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id);   
+            $("div").remove("#"+id); 
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
@@ -1552,11 +1535,10 @@ button[data-original-title="Help"]{ display: none; }
 
      //=============== mostrando procedimientos realizados ===============
     function mostrarProceduresC(data){
-        console.log('hh',data);
         for($i=0; $i < data.length; $i++){
             procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureR_id" name="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
-            $("#procesc").append(procesc);
-            $("div").remove("#quitar_procedureR"+data[$i].id);
+            $("#procesc").append(procesc); 
+            $("div").remove("#quitar_procedureR"+data[$i].id); //quitar del modal
         }
     }
 
@@ -1582,7 +1564,7 @@ button[data-original-title="Help"]{ display: none; }
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
             agregar_procedureR = '<div class="row " id="quitar_procedureR'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
-             $("#modal_procedureR").append(agregar_procedureR);
+             $("#modal_procedureR").append(agregar_procedureR); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1652,11 +1634,10 @@ button[data-original-title="Help"]{ display: none; }
 
     //==================== mostrando examenes ===================
     function mostrarExamen(data){
-        console.log('hh',data);
             for($i=0; $i < data.length; $i++){
             examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="exam_id" name="'+data[$i].id+'" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#examen").append(examen);
-            $("label").remove("#quitar_examen"+data[$i].id);
+            $("label").remove("#quitar_examen"+data[$i].id); //quitar del modal
         }
     }
 
@@ -1681,7 +1662,7 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {     //recibe lo que retorna el metodo en la ruta definida
              agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
-             $("#modal_examen").append(agregar_examen);
+             $("#modal_examen").append(agregar_examen); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1749,12 +1730,10 @@ button[data-original-title="Help"]{ display: none; }
 
    //================ mostrando posibles procedimientos =============
     function mostrarProcedure(data){
-        console.log('hh',data);
-
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureP_id" name="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
-            $("div").remove("#quitar_procedureP"+data[$i].id);         
+            $("div").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal      
         }
     }
 
@@ -1779,7 +1758,7 @@ button[data-original-title="Help"]{ display: none; }
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
             agregar_procedureP = '<div class="row" id="quitar_procedureP'+data[1].id+'"><div class="col-9 mt-3"><label class="custom-control custom-checkbox d-flex"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
-          $('#modal_procedureP').append(agregar_procedureP);
+          $('#modal_procedureP').append(agregar_procedureP); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1810,11 +1789,6 @@ button[data-original-title="Help"]{ display: none; }
             var name = $("#cirugia_posible_name").val();
             var cost = $("#cirugia_posible_costo").val();
             var clasificacion = $("#cirugia_posible_clasificacion").val();
-
-            console.log("id",id);
-            console.log("name",name);
-            console.log("costo",cost);
-            console.log("clasificacion",clasificacion);
         
             if(id != null && name != null && cost != null && clasificacion != null){
                 agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
@@ -1825,8 +1799,6 @@ button[data-original-title="Help"]{ display: none; }
                     $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
                 }
             }
-
-            //por si hay una cirugia en la lista
 
             ajax_S(surgery,reservacion); // enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
@@ -1870,13 +1842,10 @@ button[data-original-title="Help"]{ display: none; }
 
     //======================== mostrando posibles cirugias ======================
     function mostrarSurgery(data){
-        // console.log('hh',data[0].classification.name);
-        console.log(data[0].id);
-
         for($i=0; $i < data.length; $i++){
             cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="cirugiaP_id" name="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
-            $("div").remove("#quitar_cirugia"+data[0].id);  
+            $("div").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
         }         
     }
 
@@ -1887,16 +1856,15 @@ button[data-original-title="Help"]{ display: none; }
             var reservacion = $("#reservacion_id").val();
             $("tr").remove("#"+id);   
 
-            $.ajax({
-                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
-                type: 'POST',
-                dataType:'json',
-                data: {
-                _token: "{{ csrf_token() }}",
-                id:id,
-                reservacion_id:reservacion,
-            }
-
+                $.ajax({
+                    url: "{{ route('doctor.cirugiaP_eliminar2') }}",
+                    type: 'POST',
+                    dataType:'json',
+                    data: {
+                    _token: "{{ csrf_token() }}",
+                    id:id,
+                    reservacion_id:reservacion,
+                }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
@@ -1904,9 +1872,9 @@ button[data-original-title="Help"]{ display: none; }
             agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].cost+'</span></div></div>'
 
             if(data[1].classification.name == 'hospitalaria'){
-                $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
+                $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP); //agregar al modal
             }else{
-                $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
+                $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP); //agregar al modal
             }           
 
             if(data[0] == 202){                  //si no trae valores
@@ -1920,12 +1888,8 @@ button[data-original-title="Help"]{ display: none; }
         .fail(function(data) {
             console.log(data);
         })
-
         });
-
     });
-
-
 
 </script>
 @endsection
