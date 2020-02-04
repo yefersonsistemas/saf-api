@@ -55,6 +55,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
+                    <input type="hidden" value="{{ $rs->id }}" id="reservacion_id"><!--reservation-->
                     <!-- Modal -->
                     {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -296,6 +297,7 @@
                     </button> --}}
                 </div>
 
+
                 <div class="card p-4 d-flex justify-content-between">
                     <div class="row">
                         <!---------------------------Enfermedades-------------------------->
@@ -306,13 +308,14 @@
                                     <div class="form-group multiselect_div col-10">
                                         <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
                                             @foreach ($disease as $enfermedades)
-                                                <option value= {{ $enfermedades->id }}
+                                                <option id="quitar{{ $enfermedades->id }}" value= {{ $enfermedades->id }}
                                                     @if ($rs->patient->historyPatient != null)
                                                     @if ($rs->patient->historyPatient->disease->contains($enfermedades->id))
                                                         disabled
                                                     @endif
                                                     @endif>
-                                                    {{ $enfermedades->name }}</option>
+                                                    {{ $enfermedades->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -333,12 +336,12 @@
                                                         <th class="text-center">Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="addRow">
+                                                <tbody id="enfermedades">
                                                     @foreach ($disease as $disease)
-                                                        <tr>
+                                                        <tr id="{{$disease->id}}">
                                                             @if ($rs->patient->historyPatient->disease->contains($disease->id))
                                                                 <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</td>
-                                                                </td>
+                                                                <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                             @else
                                                         
                                                             @endif
@@ -376,19 +379,37 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <ul class="list-group" style="list-style:none" id="medicamentos">
-                                        @foreach ($medicine as $medicine)
-                                        @if ($rs->patient->historyPatient->medicine->contains($medicine->id))
-                                            <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</li>
-                                        @else
-                                        @endif
-                                        @endforeach
-                                    </ul>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-vcenter table-striped"
+                                            cellspacing="0" id="addrowExample">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Medicina</th>
+                                                        <th class="text-center">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="medicamentos">
+                                                    @foreach ($medicine as $medicine)
+                                                        <tr id="{{$medicine->id}}">
+                                                            @if ($rs->patient->historyPatient->medicine->contains($medicine->id))
+                                                                <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</td>
+                                                                <td class="text-center"><a style="cursor:pointer" id="medicina_id" name="{{$medicine->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                            @else
+                                                        
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
 
                     </div>
+
                     <div class="row">
                         <!------------------------Alergias-------------------------------->
                         <div class="col-lg-6 col-md-3" id="framework_form3">
@@ -414,15 +435,31 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <ul class="list-group" style="list-style:none" id="alergias">
-                                    @foreach ($allergy as $allergy)
-                                    @if ($rs->patient->historyPatient->allergy->contains($allergy->id))
-                                    <li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$allergy->name}}</li>
-                                    @else
-                                        
-                                    @endif
-                                    @endforeach
-                                    </ul>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-vcenter table-striped"
+                                            cellspacing="0" id="addrowExample">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Alergia</th>
+                                                        <th class="text-center">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="alergias">
+                                                    @foreach ($allergy as $allergy)
+                                                        <tr id="{{$allergy->id}}">
+                                                            @if ($rs->patient->historyPatient->allergy->contains($allergy->id))
+                                                                <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$allergy->name}}</td>
+                                                                <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                            @else
+                                                        
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -487,32 +524,33 @@
             @endif
         </form>
     </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <form role="form" enctype="multipart/form-data" action="{{route('checkin.exams')}}" method="POST">
+                        @csrf
+                <input type="hidden" value="{{$rs->patient->historyPatient->id}}" name="patient">
+                        <div class="dropzone" id="my-dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple id="files" />
                     </div>
-                    <div class="modal-body">
-                    <form role="form" enctype="multipart/form-data" action="{{route('checkin.exams')}}" method="POST">
-                            @csrf
-                    <input type="hidden" value="{{$rs->patient->historyPatient->id}}" name="patient">
-                            <div class="dropzone" id="my-dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple id="files" />
-                        </div>
-                    </div>                    
-                            <button type="submit" class="btn btn-azuloscuro">Submit</button>
-                        </form>
-                    </div>
+                </div>                    
+                        <button type="submit" class="btn btn-azuloscuro">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Registrar Enfermedad -->
+    <!-------- modal Registrar Enfermedad ------------>
     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -542,7 +580,7 @@
         </div>
     </div>
 
-    <!-- Registrar Alergia -->
+    <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -572,7 +610,7 @@
         </div>
     </div>
 
-    <!-- Registrar Medicamento -->
+    <!------------ modal Registrar Medicamento ----------->
     <div class="modal fade" id="nuevomedicamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -751,54 +789,11 @@ Dropzone.options.myDropzone = {
         })
     </script>
 
-    <script>
-    $('#allergy').change(function(){
-        var allergy_id = $(this).val();
-        var patient_id = $('#patient-id').val();    
-        console.log('alergia', patient_id);
-        // console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-        alergias(allergy_id,patient_id)
-    });
-
-    function alergias(allergy_id,patient_id){
-        console.log('alergia,paciente', allergy_id, patient_id);
-        $.ajax({ 
-                url: "{{ route('checkin.allergies') }}",  
-                type: "POST",                            
-                data: {
-                    _token: "{{ csrf_token() }}",        
-                    data:allergy_id,
-                    id:patient_id,                          
-                }
-            })
-            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                console.log('esto',data[0][0]);
-                if (data[1] == 201) {                       
-                    Swal.fire({
-                        title: 'Excelente!',
-                        text:  'Alergia Agregada!',
-                        type:  'success',
-                    })
-                        show_allergies(data[0][0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                }
-            })
-            .fail(function(data) {
-                console.log(data);
-            })
-        }
         
-        function show_allergies(data){
-        console.log('hhddd',data);
-
-        for($i=0; $i < data.length; $i++){
-            alergia ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</li>';
-                $("#alergias").append(alergia);
-            }
-        }
-    </script>
-
     <script>
-        // para el select de las enfermedades
+        //-----------------------------------ENFERMEDADES---------------------------------------------  
+
+        // ================================ enfermedades ========================
         $("#disease").change(function(){
             var disease_id = $(this).val(); // Capta el id de la enfermedad
             var patient_id = $('#patient-id').val();
@@ -835,18 +830,144 @@ Dropzone.options.myDropzone = {
             })
         }
 
-        function show_diseases(data){
-        console.log('hhddd',data);
 
-        for($i=0; $i < data.length; $i++){
-            enfermedad ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</li>';
-            $("#enfermedades").append(enfermedad);
+        //================================ agregar enfermedad ======================
+        function show_diseases(data){
+            for($i=0; $i < data.length; $i++){
+                enfermedad = '<tr id="'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
+                $("#enfermedades").append(enfermedad);
+                $("option").remove("#quitar"+data[$i].id); //quitar del modal
+            }
         }
-    }
+
+        //================ eliminar enfermedad seleccionado ==========
+        $(function() {
+            $(document).on('click', '#enfermedad_id', function(event) {
+                let id = this.name;
+                var reservacion = $("#reservacion_id").val();
+                $("tr").remove("#"+id);   
+            
+                $.ajax({
+                    url: "{{ route('doctor.enfermedad_eliminar') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
+                // agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+                // $("#modal_enfermedad").append(agregar); //agregar en el modal
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.enfermedad,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+                }            
+            })
+            .fail(function(data) {
+                console.log(data);
+            })  
+
+            });
+        
+        });
     </script>
 
     <script>
-        // para el select de las medicamentos
+        //----------------------------------------ALERGIAS------------------------------------------
+
+        //===================guardar alergias========================
+        $('#allergy').change(function(){
+            var allergy_id = $(this).val();
+            var patient_id = $('#patient-id').val();    
+            alergias(allergy_id,patient_id)
+        });
+
+        function alergias(allergy_id,patient_id){
+            console.log('alergia,paciente', allergy_id, patient_id);
+            $.ajax({ 
+                url: "{{ route('checkin.allergies') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    data:allergy_id,
+                    id:patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data[0][0]);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  'Alergia Agregada!',
+                        type:  'success',
+                    })
+                        show_allergies(data[0][0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+         }
+            
+        //============================mostrar alergias=========================
+        function show_allergies(data){
+
+        for($i=0; $i < data.length; $i++){
+            alergia = '<tr id="'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="alergia_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
+            // alergia ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</li>';
+                $("#alergias").append(alergia);
+            }
+        }
+
+
+        //================ eliminar alergia seleccionado ==========
+        $(function() {
+            $(document).on('click', '#alergia_id', function(event) {
+                let id = this.name;
+                var reservacion = $("#reservacion_id").val();
+                $("tr").remove("#"+id);    //quitar de la lista de alergias
+
+                $.ajax({
+                    url: "{{ route('doctor.alergia_eliminar') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    reservacion_id:reservacion,
+                }
+            })
+                .done(function(data) {  
+                // agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+                // $("#modal_alergias").append(agregarAlergia); //agregar al modal
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.alergia,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+                }            
+            })
+            .fail(function(data) {
+                console.log(data);
+            })  
+            });    
+        });
+
+    </script>
+
+    <script>
+        //---------------------------------MEDICAMENTOS-------------------------------------
+
+        //==========================guardar medicamentos==========================
         $("#medicine").change(function(){
             var medicine_id = $(this).val(); // Capta el id del medicamento 
             var patient_id = $('#patient-id').val();
@@ -882,15 +1003,55 @@ Dropzone.options.myDropzone = {
             })
         }
 
+        //=================================mostrar medicamentos=============================
         function show_medicines(data){
             console.log('hhddd',data);
 
         for($i=0; $i < data.length; $i++){
             console.log(data.length);
-            medicina ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</li>';
+            // medicina ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</li>';
+            medicina = '<tr id="'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="medicina_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
             $("#medicamentos").append(medicina);
         }
         }
+
+          //================ eliminar enfermedad seleccionado ==========
+          $(function() {
+            $(document).on('click', '#medicina_id', function(event) {
+                let id = this.name;
+                var reservacion = $("#reservacion_id").val();
+                $("tr").remove("#"+id);   
+            
+                $.ajax({
+                    url: "{{ route('checkin.medicine_borrar') }}",
+                    type: 'POST',
+                    dataType:'json',   
+                    data: {
+                    _token: "{{ csrf_token() }}",        
+                    id:id,
+                    reservacion_id:reservacion,
+                }
+
+                })
+                .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
+                // agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+                // $("#modal_enfermedad").append(agregar); //agregar en el modal
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.medicine,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+                }            
+            })
+            .fail(function(data) {
+                console.log(data);
+            })  
+
+            });
+        
+        });
         </script>
 
         <script>

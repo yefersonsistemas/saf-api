@@ -32,6 +32,12 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
     Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
 
+    //eliminar
+    Route::post('doctor/eliminar/enfermedad', 'DoctorController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar');  // eliminar examen
+    Route::post('doctor/eliminar/alergia', 'DoctorController@alergia_eliminar')->name('doctor.alergia_eliminar');  // eliminar examen
+    Route::post('doctor/eliminar/cirugia_previas', 'DoctorController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
+    Route::post('doctor/eliminar/medicamento', 'InController@medicine_borrar')->name('checkin.medicine_borrar');  // eliminar examen
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
     });
@@ -164,9 +170,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/cirugia', 'DoctorController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar examen
 
-        Route::post('doctor/eliminar/enfermedad', 'DoctorController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar');  // eliminar examen
-        Route::post('doctor/eliminar/alergia', 'DoctorController@alergia_eliminar')->name('doctor.alergia_eliminar');  // eliminar examen
-        Route::post('doctor/eliminar/cirugia_previas', 'DoctorController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
+    
         
     });
 

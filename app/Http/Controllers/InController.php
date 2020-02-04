@@ -742,6 +742,7 @@ class InController extends Controller
         $diseases[] = Disease::find($diff);
     }
 
+    // dd($disease);
     return response()->json([
         'data' => 'Enfermedad Agregada',$diseases,201
         ]);
@@ -888,6 +889,21 @@ class InController extends Controller
             'data' => 'Medicamento Agregado',$medicine,201
             ]);
     }
+
+
+    //======================eliminar medicamento========================
+    public function medicine_borrar(Request $request){
+        $reservation = Reservation::find($request->reservacion_id);
+        $medicine = Medicine::find($request->id);
+        $patient = Patient::where('person_id',$reservation->patient_id)->first();
+
+        $medicine->patient()->detach($patient);
+
+        return response()->json([
+            'medicina' => 'Medicina eliminada correctamente',202,$medicine
+        ]);
+    }
+
 
 }
 
