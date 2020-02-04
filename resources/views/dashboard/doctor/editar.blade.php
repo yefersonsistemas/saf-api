@@ -516,7 +516,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Medicamento</label>
-                                                                                <select class="form-control custom-select" name="medicamento">
+                                                                                <select id="medicamento" class="form-control custom-select" name="medicamento">
                                                                                     <option value="0">Seleccione</option>
                                                                                     @foreach ($medicines as $medicine)
                                                                                         <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
@@ -527,13 +527,13 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-sm-6 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Dosis</label>
-                                                                                <input type="text" class="form-control" name="dosis" placeholder="3">
+                                                                                <input type="text" id="dosis" class="form-control" name="dosis" placeholder="3">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Medida</label>
-                                                                                <select name="medida" class="form-control custom-select">
+                                                                                <select name="medida" id="medida" class="form-control custom-select">
                                                                                     <option value="0">Seleccione</option>
                                                                                     <option value="CC">CC</option>
                                                                                     <option value="G">G</option>
@@ -544,7 +544,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-sm-6 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Duracion</label>
-                                                                                <input type="text" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
+                                                                                <input type="text" id="duracion" class="form-control" placeholder="1 Mes" name="duracion" value="{{ old('duracion') }}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -552,7 +552,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="col-md-12">
                                                                     <div class="form-group mb-0">
                                                                         <label class="form-label">Indicaciones</label>
-                                                                        <textarea rows="5" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
+                                                                        <textarea id="indicacion" rows="5" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer text-right">
@@ -1167,14 +1167,12 @@ button[data-original-title="Help"]{ display: none; }
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
 
-        console.log("1",medicina);
-        console.log("2",dosis);
-        console.log("3",medida);
-        console.log("4",duracion);
-        console.log("5",indicaciones);
-        console.log("6",patient);
-        console.log("7",employe);
-        console.log("8",reservacion);
+          //con val obtengo  y assigno
+        $('#indicacion').val(''); //aqui dice que se limpie o que asigne vacio cuando se cliquea el boton de agregar
+        $('#medicamento').val('');
+        $('#dosis').val('');
+        $('#medida').val('');
+        $('#duracion').val('');
 
         ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion);
 
@@ -1185,17 +1183,7 @@ button[data-original-title="Help"]{ display: none; }
     // }
 
     function ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion){
-        console.log("1",medicina);
-        console.log("2",dosis);
-        console.log("3",medida);
-        console.log("4",duracion);
-        console.log("5",indicaciones);
-        console.log("6",patient);
-        console.log("7",employe);
-        console.log("8",reservacion);
-        console.log("hola");
-
-        $.ajax({
+           $.ajax({
                 url: "{{ route('recipe.store') }}",
                 type: "POST",
                 data: {

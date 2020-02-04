@@ -1040,21 +1040,12 @@ button[data-original-title="Help"]{ display: none; }
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
 
-        //con val obtengo  y assigno
+           //con val obtengo  y assigno
         $('#indicacion').val(''); //aqui dice que se limpie o que asigne vacio cuando se cliquea el boton de agregar
         $('#medicamento').val('');
         $('#dosis').val('');
         $('#medida').val('');
         $('#duracion').val('');
-
-        console.log("1",medicina);
-        console.log("2",dosis);
-        console.log("3",medida);
-        console.log("4",duracion);
-        console.log("5",indicaciones);
-        console.log("6",patient);
-        console.log("7",employe);
-        console.log("8",reservacion);
 
         ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion);
 
@@ -1065,14 +1056,6 @@ button[data-original-title="Help"]{ display: none; }
     // }
 
     function ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion){
-        console.log("1",medicina);
-        console.log("2",dosis);
-        console.log("3",medida);
-        console.log("4",duracion);
-        console.log("5",indicaciones);
-        console.log("6",patient);
-        console.log("7",employe);
-        console.log("8",reservacion);
 
         $.ajax({
                 url: "{{ route('recipe.store') }}",
