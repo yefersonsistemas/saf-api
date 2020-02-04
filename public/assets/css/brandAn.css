@@ -1027,9 +1027,9 @@
             box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
         }
         
-        <<<<<<< HEAD @media screen and (max-width:1440px) {
-            =======@media screen and (max-width: 1440px) {
-                >>>>>>> 63041786cc4da1d7b225f396ad995a0320b4c720 .plan-steps>ul>li>a {
+       
+           @media screen and (max-width: 1440px) {
+             .plan-steps>ul>li>a {
                     padding: 10px!important;
                     font-size: 13px!important;
                 }
@@ -1056,16 +1056,16 @@
                     font-size: 13px!important;
                 }
                 .plan-steps .nav-pills .nav-link.active,
-                <<<<<<< HEAD .plan-steps .nav-pills .show>.nav-link {
+              .plan-steps .nav-pills .show>.nav-link {
                     padding: 10px!important;
                     font-size: 12px;
                 }
             }
-            =======.plan-steps .nav-pills .show>.nav-link {
+           .plan-steps .nav-pills .show>.nav-link {
                 padding: 10px!important;
                 font-size: 13px!important;
             }
-        }
+        
         
         @media screen and (max-width:1024px) {
             .plan-steps>ul>li {
@@ -1100,7 +1100,7 @@
             }
         }
         
-        >>>>>>>63041786cc4da1d7b225f396ad995a0320b4c720 .plan-steps>ul>li>a:hover {
+         .plan-steps>ul>li>a:hover {
             background: rgba(0, 80, 107, .25);
             /* border: 1px solid #00506b; */
             /* border-bottom: 0 none; */
@@ -1115,7 +1115,7 @@
     align-items: center;
 } */
         
-        .table.table_custom tr td {}
+        /* .table.table_custom tr td {} */
         
         .dz-image img {
             width: 100% !important;
