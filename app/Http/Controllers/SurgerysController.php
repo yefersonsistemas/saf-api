@@ -43,13 +43,13 @@ class SurgerysController extends Controller
      */
     // para agendar cirugia cuando el paciente se encuentra en el itinerario 
     public function create($id){
-// dd($id);
+        // dd($id);
         $tipo = TypeArea::where('name', 'Quirofano')->first();
-        
+
         $quirofano = Area::with('typearea','image')->where('type_area_id', $tipo->id)->get();     
         //aqui trae los datos asociados al parametro(cuando el paciente agenda el dia que fue candidato a cirugia)
         $paciente = Itinerary::with('person','typesurgery')->where('id',$id)->first();
-
+        // dd($paciente);
         $medico = Typesurgery::with('employe_surgery.person.image')->where('id', $paciente->typesurgery->id)->first();
 
         // dd($medico);
@@ -118,9 +118,10 @@ public function create_surgery(){
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
-        $d = Carbon::create($request->date);
+        $d = Carbon::create($request->date)->format('Y-m-d');
 
-        // dd($d);
+        $patient = Patient::where('person_id',$p)->first();
+        // dd($patient);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
@@ -131,15 +132,21 @@ public function create_surgery(){
                 'date'=> $d,
                 'branch_id' => 1,
                 ]);
-                
+                $surgery->patient()->attach($patient);
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
-
+                
                 if (!empty($a)) {
                     
                     $a->status = 'ocupado';
                     $a->save();
                 }
+
+                //actualizando el campo opertion de la tabla reservation
+                $operation = Reservation::find($request->reservation_id);
+                $operation->operation = true;
+                $operation->save();
+
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{

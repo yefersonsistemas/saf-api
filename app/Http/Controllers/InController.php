@@ -403,28 +403,7 @@ class InController extends Controller
             $io->inside_office = 'dentro';
             $io->save();
             // dd($io);
-
-
-
-
-
-           
-
-
  
-            
-
-            // Alert::succes("Press por aqui paso ?????????'' button!");
-            
-            // return redirect()->back();
-
-
-
-
-
-
-            
-
         }else{
             Alert::error('no lo hizo');
             return redirect()->back();

@@ -307,7 +307,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
                                                             </div>
                                                             <div class="col-3" id="cirugia{{$cite->id}}">
-                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
+                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                     value="Eliminar">
                                                             </div>
                                                         </div>
@@ -1306,15 +1306,15 @@ button[data-original-title="Help"]{ display: none; }
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
             console.log('jajja',reservacion);
-            console.log('id', id);    
+            console.log('id', id);
             $("#"+id).remove();
           
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
                 type: 'POST',
-                dataType:'json',   
+                dataType:'json',
                 data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 id:id,
                 reservacion_id:reservacion,
             }
@@ -1333,14 +1333,14 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             }
-            
+
         })
         .fail(function(data) {
             console.log(data);
-        })  
+        })
 
         });
-    
+
     });
 
     //-------------------------------------------- ALERGIAS -----------------------------------------------
@@ -1350,7 +1350,7 @@ button[data-original-title="Help"]{ display: none; }
         var reservacion = $("#reservacion").val();
         var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
         console.log("hh",datos);
-        
+
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1408,15 +1408,15 @@ button[data-original-title="Help"]{ display: none; }
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
             console.log('jajja',reservacion);
-            console.log('id', id);    
+            console.log('id', id);
             $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
                 type: 'POST',
-                dataType:'json',   
+                dataType:'json',
                 data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 id:id,
                 reservacion_id:reservacion,
             }
@@ -1435,14 +1435,14 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             }
-            
+
         })
         .fail(function(data) {
             console.log(data);
-        })  
+        })
 
         });
-    
+
     });
 
 
@@ -1507,15 +1507,15 @@ button[data-original-title="Help"]{ display: none; }
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
             console.log('jajja',reservacion);
-            console.log('id', id);    
+            console.log('id', id);
             $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
                 type: 'POST',
-                dataType:'json',   
+                dataType:'json',
                 data: {
-                _token: "{{ csrf_token() }}", 
+                _token: "{{ csrf_token() }}",
                 reservacion_id:reservacion,
             }
 
@@ -1532,15 +1532,15 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             }
-            
+
         })
         .fail(function(data) {
             console.log(data);
-        })  
+        })
 
         });
     });
-    
+
 
     //-------------------------------PROCEDIMIENTOS REALIZADOS ------------------------------------------
 
@@ -1846,7 +1846,7 @@ button[data-original-title="Help"]{ display: none; }
 
     });
 
-           
+
     //-----------------------------------------  POSIBLE CIRUGIA ------------------------------------------
 
     //=============== captar datos de las posibles cirugias===============

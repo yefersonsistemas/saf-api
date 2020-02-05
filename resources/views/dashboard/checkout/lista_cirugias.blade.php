@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
-@section('title','Citas de pacientes')
+@section('title','Lista de Cirugias')
 
 @section('content')
 
