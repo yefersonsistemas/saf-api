@@ -150,7 +150,7 @@
          var doctor = $('#editar').val();
         //  var fecha = $('#fechanueva').val();
 
-        //  console.log('este es', doctor);
+         console.log('este es', doctor);
          ajaxMedico(doctor); 
         });
 
