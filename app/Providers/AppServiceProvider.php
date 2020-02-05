@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use View;
+// use View;
 use Carbon\Carbon;
 use App\Reservation;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,31 +33,12 @@ class AppServiceProvider extends ServiceProvider
 
         foreach ($day as $key) {
             if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
-                $atendidos->push($key);
+               return $atendidos->push($key);
             }
         }
-
-        //contador de citas al mes
-        // $dia = Carbon::now()->format('Y-m');
-        // // dd($dia);
-        // $reserva = Reservation::where('date', $dia)->get();
-        // dd($reserva);
-       
-        
-
-
-        // $atendidos = $day->map(function ($item, $key) {
-        //     if (!empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && !empty($item->patient->inputoutput->first()->outside_office)){
-        //         return $item;
-        //     }else{
-
-        //     }
-        // });
-
-        // dd($atendidos);
-        
         
         View::share('citasDelDia', $day->count()); 
-        View::share('atendidos', $atendidos->count());  
+        View::share('atendidos', $atendidos->count()); 
+        
     }
 }

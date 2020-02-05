@@ -43,6 +43,7 @@ class DoctorController extends Controller
     public function index()
     {
         $id= Auth::id();
+        // dd($id);
         $empleado = Employe::where('id', $id)->first();
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
       
