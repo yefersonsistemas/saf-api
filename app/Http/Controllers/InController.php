@@ -179,11 +179,14 @@ class InController extends Controller
 
         $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
         // dd($cites);
-        $disease = Disease::get();
+        $disease = Disease::all();
+        $enfermedades = Disease::all();
+        // dd($disease);
         $medicine = Medicine::get();
         $allergy = Allergy::get();
+        $alergias = Allergy::all();
         // dd($cites);
-        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar'));
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar','enfermedades','alergias'));
     }
 
      /**
