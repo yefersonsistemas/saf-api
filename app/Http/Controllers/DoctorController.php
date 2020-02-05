@@ -44,9 +44,10 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
         // dd($id);
-        $empleado = Employe::where('id', $id)->first();
+        $empleado = Employe::with('person')->where('id', $id)->first();
+        // dd( $empleado);
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-      
+        // dd($today->count());
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -55,8 +56,25 @@ class DoctorController extends Controller
         
         $fecha= Carbon::now()->format('Y/m/d h:m:s'); //la h en minuscula muestra hora normal, y en mayuscula hora militar
 
-        return view('dashboard.doctor.index', compact('today','month', 'all', 'week', 'fecha'));
+        //esto es para los contadores del doctor
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
+        $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+        $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
+        
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $yasevieron = collect([]);
+
+        foreach ($day as $key) {
+            if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
+               $yasevieron->push($key);
+            }
+        }
+        return view('dashboard.doctor.index', compact('today','month', 'all', 'week', 'fecha', 'todas', 'reserva2', 'yasevieron'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

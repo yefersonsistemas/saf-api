@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
         // dd($poratender->count());
 
         $poratender = collect([]);
-        
+    
         foreach ($enespera as $item) {
             if (empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && empty($item->patient->inputoutput->first()->outside_office) && empty($item->patient->inputoutput->first()->outside)){
                $poratender->push($item);
