@@ -68,8 +68,7 @@
                                         <a href="{{ route('checkin.consultorio') }}">Asistencia</a>
                                     </li>
                             </li>
-    
-                        </li>
+                        </li> 
                         {{-- <div class="card bg-indigo" style="background-color: #00506b;">
                             <div class="card-body text-center">
                                 <div class="inline-datepicker datepicker-reception fill_bg"></div>
@@ -88,6 +87,7 @@
 
                         <li class="g_heading">Doctor</li>
                         <li class="@yield('doctor')"><a href=" {{ route('doctor.index')  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a></li>
+                        <li class="@yield('doctor')"><a href="{{ route('doctor.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
                         {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                     </div>
                 @endrole

@@ -234,65 +234,99 @@ button[data-original-title="Help"]{ display: none; }
                                         <h2>Antecedentes</h2>
                                         <section class="ml-4">
                                             <div id="accordion">
-                                                <div class="card">
-                                                    <div class="card-header bg-azuloscuro" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                        <h5 class="card-title text-white">Enfermedades</h5>
+                                                <!---------------mostrar enfermedades----------------->
+                                                <div class="card border border-info rounded">
+                                                    <div class="card-header bg-azuloscuro" >
+                                                        <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                            <div class="col-8">
+                                                                <h5 class="card-title text-white">Enfermedades</h5>
+                                                            </div>
+                                                            <div class="col-4 d-flex justify-content-end">
+                                                                <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div  class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
-                                                        <div id=" mostrar_enfermedad">
-                                                            @foreach ( $reservation->historyPatient->disease as $disease )
+                                                    <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
+                                                        <div id="mostrar_enfermedad">
+                                                            @foreach ( $reservation->patient->historyPatient->disease as $disease )
                                                             <div class="row" id="{{$disease->id}}">
                                                                 <div class="col-9">
                                                                     <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
                                                                 </div> 
                                                                 <div class="col-3">
-                                                                    <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                    <input name="{{$disease->id}}" id="enfermedad_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class=" btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                         value="Eliminar">
                                                                 </div>
-                                                            </div>  
-                                                            @endforeach    
+                                                            </div>                                                           
+                                                        @endforeach    
                                                         </div>
-
                                                         <div class="col-12 d-flex justify-content-end mt-4">
                                                             <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-                                                        </div>                                                   
-
-                                                       
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="card">
-                                                    <div class="card-header bg-azuloscuro" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        <h5 class="card-title text-white">Alergias</h5>
+                                                 <!---------------mostrar alergias----------------->
+                                                <div class="card border border-info rounded">
+                                                    <div class="card-header bg-azuloscuro" >
+                                                        <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                            <div class="col-8">
+                                                                <h5 class="card-title text-white">Alergias</h5>
+                                                            </div>
+                                                            <div class="col-4 d-flex justify-content-end">
+                                                                <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">VER MAS</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                        @foreach ( $reservation->historyPatient->allergy as $allergy )
-                                                        <div class="row" id="{{$allergy->id}}">
-                                                            <div class="col-9">
-                                                                <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
-                                                            </div> 
-                                                            <div class="col-3">
-                                                                <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
-                                                                    value="Eliminar">
-                                                            </div>
-                                                        </div> 
-                                                        @endforeach
+                                                        <div id="mostrar_alergias">
+                                                            @foreach ( $reservation->patient->historyPatient->allergy as $allergy )
+                                                                <div class="row" id="{{$allergy->id}}">
+                                                                    <div class="col-9">
+                                                                        <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
+                                                                    </div> 
+                                                                    <div class="col-3">
+                                                                        <input name="{{$allergy->id}}" id="alergia_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                            value="Eliminar">
+                                                                    </div>
+                                                                </div>     
+                                                             @endforeach
+                                                        </div>
+                                                        <div class="col-12 d-flex justify-content-end mt-4">
+                                                            <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="card">
-                                                    <div class="card-header bg-azuloscuro" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        <h5 class="card-title text-white">Cirugias Previas</h5>
-                                                    </div>
-                                                    <div id="collapseThree" class="collapse list-group card-body" aria-labelledby="headingThree" data-parent="#accordion">
-                                                        <div class="row" id="cirugia{{$cite->id}}">
-                                                            <div class="col-9">
-                                                                <a class="list-group-item list-group-item-action row ">{{ $cite->previous_surgery }}</a>
-                                                            </div> 
-                                                            <div class="col-3">
-                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
-                                                                    value="Eliminar">
+
+                                                <!--------------------agregar cirugias---------------------->
+                                                <div class="card border border-info rounded">
+                                                    <div class="card-header bg-azuloscuro" >
+                                                        <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                            <div class="col-8">
+                                                                <h5 class="card-title text-white">Cirugias Previas</h5>
                                                             </div>
-                                                        </div>  
+                                                            <div class="col-4 d-flex justify-content-end">
+                                                                <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="collapseThree" class="collapse card-body list-group cirugias" aria-labelledby="headingThree" data-parent="#accordion">
+                                                    <div id="agregar_cirugia">
+                                                            @if($cite->previous_surgery != null)
+                                                            <div class="row" id="cirugia{{$cite->id}}">
+                                                                <div class="col-9">
+                                                                    <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
+                                                                </div> 
+                                                                <div class="col-3" id="cirugia{{$cite->id}}">
+                                                                    <input name="cirugia{{$cite->id}}" id="borrar_cirugia" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
+                                                                        value="Eliminar">
+                                                                </div>
+                                                            </div> 
+                                                            @endif 
+                                                    </div>
+                                                        <div class="col-12 d-flex justify-content-end mt-4">
+                                                                <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -370,8 +404,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <td>
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
                                                                                         </td>
-                                                                                        <td id="{{ $proces->id }}" class=" d-flex justify-content-center">
-                                                                                            <input id="{{ $proces->id }}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen"
+                                                                                        <td class=" d-flex justify-content-center">
+                                                                                            <input name="{{ $proces->id }}" id="procedureR_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class=" btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip"
                                                                                                 value="Eliminar">
                                                                                         </td>
                                                                                     </tr>
@@ -430,55 +464,44 @@ button[data-original-title="Help"]{ display: none; }
                                                                 Agregar examen
                                                             </button>
                                                         </div>
-                                                        {{-- <div class="col-12 mt-30 p-4  card ml-2"> --}}
-                                                            <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>
-                                                            {{-- <ul class="text-start pl-4 pr-4" id="examen" style="font-size:14px;"> --}}
-                                                            
-                                                                    <div class="col-lg-12 mx-auto">
-                                                                        <div class="card">
-                                                                                <div class="row">
-                                                                                    <div class="card-body">
-                                                                                        <div class="table-responsive">
-                                                                                            <table class="table table-hover table-vcenter table-striped"
-                                                                                                cellspacing="0" id="addrowExample">
-                                                                                                <thead>
-                                                                                                    <tr>
-                                                                                                        <th>Examen Seleccionado</th>
-                                                                                                        <th class="text-center">Eliminar examen</th>
-                                                                                                    </tr>
-                                                                                                </thead>
-                                                                                                <tbody id="ocultar_examen">
-                                                                                                    @if(!empty($r_patient->exam))
-                                                                                                        @foreach ($r_patient->exam as $exam)
-                                                                                                            <tr id="{{$exam->id}}">
-                                                                                                                <td>
-                                                                                                                    <div class="col-6" >{{$exam->name}}</div> 
-                                                                                                                </td>
-                                                                                                                <td class="d-flex justify-content-center">
-                                                                                                                <input id="{{$exam->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen"
-                                                                                                                        value="Eliminar">
-                                                                                                                </td>
-                                                                                                                {{-- <i class="icon-trash" aria-hidden="true"></i> --}}
-
-                                                                                                            </tr>
-                                                                                                        @endforeach
-                                                                                                    @endif
-                                                                                                </tbody>
-                                                                                                <tbody id="examen">
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
+                                                            <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Examenes médicos a realizar</h6>                                                            
+                                                                <div class="col-lg-12 mx-auto">
+                                                                    <div class="card">
+                                                                            <div class="row">
+                                                                                <div class="card-body">
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-hover table-vcenter table-striped"
+                                                                                            cellspacing="0" id="addrowExample">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Examen Seleccionado</th>
+                                                                                                    <th class="text-center">Eliminar examen</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody id="ocultar_examen">
+                                                                                                @if(!empty($r_patient->exam))
+                                                                                                    @foreach ($r_patient->exam as $exam)
+                                                                                                        <tr id="{{$exam->id}}">
+                                                                                                            <td>
+                                                                                                                <div class="col-6" >{{$exam->name}}</div> 
+                                                                                                            </td>
+                                                                                                            <td class="d-flex justify-content-center">
+                                                                                                            <input name="{{$exam->id}}" id="exam_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
+                                                                                                                    value="Eliminar">
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    @endforeach
+                                                                                                @endif
+                                                                                            </tbody>
+                                                                                            <tbody id="examen">
+                                                                                            </tbody>
+                                                                                        </table>
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
                                                                          
                                                                         </div>
                                                                     </div>
-
-                                                                    {{-- <div class="row">
-                                                                      
-                                                                    </div> --}}
-                                                               
-                                                        {{-- </div> --}}
                                                     </div>
                                                 </div>
 
@@ -493,7 +516,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Medicamento</label>
-                                                                                <select class="form-control custom-select" id="medicamento" name="medicamento">
+                                                                                <select id="medicamento" class="form-control custom-select" name="medicamento">
                                                                                     <option value="0">Seleccione</option>
                                                                                     @foreach ($medicines as $medicine)
                                                                                         <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
@@ -504,7 +527,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="col-sm-6 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Dosis</label>
-                                                                                <input type="text" class="form-control" name="dosis" id="dosis" placeholder="3">
+                                                                                <input type="text" id="dosis" class="form-control" name="dosis" placeholder="3">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3">
@@ -529,7 +552,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="col-md-12">
                                                                     <div class="form-group mb-0">
                                                                         <label class="form-label">Indicaciones</label>
-                                                                        <textarea rows="5" id="indicaciones" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
+                                                                        <textarea id="indicacion" rows="5" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer text-right">
@@ -731,8 +754,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <td>
                                                                                                     <div class="col-6" >{{$surge->name}}</div> 
                                                                                                 </td>
-                                                                                                <td id="{{$surge->id}}" class="d-flex justify-content-center">
-                                                                                                <input id="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="cirugiaP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia"
+                                                                                                <td class="d-flex justify-content-center">
+                                                                                                <input id="cirugiaP_id" name="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                                                         value="Eliminar">
                                                                                                 </td>
                                                                                             </tr>
@@ -771,11 +794,11 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     @if(!empty($procedures))
                                                                                         @foreach ($procedures as $item)
                                                                                             <tr id="{{$item->id}}">
-                                                                                                <td id="{{$item->id}}">
+                                                                                                <td>
                                                                                                     <div class="col-6" >{{$item->name}}</div> 
                                                                                                 </td>
-                                                                                                <td id="{{$item->id}}" class="d-flex justify-content-center">
-                                                                                                <input id="{{$item->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureP_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado"
+                                                                                                <td class="d-flex justify-content-center">
+                                                                                                <input name="{{$item->id}}" id="procedureP_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip"
                                                                                                         value="Eliminar">
                                                                                                 </td>
                                                                                             </tr>
@@ -850,91 +873,218 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
 
-
-    {{-- modal de procedimientos en la consulta --}}
-    <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+       <!-- Modal para mostar alergias-->
+       <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos no</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
+                    <button type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" id="procedure">
-                    <div class="modal-body">
+                <form action="" id="form_alergias">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                @if($r_patient->procedures != null)
-                                    @foreach ($r_patient->procedures as $item)
-                                    <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
-                                        <span class="custom-control-label">{{ $item->name }}</span>
-                                    </label>
+                            <div class="custom-controls-stacked" id="modal_alergias">
+                                @if($alergia != null)
+                                    @foreach ($alergia as $item)
+                                        <div class="row" id="quitarAlergia{{$item->id}}">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="name_alergia" value="{{ $item->id }}">
+                                                <span class="custom-control-label">{{ $item->name }} </span>
+                                            </label>
+                                        </div>
                                     @endforeach
                                 @endif
-
-                                @foreach ($diff_PR as $demas)
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{$demas->id}}">
-                                    <span class="custom-control-label">{{ $demas->name }}</span>
-                                </label>
-                                @endforeach
-                            
-                            </div>
-                        </div> 
-                    </div>   
-                    <div class="modal-footer">
-                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
-                    </div>
-                </form>    
-            </div>
-        </div>
-    </div>
-
-    {{-- modal de los examenes --}}
-    <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Examenes</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" id="exam">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                @if($exams != null)
-                                    @foreach ($exams as $item)
-                                    <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
-                                        <span class="custom-control-label">{{ $item->name }}</span>
-                                    </label>
-                                    @endforeach
-                                @endif
-
-                                @foreach ($diff_E as $demas)
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{$demas->id}}">
-                                    <span class="custom-control-label">{{ $demas->name }}</span>
-                                </label>
-                                @endforeach
                             </div>
                         </div>
-                    </div>   
-                    <div class="modal-footer">
-                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Agregar</button>
+                    </div>
+                    <div class="modal-footer p-2">
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Modal para mostrar cirugias-->
+    <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="">
+                    <div class="modal-body" style="max-height: 415px;">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer p-2">
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal de procedimientos en la consulta --}}
+    <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="procedure">
+                    <div class="modal-body" style="max-height: 415px;">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked" id="modal_procedureR">
+                                @foreach ($diff_PR as $proces)
+                                <div class="row " id="quitar_procedureR{{$proces->id}}">
+                                    <div class="col-9">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                        <span class="custom-control-label">{{ $proces->name }} </span>
+                                    </label>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>{{ $proces->price }} </span>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer p-2">
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+    {{-- modal de los examenes --}}
+    <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="exam">
+                    <div class="modal-body m-3">
+                        <div class="form-group">
+                            <div class="custom-controls-stacked" id="modal_examen">
+                                @foreach ($diff_E as $exam)
+                                <label class="custom-control custom-checkbox" id="quitar_examen{{$exam->id}}">
+                                    <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
+                                    <span class="custom-control-label">{{ $exam->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer p-2">
+                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
+
+     {{-- modal de los posible cirugia --}}
+     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="posible-surgerys">
+                    <div class="modal-body ml-4 pb-0 pt-2 plan">
+                        <div class="plan-steps">
+                            <!-- Nav tabs -->
+                            <ul style="list-style: none !important" class="nav nav-pills row" id="pills-tab" role="tablist">
+                                <li role="presentation" class="active nav-item col-5">
+                                    <a class="nav-link active" href="#hospitalariaTab" aria-controls="hospitalariaTab" role="tab" data-toggle="tab">Cirugias Hospitalarias</a>
+                                </li>
+                                <li class="nav-item col-5" role="presentation">
+                                    <a class="nav-link" href="#ambulatoriaTab" aria-controls="ambulatoriaTab" role="tab" data-toggle="tab">Cirugias Ambulatorias</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="hospitalariaTab">
+                                    <div class="form-group">
+                                        <div class="custom-controls-stacked" id="modal_cirugiaP_hospitalaria">
+                                            @foreach ($diff_C as $surgery)
+                                            @if ($surgery->classification->name == 'hospitalaria')
+                                            <div class="row"  id="quitar_cirugia{{$surgery->id}}">
+                                                <div class="col-9">
+                                                    <label class="custom-control custom-checkbox">
+                                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                                        <span class="custom-control-label">{{ $surgery->name }}</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-3">
+                                                    <span>{{ $surgery->cost }}</span>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">
+                                    <div class="form-group">
+                                        <div class="custom-controls-stacked" id="modal_cirugiaP_ambulatoria">
+                                            @foreach ($diff_C as $surgery)
+                                                @if ($surgery->classification->name == 'ambulatoria')
+                                                    <div class="row"  id="quitar_cirugia{{$surgery->id}}">
+                                                        <div class="col-9">
+                                                            <label class="custom-control custom-checkbox">
+                                                            <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                                            <span class="custom-control-label">{{ $surgery->name }}</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <span>{{ $surgery->cost }}</span>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="modal-footer p-2">
+                            <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
+                        </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     {{-- modal de posibles cirugias --}}
-    <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -970,41 +1120,41 @@ button[data-original-title="Help"]{ display: none; }
                 </form>    
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Procedimientos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="posible-procedures">
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
-                        <div class="custom-controls-stacked">
-                            @if($procedures != null)
-                                @foreach ($procedures as $item)
-                                <label class="custom-control custom-checkbox">
-                                <input type="checkbox" checked="" class="custom-control-input" name="procedures-office" value="{{$item->id}}">
-                                    <span class="custom-control-label">{{ $item->name }}</span>
-                                </label>
+                        <div class="custom-controls-stacked" id="modal_procedureP">
+                            @if($diff_P != null)
+                                @foreach ($diff_P as $proces)
+                                <div class="row" id="quitar_procedureP{{$proces->id}}">
+                                    <div class="col-9 mt-3">
+                                    <label class="custom-control custom-checkbox d-flex">
+                                        <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                        <span class="custom-control-label">{{ $proces->name }} </span>
+                                    </label>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>{{ $proces->price }} </span>
+                                    </div>
+                                </div>
                                 @endforeach
                             @endif
-
-                            @foreach ($diff_P as $demas)
-                            <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $demas->id }}">
-                                <span class="custom-control-label">{{ $demas->name }}</span>
-                            </label>
-                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer p-2">
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
@@ -1097,21 +1247,12 @@ button[data-original-title="Help"]{ display: none; }
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
 
-         //con val obtengo  y assigno
+          //con val obtengo  y assigno
         $('#indicacion').val(''); //aqui dice que se limpie o que asigne vacio cuando se cliquea el boton de agregar
         $('#medicamento').val('');
         $('#dosis').val('');
         $('#medida').val('');
         $('#duracion').val('');
-
-        console.log("1",medicina);
-        console.log("2",dosis);
-        console.log("3",medida);
-        console.log("4",duracion);
-        console.log("5",indicaciones);
-        console.log("6",patient);
-        console.log("7",employe);
-        console.log("8",reservacion);
 
         ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion);
 
@@ -1122,17 +1263,7 @@ button[data-original-title="Help"]{ display: none; }
     // }
 
     function ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion){
-        console.log("1",medicina);
-        console.log("2",dosis);
-        console.log("3",medida);
-        console.log("4",duracion);
-        console.log("5",indicaciones);
-        console.log("6",patient);
-        console.log("7",employe);
-        console.log("8",reservacion);
-        console.log("hola");
-
-        $.ajax({
+           $.ajax({
                 url: "{{ route('recipe.store') }}",
                 type: "POST",
                 data: {
@@ -1170,7 +1301,6 @@ button[data-original-title="Help"]{ display: none; }
     function addRow(data) {
         $('#addRow').append('<tr class="gradeA"> <td>'+data.medicine.name+'</td> <td>'+data.doses+'</td> <td>'+data.measure+'</td> <td>'+data.duration+'</td> <td>'+data.indications+'</td> <td class="actions"> <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden=""><i class="icon-drawer" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden=""><i class="icon-close" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>');
     }
-
 
     //======================Referencia medica=========================
 
@@ -1234,8 +1364,6 @@ button[data-original-title="Help"]{ display: none; }
 
     $("#select").change(function(){
             var exam_id = $(this).val(); // valor que se enviara al metodo de crear factura 
-            console.log('estos son ', exam_id);
-            console.log(exam_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
     });
 
     //========================referir a un medico =======================
@@ -1248,11 +1376,6 @@ button[data-original-title="Help"]{ display: none; }
         var reference = $("#reference").val();   
         var patient = $("#patient").val();   
         var reservation = $("#reservacion_id").val();
-        console.log('espe',speciality);
-        console.log('reason',reason);
-        console.log('d',doctor);
-        console.log('d e',doctorExterno);
-        console.log('patient',patient);
 
         ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference);                          
         // console.log('espe',especialidad);                  
@@ -1300,6 +1423,287 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
 
+    //--------------------------------ENFERMEDADES-----------------------------------------------
+    //=================guardar enfermedades================
+    $("#guardarEnfermedad").click(function() {
+            var reservacion = $("#reservacion").val();
+            var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
+   
+            ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+    }); //fin de la funcion clikea
+
+    function ajax_enfermedad(enfermedad,reservacion) {
+        $.ajax({
+            url: "{{ route('doctor.agregar_enfermedad') }}", //definiendo ruta
+            type: "POST",
+            dataType:'json', //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",
+                data:enfermedad,
+                id:reservacion
+            }
+        })
+        .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.enfermedad,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarEnfermedad(data[1]);
+            }
+
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.enfermedad,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+    //=================  mostrando enfermedades ===================
+   function mostrarEnfermedad(data){
+        for($i=0; $i < data.length; $i++){
+            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input name="'+data[$i].id+'" id="enfermedad_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+            $("#mostrar_enfermedad").append(enfermedad);
+            $("div").remove("#quitar"+data[$i].id); //quitar del modal
+        }
+    }
+
+     //================ eliminar enfermedad seleccionado ==========
+     $(function() {
+        $(document).on('click', '#enfermedad_id', function(event) {
+            let id = this.name;
+            var reservacion = $("#reservacion_id").val();
+            $("div").remove("#"+id);
+
+            $.ajax({
+                url: "{{ route('doctor.enfermedad_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {                //recibe lo que retorna el metodo en la ruta definida  
+            agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+            $("#modal_enfermedad").append(agregar); //agregar al mdoal
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.enfermedad,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+        });    
+    });
+
+
+    //----------------------------------ALERGIAS------------------------------------------------
+
+    //================ guardar alergias =================
+    $("#guardarAlergias").click(function() {
+        var reservacion = $("#reservacion").val();
+        var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
+        
+        ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+    }); //fin de la funcion clikea
+
+    function ajax_alergia(datos,reservacion) {
+        $.ajax({
+            url: "{{ route('doctor.agregar_alergias') }}", //definiendo ruta
+            type: "POST",
+            dataType:'json', //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",
+                data:datos,
+                id:reservacion
+            }
+        })
+        .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+           
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.alergia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarAlergias(data[1]);
+            }
+
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.alergia,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })        // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+   //====================  mostrando alergias =============
+   function mostrarAlergias(data){
+        console.log('ken',data[0].name);
+
+        for($i=0; $i < data.length; $i++){
+           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input name="'+data[$i].id+'" id="alergia_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></div></div>',
+            $("#mostrar_alergias").append(alergia);
+            $("div").remove("#quitarAlergia"+data[$i].id); //quitar del modal
+        }
+    }
+
+    //================ eliminar alergia seleccionado ==========
+    $(function() {
+        $(document).on('click', '#alergia_id', function(event) {
+            let id = this.name;
+            var reservacion = $("#reservacion_id").val();
+            $("div").remove("#"+id);
+
+            $.ajax({
+                url: "{{ route('doctor.alergia_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {                 //recibe lo que retorna el metodo en la ruta definida  
+            agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+            $("#modal_alergias").append(agregarAlergia); //agregar al modal
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.alergia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+        });    
+    });
+
+ 
+    //-------------------------------CIRUGIAS PREVIAS-------------------------------------------
+
+
+    //========================= guardar cirugias ==================
+    $("#guardarCirugias").click(function() {
+        var reservacion = $("#reservacion").val();
+        var datos = $("#form_cirugias").val();
+        ajax_cirugia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+    }); //fin de la funcion clikea
+
+    function ajax_cirugia(datos,reservacion) {
+        $.ajax({
+            url: "{{ route('doctor.agregar_cirugias') }}", //definiendo ruta
+            type: "POST",
+            dataType:'json', //definiendo metodo
+            data: {
+                _token: "{{ csrf_token() }}",
+                data:datos,
+                id:reservacion,
+            }
+        })
+        .done(function(data) {
+        console.log('encontrado',data[1].previous_surgery) //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarCirugia(data[1]);
+            }
+
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+   // ================== mostrando cirugias ==================
+   function mostrarCirugia(data){
+        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3"><input name="cirugia'+data.id+'" id="borrar_cirugia" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></div></div>',
+        $("#agregar_cirugia").html(cirugia);
+    }
+
+    //================ eliminar cirugia previa  ==========
+    $(function() {
+        $(document).on('click', '#borrar_cirugia', function(event) {
+            let id = this.name;
+            var reservacion = $("#reservacion_id").val();
+            $("div").remove("#"+id);
+
+            $.ajax({
+                url: "{{ route('doctor.cirugia_borrar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}", 
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+            $("#form_cirugias").val('');
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    });
+
+
+    //---------------------------------- PROCEDIMIENTOS REALIZADOS -------------------------------
     //=================== captar datos de los procedimientos realizados =======================
     $("#guardarO").click(function() {
         console.log("hola");
@@ -1307,9 +1711,6 @@ button[data-original-title="Help"]{ display: none; }
             var procesof = $("#procedure").serialize();          //asignando el valor que se ingresa en el campo
             var diagnostic = $("#diagnostic_id").val();
 
-            console.log(reservacion);
-            console.log(procesof);
-            console.log(diagnostic);
             ajax_PO(procesof,reservacion,diagnostic);                                //enviando el valor a la funcion ajax(darle cualquier nombre)
         });                                                               //fin de la funcion clikea
         
@@ -1352,17 +1753,61 @@ button[data-original-title="Help"]{ display: none; }
         })
     } 
 
-    //=================== Mostrar procedimientos realizados =======================
+    //=============== mostrando procedimientos realizados ===============
     function mostrarProceduresC(data){
         console.log('hh',data);
-
         for($i=0; $i < data.length; $i++){
-            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="procedureR_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado" value="Eliminar"></td></tr>'
+            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureR_id" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default" data-toggle="tooltip"  value="Eliminar"></td></tr>'
             $("#procesc").append(procesc);
+            $("div").remove("#quitar_procedureR"+data[$i].id);
         }
-        
     }
 
+    //================ eliminar procedimiento seleccionado ==========
+    $(function() {
+        $(document).on('click', '#procedureR_id', function(event) {
+            let id = this.name;
+            var diagnostic = $("#diagnostic_id").val();
+            var reservacion = $("#reservacion_id").val();
+            $("tr").remove("#"+id);
+
+            $.ajax({
+                url: "{{ route('doctor.procedureR_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                diagnostic_id:diagnostic,
+                reservacion_id:reservacion,
+            }
+        })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+
+            agregar_procedureR = '<div class="row " id="quitar_procedureR'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
+             $("#modal_procedureR").append(agregar_procedureR); //agreagr al modal
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.procedure,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+
+
+        });
+
+    
+    });
+
+
+    //---------------------------------------------- EXAMENES ------------------------------------
 
     //======================== examenes a realizar =====================
     $("#guardarE").click(function() {
@@ -1413,15 +1858,58 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-   //==============  mostrando lista de examenes  ================
-    function mostrarExamen(data){
-        console.log('hh',data);
 
-        for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="exam_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar examen seleccionado" value="Eliminar"></td></tr>';
+    //==================== mostrando examenes ===================
+    function mostrarExamen(data){
+            for($i=0; $i < data.length; $i++){
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="exam_id" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#examen").append(examen);
-        }
+            $("label").remove("#quitar_examen"+data[$i].id); //quitar del modal
+        } 
     }
+
+
+   //================ eliminar examen seleccionado ==========
+    $(function() {
+        $(document).on('click', '#exam_id', function(event) {
+            let id = this.name;
+            var diagnostic = $("#diagnostic_id").val();
+            var reservacion = $("#reservacion_id").val();
+            $("tr").remove("#"+id);            
+
+            $.ajax({
+                url: "{{ route('doctor.exam_eliminar') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                diagnostic_id:diagnostic,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida 
+            agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
+             $("#modal_examen").append(agregar_examen);  //agregar al modal
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.exam,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+        });    
+    });
+
+
+    // ------------------------------------ POSIBLE PROCEDIMIENTOS---------------------------------
 
     //=============  captar datos de los posibles procedimientos ==========
     $("#guardarP").click(function() {
@@ -1468,27 +1956,83 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-  
-    //============ mostrando posibles procedimientos =============== 
-    function mostrarProcedure(data){
-        console.log('hh',data);
 
+  //================ mostrando posibles procedimientos =============
+  function mostrarProcedure(data){
         for($i=0; $i < data.length; $i++){
-            procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div id="'+data[$i].id+'" class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar procedimiento seleccionado" value="Eliminar"></td></tr>'
+            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureP_id" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
+            $("div").remove("#quitar_procedureP"+data[$i].id);     //quitar del modal     
         }
     }
+
+    //================ eliminar posibles procedimiento seleccionado ==========
+    $(function() {
+        $(document).on('click', '#procedureP_id', function(event) {
+            let id = this.name;
+            var reservacion = $("#reservacion_id").val();
+            $("tr").remove( "#"+id);
+
+            $.ajax({
+                url: "{{ route('doctor.procedureP_eliminar2') }}",
+                type: 'POST',
+                dataType:'json',   
+                data: {
+                _token: "{{ csrf_token() }}",        
+                id:id,
+                reservacion_id:reservacion,
+            }
+
+            })
+            .done(function(data) {               
+               
+                agregar_procedureP = '<div class="row" id="quitar_procedureP'+data[1].id+'"><div class="col-9 mt-3"><label class="custom-control custom-checkbox d-flex"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
+                $('#modal_procedureP').append(agregar_procedureP); //agregar al modal
+
+                if(data[0] == 202){                  //si no trae valores
+                    Swal.fire({
+                        title: data.procedure,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+
+                }
+            
+        })
+        .fail(function(data) {
+            console.log(data);
+        })  
+
+        });
+    
+    });
         
    
+   //------------------------------------------POSIBLE CIRUGIAS ------------------------------
+
     //============== captar datos de las posibles cirugias =============(listo)
     $("#guardarC").click(function() {
 
         var reservacion = $("#reservacion").val();
         var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
 
-        console.log(surgery);
-            ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
-        }); //fin de la funcion clikea
+        var id = $("#cirugia_posible").val();
+        var name = $("#cirugia_posible_name").val();
+        var cost = $("#cirugia_posible_costo").val();
+        var clasificacion = $("#cirugia_posible_clasificacion").val();
+    
+        if(id != null && name != null && cost != null && clasificacion != null){
+            agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
+            
+            if(clasificacion == 'hospitalaria'){
+                $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
+            }else{
+                $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
+            }
+        }
+
+        ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+    }); //fin de la funcion clikea
         
         function ajax_S(surgery,reservacion) {
         $.ajax({ 
@@ -1527,161 +2071,27 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
-    
-    //============= mostrando posibles cirugias ================== (listo)
-     function mostrarSurgery(data){
-        console.log('hh',data);
 
+   //======================== mostrando posibles cirugias ======================
+   function mostrarSurgery(data){
+
+    console.log('jajaj',data);
         for($i=0; $i < data.length; $i++){
-            cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="cirugiaP_id" name="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
-        }
+            $("div").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
+        }         
     }
 
-    //================ eliminar examen seleccionado ==========
+    //================ eliminar posibole cirugia seleccionado ==========
     $(function() {
-            $(document).on('click', '.exam_id', function(event) {
-                let id = this.id;
-                var diagnostic = $("#diagnostic_id").val();
-                var reservacion = $("#reservacion_id").val();
-                console.log(reservacion);
-                $("#"+id).remove();
-                
-                    // $('option:selected').removeAttr('selected');
+        $(document).on('click', '#cirugiaP_id', function(event) {
+            let id = this.name;
+            var reservacion = $("#reservacion_id").val();  
+            $("tr").remove("#"+id);
 
                 $.ajax({
-                    url: "{{ route('doctor.exam_eliminar') }}",
-                    type: 'POST',
-                    dataType:'json',   
-                    data: {
-                    _token: "{{ csrf_token() }}",        
-                    id:id,
-                    diagnostic_id:diagnostic,
-                    reservacion_id:reservacion,
-                }
-
-                })
-                .done(function(data) {               
-                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-                if(data[0] == 202){                  //si no trae valores
-                    Swal.fire({
-                        title: data.exam,
-                        text: 'Click en OK para continuar',
-                        type: 'success',
-                    });
-
-                }
-             
-            })
-            .fail(function(data) {
-                console.log(data);
-            })
-
-
-            });
-
-        
-        });
-
-          //================ eliminar examen seleccionado ==========
-    $(function() {
-            $(document).on('click', '.procedureR_id', function(event) {
-                let id = this.id;
-                var diagnostic = $("#diagnostic_id").val();
-                var reservacion = $("#reservacion_id").val();
-                console.log(reservacion);
-                $("#"+id).remove();
-                
-                    // $('option:selected').removeAttr('selected');
-
-                $.ajax({
-                    url: "{{ route('doctor.procedureR_eliminar') }}",
-                    type: 'POST',
-                    dataType:'json',   
-                    data: {
-                    _token: "{{ csrf_token() }}",        
-                    id:id,
-                    diagnostic_id:diagnostic,
-                    reservacion_id:reservacion,
-                }
-
-                })
-                .done(function(data) {               
-                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-                if(data[0] == 202){                  //si no trae valores
-                    Swal.fire({
-                        title: data.procedure,
-                        text: 'Click en OK para continuar',
-                        type: 'success',
-                    });
-
-                }
-            })
-            .fail(function(data) {
-                console.log(data);
-            })
-
-
-            });
-
-        
-        });
-
-
-  //================ eliminar posibole cirugia seleccionado ==========
-  $(function() {
-        $(document).on('click', '.cirugiaP_id', function(event) {
-            let id = this.id;
-            var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
-
-            $.ajax({
-                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}",        
-                id:id,
-                reservacion_id:reservacion,
-            }
-
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.cirugia,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-            
-        })
-        .fail(function(data) {
-            console.log(data);
-        })  
-
-        });
-    
-    });
-
-        //================ eliminar posibles procedimiento seleccionado ==========
-        $(function() {
-            $(document).on('click', '.procedureP_id', function(event) {
-                let id = this.id;
-                var reservacion = $("#reservacion_id").val();
-                console.log(reservacion);
-                console.log('id', id);    
-                $("#"+id).remove();
-
-                $.ajax({
-                    url: "{{ route('doctor.procedureP_eliminar2') }}",
+                    url: "{{ route('doctor.cirugiaP_eliminar2') }}",
                     type: 'POST',
                     dataType:'json',   
                     data: {
@@ -1692,193 +2102,30 @@ button[data-original-title="Help"]{ display: none; }
 
                 })
                 .done(function(data) {               
-                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+                console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida 
+
+                agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].cost+'</span></div></div>'
+
+                if(data[1].classification.name == 'hospitalaria'){
+                    $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP); //agregar al modal
+                }else{
+                    $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP); //agregar al modal
+                } 
 
                 if(data[0] == 202){                  //si no trae valores
                     Swal.fire({
-                        title: data.procedure,
+                        title: data.cirugia,
                         text: 'Click en OK para continuar',
                         type: 'success',
                     });
-
-                }
-                
+                }                
             })
             .fail(function(data) {
                 console.log(data);
             })  
-
-            });
-        
         });
-
-
-           //================ eliminar examen seleccionado ==========
-    $(function() {
-        $(document).on('click', '.cirugiaP_id', function(event) {
-            let id = this.id;
-            var reservacion = $("#reservacion_id").val();
-            console.log(reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
-
-            $.ajax({
-                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}",        
-                id:id,
-                reservacion_id:reservacion,
-            }
-
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.cirugia,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-            
-        })
-        .fail(function(data) {
-            console.log(data);
-        })  
-
-        });
-    
-    });
-
-
-      //================ eliminar enfermedad seleccionado ==========
-      $(function() {
-        $(document).on('click', '.enfermedad_id', function(event) {
-            let id = this.id;
-            var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
-
-            $.ajax({
-                url: "{{ route('doctor.enfermedad_eliminar') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}",        
-                id:id,
-                reservacion_id:reservacion,
-            }
-
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.enfermedad,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-            
-        })
-        .fail(function(data) {
-            console.log(data);
-        })  
-
-        });
-    
-    });
-
-       //================ eliminar alergia seleccionado ==========
-       $(function() {
-        $(document).on('click', '.alergia_id', function(event) {
-            let id = this.id;
-            var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
-
-            $.ajax({
-                url: "{{ route('doctor.alergia_eliminar') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}",        
-                id:id,
-                reservacion_id:reservacion,
-            }
-
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.alergia,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-            
-        })
-        .fail(function(data) {
-            console.log(data);
-        })  
-
-        });
-    
-    });
-
-    
-       //================ eliminar enfermedad seleccionado ==========
-       $(function() {
-        $(document).on('click', '.borrar_cirugia', function(event) {
-            let id = this.id;
-            var reservacion = $("#reservacion_id").val();
-            console.log('jajja',reservacion);
-            console.log('id', id);    
-            $("#"+id).remove();
-
-            $.ajax({
-                url: "{{ route('doctor.cirugia_borrar') }}",
-                type: 'POST',
-                dataType:'json',   
-                data: {
-                _token: "{{ csrf_token() }}", 
-                reservacion_id:reservacion,
-            }
-
-            })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
-
-            if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    title: data.cirugia,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-
-            }
-            
-        })
-        .fail(function(data) {
-            console.log(data);
-        })  
-
-        });
-    
     });
 
 </script>
-
 
 @endsection

@@ -3644,6 +3644,8 @@
     height: auto;
 }
 
+
+/* Cambia el color al número del paginador */
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
@@ -3675,6 +3677,7 @@ p.remarcado {
     background: #000;
 }
 
+/* Alinear el paginador */
 .dataTables_wrapper .dataTables_paginate {
     float: left !important;
     text-align: right;
@@ -3685,12 +3688,13 @@ p.remarcado {
 }
 
 
-/*------------------------------------------------------- ESTILOS QUE MANEJAN EL PAGINADOR Y LOS REGISTROS A MOSNTRAR  */
+/*------------------------------------------------------- ESTILOS QUE MANEJAN EL PAGINADOR Y LOS REGISTROS A MOSTRAR  */
 
 
 /* estilos para el usuario */
 
 .color_titulo {
+    
     font-weight: bold;
 }
 
@@ -3716,6 +3720,11 @@ span.titulos {
     background: #000;
 }
 
+/*---------------------- Desactiva el paginador -----------*/
+
+.modal-page-link {
+    display: none;
+}
 
 /*-------- BOTON ANTERIOR ---------*/
 

@@ -219,7 +219,10 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
                 <div class="tab-pane fade" id="pills-procedure" role="tabpanel" aria-labelledby="pills-procedure-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -272,7 +275,10 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
                 <div class="tab-pane fade" id="pills-surgery" role="tabpanel" aria-labelledby="pills-surgery-tab">
                     <div class="col-lg-12  ">
                         <div class="table-responsive mb-4">
@@ -306,7 +312,10 @@
                                             <td>{{ $surgery->description }}</td>
                                             <td>{{ $surgery->classification->name }}</td>
                                             <td style="display: inline-block">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
                                                 @can('eliminar cirugias')
                                                 <form action="{{ route('cirugia.delete', $surgery) }}" method="POST">
                                                     <button title="Eliminar" class=" btn btn-danger" ><i class="fa fa-eraser"></i></i></button>

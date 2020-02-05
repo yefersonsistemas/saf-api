@@ -1,7 +1,36 @@
+@extends('dashboard.layouts.app')
+
+@section('Lista de Cirugias','active')
+@section('all','active')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
+@endsection
+
+@section('title','Lista de Cirugias')
+
+@section('content')
+<style>
+    .dataTables_filter label{
+        color: #434a54;
+    }
+    .dataTables_filter label input:focus{
+        border: 2px solid #00506b;
+    }
+
+    .btn-repro{
+        background: #ff8000;
+        color: #fff;
+    }
+</style>
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
             {{-- Contadores --}}
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
                     <div class="card-body">                                
                         <h6>Reservaciones confirmadas</h6>
@@ -34,10 +63,8 @@
                                 <th>Foto</th>
                                 <th>Fecha</th>
                                 <th>Paciente</th>
-                                <th>Doctor</th>
                                 <th>Operación</th>
                                 <th>Quirofano</th>
-                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -45,22 +72,20 @@
                                 <th>Foto</th>
                                 <th>Fecha</th>
                                 <th>Paciente</th>
-                                <th>Doctor</th>
                                 <th>Operación</th>
                                 <th>Quirofano</th>
-                                <th>Acciones</th>                                
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($surgeries as $surgeries)
+                            {{-- @foreach ($surgeries as $surgeries) --}}
                             <tr style="height:40px;">
-                                @foreach ($surgeries->patient as $patient)
+                                {{-- @foreach ($surgeries->patient as $patient) --}}
                                 <td style="text-align: center; font-size:10px; height:40px;">
-                                    @if (!empty($patient->person->image->path))
+                                    {{-- @if (!empty($patient->person->image->path))
                                         <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
                                         @else
                                         <img src="" alt="" width="100%" height="100%">
-                                        @endif
+                                        @endif --}}
                                         {{-- <div class="text-center">
                                             @if ($reservation->patient->historyPatient == null)
                                             <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
@@ -73,23 +98,16 @@
                                             @endif
                                         </div> --}}
                                     </td>
-                                    @endforeach
-                                    <td>{{$surgeries->date}}</td>
-                                    @foreach ($surgeries->patient as $patient)
-                                        <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
-                                    @endforeach
+                                    {{-- @endforeach --}}
+                                    <td></td>
+                                    {{-- @foreach ($surgeries->patient as $patient) --}}
+                                        <td></td>
+                                    {{-- @endforeach --}}
                                     
-                                    <td>{{$surgeries->employe->person->name}} {{$surgeries->employe->person->lastname}}</td>
-                                    <td>{{$surgeries->typesurgeries->name}}</td>
-                                    <td>{{$surgeries->area->name}}</td>
-                                    <td style="display: inline-block">
-                                        <a type="button" href="" disabled class="btn btn-success">A</a>
-                                        <a href="" class="btn btn-warning" href="">R</a>
-                                        <a type="button" class="btn btn-repro" href="">S</a>
-                                        <a type="button" class="btn btn-danger" href="">C</a>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
-                            @endforeach 
+                            {{-- @endforeach  --}}
                         </tbody>
                     </table>
                 </div>

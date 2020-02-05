@@ -14,7 +14,7 @@ class Surgery extends Model
 
     public function employe()
     {
-        return $this->belongsTo('App\Employe');
+        return $this->belongsTo('App\Employe','employe_id');
     }
 
     public function typesurgeries()
@@ -48,6 +48,11 @@ class Surgery extends Model
     public function area()
     {
         return $this->belongsTo('App\Area');
+    }
+
+    public function reservation()
+    {
+        return $this->hasMany('App\Reservation');
     }
     // public function procedure() //relacion  con la tabla m:m 
     // {

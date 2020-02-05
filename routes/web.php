@@ -89,6 +89,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     //======================= rutas para el usuario ckeckout ====================
         Route::group(['middleware' => ['role:OUT, director']], function () {
+        Route::get('buscar', 'OutController@buscador')->name('buscar.out');     
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
@@ -139,6 +140,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+        Route::get('doctor/surgeries/list','DoctorController@surgeries_list')->name('doctor.lista_cirugias');
 
         //-----------actualizar registros-------------
         Route::post('doctor/examUpdate', 'DoctorController@exam_update')->name('doctor.exam_actualizar');  // guardar los procedimientos realizados en la consulta
