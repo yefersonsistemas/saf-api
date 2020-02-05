@@ -103,7 +103,7 @@
                                         <label class="form-label">Médico</label>
                                         <input type="hidden" id="editar" value="{{ $employe->id }}">
                                         <input type="hidden" name="person_id" value="{{ $employe->id  }}">
-                                        <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }}" disabled id="doctor">
+                                        <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }} {{ $reservation->person->lastname }}" disabled id="doctor">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -204,7 +204,7 @@
             $('#newDoctor').html('<label class="form-label">Médico</label><select class="form-control custom-select" name="person_id" id="doctor1"> <option value=""> Seleccione </option> </select>');
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].employe.length; j++) {
-                    $('#doctor1').append('<option value="'+data[i].employe[j].id+'">'+ data[i].employe[j].person.name +'</option>');
+                    $('#doctor1').append('<option value="'+data[i].employe[j].id+'">'+ data[i].employe[j].person.name +' '+ data[i].employe[j].person.lastname +'</option>');
                 }
             }
 
