@@ -34,7 +34,7 @@
                 <i class="fa fa-pencil fa-lg"></i></a>
             @endif
             <div class="card p-2">
-                <h5 class="text-center ml--20 mt-15">Datos Personales</h5>
+                <h5 class="text-center ml--25 mt-15">Datos Personales</h5>
                 <span class="text-center mt-15 history" style="margin-top:-40px; margin-left:900px">Historia:<br>{{ $rs->patient->historyPatient->history_number }}</span>
                 <div class="row mt--70">
                     <div class="col-3 ml-2 mb-4 mt-25">
