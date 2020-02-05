@@ -62,7 +62,6 @@ class OutController extends Controller
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
 // dd($confirmadas->first()->speciality);
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
-        
 
         return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera'));
     }

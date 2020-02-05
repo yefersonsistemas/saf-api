@@ -44,7 +44,7 @@
                 <div class="card">
                     <div class="card-body">                                
                         <h6>Reservaciones confirmadas</h6>
-                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasConfirmadas }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Pacientes por atender</h6>
-                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">{{ $porAtender }}</span></h3>
                     </div>
                 </div>
             </div>
