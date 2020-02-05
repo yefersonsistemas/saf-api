@@ -305,11 +305,12 @@ class CitaController extends Controller
     {
         $reservation = Reservation::with('patient','person','speciality')->find($id);
         // dd($reservation);
+        $employe = Employe::where('person_id',$reservation->person_id)->first();
 
         if (!is_null($reservation)) {
             $specialities = Speciality::with('employe.person')->get();
             // dd($specialities);
-            return view('dashboard.reception.edit', compact('reservation','specialities'));
+            return view('dashboard.reception.edit', compact('reservation','specialities','employe'));
         }else{
             Alert::error('Cita no encontrada!');
             return redirect()->back()->withErrors('Cita no encontrada');
@@ -347,19 +348,24 @@ class CitaController extends Controller
                 $cite->person_id  = $request->person_id;
                 $cite->save();
             }
-
+            // dd($request->fecha);
             if ($request->fecha != null) {
+                // dd($request->fecha);
                 $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);
-                // dd($cite->person->employe);
-                $employe = Employe::where('person_id',$cite->person_id)->first();
+                // dd($dia);
+                // dd($cite->person_id);
+                // $em = Employe::all();
+                // dd($em);
+
+                // $employe = Employe::where('person_id',$request->person_id)->first();
                 // dd($employe);
-                $schedule = Schedule::where('employe_id', $employe->id)->where('day', $dia)->first();
+                $schedule = Schedule::where('employe_id', $request->person_id)->where('day', $dia)->first();
                 // dd($schedule);
                 $cite->date       = Carbon::create($request->fecha);
                 $cite->reschedule = Carbon::now();
                 $cite->schedule_id = $schedule->id;
             }
-
+            // dd($cite);
             $cite->discontinued = null; //para que se actualice el registro y no aparezca en lista suspendida si se reprograma
             $cite->save();
 

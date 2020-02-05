@@ -101,7 +101,8 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group" id="newDoctor">
                                         <label class="form-label">Médico</label>
-                                        <input type="hidden" id="editar" value="{{ $reservation->person_id }}" >
+                                        <input type="hidden" id="editar" value="{{ $employe->id }}">
+                                        <input type="hidden" name="person_id" value="{{ $employe->id  }}">
                                         <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }}" disabled id="doctor">
                                     </div>
                                 </div>
