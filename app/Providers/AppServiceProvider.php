@@ -50,9 +50,12 @@ class AppServiceProvider extends ServiceProvider
         $approved = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
       
         // contador pacientes en espera de todos los doctores
-        $poratender =  Reservation::with('person', 'patient.inputoutput', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
+        $enespera =  Reservation::with('patient.inputoutput')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
         // dd($poratender->count());
-        foreach ($poratender as $item) {
+
+        $poratender = collect([]);
+        
+        foreach ($enespera as $item) {
             if (empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && empty($item->patient->inputoutput->first()->outside_office) && empty($item->patient->inputoutput->first()->outside)){
                $poratender->push($item);
             }
