@@ -183,10 +183,11 @@ class InController extends Controller
         $enfermedades = Disease::all();
         // dd($disease);
         $medicine = Medicine::get();
+        $medicinas = Medicine::all();
         $allergy = Allergy::get();
         $alergias = Allergy::all();
         // dd($cites);
-        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar','enfermedades','alergias'));
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar','enfermedades','alergias','medicinas'));
     }
 
      /**
@@ -783,35 +784,37 @@ class InController extends Controller
     }
 
     public function medicines(Request $request){ //Metodo para agregar medicina al paciente en el multiselect de editar historia
-        // dd($request);
-        $patient = Patient::with('medicine')->where('person_id', $request->id)->first();
-        // dd($patient->medicine->first());
+  
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
 
-        if($patient->medicine->first() != null) {
-            for ($i=0; $i < count($patient->medicine); $i++) { 
-                $patientm[] = $patient->medicine[$i]->id;
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
             }
         }
-        // dd($patient);
-        for ($i=0; $i < count($request->data); $i++) { 
-            
-            $medicine = Medicine::find($request->data[$i]);
-            // dd($medicine);
-            $medicine->patient()->sync($patient);
+
+        $reservation = Reservation::find($request->id);
+        $patient = Patient::with('medicine')->where('person_id', $reservation->patient->id)->first();
+      
+        for ($i=0; $i < count($returndata2); $i++) {             
+            $medicine[] = Medicine::find($returndata2[$i]);
+            $medicine[$i]->patient()->sync($patient);
+        }
+        for ($i=0; $i < count($patient->medicine); $i++) {
+            $me[] = $patient->medicine;
         }
 
         if ($patient->medicine->first() != null ) {
-            $diff= array_diff($request->data, $patientm);
+            $medicines= array_diff($medicine, $me);
         } else {
-            $diff = $request->data;
+            $medicines = $medicine;
         }
-        // dd($diff);
-        for ($i=0; $i < count($diff); $i++) {
-            // dd($diff);
-            $medicines[] = Medicine::find($diff);
-
-        }
-        // dd($medicines[0][0]->name);
         return response()->json([
             'data' => 'Medicamento Agregado Exitosamente',$medicines,201
             ]);
