@@ -81,49 +81,55 @@
 
                     <div class="col-8 mt-90">
                         <div class="row mt--10">
-                            <div class="form-group col-4">
-                                <label class="m-0 form-label text-center">DNI</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <select name="type_dni" disabled class="custom-select input-group-text form-control">
-                                            <option value="{{ $rs->patient->type_dni }}">
-                                                {{ $rs->patient->type_dni }}</option>
-                                            </select>
+                           <div class="col-12">
+                                <div class="row">
+                                    <div class="form-group col-4">
+                                        <label class="m-0 form-label">DNI</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <select name="type_dni" disabled class="custom-select input-group-text form-control">
+                                                    <option value="{{ $rs->patient->type_dni }}">
+                                                        {{ $rs->patient->type_dni }}</option>
+                                                    </select>
+                                                </div>
+                                            <input type="hidden" value=" {{ $rs->patient->dni }}" name="dni">
+                                            <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
                                         </div>
-                                    <input type="hidden" value=" {{ $rs->patient->dni }}" name="dni">
-                                    <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
-                                </div>
-                            </div>
-                        
-                            <div class="col-4">
-                                <label class="m-0 form-label text-center">Nombre</label>
-                                <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
-                            </div>
-                            
-                            <div class="col-4">
-                                <label class="m-0 form-label text-center">Apellido</label>
-                                <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
-                            </div>
-
-                            <div class="row mt-4">
-                                <h5 class="text-center" style="margin-left:175px">Datos de la Cita</h5>
-                            </div>
-                            <div class="row mt-2 mb-2" style="margin-left:50px">
-                                <div class="col-3">
-                                    <label class="m-0 form-label text-center">Fecha</label>
-                                    <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
-                                </div>
-            
-                                <div class="col-3">
-                                    <label class="m-0 form-label text-center">Médico tratante</label>
-                                    <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
-                                </div>
+                                    </div>
                                 
-                                <div class="col-6">
-                                    <label class="m-0 form-label text-center">Razón</label>
-                                    <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
-                                </div>    
-                            </div>
+                                    <div class="col-4">
+                                        <label class="m-0 form-label">Nombre</label>
+                                        <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
+                                    </div>
+                                    
+                                    <div class="col-4">
+                                        <label class="m-0 form-label">Apellido</label>
+                                        <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
+                                    </div>
+                                </div>
+                           </div>
+
+                           <div class="col-12">
+                                <div class="justify-content-center row mt-4">
+                                    <h5>Datos de la Cita</h5>
+                                </div>
+                                <div class="row mt-2 mb-2" >
+                                    <div class="col-4">
+                                        <label class="m-0 form-label">Fecha</label>
+                                        <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
+                                    </div>
+                
+                                    <div class="col-4">
+                                        <label class="m-0 form-label">Médico tratante</label>
+                                        <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
+                                    </div>
+                                    
+                                    <div class="col-4">
+                                        <label class="m-0 form-label">Razón</label>
+                                        <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
+                                    </div>    
+                                </div>
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -138,7 +144,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Fecha de Nacimiento</label>
+                                    <label class="form-label">Fecha de Nacimiento</label>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input disabled name="birthdate" id="birthdate" value="{{ ($rs->patient->historyPatient->birthdate != null) ? $rs->patient->historyPatient->birthdate : '' }}" data-provide="datepicker" data-date-autoclose="true" class="form-control">
@@ -149,14 +155,14 @@
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Lugar de Nacimiento</label>
+                                    <label class="form-label ">Lugar de Nacimiento</label>
                                     <input type="text" id="place" name="place" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ ($rs->patient->historyPatient->place != null) ? $rs->patient->historyPatient->place : '' }}">
                                 </div>
                             </div>
                             
                             <div class="col-2">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Edad</label>
+                                    <label class="form-label">Edad</label>
                                     @if($rs->patient->historyPatient != null)
                                     <input type="text" disabled name="age" class="form-control" placeholder="Edad" value="{{ Carbon::parse($rs->patient->historyPatient->birthdate)->age }}">
                                     {{-- value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->age : '' }}" --}}
@@ -179,21 +185,21 @@
                                     </div>
                                 </div> --}}
                                 <div class="form-group">
-                                    <label class="form-label text-center">Peso (Lbs)</label>
+                                    <label class="form-label">Peso (Lbs)</label>
                                     <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ ($rs->patient->historyPatient->weight != null) ? $rs->patient->historyPatient->weight : '' }}">
                                 </div>
                             </div>
                             
                             <div class="col-8">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Direccion</label>
+                                    <label class="form-label">Direccion</label>
                                     <input type="text" disabled name="address" id="address" class="form-control" placeholder="Direccion" value="{{ ($rs->patient->address != null) ? $rs->patient->address: '' }}">
                                 </div>
                             </div>
                             
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
+                                    <label class="form-label">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
                                     <div class="form-check ladymen p-0">
                                         <div class="custom-control custom-radio custom-control-inline p-0 mr-1">
                                             <input disabled type="radio" id="genero1"
@@ -221,38 +227,38 @@
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Email</label>
+                                    <label class="form-label">Email</label>
                                     <input type="email" disabled id="email" name="email" class="form-control" placeholder="Email" value="{{ $rs->patient->email }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Teléfono</label>
+                                    <label class="form-label">Teléfono</label>
                                     <input type="text" disabled id="phone" name="phone" class="form-control" placeholder="Teléfono" value="{{ $rs->patient->phone }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Teléfono adicional</label>
+                                    <label class="form-label">Teléfono adicional</label>
                                     <input type="text" disabled id="another_phone" name="another_phone" class="form-control" placeholder="Teléfono adicional" value="{{ ($rs->patient->historyPatient->another_phone != null) ? $rs->patient->historyPatient->another_phone : '' }}">
                                 </div>
                             </div>
                             
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Email adicional</label>
+                                    <label class="form-label">Email adicional</label>
                                     <input type="email" disabled id="another_email" name="another_email" class="form-control" placeholder="Email" value="{{ ($rs->patient->historyPatient->another_email != null) ? $rs->patient->historyPatient->another_email : '' }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Profesión</label>
+                                    <label class="form-label">Profesión</label>
                                     <input type="text" disabled id="profession" name="profession" class="form-control" placeholder="Profesión" value="{{ ($rs->patient->historyPatient->profession != null) ? $rs->patient->historyPatient->profession : '' }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label class="form-label text-center">Ocupación</label>
+                                    <label class="form-label">Ocupación</label>
                                     <input type="text" disabled id="occupation" name="occupation" class="form-control" placeholder="Ocupación" value="{{ ($rs->patient->historyPatient->occupation != null) ? $rs->patient->historyPatient->occupation : '' }}">
                                 </div>
                             </div>
@@ -263,7 +269,7 @@
                 <div class="row mt--35">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <label class="form-label text-center">Instagram</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -273,7 +279,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-5" style="margin-left:5px">
+                            <div class="col-8">
                                 <div class="form-group">
                                     <label class="form-label text-center">Como nos Conocio</label>
                                     <input class="form-control" name="about_us" id="about_us" cols="60" rows="20" disabled value="{{ ($rs->patient->historyPatient->about_us != null) ? $rs->patient->historyPatient->about_us: '' }}">
@@ -302,54 +308,45 @@
                     <div class="row">
                         <!---------------------------Enfermedades-------------------------->
                         <div class="col-lg-6 col-md-3" id="framework_form">
-                            <label class="form-label text-center">Enfermedades</label>
+                            <label class="form-label text-center"><h5>Enfermedades</h5></label>
                             <div class="card p-3" style="border-color:#00506b">
-                                <div class="row">
-                                    <div class="form-group multiselect_div col-10">
-                                        {{-- <select id="disease" name="disease[]" class="multiselect multiselect-custom" multiple="multiple">
-                                            @foreach ($disease as $enfermedades)
-                                                @if ($rs->patient->historyPatient != null)
-                                                    @if ($rs->patient->historyPatient->disease->contains($enfermedades->id) != $enfermedades->id )
-                                                        <option id="quitar{{ $enfermedades->id }}" value="{{ $enfermedades->id }}">                                                    
-                                                            {{ $enfermedades->name }}
-                                                        </option>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </select> --}}
-                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#listaEnfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar enfermedad</a>
-                                    </div>
-                                    <div class="col-2">
-                                        <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaenfermedad">
-                                            <i class="fa fa-plus-circle"></i>
-                                        </button>
+                             
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-vcenter table-striped"
+                                        cellspacing="0" id="addrowExample">
+                                            <thead>
+                                                <tr>
+                                                    <th>Enfermedad</th>
+                                                    <th class="text-center">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="enfermedades">
+                                                @foreach ($disease as $disease)
+                                                    <tr id="enfermedad{{$disease->id}}">
+                                                        @if ($rs->patient->historyPatient->disease->contains($disease->id))
+                                                            <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</td>
+                                                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                        @else
+                                                    
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-vcenter table-striped"
-                                            cellspacing="0" id="addrowExample">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Enfermedad</th>
-                                                        <th class="text-center">Eliminar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="enfermedades">
-                                                    @foreach ($disease as $disease)
-                                                        <tr id="enfermedad{{$disease->id}}">
-                                                            @if ($rs->patient->historyPatient->disease->contains($disease->id))
-                                                                <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</td>
-                                                                <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
-                                                            @else
-                                                        
-                                                            @endif
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+
+                                <div class="row justify-content-end">
+                                    <div>
+                                        <a class="btn btn-azuloscuro text-white mx-2"  data-toggle="modal" data-target="#listaEnfermedades" style="font-size:12px;">
+                                            <i class="fa fa-plus"></i>&nbsp;Agregar
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;">
+                                            <i class="fa fa-plus"></i>&nbsp;Crear
+                                        </a>
                                     </div>
                                 </div>
                             </div>                            
@@ -357,53 +354,45 @@
                         
                         <!------------------------Medicamentos--------------------------->
                         <div class="col-lg-6 col-md-3" id="framework_form2">
-                            <label class="form-label text-center">Medicamentos</label>
-                            <div class="row card p-3" style="border-color:#00506b">
-                                <div class="row">
-                                    <div class="form-group multiselect_div col-10">
-                                        {{-- <select id="medicine" name="medicine[]" class="multiselect multiselect-custom " multiple="multiple" >
-                                            @foreach ($medicine as $medicamentos)
-                                            <option value= {{ $medicamentos->id }}
-                                            @if ($rs->patient->historyPatient != null)
-                                                @if ($rs->patient->historyPatient->medicine->contains($medicamentos->id))
-                                                disabled
-                                                @endif
-                                                @endif>{{ $medicamentos->name }}</option>
-                                            @endforeach
-                                        </select> --}}
-                                        <a class="btn btn-info text-white" data-toggle="modal" data-target="#listaMedicamentos" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar alergia</a>
-                                    </div>
-                                    <div class="col-2">
-                                        <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevomedicamento">
-                                            <i class="fa fa-plus-circle"></i>
-                                        </button>
+                            <label class="form-label text-center"><h5>Medicamentos</h5></label>
+                            <div class="card p-3" style="border-color:#00506b">
+                                                             
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-vcenter table-striped"
+                                        cellspacing="0" id="addrowExample">
+                                            <thead>
+                                                <tr>
+                                                    <th>Medicina</th>
+                                                    <th class="text-center">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="medicamentos">
+                                                @foreach ($medicine as $medicine)
+                                                    <tr id="medicina{{$medicine->id}}">
+                                                        @if ($rs->patient->historyPatient->medicine->contains($medicine->id))
+                                                            <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</td>
+                                                            <td class="text-center"><a style="cursor:pointer" id="medicina_id" name="{{$medicine->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                        @else
+                                                    
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-vcenter table-striped"
-                                            cellspacing="0" id="addrowExample">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Medicina</th>
-                                                        <th class="text-center">Eliminar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="medicamentos">
-                                                    @foreach ($medicine as $medicine)
-                                                        <tr id="medicina{{$medicine->id}}">
-                                                            @if ($rs->patient->historyPatient->medicine->contains($medicine->id))
-                                                                <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</td>
-                                                                <td class="text-center"><a style="cursor:pointer" id="medicina_id" name="{{$medicine->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
-                                                            @else
-                                                        
-                                                            @endif
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+
+                                <div class="row justify-content-end">
+                                    <div>
+                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaMedicamentos" style="font-size:12px;">
+                                            <i class="fa fa-plus"></i>&nbsp;Agregar
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a type="button" class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevomedicamento" style="font-size:12px;">
+                                            <i class="fa fa-plus"></i>&nbsp;Crear
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -414,53 +403,43 @@
                     <div class="row">
                         <!------------------------Alergias-------------------------------->
                         <div class="col-lg-6 col-md-3" id="framework_form3">
-                            <label class="form-label text-center">Alergias</label>
-                            <div class="card p-3" style="border-color:#00506b">
-                                <div class="row">
-                                    <div class="form-group multiselect_div col-10">
-                                        {{-- <select id="allergy" name="allergy[]" class="multiselect multiselect-custom" multiple="multiple" >
-                                            @foreach ($allergy as $alergias)
-                                            <option value= {{ $alergias->id }}
-                                            @if ($rs->patient->historyPatient != null)
-                                                @if ($rs->patient->historyPatient->allergy->contains($alergias->id))
-                                                disabled selected
-                                                @endif
-                                                @endif>{{ $alergias->name }}</option>
-                                            @endforeach
-                                        </select> --}}
-                                        <a class="btn btn-info text-white" data-toggle="modal" data-target="#listaAlergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar alergia</a>
-                                    </div>
-                                    <div class="col-2">
-                                        <button type="button" class="btn btn-azuloscuro" data-toggle="modal" data-target="#nuevaalergia">
-                                            <i class="fa fa-plus-circle"></i>
-                                        </button>
+                            <label class="form-label text-center"><h5>Alergias</h5></label>
+                            <div class="card p-3" style="border-color:#00506b"> 
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-vcenter table-striped"
+                                        cellspacing="0" id="addrowExample">
+                                            <thead>
+                                                <tr>
+                                                    <th>Alergia</th>
+                                                    <th class="text-center">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="alergias">
+                                                @foreach ($allergy as $allergy)
+                                                    <tr id="alergia{{$allergy->id}}">
+                                                        @if ($rs->patient->historyPatient->allergy->contains($allergy->id))
+                                                            <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$allergy->name}}</td>
+                                                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                        @else
+                                                    
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-vcenter table-striped"
-                                            cellspacing="0" id="addrowExample">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Alergia</th>
-                                                        <th class="text-center">Eliminar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="alergias">
-                                                    @foreach ($allergy as $allergy)
-                                                        <tr id="alergia{{$allergy->id}}">
-                                                            @if ($rs->patient->historyPatient->allergy->contains($allergy->id))
-                                                                <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$allergy->name}}</td>
-                                                                <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
-                                                            @else
-                                                        
-                                                            @endif
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <div class="row justify-content-end">
+                                    <div>
+                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaAlergias" style="font-size:12px;">
+                                            <i class="fa fa-plus"></i>&nbsp;Agregar alergia
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;">
+                                            <i class="fa fa-plus"></i>&nbsp;crear
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -552,7 +531,7 @@
         </div>
     </div>
 
-     <!------------------- Modal para mostar enfermedades--------------->
+     <!------------ Modal para mostar enfermedades--------------->
     <div class="modal fade" id="listaEnfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -1000,13 +979,13 @@ Dropzone.options.myDropzone = {
 
 
         //================================ agregar enfermedad ======================
-        // function show_diseases(data){
-        //     for($i=0; $i < data.length; $i++){
-        //         enfermedad = '<tr id="enfermedad'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
-        //         $("#enfermedades").append(enfermedad);
-        //         $("div").remove("#quitar"+data[$i].id); //quitar del modal
-        //     }
-        // }
+        function show_diseases(data){
+            for($i=0; $i < data.length; $i++){
+                enfermedad = '<tr id="enfermedad'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
+                $("#enfermedades").append(enfermedad);
+                $("div").remove("#quitar"+data[$i].id); //quitar del modal
+            }
+        }
 
         //================ eliminar enfermedad seleccionado ==========
         $(function() {
