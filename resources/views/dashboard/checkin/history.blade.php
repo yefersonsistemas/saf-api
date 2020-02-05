@@ -1045,55 +1045,99 @@ Dropzone.options.myDropzone = {
             });
         
         });
+
+
+        //=====================crear enfermedad======================
+        $('#diseaseR').click(function(){
+            var name = $('#newdisease').val();
+            var patient_id = $('#patient-id').val();
+            nuevaenfermedad(name,patient_id);
+        });
+
+        //=========================guardar enfermedad creada=================
+        function nuevaenfermedad(name,patient_id){
+            console.log(name,patient_id);
+            $.ajax({ 
+                url: "{{ route('checkin.diseases_create') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    name: name,
+                    id:patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  data.data,
+                        type:  'success',
+                    })
+
+
+                    agregar_diseases(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+
+        //====================mostrar enfermedad creada================
+        function agregar_diseases(data){
+            enfermedad= '<tr id="enfermedad'+data.id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</td><td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="'+data.id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
+            $("#enfermedades").append(enfermedad);
+        }
+
     </script>
 
     <script>
         //----------------------------------------ALERGIAS------------------------------------------
- //================ guardar alergias =================
+        //================ guardar alergias =================
 
-    $("#guardarAlergias").click(function() {
-        console.log('hopla')
-        var reservacion = $("#reservacion_id").val();
-        var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
-        
-        ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
-    }); //fin de la funcion clikea
+        $("#guardarAlergias").click(function() {
+            console.log('hopla')
+            var reservacion = $("#reservacion_id").val();
+            var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
+            
+            ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+        }); //fin de la funcion clikea
 
-    function ajax_alergia(datos,reservacion){
-        $.ajax({
-            url: "{{ route('doctor.agregar_alergias') }}", //definiendo ruta
-            type: "POST",
-            dataType:'json', //definiendo metodo
-            data: {
-                _token: "{{ csrf_token() }}",
-                data:datos,
-                id:reservacion
-            }
-        })
-        .done(function(data) {        //recibe lo que retorna el metodo en la ruta definida
-           
-            if(data[0] == 201){                  //si no trae valores
-                Swal.fire({
-                    title: data.alergia,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-                show_allergies(data[1]);
-            }
+        function ajax_alergia(datos,reservacion){
+            $.ajax({
+                url: "{{ route('doctor.agregar_alergias') }}", //definiendo ruta
+                type: "POST",
+                dataType:'json', //definiendo metodo
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    data:datos,
+                    id:reservacion
+                }
+            })
+            .done(function(data) {        //recibe lo que retorna el metodo en la ruta definida
+            
+                if(data[0] == 201){                  //si no trae valores
+                    Swal.fire({
+                        title: data.alergia,
+                        text: 'Click en OK para continuar',
+                        type: 'success',
+                    });
+                    show_allergies(data[1]);
+                }
 
-            if (data[0] == 202) {                       //si no trae valores
-                Swal.fire({
-                    title: data.alergia,
-                    text:  'Click en OK para continuar',
-                    type:  'error',
-                })        // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-            }
-        })
-        .fail(function(data) {
-            console.log(data);
-        })
-    } // fin de la funcion
-
+                if (data[0] == 202) {                       //si no trae valores
+                    Swal.fire({
+                        title: data.alergia,
+                        text:  'Click en OK para continuar',
+                        type:  'error',
+                    })        // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        } // fin de la funcion
 
 
         //===================guardar alergias========================
@@ -1132,16 +1176,14 @@ Dropzone.options.myDropzone = {
             
         //============================mostrar alergias=========================
         function show_allergies(data){
-
-        for($i=0; $i < data.length; $i++){
-            alergia = '<tr id="alergia'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="alergia_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
+            for($i=0; $i < data.length; $i++){
+                alergia = '<tr id="alergia'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="alergia_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
                 $("#alergias").append(alergia);
                 $("div").remove("#quitarAlergia"+data[$i].id); //quitar del modal
             }
         }
 
-
-        //================ eliminar alergia seleccionado ==========
+        //===================== eliminar alergia seleccionado ====================
         $(function() {
             $(document).on('click', '#alergia_id', function(event) {
                 let id = this.name;
@@ -1176,6 +1218,49 @@ Dropzone.options.myDropzone = {
             });    
         });
 
+
+        //=========================crear alergia=========================
+        $('#allergyR').click(function(){
+            var name = $('#newallergy').val();
+            var patient_id = $('#patient-id').val();
+            console.log(name, patient_id);
+            nuevaalergia(name,patient_id);
+        });
+
+        //=========================guardar alergia creada====================
+        function nuevaalergia(name,patient_id){
+            console.log(name,patient_id);
+            $.ajax({ 
+                url: "{{ route('checkin.allergies_create') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    name: name,
+                    id: patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  data.data,
+                        type:  'success',
+                    })
+                    agregar_allergies(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+
+        //=================mostrar alergia creada ===================
+        function agregar_allergies(data){
+            alergia = '<tr id="alergia'+data.id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</td><td class="text-center"><a style="cursor:pointer" id="alergia_id" name="'+data.id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
+            $("#alergias").append(alergia);
+        }
+
     </script>
 
     <script>
@@ -1185,18 +1270,10 @@ Dropzone.options.myDropzone = {
         $("#guardarMedicamentos").click(function(){
             var reservacion = $("#reservacion_id").val();
             var datos = $("#form_medicamentos").serialize(); 
-
-console.log(reservacion);
-console.log(datos)
-            // var medicine_id = $(this).val(); // Capta el id del medicamento 
-            // var patient_id = $('#patient-id').val();
-            // console.log('medicamento', medicine_id);
-            // console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
             medicamentos(reservacion,datos);
         });
 
         function medicamentos(reservacion,datos){
-            // console.log('lalala',medicine_id);
             $.ajax({ 
                 url: "{{ route('checkin.medicines') }}",  
                 type: "POST",                            
@@ -1231,8 +1308,8 @@ console.log(datos)
             }
         }
 
-          //================ eliminar enfermedad seleccionado ==========
-          $(function() {
+        //================ eliminar enfermedad seleccionado ==========
+        $(function() {
             $(document).on('click', '#medicina_id', function(event) {
                 let id = this.name;
                 var reservacion = $("#reservacion_id").val();
@@ -1268,124 +1345,18 @@ console.log(datos)
             });
         
         });
-        </script>
-
-        <script>
-            $('#EditPatient').click(function() {
-                $('#weight').removeAttr('disabled');
-                $('#place').removeAttr('disabled');
-                $('#birthdate').removeAttr('disabled');
-                $('#allergy').removeAttr('disabled');
-                $('#medicine').removeAttr('disabled');
-                $('#disease').removeAttr('disabled');
-                $('#address').removeAttr('disabled');
-                $('#genero1').removeAttr('disabled');
-                $('#genero2').removeAttr('disabled');
-                $('#phone').removeAttr('disabled');
-                $('#profession').removeAttr('disabled');
-                $('#occupation').removeAttr('disabled');
-                $('#another_phone').removeAttr('disabled');
-                $('#another_email').removeAttr('disabled');
-                $('#previous_surgery').removeAttr('disabled');
-                $('#social_network').removeAttr('disabled');
-                $('#about_us').removeAttr('disabled');
-                $('#submit-all').removeAttr('disabled');
-            });
-        </script>
-
-        <script>
-        $('#diseaseR').click(function(){
-            var name = $('#newdisease').val();
-            var patient_id = $('#patient-id').val();
-            console.log(name, patient_id);
-            nuevaenfermedad(name,patient_id);
-        });
-
-        function nuevaenfermedad(name,patient_id){
-            console.log(name,patient_id);
-            $.ajax({ 
-                url: "{{ route('checkin.diseases_create') }}",  
-                type: "POST",                            
-                data: {
-                    _token: "{{ csrf_token() }}",        
-                    name: name,
-                    id:patient_id,                          
-                }
-            })
-            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                console.log('esto',data);
-                if (data[1] == 201) {                       
-                    Swal.fire({
-                        title: 'Excelente!',
-                        text:  data.data,
-                        type:  'success',
-                    })
 
 
-                    agregar_diseases(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                }
-            })
-            .fail(function(data) {
-                console.log(data);
-            })
-        }
-        function agregar_diseases(data){
-        console.log('hhddd',data);
-            enfermedad ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</li>';
-            $("#enfermedades").append(enfermedad);
-        }
-        </script>
-
-        <script>
-        $('#allergyR').click(function(){
-            var name = $('#newallergy').val();
-            var patient_id = $('#patient-id').val();
-            console.log(name, patient_id);
-            nuevaalergia(name,patient_id);
-        });
-
-        function nuevaalergia(name,patient_id){
-            console.log(name,patient_id);
-            $.ajax({ 
-                url: "{{ route('checkin.allergies_create') }}",  
-                type: "POST",                            
-                data: {
-                    _token: "{{ csrf_token() }}",        
-                    name: name,
-                    id: patient_id,                          
-                }
-            })
-            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-                console.log('esto',data);
-                if (data[1] == 201) {                       
-                    Swal.fire({
-                        title: 'Excelente!',
-                        text:  data.data,
-                        type:  'success',
-                    })
-                    agregar_allergies(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-                }
-            })
-            .fail(function(data) {
-                console.log(data);
-            })
-        }
-        function agregar_allergies(data){
-        console.log('hhddd',data);
-            alergia ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</li>';
-            $("#alergias").append(alergia);
-        }
-        </script>
-
-        <script>
+        //===================crear medicina ======================
         $('#medicineR').click(function(){
             var name = $('#newmedicine').val();
             var patient_id = $('#patient-id').val();
             console.log(name, patient_id);
-            nuevaalergia(name,patient_id);
+            nuevamedicina(name,patient_id);
         });
 
-        function nuevaalergia(name,patient_id){
+        //==================guardar medicina=====================
+        function nuevamedicina(name,patient_id){
             console.log(name,patient_id);
             $.ajax({ 
                 url: "{{ route('checkin.medicines_create') }}",  
@@ -1411,11 +1382,36 @@ console.log(datos)
                 console.log(data);
             })
         }
+
+        //=============mostrar medicina creada==============
         function agregar_medicines(data){
-        console.log('hhddd',data);
-            medicamento ='<li class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</li>';
+            medicamento = '<tr id="medicina'+data.id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data.name+'</td><td class="text-center"><a style="cursor:pointer" id="medicina_id" name="'+data.id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
             $("#medicamentos").append(medicamento);
         }
+
+    </script>
+
+        <script>
+            $('#EditPatient').click(function() {
+                $('#weight').removeAttr('disabled');
+                $('#place').removeAttr('disabled');
+                $('#birthdate').removeAttr('disabled');
+                $('#allergy').removeAttr('disabled');
+                $('#medicine').removeAttr('disabled');
+                $('#disease').removeAttr('disabled');
+                $('#address').removeAttr('disabled');
+                $('#genero1').removeAttr('disabled');
+                $('#genero2').removeAttr('disabled');
+                $('#phone').removeAttr('disabled');
+                $('#profession').removeAttr('disabled');
+                $('#occupation').removeAttr('disabled');
+                $('#another_phone').removeAttr('disabled');
+                $('#another_email').removeAttr('disabled');
+                $('#previous_surgery').removeAttr('disabled');
+                $('#social_network').removeAttr('disabled');
+                $('#about_us').removeAttr('disabled');
+                $('#submit-all').removeAttr('disabled');
+            });
         </script>
 
         <script>
