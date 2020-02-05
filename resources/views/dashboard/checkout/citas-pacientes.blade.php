@@ -44,7 +44,7 @@
                 <div class="card">
                     <div class="card-body">                                
                         <h6>Reservaciones confirmadas</h6>
-                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter"></span></h3>
+                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasConfirmadas }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Pacientes por atender</h6>
-                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter"></span></h3>
+                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">{{ $porAtender }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Atendidos Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter"></span></h3>
+                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>

@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Total De Citas del año</h6>
-                        {{-- <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasAnual }}</span></h3> --}}
+                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasAnual }}</span></h3>
                         {{-- <h5>$1,25,451.23</h5> --}}
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Total De Citas Del Mes</h6>
-                        {{-- <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">{{ $citasDelMes }}</span></h3> --}}
+                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">{{ $citasDelMes }}</span></h3>
                         {{-- <h5>$3,80,451.00</h5> --}}
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Citas Para Hoy</h6>
-                        {{-- <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $citasDelDia }}</span></h3> --}}
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $citasDelDia }}</span></h3>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Atendidos Hoy</h6>
-                        {{-- <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3> --}}
+                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
