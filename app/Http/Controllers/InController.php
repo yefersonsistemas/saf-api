@@ -335,6 +335,8 @@ class InController extends Controller
 
 
     //======================== para indicar que el paciente entro a las instalacion ===============
+
+
     public function statusIn($id)
     {
 
@@ -401,8 +403,30 @@ class InController extends Controller
             $io->inside_office = 'dentro';
             $io->save();
             // dd($io);
+
+
+
+
+
+           
+
+
+ 
+            
+
+            // Alert::succes("Press por aqui paso ?????????'' button!");
+            
+            // return redirect()->back();
+
+
+
+
+
+
+            
+
         }else{
-            Alert::error('Paciente ya esta dentro del consultorio');
+            Alert::error('no lo hizo');
             return redirect()->back();
         }
 

@@ -230,7 +230,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">Enfermedades</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px;">VERsssss MAS</p>
+                                                            <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
                                                         </div>
                                                     </div>
                                                 </div>

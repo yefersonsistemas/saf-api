@@ -3,49 +3,43 @@
 $(function() {
     "use strict";
 
-    $('.js-sweetalert').on('click', function () {
+    $('.js-sweetalert').on('click', function() {
         var type = $(this).data('type');
         if (type === 'basic') {
             showBasicMessage();
-        }
-        else if (type === 'with-title') {
+        } else if (type === 'with-title') {
             showWithTitleMessage();
-        }
-        else if (type === 'success') {
+        } else if (type === 'success') {
             showSuccessMessage();
-        }
-        else if (type === 'confirm') {
+        } else if (type === 'confirm') {
             showConfirmMessage();
-        }
-        else if (type === 'cancel') {
+        } else if (type === 'cancel') {
             showCancelMessage();
-        }
-        else if (type === 'with-custom-icon') {
+        } else if (type === 'with-custom-icon') {
             showWithCustomIconMessage();
-        }
-        else if (type === 'html-message') {
+        } else if (type === 'html-message') {
             showHtmlMessage();
-        }
-        else if (type === 'autoclose-timer') {
+        } else if (type === 'autoclose-timer') {
             showAutoCloseTimerMessage();
-        }
-        else if (type === 'prompt') {
+        } else if (type === 'prompt') {
             showPromptMessage();
-        }
-        else if (type === 'ajax-loader') {
+        } else if (type === 'ajax-loader') {
             showAjaxLoaderMessage();
         }
     });
 
     function showBasicMessage() {
         swal("Here's a message!");
-    }    
+    }
+
     function showWithTitleMessage() {
         swal("Here's a message!", "It's pretty, isn't it?");
-    }    
+    }
+
     function showSuccessMessage() {
         swal("Good job!", "You clicked the button!", "success");
-    }    
+    }
+
     function showConfirmMessage() {
         swal({
             title: "Are you sure?",
@@ -55,10 +49,11 @@ $(function() {
             confirmButtonColor: "#dc3545",
             confirmButtonText: "Yes, delete it!",
             closeOnConfirm: false
-        }, function () {
+        }, function() {
             swal("Deleted!", "Your imaginary file has been deleted.", "success");
         });
-    }    
+    }
+
     function showCancelMessage() {
         swal({
             title: "Are you sure?",
@@ -70,28 +65,31 @@ $(function() {
             cancelButtonText: "No, cancel plx!",
             closeOnConfirm: false,
             closeOnCancel: false
-        }, function (isConfirm) {
+        }, function(isConfirm) {
             if (isConfirm) {
                 swal("Deleted!", "Your imaginary file has been deleted.", "success");
             } else {
                 swal("Cancelled", "Your imaginary file is safe :)", "error");
             }
         });
-    }    
+    }
+
     function showWithCustomIconMessage() {
         swal({
             title: "Sweet!",
             text: "Here's a custom image.",
             imageUrl: "../images/sm/avatar2.jpg"
         });
-    }    
+    }
+
     function showHtmlMessage() {
         swal({
             title: "HTML <small>Title</small>!",
             text: "A custom <span style=\"color: #CC0000\">html<span> message.",
             html: true
         });
-    }    
+    }
+
     function showAutoCloseTimerMessage() {
         swal({
             title: "Auto close alert!",
@@ -99,7 +97,8 @@ $(function() {
             timer: 2000,
             showConfirmButton: false
         });
-    }    
+    }
+
     function showPromptMessage() {
         swal({
             title: "An input!",
@@ -109,14 +108,16 @@ $(function() {
             closeOnConfirm: false,
             animation: "slide-from-top",
             inputPlaceholder: "Write something"
-        }, function (inputValue) {
+        }, function(inputValue) {
             if (inputValue === false) return false;
             if (inputValue === "") {
-                swal.showInputError("You need to write something!"); return false
+                swal.showInputError("You need to write something!");
+                return false
             }
             swal("Nice!", "You wrote: " + inputValue, "success");
         });
-    }    
+    }
+
     function showAjaxLoaderMessage() {
         swal({
             title: "Ajax request example",
@@ -125,10 +126,11 @@ $(function() {
             showCancelButton: true,
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
-        }, function () {
-            setTimeout(function () {
+        }, function() {
+            setTimeout(function() {
                 swal("Ajax request finished!");
             }, 2000);
         });
     }
+
 });

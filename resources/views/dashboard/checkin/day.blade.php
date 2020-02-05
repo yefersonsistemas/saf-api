@@ -262,7 +262,32 @@
 {{-- modals --}}
 @endsection
 
+
+
 @section('scripts')
+
+
+<script>
+    $('.prevent').on('click',function(e){
+        e.preventDefault();
+        Swal.fire({
+    })
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = {{ route ('checkin.insideOffice', $reservation->id) }}
+            }
+        })
+    }
+</script>
+
+
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
