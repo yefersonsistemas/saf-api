@@ -501,17 +501,7 @@
 
     function schedule() {
         $(document).on('click', '#doctore', function(event) {
-            // let id = this.name;
-
-        // $("input[name='doctor']").click(function() {
-            // $('.inline-datepicker').empty();
-            // doctor = '';
             var doctor = $(this).val();
-            // var doctor = g;
-            console.log('jajaja',doctor);
-          
-         
-            console.log('otro',doctor);
             $.ajax({
                     url: "{{ route('search.schedule') }}",
                     type: "POST",
@@ -535,8 +525,6 @@
                     $('#picker').val("");   
                     $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
                 
-                    
-                //  $(".inline-datepicker").val("");
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
@@ -551,8 +539,7 @@
                         $('#picker').val(
                             $('.inline-datepicker').datepicker('getFormattedDate')
                         );
-                 });    
-                          
+                 });                             
 
                  
                 })
