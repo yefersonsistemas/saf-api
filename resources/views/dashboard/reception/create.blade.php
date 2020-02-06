@@ -158,10 +158,9 @@
     </section>
     <h2>Elegir Medico</h2>
     <section class="py-1">
-        <div class="row justify-content-between" id="medicos">
-        </div>
+        <div class="row justify-content-between" id="medicos">         
+        </div>     
         <input type="hidden" name="doctor" id="doctor">
-
     </section>
     <h2>Motivo De La Consulta</h2>
     <section class="container">
@@ -174,8 +173,8 @@
     </section>
     <h2>Elegir Fecha</h2>
     <section class="py-1 align-items-center">
-        <div class="col-md-8 m-auto">
-            <div class="card card-date">
+        <div class="col-md-8 mx-auto mt-3">
+            <div class="card card-date div">
                 <div class="card-header">
                     <h3 class="card-title">Elegir Fecha</h3>
                 </div>
@@ -188,7 +187,7 @@
                         <input value="" id="picker" name="date" class="form-control">
                     </div>
                 </div>
-                <div class="inline-datepicker" data-provide="datepicker"></div>
+                <div class="inline-datepicker" data-provide="datepicker"></div>              
             </div>
         </div>
     </section>
@@ -471,16 +470,16 @@
     }
 
     function cargarMedicos(data) {
-        console.log('dataaaa',data.length);
-        console.log('imagen',data[0].employe[0].image.path);
-        console.log(data[0].employe.length);
+        // console.log('dataaaa',data.length);
+        // console.log('imagen',data[0].employe[0].image.path);
+        // console.log(data[0].employe.length);
         $('#medicos').empty();
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
                 $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                         <div class="card assigment">
-                                                <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
+                                                <input type="radio" name="doctorp" value="${data[i].employe[j].id }" id="doctor" class="imagecheck-input">
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
                                                     <img width="100%" height="100%" src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                 </figure>
@@ -494,10 +493,13 @@
             }
         }
     }
+
     function schedule() {
-        $("input[name='doctor']").click(function() {
+        $("input[name='doctorp']").click(function() {
+            // $('.inline-datepicker').empty();
             var doctor = $(this).val();
-            console.log(doctor);
+            
+            console.log('otro',doctor);
             $.ajax({
                     url: "{{ route('search.schedule') }}",
                     type: "POST",
@@ -507,7 +509,7 @@
                     }
                 })
                 .done(function(data) {
-                    console.log('Doctores:',data);
+                    // console.log('Doctores:',data);
                     console.log('Fechas disponibles de los Doctores',data.available);
                     Swal.fire({
                         title: 'Médico seleccionado!',
@@ -515,7 +517,23 @@
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    $('#doctor').val(data.employe.id);
+                    $('#doctor').val(data.diff);
+                    $('.div').html(` <div class="card-header">
+                                        <h3 class="card-title">Elegir Fecha</h3>
+                                    </div>
+                                    <div class="form-group mx-4">
+                                        <div class="input-group date">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                            {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
+                                            <input value="" id="picker" name="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="inline-datepicker" data-provide="datepicker">
+                                    </div> `);
+
+
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
