@@ -371,7 +371,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
 
                                          <!------------------------------PROCEDIMIENTOS REALIZADOS---------------------->
-                                         <h2>Procedimientos wssssssssRealizados</h2>
+                                         <h2>Procedimientos Realizados</h2>
                                          <section class="ml-4">
                                             <div class="row">
                                                 <div class="col-12 mt-30">

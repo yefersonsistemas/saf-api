@@ -3540,10 +3540,9 @@
     border: 1px solid #00ba88;
 }
 
-
-/* .dataTables_filter label input {
+.dataTables_filter label input {
     border: 1px solid rgba(0, 80, 107, .5);
-} */
+}
 
 .bg-azuloscuro {
     background: #00506b;

@@ -693,7 +693,7 @@ button[data-original-title="Help"]{ display: none; }
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable rowww " role="document">
-            <div class="modal-content roww " style="width: 600px;">
+            <div class="modal-content row " style="width: 150%;">
                 <div class="modal-header p-2 text-center " style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center " id="exampleModalLabel">Enfermedades</h5>
                     <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
@@ -701,18 +701,19 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 450px; ">
-                        <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive mb-4">
-                                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                    <div class="  modal-body  " style="max-height: 415px; ">
+                        <div class="  form-group">
+                            <div class="  custom-controls-stacked">
+                                <div class="  tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                    <div class="  col-lg-12 col-md-12">
+                                        <div class="  table-responsive mb-4">
+                                            <table class=" table table-hover js-basic-example dataTable table_custom spacing5">
                                                 <thead>
                                                     <tr>
-                                                        <th>Nombre </th>  
-                                                                                                            
+                                                        <th>Nombre </th>                                                                                         
                                                     </tr>
+                                                    <tr></tr> 
+                                                    <tr></tr> 
                                                   </thead>
                                                 </tfoot>
                                                 <tbody id="modal_enfermedad">

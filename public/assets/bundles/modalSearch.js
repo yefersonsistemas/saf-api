@@ -25,6 +25,8 @@
         !t.sEmptyTable && n && "No data available in table" === e.sEmptyTable && Lt(t, t, "sZeroRecords", "sEmptyTable"), !t.sLoadingRecords && n && "Loading..." === e.sLoadingRecords && Lt(t, t, "sZeroRecords", "sLoadingRecords"), t.sInfoThousands && (t.sThousands = t.sInfoThousands), (t = t.sDecimal) && Wt(t)
     }
 
+
+    // ESTA FUNCION APAGA LOS BUSCADORES EN LOS MODALES DE AGREGAR ENFERMEDADES
     function I(t) {
         if (ue(t, "ordering", "bSort"), ue(t, "orderMulti", "bSortMulti"), ue(t, "orderClasses", "bSortClasses"), ue(t, "orderCellsTop", "bSortCellsTop"), ue(t, "order", "aaSorting"), ue(t, "orderFixed", "aaSortingFixed"), ue(t, "paging", "bPaginate"), ue(t, "pagingType", "sPaginationType"), ue(t, "pageLength", "iDisplayLength"), ue(t, "searching", "bFilter"), "boolean" == typeof t.sScrollX && (t.sScrollX = t.sScrollX ? "100%" : ""), "boolean" == typeof t.scrollX && (t.scrollX = t.scrollX ? "100%" : ""), t = t.aoSearchCols)
             for (var e = 0, n = t.length; e < n; e++) t[e] && x($t.models.oSearch, t[e])
@@ -2422,8 +2424,8 @@
             sLengthMenu: '',
             // sLoadingRecords: "Cargando...",
             // sProcessing: "Procesando...",
-            sSearch: "Buscar:",
-            // sSearchPlaceholder: "",
+            sSearch: "",
+            sSearchPlaceholder: "  Buscar enfermedad",
             // sUrl: "",
             // sZeroRecords: "No se encuentrar los registros"
         },
@@ -2921,10 +2923,13 @@ function(n) {
     }) : "object" == typeof exports ? module.exports = function(t, e) {
         return t || (t = window), e && e.fn.dataTable || (e = require("datatables.net")(t, e).$), n(e, t, t.document)
     } : n(jQuery, window, document)
-}(function(v, t, a, o) {
+
+}(function(v, t, a, o) { //  EN ESTA FUNCION SE MODIFICA LA UBUCACION DE LA PALABRA BUSCAR EN LOS MODALES DE AGREGAR ENFERMEDADES 
+
+
     var r = v.fn.dataTable;
     return v.extend(!0, r.defaults, {
-        dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-4'i><'col-sm-12 col-md-8 derecha'p>>",
+        dom: "<'row'<'col-sm-3 col-md-3'l><'col-sm-12 col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-4'i><'col-sm-12 col-md-8 derecha'p>>",
         renderer: "bootstrap"
     }), v.extend(r.ext.classes, {
         sWrapper: "dataTables_wrapper dt-bootstrap4",
