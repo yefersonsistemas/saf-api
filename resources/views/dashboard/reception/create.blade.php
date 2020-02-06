@@ -174,7 +174,7 @@
     <h2>Elegir Fecha</h2>
     <section class="py-1 align-items-center">
         <div class="col-md-8 mx-auto mt-3">
-            <div class="card card-date div">
+            <div class="card card-date">
                 <div class="card-header">
                     <h3 class="card-title">Elegir Fecha</h3>
                 </div>
@@ -186,8 +186,10 @@
                         {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
                         <input value="" id="picker" name="date" class="form-control">
                     </div>
-                </div>
-                <div class="inline-datepicker" data-provide="datepicker"></div>              
+                    <div>
+                        <div class="inline-datepicker" data-provide="datepicker"></div>
+                    </div>                  
+                </div>              
             </div>
         </div>
     </section>
@@ -343,6 +345,9 @@
             var type_dni = $("#type_dni").val();
             var dni = $("#dni").val();
 
+            console.log(type_dni)
+            console.log(dni)
+
             if(type_dni == '' || dni ==  '' || dni.length < 7){
                 Swal.fire({
                     title: 'Datos incompletos.!',
@@ -479,7 +484,7 @@
                 $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                         <div class="card assigment">
-                                                <input type="radio" name="doctorp" value="${data[i].employe[j].id }" id="doctor" class="imagecheck-input">
+                                                <input type="radio" name="doctor"  value="${data[i].employe[j].id }" id="doctor" class="imagecheck-input">
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
                                                     <img width="100%" height="100%" src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                 </figure>
@@ -488,17 +493,20 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </label>
-                                </div>`);
+                                        </label>
+                                    </div>`);
             }
         }
     }
 
     function schedule() {
-        $("input[name='doctorp']").click(function() {
+        $("input[name='doctor']").click(function() {
             // $('.inline-datepicker').empty();
             var doctor = $(this).val();
-            
+            // var doctor = g;
+            console.log('jajaja',doctor);
+          
+         
             console.log('otro',doctor);
             $.ajax({
                     url: "{{ route('search.schedule') }}",
@@ -510,30 +518,17 @@
                 })
                 .done(function(data) {
                     // console.log('Doctores:',data);
-                    console.log('Fechas disponibles de los Doctores',data.available);
+                    // console.log('Fechas disponibles de los Doctores',data.available);
                     Swal.fire({
                         title: 'Médico seleccionado!',
                         text: 'Click en OK para continuar',
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    $('#doctor').val(data.diff);
-                    $('.div').html(` <div class="card-header">
-                                        <h3 class="card-title">Elegir Fecha</h3>
-                                    </div>
-                                    <div class="form-group mx-4">
-                                        <div class="input-group date">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                            {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
-                                            <input value="" id="picker" name="date" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="inline-datepicker" data-provide="datepicker">
-                                    </div> `);
-
-
+                  
+                    $('#doctor').val(data.employe.id);
+                
+                //  $(".inline-datepicker").val("");
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
@@ -542,17 +537,22 @@
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
                     });
-                    $('#fecha').val();
+
+                    $('#fechas').val();
+                    $('.inline-datepicker').on('changeDate', function() {
+                        $('#picker').val(
+                            $('.inline-datepicker').datepicker('getFormattedDate')
+                        );
+                 });    
+                          
+
+                 
                 })
                 .fail(function(data) {
                     console.log(data);
                 })
             });
-            $('.inline-datepicker').on('changeDate', function() {
-                $('#picker').val(
-                    $('.inline-datepicker').datepicker('getFormattedDate')
-                );
-            });
+           
     }
 
 
