@@ -109,7 +109,6 @@ class CitaController extends Controller
 
     public function store(CreateReservationRequest $request)
     {
-        dd($request);
         if ($request->person == 'nuevo') {
             $person = Person::create([
                 'type_dni'  => $request->type_dni,

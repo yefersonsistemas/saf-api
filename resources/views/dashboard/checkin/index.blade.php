@@ -639,7 +639,7 @@
                                     @foreach ($suspendidas as $reservation)
                                         @if ($reservation->status=="Suspendida")
                                         @if (!empty($reservation->cite) )
-                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
+                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="Motivo de cita: {{$reservation->cite->first()->reason}}">
                                         @endif
                                         @else
                                         <tr style="height:40px;">

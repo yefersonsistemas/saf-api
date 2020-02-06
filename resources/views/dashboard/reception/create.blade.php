@@ -186,7 +186,7 @@
                         {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
                         <input value="" id="picker" name="date" class="form-control">
                     </div>
-                    <div>
+                    <div id="div">
                         <div class="inline-datepicker" data-provide="datepicker"></div>
                     </div>                  
                 </div>              
@@ -484,7 +484,7 @@
                 $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                         <div class="card assigment">
-                                                <input type="radio" name="doctor"  value="${data[i].employe[j].id }" id="doctor" class="imagecheck-input">
+                                                <input type="radio" name="doctor"  value="${data[i].employe[j].id }" id="doctore" class="imagecheck-input">
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
                                                     <img width="100%" height="100%" src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                 </figure>
@@ -500,8 +500,12 @@
     }
 
     function schedule() {
-        $("input[name='doctor']").click(function() {
+        $(document).on('click', '#doctore', function(event) {
+            // let id = this.name;
+
+        // $("input[name='doctor']").click(function() {
             // $('.inline-datepicker').empty();
+            // doctor = '';
             var doctor = $(this).val();
             // var doctor = g;
             console.log('jajaja',doctor);
@@ -527,7 +531,11 @@
                     });
                   
                     $('#doctor').val(data.employe.id);
+
+                    $('#picker').val("");   
+                    $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
                 
+                    
                 //  $(".inline-datepicker").val("");
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
@@ -551,6 +559,8 @@
                 .fail(function(data) {
                     console.log(data);
                 })
+
+               
             });
            
     }
