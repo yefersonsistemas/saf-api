@@ -359,7 +359,8 @@
             $('#picker').val(
                 $('.inline-datepicker').datepicker('getFormattedDate')
             );
-        });  
+        });           
+           
     }
     
 </script>
