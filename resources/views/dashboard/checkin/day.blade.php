@@ -12,7 +12,7 @@
 @endsection
 
 @section('title')
-    Citas para hoy: {{ $citasDelDia }} | Atendidos Hoy: {{ $atendidos }}
+     {{-- Citas para hoy: {{ $citasDelDia }} | Atendidos Hoy: {{ $atendidos }} --}}
 @endsection
 
 @section('content')
@@ -46,7 +46,7 @@
                 <div class="card">
                     <div class="card-body">                                
                         <h6>Total De Citas Agendadas</h6>
-                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasAnual }}</span></h3>
                         {{-- <h5>$1,25,451.23</h5> --}}
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Total De Citas Del Mes</h6>
-                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
+                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">{{ $citasDelMes }}</span></h3>
                         {{-- <h5>$3,80,451.00</h5> --}}
                     </div>
                 </div>

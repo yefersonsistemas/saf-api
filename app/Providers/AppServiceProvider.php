@@ -32,31 +32,41 @@ class AppServiceProvider extends ServiceProvider
 
         foreach ($day as $key) {
             if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
-                $atendidos->push($key);
+               $atendidos->push($key);
             }
         }
 
-        //contador de citas al mes
-        // $dia = Carbon::now()->format('Y-m');
-        // // dd($dia);
-        // $reserva = Reservation::where('date', $dia)->get();
-        // dd($reserva);
-       
-        
+         //contadores de citas mensuales y anuales
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $reserva1 = Reservation::whereMonth('created_at', '=', $mes)->get();
+        $reserva2 = Reservation::whereYear('created_at', '=', $año)->get();
+     
+        $all = $reserva1->intersect($reserva2);
 
 
-        // $atendidos = $day->map(function ($item, $key) {
-        //     if (!empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && !empty($item->patient->inputoutput->first()->outside_office)){
-        //         return $item;
-        //     }else{
+        // contadores de out
+        // contador reservaciones confirmadas de todos los doctores
+        $approved = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
+      
+        // contador pacientes en espera de todos los doctores
+        $enespera =  Reservation::with('patient.inputoutput')->whereDate('date', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
+        // dd($poratender->count());
 
-        //     }
-        // });
-
-        // dd($atendidos);
-        
+        $poratender = collect([]);
+    
+        foreach ($enespera as $item) {
+            if (empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && empty($item->patient->inputoutput->first()->outside_office) && empty($item->patient->inputoutput->first()->outside)){
+               $poratender->push($item);
+            }
+        }
         
         View::share('citasDelDia', $day->count()); 
-        View::share('atendidos', $atendidos->count());  
+        View::share('atendidos', $atendidos->count()); 
+        View::share('citasDelMes', count($all));   
+        View::share('citasAnual', count($reserva2)); 
+        View::share('citasConfirmadas', count($approved)); 
+        View::share('porAtender', count($poratender)); 
+      
     }
 }
