@@ -86,7 +86,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card position-relative">
 
                     <!--Inicio de informacion paciente-->
-                    <a href="javascript:history.back(-1);" class="btn btn-sm btn-azuloscuro text-white position-absolute ml-3"><i class="icon-action-undo mx-auto"></i></a>
+                    <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
                     <div class="container">
                         <div class="row my-3 d-flex flex-row align-items-center">
                             <div class="col-3 ml-4">
@@ -127,7 +127,7 @@ button[data-original-title="Help"]{ display: none; }
                             <!--body-->
                             <div class="card-group">
                                 {{-- <div id="wizard_vertical"> --}}
-                                <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST" class="step-doctor">
+                                <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST" class="pb-4 step-doctor">
                                     @csrf
                                     <input type="hidden" name="patient_id" value="{{ $history->patient_id }}">
                                     <input type="hidden" name="employe_id" value="{{ $history->person_id }}">
@@ -244,10 +244,10 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="card-header bg-azuloscuro" >
                                                     <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                         <div class="col-8">
-                                                            <h5 class="card-title text-white">Enfermedades</h5>
+                                                            <h5 class="card-title text-white ">Enfermedades</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white " style="font-size:12px; cursor: pointer;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -266,7 +266,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     @endforeach    
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        <button class="btn btn-info " data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -324,11 +324,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
                                                             </div> 
                                                             <div class="col-3" id="cirugia{{$cite->id}}">
-<<<<<<< HEAD
-                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-=======
                                                                 <input id="borrar_cirugia" name="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
                                                                     value="Eliminar">
                                                             </div>
                                                         </div> 
@@ -695,17 +691,17 @@ button[data-original-title="Help"]{ display: none; }
     </div>
 
     <!-- Modal para mostar enfermedades-->
-    <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content" style="width: 600px;">
-                <div class="modal-header p-2 text-center" style="background-color: #00506b; color: #fff;">
-                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
+    <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable rowww " role="document">
+            <div class="modal-content roww " style="width: 600px;">
+                <div class="modal-header p-2 text-center " style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center " id="exampleModalLabel">Enfermedades</h5>
                     <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <h6><span aria-hidden="true">&times;</span></h6>
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 415px; ">
+                    <div class="modal-body" style="max-height: 450px; ">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -714,9 +710,10 @@ button[data-original-title="Help"]{ display: none; }
                                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                                 <thead>
                                                     <tr>
-                                                        <th>Nombre</th>                                                        
+                                                        <th>Nombre </th>  
+                                                                                                            
                                                     </tr>
-                                                </thead>
+                                                  </thead>
                                                 </tfoot>
                                                 <tbody id="modal_enfermedad">
                                                       @if($enfermedad != null)
@@ -1318,13 +1315,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#enfermedad_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-<<<<<<< HEAD
-            console.log('jajja',reservacion);
-            console.log('id', id);
-            $("#"+id).remove();
-=======
             $("div").remove("#"+id);   
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
           
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
@@ -1347,13 +1338,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-<<<<<<< HEAD
-
-            }
-
-=======
             }            
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
         })
         .fail(function(data) {
             console.log(data);
@@ -1369,12 +1354,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarAlergias").click(function() {
         var reservacion = $("#reservacion").val();
         var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
-<<<<<<< HEAD
-        console.log("hh",datos);
-
-=======
         
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1427,13 +1407,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#alergia_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-<<<<<<< HEAD
-            console.log('jajja',reservacion);
-            console.log('id', id);
-            $("#"+id).remove();
-=======
             $("div").remove("#"+id);    //quitar de la lista de alergias
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
@@ -1455,25 +1429,12 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-<<<<<<< HEAD
-
-            }
-
-        })
-        .fail(function(data) {
-            console.log(data);
-        })
-
-        });
-
-=======
             }            
         })
         .fail(function(data) {
             console.log(data);
         })  
         });    
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
     });
 
 
@@ -1534,13 +1495,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#borrar_cirugia', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-<<<<<<< HEAD
-            console.log('jajja',reservacion);
-            console.log('id', id);
-            $("#"+id).remove();
-=======
             $("div").remove("#"+id); 
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
@@ -1561,13 +1516,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-<<<<<<< HEAD
-
-            }
-
-=======
             }            
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
         })
         .fail(function(data) {
             console.log(data);

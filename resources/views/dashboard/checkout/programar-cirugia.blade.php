@@ -48,7 +48,7 @@
                                                         <option>E</option>
                                                     </select>
                                                     </div>
-                                                    <input type="text" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="" required="">
+                                                        <input type="text" maxlength="9" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
                                                     <input type="hidden" name="patient_id" id="patient_id" value="">
                                                     <button type="button" id="search" class="btn btn-azuloscuro text-white" ><i
                                                             class="fa fa-search"></i></button>
@@ -307,7 +307,24 @@ var form = $('#wizard_horizontal').show();
         $("#search").click(function() {
             var type_dni = $("#type_dni").val();
             var dni = $("#dni").val();
-            ajax(type_dni, dni);
+
+            $('#name').val('');
+            $('#lastname').val('');
+            $('#email').val('');
+            $('#address').val('');
+            $('#phone').val('');
+
+            if(type_dni == '' || dni ==  '' || dni.length < 7){
+
+                Swal.fire({
+                    title: 'Datos incompletos.!',
+                    text: 'Por favor introduzca el documento de identidad completo.',
+                    allowOutsideClick:false,
+                });
+            }else{
+                ajax(type_dni, dni);
+
+            }
         });
     }
 
@@ -323,6 +340,7 @@ var form = $('#wizard_horizontal').show();
             })
             .done(function(data) {
                 console.log('ee', data);
+               
                 if (data[0] == 202) {
                     Swal.fire({
                         title: data.message,

@@ -3558,6 +3558,10 @@
     background: #00ba88;
 }
 
+.hola {
+    box-shadow: 5px 10px 8px #888888;
+}
+
 .btn-azuloscuro {
     color: #fff;
     background: #00506b;
@@ -3571,7 +3575,7 @@
 
 .btn-azuloscuro:hover {
     color: #fff;
-    background-color: #023e52;
+    background-color: #00ba88;
     border-color: #023e52;
 }
 
@@ -3646,6 +3650,7 @@
 
 
 /* Cambia el color al número del paginador */
+
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
@@ -3677,7 +3682,9 @@ p.remarcado {
     background: #000;
 }
 
+
 /* Alinear el paginador */
+
 .dataTables_wrapper .dataTables_paginate {
     float: left !important;
     text-align: right;
@@ -3694,7 +3701,6 @@ p.remarcado {
 /* estilos para el usuario */
 
 .color_titulo {
-    
     font-weight: bold;
 }
 
@@ -3720,11 +3726,13 @@ span.titulos {
     background: #000;
 }
 
+
 /*---------------------- Desactiva el paginador -----------*/
 
 .modal-page-link {
     display: none;
 }
+
 
 /*-------- BOTON ANTERIOR ---------*/
 
@@ -4179,10 +4187,10 @@ th .factura {
 }
 
 
-/* ----------------------------COLOR DEL BOTON DESPUES DE SER USADO EN LA PANTALLA DE ADMINISTRADOR LISTA */
+/* ----------------------------COLOR DEL BOTON DESPUES DE SER USADO EN LA PANTALLA DE ADMINISTRADOR LISTA   VERICAL IZQUIERDA */
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    color: #494848;
-    background-color: #8a8787;
+    color: #fff;
+    background-color: #00ba88;
 }

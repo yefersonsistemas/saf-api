@@ -1036,16 +1036,10 @@
             }
         }
         
-        @media screen and (max-width:1320px) {
-            .plan-steps>ul>li>a {
-                padding: 10px!important;
-                font-size: 10px!important;
-            }
-            .plan-steps .nav-pills .nav-link.active,
-            .plan-steps .nav-pills .show>.nav-link {
-                padding: 10px!important;
-                font-size: 10px!important;
-            }
+        .plan-steps .nav-pills .nav-link.active,
+        .plan-steps .nav-pills .show>.nav-link {
+            padding: 10px!important;
+            font-size: 13px!important;
         }
         
         @media screen and (max-width:1200px) {
@@ -1112,8 +1106,7 @@
     justify-content: space-between;
     align-items: center;
 } */
-        
-        .table.table_custom tr td {}
+        /* .table.table_custom tr td {} */
         
         .dz-image img {
             width: 100% !important;
