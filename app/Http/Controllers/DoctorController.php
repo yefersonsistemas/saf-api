@@ -176,7 +176,29 @@ class DoctorController extends Controller
 
         $surgerys = Typesurgery::all();
 
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia'));
+
+        
+        //--------------esto es para los contadores que aparecen en historia medica--------------
+        $id= Auth::id();
+        $empleado = Employe::with('person')->where('id', $id)->first();
+        $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
+        $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+        $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
+        
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $yasevieron = collect([]);
+
+        foreach ($day as $key) {
+            if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
+               $yasevieron->push($key);
+            }
+        }
+
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron'));
     }
 
     /**

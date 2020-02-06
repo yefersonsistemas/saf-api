@@ -20,6 +20,7 @@ use App\Typesurgery;
 use App\Itinerary;
 use App\Doctor;
 use App\Area;
+use App\ClassificationSurgery;
 use App\Reservationsurgery;
 use App\TypeArea;
 use Carbon\Carbon;
@@ -60,9 +61,9 @@ class SurgerysController extends Controller
 // para agendar cirugia cuando el paciente no se encuentra en el itinerario
 public function create_surgery(){
 
-    // $cirugias = Surgery::all();
-    // dd($cirugias);
-    $surgeries = Typesurgery::all();
+    $clasificacion = ClassificationSurgery::where('name', 'hospitalaria')->first();
+    $surgeries = Typesurgery::with('classification')->where('classification_surgery_id',  $clasificacion->id)->get();
+    // dd( $surgeries);
     $tipo = TypeArea::where('name', 'Quirofano')->first();
     $quirofano = Area::with('image')->where('type_area_id', $tipo->id)->get();     
 
@@ -74,7 +75,7 @@ public function create_surgery(){
     public function search_patients_out(Request $request){
 
         // dd($request);
-        $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+        $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
         
         if (!is_null($person)) {
