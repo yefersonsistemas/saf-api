@@ -343,40 +343,23 @@
     }
     
     function schedule(data) {
-     
-                    $('#employe').val(data.diff);
-                    // $('.div').html(` <div class="card-header">
-                    //                     <h3 class="card-title">Elegir Fecha</h3>
-                    //                 </div>
-                    //                 <div class="form-group mx-4">
-                    //                     <div class="input-group date">
-                    //                         <div class="input-group-prepend">
-                    //                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                    //                         </div>
-                    //                         {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
-                    //                         <input value="" id="picker" name="date" class="form-control">
-                    //                     </div>
-                    //                 </div>
-                    //                 <div class="inline-datepicker" data-provide="datepicker">
-                    //                 </div> `);
+        $('#employe').val(data.employe.id);
 
+        $('.inline-datepicker').datepicker({
+            todayHighlight: true,
+            language: 'es',
+            startDate: data.start,
+            endDate: data.end,
+            daysOfWeekHighlighted: [0,6],
+            datesDisabled: data.diff,
+        });
 
-                    $('.inline-datepicker').datepicker({
-                        todayHighlight: true,
-                        language: 'es',
-                        startDate: data.start,
-                        endDate: data.end,
-                        daysOfWeekHighlighted: [0,6],
-                        datesDisabled: data.diff,
-                    });
-                    $('#fecha').val();
-             
-            // });
-            $('.inline-datepicker').on('changeDate', function() {
-                $('#picker').val(
-                    $('.inline-datepicker').datepicker('getFormattedDate')
-                );
-            });
+        $('#fechas').val();
+        $('.inline-datepicker').on('changeDate', function() {
+            $('#picker').val(
+                $('.inline-datepicker').datepicker('getFormattedDate')
+            );
+        });  
     }
     
 </script>
