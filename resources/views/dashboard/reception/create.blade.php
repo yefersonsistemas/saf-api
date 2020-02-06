@@ -555,9 +555,6 @@
             });
     }
 
-    function datevalue(){
-
-    }
 
     function crear() {
         var type_dni = $("#type_dni").val();

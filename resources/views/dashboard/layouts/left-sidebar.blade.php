@@ -110,7 +110,7 @@
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a>
                         <ul>
                             <li class="@yield('agendar')"><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Hospitalaria</span></a></li>      
-                            <li class="@yield('citas')"><a href=""><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Ambulatoria</span></a></li>                   
+                            <li class="@yield('newCite')"><a href="{{ route('checkout.agendar-ambulatoria') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Ambulatoria</span></a></li>                   
                         </ul>
                     </li>
                     <li class="@yield('facturacion')"><a href="{{ route('checkout.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>

@@ -21,6 +21,7 @@ use App\Itinerary;
 use App\Doctor;
 use App\Area;
 use App\ClassificationSurgery;
+use App\Procedure;
 use App\Reservationsurgery;
 use App\TypeArea;
 use Carbon\Carbon;
@@ -70,6 +71,31 @@ public function create_surgery(){
     return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
 }
 
+public function create_surgery_ambulatoria(){
+
+    $procedures = Procedure::get();
+    // dd( $surgeries);  
+
+    $employes = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->get();
+            // dd($employes);
+        $em = collect([]);
+        if ($employes->isNotEmpty()) {
+            foreach ($employes as $employe) {
+                if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                    if ($employe->schedule->isNotEmpty()) {
+                        $dia = strtolower(Carbon::now()->locale('en')->dayName); //Trae los medicos del dia
+                        foreach ($employe->schedule as $schedule) {
+                            if ($schedule->day == $dia) {
+                                $em->push($employe);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    return view('dashboard.checkout.agendar_cirugia', compact('procedures', 'em'));
+}
     
     //buscar paciente
     public function search_patients_out(Request $request){
@@ -97,6 +123,24 @@ public function create_surgery(){
                 'message' => 'Persona no registrada',202
             ]);
         }
+    }
+
+    public function buscar_doctor(Request $request)
+    {
+        $employe = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->where('id', $request->id)->first();
+        // dd($employe);
+       
+        if (!is_null($employe)) {
+        
+            return response()->json([
+                'medico' => $employe, 201
+                ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',202
+            ]);
+        }
+              
     }
 
 
