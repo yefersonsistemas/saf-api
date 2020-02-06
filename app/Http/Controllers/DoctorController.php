@@ -660,16 +660,21 @@ class DoctorController extends Controller
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $reservation = Reservation::where('id', $request->reservacion_id)->first();
         $patient = Patient::where('person_id', $reservation->patient_id)->first();
-
+       
         if($itinerary != null){
-                $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-        
+            $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+          
             if (empty($io->outside_office) && (!empty($io->inside_office))) {
+     
                 $io->outside_office = 'fuera';
                 $io->save();
                 $itinerary->status = 'fuera_office';
+                if($request->proximaCita == 1){
+                    $itinerary->proximaCita = true;
+                }else{
+                    $itinerary->proximaCita = false;
+                }
                 $itinerary->save();
-
                 if($itinerary != null){
 
                     if($request->reposop != null){

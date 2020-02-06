@@ -129,9 +129,9 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $speciality->name }}</h5>
                         </div>
-            </div>
-            </label>
-        </div> --}}
+                        </div>
+                        </label>
+                    </div> --}}
         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
             <label class="imagecheck m-0">
                 <div class="card assigment">
@@ -288,12 +288,14 @@
     function stopDefAction(evt) {
         evt.preventDefault();
     }
-    var form = $('#wizard_horizontal').show()
-    ;
+    
+    var form = $('#wizard_horizontal').show();
+    
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
+        // enableAllSteps: false,        
         labels: {
             cancel: "Cancelar",
             current: "Paso actual:",
@@ -302,6 +304,8 @@
             next: "Siguiente",
             previous: "Anterior",
             loading: "Cargando ..."},
+
+            
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();

@@ -648,16 +648,20 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                            <!--Proxima cita-->
-                                            {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                             <!--Proxima cita-->
+                                             <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                 <div class="container">
-                                                    <div class="col-lg-12 mx-auto">
-                                                    Proxima cita...
+                                                    <div class="row mx-auto">
+                                                        <h5 class="col-12">Notificar próxima cita</h5>
+                                                        <div class="col-12 justify-content-center">
+                                                            <button class="btn btn-verdePastel px-5" id="citaProxima">Próxima cita</button>
+                                                            <input type="hidden" id="proximaCita" name="proximaCita" value="0">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div> --}}
+                                            </div>
+                                        </div>                                           
                                     </section>
 
                                 </form>
@@ -1891,6 +1895,9 @@ button[data-original-title="Help"]{ display: none; }
         });
     });
 
+    $("#citaProxima").click(function() {
+        $('#proximaCita').val(1);
+    });
 </script>
 @endsection
 
