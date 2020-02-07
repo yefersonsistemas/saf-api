@@ -1565,7 +1565,7 @@ class DoctorController extends Controller
     public function surgerysP(Request $request){
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-
+    
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
