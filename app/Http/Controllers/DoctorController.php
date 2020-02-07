@@ -396,6 +396,14 @@ class DoctorController extends Controller
             $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
             ->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
+        //actualizando campo de proxima cita
+            if($request->proximaCita == 1){
+                $itinerary->proximaCita = true;
+            }else{
+                $itinerary->proximaCita = false;
+            }
+            $itinerary->save();
+
        //actualizando campos de diagnostico
             $diagnostic->description = $request->diagnostic;
             $diagnostic->reason = $request->razon;
@@ -669,12 +677,16 @@ class DoctorController extends Controller
                 $io->outside_office = 'fuera';
                 $io->save();
                 $itinerary->status = 'fuera_office';
+
+                //guardar proxima cita
                 if($request->proximaCita == 1){
                     $itinerary->proximaCita = true;
                 }else{
                     $itinerary->proximaCita = false;
-                }
+                }                
                 $itinerary->save();
+
+
                 if($itinerary != null){
 
                     if($request->reposop != null){

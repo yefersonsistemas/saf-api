@@ -816,13 +816,22 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 
                                                 <!------------------------------PROXIMA CITA---------------------->
-                                                {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
-                                                        <div class="col-lg-12 mx-auto">
-                                                            Proxima cita...
+                                                        <div class="row mx-auto">
+                                                            <h5 class="col-12">Notificar próxima cita</h5>
+                                                            <div class="col-12 justify-content-center text-center mt-4">
+                                                                @if($itinerary->proximaCita == false)
+                                                                    <button class="btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" title="Click para notificar una próxima cita">Próxima cita<br><i style="font-size:25px;" class="fa fa-bell"></i></button>
+                                                                    <input type="hidden" id="proximaCita" name="proximaCita" value="0">
+                                                                @else
+                                                                    <button disabled class="btn btn-verdePastel px-5 py-2" id="citaProxima" >Próxima cita<br><i style="font-size:25px;" class="fa fa-bell"></i></button>
+                                                                    <input type="hidden" id="proximaCita" name="proximaCita" value="1">
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div> --}}
+                                                </div>
                                             </div>
                                         </section>
                                         
@@ -2126,6 +2135,28 @@ button[data-original-title="Help"]{ display: none; }
         });
     });
 
+    $("#citaProxima").click(function() {
+
+    $('#proximaCita').val(1);
+    var proxima_cita = $('#proximaCita').val();
+
+    if(proxima_cita == 1){                  //si no trae valores
+            Swal.fire({
+                title: 'Próxima Cita',
+                text: 'Click en OK para continuar',
+                type: 'success',
+            });
+
+        $("#citaProxima").prop('disabled', true);
+        }else{
+            Swal.fire({
+                title: 'No próxima Cita',
+                text: 'Click en OK para continuar',
+                type: 'error',
+            });
+        }
+
+    });
 </script>
 
 @endsection

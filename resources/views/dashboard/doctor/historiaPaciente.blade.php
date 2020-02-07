@@ -654,8 +654,8 @@ button[data-original-title="Help"]{ display: none; }
                                                 <div class="container">
                                                     <div class="row mx-auto">
                                                         <h5 class="col-12">Notificar próxima cita</h5>
-                                                        <div class="col-12 justify-content-center">
-                                                            <button class="btn btn-verdePastel px-5" id="citaProxima">Próxima cita</button>
+                                                        <div class="col-12 justify-content-center text-center mt-4">
+                                                            <button class="btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" title="Click para notificar una próxima cita">Próxima cita<br><i style="font-size:25px;" class="fa fa-bell"></i></button>
                                                             <input type="hidden" id="proximaCita" name="proximaCita" value="0">
                                                         </div>
                                                     </div>
@@ -1896,7 +1896,27 @@ button[data-original-title="Help"]{ display: none; }
     });
 
     $("#citaProxima").click(function() {
+
         $('#proximaCita').val(1);
+        var proxima_cita = $('#proximaCita').val();
+
+        if(proxima_cita == 1){                  //si no trae valores
+                Swal.fire({
+                    title: 'Próxima Cita',
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+
+            // $('#citaProxima').attr('disabled');
+            $("#citaProxima").prop('disabled', true);
+            }else{
+                Swal.fire({
+                    title: 'No próxima Cita',
+                    text: 'Click en OK para continuar',
+                    type: 'error',
+                });
+            }
+
     });
 </script>
 @endsection
