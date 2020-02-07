@@ -596,7 +596,7 @@
                                                 <!--PROXIMA CITA-->
                                                 @if($itinerary->proximaCita == true)
                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
-                                                       <a href="" class="btn btn-boo abarca text-start" type="button" target="_blank">
+                                                       <a href="{{ route('checkout.nueva_cita', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                         <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#00ad88;"></span>Agendar cita
                                                        </a>                                                    
                                                    </div>

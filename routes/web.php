@@ -98,7 +98,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     //======================= rutas para el usuario ckeckout ====================
-        Route::group(['middleware' => ['role:OUT, director']], function () {
+    Route::group(['middleware' => ['role:OUT, director']], function () {
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
@@ -131,6 +131,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
         Route::get('surgeries/list', 'OutController@surgeries_list')->name('checkout.lista_cirugias'); //Lista de cirugias
+
+        Route::get('agendar/cita/{id}', 'OutController@nueva_cita')->name('checkout.nueva_cita'); //Lista de cirugias
+        Route::post('nuevaCita/store','OutController@store_nueva_cita')->name('checkout.store_nueva_cita');
     });
 
     Route::group(['middleware' => ['role:doctor, director']], function () {
