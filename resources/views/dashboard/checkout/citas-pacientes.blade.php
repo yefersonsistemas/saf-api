@@ -465,11 +465,11 @@
 
                                     <div class="col-lg-8 col-md-8">
                                         <div class="row">
-                                            @if($itinerary->proximaCita == true)
+                                            @if($itinerary->proximaCita == 'posible')
                                             <div class="col-1 mt-2" style="max-height: 100px;">
                                               <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#00ad88;"></span>
                                              </div>
-                                            @endif
+                                            @endif                                           
                                             <!--Imagen del paciente-->
                                             <div class="col-3" style="max-height: 100px; ">
                                                 @if (!empty($itinerary->person->image->path))
@@ -594,10 +594,18 @@
                                         <div class="row d-flex justify-content-end" style="width: 18rem;">
                                             <div class="card-body">
                                                 <!--PROXIMA CITA-->
-                                                @if($itinerary->proximaCita == true)
+                                                @if($itinerary->proximaCita == 'posible')
                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
                                                        <a href="{{ route('checkout.nueva_cita', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                         <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#00ad88;"></span>Agendar cita
+                                                       </a>                                                    
+                                                   </div>
+                                                @endif
+
+                                                @if($itinerary->proximaCita == 'agendada')
+                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
+                                                       <a href="{{ route('checkout.nueva_cita', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                        <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:red;"></span>Cita agendada
                                                        </a>                                                    
                                                    </div>
                                                 @endif

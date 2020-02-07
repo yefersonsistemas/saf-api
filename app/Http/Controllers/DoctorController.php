@@ -192,13 +192,14 @@ class DoctorController extends Controller
         $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
         ->where('id',$id)->first();
      
+        // dd($reservation);
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
         ->where('person_id', $reservation->patient_id)->first();
-     
+    //  dd($cite);
         $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
-        
+        // dd($b_patient);
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
-
+        // dd($r_patient);
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
 //    dd($itinerary->reference->speciality);
 
@@ -398,9 +399,9 @@ class DoctorController extends Controller
 
         //actualizando campo de proxima cita
             if($request->proximaCita == 1){
-                $itinerary->proximaCita = true;
+                $itinerary->proximaCita = 'posible';
             }else{
-                $itinerary->proximaCita = false;
+                $itinerary->proximaCita = null;
             }
             $itinerary->save();
 
@@ -680,9 +681,9 @@ class DoctorController extends Controller
 
                 //guardar proxima cita
                 if($request->proximaCita == 1){
-                    $itinerary->proximaCita = true;
+                    $itinerary->proximaCita = 'posible';
                 }else{
-                    $itinerary->proximaCita = false;
+                    $itinerary->proximaCita = null;
                 }                
                 $itinerary->save();
 
@@ -1716,10 +1717,9 @@ class DoctorController extends Controller
         'cirugias' => 'Cirugias previas eliminada correctamente',202
     ]);
 
-
     }
 
-    //=================Lista de las Cirugias Asociadad al Doctor====================//
+    //=================Lista de las Cirugias Asociadad al Doctor====================
     public function surgeries_list(){
         $id = Auth::id();
         // dd($id);

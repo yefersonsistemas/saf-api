@@ -342,7 +342,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <h2>Estudios complementarios</h2>
                                         <section class="ml-4">
                                             <div class="row">
-                                                @foreach ( $cite->person->reservationPatient as $cites )
+                                                {{-- @foreach ( $cite->person->reservationPatient as $cites )
                                                     <div class="col-md-4">
                                                         <div class="card">
                                                             <div class="card-header bg-azuloscuro">
@@ -352,7 +352,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @endforeach
+                                                @endforeach --}}
                                             </div>
                                         </section>
 
@@ -642,7 +642,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                             
                                                 <!------------------------------REFERENCIA---------------------->
-                                                <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
+                                                {{-- <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
                                                             
@@ -722,7 +722,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
