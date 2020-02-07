@@ -10,7 +10,7 @@ Use App\Area;
 Use App\Billing;
 Use App\Reference;
 Use App\Repose;
-Use App\Schedules;
+Use App\Schedule;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\InController;
@@ -62,7 +62,6 @@ class OutController extends Controller
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
 // dd($confirmadas->first()->speciality);
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
-        
 
         return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera'));
     }
@@ -742,5 +741,42 @@ class OutController extends Controller
     // dd($surgeries);
     return  view('dashboard.checkout.lista_cirugias', compact('surgeries'));
     }
+
+    //===================agendar nueva cita desde checkout==================
+    public function nueva_cita($id){
+        $itinerary = Itinerary::with('person','employe')->where('id',$id)->first();   
+        $reservation = Reservation::with('speciality')->where('id',$itinerary->reservation_id)->first();
+        return  view('dashboard.checkout.nuevaCita',compact('itinerary','reservation'));
+    }
+
+    //=================crear reservacion====================
+    public function store_nueva_cita(Request $request){
+        // dd($request);
+        
+        $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
+
+        $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
+
+        $date = Carbon::create($request->date);
+
+        $reservation = Reservation::create([
+            'date' => $date,
+            'description' => $request->motivo,
+            'patient_id' => $request->person,
+            'person_id' => $request->doctor,
+            'schedule_id' => $schedule->id,
+            'status'      => 'Pendiente',
+            'specialitie_id' => $request->speciality,
+            'branch_id' => 1,
+        ]);
+
+        // dd($reservation);
+        return response()->json([
+            'message' => 'Cita creada',
+        ]);
+
+    }
+
+  
 
 }

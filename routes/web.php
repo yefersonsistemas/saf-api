@@ -32,6 +32,16 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
     Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
 
+    //eliminar
+    Route::post('doctor/eliminar/enfermedad', 'DoctorController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar');  // eliminar examen
+    Route::post('doctor/eliminar/alergia', 'DoctorController@alergia_eliminar')->name('doctor.alergia_eliminar');  // eliminar examen
+    Route::post('doctor/eliminar/cirugia_previas', 'DoctorController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
+    Route::post('doctor/eliminar/medicamento', 'InController@medicine_borrar')->name('checkin.medicine_borrar');  // eliminar examen
+
+    //agregar
+    Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen     
+    Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
     });
@@ -88,7 +98,7 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
     //======================= rutas para el usuario ckeckout ====================
-        Route::group(['middleware' => ['role:OUT, director']], function () {
+    Route::group(['middleware' => ['role:OUT, director']], function () {
         Route::get('citas/deldia', 'OutController@index')->name('checkout.index');                          // mostrar pacientes del dia
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
@@ -121,6 +131,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
         Route::get('surgeries/list', 'OutController@surgeries_list')->name('checkout.lista_cirugias'); //Lista de cirugias
+
+        Route::get('agendar/cita/{id}', 'OutController@nueva_cita')->name('checkout.nueva_cita'); //Lista de cirugias
+        Route::post('nuevaCita/store','OutController@store_nueva_cita')->name('checkout.store_nueva_cita');
     });
 
     Route::group(['middleware' => ['role:doctor, director']], function () {
@@ -151,8 +164,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/referenceUpdate', 'DoctorController@reference_update')->name('doctor.reference_update');  // actualizar referecnia
 
 
-        Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen
-        Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
         Route::post('doctor/cirugias', 'DoctorController@agregar_cirugias')->name('doctor.agregar_cirugias');  // eliminar examen
         //-------------------elimnar-------------------
         Route::post('doctor/eliminar/examen/actualizar', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
@@ -164,9 +175,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/cirugia', 'DoctorController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar examen
 
-        Route::post('doctor/eliminar/enfermedad', 'DoctorController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar');  // eliminar examen
-        Route::post('doctor/eliminar/alergia', 'DoctorController@alergia_eliminar')->name('doctor.alergia_eliminar');  // eliminar examen
-        Route::post('doctor/eliminar/cirugia_previas', 'DoctorController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
+    
         
     });
 

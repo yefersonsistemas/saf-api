@@ -43,9 +43,11 @@ class DoctorController extends Controller
     public function index()
     {
         $id= Auth::id();
-        $empleado = Employe::where('id', $id)->first();
+        // dd($id);
+        $empleado = Employe::with('person')->where('id', $id)->first();
+        // dd( $empleado);
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-      
+        // dd($today->count());
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
@@ -54,8 +56,25 @@ class DoctorController extends Controller
         
         $fecha= Carbon::now()->format('Y/m/d h:m:s'); //la h en minuscula muestra hora normal, y en mayuscula hora militar
 
-        return view('dashboard.doctor.index', compact('today','month', 'all', 'week', 'fecha'));
+        //esto es para los contadores del doctor
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
+        $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+        $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
+        
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $yasevieron = collect([]);
+
+        foreach ($day as $key) {
+            if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
+               $yasevieron->push($key);
+            }
+        }
+        return view('dashboard.doctor.index', compact('today','month', 'all', 'week', 'fecha', 'todas', 'reserva2', 'yasevieron'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -378,6 +397,14 @@ class DoctorController extends Controller
             $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
             ->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
+        //actualizando campo de proxima cita
+            if($request->proximaCita == 1){
+                $itinerary->proximaCita = true;
+            }else{
+                $itinerary->proximaCita = false;
+            }
+            $itinerary->save();
+
        //actualizando campos de diagnostico
             $diagnostic->description = $request->diagnostic;
             $diagnostic->reason = $request->razon;
@@ -642,15 +669,24 @@ class DoctorController extends Controller
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $reservation = Reservation::where('id', $request->reservacion_id)->first();
         $patient = Patient::where('person_id', $reservation->patient_id)->first();
-
+       
         if($itinerary != null){
-                $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-        
+            $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+          
             if (empty($io->outside_office) && (!empty($io->inside_office))) {
+     
                 $io->outside_office = 'fuera';
                 $io->save();
                 $itinerary->status = 'fuera_office';
+
+                //guardar proxima cita
+                if($request->proximaCita == 1){
+                    $itinerary->proximaCita = true;
+                }else{
+                    $itinerary->proximaCita = false;
+                }                
                 $itinerary->save();
+
 
                 if($itinerary != null){
 
@@ -742,7 +778,7 @@ class DoctorController extends Controller
     public function searchDoctor(Request $request)
     {
         $doctors = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
-
+        
         if (!is_null($doctors->first()->employe)) {
             return $doctors;
         }else{
@@ -764,6 +800,7 @@ class DoctorController extends Controller
     public function search_schedule(Request $request){//busca el horario del medico para agendar cita
         // dd($request->id);
         $employe = Employe::with('schedule')->where('id', $request->id)->first();
+        // dd($employe->schedule);
         $available = collect([]);
         // dd($available);
         if (!is_null($employe)) {

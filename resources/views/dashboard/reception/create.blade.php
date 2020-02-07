@@ -129,9 +129,9 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $speciality->name }}</h5>
                         </div>
-            </div>
-            </label>
-        </div> --}}
+                        </div>
+                        </label>
+                    </div> --}}
         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
             <label class="imagecheck m-0">
                 <div class="card assigment">
@@ -158,10 +158,9 @@
     </section>
     <h2>Elegir Medico</h2>
     <section class="py-1">
-        <div class="row justify-content-between" id="medicos">
-        </div>
+        <div class="row justify-content-between" id="medicos">         
+        </div>     
         <input type="hidden" name="doctor" id="doctor">
-
     </section>
     <h2>Motivo De La Consulta</h2>
     <section class="container">
@@ -174,7 +173,7 @@
     </section>
     <h2>Elegir Fecha</h2>
     <section class="py-1 align-items-center">
-        <div class="col-md-8 m-auto">
+        <div class="col-md-8 mx-auto mt-3">
             <div class="card card-date">
                 <div class="card-header">
                     <h3 class="card-title">Elegir Fecha</h3>
@@ -187,8 +186,10 @@
                         {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
                         <input value="" id="picker" name="date" class="form-control">
                     </div>
-                </div>
-                <div class="inline-datepicker" data-provide="datepicker"></div>
+                    <div id="div">
+                        <div class="inline-datepicker" data-provide="datepicker"></div>
+                    </div>                  
+                </div>              
             </div>
         </div>
     </section>
@@ -287,12 +288,14 @@
     function stopDefAction(evt) {
         evt.preventDefault();
     }
-    var form = $('#wizard_horizontal').show()
-    ;
+    
+    var form = $('#wizard_horizontal').show();
+    
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
+        // enableAllSteps: false,        
         labels: {
             cancel: "Cancelar",
             current: "Paso actual:",
@@ -301,6 +304,8 @@
             next: "Siguiente",
             previous: "Anterior",
             loading: "Cargando ..."},
+
+            
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
@@ -343,6 +348,9 @@
         $("#search").click(function() {
             var type_dni = $("#type_dni").val();
             var dni = $("#dni").val();
+
+            console.log(type_dni)
+            console.log(dni)
 
             if(type_dni == '' || dni ==  '' || dni.length < 7){
                 Swal.fire({
@@ -471,16 +479,16 @@
     }
 
     function cargarMedicos(data) {
-        console.log('dataaaa',data.length);
-        console.log('imagen',data[0].employe[0].image.path);
-        console.log(data[0].employe.length);
+        // console.log('dataaaa',data.length);
+        // console.log('imagen',data[0].employe[0].image.path);
+        // console.log(data[0].employe.length);
         $('#medicos').empty();
         for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].employe.length; j++) {
                 $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                         <div class="card assigment">
-                                                <input type="radio" name="doctor" value="${data[i].employe[j].id }" id="" class="imagecheck-input">
+                                                <input type="radio" name="doctor"  value="${data[i].employe[j].id }" id="doctore" class="imagecheck-input">
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
                                                     <img width="100%" height="100%" src="/storage/${data[i].employe[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                 </figure>
@@ -489,15 +497,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </label>
-                                </div>`);
+                                        </label>
+                                    </div>`);
             }
         }
     }
+
     function schedule() {
-        $("input[name='doctor']").click(function() {
+        $(document).on('click', '#doctore', function(event) {
             var doctor = $(this).val();
-            console.log(doctor);
             $.ajax({
                     url: "{{ route('search.schedule') }}",
                     type: "POST",
@@ -507,15 +515,20 @@
                     }
                 })
                 .done(function(data) {
-                    console.log('Doctores:',data);
-                    console.log('Fechas disponibles de los Doctores',data.available);
+                    // console.log('Doctores:',data);
+                    // console.log('Fechas disponibles de los Doctores',data.available);
                     Swal.fire({
                         title: 'Médico seleccionado!',
                         text: 'Click en OK para continuar',
                         type: 'success',
                         allowOutsideClick:false,
                     });
+                  
                     $('#doctor').val(data.employe.id);
+
+                    $('#picker').val("");   
+                    $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
+                
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
@@ -524,17 +537,23 @@
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
                     });
-                    $('#fecha').val();
+
+                    $('#fechas').val();
+                    $('.inline-datepicker').on('changeDate', function() {
+                        $('#picker').val(
+                            $('.inline-datepicker').datepicker('getFormattedDate')
+                        );
+                 });                             
+
+                 
                 })
                 .fail(function(data) {
                     console.log(data);
                 })
+
+               
             });
-            $('.inline-datepicker').on('changeDate', function() {
-                $('#picker').val(
-                    $('.inline-datepicker').datepicker('getFormattedDate')
-                );
-            });
+           
     }
 
     function datevalue(){
