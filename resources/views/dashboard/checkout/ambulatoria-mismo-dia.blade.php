@@ -16,6 +16,9 @@
 {{-- <link rel="stylesheet" href="{{ asset('assets\plugins\fullcalendar\fullcalendar.min.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection @section('content')
 
 
@@ -23,89 +26,19 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-            <form id="wizard_horizontal" method="POST" action="" class="card pl-4 pr-4">
+            <form id="wizard_horizontal" method="POST" action="{{ route('guardar.cirugia') }}" class="card pl-4 pr-4">
                     @csrf
-                    <h2>Buscar Paciente</h2>
-                    <section>
-                        <div class="row clearfix">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h2 class="card-title">Datos del paciente</h2>
-                                    </div>
-                                    <div class="card-body ">
-                                        <div class="col-lg-4  col-md-6">
-                                            <div class="form-group d-flex flex-row  align-items-center">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend bg-white">
-                                                        <span class="input-group-text btn-turquesa"><i
-                                                                class="fa fa-id-card"></i></span>
-                                                    </div>
-                                                    <div class="input-group-prepend">
-                                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white">
-                                                        <option>...</option>
-                                                        <option>N</option>
-                                                        <option>E</option>
-                                                    </select>
-                                                    </div>
-                                                        <input type="text" maxlength="9" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
-                                                    <input type="hidden" name="patient_id" id="patient_id" value="">
-                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white" ><i
-                                                            class="fa fa-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6 mb-2">
-                                                <input id="photo" type="file" class="dropify" disabled name="photo" data-default-file="" value="">
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 centrado">
-                                                <div class="form-group">
-                                                    <label class="form-label">Nombre</label>
-                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 centrado">
-                                                <div class="form-group">
-                                                    <label class="form-label">Apellido</label>
-                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Correo Electrónico</label>
-                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Dirección</label>
-                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Teléfono</label>
-                                                    <input type="number" disabled id="phone" name="phone" class="form-control" placeholder="Teléfono" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                     <h2>Elegir Procedimientos</h2>
                     <section>
                         <div class="row justify-content-between">
                             <div class="card p-3">
-                              
                                 <div class="form-group">
+                                    <input type="hidden" name="patient_id" id="patient_id" value="{{$paciente->id}}">
                                     @foreach ($procedures as $procedure)
                                     <div class="row">
                                         <div class="col-9">
                                             <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="procedures" value="{{ $procedure->id }}">  
+                                                <input type="checkbox" class="custom-control-input" name="procedure[]" value="{{ $procedure->id }}">  
                                                 <span class="custom-control-label">{{ $procedure->name }} </span>
                                             </label>
                                         </div>
@@ -115,6 +48,30 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                {{-- <div class="  table-responsive mb-4">
+                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre </th>  
+                                                <th>Precio </th>                                                                                      
+                                            </tr>
+                                        </thead>
+                                        </tfoot>
+                                        <tbody id="modal_enfermedad">
+                                            @foreach ($procedures as $procedure)
+                                                    <tr class="p-0 m-0">
+                                                        <td class="py-0 my-1">
+                                                            <label class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input" name="procedure[]" value="{{ $procedure->id }}">  
+                                                                <span class="custom-control-label">{{ $procedure->name }} </span>
+                                                            </label>
+                                                        </td>  
+                                                        <td>{{ $procedure->price }}</td>                                                             
+                                                    </tr>
+                                                @endforeach
+                                        </tbody>
+                                    </table>
+                                </div> --}}
                             </div>
                         </div>
                     </section>
@@ -126,25 +83,47 @@
                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                             <div class="card assigment">
-                                                <input type="radio" name="employe" value="{{ $employe->id }}" id="" class="imagecheck-input">
-                                                @if (!empty($employe->image->path))
-                                                <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                    <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
+                                                @if ($employe->id != $paciente->employe->id )
+                                                    @foreach ($employe->speciality as $item)
+                                                    <input type="hidden" name="speciality_id" value="{{ $item->id }}">
+                                                    @endforeach
+                                                    <input type="radio" name="employe" value="{{ $employe->id}} " id="employe_id" class="imagecheck-input">
+                                                    @if (!empty($employe->image->path))
+                                                    <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
+                                                        <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
                                                         class="imagecheck-image w-auto">
-                                                </figure>
+                                                    </figure>
+                                                    @else
+                                                    <figure class="imagecheck-figure border-0 text-center">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @endif
+                                                    <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
+                                                        <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
+                                                    </div>
                                                 @else
-                                                <figure class="imagecheck-figure border-0 text-center">
-                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
-                                                </figure>
+                                                    @foreach ($employe->speciality as $item)
+                                                    <input type="hidden" name="speciality_id" value="{{ $item->id }}">
+                                                    @endforeach
+                                                    <input type="radio" checked name="employe" value="{{ $employe->id}} " id="employe_id" class="imagecheck-input">
+                                                    @if (!empty($employe->image->path))
+                                                    <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
+                                                        <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
+                                                        class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @else
+                                                    <figure class="imagecheck-figure border-0 text-center">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @endif
+                                                    <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
+                                                        <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
+                                                    </div>
                                                 @endif
-                                                <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
-                                                    <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
-                                                </div>
                                             </div>
                                         </label>
                                     </div>
                                 @endforeach
-                                <input type="hidden" name="employe" id="employe">
                             </div>
                         </div>
                     </section>
@@ -188,9 +167,7 @@
 <script src='{{asset('assets\fullcalendar\packages\list\main.js')}}'></script>
 <script src='{{asset('assets\fullcalendar\js\calendar.js')}}'></script>
 <script src='{{asset('assets\fullcalendar\packages\core\locales-all.js')}}'></script>
-{{-- <script src="{{ asset('assets\js\page\calendar.js') }}"></script> --}}
-{{--
-<script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
 
 <script>
@@ -315,11 +292,11 @@
     }
 
     function empleado() {
-        $("input[name='employe']").click(function() {
+        $("#employe_id").click(function() {
             var medico = $(this).val();
             console.log(medico);
             $.ajax({
-                    url: "{{ route('buscar.medico') }}",
+                    url: "{{ route('search.schedule') }}",
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -333,7 +310,7 @@
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    $('#employe').val(data[0].id);
+                    $('#employe_id').val(data[0].id);
                     schedule(data);
                 })
                 .fail(function(data) {
@@ -343,8 +320,10 @@
     }
     
     function schedule(data) {
-        $('#employe').val(data.employe.id);
 
+        $('#picker').val("");   
+        $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
+    
         $('.inline-datepicker').datepicker({
             todayHighlight: true,
             language: 'es',
@@ -359,10 +338,8 @@
             $('#picker').val(
                 $('.inline-datepicker').datepicker('getFormattedDate')
             );
-        });           
-           
-    }
-    
+        }); 
+    }     
 </script>
 
 @endsection

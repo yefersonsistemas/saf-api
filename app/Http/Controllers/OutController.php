@@ -678,6 +678,9 @@ class OutController extends Controller
 
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
 
+    $ambulatorias = Reservation::with('patient', 'employe.person', 'employe.areaassigment.area')->where('surgery', true)->get();
+    
+    // dd($ambulatorias);
     // $approved =
 
     // $reschedule =
@@ -685,7 +688,7 @@ class OutController extends Controller
     // $canceled =
 
     // dd($surgeries);
-    return  view('dashboard.checkout.lista_cirugias', compact('surgeries'));
+    return  view('dashboard.checkout.lista_cirugias', compact('surgeries', 'ambulatorias'));
     }
 
 }

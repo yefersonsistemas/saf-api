@@ -132,7 +132,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
         Route::get('surgeries/list', 'OutController@surgeries_list')->name('checkout.lista_cirugias'); //Lista de cirugias
         Route::get('agendar/cirugia/ambulatoria','SurgerysController@create_surgery_ambulatoria')->name('checkout.agendar-ambulatoria');
-        Route::post('buscar/medico','SurgerysController@buscar_doctor')->name('buscar.medico');
+        Route::post('guarda/cirugia','SurgerysController@ambulatoria_store')->name('guardar.cirugia');
+        Route::get('ambulatoria/agendar/{id}','SurgerysController@create_ambulatoria')->name('mismo.dia');
 
 
     });
