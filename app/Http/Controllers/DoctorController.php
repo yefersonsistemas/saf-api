@@ -192,73 +192,34 @@ class DoctorController extends Controller
         $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
         ->where('id',$id)->first();
      
-        // dd($reservation);
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
         ->where('person_id', $reservation->patient_id)->first();
-    //  dd($cite);
+   
         $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
-        // dd($b_patient);
+    
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
-        // dd($r_patient);
+
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
-//    dd($itinerary->reference->speciality);
-// dd($itinerary->reference->employe_id);
 
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
 
         //---------------------mostrar enfermedades-----------------
-        if($reservation->patient->historyPatient->disease->first() != null){
-            foreach($enfermedades as $item){
-                $array1[] = $item->id; 
-            }
-
-            foreach($reservation->patient->historyPatient->disease as $item){
-                $array2[] = $item->id; 
-            }
-           
-            $diff = array_diff($array1, $array2);
-     
-            if($diff != null){
-                foreach($diff as $item){
-                    $enfermedad[] = Disease::find($item); 
-                }
-            }else{
-                $enfermedad = [];
-            }
-
+        if($reservation->patient->historyPatient->disease->first() != null && $enfermedades != null){
+            $enfermedad = $enfermedades->diff($reservation->patient->historyPatient->disease);
         }else{           
             $enfermedad = Disease::all();
         }
 
-
          //----------------mostrar alergias---------------
          $alergias = Allergy::all();
       
-           if($reservation->patient->historyPatient->allergy->first() != null){
-             foreach($alergias as $item){
-                 $array1[] = $item->id; 
-             }
-  
-             foreach($reservation->patient->historyPatient->allergy as $item){
-                 $array2[] = $item->id; 
-             }
- 
-             $diff_A = array_diff($array1, $array2);
-     
-             if($diff_A != []){
-                 foreach($diff_A as $item){
-                     $alergia[] = Allergy::find($item); 
-                 }
-             }else{
-                 $alergia = [];
-             }
-            
+           if($reservation->patient->historyPatient->allergy->first() != null && $alergias != null){
+            $alergia = $alergias->diff($reservation->patient->historyPatient->allergy);            
          }else{           
              $alergia = Allergy::all();
          }
-
 
         foreach($speciality as $item){
             $data[] = $item->id;
@@ -268,7 +229,7 @@ class DoctorController extends Controller
         if($itinerary->reference != ''){
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
-            $buscar_id[] = $buscar->id;
+            $buscar_id[] = $buscar->id; //id de especialidad
      
             $diff_R = array_diff($data, $buscar_id);
 
@@ -282,7 +243,7 @@ class DoctorController extends Controller
                     $buscarE_id[] =  $itinerary->reference->employe->id;
                     $diff_EM = array_diff($data2, $buscarE_id); 
                     foreach($diff_EM as $di) { 
-                        $diff2[] = Employe::with('person')->find($di); 
+                        $diff2[] = Employe::with('person')->where('id',$di)->first(); 
                     }
                     $diff_doctor = null;
             }else{
@@ -290,7 +251,7 @@ class DoctorController extends Controller
                 $diff2 = [];
             }
             
-            // dd($diff2);
+
         }else{
             $diff_R = $data;
         }
@@ -298,13 +259,14 @@ class DoctorController extends Controller
         //buscar datos de las especialidades
         if($diff_R != [] ){
             foreach($diff_R as $di) { 
-                $diff2[] = Speciality::find($di); 
+                $diff22[] = Speciality::find($di); 
             }
         }else{           
-            $diff2 = [];
+            $diff22 = [];
         }
 
-        $diff = $diff2; 
+        $diff = $diff22; 
+         
 
          //decodificando y buscando datos de procedures realizados
             if (!empty($itinerary->procedure_id)) {
@@ -318,8 +280,7 @@ class DoctorController extends Controller
                 $procedures = null;
             }
             
-            // dd($procedures);
-        //decodificando y buscando datos de examenes
+            //decodificando y buscando datos de examenes
             if (!empty($itinerary->exam_id)) {
                 $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
                 if (!empty($exam_id)) {
@@ -331,7 +292,7 @@ class DoctorController extends Controller
                 $exams = null;
             }
 
-            $procesm = Employe::with('procedures')->where('id', $reservation->person_id)->first(); 
+            $procesm = Employe::with('procedures')->where('person_id', $reservation->person_id)->first(); 
             $examenes = Exam::all();
             $cirugias = TypeSurgery::get();
 
@@ -367,6 +328,7 @@ class DoctorController extends Controller
             foreach($diff_CC as $item){
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
+            // dd($diff2);
 
         return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia'));
     }

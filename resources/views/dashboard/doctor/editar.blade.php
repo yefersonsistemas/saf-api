@@ -679,14 +679,14 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             @endif
                                                                                             <span class="custom-control-label">Médico Interno</span>
                                                                                             <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                {{-- @if(!empty($itinerary->reference->employe_id))
+                                                                                                @if(!empty($itinerary->reference->employe_id))
                                                                                                     <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
-                                                                                                    @if($diff2 != [])
+                                                                                                    @if($diff2 != null)
                                                                                                         @foreach ($diff2 as $spe)
                                                                                                             <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
                                                                                                         @endforeach
                                                                                                     @endif   
-                                                                                                @endif --}}
+                                                                                                @endif
                                                                                             </select>
                                                                                         </label>
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
