@@ -3820,9 +3820,10 @@ span.titulos {
     padding: 0;
 }
 
-.scrolll {
+
+/* .scrolll {
     overflow-y: auto;
-}
+} */
 
 .scroll {
     height: 300px;

@@ -8335,27 +8335,21 @@ body.h_menu.rtl .metismenu>li:last-child .collapse {
 
 /* MODIFICACIONES A MODALES DE AGREGAR ENFERMEDAD  */
 
+body *::-webkit-scrollbar {
+    width: 10px;
+    overflow: hidden;
+    height: 10px;
+    overflow-x: none;
+    /* display: none; apagp el scrol*/
+}
 
-/* body *::-webkit-scrollbar {
-    width: 0px;
-    height: 3px;
-                          // comentar esto para que se muestre el scrolbar en el modal */
-
-
-/* 
-transition: .5s background
-} */
-
-*/ body *::-webkit-scrollbar-thumb {
-    background: #f8f9fa
+body *::-webkit-scrollbar-thumb {
+    background: #E8E9E9;
+    border-radius: 10px;
 }
 
 body *:hover::-webkit-scrollbar-thumb {
-    background: #f8f9fa
-}
-
-a:hover {
-    text-decoration: none
+    background: #00ba88;
 }
 
 #main_content {
@@ -17523,5 +17517,3 @@ svg {
 .dark-mode .page-header .right .nav-pills .nav-link {
     color: #80868e
 }
-
-w

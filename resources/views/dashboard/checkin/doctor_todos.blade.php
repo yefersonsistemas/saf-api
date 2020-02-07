@@ -55,11 +55,13 @@
                                     <td>{{ $employe->person->name }}</td>
                                     <td>{{ $employe->person->lastname }}</td>
                                     <td class="d-flex justify-content-center">     <!--Especialidad-->
-                                        <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-eye"></i></a>
+                                        <a class="btn btn-verdePastel" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-stethoscope "></i></a>
+
+                                                                                                                                                                                    {{-- fa-stethoscope fa-user-md  fa-address-card --}}
                                     </td>
                                     <td class="justify-content-center text-center">   <!--Ver horario del medico-->
                                         <input type="hidden" id="id" value="{{ $employe->person->id }}">
-                                        <a class="btn btn-info"  style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fa fa-eye"></i></a>
+                                        <a class="btn btn-verdePastel"  style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->id }}"><i class="fa fa-clock-o "></i></a>
                                     </td>
                                     @if ($employe->areaassigment != null)
                                         <td>{{$employe->areaassigment->area->name}}</td>

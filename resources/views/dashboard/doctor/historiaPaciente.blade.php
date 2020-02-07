@@ -712,9 +712,8 @@ button[data-original-title="Help"]{ display: none; }
                                                     <tr>
                                                         <th>Nombre </th>                                                                                         
                                                     </tr>
-                                                    <tr></tr> 
-                                                    <tr></tr> 
-                                                  </thead>
+                                                    <tr></tr>
+                                                   </thead>
                                                 </tfoot>
                                                 <tbody id="modal_enfermedad">
                                                       @if($enfermedad != null)
