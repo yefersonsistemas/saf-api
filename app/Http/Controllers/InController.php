@@ -240,7 +240,7 @@ class InController extends Controller
                     'occupation'    =>  $data['occupation'],
                     'profession'    =>  $data['profession'],
                     'previous_surgery'  => $request->previous_surgery,
-                    'employe_id'    =>  $reservation->person->id,
+                    'employe_id'    =>  $reservation->person_id,
                     'branch_id'     =>  1,
                 ]);
             }
@@ -349,7 +349,7 @@ class InController extends Controller
         // dd($registro);
         // $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
 
-        $busqueda = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        $busqueda = Reservation::with('person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         // dd($busqueda);
 
         $paciente = $busqueda->patient_id;
@@ -390,7 +390,7 @@ class InController extends Controller
     public function insideOffice($id)
     {
         // dd($id);
-        $reservation = Reservation::with('employe.person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+        $reservation = Reservation::with('person')->where('id',$id)->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
         // $busqueda =  Reservation::with('employe.person')->whereDate('date', Carbon::now()->format('Y-m-d'))->where('patient_id', $registro)->first();
         // dd($reservation);
 

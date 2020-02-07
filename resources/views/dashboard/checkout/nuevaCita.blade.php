@@ -27,6 +27,7 @@
                                 </div>
                             </div>
                             <input type="hidden" id="employe_id" name="employe" value="{{$itinerary->employe_id}}">
+                            <input type="hidden" id="itinerary" value="{{$itinerary->id}}">
                             <input type="hidden" id="newPerson" value="{{$itinerary->person->id}}">
                             <input type="hidden" id="doctor" value="{{$itinerary->employe_id}}">
                             <input type="hidden" id="speciality" value="{{$reservation->speciality->id}}"> 
@@ -181,6 +182,8 @@
         var doctor = $('#doctor').val();
         var speciality = $('#speciality').val();
 
+        var itinerary = $('#itinerary').val();
+
         console.log("fecha", date)
         console.log('motivo',motivo);
         console.log('person',person);
@@ -197,6 +200,7 @@
                     person: person,  //id del paciente person
                     doctor: doctor, //id del employe                    
                     speciality: speciality,
+                    itinerary:itinerary,
                 }
             })
             .done(function(data) {

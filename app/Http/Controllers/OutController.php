@@ -749,28 +749,30 @@ class OutController extends Controller
         return  view('dashboard.checkout.nuevaCita',compact('itinerary','reservation'));
     }
 
-    //=================crear reservacion====================
+    //=================crear reservacion==================== (REVISAR)
     public function store_nueva_cita(Request $request){
-        // dd($request);
+
+        $itinerary = Itinerary::find($itinerary);
+        $itinerary->proximaCita = 'agendada';
+        $itinerary->save();
         
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
         $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
-
+        $employe = Employe::find($request->doctor);
         $date = Carbon::create($request->date);
 
         $reservation = Reservation::create([
             'date' => $date,
             'description' => $request->motivo,
             'patient_id' => $request->person,
-            'person_id' => $request->doctor,
+            'person_id' => $employe->person_id,
             'schedule_id' => $schedule->id,
             'status'      => 'Pendiente',
             'specialitie_id' => $request->speciality,
             'branch_id' => 1,
         ]);
 
-        // dd($reservation);
         return response()->json([
             'message' => 'Cita creada',
         ]);

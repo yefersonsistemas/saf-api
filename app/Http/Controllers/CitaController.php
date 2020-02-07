@@ -157,6 +157,7 @@ class CitaController extends Controller
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
         $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
+        $employe = Employe::find($request->doctor); //para id de person
 
         $date = Carbon::create($request->date);
 
@@ -164,7 +165,7 @@ class CitaController extends Controller
             'date' => $date,
             'description' => $request->motivo,
             'patient_id' => $request->person,
-            'person_id' => $request->doctor,
+            'person_id' => $employe->person_id,
             'schedule_id' => $schedule->id,
             'status'      => 'Pendiente',
             'specialitie_id' => $request->speciality,
@@ -200,7 +201,7 @@ class CitaController extends Controller
                     'date' => $request['date'],
                     'description' => $request['description'],
                     'patient_id' => $request['patient_id'],
-                    'person_id' => $request['person_id'],
+                    'person_id' => $employe->person_id,
                     'schedule_id' => $request['schedule_id'],
                     'specialitie_id' => $request['specialitie_id'],
                     'branch_id' => 1,

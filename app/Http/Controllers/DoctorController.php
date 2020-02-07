@@ -193,16 +193,17 @@ class DoctorController extends Controller
         $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
         ->where('id',$id)->first();
      
+        // dd($reservation);
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
         ->where('person_id', $reservation->patient_id)->first();
-     
+    //  dd($cite);
         $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
-        
+        // dd($b_patient);
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
-
+        // dd($r_patient);
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
 //    dd($itinerary->reference->speciality);
-
+// dd($itinerary->reference->employe_id);
 
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
@@ -395,13 +396,13 @@ class DoctorController extends Controller
 
         //buscando diagnostico 
             $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
-            ->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
+            ->where('patient_id', $b_patient->id)->where('employe_id', $itinerary->employe_id)->first();
 
         //actualizando campo de proxima cita
             if($request->proximaCita == 1){
-                $itinerary->proximaCita = true;
+                $itinerary->proximaCita = 'posible';
             }else{
-                $itinerary->proximaCita = false;
+                $itinerary->proximaCita = null;
             }
             $itinerary->save();
 
@@ -425,7 +426,7 @@ class DoctorController extends Controller
             if($request->reposop != null && $request->reposo_id == null){
                 $reposo = Repose::create([
                     'patient_id'        =>  $reservation->patient_id,
-                    'employe_id'        =>  $reservation->person_id,
+                    'employe_id'        =>  $itinerary->employe_id,
                     'description'       =>  $request->reposop, 
                     'branch_id'         =>  1
                 ]);
@@ -447,7 +448,7 @@ class DoctorController extends Controller
             if($request->reporte != null && $request->report_medico_id == null){
                 $reporte = ReportMedico::create([
                     'patient_id'        =>  $b_patient->id,
-                    'employe_id'        =>  $reservation->person_id,
+                    'employe_id'        =>  $itinerary->employe_id,
                     'descripction'      =>  $request->reporte,
                     'branch_id'         =>  1
                 ]);
@@ -521,7 +522,6 @@ class DoctorController extends Controller
         $specialities = Speciality::all();
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
     }
-
 
     // ================================= referir doctor ======================================
     public function referenceStore(Request $request)
@@ -681,9 +681,9 @@ class DoctorController extends Controller
 
                 //guardar proxima cita
                 if($request->proximaCita == 1){
-                    $itinerary->proximaCita = true;
+                    $itinerary->proximaCita = 'posible';
                 }else{
-                    $itinerary->proximaCita = false;
+                    $itinerary->proximaCita = null;
                 }                
                 $itinerary->save();
 
@@ -694,7 +694,7 @@ class DoctorController extends Controller
                     //-------- crear reposo ---------
                     $reposo = Repose::create([
                         'patient_id'        =>  $request->patient_id,
-                        'employe_id'        =>  $request->employe_id,
+                        'employe_id'        =>  $itinerary->employe_id,
                         'description'       =>  $request->reposop, 
                         'branch_id'         =>  1
                     ]);
@@ -712,7 +712,7 @@ class DoctorController extends Controller
                     //------- crear informe medico -------
                     $reporte = ReportMedico::create([
                         'patient_id'        =>  $patient->id,
-                        'employe_id'        =>  $request->employe_id,
+                        'employe_id'        =>  $itinerary->employe_id,
                         'descripction'      =>  $request->reporte,
                         'branch_id'         =>  1
                     ]);
@@ -734,7 +734,7 @@ class DoctorController extends Controller
                         'report_medico_id'  =>  $reporte_id, //esta
                         'repose_id'         =>  $reposo_id,  //esta
                         'indications'       =>  $request->indicaciones, //esta
-                        'employe_id'        =>  $reservation->person_id, //esta
+                        'employe_id'        =>  $itinerary->employe_id, //esta
                         'branch_id'         =>  1,
                     ]);
 
@@ -1717,10 +1717,9 @@ class DoctorController extends Controller
         'cirugias' => 'Cirugias previas eliminada correctamente',202
     ]);
 
-
     }
 
-    //=================Lista de las Cirugias Asociadad al Doctor====================//
+    //=================Lista de las Cirugias Asociadad al Doctor====================
     public function surgeries_list(){
         $id = Auth::id();
         // dd($id);
