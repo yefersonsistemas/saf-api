@@ -394,7 +394,7 @@ class DoctorController extends Controller
 
         //buscando diagnostico 
             $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
-            ->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
+            ->where('patient_id', $b_patient->id)->where('employe_id', $itinerary->employe_id)->first();
 
         //actualizando campo de proxima cita
             if($request->proximaCita == 1){
@@ -424,7 +424,7 @@ class DoctorController extends Controller
             if($request->reposop != null && $request->reposo_id == null){
                 $reposo = Repose::create([
                     'patient_id'        =>  $reservation->patient_id,
-                    'employe_id'        =>  $reservation->person_id,
+                    'employe_id'        =>  $itinerary->employe_id,
                     'description'       =>  $request->reposop, 
                     'branch_id'         =>  1
                 ]);
@@ -446,7 +446,7 @@ class DoctorController extends Controller
             if($request->reporte != null && $request->report_medico_id == null){
                 $reporte = ReportMedico::create([
                     'patient_id'        =>  $b_patient->id,
-                    'employe_id'        =>  $reservation->person_id,
+                    'employe_id'        =>  $itinerary->employe_id,
                     'descripction'      =>  $request->reporte,
                     'branch_id'         =>  1
                 ]);
@@ -693,7 +693,7 @@ class DoctorController extends Controller
                     //-------- crear reposo ---------
                     $reposo = Repose::create([
                         'patient_id'        =>  $request->patient_id,
-                        'employe_id'        =>  $request->employe_id,
+                        'employe_id'        =>  $itinerary->employe_id,
                         'description'       =>  $request->reposop, 
                         'branch_id'         =>  1
                     ]);
@@ -711,7 +711,7 @@ class DoctorController extends Controller
                     //------- crear informe medico -------
                     $reporte = ReportMedico::create([
                         'patient_id'        =>  $patient->id,
-                        'employe_id'        =>  $request->employe_id,
+                        'employe_id'        =>  $itinerary->employe_id,
                         'descripction'      =>  $request->reporte,
                         'branch_id'         =>  1
                     ]);
@@ -733,7 +733,7 @@ class DoctorController extends Controller
                         'report_medico_id'  =>  $reporte_id, //esta
                         'repose_id'         =>  $reposo_id,  //esta
                         'indications'       =>  $request->indicaciones, //esta
-                        'employe_id'        =>  $reservation->person_id, //esta
+                        'employe_id'        =>  $itinerary->employe_id, //esta
                         'branch_id'         =>  1,
                     ]);
 

@@ -476,7 +476,7 @@
                                             @forelse ($cites as $reservation)
                                             <tr class="event-click">
                                                 <td style="text-align:center">{{$reservation->date}}</td>
-                                                <td style="text-align:center">{{$reservation->employe->person->name}} {{$reservation->employe->person->lastname}}</td>
+                                                <td style="text-align:center">{{$reservation->person->name}} {{$reservation->person->lastname}}</td>
                                                 <td style="text-align:center">{{$reservation->speciality->name}}</td>
                                                 <td style="text-align:center">{{$reservation->description}}</td>
                                                     {{-- <td style="text-align:center"></td> --}}
