@@ -202,7 +202,7 @@ class DoctorController extends Controller
         // dd($r_patient);
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
 //    dd($itinerary->reference->speciality);
-
+// dd($itinerary->reference->employe_id);
 
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
@@ -521,7 +521,6 @@ class DoctorController extends Controller
         $specialities = Speciality::all();
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
     }
-
 
     // ================================= referir doctor ======================================
     public function referenceStore(Request $request)

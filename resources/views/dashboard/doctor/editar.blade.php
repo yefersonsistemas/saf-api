@@ -642,7 +642,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                             
                                                 <!------------------------------REFERENCIA---------------------->
-                                                {{-- <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
+                                                <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
                                                         <div class="col-lg-12 mx-auto m-0 ">
                                                             
@@ -679,14 +679,14 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             @endif
                                                                                             <span class="custom-control-label">Médico Interno</span>
                                                                                             <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                @if(!empty($itinerary->reference->employe_id))
+                                                                                                {{-- @if(!empty($itinerary->reference->employe_id))
                                                                                                     <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
                                                                                                     @if($diff2 != [])
                                                                                                         @foreach ($diff2 as $spe)
                                                                                                             <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
                                                                                                         @endforeach
                                                                                                     @endif   
-                                                                                                @endif
+                                                                                                @endif --}}
                                                                                             </select>
                                                                                         </label>
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
@@ -722,7 +722,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div> --}}
+                                                </div>
 
                                                 <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
                                                 <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
