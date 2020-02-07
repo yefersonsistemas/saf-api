@@ -18,11 +18,12 @@
 
 @endsection @section('content')
 
+
 <div class=" py-4">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-            <form id="wizard_horizontal" method="POST" action="{{route('surgerys.store')}}" class="card pl-4 pr-4">
+            <form id="wizard_horizontal" method="POST" action="" class="card pl-4 pr-4">
                     @csrf
                     <h2>Buscar Paciente</h2>
                     <section>
@@ -94,142 +95,78 @@
                             </div>
                         </div>
                     </section>
-                    <h2>Elegir Cirugia</h2>
+                    <h2>Elegir Procedimientos</h2>
                     <section>
                         <div class="row justify-content-between">
-                            @foreach ($surgeries as $surgery)
-                            
-                            <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                <label class="imagecheck m-0">
-                                    <div class="card assigment">
-                                        <input type="radio" name="type_surgery_id" value="{{ $surgery->id }}" id="type_surgery_id" class="imagecheck-input">
-                                        @if (!empty($surgery->image->path))
-                                        <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                            <img width="100%" height="100%" src="{{ Storage::url($surgery->image->path) }}" alt="" class="imagecheck-image w-auto">
-                                        </figure>
-                                        @else
-                                        <figure class="imagecheck-figure border-0 text-center">
-                                            <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
-                                        </figure>
-                                        @endif
-                                        <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                            <h6 class="font-weight-bold" style="font-size:15px">{{ $surgery->name }}</h6>
+                            <div class="card p-3">
+                              
+                                <div class="form-group">
+                                    @foreach ($procedures as $procedure)
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="procedures" value="{{ $procedure->id }}">  
+                                                <span class="custom-control-label">{{ $procedure->name }} </span>
+                                            </label>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>{{ $procedure->price }} </span>
                                         </div>
                                     </div>
-                                </label>
+                                    @endforeach
+                                </div>
                             </div>
-                            @endforeach
-                            {{-- <input type="hidden" name="surgerys" id="surgery"> --}}
                         </div>
                     </section>
                     <h2>Elegir Medico</h2>
                     <section>
-                        <div class="row justify-content-between" id="medicos">
-                        </div>
-                        {{-- <input type="hidden" name="doctor" id="doctor"> --}}
-                    </section>
-                    <h2>Seleccione Quirofano</h2>
-                    <section class="container">
-                        <div class="row justify-content-between">
-                            @foreach ($quirofano as $quirofano)
-                                @if ($quirofano->status == '')
+                        <div class="card-body py-1">
+                            <div class="row gutters-sm d-row d-flex justify-content-between">
+                                @foreach ($em as $employe)
                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                             <div class="card assigment">
-                                                <input type="radio" name="area_id" value="{{ $quirofano->id }}" id="area_id" class="imagecheck-input">
-                                                {{-- @if (!empty($quirofano->image->path))
+                                                <input type="radio" name="employe" value="{{ $employe->id }}" id="" class="imagecheck-input">
+                                                @if (!empty($employe->image->path))
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                    <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
+                                                    <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
+                                                        class="imagecheck-image w-auto">
                                                 </figure>
-                                                @else --}}
+                                                @else
                                                 <figure class="imagecheck-figure border-0 text-center">
-                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
+                                                    <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                                 </figure>
-                                                {{-- @endif --}}
-                                                <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                                    <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
-                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
+                                                @endif
+                                                <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
+                                                    <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
-                                @else    
-                                @if ( $quirofano->status == 'ocupado')
-                                <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                    <label class="imagecheck m-0">
-                                        <div class="card assigment">
-                                            <input type="radio" name="area_id" value="" id="area_id" class="imagecheck-input" disabled>
-                                            {{-- @if (!empty($quirofano->image->path))
-                                            <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-                                                <img width="100%" height="100%" src="{{ Storage::url($quirofano->image->path) }}" alt="" class="imagecheck-image">
-                                            </figure>
-                                            @else --}}
-                                            <figure class="imagecheck-figure border-0 text-center">
-                                                <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
-                                            </figure>
-                                            {{-- @endif --}}
-                                            <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                                <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6>
-                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $quirofano->status }}</span> </h6>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                            @endif 
-                                @endif
-                                
-                            @endforeach
+                                @endforeach
+                                <input type="hidden" name="employe" id="employe">
+                            </div>
                         </div>
                     </section>
                     <h2>Elegir Fecha</h2>
-                    <section>
-                        <div class="col-md-6 m-auto">
-                            <div class="card card-date">
+                    <section class="py-1 align-items-center">
+                        <div class="col-md-8 mx-auto mt-3">
+                            <div class="card card-date div">
                                 <div class="card-header">
                                     <h3 class="card-title">Elegir Fecha</h3>
                                 </div>
                                 <div class="form-group mx-4">
-                                    <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off">
+                                    <div class="input-group date">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                        {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
+                                        <input value="" id="picker" name="date" class="form-control">
                                     </div>
                                 </div>
+                                <div class="inline-datepicker" data-provide="datepicker"></div>              
                             </div>
                         </div>
-                        {{-- <div class="col-lg-12 col-md-12">
-                            <div class="card">
-                                <div class="card-header bline">
-                                    <h3 class="card-title">Calendario</h3>
-                                    <div class="card-options">
-                                        <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div id="calendar"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        {{-- <div id='wrap'>
-                        <div id='external-events'>
-                            <h4>Draggable Events</h4>
-                            <div id='external-events-list'>
-                            <div class='fc-event'>My Event 1</div>
-                            <div class='fc-event'>My Event 2</div>
-                            <div class='fc-event'>My Event 3</div>
-                            <div class='fc-event'>My Event 4</div>
-                            <div class='fc-event'>My Event 5</div>
-                            </div>
-                            <p>
-                            <input type='checkbox' id='drop-remove' />
-                            <label for='drop-remove'>remove after drop</label>
-                            </p>
-                        </div>
-                    
-                        <div id='calendar'></div>
-                    
-                        <div style='clear:both'></div>
-                    
-                        </div> --}}
-
                     </section>
                 </form>
             </div>
@@ -279,17 +216,11 @@
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
-            if (currentIndex === 1) {
-                surgery();
-            }
 
             if (currentIndex === 2) {
-                doctor();
+                empleado();
             }
 
-            if (currentIndex === 3) {
-                quirofano();
-            }
         },
         onFinished: function(event, currentIndex) {
             var form = $(this);
@@ -383,85 +314,53 @@
         // $('.dropify-render')
     }
 
-    function surgery() {
-        $("input[name='type_surgery_id']").click(function() {
-            
-            var surgery = $(this).val();
-            console.log("hh", surgery);
-            
+    function empleado() {
+        $("input[name='employe']").click(function() {
+            var medico = $(this).val();
+            console.log(medico);
             $.ajax({
-                    url: "{{ route('search.doctor') }}",
+                    url: "{{ route('buscar.medico') }}",
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        id: surgery,
+                        id: medico,
                     }
                 })
                 .done(function(data) {
-                    console.log("d",data.surgery.employe_surgery);
                     Swal.fire({
-                        title: 'Cirugia Seleccionada!',
+                        // title: 'Realizado!',
                         text: 'Click en OK para continuar',
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    // $('#surgery').val(data[0].id);
-                    cargarMedicos(data);
+                    $('#employe').val(data[0].id);
+                    schedule(data);
                 })
                 .fail(function(data) {
                     console.log(data);
                 })
         });
     }
+    
+    function schedule(data) {
+        $('#employe').val(data.employe.id);
 
-    function cargarMedicos(data) {
-        console.log('dataaaa',data.surgery.employe_surgery.length);
-        $('#medicos').empty();
-            for (let j = 0; j < data.surgery.employe_surgery.length; j++) {
-                $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                        <label class="imagecheck m-0">
-                                        <div class="card assigment">
-                                                <input type="radio" name="employe_id" value="${data.surgery.employe_surgery[j].id }" id="employe_id" class="imagecheck-input">
-                                                <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
-                                                    <img width="100%" height="100%" src="/storage/${data.surgery.employe_surgery[j].image.path}" alt="" class="imagecheck-image m-auto">
-                                                </figure>
-                                                <div class="card-body text-center bg-grisinus pt-4" style="height:70px; width:170px">
-                                                    <h6 class="font-weight-bold" style="font-size:15px">${data.surgery.employe_surgery[j].person.name} ${data.surgery.employe_surgery[j].person.lastname}</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>`);
-        }
-    }
-
-    function doctor() {
-        $("input[name='employe_id']").click(function() {
-            var doctor = $(this).val();
-            console.log('hola');
-            console.log(doctor);
-
-            Swal.fire({
-                title: 'Médico seleccionado!',
-                text: 'Click en OK para continuar',
-                type: 'success',
-                allowOutsideClick:false,
-            });
+        $('.inline-datepicker').datepicker({
+            todayHighlight: true,
+            language: 'es',
+            startDate: data.start,
+            endDate: data.end,
+            daysOfWeekHighlighted: [0,6],
+            datesDisabled: data.diff,
         });
-    }
 
-    function quirofano() {
-        $("input[name='area_id']").click(function() {
-            var quirofano = $(this).val();
-            console.log(quirofano);
-
-            Swal.fire({
-                title: 'Quirofano seleccionado!',
-                text: 'Click en OK para continuar',
-                type: 'success',
-                allowOutsideClick:false,
-            });
-        });
+        $('#fechas').val();
+        $('.inline-datepicker').on('changeDate', function() {
+            $('#picker').val(
+                $('.inline-datepicker').datepicker('getFormattedDate')
+            );
+        });           
+           
     }
     
 </script>

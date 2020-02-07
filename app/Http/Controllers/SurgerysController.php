@@ -20,6 +20,8 @@ use App\Typesurgery;
 use App\Itinerary;
 use App\Doctor;
 use App\Area;
+use App\ClassificationSurgery;
+use App\Procedure;
 use App\Reservationsurgery;
 use App\TypeArea;
 use Carbon\Carbon;
@@ -60,21 +62,46 @@ class SurgerysController extends Controller
 // para agendar cirugia cuando el paciente no se encuentra en el itinerario
 public function create_surgery(){
 
-    // $cirugias = Surgery::all();
-    // dd($cirugias);
-    $surgeries = Typesurgery::all();
+    $clasificacion = ClassificationSurgery::where('name', 'hospitalaria')->first();
+    $surgeries = Typesurgery::with('classification')->where('classification_surgery_id',  $clasificacion->id)->get();
+    // dd( $surgeries);
     $tipo = TypeArea::where('name', 'Quirofano')->first();
     $quirofano = Area::with('image')->where('type_area_id', $tipo->id)->get();     
 
     return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
 }
 
+public function create_surgery_ambulatoria(){
+
+    $procedures = Procedure::get();
+    // dd( $surgeries);  
+
+    $employes = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->get();
+            // dd($employes);
+        $em = collect([]);
+        if ($employes->isNotEmpty()) {
+            foreach ($employes as $employe) {
+                if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                    if ($employe->schedule->isNotEmpty()) {
+                        $dia = strtolower(Carbon::now()->locale('en')->dayName); //Trae los medicos del dia
+                        foreach ($employe->schedule as $schedule) {
+                            if ($schedule->day == $dia) {
+                                $em->push($employe);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    return view('dashboard.checkout.agendar_cirugia', compact('procedures', 'em'));
+}
     
     //buscar paciente
     public function search_patients_out(Request $request){
 
         // dd($request);
-        $person = Person::where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+        $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
         
         if (!is_null($person)) {
@@ -96,6 +123,24 @@ public function create_surgery(){
                 'message' => 'Persona no registrada',202
             ]);
         }
+    }
+
+    public function buscar_doctor(Request $request)
+    {
+        $employe = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->where('id', $request->id)->first();
+        // dd($employe);
+       
+        if (!is_null($employe)) {
+        
+            return response()->json([
+                'medico' => $employe, 201
+                ]);
+        }else{
+            return response()->json([
+                'message' => 'No encontrado',202
+            ]);
+        }
+              
     }
 
 
