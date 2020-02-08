@@ -4124,19 +4124,20 @@ th .factura {
 }
 
 .wizard>.content>.body::-webkit-scrollbar {
-    width: 8px;
-    /* Tamaño del scroll en vertical */
-    height: 8px;
+    width: 2px;
+    /* Tamaño del scroll en vertical estan apagadas, deben colocar 4 en lugar de 2*/
+    height: 2px;
     /* Tamaño del scroll en horizontal */
     display: block;
 }
 
 
-/* * Ponemos un color de fondo y redondeamos las esquinas del thumb */
+/* * Ponemos un color de fondo y redondeamos las esquinas del thumb       AGREGA COLOR AL SCROL DE LOS CONTENEDORES EXTERNOS */
 
 .wizard>.content>.body::-webkit-scrollbar-thumb {
-    background: #00ba88;
+    background: #ba0000;
     border-radius: 4px;
+    display: none;
 }
 
 
@@ -4145,6 +4146,7 @@ th .factura {
 .wizard>.content>.body::-webkit-scrollbar-thumb:hover {
     background: #00ba88;
     box-shadow: 0 0 2px 1px rgba(0, 107, 136, 0.2);
+    display: none;
 }
 
 
@@ -4152,6 +4154,7 @@ th .factura {
 
 .wizard>.content>.body::-webkit-scrollbar-thumb:active {
     background-color: #00506b;
+    display: none;
 }
 
 
@@ -4160,6 +4163,7 @@ th .factura {
 .wizard>.content>.bodyr::-webkit-scrollbar-track {
     background: #00ba88;
     border-radius: 4px;
+    display: none;
 }
 
 

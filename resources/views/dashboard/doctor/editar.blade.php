@@ -444,11 +444,11 @@ button[data-original-title="Help"]{ display: none; }
                                                         <a class="nav-link" id="pills-referencia-tab" data-toggle="pill" href="#pills-referencia" role="tab" aria-controls="pills-referencia" aria-selected="false">Referir a otro médico</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="pills-candidato-tab" data-toggle="pill" href="#pills-candidato" role="tab" aria-controls="pills-candidato" aria-selected="false">Candidato A:</a>
+                                                        <a class="nav-link" id="pills-acciones-tab" data-toggle="pill" href="#pills-acciones" role="tab" aria-controls="pills-acciones" aria-selected="false">Acciones programadas</a>
                                                     </li>
-                                                    <li class="nav-item">
+                                                    {{-- <li class="nav-item">
                                                         <a class="nav-link" id="pills-cita-tab" data-toggle="pill" href="#pills-cita" role="tab" aria-controls="pills-cita" aria-selected="false">Próxima cita</a>
-                                                    </li>
+                                                    </li> --}}
                                                 </ul>
                                             </div>
                                             <div class="tab-content" id="pills-tabContent">
@@ -725,9 +725,22 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
 
                                                 <!------------------------------CANDIDATO A CIRUGIA O PROCEDIMIENTOS---------------------->
-                                                <div class="tab-pane fade" id="pills-candidato" role="tabpanel" aria-labelledby="pills-candidato-tab">
+                                                <div class="tab-pane fade" id="pills-acciones" role="tabpanel" aria-labelledby="pills-acciones-tab">
                                                     {{-- <div class="row d-flex justify-content-center"> --}}
                                                         <div class="row">
+                                                            <div class="container">
+                                                                <div class="row mx-auto">
+                                                                     <div class="col-12 justify-content-center text-center">
+                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" title="Click para notificar una próxima cita">
+                                                                            <i style="font-size:25px" class=" fa fa-bell"></i>
+                                                                            Notificar proxima cita  
+                                                                            
+                                                                        </button>
+                                                                        <input type="hidden" id="proximaCita" name="proximaCita" value="0">
+                                                                    </div>
+                                                                    {{-- <h5 class="align-center col-12">Notificar próxima cita</h5> --}}
+                                                                </div>
+                                                            </div>
                                                             <div class="col-lg-12 mx-auto">
                                                                 <div class="card">
                                                                     <div class="card-header text-start">
@@ -816,7 +829,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 
                                                 <!------------------------------PROXIMA CITA---------------------->
-                                                <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
+                                                {{-- <div class="tab-pane fade" id="pills-cita" role="tabpanel" aria-labelledby="pills-cita-tab">
                                                     <div class="container">
                                                         <div class="row mx-auto">
                                                             <h5 class="col-12">Notificar próxima cita</h5>
@@ -831,7 +844,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </section>
                                         

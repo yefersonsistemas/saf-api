@@ -8336,19 +8336,25 @@ body.h_menu.rtl .metismenu>li:last-child .collapse {
 /* MODIFICACIONES A MODALES DE AGREGAR ENFERMEDAD  */
 
 body *::-webkit-scrollbar {
-    width: 10px;
     overflow: hidden;
+    width: 8px;
     height: 10px;
-    overflow-x: none;
+    overflow: hidden;
+    /* overflow-x: hidden; */
     /* display: none; apagp el scrol*/
 }
 
 body *::-webkit-scrollbar-thumb {
-    background: #E8E9E9;
+    overflow: hidden background: #E8E9E9;
     border-radius: 10px;
 }
 
+
+/* ==============color de barra general del proyecto ===================*/
+
 body *:hover::-webkit-scrollbar-thumb {
+    overflow: hidden;
+    overflow-x: none;
     background: #00ba88;
 }
 
@@ -8377,7 +8383,8 @@ body *:hover::-webkit-scrollbar-thumb {
 }
 
 .contenedor {
-    background: #fbbd08;
+    background: #00ba88;
+    ;
     overflow-y: scroll;
 }
 
