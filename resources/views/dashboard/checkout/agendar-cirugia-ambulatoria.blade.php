@@ -156,7 +156,7 @@
                                                 @foreach ($employe->speciality as $item)
                                                 <input type="hidden" name="speciality_id" value="{{ $item->id }}">
                                                 @endforeach
-                                                <input type="radio" name="employe" value="{{ $employe->id}} " id="employe_id" class="imagecheck-input">
+                                                <input type="radio" name="employe" value="{{ $employe->id}} " id="employe" class="imagecheck-input">
                                                 @if (!empty($employe->image->path))
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                     <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
@@ -180,7 +180,7 @@
                     <h2>Elegir Fecha</h2>
                     <section class="py-1 align-items-center">
                         <div class="col-md-8 mx-auto mt-3">
-                            <div class="card card-date div">
+                            <div class="card card-date">
                                 <div class="card-header">
                                     <h3 class="card-title">Elegir Fecha</h3>
                                 </div>
@@ -192,8 +192,10 @@
                                         {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
                                         <input value="" id="picker" name="date" class="form-control">
                                     </div>
-                                </div>
-                                <div class="inline-datepicker" data-provide="datepicker"></div>              
+                                    <div id="div">
+                                        <div class="inline-datepicker" data-provide="datepicker"></div>
+                                    </div>                  
+                                </div>              
                             </div>
                         </div>
                     </section>
@@ -246,6 +248,10 @@
 
             if (currentIndex === 2) {
                 empleado();
+            }
+
+            if (currentIndex === 3) {
+                schedule();
             }
 
         },
@@ -342,7 +348,7 @@
     }
 
     function empleado() {
-        $("#employe_id").click(function() {
+        $("input[name='employe']").click(function() {
             var medico = $(this).val();
             console.log(medico);
             $.ajax({
@@ -360,7 +366,7 @@
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    $('#employe_id').val(data[0].id);
+                    $('#employe').val(data[0].id);
                     schedule(data);
                 })
                 .fail(function(data) {
@@ -383,6 +389,7 @@
             datesDisabled: data.diff,
         });
 
+        $('#doctor').val(data.employe.id);
         $('#fechas').val();
         $('.inline-datepicker').on('changeDate', function() {
             $('#picker').val(

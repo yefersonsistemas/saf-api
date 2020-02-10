@@ -503,7 +503,7 @@
         $(document).on('click', '#doctore', function(event) {
             // let id = this.name;
 
-        // $("input[name='doctor']").click(function() {
+         // $("input[name='doctor']").click(function() {
             // $('.inline-datepicker').empty();
             // doctor = '';
             var doctor = $(this).val();
