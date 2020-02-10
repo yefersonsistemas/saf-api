@@ -104,7 +104,6 @@ class SurgerysController extends Controller
     {
         $employe = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->where('id', $request->id)->first();
         // dd($employe);
-       
         if (!is_null($employe)) {
         
             return response()->json([
@@ -115,7 +114,6 @@ class SurgerysController extends Controller
                 'message' => 'No encontrado',202
             ]);
         }
-              
     }
 
     
@@ -168,7 +166,7 @@ class SurgerysController extends Controller
         // dd($patient);
 
         if($patient != null){
-           
+
             $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName); // se crea el dia jueves seleccionado
             // dd( $dia);
 
@@ -202,7 +200,7 @@ class SurgerysController extends Controller
                     // dd($patient);
                     $medico = Person::where('id', $employe->person_id)->first();
                     // dd($medico);
-                   
+
                     $reservation = Reservation::create([
                         'date' => $date,
                         'description' => 'Procedimiento ambulatorio',
@@ -314,7 +312,7 @@ class SurgerysController extends Controller
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
-            return redirect()->back()->withError('Cirugia no Agendada!');
+            return redirect()->back()->withError('Cirugia no Agendada, Verifique los Datos!');
         }
 
     }

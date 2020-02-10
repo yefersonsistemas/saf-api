@@ -1587,7 +1587,7 @@ class DoctorController extends Controller
     public function surgerysP(Request $request){
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-
+    
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
@@ -1732,8 +1732,8 @@ class DoctorController extends Controller
             // dd($person);
         $employe = Employe::with('person')->where('person_id',$person->person_id)->first();
     
-        $all = Surgery::with('patient','typesurgeries','area')->where('employe_id', $employe->id)->get();
-            // dd($all); 
-        return view('dashboard.doctor.lista_cirugias');
+        $all = Surgery::with('patient.person','typesurgeries','area')->where('employe_id', $employe->id)->get();
+        // dd($all); 
+        return view('dashboard.doctor.lista_cirugias', compact('all'));
     }
 }
