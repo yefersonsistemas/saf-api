@@ -1045,7 +1045,7 @@ button[data-original-title="Help"]{ display: none; }
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
 
-           //con val obtengo  y assigno
+        //con val obtengo  y assigno
         $('#indicacion').val(''); //aqui dice que se limpie o que asigne vacio cuando se cliquea el boton de agregar
         $('#medicamento').val('');
         $('#dosis').val('');

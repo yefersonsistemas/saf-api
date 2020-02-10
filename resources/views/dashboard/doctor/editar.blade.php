@@ -652,13 +652,13 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
-                                                                                @if($itinerary->reference != '')       
+                                                                                @if($itinerary->reference_id != null)       
                                                                                     <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
                                                                                 @else
                                                                                 <input type="hidden" id="reference" name="reference" value="">
                                                                                 @endif
                                                                                 <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                    @if($itinerary->reference != '')                                                                                   
+                                                                                    @if($itinerary->reference_id != null)                                                                                   
                                                                                          <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
                                                                                     @endif
                                                                                      @if($diff != null)  
@@ -679,13 +679,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             @endif
                                                                                             <span class="custom-control-label">Médico Interno</span>
                                                                                             <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                @if(!empty($itinerary->reference->employe_id))
-                                                                                                    <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
-                                                                                                    @if($diff2 != null)
-                                                                                                        @foreach ($diff2 as $spe)
-                                                                                                            <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
-                                                                                                        @endforeach
-                                                                                                    @endif   
+                                                                                                @if(!empty($itinerary->reference_id)) 
+                                                                                                    @if(!empty($itinerary->reference->employe_id))
+                                                                                                        <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
+                                                                                                        @if($diff2 != null)
+                                                                                                            @foreach($diff2 as $spe)
+                                                                                                                <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
+                                                                                                            @endforeach
+                                                                                                        @endif   
+                                                                                                    @endif
                                                                                                 @endif
                                                                                             </select>
                                                                                         </label>
@@ -1010,8 +1012,7 @@ button[data-original-title="Help"]{ display: none; }
                 </form>
             </div>
         </div>
-    </div>
-    
+    </div>    
 
      {{-- modal de los posible cirugia --}}
      <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1091,45 +1092,6 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     </div>
-
-    {{-- modal de posibles cirugias --}}
-    {{-- <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" id="posible-surgerys">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="custom-controls-stacked">
-                            <label class="custom-control custom-checkbox">
-                            @if(!empty($itinerary->typesurgery))
-                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$itinerary->typesurgery->id}}" checked>
-                                    <span class="custom-control-label">{{ $itinerary->typesurgery->name }}</span>
-                                </label>
-                            @endif
-
-                            @foreach ($diff_C as $demas)
-                                <label class="custom-control custom-checkbox">
-                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$demas->id}}">  
-                                    <span class="custom-control-label">{{ $demas->name }}</span>
-                                </label>
-                            @endforeach
-                          
-                        </div>
-                    </div>
-                </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
-                    </div>
-                </form>    
-            </div>
-        </div>
-    </div> --}}
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

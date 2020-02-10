@@ -697,10 +697,12 @@ class OutController extends Controller
 
     //=================crear reservacion==================== (REVISAR)
     public function store_nueva_cita(Request $request){
-
-        $itinerary = Itinerary::find($itinerary);
+// dd($request);
+        $itinerary = Itinerary::find($request->itinerary);
+        // dd($itinerary);
         $itinerary->proximaCita = 'agendada';
         $itinerary->save();
+        
         
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
