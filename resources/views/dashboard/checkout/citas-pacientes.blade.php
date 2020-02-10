@@ -603,10 +603,8 @@
                                                 @endif
 
                                                 @if($itinerary->proximaCita == 'agendada')
-                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
-                                                       {{-- <a href="{{ route('checkout.nueva_cita', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button"> --}}
+                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">      
                                                         <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:red;"></span>Cita agendada
-                                                       {{-- </a>                                                     --}}
                                                    </div>
                                                 @endif
 

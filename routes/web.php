@@ -42,6 +42,11 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen     
     Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
 
+    //crear
+    Route::POST('patient/diseases/create', 'InController@diseases_create')->name('checkin.diseases_create');
+    Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
+    Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
     });
@@ -91,10 +96,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('patient/allergies','InController@allergies')->name('checkin.allergies'); //para agregar las alergias que tiene el paciente
         Route::post('patient/medicines','InController@medicines')->name('checkin.medicines'); //para agregar las medicamentos que toma el paciente
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
-
-        Route::POST('patient/diseases/create', 'InController@diseases_create')->name('checkin.diseases_create');
-        Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
-        Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
     });
 
     //======================= rutas para el usuario ckeckout ====================
