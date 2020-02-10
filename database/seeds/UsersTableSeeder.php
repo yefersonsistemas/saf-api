@@ -868,6 +868,7 @@ class UsersTableSeeder extends Seeder
                 ->givePermissionTo('elegir procedimientos a realizar')
                 ->givePermissionTo('crear recipe')
                 ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
+                // ->assignRole('cirujano');
 
             /**
              * Se crea el horario del medico
@@ -2107,135 +2108,119 @@ class UsersTableSeeder extends Seeder
             , y ordenado en las instalaciones ',
         ]);
 
-        // $position = factory(App\Position::class)->create([
-        //     'name' => 'logistica',
-        // ]);
+        //creacionn del asistente in-out
+        $person = Person::create([
+            'type_dni' => 'N',
+            'dni' => '25123456',
+            'name' => 'MARCOS',
+            'lastname' => 'JIMENEZ',
+            'address' => 'las mercedes',
+            'phone' => '04245891474',
+            'email' => 'asistente3@sinusandface.com',
+            'branch_id' => '1',
+        ]);
 
-        // $employe = factory(App\Employe::class)->create([
-        //     'person_id' => $person->id,
-        //     'position_id' => $position->id
-        // ]);
-        // $this->to('employes', $employe->id, 'App\Employe');
+        $position = factory(App\Position::class)->create([
+            'name' => 'in-out',
+        ]);
 
-        // factory(User::class)->create([
-        //     'person_id' => $person->id,
+        $employe = factory(App\Employe::class)->create([
+            'person_id' => $person->id,
+            'position_id' => $position->id
+        ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
-        // ])->givePermissionTo('ver insumo')
-        //     ->givePermissionTo('registrar insumo')
-        //     ->givePermissionTo('modificar insumo')
-        //     ->givePermissionTo('eliminar insumo')
-        //     ->givePermissionTo('asignar insumo')
-        //     ->givePermissionTo('ver equipo')
-        //     ->givePermissionTo('registrar equipo')
-        //     ->givePermissionTo('modificar equipo')
-        //     ->givePermissionTo('eliminar equipo')
-        //     ->givePermissionTo('asignar equipo')
-        //     ->givePermissionTo('ver inventario')
-        //     ->givePermissionTo('ver inventario por area')
-        //     ->givePermissionTo('Registrar limpieza')
-        //     ->givePermissionTo('ver registro de limpieza')
-        //     ->givePermissionTo('Crear reporte')->assignRole('logistica');
+        factory(User::class)->create([
+            'person_id' => $person->id,
 
+        ])->assignRole('in-out');
 
-        // $person = Person::create([
-        //     'type_dni' => 'V',
-        //     'dni' => '12345670',
-        //     'name' => 'KENWHERLY',
-        //     'lastname' => 'HERNANDEZ',
-        //     'address' => 'Las velas',
-        //     'phone' => '292-717-70415 x861',
-        //     'email' => 'kenwherly@sinusandface.com',
-        //     'branch_id' => '1',
-        // ]);
+        //creacion del medico internista
+        $person = Person::create([
+            'type_dni' => 'N',
+            'dni' => '12000547',
+            'name' => 'ANDY',
+            'lastname' => 'CARVALO',
+            'address' => 'agua viva',
+            'phone' => '294-887-1200 x862',
+            'email' => 'drandycarvalo@sinusandface.com',
+            'branch_id' => '1',
+        ]);
 
+        $position = factory(App\Position::class)->create([
+            'name' => 'internista',
+        ]);
 
-        // $employe = factory(App\Employe::class)->create([
-        //     'person_id' => $person->id,
-        //     'position_id' => $position->id
-        // ]);
-        // $this->to('employes', $employe->id, 'App\Employe');
+        $employe = factory(App\Employe::class)->create([
+            'person_id' => $person->id,
+            'position_id' => $position->id
+        ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
-        // factory(User::class)->create([
-        //     'person_id' => $person->id,
-        // ])->givePermissionTo('ver insumo')
-        //     ->givePermissionTo('registrar insumo')
-        //     ->givePermissionTo('modificar insumo')
-        //     ->givePermissionTo('eliminar insumo')
-        //     ->givePermissionTo('asignar insumo')
-        //     ->givePermissionTo('ver equipo')
-        //     ->givePermissionTo('registrar equipo')
-        //     ->givePermissionTo('modificar equipo')
-        //     ->givePermissionTo('eliminar equipo')
-        //     ->givePermissionTo('asignar equipo')
-        //     ->givePermissionTo('ver inventario')
-        //     ->givePermissionTo('ver inventario por area')
-        //     ->givePermissionTo('Registrar limpieza')
-        //     ->givePermissionTo('ver registro de limpieza')
-        //     ->givePermissionTo('Crear reporte')->assignRole('logistica');
+        factory(User::class)->create([
+            'person_id' => $person->id,
 
+        ])->assignRole('internista');
 
-        // factory(Person::class, 5)->create()->each(function ($person) use ($position) {
-        //     factory(App\Employe::class)->create([
-        //         'person_id' => $person->id,
-        //         'position_id' => $position->id
-        //     ]);
-        //     factory(App\User::class)->create([
-        //         'person_id' => $person->id
-        //     ])->assignRole('logistica');
-        // });
+        //creacion del medico anestesiologo
+        $person = Person::create([
+            'type_dni' => 'N',
+            'dni' => '14123456',
+            'name' => 'ALEJANDRA',
+            'lastname' => 'FERNANDEZ',
+            'address' => '  Urb. Almariera',
+            'phone' => '04245891400',
+            'email' => 'draalejandra@sinusandface.com',
+            'branch_id' => '1',
+        ]);
 
-        // $person = Person::create([
-        //     'type_dni' => 'V',
-        //     'dni' => '12345674',
-        //     'name' => 'MARIA ELENA',
-        //     'lastname' => 'RIVERO',
-        //     'address' => 'el recreo',
-        //     'phone' => '294-887-9515 x862',
-        //     'email' => 'administracion1@sinusandface.com',
-        //     'branch_id' => '1',
-        // ]);
-
-        // $position = factory(App\Position::class)->create([
-        //     'name' => 'administracion',
-        // ]);
-
-        // $employe = factory(App\Employe::class)->create([
-        //     'person_id' => $person->id,
-        //     'position_id' => $position->id
-        // ]);
-        // $this->to('employes', $employe->id, 'App\Employe');
-
-        // factory(User::class)->create([
-        //     'person_id' => $person->id,
-
-        // ])->givePermissionTo('ver cuentas por pagar')
-        //     ->givePermissionTo('ver cuentas por cobrar')
-        //     ->givePermissionTo('Crear reporte')->assignRole('administracion');
+        $position = factory(App\Position::class)->create([
+            'name' => 'anestesiologo',
+        ]);
 
 
-        // factory(Person::class, 5)->create()->each(function ($person) use ($position) {
-        //     $employe = factory(App\Employe::class)->create([
-        //         'person_id' => $person->id,
-        //         'position_id' => $position->id
-        //     ]);
-        //     $this->to('employes', $employe->id, 'App\Employe');
+        $employe = factory(App\Employe::class)->create([
+            'person_id' => $person->id,
+            'position_id' => $position->id
+        ]);
+        $this->to('employes', $employe->id, 'App\Employe');
 
-        //     factory(App\User::class)->create([
-        //         'person_id' => $person->id
-        //     ])->assignRole('administracion');
-        // });
+        factory(User::class)->create([
+            'person_id' => $person->id,
+        ])->assignRole('anestesiologo');
 
-        // factory(App\Position::class)->create([
-        //     'name' => 'mantenimiento',
-        // ]);
+
+        //creacion del enfermero
+        $person = Person::create([
+                'type_dni' => 'N',
+                'dni' => '15423987',
+                'name' => 'MAURA',
+                'lastname' => 'ESCALONA',
+                'address' => 'el cercado',
+                'phone' => '04246548912',
+                'email' => 'enfermeria@sinusandface.com',
+                'branch_id' => '1',
+            ]);
+
+            $position = factory(App\Position::class)->create([
+                'name' => 'enfermero',
+            ]);
+
+            $employe = factory(App\Employe::class)->create([
+                'person_id' => $person->id,
+                'position_id' => $position->id
+            ]);
+            $this->to('employes', $employe->id, 'App\Employe');
+
+            factory(User::class)->create([
+                'person_id' => $person->id,
+
+            ])->assignRole('enfermero');
+  
         
     }
 }
 
-/**
- * Datos de usuarios anteriores,
- * por si se necesitan mas adelante
- */
 
  // $person = Person::create([
     //     'type_dni' => 'V',
