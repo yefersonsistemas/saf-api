@@ -509,8 +509,6 @@
             var doctor = $(this).val();
             // var doctor = g;
             console.log('jajaja',doctor);
-          
-         
             console.log('otro',doctor);
             $.ajax({
                     url: "{{ route('search.schedule') }}",
@@ -529,12 +527,9 @@
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                  
                     $('#doctor').val(data.employe.id);
-
                     $('#picker').val("");   
                     $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
-                
                     
                 //  $(".inline-datepicker").val("");
                     $('.inline-datepicker').datepicker({
@@ -545,24 +540,17 @@
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
                     });
-
                     $('#fechas').val();
                     $('.inline-datepicker').on('changeDate', function() {
                         $('#picker').val(
                             $('.inline-datepicker').datepicker('getFormattedDate')
                         );
-                 });    
-                          
-
-                 
+                });    
                 })
                 .fail(function(data) {
                     console.log(data);
                 })
-
-               
             });
-           
     }
 
 

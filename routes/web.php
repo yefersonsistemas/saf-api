@@ -86,7 +86,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
 
-        
         Route::post('patient/diseases','InController@diseases')->name('checkin.diseases'); //para agregar las enfermedades que tiene el paciente
         Route::post('patient/allergies','InController@allergies')->name('checkin.allergies'); //para agregar las alergias que tiene el paciente
         Route::post('patient/medicines','InController@medicines')->name('checkin.medicines'); //para agregar las medicamentos que toma el paciente
@@ -132,7 +131,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
         Route::get('surgeries/list', 'OutController@surgeries_list')->name('checkout.lista_cirugias'); //Lista de cirugias
         Route::get('agendar/cirugia/ambulatoria','SurgerysController@create_surgery_ambulatoria')->name('checkout.agendar-ambulatoria');
-        Route::post('buscar/medico','SurgerysController@buscar_doctor')->name('buscar.medico');
+        Route::post('guarda/cirugia','SurgerysController@ambulatoria_store')->name('guardar.cirugia');
+        Route::get('ambulatoria/agendar/{id}','SurgerysController@create_ambulatoria')->name('mismo.dia');
 
 
     });

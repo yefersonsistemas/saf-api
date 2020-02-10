@@ -57,45 +57,20 @@ class SurgerysController extends Controller
 
         // dd($medico);
         return view('dashboard.checkout.programar_cirugia', compact('quirofano', 'paciente', 'medico'));
-}
+    }
 
-// para agendar cirugia cuando el paciente no se encuentra en el itinerario
-public function create_surgery(){
+    // para agendar cirugia cuando el paciente no se encuentra en el itinerario
+    public function create_surgery(){
 
-    $clasificacion = ClassificationSurgery::where('name', 'hospitalaria')->first();
-    $surgeries = Typesurgery::with('classification')->where('classification_surgery_id',  $clasificacion->id)->get();
-    // dd( $surgeries);
-    $tipo = TypeArea::where('name', 'Quirofano')->first();
-    $quirofano = Area::with('image')->where('type_area_id', $tipo->id)->get();     
+        $clasificacion = ClassificationSurgery::where('name', 'hospitalaria')->first();
+        $surgeries = Typesurgery::with('classification')->where('classification_surgery_id',  $clasificacion->id)->get();
+        // dd( $surgeries);
+        $tipo = TypeArea::where('name', 'Quirofano')->first();
+        $quirofano = Area::with('image')->where('type_area_id', $tipo->id)->get();     
 
-    return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
-}
+        return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
+    }
 
-public function create_surgery_ambulatoria(){
-
-    $procedures = Procedure::get();
-    // dd( $surgeries);  
-
-    $employes = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->get();
-            // dd($employes);
-        $em = collect([]);
-        if ($employes->isNotEmpty()) {
-            foreach ($employes as $employe) {
-                if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
-                    if ($employe->schedule->isNotEmpty()) {
-                        $dia = strtolower(Carbon::now()->locale('en')->dayName); //Trae los medicos del dia
-                        foreach ($employe->schedule as $schedule) {
-                            if ($schedule->day == $dia) {
-                                $em->push($employe);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    return view('dashboard.checkout.agendar_cirugia', compact('procedures', 'em'));
-}
     
     //buscar paciente
     public function search_patients_out(Request $request){
@@ -129,7 +104,6 @@ public function create_surgery_ambulatoria(){
     {
         $employe = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->where('id', $request->id)->first();
         // dd($employe);
-       
         if (!is_null($employe)) {
         
             return response()->json([
@@ -140,9 +114,134 @@ public function create_surgery_ambulatoria(){
                 'message' => 'No encontrado',202
             ]);
         }
-              
     }
 
+    
+    public function create_ambulatoria($id){
+
+        $paciente = Itinerary::with('person','employe.person')->where('id',$id)->first();
+        // dd($paciente);
+
+        $employes = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->get();
+        // dd($employes);
+        $em = collect([]);
+        if ($employes->isNotEmpty()) {
+            foreach ($employes as $employe) {
+                if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                    $em->push($employe);
+                }
+            }
+        }
+
+        $procedures = Procedure::get();
+
+        return view('dashboard.checkout.ambulatoria-mismo-dia', compact('paciente', 'em', 'procedures'));
+    }
+
+    public function create_surgery_ambulatoria(){
+
+        $procedures = Procedure::get();
+        // dd( $surgeries);  
+
+        $employes = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->get();
+                // dd($employes);
+            $em = collect([]);
+            if ($employes->isNotEmpty()) {
+                foreach ($employes as $employe) {
+                    if ($employe->person->user->role('doctor') && $employe->position->name == 'doctor') {
+                        $em->push($employe);
+                    }
+                }
+            }
+            // dd($em);
+
+        return view('dashboard.checkout.agendar-cirugia-ambulatoria', compact('procedures', 'em'));
+    }
+
+    public function ambulatoria_store(Request $request)
+    {
+        // dd($request); 
+        
+        $patient = Patient::where('id', $request->patient_id)->first();  // paciente 1
+        // dd($patient);
+
+        if($patient != null){
+
+            $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName); // se crea el dia jueves seleccionado
+            // dd( $dia);
+
+            $schedule = Schedule::where('employe_id', $request->employe)->where('day', $dia)->first(); // doctor 1 con horario dia jueves
+            // dd($schedule);
+
+            $date = Carbon::create($request->date);  //se crea la fecha seleccionada
+            // dd($date);
+
+            $employe = Employe::with('person', 'speciality')->find($request['employe']);
+            $employe->load('schedule');
+            // dd( $employe->speciality->first());
+            $fecha = Carbon::parse($request['date'])->locale('en');
+            // dd($fecha);
+
+            $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
+            // dd($date);
+            $diaDeReserva = strtolower($fecha->dayName);
+            // dd($diaDeReserva);
+            $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
+            // dd($dia);
+            $cupos = $dia->quota; //obtengo el valor de quota
+            // dd($cupos);
+            $rs = Reservation::whereDate('date', $date)->get()->count(); //obtengo todos los registros de ese dia y los cuento
+            // dd($rs);
+            if ($employe->person->user->hasRole('doctor')) {  //el empleado debe ser doctor por rol y ocupacion sino no crea
+
+                if ($rs <  $cupos) {
+
+                    $paciente= Person::where('id', $patient->person_id)->first();
+                    // dd($patient);
+                    $medico = Person::where('id', $employe->person_id)->first();
+                    // dd($medico);
+
+                    $reservation = Reservation::create([
+                        'date' => $date,
+                        'description' => 'Procedimiento ambulatorio',
+                        'patient_id' => $paciente->id,
+                        'person_id' => $medico->id,
+                        'schedule_id' => $dia->id,
+                        'specialitie_id' => $request->speciality_id,
+                        'status' => 'Pendiente',
+                        'branch_id' => 1,
+                    ]);
+
+                    // dd($reservation);
+
+                    $actualizar= Reservation::find($reservation->id);
+                    $actualizar->surgery = true;
+                    $actualizar->save();
+                    // dd($actualizar);
+                }
+
+                 
+                if (!is_null($reservation)) {
+                    if (!empty($request->procedure)) {
+                        foreach ($request->procedure as $procedure) {
+                            $procedimiento = Procedure::find($procedure);
+                            $patient->procedure()->attach($procedimiento); 
+                        }
+                    }
+                }
+
+
+                return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
+                
+
+            }else{
+                return response()->json([
+                    'message' => 'No hay cupos',
+                ]);
+            }
+        }
+    }
+    
 
     public function search_doctor(Request $request){    //medicos asociado a una cirugia
         
