@@ -4146,7 +4146,6 @@ th .factura {
 .wizard>.content>.body::-webkit-scrollbar-thumb:hover {
     background: #00ba88;
     box-shadow: 0 0 2px 1px rgba(0, 107, 136, 0.2);
-    display: none;
 }
 
 

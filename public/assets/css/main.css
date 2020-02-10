@@ -8339,9 +8339,7 @@ body *::-webkit-scrollbar {
     overflow: hidden;
     width: 8px;
     height: 10px;
-    overflow: hidden;
-    /* overflow-x: hidden; */
-    /* display: none; apagp el scrol*/
+    /* display: none; */
 }
 
 body *::-webkit-scrollbar-thumb {
@@ -8353,8 +8351,6 @@ body *::-webkit-scrollbar-thumb {
 /* ==============color de barra general del proyecto ===================*/
 
 body *:hover::-webkit-scrollbar-thumb {
-    overflow: hidden;
-    overflow-x: none;
     background: #00ba88;
 }
 
