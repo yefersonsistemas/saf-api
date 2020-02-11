@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 @endsection
 
+<style>
+    .cursor{
+        cursor: pointer;
+    }
+</style>
+
 @section('title','Proceso de facturación')
 
 @section('content')
@@ -73,15 +79,15 @@
                                             <div class="row">
                                                 <div class="col-12 mt-2 d-flex justify-content-center">
                                                     <div class="col-6 d-flex justify-content-end" >
-                                                            <a class="btn btn-boo " title="Paciente" style="color:#fff" id="paciente" name="paciente"> 
-                                                                <i class="fa fa-user mr-2"></i> Paciente
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-6">
-                                                                <a  class="btn btn-boo " title="Agregar cliente" style="color:#fff" data-toggle="modal" data-target="#otro"> 
-                                                                <i class="fa fa-user-plus"></i> Otro cliente
-                                                            </a>
-                                                        </div>
+                                                        <a class="btn btn-boo d-block cursor" style="color:#fff" id="paciente" name="paciente"> 
+                                                            <i class="fa fa-user mr-2"></i> Paciente
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-6 d-flex justify-content-start">
+                                                        <a  class="btn btn-boo d-block cursor" style="color:#fff" data-toggle="modal" data-target="#otro"> 
+                                                            <i class="fa fa-user-plus"></i> Otro cliente
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div><br>
                                             <!--Persona a cancelar-->
