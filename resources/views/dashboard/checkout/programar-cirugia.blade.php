@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-            <form id="wizard_horizontal" method="POST" action="{{route('surgerys.store')}}" class="card pl-4 pr-4" novalidate="">
+            <form id="wizard_horizontal" method="POST" action="{{route('surgery.hospitalaria_store')}}" class="card pl-4 pr-4">
                     @csrf
                     <h2>Buscar Paciente</h2>
                     <section>
