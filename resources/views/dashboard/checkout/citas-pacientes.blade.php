@@ -558,23 +558,36 @@
                                             <!--Posibles cirugias-->
                                             <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                                 <div class="card-body">
-                                                    <h5 class="card-title color_titulo">Posible cirugias</h5>
-                                                    @if($itinerary->typesurgery != null)
-                                                    @if($itinerary->typesurgery->classification_surgery_id == 1)
-                                                        <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
-                                                    @else
-                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
-                                                    @endif
-                                                        <span class="titulos">Descripcion: </span><span>{{ $itinerary->typesurgery->description }}</span><br>
-                                                        <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>                                               
-                                                        <span class="titulos">costo: </span><span>{{ $itinerary->typesurgery->cost }}</span><br>
-                                                        @if ($itinerary->typesurgery->classification_surgery_id == 1)
-                                                            <span><a href="{{ route('checkout.programar_cirugia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                   
+                                                    @if ($itinerary->reservation->operation == null && $itinerary->reservation->surgery == null)
+                                                        <h5 class="card-title color_titulo">Posible cirugias</h5>
+                                                        @if($itinerary->typesurgery != null)
+                                                            @if($itinerary->typesurgery->classification_surgery_id == 1)
+                                                                <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                            @else
+                                                            <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                            @endif
+                                                            <span class="titulos">Descripcion: </span><span>{{ $itinerary->typesurgery->description }}</span><br>
+                                                            <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>                                               
+                                                            <span class="titulos">costo: </span><span>{{ $itinerary->typesurgery->cost }}</span><br>
+                                                            @if ($itinerary->typesurgery->classification_surgery_id == 1)
+                                                                <span><a href="{{ route('checkout.programar_cirugia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                            @else
+                                                            <span><a href="{{ route('mismo.dia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                            @endif
                                                         @else
-                                                        <span><a href="{{ route('mismo.dia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                            <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                         @endif
-                                                    @else
-                                                        <span class="mb-2 text-muted">Sin cirugia</span><br>
+                                                    @elseif(($itinerary->reservation->operation == null && $itinerary->reservation->surgery != null) || ($itinerary->reservation->operation != null && $itinerary->reservation->surgery == null) || ($itinerary->reservation->operation != null && $itinerary->reservation->surgery != null))
+                                                        <h5 class="card-title color_titulo">Cirugia Agendada</h5>
+                                                        {{-- @if($itinerary->typesurgery != null)
+                                                        @if($itinerary->typesurgery->classification_surgery_id == 1)
+                                                            <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                        @else
+                                                        <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                        @endif
+                                                            <span class="titulos">Medico: </span><span>{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span><br>
+                                                            <span class="titulos">Fecha: </span><span>{{ $itinerary->typesurgery->surgery->date }}</span>  --}}
                                                     @endif
                                                 </div>                                            
                                             </div> 
