@@ -223,6 +223,14 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        @if($confirmadas->first() == [])
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay reservaciones aprobadas</h6>
+                                </div>
+                            </div>
+                        @endif  
                     </div>
                 </div>
 
@@ -332,6 +340,13 @@
                                 </div>
                             @endif                           
                         @endforeach
+                        @if($dentro_instalacion == false)
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay pacientes en sala de espera</h6>
+                                </div>
+                            </div>
+                        @endif  
                     </div>
                 </div>
 
@@ -437,8 +452,18 @@
                                     </div>
                                 </div>
                             @endif
-                        @endforeach
+                        @endforeach   
+
+                        @if($dentro_office == false)
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay pacientes dentro de consultorio</h6>
+                                </div>
+                            </div>
+                        @endif                     
+
                     </div>
+                   
                 </div>
                 
                 <!----------------------Fuera del consultorio----------------------->
@@ -688,8 +713,15 @@
                                 </div>
                             </div>
                         @endif
-
                         @endforeach
+
+                        @if($fuera_office == false)
+                        <div class="card p-2">
+                            <div class="card-body text-center">
+                            <h6 class="">No hay pacientes fuera de consultorio</h6>
+                            </div>
+                        </div>
+                    @endif  
                         </div>
                 </div>
 
@@ -819,6 +851,14 @@
                             </div>
                         @endif 
                         @endforeach
+
+                        @if($fuera_instalacion == false)
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay pacientes fuera de las instalaciones</h6>
+                                </div>
+                            </div>
+                        @endif  
                     </div>
                 </div>
 
