@@ -581,15 +581,16 @@
                                             </div>  --}}
                                                 
                                             <!--Posibles cirugias-->
-                                            <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2">
                                                 <div class="card-body">
                                                     <h5 class="card-title color_titulo">Posible cirugias</h5>
                                                     @if($itinerary->typesurgery != null)
-                                                    @if($itinerary->typesurgery->classification_surgery_id == 1)
-                                                        <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
-                                                    @else
-                                                    <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
-                                                    @endif
+                                                        @if($itinerary->typesurgery->classification_surgery_id == 1)
+                                                            <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                        @else
+                                                        <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
+                                                        @endif
+                                                        
                                                         <span class="titulos">Descripcion: </span><span>{{ $itinerary->typesurgery->description }}</span><br>
                                                         <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>                                               
                                                         <span class="titulos">costo: </span><span>{{ $itinerary->typesurgery->cost }}</span><br>
@@ -605,7 +606,7 @@
                                             </div> 
                                                 
                                             <!--Posibles procedimientos-->
-                                            <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2" >
                                                 <div class="card-body">
                                                     <h5 class="card-title color_titulo">Posibles procedimientos</h5>
                                                     @if ($itinerary->procedures != null)
