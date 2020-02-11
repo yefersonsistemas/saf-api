@@ -383,6 +383,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             @endif 
                                                     </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
+                                                            
                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                         </div>
                                                     </div>
@@ -398,7 +399,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <h2>Estudios complementarios</h2>
                                         <section class="ml-4">
                                             <div class="row">
-                                                {{-- @foreach ( $cite->person->reservationPatient as $cites )
+                                                 @foreach ( $cite->person->reservationPatient as $cites )
                                                     <div class="col-md-4">
                                                         <div class="card">
                                                             <div class="card-header bg-azuloscuro">
@@ -408,7 +409,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @endforeach --}}
+                                                @endforeach 
                                             </div>
                                         </section>
                                          <!------------------------------DIAGNOSTICO ---------------------->
@@ -948,6 +949,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
+                    <button type="button"  data-dismiss="modal" class="btn btn-secondary"   >Cerrar</button>    
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
             </div>
@@ -982,6 +984,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
@@ -1013,6 +1016,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
+                    <button  type="button"  data-dismiss="modal" class="btn btn-secondary"  >Cerrar</button>        
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
             </div>
@@ -1076,6 +1080,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  type="button"  data-dismiss="modal" class="btn btn-secondary"  >Cerrar</button>        
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>
@@ -1107,6 +1112,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal"  type="button"  >Cerrar</button>        
                         <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
