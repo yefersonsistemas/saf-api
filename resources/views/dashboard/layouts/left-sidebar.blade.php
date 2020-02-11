@@ -106,7 +106,13 @@
                     <li  class="@yield('citas')"><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Citas del día</span></a></li>                                          
                     <li class="@yield('facturacion')"><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturación</span></a></li>
                     <li class="@yield('cirugias')"><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;<span>Cirugías</span></a></li> 
-                    <li class="@yield('agendar')"><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a></li>                        
+                    <li @yield('cites')>
+                    <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a>
+                        <ul>
+                            <li class="@yield('agendar')"><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Hospitalaria</span></a></li>      
+                            <li class="@yield('newCite')"><a href="{{ route('checkout.agendar-ambulatoria') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Ambulatoria</span></a></li>                   
+                        </ul>
+                    </li>
                     <li class="@yield('facturacion')"><a href="{{ route('checkout.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
                 </div>
                 @endrole

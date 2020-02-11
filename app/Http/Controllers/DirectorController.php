@@ -279,7 +279,7 @@ class DirectorController extends Controller
                 $image->save();
             }else{
                 // dd($employe->image->path);
-                Storage::disk('public')->delete($employe->image->path); //elimina la img de storage
+                Storage::disk('public')->delete($employe->image->path); //elimina la img de storage para generar la nueva
                 
 
                 $image = $request->file('image');

@@ -563,7 +563,11 @@
                                                         <span class="titulos">Descripcion: </span><span>{{ $itinerary->typesurgery->description }}</span><br>
                                                         <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>                                               
                                                         <span class="titulos">costo: </span><span>{{ $itinerary->typesurgery->cost }}</span><br>
-                                                        <span><a href="{{ route('checkout.programar_cirugia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                        @if ($itinerary->typesurgery->classification_surgery_id == 1)
+                                                            <span><a href="{{ route('checkout.programar_cirugia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                        @else
+                                                        <span><a href="{{ route('mismo.dia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
+                                                        @endif
                                                     @else
                                                         <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                     @endif
