@@ -3540,10 +3540,9 @@
     border: 1px solid #00ba88;
 }
 
-
-/* .dataTables_filter label input {
+.dataTables_filter label input {
     border: 1px solid rgba(0, 80, 107, .5);
-} */
+}
 
 .bg-azuloscuro {
     background: #00506b;
@@ -3558,6 +3557,10 @@
     background: #00ba88;
 }
 
+.hola {
+    box-shadow: 5px 10px 8px #888888;
+}
+
 .btn-azuloscuro {
     color: #fff;
     background: #00506b;
@@ -3569,10 +3572,13 @@
     border-color: #009e74;
 }
 
+
+/* aqui se le modifican los estilos a los botones */
+
 .btn-azuloscuro:hover {
     color: #fff;
-    background-color: #023e52;
-    border-color: #023e52;
+    background-color: #00ba88;
+    border-color: #009e74;
 }
 
 .text-verdePastel {
@@ -3644,6 +3650,9 @@
     height: auto;
 }
 
+
+/* Cambia el color al número del paginador */
+
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
@@ -3675,6 +3684,9 @@ p.remarcado {
     background: #000;
 }
 
+
+/* Alinear el paginador */
+
 .dataTables_wrapper .dataTables_paginate {
     float: left !important;
     text-align: right;
@@ -3685,7 +3697,7 @@ p.remarcado {
 }
 
 
-/*------------------------------------------------------- ESTILOS QUE MANEJAN EL PAGINADOR Y LOS REGISTROS A MOSNTRAR  */
+/*------------------------------------------------------- ESTILOS QUE MANEJAN EL PAGINADOR Y LOS REGISTROS A MOSTRAR  */
 
 
 /* estilos para el usuario */
@@ -3714,6 +3726,13 @@ span.titulos {
     /* width: 100%;
         height:150px; */
     background: #000;
+}
+
+
+/*---------------------- Desactiva el paginador -----------*/
+
+.modal-page-link {
+    display: none;
 }
 
 
@@ -3804,9 +3823,10 @@ span.titulos {
     padding: 0;
 }
 
-.scrolll {
+
+/* .scrolll {
     overflow-y: auto;
-}
+} */
 
 .scroll {
     height: 300px;
@@ -4002,7 +4022,7 @@ th .factura {
     color: #fff;
 }
 
-.total{
+.total {
     border: 2px solid #26D8CA;
     background: #fff;
     color: #000;
@@ -4107,19 +4127,20 @@ th .factura {
 }
 
 .wizard>.content>.body::-webkit-scrollbar {
-    width: 8px;
-    /* Tamaño del scroll en vertical */
-    height: 8px;
+    width: 2px;
+    /* Tamaño del scroll en vertical estan apagadas, deben colocar 4 en lugar de 2*/
+    height: 2px;
     /* Tamaño del scroll en horizontal */
     display: block;
 }
 
 
-/* * Ponemos un color de fondo y redondeamos las esquinas del thumb */
+/* * Ponemos un color de fondo y redondeamos las esquinas del thumb       AGREGA COLOR AL SCROL DE LOS CONTENEDORES EXTERNOS */
 
 .wizard>.content>.body::-webkit-scrollbar-thumb {
-    background: #00ba88;
+    background: #ba0000;
     border-radius: 4px;
+    display: none;
 }
 
 
@@ -4135,6 +4156,7 @@ th .factura {
 
 .wizard>.content>.body::-webkit-scrollbar-thumb:active {
     background-color: #00506b;
+    display: none;
 }
 
 
@@ -4143,6 +4165,7 @@ th .factura {
 .wizard>.content>.bodyr::-webkit-scrollbar-track {
     background: #00ba88;
     border-radius: 4px;
+    display: none;
 }
 
 
@@ -4170,16 +4193,10 @@ th .factura {
 }
 
 
-/* ----------------------------COLOR DEL BOTON DESPUES DE SER USADO EN LA PANTALLA DE ADMINISTRADOR LISTA */
+/* ----------------------------COLOR DEL BOTON DESPUES DE SER USADO EN LA PANTALLA DE ADMINISTRADOR LISTA   VERtICAL IZQUIERDA */
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    color: #6a6a6a;
-    background-color: #e1e1e1;
-}
-
-
-.custom-checkbox .custom-control-input {
-    box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, .75);
-    left: 0
+    color: #fff;
+    background-color: #00ba88;
 }

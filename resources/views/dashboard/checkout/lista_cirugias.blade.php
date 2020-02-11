@@ -1,3 +1,4 @@
+
 @extends('dashboard.layouts.app')
 
 @section('Lista de Cirugias','active')
@@ -26,6 +27,7 @@
         color: #fff;
     }
 </style>
+
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">

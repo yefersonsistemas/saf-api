@@ -121,14 +121,14 @@
                 @role('director')
                 <div class="director animated fadeIn @yield('dire')">
                     <li class="g_heading">Director</li> 
-                    <li><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Lista de Empleados</a></li>
+                    <li ><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Lista de Empleados</a></li>
                     <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;&nbsp;Lista de Registros</a></li>
                     
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span>Registrar</span></a>
                         <ul>
                             <li><a href="{{ route('position.create') }}"><i class="fa fa-black-tie"></i>&nbsp;&nbsp;Cargo</a></li>
-                            <li><a href="{{ route('clase.create') }}"><i class=""></i>&nbsp;&nbsp;Clase del Doctor</a></li>
+                            <li ><a href="{{ route('clase.create') }}"><i class=""></i>&nbsp;&nbsp;Clase del Doctor</a></li>
                             <li><a href="{{ route('service.create') }}"><i class="fa fa-ambulance"></i>&nbsp;&nbsp;Servicio</a></li>
                             <li><a href="{{ route('speciality.create') }}"><i class="fa fa-flask"></i>&nbsp;&nbsp;Especialidad</a></li>
                             <li><a href="{{ route('procedure.create') }}"><i class="fa fa-hotel"></i>&nbsp;&nbsp;Procedimiento</a></li>

@@ -323,6 +323,21 @@
                         })
                         disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
                     }
+
+                    if (data[0] == 300) {        
+                        Swal.fire({
+                        title: 'Factura ya fue emitida',
+                        text: "Click OK para cerrar!!",
+                        type: 'info',
+                        allowOutsideClick:false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '<a href="{{ route('checkout.index') }}" style="color:#fff">OK</a>'
+                        })
+                        .then(function(){
+                            window.location.href = '{{ route('checkout.index') }}'
+                        })   
+                    }        
+                      
                 })
                 .fail(function(data) {
                     console.log(data);

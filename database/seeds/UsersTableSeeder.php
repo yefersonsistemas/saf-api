@@ -174,7 +174,6 @@ class UsersTableSeeder extends Seeder
         $procedimiento->speciality()->attach($especialidad);
         //relacion de la cirugia con el procedimiento
         $cirugia->procedure()->attach($procedimiento);
-
         $employe->procedures()->attach($procedimiento);
 
           //creando procedimiento
@@ -225,16 +224,13 @@ class UsersTableSeeder extends Seeder
         $cirugia->procedure()->attach($procedimiento4);
         $employe->procedures()->attach($procedimiento4);
 
-
-
-
             
        
 
         //relacion de la cirugia con el procedimiento
         // $especialidad->procedures()->attach($procedimiento);
-        $cirugia->procedure()->attach($procedimiento4);
-        $employe->procedures()->attach($procedimiento4);
+        // $cirugia->procedure()->attach($procedimiento4);
+        // $employe->procedures()->attach($procedimiento4);
 
 
 
@@ -263,18 +259,7 @@ class UsersTableSeeder extends Seeder
 
         //=========================  Procedimientos otros ==========================
 
-        $pro1= factory(Procedure::class)->create([
-            'name'    => 'Cura post operatoria (rinoplastia, blefaroplastia,otoplastia, bichectomia)',
-            'price' => 15000,
-            'branch_id' => '1',
-
-        ]);
-        $employe->procedures()->attach($pro1);
-
-        //relacion de la cirugia con el procedimiento
-        $pro1->speciality()->attach($especialidad);
-        $cirugia->procedure()->attach($pro1);
-        $employe->procedures()->attach($pro1);
+   
 
 
         $pro2= factory(Procedure::class)->create([
@@ -283,7 +268,6 @@ class UsersTableSeeder extends Seeder
              'branch_id' => '1',
 
         ]);
-        $employe->procedures()->attach($pro2);
 
      //relacion de la cirugia con el procedimiento
         $pro2->speciality()->attach($especialidad);
@@ -297,7 +281,6 @@ class UsersTableSeeder extends Seeder
              'branch_id' => '1',
 
         ]);
-        $employe->procedures()->attach($pro3);
 
         //relacion de la cirugia con el procedimiento
         $pro3->speciality()->attach($especialidad);
@@ -310,7 +293,6 @@ class UsersTableSeeder extends Seeder
              'price' => 18000,
              'branch_id' => '1',            
         ]);
-        $employe->procedures()->attach($pro4);
 
           //relacion de la cirugia con el procedimiento
           $pro4->speciality()->attach($especialidad);
@@ -324,8 +306,6 @@ class UsersTableSeeder extends Seeder
              'branch_id' => '1',            
         ]);
 
-        $employe->procedures()->attach($pro5);
-
         //relacion de la cirugia con el procedimiento
           $pro5->speciality()->attach($especialidad);
           $cirugia->procedure()->attach($pro5);
@@ -337,7 +317,6 @@ class UsersTableSeeder extends Seeder
              'price' => 22000,
              'branch_id' => '1',            
         ]);
-        $employe->procedures()->attach($pro6);
 
         //relacion de la cirugia con el procedimiento
         $pro6->speciality()->attach($especialidad);
