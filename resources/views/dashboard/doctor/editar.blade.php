@@ -71,8 +71,8 @@ button[data-original-title="Help"]{ display: none; }
                                 <div class="container">
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">
-                                            <label class="m-4 d-block p-2 form-label">Nro. Historia: <br>
-                                            <span class=" ml-4 content-fluid badge badge-verdePastel texto">{{ $reservation->patient->historyPatient->history_number }}</span></label>
+                                            <label class="m-4 d-block p-2 form-label">Nro. Historia: <br> 
+                                                 <span class=" ml-4   badge badge-verdePastel  texto ">{{ $reservation->patient->historyPatient->history_number }}</span></label>
                                         </div>            
                                         <div class="col-3">
                                             <img src="{{ Storage::url($reservation->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
@@ -106,8 +106,7 @@ button[data-original-title="Help"]{ display: none; }
                                     background: #333;
                                     background-image: linear-gradient(to right, #ccc, #333, #ccc);">
                                 <!--BODY-->
-                                <div class="card-body">
-                                    <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->id) }}" method="POST">
+                                     <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="patient_id" value="{{ $reservation->patient_id }}"> 
@@ -384,6 +383,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             @endif 
                                                     </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
+                                                            
                                                                 <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
                                                         </div>
                                                     </div>
@@ -399,7 +399,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <h2>Estudios complementarios</h2>
                                         <section class="ml-4">
                                             <div class="row">
-                                                {{-- @foreach ( $cite->person->reservationPatient as $cites )
+                                                 @foreach ( $cite->person->reservationPatient as $cites )
                                                     <div class="col-md-4">
                                                         <div class="card">
                                                             <div class="card-header bg-azuloscuro">
@@ -409,7 +409,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @endforeach --}}
+                                                @endforeach 
                                             </div>
                                         </section>
                                          <!------------------------------DIAGNOSTICO ---------------------->
@@ -788,7 +788,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         </button>
                                                                         <input type="hidden" id="proximaCita" name="proximaCita" value="0">
                                                                         @else
-                                                                        <div class="badge btn-verdePastel text-white py-2 px-4 mb-3" style="animation: pulse 2s infinite">Posible cita notificada
+                                                                        <div class="badge btn-danger text-white py-2 px-4 mb-3" style="animation: pulse 2s infinite">Proxima cita notificada
                                                                         </div>    
                                                                      
                                                                         @endif
@@ -884,7 +884,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
                                         
                                     </form>
-                                    </div>
+                                   
                                 </div>
                                 <!--Fin del body-->
                         </div>
@@ -923,6 +923,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
                     </div>
                 </form>
@@ -954,6 +955,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
+                    <button type="button"  data-dismiss="modal" class="btn btn-secondary"   >Cerrar</button>    
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
             </div>
@@ -988,6 +990,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
@@ -1019,6 +1022,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
+                    <button  type="button"  data-dismiss="modal" class="btn btn-secondary"  >Cerrar</button>        
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
             </div>
@@ -1044,6 +1048,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
@@ -1082,6 +1087,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  type="button"  data-dismiss="modal" class="btn btn-secondary"  >Cerrar</button>        
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>
@@ -1113,6 +1119,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal"  type="button"  >Cerrar</button>        
                         <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -1190,6 +1197,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                         <div class="modal-footer p-2">
+                            <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                             <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                         </div>
                         </div>
@@ -1232,6 +1240,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer p-2">
+                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
@@ -2281,11 +2290,11 @@ button[data-original-title="Help"]{ display: none; }
                         text: 'Click en OK para continuar',
                         type: 'success',
                     });
-                }                
+                }
             })
             .fail(function(data) {
                 console.log(data);
-            })  
+            })
         });
     });
 
