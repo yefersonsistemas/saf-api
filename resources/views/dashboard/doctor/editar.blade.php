@@ -71,8 +71,8 @@ button[data-original-title="Help"]{ display: none; }
                                 <div class="container">
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">
-                                            <label class="m-4 d-block p-2 form-label">Nro. Historia: <br>
-                                            <span class=" ml-4 content-fluid badge badge-verdePastel texto">{{ $reservation->patient->historyPatient->history_number }}</span></label>
+                                            <label class="m-4 d-block p-2 form-label">Nro. Historia: <br> 
+                                                 <span class=" ml-4   badge badge-verdePastel  texto ">{{ $reservation->patient->historyPatient->history_number }}</span></label>
                                         </div>            
                                         <div class="col-3">
                                             <img src="{{ Storage::url($reservation->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">

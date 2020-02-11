@@ -78,42 +78,42 @@ button[data-original-title="Help"]{ display: none; }
             {{-- --------Step-----------}}
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="card position-relative">
-                    <!--Inicio de informacion paciente-->
-                    <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
-                    <div class="container">
-                        <div class="row my-3 d-flex flex-row align-items-center">
-                            <div class="col-4 ml-4">
-                                <label class="m-4 d-block p-2 form-label">Nro. Historia: <br>
-                                    <span class="ml-4 content-fluid badge badge-verdePastel texto>{{ $history->patient->historyPatient->history_number }}</span></label>
-                            </div>
-                            <div class="col-3">
-                                <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
-                            </div>
-                            <div class="col">
-                                <div class=" d-flex align-items-center">
-                                    <label class="m-0 d-block p-2 form-label">DNI:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <select name="type_dni" class="custom-select input-group-text border-0 bg-white" disabled="">
-                                                <option value="{{ $history->patient->type_dni }}">
-                                                    {{ $history->patient->type_dni }}
-                                                </option>
-                                            </select>
+                    <div class="card">
+                            <!--HEADER-->
+                            <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
+                            <div class="container">
+                                <div class="row my-3 d-flex flex-row align-items-center">
+                                    <div class="col-4 ml-4">
+                                        <label class="m-4 d-block p-2 form-label">Nro. Historia: <br>
+                                            <span class=" ml-4   badge badge-verdePastel texto  ">{{ $history->patient->historyPatient->history_number }}</span></label>
+                                    </div>            
+                                    <div class="col-3">
+                                        <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
+                                    </div>           
+                                    <div class="col">
+                                        <div class=" d-flex align-items-center">
+                                            <label class="m-0 d-block p-2 form-label">DNI:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <select name="type_dni" class="custom-select input-group-text border-0 bg-white" disabled="">
+                                                        <option value="{{ $history->patient->type_dni }}">
+                                                            {{ $history->patient->type_dni }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" class="form-control border-0 bg-white dni" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $history->patient->dni }}" name="dniP">
+                                            </div>
                                         </div>
-                                        <input type="text" class="form-control border-0 bg-white dni" placeholder="Documento de Identidad" name="dni" disabled="" value=" {{ $history->patient->dni }}" name="dniP">
-                                    </div>
+                                        <div class=" d-flex align-items-center">
+                                            <label class="m-0 d-block p-2 form-label">Nombre:</label>
+                                            <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->patient->name }}" name="nameP">
+                                        </div>
+                                        <div class=" d-flex align-items-center">
+                                            <label class="m-0 d-block p-2 form-label">Apellido:</label>
+                                            <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->patient->lastname }}" name="lastnameP">
+                                        </div>
+                                   </div>  
                                 </div>
-                                <div class=" d-flex align-items-center">
-                                    <label class="m-0 d-block p-2 form-label">Nombre:</label>
-                                    <input type="text" class="form-control border-0 bg-white" disabled="" value="{{ $history->patient->name }}" name="nameP">
-                                </div>
-                                <div class=" d-flex align-items-center">
-                                    <label class="m-0 d-block p-2 form-label">Apellido:</label>
-                                    <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->patient->lastname }}" name="lastnameP">
-                                </div>
-                            </div>  
-                        </div>
                             <hr style="border: 0;
                             height: 1px;
                             background: #333;
