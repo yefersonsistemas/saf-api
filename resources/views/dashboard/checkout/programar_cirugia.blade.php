@@ -1,6 +1,6 @@
-@extends('dashboard.layouts.app') 
-@section('cites','active') 
-@section('agendar','active') 
+@extends('dashboard.layouts.app')
+@section('cites','active')
+@section('agendar','active')
 @section('title','Agendar Cirugia')
 @section('outrol','d-block')
 @section('dire','d-none')
@@ -32,7 +32,7 @@
                             <div class="row justify-content-between">
                             @foreach ($medico->employe_surgery as $employe)
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
-                                    <label class="imagecheck m-0">  
+                                    <label class="imagecheck m-0">
                                         <div class="card assigment">
                                             <input type="radio" name="employe_id" value="{{ $employe->id }}" id="employe_id" class="imagecheck-input">
                                             @if (!empty($employe->person->image->path))
@@ -78,7 +78,7 @@
                                             </div>
                                         </label>
                                     </div>
-                                @else    
+                                @else
                                 @if ( $quirofano->status == 'ocupado')
                                 <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
@@ -100,9 +100,9 @@
                                         </div>
                                     </label>
                                 </div>
-                            @endif 
+                            @endif
                                 @endif
-                                
+
                             @endforeach
                         </div>
                     </section>
@@ -134,7 +134,7 @@
     </div>
 </div>
 
-@endsection 
+@endsection
 @section('scripts')
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
@@ -172,7 +172,7 @@
             loading: "Cargando ..."},
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
-        
+
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
@@ -188,8 +188,6 @@
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
-
-    
 
     $("input[name='employe_id']").click(function(){
         var doctor = $(this).val();

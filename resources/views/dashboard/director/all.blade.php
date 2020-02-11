@@ -137,15 +137,15 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 150px">Nombre</th>
-                                        <th>Descripcion</th>
-                                        <th>Acción</th>
+                                        <th style="width: 250px">Descripcion</th>
+                                        <th class="align-center">Acción</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Descripcion</th>
-                                        <th>Acción</th>
+                                        <th class="align-center">Acción</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -219,6 +219,10 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
                 <div class="tab-pane fade" id="pills-procedure" role="tabpanel" aria-labelledby="pills-procedure-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">

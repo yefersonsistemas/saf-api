@@ -40,6 +40,8 @@
                             </ul>
                         </div>
 
+                            {{-- aqui se configuran las MAÑANA de los horarios de medicos --}}
+
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                 <div class="row gutters-sm d-row d-flex justify-content-between">
@@ -47,8 +49,11 @@
                                             @if ($area->typearea->name == 'Consultorio' && $area->status == null)
                                                 @if ($area->areaassigment != null  )  
                                                 {{-- si $area->areaassigment == null no mostrara nada en in --}}
+
                                                 @foreach ($area->areaassigment->employe->schedule as $item)
-                                                    @if($item->turn == 'mañana' && $item->day == $dia)
+                                                     @if($item->turn == 'mañana' && $item->day == $dia)
+
+                                                    
                                                         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center" style="">
                                                             <label class="imagecheck m-0">
                                                             <div class="card assigment">
@@ -101,6 +106,9 @@
                                     @endforeach
                                 </div>
                             </div>
+                            
+                            {{-- aqui se configuran las TARDE de los horarios de medicos --}}
+
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                 <div class="row gutters-sm d-row d-flex justify-content-between">
                                     @foreach ($areas as $area)
