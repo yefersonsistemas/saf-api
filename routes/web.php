@@ -42,6 +42,11 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen     
     Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
 
+    //crear
+    Route::POST('patient/diseases/create', 'InController@diseases_create')->name('checkin.diseases_create');
+    Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
+    Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
     });
@@ -86,15 +91,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('patient/create/{reservation}','CitaController@storeHistory')->name('patients.store');
         Route::delete('delete/{id}','CitaController@delete_cite')->name('delete.cite');
 
-        
         Route::post('patient/diseases','InController@diseases')->name('checkin.diseases'); //para agregar las enfermedades que tiene el paciente
         Route::post('patient/allergies','InController@allergies')->name('checkin.allergies'); //para agregar las alergias que tiene el paciente
         Route::post('patient/medicines','InController@medicines')->name('checkin.medicines'); //para agregar las medicamentos que toma el paciente
         Route::post('cita/foto', 'CitaController@tomar_foto')->name('cita.foto');
-
-        Route::POST('patient/diseases/create', 'InController@diseases_create')->name('checkin.diseases_create');
-        Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
-        Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
     });
 
     //======================= rutas para el usuario ckeckout ====================
@@ -134,6 +134,11 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('agendar/cita/{id}', 'OutController@nueva_cita')->name('checkout.nueva_cita'); //Lista de cirugias
         Route::post('nuevaCita/store','OutController@store_nueva_cita')->name('checkout.store_nueva_cita');
+        Route::get('agendar/cirugia/ambulatoria','SurgerysController@create_surgery_ambulatoria')->name('checkout.agendar-ambulatoria');
+        Route::post('guarda/cirugia','SurgerysController@ambulatoria_store')->name('guardar.cirugia');
+        Route::get('ambulatoria/agendar/{id}','SurgerysController@create_ambulatoria')->name('mismo.dia');
+
+
     });
 
     Route::group(['middleware' => ['role:doctor, director']], function () {

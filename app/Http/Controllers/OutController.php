@@ -732,6 +732,9 @@ class OutController extends Controller
 
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
 
+    $ambulatorias = Reservation::with('patient', 'employe.person', 'employe.areaassigment.area')->where('surgery', true)->get();
+    
+    // dd($ambulatorias);
     // $approved =
 
     // $reschedule =
@@ -739,7 +742,7 @@ class OutController extends Controller
     // $canceled =
 
     // dd($surgeries);
-    return  view('dashboard.checkout.lista_cirugias', compact('surgeries'));
+    return  view('dashboard.checkout.lista_cirugias', compact('surgeries', 'ambulatorias'));
     }
 
     //===================agendar nueva cita desde checkout==================
@@ -751,10 +754,12 @@ class OutController extends Controller
 
     //=================crear reservacion==================== (REVISAR)
     public function store_nueva_cita(Request $request){
-
-        $itinerary = Itinerary::find($itinerary);
+// dd($request);
+        $itinerary = Itinerary::find($request->itinerary);
+        // dd($itinerary);
         $itinerary->proximaCita = 'agendada';
         $itinerary->save();
+        
         
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 

@@ -320,6 +320,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
                                                             <a class="btn btn-info text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -351,6 +352,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
                                                             <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -685,7 +687,8 @@ button[data-original-title="Help"]{ display: none; }
                                                             <textarea name="reposop" id="" cols="30" rows="10" class="summernote"></textarea>
                                                         @endif
                                                     </section>  
-                                                </div>                                            
+                                                </div> 
+                                            
                                                 <!------------------------------REFERENCIA---------------------->
                                                 <div class="tab-pane fade" id="pills-referencia" role="tabpanel" aria-labelledby="pills-referencia-tab">
                                                     <div class="container mt-2 p-0">
@@ -697,16 +700,16 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-md-4">
                                                                                 <label class="form-label" >Especialidad:</label>
-                                                                                @if($itinerary->reference != '')       
+                                                                                @if($itinerary->reference_id != null)       
                                                                                     <input type="hidden" id="reference" name="reference" value="{{ $itinerary->reference->id }}">
                                                                                 @else
                                                                                 <input type="hidden" id="reference" name="reference" value="">
                                                                                 @endif
                                                                                 <select class="form-control custom-select" name="speciality" id="speciality">
-                                                                                    @if($itinerary->reference != '')                                                                                   
-                                                                                    <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
-                                                                                    @endif                                                                    
-                                                                                    @if($diff != null)  
+                                                                                    @if($itinerary->reference_id != null)                                                                                   
+                                                                                         <option value={{ $itinerary->reference->speciality->id }}>{{ $itinerary->reference->speciality->name }}</option>
+                                                                                    @endif
+                                                                                     @if($diff != null)  
                                                                                         @foreach ($diff as $spe)
                                                                                             <option value="{{ $spe->id }}">{{ $spe->name }}</option>
                                                                                         @endforeach
@@ -724,14 +727,16 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             @endif
                                                                                             <span class="custom-control-label">Médico Interno</span>
                                                                                             <select class="form-control custom-select" name="doctor" id="medicoInterno">
-                                                                                                {{-- @if(!empty($itinerary->reference->employe_id))
-                                                                                                    <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
-                                                                                                    @if($diff2 != [])
-                                                                                                        @foreach ($diff2 as $spe)
-                                                                                                            <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
-                                                                                                        @endforeach
-                                                                                                    @endif   
-                                                                                                @endif --}}
+                                                                                                @if(!empty($itinerary->reference_id)) 
+                                                                                                    @if(!empty($itinerary->reference->employe_id))
+                                                                                                        <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
+                                                                                                        @if($diff2 != null)
+                                                                                                            @foreach($diff2 as $spe)
+                                                                                                                <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
+                                                                                                            @endforeach
+                                                                                                        @endif   
+                                                                                                    @endif
+                                                                                                @endif
                                                                                             </select>
                                                                                         </label>
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
@@ -918,8 +923,38 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
 
-       <!-- Modal para mostar alergias-->
-       <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <!-------- modal Registrar Enfermedad ------------>
+     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registrar Enfermedad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    
+                <div class="modal-body">
+                    <input type="text" placeholder="Nombre de la Enfermedad" name="name" value="{{ old('name') }}" class="form-control" required id="newdisease">
+                </div>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostar alergias-->
+    <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
@@ -949,6 +984,36 @@ button[data-original-title="Help"]{ display: none; }
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-------------- modal  Registrar Alergia ------------>
+    <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Alergia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    
+                <div class="modal-body">
+                    <input type="text" placeholder="Nombre de la Alergia" name="name" value="{{ old('name') }}" class="form-control" required id="newallergy">
+                </div>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1046,8 +1111,7 @@ button[data-original-title="Help"]{ display: none; }
                 </form>
             </div>
         </div>
-    </div>
-    
+    </div>    
 
      {{-- modal de los posible cirugia --}}
      <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1127,45 +1191,6 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     </div>
-
-    {{-- modal de posibles cirugias --}}
-    {{-- <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" id="posible-surgerys">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="custom-controls-stacked">
-                            <label class="custom-control custom-checkbox">
-                            @if(!empty($itinerary->typesurgery))
-                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$itinerary->typesurgery->id}}" checked>
-                                    <span class="custom-control-label">{{ $itinerary->typesurgery->name }}</span>
-                                </label>
-                            @endif
-
-                            @foreach ($diff_C as $demas)
-                                <label class="custom-control custom-checkbox">
-                                <input type="radio" class="custom-control-input" name="example-radios" value="{{$demas->id}}">  
-                                    <span class="custom-control-label">{{ $demas->name }}</span>
-                                </label>
-                            @endforeach
-                          
-                        </div>
-                    </div>
-                </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
-                    </div>
-                </form>    
-            </div>
-        </div>
-    </div> --}}
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1559,6 +1584,52 @@ button[data-original-title="Help"]{ display: none; }
         });    
     });
 
+       
+    //=====================crear enfermedad======================
+    $('#diseaseR').click(function(){
+        var name = $('#newdisease').val();
+        var patient_id = $('#patient').val();
+
+        nuevaenfermedad(name,patient_id);
+    });
+
+    //=========================guardar enfermedad creada=================
+    function nuevaenfermedad(name,patient_id){
+        console.log(name,patient_id);
+        $.ajax({ 
+            url: "{{ route('checkin.diseases_create') }}",  
+            type: "POST",                            
+            data: {
+                _token: "{{ csrf_token() }}",        
+                name: name,
+                id:patient_id,                          
+            }
+        })
+        .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+            console.log('esto',data);
+            if (data[1] == 201) {                       
+                Swal.fire({
+                    title: 'Excelente!',
+                    text:  data.data,
+                    type:  'success',
+                })
+
+
+                agregar_diseases(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    }
+
+    //====================mostrar enfermedad creada================
+    function agregar_diseases(data){
+       enfermedad = '<div class="row" id="'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data.name+'</a></div><div class="col-3"><input id="enfermedad_id" name="'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+       $("#mostrar_enfermedad").append(enfermedad);
+    }
+
+
 
     //----------------------------------ALERGIAS------------------------------------------------
 
@@ -1655,6 +1726,46 @@ button[data-original-title="Help"]{ display: none; }
         });    
     });
 
+    //=========================crear alergia=========================
+    $('#allergyR').click(function(){
+            var name = $('#newallergy').val();
+            var patient_id = $('#patient').val();
+            nuevaalergia(name,patient_id);
+        });
+
+        //=========================guardar alergia creada====================
+        function nuevaalergia(name,patient_id){
+            console.log(name,patient_id);
+            $.ajax({ 
+                url: "{{ route('checkin.allergies_create') }}",  
+                type: "POST",                            
+                data: {
+                    _token: "{{ csrf_token() }}",        
+                    name: name,
+                    id: patient_id,                          
+                }
+            })
+            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+                console.log('esto',data);
+                if (data[1] == 201) {                       
+                    Swal.fire({
+                        title: 'Excelente!',
+                        text:  data.data,
+                        type:  'success',
+                    })
+                    agregar_allergies(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+        }
+
+        //=================mostrar alergia creada ===================
+        function agregar_allergies(data){
+            alergia = '<div class="row" id="'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data.name+'</a></div><div class="col-3"><input id="alergia_id" name="'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+                $("#mostrar_alergias").append(alergia);
+        }
  
     //-------------------------------CIRUGIAS PREVIAS-------------------------------------------
 

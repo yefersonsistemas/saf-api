@@ -523,9 +523,7 @@
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                  
                     $('#doctor').val(data.employe.id);
-
                     $('#picker').val("");   
                     $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
                 
@@ -537,7 +535,6 @@
                         daysOfWeekHighlighted: [0,6],
                         datesDisabled: data.diff,
                     });
-
                     $('#fechas').val();
                     $('.inline-datepicker').on('changeDate', function() {
                         $('#picker').val(
@@ -550,15 +547,9 @@
                 .fail(function(data) {
                     console.log(data);
                 })
-
-               
             });
-           
     }
 
-    function datevalue(){
-
-    }
 
     function crear() {
         var type_dni = $("#type_dni").val();

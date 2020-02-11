@@ -46,8 +46,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Total De Citas Agendadas</h6>
-                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
-                            {{--<h5>$1,25,451.23</h5> --}}
+                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">{{ $reserva2->count() }}</span></h4>
                         </div>
                     </div>
                 </div>
@@ -55,9 +54,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Total De Citas Del Mes</h6>
-                            <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">750</span></h4>
-                            {{--
-                                <h5>$3,80,451.00</h5> --}}
+                            <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">{{ $todas }}</span></h4>
                         </div>
                     </div>
                 </div>
@@ -65,8 +62,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Citas Para Hoy</h6>
-                            <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">25</span></h4>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span> --}}
+                            <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">{{ $today->count() }}</span></h4>
                         </div>
                     </div>
                 </div>
@@ -74,8 +70,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Atendidos Hoy</h6>
-                            <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">5</span></h4>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span> --}}
+                            <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">{{ $yasevieron->count() }}</span></h4>
                         </div>
                     </div>
                 </div>
@@ -128,7 +123,7 @@ button[data-original-title="Help"]{ display: none; }
                                 {{-- <div id="wizard_vertical"> --}}
                                 <form id="wizard_vertical" action="{{ route('diagnostic.store', $history->patient_id) }}" method="POST" class="pb-4 step-doctor">
                                     @csrf
-                                    <input type="hidden" name="patient_id" value="{{ $history->patient_id }}">
+                                    <input type="hidden" id="patient_id" name="patient_id" value="{{ $history->patient_id }}">
                                     <input type="hidden" name="employe_id" value="{{ $history->person_id }}">
                                     <input type="hidden" name="razon" value="{{ $history->description }}">
                                     <input type="hidden" name="reservacion_id" id="reservacion_id" value="{{ $history->id }}">
@@ -260,10 +255,11 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>                                                           
                                                     @endforeach    
                                                     </div>
-                                                    <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info " data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        <div class="col-12 d-flex justify-content-end mt-4">
+                                                            <button class="btn btn-info mx-2" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                            <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
+                                                        </div>                                                      
                                                     </div>
-                                                </div>
                                             </div>
                                             <!----------------agregar alergias----------------->
                                             <div class="card border border-info rounded">
@@ -292,7 +288,8 @@ button[data-original-title="Help"]{ display: none; }
                                                          @endforeach
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -718,10 +715,40 @@ button[data-original-title="Help"]{ display: none; }
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer p-2">
-                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
+                    <div class="modal-footer p-2 ">
+                        <a class="btn btn-azuloscuro rowww text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+      <!-------- modal Registrar Enfermedad ------------>
+    <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registrar Enfermedad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    
+                <div class="modal-body">
+                    <input type="text" placeholder="Nombre de la Enfermedad" name="name" value="{{ old('name') }}" class="form-control" required id="newdisease">
+                </div>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -757,6 +784,36 @@ button[data-original-title="Help"]{ display: none; }
                         <a  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</a>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-------------- modal  Registrar Alergia ------------>
+    <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Alergia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    
+                <div class="modal-body">
+                    <input type="text" placeholder="Nombre de la Alergia" name="name" value="{{ old('name') }}" class="form-control" required id="newallergy">
+                </div>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1063,7 +1120,7 @@ button[data-original-title="Help"]{ display: none; }
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
 
-           //con val obtengo  y assigno
+        //con val obtengo  y assigno
         $('#indicacion').val(''); //aqui dice que se limpie o que asigne vacio cuando se cliquea el boton de agregar
         $('#medicamento').val('');
         $('#dosis').val('');
@@ -1330,6 +1387,51 @@ button[data-original-title="Help"]{ display: none; }
 
     });
 
+    
+    //=====================crear enfermedad======================
+    $('#diseaseR').click(function(){
+        var name = $('#newdisease').val();
+        var patient_id = $('#patient_id').val();
+        nuevaenfermedad(name,patient_id);
+    });
+
+    //=========================guardar enfermedad creada=================
+    function nuevaenfermedad(name,patient_id){
+        console.log(name,patient_id);
+        $.ajax({ 
+            url: "{{ route('checkin.diseases_create') }}",  
+            type: "POST",                            
+            data: {
+                _token: "{{ csrf_token() }}",        
+                name: name,
+                id:patient_id,                          
+            }
+        })
+        .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+            console.log('esto',data);
+            if (data[1] == 201) {                       
+                Swal.fire({
+                    title: 'Excelente!',
+                    text:  data.data,
+                    type:  'success',
+                })
+
+
+                agregar_diseases(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    }
+
+    //====================mostrar enfermedad creada================
+    function agregar_diseases(data){
+       enfermedad = '<div class="row" id="'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data.name+'</a></div><div class="col-3"><input id="enfermedad_id" name="'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+       $("#mostrar_enfermedad").append(enfermedad);
+    }
+
+
     //-------------------------------------------- ALERGIAS -----------------------------------------------
 
     //================ guardar alergias =================
@@ -1418,6 +1520,50 @@ button[data-original-title="Help"]{ display: none; }
         })  
         });    
     });
+
+
+    
+    //=========================crear alergia=========================
+    $('#allergyR').click(function(){
+        var name = $('#newallergy').val();
+        var patient_id = $('#patient_id').val();
+        nuevaalergia(name,patient_id);
+    });
+
+    //=========================guardar alergia creada====================
+    function nuevaalergia(name,patient_id){
+        console.log(name,patient_id);
+        $.ajax({ 
+            url: "{{ route('checkin.allergies_create') }}",  
+            type: "POST",                            
+            data: {
+                _token: "{{ csrf_token() }}",        
+                name: name,
+                id: patient_id,                          
+            }
+        })
+        .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+            console.log('esto',data);
+            if (data[1] == 201) {                       
+                Swal.fire({
+                    title: 'Excelente!',
+                    text:  data.data,
+                    type:  'success',
+                })
+                agregar_allergies(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    }
+
+    //=================mostrar alergia creada ===================
+    function agregar_allergies(data){
+        alergia = '<div class="row" id="'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data.name+'</a></div><div class="col-3"><input id="alergia_id" name="'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+            $("#mostrar_alergias").append(alergia);
+    }
+
 
 
     //------------------------------------------- CIRUGIAS PREVIAS--------------------------------------------

@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('Lista de Cirugias','active')
-@section('all','active')
+@section('cirugia','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
@@ -77,15 +77,15 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            {{-- @foreach ($surgeries as $surgeries) --}}
+                            @foreach ($all as $surgeries)
                             <tr style="height:40px;">
-                                {{-- @foreach ($surgeries->patient as $patient) --}}
+                                @foreach ($surgeries->patient as $patient)
                                 <td style="text-align: center; font-size:10px; height:40px;">
-                                    {{-- @if (!empty($patient->person->image->path))
+                                    @if (!empty($patient->person->image->path))
                                         <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
                                         @else
                                         <img src="" alt="" width="100%" height="100%">
-                                        @endif --}}
+                                        @endif
                                         {{-- <div class="text-center">
                                             @if ($reservation->patient->historyPatient == null)
                                             <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
@@ -98,16 +98,16 @@
                                             @endif
                                         </div> --}}
                                     </td>
-                                    {{-- @endforeach --}}
-                                    <td></td>
-                                    {{-- @foreach ($surgeries->patient as $patient) --}}
-                                        <td></td>
-                                    {{-- @endforeach --}}
+                                    @endforeach
+                                    <td>{{$surgeries->date}}</td>
+                                    @foreach ($surgeries->patient as $patient)
+                                        <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
+                                    @endforeach
                                     
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$surgeries->typesurgeries->name}}</td>
+                                    <td>{{$surgeries->area->name}}</td>
                                 </tr>
-                            {{-- @endforeach  --}}
+                            @endforeach 
                         </tbody>
                     </table>
                 </div>
