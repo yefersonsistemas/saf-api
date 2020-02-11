@@ -331,7 +331,7 @@
                             <div class="card col-4 text-justify p-4 form-control mt-2">
                                 <div>
                                     <label class="m-0 form-label">Doctor:</label>
-                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
+                                    <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->person->name }} {{ $reservation->person->lastname }}">
                                 </div>
                                 
                                 <div>

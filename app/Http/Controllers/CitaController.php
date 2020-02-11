@@ -46,6 +46,7 @@ class CitaController extends Controller
         }
     }
 
+    //============mostrar las reservaciones=====================
     public function index()
     {
         $reservations = Reservation::with('person', 'patient.image', 'patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->get();
@@ -63,12 +64,14 @@ class CitaController extends Controller
         return view('dashboard.reception.index', compact('reservations', 'aprobadas', 'canceladas', 'suspendidas', 'reprogramadas', 'pendientes'));
     }
 
+    //===================crear reservacion agendar cita============
     public function create()
     {
         $specialities = Speciality::all();
         return view('dashboard.reception.create', compact('specialities'));
     }
 
+    //======================buscar paciente==============
     public function search_patient(Request $request){
         // dd($request);
         $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
@@ -85,6 +88,7 @@ class CitaController extends Controller
         }
     }
 
+    //=================tomar foto========================
     public function tomar_foto(){
         $datos=json_decode(file_get_contents("php://input"));
         $imagenCodificada=$datos->pic;
@@ -107,9 +111,10 @@ class CitaController extends Controller
         return($path);
     }
 
+    //================guardar reservacion================
     public function store(CreateReservationRequest $request)
     {
-        if ($request->person == 'nuevo') {
+        if ($request->person == 'nuevo') { // por si no existe en la tabla person
             $person = Person::create([
                 'type_dni'  => $request->type_dni,
                 'dni'       => $request->dni,
@@ -124,7 +129,7 @@ class CitaController extends Controller
             $request->person = $person->id;
         }
 
-        if ($request->image != null) {
+        if ($request->image != null) { //guardar imagen
             $image = new Image;
             $image->path = $request->image;
             $image->imageable_type = "App\Person";
@@ -133,11 +138,12 @@ class CitaController extends Controller
             $image->save();
         }
 
+        
         $b_patient = Patient::where('person_id', $request->person)->first();
         // $age = Carbon::create($data['birthdate'])->diffInYears(Carbon::now());
         if($b_patient == null){
             // dd($b_patient);
-            $patient = Patient::create([
+            $patient = Patient::create([ //por si es primera vez como paciente
                 'history_number' => $this->numberHistory(),
                 'date'          =>  Carbon::now()->format('Y-m-d'),
                 'person_id'     =>  $person->id,
@@ -147,12 +153,11 @@ class CitaController extends Controller
                 ]);
             }
 
-        // dd($patient);
-
 
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
         $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
+        $employe = Employe::find($request->doctor); //para id de person
 
         $date = Carbon::create($request->date);
 
@@ -160,13 +165,12 @@ class CitaController extends Controller
             'date' => $date,
             'description' => $request->motivo,
             'patient_id' => $request->person,
-            'person_id' => $request->doctor,
+            'person_id' => $employe->person_id,
             'schedule_id' => $schedule->id,
             'status'      => 'Pendiente',
             'specialitie_id' => $request->speciality,
             'branch_id' => 1,
         ]);
-        // dd($reservation);
 
         return $reservation;
 
@@ -197,7 +201,7 @@ class CitaController extends Controller
                     'date' => $request['date'],
                     'description' => $request['description'],
                     'patient_id' => $request['patient_id'],
-                    'person_id' => $request['person_id'],
+                    'person_id' => $employe->person_id,
                     'schedule_id' => $request['schedule_id'],
                     'specialitie_id' => $request['specialitie_id'],
                     'branch_id' => 1,
@@ -215,6 +219,7 @@ class CitaController extends Controller
         }
     }
 
+    //========cambiar estado a suspendida o cancelada=========
     public function status(Request $request)
     {
         $data = $request->validate([
@@ -264,6 +269,7 @@ class CitaController extends Controller
 
     }
 
+    //===============cambiar estado de cita a confirmada========
     public function approved(Reservation $reservation)
     {
         // dd($reservation);
@@ -300,6 +306,7 @@ class CitaController extends Controller
         return redirect()->back();
     }
 
+    //=====================edutar reservacion ==================
     public function edit($id)
     {
         $reservation = Reservation::with('patient','person','speciality')->find($id);
@@ -316,6 +323,7 @@ class CitaController extends Controller
         }
     }
 
+    //========================actualizar reservacion ==============
     public function update(Reservation $cite, Request $request)
     {
         if (!is_null($cite)) {
@@ -372,6 +380,7 @@ class CitaController extends Controller
         // dd($request);
     }
 
+    //========================crear historia=======================
     public function createHistory($id)
     {
         $reservation = Reservation::with('patient','person')->where('id',$id)->first();
@@ -381,6 +390,7 @@ class CitaController extends Controller
         return view('dashboard.reception.history', compact('reservation','fecha'));
     }
 
+    //======================guardar historia===================
     public function storeHistory($id, Request $request)
     {
         $reservation = Reservation::with('person','patient')->where('id',$id)->first();
@@ -423,6 +433,7 @@ class CitaController extends Controller
         }
     }
 
+    //=================generar numero de historia===============
     public function numberHistory()
     {
         $patient    = Patient::all()->last();
@@ -444,6 +455,7 @@ class CitaController extends Controller
         return $history_number;
     }
 
+    //======================para el reprogramar=================
     public function only_id(Request $request){  //id q recibe update_cite para poder reprogramar
         $reservation = Reservation::with('speciality', 'person', 'schedule', 'patient')->where('id', $request->id)->first();
         //dd($reservation);
@@ -456,6 +468,7 @@ class CitaController extends Controller
         }
     }
 
+    //====================actualizar reservacion ====================
     public function update_cite(UpdateCiteRequest $request){
 
         $reservation = Reservation::find($request->id);
@@ -526,6 +539,7 @@ class CitaController extends Controller
         }
     }
 
+    //================eliminar reservacion ======================
     public function delete_cite($id){
         $reservation = Reservation::find($id);
 
@@ -541,6 +555,7 @@ class CitaController extends Controller
 
     }
 
+    //======================mostrar especialidades================
     public function speciality()
     {
         $speciality = Speciality::with('image')->get();
@@ -551,7 +566,7 @@ class CitaController extends Controller
         ]);
     }
 
-
+    //=====================buscar doctor segun especialidad===============
     public function search_doctor(Request $request){    //medico asociado a una especialidad
         $speciality = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
 

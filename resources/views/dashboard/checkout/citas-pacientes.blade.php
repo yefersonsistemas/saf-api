@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-12 ">
+            {{-- <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <label class="form-label">Buscar:</label>
                 <div class="input-group">
                     
@@ -78,7 +78,7 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
       
 
           
@@ -121,7 +121,7 @@
 
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
                                     <div class="col-lg-8 col-md-8">
-                                        <div class="row">
+                                        <div class="row">                                            
                                             <!--Imagen del paciente-->
                                             <div class="col-3" style="max-height: 100px; ">
                                                 @if (!empty($item->patient->image->path))
@@ -465,6 +465,11 @@
 
                                     <div class="col-lg-8 col-md-8">
                                         <div class="row">
+                                            @if($itinerary->proximaCita == 'posible')
+                                            <div class="col-1 mt-2" style="max-height: 100px;">
+                                              <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#00ad88;"></span>
+                                             </div>
+                                            @endif                                           
                                             <!--Imagen del paciente-->
                                             <div class="col-3" style="max-height: 100px; ">
                                                 @if (!empty($itinerary->person->image->path))
@@ -592,63 +597,69 @@
                                     <div class="col-md-12 col-lg-3 col-sm-12">
                                         <div class="row d-flex justify-content-end" style="width: 18rem;">
                                             <div class="card-body">
+                                                <!--PROXIMA CITA-->
+                                                @if($itinerary->proximaCita == 'posible')
+                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
+                                                       <a href="{{ route('checkout.nueva_cita', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                                        <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#00ad88;"></span>Agendar cita
+                                                       </a>                                                    
+                                                   </div>
+                                                @endif
+
+                                                @if($itinerary->proximaCita == 'agendada')
+                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">      
+                                                        <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:red;"></span>Cita agendada
+                                                   </div>
+                                                @endif
+
                                                 <!--EXAMEN-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($itinerary->exam_id != null)
+                                                @if($itinerary->exam_id != null)
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">                                                   
                                                         <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"></i> Examen
-                                                        </a>
-                                                    @endif
-                                                </div>
+                                                        </a>                                                   
+                                                    </div>
+                                                @endif
 
                                                 <!--RECETARIO-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($itinerary->recipe_id != null)
+                                                @if($itinerary->recipe_id != null)
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">                                                    
                                                         <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Recetario
-                                                        </a>
-                                                    @endif
-                                                </div>
-
-                                                <!--CONSTANCIA-->
-                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($itinerary->constancy_id != null)
-                                                        <a href="{{ route('checkout.imprimir_constancia') }}" class="btn btn-boo abarca" type="button" target="_blank">
-                                                            <i class="fa fa-print"> </i>Constancia
-                                                        </a>
-                                                    @endif
-                                                </div> --}}
+                                                        </a>                                                   
+                                                    </div>
+                                                @endif
 
                                                 <!--REFERENCIA-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
-                                                    @if($itinerary->reference_id != null)
+                                                @if($itinerary->reference_id != null)
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">                                                    
                                                         <a href="{{ route('checkout.imprimir_referencia', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Referencia
-                                                        </a>
-                                                    @endif
-                                                </div>
+                                                        </a>                                                    
+                                                    </div>
+                                                @endif
 
                                                 <!--REPOSO-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($itinerary->repose_id != null)
+                                                @if($itinerary->repose_id != null)
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
                                                         <a href="{{ route('checkout.imprimir_reposo', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Reposo
-                                                        </a>
-                                                    @endif
-                                                </div>
+                                                        </a>                                                   
+                                                    </div>
+                                                @endif
 
                                                 <!--INFORME-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($itinerary->report_medico_id != null)
+                                                @if($itinerary->report_medico_id != null)
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
                                                         <a href="{{ route('checkout.imprimir_informe', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Informe
-                                                        </a>
-                                                    @endif
-                                                </div>
+                                                        </a>                                                    
+                                                    </div>
+                                                @endif
 
                                                 <!--FACTURAR-->
-                                                <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
-                                                    @if($itinerary->procedureR_id != null)
+                                                @if($itinerary->procedureR_id != null)
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                  
                                                         @if($itinerary->billing == null)                                                    
                                                             <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                                 <i class="fa fa-print"> </i> Facturar
@@ -663,16 +674,9 @@
                                                                     <i class="fa fa-print"> </i> Imprimir factura
                                                                 </a>
                                                             @endif
-                                                        @endif
-                                                    @endif
-                                                </div>
-
-                                                <!--CITA-->
-                                                {{-- <div class="col-lg-7 col-md-12 col-sm-12 mb-2 ml-3">
-                                                    <a  href="" class="btn btn-gene abarca text-start" >
-                                                        <i class="fa fa-calendar-plus-o"></i> Cita
-                                                    </a>
-                                                </div> --}}
+                                                        @endif                                                    
+                                                    </div>
+                                                @endif
                                             </div>                                                
                                         </div>
                                     </div>

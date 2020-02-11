@@ -216,116 +216,89 @@ class DoctorController extends Controller
      
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
         ->where('person_id', $reservation->patient_id)->first();
-     
+   
         $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
-        
+    
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
 
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
-//    dd($itinerary->reference->speciality);
-
 
         $speciality = Speciality::all(); 
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
 
         //---------------------mostrar enfermedades-----------------
-        if($reservation->patient->historyPatient->disease->first() != null){
-            foreach($enfermedades as $item){
-                $array1[] = $item->id; 
-            }
-
-            foreach($reservation->patient->historyPatient->disease as $item){
-                $array2[] = $item->id; 
-            }
-           
-            $diff = array_diff($array1, $array2);
-     
-            if($diff != null){
-                foreach($diff as $item){
-                    $enfermedad[] = Disease::find($item); 
-                }
-            }else{
-                $enfermedad = [];
-            }
-
+        if($reservation->patient->historyPatient->disease->first() != null && $enfermedades != null){
+            $enfermedad = $enfermedades->diff($reservation->patient->historyPatient->disease);
         }else{           
             $enfermedad = Disease::all();
         }
 
-
          //----------------mostrar alergias---------------
          $alergias = Allergy::all();
       
-           if($reservation->patient->historyPatient->allergy->first() != null){
-             foreach($alergias as $item){
-                 $array1[] = $item->id; 
-             }
-  
-             foreach($reservation->patient->historyPatient->allergy as $item){
-                 $array2[] = $item->id; 
-             }
- 
-             $diff_A = array_diff($array1, $array2);
-     
-             if($diff_A != []){
-                 foreach($diff_A as $item){
-                     $alergia[] = Allergy::find($item); 
-                 }
-             }else{
-                 $alergia = [];
-             }
-            
+           if($reservation->patient->historyPatient->allergy->first() != null && $alergias != null){
+            $alergia = $alergias->diff($reservation->patient->historyPatient->allergy);            
          }else{           
              $alergia = Allergy::all();
          }
-
 
         foreach($speciality as $item){
             $data[] = $item->id;
         }
 
         //-----------------datos de la referencia-----------------
-        if($itinerary->reference != ''){
+        if($itinerary->reference_id != null){
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
-            $buscar_id[] = $buscar->id;
+            $buscar_id[] = $buscar->id; //id de especialidad
      
-            $diff_R = array_diff($data, $buscar_id);
+            $diff_R = array_diff($data, $buscar_id); //diferencia de especialidades
 
             //mostrar empleados en el editar rederir medico para que no se repitan los datos
-            $empleados = Speciality::with('employe')->where('id', $buscar->id)->first();
+            $empleados = Speciality::with('employe.person')->where('id', $buscar->id)->first();
+            // dd($empleados);
             foreach($empleados->employe as $item){
                 $data2[] = $item->id;  //medicos relacionados a la especialidad
             }
-         
+        //  dd($data2);
             if($itinerary->reference->employe_id != null){ 
                     $buscarE_id[] =  $itinerary->reference->employe->id;
-                    $diff_EM = array_diff($data2, $buscarE_id); 
-                    foreach($diff_EM as $di) { 
-                        $diff2[] = Employe::with('person')->find($di); 
+                    // dd($buscarE_id);
+                    // dd($data2);
+                    $diff_EM = array_diff($data2, $buscarE_id); //diferencia de medicos
+                    // dd($diff_EM);
+                    if($diff_EM != []){
+                        foreach($diff_EM as $di) { 
+                            $diff2[] = Employe::with('person')->where('id',$di)->first(); 
+                        }
+                    }else{
+                        $diff2 = []; 
                     }
+                  
                     $diff_doctor = null;
             }else{
                 $diff_doctor = $itinerary->reference->doctor;
                 $diff2 = [];
-            }
-            
-            // dd($diff2);
+            }            
+
         }else{
             $diff_R = $data;
         }
 
+        // dd($diff2);
+
         //buscar datos de las especialidades
         if($diff_R != [] ){
             foreach($diff_R as $di) { 
-                $diff2[] = Speciality::find($di); 
+                $diff22[] = Speciality::find($di); 
             }
         }else{           
-            $diff2 = [];
+            $diff22 = [];
         }
 
-        $diff = $diff2; 
+        $diff = $diff22; 
+        //  dd($diff);
 
          //decodificando y buscando datos de procedures realizados
             if (!empty($itinerary->procedure_id)) {
@@ -339,8 +312,7 @@ class DoctorController extends Controller
                 $procedures = null;
             }
             
-            // dd($procedures);
-        //decodificando y buscando datos de examenes
+            //decodificando y buscando datos de examenes
             if (!empty($itinerary->exam_id)) {
                 $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
                 if (!empty($exam_id)) {
@@ -352,7 +324,7 @@ class DoctorController extends Controller
                 $exams = null;
             }
 
-            $procesm = Employe::with('procedures')->where('id', $reservation->person_id)->first(); 
+            $procesm = Employe::with('procedures')->where('person_id', $reservation->person_id)->first(); 
             $examenes = Exam::all();
             $cirugias = TypeSurgery::get();
 
@@ -388,6 +360,7 @@ class DoctorController extends Controller
             foreach($diff_CC as $item){
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
+            // dd($diff);
 
         return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia'));
     }
@@ -416,7 +389,15 @@ class DoctorController extends Controller
 
         //buscando diagnostico 
             $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
-            ->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
+            ->where('patient_id', $b_patient->id)->where('employe_id', $itinerary->employe_id)->first();
+
+        //actualizando campo de proxima cita
+            if($request->proximaCita == 1){
+                $itinerary->proximaCita = 'posible';
+            }else{
+                $itinerary->proximaCita = null;
+            }
+            $itinerary->save();
 
        //actualizando campos de diagnostico
             $diagnostic->description = $request->diagnostic;
@@ -438,7 +419,7 @@ class DoctorController extends Controller
             if($request->reposop != null && $request->reposo_id == null){
                 $reposo = Repose::create([
                     'patient_id'        =>  $reservation->patient_id,
-                    'employe_id'        =>  $reservation->person_id,
+                    'employe_id'        =>  $itinerary->employe_id,
                     'description'       =>  $request->reposop, 
                     'branch_id'         =>  1
                 ]);
@@ -460,7 +441,7 @@ class DoctorController extends Controller
             if($request->reporte != null && $request->report_medico_id == null){
                 $reporte = ReportMedico::create([
                     'patient_id'        =>  $b_patient->id,
-                    'employe_id'        =>  $reservation->person_id,
+                    'employe_id'        =>  $itinerary->employe_id,
                     'descripction'      =>  $request->reporte,
                     'branch_id'         =>  1
                 ]);
@@ -534,7 +515,6 @@ class DoctorController extends Controller
         $specialities = Speciality::all();
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
     }
-
 
     // ================================= referir doctor ======================================
     public function referenceStore(Request $request)
@@ -682,15 +662,24 @@ class DoctorController extends Controller
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $reservation = Reservation::where('id', $request->reservacion_id)->first();
         $patient = Patient::where('person_id', $reservation->patient_id)->first();
-
+       
         if($itinerary != null){
-                $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-        
+            $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+          
             if (empty($io->outside_office) && (!empty($io->inside_office))) {
+     
                 $io->outside_office = 'fuera';
                 $io->save();
                 $itinerary->status = 'fuera_office';
+
+                //guardar proxima cita
+                if($request->proximaCita == 1){
+                    $itinerary->proximaCita = 'posible';
+                }else{
+                    $itinerary->proximaCita = null;
+                }                
                 $itinerary->save();
+
 
                 if($itinerary != null){
 
@@ -698,7 +687,7 @@ class DoctorController extends Controller
                     //-------- crear reposo ---------
                     $reposo = Repose::create([
                         'patient_id'        =>  $request->patient_id,
-                        'employe_id'        =>  $request->employe_id,
+                        'employe_id'        =>  $itinerary->employe_id,
                         'description'       =>  $request->reposop, 
                         'branch_id'         =>  1
                     ]);
@@ -716,7 +705,7 @@ class DoctorController extends Controller
                     //------- crear informe medico -------
                     $reporte = ReportMedico::create([
                         'patient_id'        =>  $patient->id,
-                        'employe_id'        =>  $request->employe_id,
+                        'employe_id'        =>  $itinerary->employe_id,
                         'descripction'      =>  $request->reporte,
                         'branch_id'         =>  1
                     ]);
@@ -738,7 +727,7 @@ class DoctorController extends Controller
                         'report_medico_id'  =>  $reporte_id, //esta
                         'repose_id'         =>  $reposo_id,  //esta
                         'indications'       =>  $request->indicaciones, //esta
-                        'employe_id'        =>  $reservation->person_id, //esta
+                        'employe_id'        =>  $itinerary->employe_id, //esta
                         'branch_id'         =>  1,
                     ]);
 
@@ -1721,10 +1710,9 @@ class DoctorController extends Controller
         'cirugias' => 'Cirugias previas eliminada correctamente',202
     ]);
 
-
     }
 
-    //=================Lista de las Cirugias Asociadad al Doctor====================//
+    //=================Lista de las Cirugias Asociadad al Doctor====================
     public function surgeries_list(){
         $id = Auth::id();
         // dd($id);

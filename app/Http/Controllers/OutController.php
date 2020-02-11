@@ -10,7 +10,7 @@ Use App\Area;
 Use App\Billing;
 Use App\Reference;
 Use App\Repose;
-Use App\Schedules;
+Use App\Schedule;
 use App\Http\Requests\CreateBillingRequest;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\InController;
@@ -690,5 +690,46 @@ class OutController extends Controller
     // dd($surgeries);
     return  view('dashboard.checkout.lista_cirugias', compact('surgeries', 'ambulatorias'));
     }
+
+    //===================agendar nueva cita desde checkout==================
+    public function nueva_cita($id){
+        $itinerary = Itinerary::with('person','employe')->where('id',$id)->first();   
+        $reservation = Reservation::with('speciality')->where('id',$itinerary->reservation_id)->first();
+        return  view('dashboard.checkout.nuevaCita',compact('itinerary','reservation'));
+    }
+
+    //=================crear reservacion==================== (REVISAR)
+    public function store_nueva_cita(Request $request){
+// dd($request);
+        $itinerary = Itinerary::find($request->itinerary);
+        // dd($itinerary);
+        $itinerary->proximaCita = 'agendada';
+        $itinerary->save();
+        
+        
+        $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
+
+        $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
+        $employe = Employe::find($request->doctor);
+        $date = Carbon::create($request->date);
+
+        $reservation = Reservation::create([
+            'date' => $date,
+            'description' => $request->motivo,
+            'patient_id' => $request->person,
+            'person_id' => $employe->person_id,
+            'schedule_id' => $schedule->id,
+            'status'      => 'Pendiente',
+            'specialitie_id' => $request->speciality,
+            'branch_id' => 1,
+        ]);
+
+        return response()->json([
+            'message' => 'Cita creada',
+        ]);
+
+    }
+
+  
 
 }
