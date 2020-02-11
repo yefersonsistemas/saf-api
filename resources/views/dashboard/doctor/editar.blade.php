@@ -780,7 +780,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="container">
                                                                 <div class="row mx-auto">
                                                                      <div class="col-12 justify-content-center text-center">
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" title="Click para notificar una próxima cita">
+                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip">
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
                                                                             Notificar proxima cita  
                                                                             
@@ -1042,6 +1042,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
@@ -1190,6 +1191,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                         <div class="modal-footer p-2">
+                            <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                             <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                         </div>
                         </div>
@@ -1232,6 +1234,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer p-2">
+                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>

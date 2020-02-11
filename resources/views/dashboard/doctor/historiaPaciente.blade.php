@@ -591,16 +591,15 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row">
                                                             <div class="container">
                                                                 <div class="row mx-auto">
-                                                                     <div class="col-12 justify-content-center text-center">
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" title="Click para notificar una próxima cita">
+                                                                     <div class="col-12 justify-content-center text-center">ti
+                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
                                                                             Notificar proxima cita  
                                                                             
                                                                         </button>
                                                                         <input type="hidden" id="proximaCita" name="proximaCita" value="0">
                                                                     </div>
-                                                                    {{-- <h5 class="align-center col-12">Notificar próxima cita</h5> --}}
-                                                                </div>
+                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12 mx-auto">
                                                                 <div class="card">

@@ -8350,9 +8350,10 @@ body *::-webkit-scrollbar-thumb {
 
 /* ==============color de barra general del proyecto ===================*/
 
-body *:hover::-webkit-scrollbar-thumb {
+
+/* body *:hover::-webkit-scrollbar-thumb {
     background: #00ba88;
-}
+} */
 
 #main_content {
     display: -ms-flexbox;
