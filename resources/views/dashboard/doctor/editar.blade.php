@@ -2281,11 +2281,11 @@ button[data-original-title="Help"]{ display: none; }
                         text: 'Click en OK para continuar',
                         type: 'success',
                     });
-                }                
+                }
             })
             .fail(function(data) {
                 console.log(data);
-            })  
+            })
         });
     });
 
