@@ -117,7 +117,7 @@ class SurgerysController extends Controller
     }
 
     
-    public function create_ambulatoria($id){
+    public function create_ambulatoria($id){  //agendada el mimo dia por lo que pasa el id del paciente
 
         $paciente = Itinerary::with('person','employe.person')->where('id',$id)->first();
         // dd($paciente);
@@ -167,10 +167,10 @@ class SurgerysController extends Controller
 
         if($patient != null){
 
-            $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName); // se crea el dia jueves seleccionado
-            // dd( $dia);
+            $diaDeReserva = strtolower(Carbon::create($request->date)->locale('en')->dayName); // se crea el dia jueves seleccionado
+            // dd( $diaDeReserva);
 
-            $schedule = Schedule::where('employe_id', $request->employe)->where('day', $dia)->first(); // doctor 1 con horario dia jueves
+            $schedule = Schedule::where('employe_id', $request->employe)->where('day', $diaDeReserva)->first(); // doctor 1 con horario dia jueves
             // dd($schedule);
 
             $date = Carbon::create($request->date);  //se crea la fecha seleccionada
@@ -179,12 +179,12 @@ class SurgerysController extends Controller
             $employe = Employe::with('person', 'speciality')->find($request['employe']);
             $employe->load('schedule');
             // dd( $employe->speciality->first());
-            $fecha = Carbon::parse($request['date'])->locale('en');
+            // $fecha = Carbon::parse($request['date'])->locale('en');
             // dd($fecha);
 
             $date = Carbon::parse($request['date'])->Format('Y-m-d'); 
             // dd($date);
-            $diaDeReserva = strtolower($fecha->dayName);
+            // $diaDeReserva = strtolower($fecha->dayName);
             // dd($diaDeReserva);
             $dia = Schedule::where('employe_id', $employe->id)->where('day', $diaDeReserva)->first();
             // dd($dia);

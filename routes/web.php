@@ -130,7 +130,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/checkout/patients','SurgerysController@search_patients_out')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
-        Route::get('surgeries/list', 'OutController@surgeries_list')->name('checkout.lista_cirugias'); //Lista de cirugias
+        Route::get('surgeries/list', 'OutController@surgeries_lista')->name('checkout.lista_cirugias'); //Lista de cirugias
 
         Route::get('agendar/cita/{id}', 'OutController@nueva_cita')->name('checkout.nueva_cita'); //Lista de cirugias
         Route::post('nuevaCita/store','OutController@store_nueva_cita')->name('checkout.store_nueva_cita');

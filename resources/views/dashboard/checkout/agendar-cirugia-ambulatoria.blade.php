@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('cites','active')
 @section('newCite','active')
-@section('title','Crear una nueva cita')
+@section('title','Agendar procedimiento ambulatorio')
 @section('inrol','d-block')
 @section('dire','d-none')
 @section('css')
