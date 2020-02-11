@@ -2135,34 +2135,7 @@ class UsersTableSeeder extends Seeder
 
         ])->assignRole('in-out');
 
-        //creacion del medico internista
-        $person = Person::create([
-            'type_dni' => 'N',
-            'dni' => '12000547',
-            'name' => 'ANDY',
-            'lastname' => 'CARVALO',
-            'address' => 'agua viva',
-            'phone' => '294-887-1200 x862',
-            'email' => 'drandycarvalo@sinusandface.com',
-            'branch_id' => '1',
-        ]);
-
-        $position = factory(App\Position::class)->create([
-            'name' => 'internista',
-        ]);
-
-        $employe = factory(App\Employe::class)->create([
-            'person_id' => $person->id,
-            'position_id' => $position->id
-        ]);
-        $this->to('employes', $employe->id, 'App\Employe');
-
-        factory(User::class)->create([
-            'person_id' => $person->id,
-
-        ])->assignRole('internista');
-
-        //creacion del medico anestesiologo
+        // creacion del medico farmaceuta
         $person = Person::create([
             'type_dni' => 'N',
             'dni' => '14123456',
@@ -2170,14 +2143,13 @@ class UsersTableSeeder extends Seeder
             'lastname' => 'FERNANDEZ',
             'address' => '  Urb. Almariera',
             'phone' => '04245891400',
-            'email' => 'draalejandra@sinusandface.com',
+            'email' => 'farmaceuta@sinusandface.com',
             'branch_id' => '1',
         ]);
 
         $position = factory(App\Position::class)->create([
-            'name' => 'anestesiologo',
+            'name' => 'farmaceuta',
         ]);
-
 
         $employe = factory(App\Employe::class)->create([
             'person_id' => $person->id,
@@ -2187,7 +2159,7 @@ class UsersTableSeeder extends Seeder
 
         factory(User::class)->create([
             'person_id' => $person->id,
-        ])->assignRole('anestesiologo');
+        ])->assignRole('farmaceuta');
 
 
         //creacion del enfermero

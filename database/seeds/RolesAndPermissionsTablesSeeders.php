@@ -32,10 +32,11 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Role::create(['name' => 'administracion']);
         Role::create(['name' => 'user']);
         Role::create(['name' => 'in-out']);
-        Role::create(['name' => 'internista']);
-        Role::create(['name' => 'anestesiologo']);
-        Role::create(['name' => 'cirujano']);
+        // Role::create(['name' => 'internista']);
+        // Role::create(['name' => 'anestesiologo']);
+        // Role::create(['name' => 'cirujano']);
         Role::create(['name' => 'enfermero']);
+        Role::create(['name' => 'farmaceuta']);
 
        
         //Permisos del rol seguridad
