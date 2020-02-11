@@ -118,8 +118,6 @@
                 @endrole
 
 
-
-
                 @role('director')
                 <div class="director animated fadeIn @yield('dire')">
                     <li class="g_heading">Director</li> 
@@ -149,6 +147,8 @@
                     </li>
                 </div>
                 @endrole
+
+                
                 
             </ul>
         </nav>
