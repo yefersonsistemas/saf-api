@@ -60,7 +60,7 @@ class OutController extends Controller
         }
 
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
-// dd($confirmadas->first()->speciality);
+        // dd($confirmadas->first()->speciality);
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
 
         return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera'));
@@ -678,7 +678,7 @@ class OutController extends Controller
 
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
 
-    $ambulatorias = Reservation::with('patient', 'employe.person', 'employe.areaassigment.area')->where('surgery', true)->get();
+    $ambulatorias = Reservation::with('patient', 'employe.person')->where('surgery', true)->get(); // 'employe.areaassigment.area'
     
     // dd($ambulatorias);
     // $approved =
