@@ -948,34 +948,31 @@
             color: #fff;
         }
         
-        .wizard>.actions a,
-        .wizard>.actions a:hover,
-        .wizard>.actions a:active {
-            background: #00506b !important;
+        .plan-steps .nav-pills .nav-link.active,
+        .plan-steps .nav-pills .show>.nav-link {
+            padding: 10px!important;
+            font-size: 13px!important;
         }
         /* -----step doctor plan---- */
         
         .tab-content {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    height: 35em;
-    overflow: auto;
-    /* border-top: 1px solid #00506b; */
-    padding-top: 20px;
-}
-.plan .tab-content {
-
-    height: 28em !important;
-
-}
-
-
-.wizard.vertical>.steps>ul>li a {
-    font-weight: bold;
-    background: lightgray;
-    padding: 8px;
-}
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 35em;
+            overflow: auto;
+            /* border-top: 1px solid #00506b; */
+            padding-top: 20px;
+        }
+        /* -----fin de step doctor plan---- */
+        /* -----fin de sted doctor----- */
+        
+        .wizard.vertical>.steps>ul>li a {
+            font-weight: bold;
+            background: lightgray;
+            padding: 8px;
+        }
+        
         .plan-steps>ul {
             position: relative;
             margin: 6px 0 0 0;
@@ -1028,43 +1025,39 @@
         }
         
         @media screen and (max-width: 1440px) {
-                .plan-steps>ul>li>a {
-                    padding: 10px!important;
-                    font-size: 13px!important;
-                }
-                .plan-steps .nav-pills .nav-link.active,
-                .plan-steps .nav-pills .show>.nav-link {
-                    padding: 10px!important;
-                    font-size: 13px!important;
-                }
-            }
-            @media screen and (max-width:1320px) {
-                .plan-steps>ul>li>a {
-                    padding: 10px!important;
-                    font-size: 10px!important;
-                }
-                .plan-steps .nav-pills .nav-link.active,
-                .plan-steps .nav-pills .show>.nav-link {
-                    padding: 10px!important;
-                    font-size: 10px!important;
-                }
-            }
-            @media screen and (max-width:1200px) {
-                .plan-steps>ul>li>a {
-                    padding: 10px!important;
-                    font-size: 13px!important;
-                }
-                .plan-steps .nav-pills .nav-link.active,
-              .plan-steps .nav-pills .show>.nav-link {
-                    padding: 10px!important;
-                    font-size: 12px;
-                }
-            }
-           .plan-steps .nav-pills .show>.nav-link {
+            .plan-steps>ul>li>a {
                 padding: 10px!important;
                 font-size: 13px!important;
             }
+            .plan-steps .nav-pills .nav-link.active,
+            .plan-steps .nav-pills .show>.nav-link {
+                padding: 10px!important;
+                font-size: 13px!important;
+            }
+        }
         
+        .plan-steps .nav-pills .nav-link.active,
+        .plan-steps .nav-pills .show>.nav-link {
+            padding: 10px!important;
+            font-size: 13px!important;
+        }
+        
+        @media screen and (max-width:1200px) {
+            .plan-steps>ul>li>a {
+                padding: 10px!important;
+                font-size: 13px!important;
+            }
+            .plan-steps .nav-pills .nav-link.active,
+            .plan-steps .nav-pills .show>.nav-link {
+                padding: 10px!important;
+                font-size: 12px;
+            }
+        }
+        
+        .plan-steps .nav-pills .show>.nav-link {
+            padding: 10px!important;
+            font-size: 13px!important;
+        }
         
         @media screen and (max-width:1024px) {
             .plan-steps>ul>li {
@@ -1099,7 +1092,7 @@
             }
         }
         
-         .plan-steps>ul>li>a:hover {
+        .plan-steps>ul>li>a:hover {
             background: rgba(0, 80, 107, .25);
             /* border: 1px solid #00506b; */
             /* border-bottom: 0 none; */
@@ -1113,7 +1106,6 @@
     justify-content: space-between;
     align-items: center;
 } */
-        
         /* .table.table_custom tr td {} */
         
         .dz-image img {

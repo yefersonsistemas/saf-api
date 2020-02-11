@@ -8332,27 +8332,30 @@ body.h_menu.rtl .metismenu>li:last-child .collapse {
     }
 }
 
+
+/* MODIFICACIONES A MODALES DE AGREGAR ENFERMEDAD  */
+
 body *::-webkit-scrollbar {
-    width: 0px;
-    height: 3px;
-    transition: .3s background
+    overflow: hidden;
+    width: 8px;
+    height: 10px;
+    /* display: none; */
 }
 
 body *::-webkit-scrollbar-thumb {
-    background: #f8f9fa
+    overflow: hidden background: #E8E9E9;
+    border-radius: 10px;
 }
+
+
+/* ==============color de barra general del proyecto ===================*/
 
 body *:hover::-webkit-scrollbar-thumb {
-    background: #f8f9fa
-}
-
-a:hover {
-    text-decoration: none
+    background: #00ba88;
 }
 
 #main_content {
     display: -ms-flexbox;
-    display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
     -ms-flex-pack: center;
@@ -8361,8 +8364,39 @@ a:hover {
 }
 
 .row {
-    margin-right: -7.5px;
-    margin-left: -7.5px
+    margin-right: 11px;
+    margin-left: 1px
+}
+
+.roww {
+    margin-right: 100px;
+    margin-left: 2px
+}
+
+.rowww {
+    margin-left: 50%;
+    margin-top: 8%
+}
+
+.rowwww {
+    margin-left: 50%;
+    margin-top: 11%
+    /* para procedimientos realizados en os modales de doctor */
+}
+
+.rowwwww {
+    margin-left: 40%;
+    margin-top: 8%
+}
+
+.texto {
+    font-size: 17px
+}
+
+.contenedor {
+    background: #00ba88;
+    ;
+    overflow-y: scroll;
 }
 
 .col,
@@ -8456,7 +8490,7 @@ a:hover {
 }
 
 .input-group-text {
-    border-color: #E8E9E9;
+    border-color: rgb(233, 233, 232);
     background: transparent
 }
 
@@ -12311,7 +12345,8 @@ a.tag-addon:hover {
     text-align: right
 }
 
-.dataTables_wrapper .dataTables_filter input {
+
+/* .dataTables_wrapper .dataTables_filter input {
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
@@ -12319,7 +12354,7 @@ a.tag-addon:hover {
     *display: inline;
     width: auto;
     margin-left: 0.2rem
-}
+} */
 
 .dataTables_wrapper .dataTables_paginate {
     float: right;

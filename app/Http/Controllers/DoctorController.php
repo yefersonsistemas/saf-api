@@ -169,6 +169,7 @@ class DoctorController extends Controller
       
         $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first(); 
      
+        // dd($procesm->procedures);
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
 

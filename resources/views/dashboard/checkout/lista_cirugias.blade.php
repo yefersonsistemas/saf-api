@@ -1,31 +1,3 @@
-@extends('dashboard.layouts.app')
-
-@section('Lista de Cirugias','active')
-@section('all','active')
-
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
-@endsection
-
-@section('title','Lista de Cirugias')
-
-@section('content')
-<style>
-    .dataTables_filter label{
-        color: #434a54;
-    }
-    .dataTables_filter label input:focus{
-        border: 2px solid #00506b;
-    }
-
-    .btn-repro{
-        background: #ff8000;
-        color: #fff;
-    }
-</style>
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
