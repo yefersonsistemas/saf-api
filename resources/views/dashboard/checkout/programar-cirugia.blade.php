@@ -182,17 +182,24 @@
                         </div>
                     </section>
                     <h2>Elegir Fecha</h2>
-                    <section>
-                        <div class="col-md-6 m-auto">
+                    <section class="py-1 align-items-center">
+                        <div class="col-md-8 mx-auto mt-3">
                             <div class="card card-date">
                                 <div class="card-header">
                                     <h3 class="card-title">Elegir Fecha</h3>
                                 </div>
                                 <div class="form-group mx-4">
-                                    <div class="input-group">
-                                        <input data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off">
+                                    <div class="input-group date">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                        {{-- <input value="" data-provide="datepicker" data-date-autoclose="true" id="picker" name="date" class="form-control datepicker" autocomplete="off"> --}}
+                                        <input value="" id="picker" name="date" class="form-control">
                                     </div>
-                                </div>
+                                    <div>
+                                        <div class="inline-datepicker" data-provide="datepicker" id="datepicker"></div>
+                                    </div>                  
+                                </div>              
                             </div>
                         </div>
                         {{-- <div class="col-lg-12 col-md-12">
@@ -339,7 +346,6 @@
             })
             .done(function(data) {
                 console.log('ee', data);
-               
                 if (data[0] == 202) {
                     Swal.fire({
                         title: data.message,
@@ -447,6 +453,24 @@
                 type: 'success',
                 allowOutsideClick:false,
             });
+            // $('#picker').val("");   
+            //         $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
+                    
+            //     //  $(".inline-datepicker").val("");
+            //         $('.inline-datepicker').datepicker({
+            //             todayHighlight: true,
+            //             language: 'es',
+            //             startDate: data.start,
+            //             endDate: data.end,
+            //             daysOfWeekHighlighted: [0,6],
+            //             datesDisabled: data.diff,
+            //         });
+            //         $('#fechas').val();
+            //         $('.inline-datepicker').on('changeDate', function() {
+            //             $('#picker').val(
+            //                 $('.inline-datepicker').datepicker('getFormattedDate')
+            //             );
+            //     });
         });
     }
 
@@ -465,5 +489,12 @@
     }
     
 </script>
-
+<script>
+    $(".inline-datepicker").datepicker();
+    $('.inline-datepicker').on('changeDate', function() {
+        $('#picker').val(
+            $('.inline-datepicker').datepicker('getFormattedDate')
+        );
+    });    
+</script>
 @endsection

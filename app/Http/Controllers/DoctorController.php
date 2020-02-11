@@ -135,7 +135,7 @@ class DoctorController extends Controller
                 $enfermedad = [];
             }
            
-        }else{           
+        }else{
             $enfermedad = Disease::all();
         }
 

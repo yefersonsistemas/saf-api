@@ -265,7 +265,7 @@ class SurgerysController extends Controller
     //agenda la cirugia
     public function store(Request $request)
     {   
-        // dd($request);
+        dd($request);
         //datos a guardar en la tabla surgeries
         $p = Patient::where('person_id',$request->patient_id)->first(); //tabla trayendo id del paciente
         // dd($p);
