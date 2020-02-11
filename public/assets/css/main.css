@@ -8378,6 +8378,21 @@ body *:hover::-webkit-scrollbar-thumb {
     margin-top: 8%
 }
 
+.rowwww {
+    margin-left: 50%;
+    margin-top: 11%
+    /* para procedimientos realizados en os modales de doctor */
+}
+
+.rowwwww {
+    margin-left: 40%;
+    margin-top: 8%
+}
+
+.texto {
+    font-size: 17px
+}
+
 .contenedor {
     background: #00ba88;
     ;

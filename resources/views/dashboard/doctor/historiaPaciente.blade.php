@@ -84,7 +84,8 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="container">
                         <div class="row my-3 d-flex flex-row align-items-center">
                             <div class="col-4 ml-4">
-                                <label class="m-4 d-block p-2 form-label">Nro. Historia: <span class="badge badge-verdePastel">{{ $history->patient->historyPatient->history_number }}</span></label>
+                                <label class="m-4 d-block p-2 form-label">Nro. Historia: <br>
+                                    <span class="ml-4 content-fluid badge badge-verdePastel texto>{{ $history->patient->historyPatient->history_number }}</span></label>
                             </div>
                             <div class="col-3">
                                 <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
@@ -128,7 +129,7 @@ button[data-original-title="Help"]{ display: none; }
                                     <input type="hidden" name="razon" value="{{ $history->description }}">
                                     <input type="hidden" name="reservacion_id" id="reservacion_id" value="{{ $history->id }}">
                                     <h2>Información Personal</h2>
-                                    <section class="card mr-4 ml-4 pb-0 pt-4">
+                                    <section class=" p-4 card mr-4 ml-4 pb-0 pt-4">
                                         <article class="ml-3 my-auto">
                                             <h6>Dirección:</h6>
                                             <input type="text" class="form-control border-0 bg-white" disabled="" name="addressP" placeholder="dirección" value="{{ $history->patient->address }}">
@@ -241,7 +242,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
+                                                <div class="collapse card-body list-group " id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                     <div id="mostrar_enfermedad">
                                                         @foreach ($history->patient->historyPatient->disease as $disease )
                                                         <div class="row" id="{{$disease->id}}">
@@ -725,11 +726,11 @@ button[data-original-title="Help"]{ display: none; }
 
       <!-------- modal Registrar Enfermedad ------------>
     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registrar Enfermedad</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-dialog rowwww" role="document">
+            <div class="modal-content  ">
+                <div class="modal-header p-2"  style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Enfermedad</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -755,11 +756,11 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar alergias-->
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -790,11 +791,11 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog rowwww" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Registrar Alergia</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                        <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Alergia</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -820,11 +821,11 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -846,11 +847,11 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg rowwwww" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -884,11 +885,11 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los examenes --}}
     <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -919,7 +920,7 @@ button[data-original-title="Help"]{ display: none; }
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -999,7 +1000,7 @@ button[data-original-title="Help"]{ display: none; }
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

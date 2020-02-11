@@ -3572,10 +3572,13 @@
     border-color: #009e74;
 }
 
+
+/* aqui se le modifican los estilos a los botones */
+
 .btn-azuloscuro:hover {
     color: #fff;
     background-color: #00ba88;
-    border-color: #023e52;
+    border-color: #009e74;
 }
 
 .text-verdePastel {
