@@ -129,10 +129,11 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('programar_cirugia','SurgerysController@create_surgery')->name('checkout.programar-cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
         Route::post('search/checkout/patients','SurgerysController@search_patients_out')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
-        Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias
+        Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias el mismo dia de la candidatura
+        Route::post('surgery/other_day/store','SurgerysController@hospitalaria_store')->name('surgery.hospitalaria_store'); // agenda las cirugias otro dia de la candidatura
         Route::get('surgeries/list', 'OutController@surgeries_lista')->name('checkout.lista_cirugias'); //Lista de cirugias
 
-        Route::get('agendar/cita/{id}', 'OutController@nueva_cita')->name('checkout.nueva_cita'); //Lista de cirugias
+        Route::get('agendar/cita/{id}', 'OutController@nueva_cita')->name('checkout.nueva_cita'); //
         Route::post('nuevaCita/store','OutController@store_nueva_cita')->name('checkout.store_nueva_cita');
         Route::get('agendar/cirugia/ambulatoria','SurgerysController@create_surgery_ambulatoria')->name('checkout.agendar-ambulatoria');
         Route::post('guarda/cirugia','SurgerysController@ambulatoria_store')->name('guardar.cirugia');
