@@ -917,6 +917,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
                     </div>
                 </form>
