@@ -87,19 +87,19 @@
 
                 <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end "  id="pills-tab" role="tablist">
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-block  btn-outline-dark aprobadas pt-0 pb-0 pr-3 pl-3"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas aprobadas</a>
+                        <a class="nav-link btn-block  btn-outline-dark aprobadas pt-0 pb-0 pr-3 pl-3"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas Aprobadas</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-block espera pt-0 pb-0 pr-3 pl-3 btn-outline-warning" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="false"> <i class="icon-clock"></i>&nbsp; En espera</a>
+                        <a class="nav-link btn-block espera pt-0 pb-0 pr-3 pl-3 btn-outline-warning" id="pills-espera-tab" data-toggle="pill" href="#espera" role="tab" aria-controls="espera" aria-selected="false"> <i class="icon-clock"></i>&nbsp; En Espera</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-outline-success dentro pt-0 pb-0 pr-3 pl-3" id="pills-dentro-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del consultorio</a>
+                        <a class="nav-link btn-outline-success dentro pt-0 pb-0 pr-3 pl-3" id="pills-dentro-tab" data-toggle="pill" href="#dentro" role="tab" aria-controls="dentro" aria-selected="false"><i class="fa fa-user-md"></i>&nbsp; Dentro del Consultorio</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link fuera btn-outline-danger pt-0 pb-0 pr-3 pl-3 active" id="pills-fuera_office-tab" data-toggle="pill" href="#fuera_office" role="tab" aria-controls="fuera_office" aria-selected="true">Fuera del consultorio</a>
+                        <a class="nav-link fuera btn-outline-danger pt-0 pb-0 pr-3 pl-3 active" id="pills-fuera_office-tab" data-toggle="pill" href="#fuera_office" role="tab" aria-controls="fuera_office" aria-selected="true">Fuera del Consultorio</a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-3 pl-3"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las instalaciones</a>
+                        <a class="nav-link btn-outline-secondary todos pt-0 pb-0 pr-3 pl-3"  id="pills-fuera-tab" data-toggle="pill" href="#fuera" role="tab" aria-controls="fuera" aria-selected="false">Fuera de las Instalaciones</a>
                     </li>
                     {{-- <li class="nav-item mb-1">
                         <a class="nav-link btn-outline-info total pt-0 pb-0 pr-3 pl-3"  id="pills-total-tab" data-toggle="pill" href="#total" role="tab" aria-controls="total" aria-selected="false">Todas</a>
@@ -117,6 +117,13 @@
                 <div class="tab-pane fade" id="aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">
                     <div  class="accordion" id="accordionExample2" id="aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">
                         @foreach ($confirmadas as $item)
+                            {{-- @if ($item->status == null )
+                                <div class="card">
+                                    No Hay Citas Confirmadas
+                                </div>
+                            @else
+                                
+                            @endif --}}
                             <div class="card " style="border-radius:3px; border:2px solid #000">                
 
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
@@ -162,13 +169,13 @@
                                                 <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                             @endif
-                                              {{-- El paciente no ha salido de las instalaciones --}}
-                                              @if(!empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && !empty($item->patient->inputoutput->first()->outside_office) && empty($item->patient->inputoutput->first()->outside))
-                                              <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                  <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                  <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                  <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                              @endif
+                                            {{-- El paciente no ha salido de las instalaciones --}}
+                                            @if(!empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && !empty($item->patient->inputoutput->first()->outside_office) && empty($item->patient->inputoutput->first()->outside))
+                                            <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                            @endif
 
                                             @if(!empty($item->patient->inputoutput->first()->inside_office) && !empty($item->patient->inputoutput->first()->inside) && !empty($item->patient->inputoutput->first()->outside_office) && !empty($item->patient->inputoutput->first()->outside))
                                                 <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -194,8 +201,8 @@
                                                 </div>
                                             </div>  
 
-                                             <!--Motivo de la cita-->
-                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                            <!--Motivo de la cita-->
+                                            <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->speciality->name }} </span></div>
@@ -270,13 +277,13 @@
                                                     <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-                                                  {{-- El paciente no ha salido de las instalaciones --}}
-                                                  @if(!empty($es->patient->inputoutput->first()->inside_office) && !empty($es->patient->inputoutput->first()->inside) && !empty($es->patient->inputoutput->first()->outside_office) && empty($es->patient->inputoutput->first()->outside))
-                                                  <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                      <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                      <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                      <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                  @endif
+                                                {{-- El paciente no ha salido de las instalaciones --}}
+                                                @if(!empty($es->patient->inputoutput->first()->inside_office) && !empty($es->patient->inputoutput->first()->inside) && !empty($es->patient->inputoutput->first()->outside_office) && empty($es->patient->inputoutput->first()->outside))
+                                                <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                @endif
     
                                                 @if(!empty($es->patient->inputoutput->first()->inside_office) && !empty($es->patient->inputoutput->first()->inside) && !empty($es->patient->inputoutput->first()->outside_office) && !empty($es->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -302,16 +309,16 @@
                                                     </div>
                                                 </div>  
 
-                                                 <!--Especialidad-->
-                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                <!--Especialidad-->
+                                                <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                     <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Especialidad:</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $es->speciality->name }} </span> </div>
                                                     </div>
                                                 </div>  
 
-                                                 <!--Motivo de la cita-->
-                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                <!--Motivo de la cita-->
+                                                <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                     <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Motivo de cita:</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $es->description}} </span> </div>
@@ -328,13 +335,12 @@
                     </div>
                 </div>
 
-                 <!---------------------------Dentro del consultorio------------------------------->
-                 <div class="tab-pane fade" id="dentro" role="tabpanel" aria-labelledby="pills-dentro-tab">
+                <!---------------------------Dentro del consultorio------------------------------->
+                <div class="tab-pane fade" id="dentro" role="tabpanel" aria-labelledby="pills-dentro-tab">
                     <div  class="accordion" id="accordionExample4" id="espera" role="tabpanel" aria-labelledby="pills-dentro-tab">
                         @foreach ($espera as $dentro)
                             @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside)  && empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
-                               <div class="card" style="border-radius:3px; border:2px solid  #00ad88">             
-
+                            <div class="card" style="border-radius:3px; border:2px solid  #00ad88">             
                                     <div class="row card-header pl-5 pr-5 heig" id="headingOne">
                                         <div class="col-lg-8 col-md-8">
                                             <div class="row">
@@ -371,20 +377,19 @@
                                                     <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
                                                 @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside)  && empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-                                                  {{-- El paciente no ha salido de las instalaciones --}}
-                                                  @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside) && !empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
-                                                  <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                      <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                      <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                      <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
-                                                  @endif
+                                                {{-- El paciente no ha salido de las instalaciones --}}
+                                                @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside) && !empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
+                                                <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                    <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
+                                                @endif
     
                                                 @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside) && !empty($dentro->patient->inputoutput->first()->outside_office) && !empty($dentro->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -410,16 +415,16 @@
                                                     </div>
                                                 </div>  
 
-                                                  <!--Especialidad-->
-                                                  <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                <!--Especialidad-->
+                                                <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                     <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $dentro->speciality->name }} </span> </div>
                                                     </div>
                                                 </div>  
 
-                                                  <!--Motivo de cita-->
-                                                  <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                                <!--Motivo de cita-->
+                                                <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                     <div class="card-body row mb-0 p-0 pt-3">
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de cita</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $dentro->description}} </span> </div>
@@ -542,8 +547,8 @@
                                                 </div>
                                             </div> 
                                             
-                                              <!--Especialidad-->
-                                              {{-- <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
+                                            <!--Especialidad-->
+                                            {{-- <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad</div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $itinerary->speciality->name }} </span> </div>
@@ -689,8 +694,8 @@
                 </div>
 
 
-                 <!----------------------Fuera de las instalaciones----------------------->
-                 <div class="tab-pane fade" id="fuera" role="tabpanel" aria-labelledby="pills-fuera-tab">
+                <!----------------------Fuera de las instalaciones----------------------->
+                <div class="tab-pane fade" id="fuera" role="tabpanel" aria-labelledby="pills-fuera-tab">
                     <div  class="accordion" id="accordionExample5" id="fuera" role="tabpanel" aria-labelledby="pills-fuera-tab">
                         @foreach ($itineraryFuera as $fuera)
                         @if(!empty($fuera->person->inputoutput->first()->inside_office) && !empty($fuera->person->inputoutput->first()->inside) && !empty($fuera->person->inputoutput->first()->outside_office) && !empty($fuera->person->inputoutput->first()->outside))    
@@ -813,13 +818,13 @@
 
                             </div>
                         @endif 
-                         @endforeach
+                        @endforeach
                     </div>
                 </div>
 
 
-                 <!----------------------Total de citas----------------------->
-                 {{-- <div class="tab-pane fade" id="total" role="tabpanel" aria-labelledby="pills-total-tab">
+                <!----------------------Total de citas----------------------->
+                {{-- <div class="tab-pane fade" id="total" role="tabpanel" aria-labelledby="pills-total-tab">
                     <div  class="accordion" id="accordionExample" id="total" role="tabpanel" aria-labelledby="pills-total-tab">
                         @foreach ($itinerary as $todas) --}}
                         {{-- @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside)) --}}
@@ -979,9 +984,7 @@
                                                         </a>
                                                     @endif
                                                 </div> --}}
-
-                                              
-
+ 
                                                 <!--REFERENCIA-->
                                                 {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                     @if($todas->reference_id != null)
