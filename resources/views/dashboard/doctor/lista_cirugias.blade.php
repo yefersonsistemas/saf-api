@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('Lista de Cirugias','active')
-@section('all','active')
+@section('cirugia','active')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">

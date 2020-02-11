@@ -31,6 +31,7 @@ class CreateItineraryTable extends Migration
             $table->unsignedBigInteger('report_medico_id')->nullable();
             $table->unsignedBigInteger('repose_id')->nullable();
             $table->unsignedBigInteger('billing_id')->nullable();
+            $table->string('proximaCita')->nullable();
 
             $table->timestamps();
 

@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('cites','active')
 @section('newCite','active')
-@section('title','Crear una nueva cita')
+@section('title','Agendar procedimiento ambulatorio')
 @section('inrol','d-block')
 @section('dire','d-none')
 @section('css')
@@ -150,7 +150,7 @@
                                                 @foreach ($employe->speciality as $item)
                                                 <input type="hidden" name="speciality_id" value="{{ $item->id }}">
                                                 @endforeach
-                                                <input type="radio" name="employe" value="{{ $employe->id}} " id="employe_id" class="imagecheck-input">
+                                                <input type="radio" name="employe" value="{{ $employe->id}} " id="employe" class="imagecheck-input">
                                                 @if (!empty($employe->image->path))
                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                     <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
@@ -231,9 +231,6 @@
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
-            // if (currentIndex === 1) {
-            //     speciality();
-            // }
 
             if (currentIndex === 2) {
                 schedule();
