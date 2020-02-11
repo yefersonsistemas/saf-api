@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('cites','active')
 @section('newCite','active')
-@section('title','Crear una nueva cita')
+@section('title','Agendar procedimiento ambulatorio')
 @section('inrol','d-block')
 @section('dire','d-none')
 @section('css')
@@ -73,6 +73,47 @@
                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                             <div class="card assigment">
+                                                @if ($employe->id != $paciente->employe->id )
+                                                <input type="hidden" id="id_employe" value="{{$paciente->employe_id}}">
+                                                    @foreach ($employe->speciality as $item)
+                                                    <input type="hidden" name="speciality_id" value="{{ $item->id }}">
+                                                    @endforeach
+                                                    <input type="radio" name="employe" value="{{ $employe->id}} " id="employe" class="imagecheck-input">
+                                                    @if (!empty($employe->image->path))
+                                                    <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
+                                                        <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
+                                                        class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @else
+                                                    <figure class="imagecheck-figure border-0 text-center">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @endif
+                                                    <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
+                                                        <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
+                                                    </div>
+                                                @else
+                                                    @foreach ($employe->speciality as $item)
+                                                    <input type="hidden" name="speciality_id" value="{{ $item->id }}">
+                                                    @endforeach
+                                                    <input type="radio" checked name="employe" value="{{ $employe->id}} " id="employe" class="imagecheck-input">
+                                                    @if (!empty($employe->image->path))
+                                                    <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
+                                                        <img width="100%" height="100%" src="{{ Storage::url($employe->image->path) }}" alt=""
+                                                        class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @else
+                                                    <figure class="imagecheck-figure border-0 text-center">
+                                                        <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
+                                                    </figure>
+                                                    @endif
+                                                    <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
+                                                        <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
+                                                    </div>
+                                                @endif
+                                            </div>
+{{--                                             
+                                            <div class="card assigment">
                                                 @foreach ($employe->speciality as $item)
                                                 <input type="hidden" name="speciality_id" value="{{ $item->id }}">
                                                 @endforeach
@@ -90,7 +131,7 @@
                                                 <div class="card-body text-center bg-grisinus pt-2 pb-0" style="height:70px; width:100%">
                                                     <h6 class="card-title font-weight-bold m-0 p-0 " style="font-size:13px">{{ $employe->person->name}} {{ $employe->person->lastname}}</h6>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </label>
                                     </div>
                                 @endforeach 
@@ -134,6 +175,14 @@
 {{--<script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
 
 <script>
+     $( document ).ready(function() {
+         var employe = $('#id_employe').val();
+        //  var fecha = $('#fechanueva').val();
+
+         console.log('este es', employe);
+         schedule_inicio(employe); 
+        });
+
     function stopDefAction(evt) {
         evt.preventDefault();
     }
@@ -172,6 +221,39 @@
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
+
+    function schedule_inicio(employe) {
+        $.ajax({
+            url: "{{ route('search.schedule') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: employe,
+            }
+        })
+        .done(function(data) {
+            $('#picker').val("");   
+            $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
+            
+            $('.inline-datepicker').datepicker({
+                todayHighlight: true,
+                language: 'es',
+                startDate: data.start,
+                endDate: data.end,
+                daysOfWeekHighlighted: [0,6],
+                datesDisabled: data.diff,
+            });
+            $('#fechas').val();
+            $('.inline-datepicker').on('changeDate', function() {
+                $('#picker').val(
+                    $('.inline-datepicker').datepicker('getFormattedDate')
+                );
+        });    
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+    }   
 
 
     function schedule() {
