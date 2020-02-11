@@ -45,8 +45,8 @@ class OutController extends Controller
     {
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery.surgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
+        // dd($itinerary->reservation->date);
         $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
-        // dd($itinerary);
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -99,7 +99,6 @@ class OutController extends Controller
                 }
             }
         }
-
 
         return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera','dentro_office','dentro_instalacion','fuera_instalacion','fuera_office'));
     }
