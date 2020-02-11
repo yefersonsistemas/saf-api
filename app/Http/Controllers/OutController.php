@@ -60,10 +60,48 @@ class OutController extends Controller
         }
 
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
-        // dd($confirmadas->first()->speciality);
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
 
-        return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera'));
+        $dentro_instalacion = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->inside) && empty($item->patient->inputoutput->first()->inside_office)) {
+                    $dentro_instalacion = true;
+                }
+            }
+        }
+
+        // dd($confirmadas);
+
+        $dentro_office = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->inside_office) && empty($item->patient->inputoutput->first()->outside_office)) {
+                    $dentro_office = true;
+                }
+            }
+        }
+
+        $fuera_office = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->outside_office)  && empty($item->patient->inputoutput->first()->outside) ) {
+                    $fuera_office = true;
+                }
+            }
+        }
+
+        $fuera_instalacion = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->outside)) {
+                    $fuera_instalacion = true;
+                }
+            }
+        }
+
+
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera','dentro_office','dentro_instalacion','fuera_instalacion','fuera_office'));
     }
 
     // public function buscador(Request $request)

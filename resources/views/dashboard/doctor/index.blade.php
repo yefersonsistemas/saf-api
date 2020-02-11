@@ -62,16 +62,16 @@
             <div class="col-md-12 mt-3 doctor-tabs">
                 <ul class="nav nav-pills mb-3 d-flex justify-content-around" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  active btn btn-outline-primary m-auto" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-today" aria-selected="true">Hoy</a>
+                        <a class="nav-link btn-block pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  active btn btn-outline-primary m-auto" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-today" aria-selected="true">Hoy</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  btn btn-outline-success" id="pills-week-tab" data-toggle="pill" href="#pills-week" role="tab" aria-controls="pills-week" aria-selected="false">Semana</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  btn btn-outline-success" id="pills-week-tab" data-toggle="pill" href="#pills-week" role="tab" aria-controls="pills-week" aria-selected="false">Semana</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  btn btn-outline-danger" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="false">Mes</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  btn btn-outline-danger" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="false">Mes</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  btn btn-outline-warning" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="false">Todas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  btn btn-outline-warning" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="false">Todas</a>
                     </li>
                 </ul>
             </div>

@@ -223,6 +223,14 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        @if($confirmadas->first() == [])
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay reservaciones aprobadas</h6>
+                                </div>
+                            </div>
+                        @endif  
                     </div>
                 </div>
 
@@ -332,6 +340,13 @@
                                 </div>
                             @endif                           
                         @endforeach
+                        @if($dentro_instalacion == false)
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay pacientes en sala de espera</h6>
+                                </div>
+                            </div>
+                        @endif  
                     </div>
                 </div>
 
@@ -437,8 +452,18 @@
                                     </div>
                                 </div>
                             @endif
-                        @endforeach
+                        @endforeach   
+
+                        @if($dentro_office == false)
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay pacientes dentro de consultorio</h6>
+                                </div>
+                            </div>
+                        @endif                     
+
                     </div>
+                   
                 </div>
                 
                 <!----------------------Fuera del consultorio----------------------->
@@ -556,7 +581,7 @@
                                             </div>  --}}
                                                 
                                             <!--Posibles cirugias-->
-                                            <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2">
                                                 <div class="card-body">
                                                    
                                                     @if ($itinerary->reservation->operation == null && $itinerary->reservation->surgery == null)
@@ -579,21 +604,22 @@
                                                             <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                         @endif
                                                     @elseif(($itinerary->reservation->operation == null && $itinerary->reservation->surgery != null) || ($itinerary->reservation->operation != null && $itinerary->reservation->surgery == null) || ($itinerary->reservation->operation != null && $itinerary->reservation->surgery != null))
-                                                        <h5 class="card-title color_titulo">Cirugia Agendada</h5>
-                                                        {{-- @if($itinerary->typesurgery != null)
+                                                        <h5 class="card-title" style="animation: pulse 2s infinite">Cirugia Agendada</h5>
+                                                        @if($itinerary->typesurgery != null)
                                                         @if($itinerary->typesurgery->classification_surgery_id == 1)
                                                             <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 1]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
                                                         @else
                                                         <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
                                                         @endif
                                                             <span class="titulos">Medico: </span><span>{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span><br>
-                                                            <span class="titulos">Fecha: </span><span>{{ $itinerary->typesurgery->surgery->date }}</span>  --}}
+                                                            {{-- <span class="titulos">Fecha: </span><span>{{ $itinerary->typesurgery->surgery->date }}</span>  --}}
+                                                        @endif
                                                     @endif
                                                 </div>                                            
                                             </div> 
                                                 
                                             <!--Posibles procedimientos-->
-                                            <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
+                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2" >
                                                 <div class="card-body">
                                                     <h5 class="card-title color_titulo">Posibles procedimientos</h5>
                                                     @if ($itinerary->procedures != null)
@@ -701,8 +727,15 @@
                                 </div>
                             </div>
                         @endif
-
                         @endforeach
+
+                        @if($fuera_office == false)
+                        <div class="card p-2">
+                            <div class="card-body text-center">
+                            <h6 class="">No hay pacientes fuera de consultorio</h6>
+                            </div>
+                        </div>
+                    @endif  
                         </div>
                 </div>
 
@@ -832,6 +865,14 @@
                             </div>
                         @endif 
                         @endforeach
+
+                        @if($fuera_instalacion == false)
+                            <div class="card p-2">
+                                <div class="card-body text-center">
+                                <h6 class="">No hay pacientes fuera de las instalaciones</h6>
+                                </div>
+                            </div>
+                        @endif  
                     </div>
                 </div>
 
