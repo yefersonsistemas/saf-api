@@ -106,8 +106,7 @@ button[data-original-title="Help"]{ display: none; }
                                     background: #333;
                                     background-image: linear-gradient(to right, #ccc, #333, #ccc);">
                                 <!--BODY-->
-                                <div class="card-body">
-                                    <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->id) }}" method="POST">
+                                     <form id="wizard_vertical" action="{{ route('doctor.update', $reservation->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="patient_id" value="{{ $reservation->patient_id }}"> 
@@ -878,7 +877,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
                                         
                                     </form>
-                                    </div>
+                                   
                                 </div>
                                 <!--Fin del body-->
                         </div>
