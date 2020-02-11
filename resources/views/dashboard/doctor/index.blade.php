@@ -226,6 +226,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -237,6 +238,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -255,6 +257,7 @@
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
+                                            <td>{{ $reservation->date }}</td>
                                             <td> {{ $reservation->description }}</td>
 
                                             @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
@@ -317,6 +320,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -328,6 +332,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -346,6 +351,7 @@
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
+                                            <td>{{ $reservation->date }}</td>
                                             <td> {{ $reservation->description }}</td>
                                             @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
                                             <td> 
@@ -408,8 +414,9 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>Historia</th>
                                     </tr>
                                 </thead>
@@ -420,8 +427,9 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>Historia</th>
                                     </tr>
                                 </tfoot>
@@ -440,6 +448,7 @@
                                         <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                         <td>{{ $reservation->patient->name }}</td>
                                         <td>{{ $reservation->patient->lastname }}</td>
+                                        <td>{{ $reservation->date }}</td>
                                         <td> {{ $reservation->description }}</td>
                                         {{-- @if($reservation->inputoutput->isEmpty()) <!--esta en espera-->
                                         <td><span class="status-icon" style=" padding:5px; animation: pulse 2s infinite; background:#000;"></span><i class="fa fa-clock-o"></i>No ha llegado a las instalaciones</td>
@@ -467,7 +476,7 @@
                                         <td></td>
                                         @endif --}}
 
-                                        @if($reservation->patient->inputoutput->isEmpty())<!--esta en espera-->
+                                        {{-- @if($reservation->patient->inputoutput->isEmpty())<!--esta en espera-->
                                         <td><span class="status-icon" style=" padding:5px; animation: pulse 2s infinite;  background:#000;"></span><i class="fa fa-clock-o"></i>No ha llegado a las instalaciones</td>
                                         @endif
                                         
@@ -488,7 +497,7 @@
     
                                         @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))<!--fuera de las instalaciones-->
                                         <td><span class="status-icon" style= " padding:5px; animation: pulse 2s infinite; background:#ccc;"></span><i class="fa fa-hospital-o"></i> Fuera de las instalaciones</td>
-                                        @endif
+                                        @endif --}}
 
                                         @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
                                         <td> 

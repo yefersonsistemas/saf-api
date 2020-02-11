@@ -182,7 +182,7 @@ class OutController extends Controller
 
 
     //============================ buscanco paciente ============================ (listo)
-    public function search_patient(Request $request){
+    public function search_patients(Request $request){
 
         if(!empty($request->dni)){
 

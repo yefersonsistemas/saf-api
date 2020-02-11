@@ -48,7 +48,9 @@ class DoctorController extends Controller
         // dd( $empleado);
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         // dd($today->count());
+        // dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
+        // dd($all);
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
         $date = Carbon::now();
