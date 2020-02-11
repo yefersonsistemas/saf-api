@@ -71,7 +71,7 @@
                                         <th>Doctor</th>
                                         <th>Operación</th>
                                         <th>Quirofano</th>
-                                        <th>Acciones</th>
+                                        {{-- <th>Acciones</th> --}}
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -82,7 +82,7 @@
                                         <th>Doctor</th>
                                         <th>Operación</th>
                                         <th>Quirofano</th>
-                                        <th>Acciones</th>                                
+                                        {{-- <th>Acciones</th> --}}
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -105,12 +105,12 @@
                                             <td>{{$surgeries->employe->person->name}} {{$surgeries->employe->person->lastname}}</td>
                                             <td>{{$surgeries->typesurgeries->name}}</td>
                                             <td>{{$surgeries->area->name}}</td>
-                                            <td style="display: inline-block">
+                                            {{-- <td style="display: inline-block">
                                                 <a type="button" href="" disabled class="btn btn-success">A</a>
                                                 <a href="" class="btn btn-warning" href="">R</a>
                                                 <a type="button" class="btn btn-repro" href="">S</a>
                                                 <a type="button" class="btn btn-danger" href="">C</a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach 
                                 </tbody>
@@ -131,7 +131,7 @@
                                         <th>Doctor</th>
                                         <th>Consultorio</th>
                                         <th>Descripción</th>
-                                        <th>Acciones</th>
+                                        {{-- <th>Acciones</th> --}}
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -142,7 +142,7 @@
                                         <th>Doctor</th>
                                         <th>Consultorio</th>
                                         <th>Descripción</th>
-                                        <th>Acciones</th>                                
+                                        {{-- <th>Acciones</th>--}}
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -160,12 +160,12 @@
                                             <td>{{$ambulatoria->employe->person->name}} {{$ambulatoria->employe->person->lastname}}</td>
                                             <td>{{$ambulatoria->employe->areaassigment->area->name}}</td>
                                             <td>{{$ambulatoria->description}}</td>
-                                            <td style="display: inline-block">
+                                            {{-- <td style="display: inline-block">
                                                 <a type="button" href="" disabled class="btn btn-success">A</a>
                                                 <a href="" class="btn btn-warning" href="">R</a>
                                                 <a type="button" class="btn btn-repro" href="">S</a>
                                                 <a type="button" class="btn btn-danger" href="">C</a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach 
                                 </tbody>
