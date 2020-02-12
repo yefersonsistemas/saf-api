@@ -254,6 +254,7 @@ class CitaController extends Controller
                     'branch_id'         => 1,
                 ]);
                 $reservation->cancel = Carbon::now();
+                $reservation->reschedule = null;
                 Alert::success('Cita Cancelada exitosamente');
 
             }
@@ -327,7 +328,7 @@ class CitaController extends Controller
     public function update(Reservation $cite, Request $request)
     {
         // dd($cite);
-        dd($request);
+        // dd($request);
         if (!is_null($cite)) {
             $cite->status = 'Pendiente';
             //cuando se han editado los datos del paciente

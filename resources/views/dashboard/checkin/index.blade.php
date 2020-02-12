@@ -749,6 +749,7 @@
 @endsection
 
 @section('scripts')
+
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
     <script>

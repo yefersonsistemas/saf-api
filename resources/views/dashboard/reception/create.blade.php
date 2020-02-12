@@ -102,7 +102,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
                                                     <input type="number" disabled id="phone" name="phone"
-                                                        class="form-control" placeholder="Teléfono">
+                                                        class="form-control" onkeypress="return num(event)" placeholder="Teléfono">
                                                 </div>
                                             </div>
                                         </div>
@@ -604,7 +604,17 @@
             })
         }
 </script>
-<script>
 
+<script type="text/javascript"> function num(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) 
+    return true;
+    else 
+    if (tecla==0||tecla==9)  
+    return true;
+    patron =/[0-9\s]/;// -> solo numeros
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
 </script>
 @endsection

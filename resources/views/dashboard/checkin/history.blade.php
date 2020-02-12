@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('cites','active')
-@section('all','active')
+@section('day','active')
 @section('inrol','d-block')
 @section('dire','d-none')
 
