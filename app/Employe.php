@@ -148,7 +148,7 @@ class Employe extends Model
         ->withPivot('typesurgery_id','id');
     }
 
-    public function surgeries() //relacion  con la tabla m:m 
+    public function surgeries() 
     {
         return $this->belongsTo('App\Surgery');
     }

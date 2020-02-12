@@ -45,7 +45,7 @@ class OutController extends Controller
     {
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery.surgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
-        // dd($itinerary->reservation->date);
+        // dd($itinerary);
         $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {

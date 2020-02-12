@@ -326,6 +326,8 @@ class CitaController extends Controller
     //========================actualizar reservacion ==============
     public function update(Reservation $cite, Request $request)
     {
+        // dd($cite);
+        dd($request);
         if (!is_null($cite)) {
             $cite->status = 'Pendiente';
             //cuando se han editado los datos del paciente
@@ -363,6 +365,10 @@ class CitaController extends Controller
             }
    
             $cite->discontinued = null; //para que se actualice el registro y no aparezca en lista suspendida si se reprograma
+            if($cite->cancel != null &&  $cite->reschedule != null){
+                $cite->reschedule = null;
+                $cite->save();
+            }
             $cite->save();
 
             //guardar razon del reprogramar
