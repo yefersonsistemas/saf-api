@@ -668,7 +668,7 @@ class DoctorController extends Controller
        
         if($itinerary != null){
             $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-          
+        //   dd($io);
             if (empty($io->outside_office) && (!empty($io->inside_office))) {
      
                 $io->outside_office = 'fuera';
@@ -758,15 +758,15 @@ class DoctorController extends Controller
                     return redirect()->route('doctor.index');
 
                 }else{
-                    Alert::error('No se pudo generar su diagnostico!');
+                    Alert::error('No se pudo generar su diagnostico 3!');
                     return redirect()->back();
                 }
             }else{
-                Alert::error('No se pudo generar su diagnostico!');
+                Alert::error('No se pudo generar su diagnostico 2!');
                 return redirect()->back();
             }
         }else{
-            Alert::error('No se pudo generar su diagnostico!');
+            Alert::error('No se pudo generar su diagnostico 1!');
             return redirect()->back();
         }
     }

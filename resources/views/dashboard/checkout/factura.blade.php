@@ -266,44 +266,44 @@
                                 <div class="input-group-prepend">
                                 </div>
                                 <div class="input-group-prepend">
-                                    <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="" required>
+                                    <select id="tipo_dniC" disabled  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="" required>
                                         <option value="N">N</option>
                                         <option value="E">E</option>
                                     </select>
                                 </div>
-                                <input id="dniC" required value="" type="text" class="form-control mr-2" maxlength="8" minlength="3" placeholder="Documento de Identidad" formControlName="dni" name="dni">
+                                <input id="dniC" disabled required value="" type="text" class="form-control mr-2" maxlength="8" minlength="3" placeholder="Documento de Identidad" formControlName="dni" name="dni">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="nameC"  required name="name" type="text" placeholder="Nombre" class="form-control" value="">
+                                <input id="nameC" disabled required name="name" type="text" placeholder="Nombre" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="lastnameC" required name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
+                                <input id="lastnameC" disabled required name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="phoneC" name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
+                                <input id="phoneC" disabled name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <input id="emailC" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
+                                <input id="emailC" disabled pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col">
-                                <textarea id="direccionC" required name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
+                                <textarea id="direccionC" disabled required name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-                <a class="btn btn-primary" data-dismiss="modal" id="registrar">Registrar</a>
+                <a class="btn btn-secondary text-white" data-dismiss="modal">Cerrar</a>
+                <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="registrar">Registrar</a>
                 </div>
             </div>
         </div>
@@ -346,7 +346,8 @@
             if(type_dni == '' || dni ==  '' || dni.length < 7){
                 Swal.fire({
                     title: 'Datos incompletos.!',
-                    text: 'Por favor introduzca el documento de identidad completo.',
+                    type:'info',
+                    text: 'Click OK para continuar!',
                     allowOutsideClick:false,
                 });
             }else{
@@ -371,10 +372,11 @@
                 if (data[0] == 202) {
                     Swal.fire({
                         title: 'Persona no encontrada.!',
-                        text: 'Por favor realice el registro.',
+                        type:'info',
+                        text: 'Click OK para continuar!',
                         allowOutsideClick:false,
                     })
-                    enabled();
+                    enabled(); //desabllitar inputs
                 }
                 if (data[0] == 201) {
                     Swal.fire({
@@ -390,6 +392,17 @@
             .fail(function(data) {
                 console.log(data);
             })
+        }
+
+        //===========desabilitando inputs en el modal de registrar otro cliente=========
+        function enabled(){
+        $('#nameC').removeAttr('disabled');
+        $('#lastnameC').removeAttr('disabled');
+        $('#emailC').removeAttr('disabled');
+        $('#direccionC').removeAttr('disabled');
+        $('#phoneC').removeAttr('disabled');
+        $('#tipo_dniC').removeAttr('disabled');
+        $('#dniC').removeAttr('disabled');
         }
 
         function mostrar_persona(data) {
