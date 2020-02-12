@@ -53,10 +53,12 @@ class SurgerysController extends Controller
         //aqui trae los datos asociados al parametro(cuando el paciente agenda el dia que fue candidato a cirugia)
         $paciente = Itinerary::with('person','typesurgery')->where('id',$id)->first();
         // dd($paciente);
+
+        $itinerary = Itinerary::find($paciente->id);
         $medico = Typesurgery::with('employe_surgery.person.image')->where('id', $paciente->typesurgery->id)->first();
 
         // dd($medico);
-        return view('dashboard.checkout.programar_cirugia', compact('quirofano', 'paciente', 'medico'));
+        return view('dashboard.checkout.programar_cirugia', compact('quirofano', 'paciente', 'medico', 'itinerary'));
     }
 
     // para agendar cirugia cuando el paciente no se encuentra en el itinerario
@@ -68,7 +70,7 @@ class SurgerysController extends Controller
         $tipo = TypeArea::where('name', 'Quirofano')->first();
         $quirofano = Area::with('image')->where('type_area_id', $tipo->id)->get();     
 
-        return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias'));
+        return view('dashboard.checkout.programar-cirugia', compact('surgeries', 'quirofano', 'cirugias' ));
     }
 
     
@@ -122,6 +124,9 @@ class SurgerysController extends Controller
         $paciente = Itinerary::with('person','employe.person')->where('id',$id)->first();
         // dd($paciente);
 
+        $itinerary = Itinerary::find( $paciente->id);
+      
+
         $employes = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->get();
         // dd($employes);
         $em = collect([]);
@@ -135,7 +140,7 @@ class SurgerysController extends Controller
 
         $procedures = Procedure::get();
 
-        return view('dashboard.checkout.ambulatoria-mismo-dia', compact('paciente', 'em', 'procedures'));
+        return view('dashboard.checkout.ambulatoria-mismo-dia', compact('paciente', 'em', 'procedures', 'itinerary'));
     }
 
     public function create_surgery_ambulatoria(){
@@ -218,6 +223,11 @@ class SurgerysController extends Controller
                     $actualizar->surgery = true;
                     $actualizar->save();
                     // dd($actualizar);
+                    
+                    $itinerary =Itinerary::find($request->itinerary_id);
+                    $itinerary->ambulatoria = $reservation->id;
+                    $itinerary->save();
+                    // dd($itinerary);
                 }
 
                  
@@ -229,6 +239,8 @@ class SurgerysController extends Controller
                         }
                     }
                 }
+
+               
 
 
                 return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
@@ -284,6 +296,11 @@ class SurgerysController extends Controller
                 'branch_id' => 1,
                 ]);
                 // dd($surgery);
+
+                $itinerary =Itinerary::find($request->itinerary_id);
+                $itinerary->hospitalaria = $surgery->id;
+                $itinerary->save();
+
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
                 

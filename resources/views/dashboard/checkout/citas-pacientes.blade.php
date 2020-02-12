@@ -584,7 +584,7 @@
                                             <div class="card col-md-5 col-sm-12 col-lg-5 ml-2">
                                                 <div class="card-body">
                                                    
-                                                    @if ($itinerary->reservation->operation == false && $itinerary->reservation->surgery == false)
+                                                    @if ($itinerary->reservation->operation == false && $itinerary->ambulatoria == null)
                                                         <h5 class="card-title color_titulo">Posible cirugias</h5>
                                                         @if($itinerary->typesurgery != null)
                                                             @if($itinerary->typesurgery->classification_surgery_id == 1)
@@ -603,20 +603,26 @@
                                                         @else
                                                             <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                         @endif
-                                                    @elseif(($itinerary->reservation->operation == false && $itinerary->reservation->surgery == true) || ($itinerary->reservation->operation == true && $itinerary->reservation->surgery == false) || ($itinerary->reservation->operation == true && $itinerary->reservation->surgery == true))
-                                                        <h5 class="card-title color_titulo"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2 pt-2" style="animation: pulse 2s infinite">Cirugia Agendada</h5>
-                                                        @if($itinerary->typesurgery != null)
-                                                            @if($itinerary->typesurgery->classification->name == 'hospitalaria')
-                                                                <span class="titulos">Nombre:</span> <span>{{ $itinerary->typesurgery->name }}</span><br>
-                                                                <span class="titulos">Medico: </span><span>{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span><br>
-                                                                {{-- <span class="titulos">Fecha: </span><span>{{ $surgery->date }}</span>  --}}   
-                                                            @else
-                                                                @if($itinerary->typesurgery->classification->name == 'ambulatoria')
+                                                    @else
+                                                        @if($itinerary->hospitalaria != null)
+                                                            @foreach ($surgery as $item)
+                                                                @if($itinerary->hospitalaria == $item->id)
+                                                                    <h5 class="card-title color_titulo"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2 pt-2" style="animation: pulse 2s infinite">Cirugia Agendada</h5>
+                                                                    <span class="titulos">Nombre:</span> <span>{{ $itinerary->typesurgery->name }}</span><br>
+                                                                    <span class="titulos">Medico: </span><span>{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span><br>
+                                                                    <span class="titulos">Fecha: </span><span>{{ $item->date }}</span>    
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                        @if($itinerary->ambulatoria != null)
+                                                            @foreach ($reservation as $item)
+                                                                @if ($itinerary->ambulatoria == $item->id)
+                                                                <h5 class="card-title color_titulo"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2 pt-2" style="animation: pulse 2s infinite">Cirugia Agendada</h5>
                                                                     <span class="titulos">Nombre:</span> <span>{{ $itinerary->typesurgery->name }}</span><br>
                                                                     <span class="titulos">Medico: </span><span>{{ $itinerary->reservation->employe->person->name }} {{ $itinerary->reservation->employe->person->lastname }}</span><br>
-                                                                    <span class="titulos">Fecha: </span><span>{{ $itinerary->reservation->date }}</span>    
+                                                                    <span class="titulos">Fecha: </span><span>{{ $item->date }}</span>  
                                                                 @endif
-                                                            @endif
+                                                            @endforeach
                                                         @endif
                                                     @endif
                                                 </div>                                            

@@ -21,6 +21,7 @@
                     <h2>Elegir Procedimiento</h2>
                     <section class="py-1">
                         <input type="hidden" name="patient_id" id="patient_id" value="{{$paciente->id}}">
+                        <input type="hidden" name="itinerary_id" id="itinerary_id" value="{{$itinerary->id}}">
                         <div class="row justify-content-between">
                             <div class="card p-3">
                                 <div class="form-group">
