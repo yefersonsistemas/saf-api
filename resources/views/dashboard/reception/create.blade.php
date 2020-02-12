@@ -358,7 +358,9 @@
             if(type_dni == '' || dni ==  '' || dni.length < 7){
                 Swal.fire({
                     title: 'Datos incompletos.!',
-                    text: 'Por favor introduzca el documento de identidad completo.',
+                    type:'info',
+                    // text: 'Por favor introduzca el documento de identidad completo.',
+                    text: 'Click en OK para continuar',
                     allowOutsideClick:false,
                 });
             }else{
@@ -383,7 +385,7 @@
                     Swal.fire({
                         title: 'Paciente no encontrado.!',
                         text: 'Por favor realice el registro.',
-                        // type: 'error',
+                        type: 'info',
                         allowOutsideClick:false,
                     })
                     enabled();

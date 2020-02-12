@@ -591,8 +591,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row">
                                                             <div class="container">
                                                                 <div class="row mx-auto">
-                                                                     <div class="col-12 justify-content-center text-center">ti
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
+                                                                     <div class="col-12 justify-content-center text-center">
+                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima">
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
                                                                             Notificar proxima cita  
                                                                             

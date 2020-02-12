@@ -230,9 +230,7 @@ class SurgerysController extends Controller
                     }
                 }
 
-
-                return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
-                
+                return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');                
 
             }else{
                 return response()->json([
@@ -262,20 +260,17 @@ class SurgerysController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //agenda la cirugia
+    //agenda la cirugia cuando es el mismo dia de la propuesta
     public function store(Request $request)
     {   
         // dd($request);
         //datos a guardar en la tabla surgeries
-        $p = Patient::where('person_id',$request->patient_id)->first(); //tabla trayendo id del paciente
-        // dd($p);
+        $p = Patient::with('person')->where('id', $request->patient_id)->first(); //tabla trayendo id del paciente
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
         $d = Carbon::create($request->date)->format('Y-m-d');
 
-        
-        // dd($patient);
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
@@ -286,7 +281,7 @@ class SurgerysController extends Controller
                 'date'=> $d,
                 'branch_id' => 1,
                 ]);
-
+                // dd($surgery);
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
                 
@@ -309,6 +304,57 @@ class SurgerysController extends Controller
                     'surgery_id' => $surgery->id,
                     'branch_id' => 1
                 ]);
+            return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
+
+        }else{
+            return redirect()->back()->withError('Cirugia no Agendada, Verifique los Datos!');
+        }
+
+    }
+
+    public function hospitalaria_store(Request $request)
+    {   
+        // dd($request);
+        //datos a guardar en la tabla surgeries
+        $p = Patient::with('person')->where('id', $request->patient_id)->first(); //tabla trayendo id del paciente
+        $ts = $request->type_surgery_id;
+        $e = $request->employe_id;
+        $a = $request->area_id;
+        $d = Carbon::create($request->date)->format('Y-m-d');
+
+        if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
+            
+            $surgery = Surgery::create([		
+                'patient_id' => $p->id,
+                'type_surgery_id' => $ts,
+                'employe_id' => $e,
+                'area_id' => $a,
+                'date'=> $d,
+                'branch_id' => 1,
+                ]);
+                // dd($surgery);
+                //Actualiza el status del quirofano a ocupado
+                $a = Area::find($request->area_id);
+                
+                if (!empty($a)) {
+                    
+                    $a->status = 'ocupado';
+                    $a->save();
+                }
+                // //actualizando el campo opertion de la tabla reservation
+                // $operation = Reservation::find($request->reservation_id);
+                // $operation->operation = true;
+                // $operation->save();
+
+                //Relacion de paciente con la cirugia
+                $surgery->patient()->attach($p);
+
+                //llena los campos de la tabla Reservation_Surgery
+                // $relation = Reservationsurgery::create([
+                //     'reservation_id' => $request->reservation_id,
+                //     'surgery_id' => $surgery->id,
+                //     'branch_id' => 1
+                // ]);
             return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
