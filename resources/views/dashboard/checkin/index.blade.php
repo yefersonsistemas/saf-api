@@ -119,7 +119,7 @@
                                     <tr>
                                         <th>Foto</th>
                                         <th>Cédula</th>
-                                        <th>Nombre</th>                                       
+                                        <th>Nombre</th>
                                         <th>Doctor</th>
                                         <th>Especialidad</th>
                                         <th class="fecha">Fecha</th>
@@ -157,7 +157,7 @@
                                                     <img src="" alt=""  width="100%" height="100%">
                                                     {{-- <div class="img-test"></div> --}}
                                                 @endif
-                                                <div class="text-center">
+                                                <div class="">
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
                                                     @else
@@ -170,8 +170,8 @@
                                                 </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>                                         
-                                            <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
+                                            <td class="">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>                                         
+                                            <td class="">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                             <td>
@@ -242,7 +242,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{-- <div class="container text-center" id="ID_element_0">
+                                                {{-- <div class="container" id="ID_element_0">
                                                     @if($reservation->patient->inputoutput->isEmpty() && $reservation->approved == null )
                                                         <button disabled class="btn btn-danger state state_0" state="0"></button>
                                                         <button class="btn btn-danger state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -334,7 +334,7 @@
                                                     @else
                                                     <img src="" alt="" >
                                                     @endif
-                                                    <div class="text-center">
+                                                    <div class="">
                                                         @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                         @else
@@ -468,7 +468,7 @@
                                                 @else
                                                     <img src="" alt="" >
                                                 @endif
-                                                <div class="text-center">
+                                                <div class="">
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
@@ -543,7 +543,7 @@
                                                 @else
                                                 <img src="" alt="" >
                                                 @endif
-                                                <div class="text-center">
+                                                <div class="">
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
@@ -654,7 +654,7 @@
                                                 @else
                                                     <img src="" alt="" >
                                                 @endif
-                                                <div class="text-center">
+                                                <div class="">
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
                                                     @else
@@ -756,6 +756,7 @@
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
+
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
@@ -794,32 +795,4 @@
 
     </script>
 
-    <script> //script del cambio de estado
-        function entradas(value, value2) {
-            var state = value; //el estado del objeto
-            var stateInt = parseInt(state); //se convierte el valor anterior en integer para posteriores validaciones
-            var id= value2; // el ID del contenedor en el que se encuentra el boton
-            console.log('click '+state+', '+id); //Se valida que se está alcanzando al objeto que se está haciendo click
-
-            //Se valida primero si se está haciendo click en el primer estado
-            if(stateInt<=0){
-                $('#'+id+' .state_'+state).addClass('btn-success');
-                $('#'+id+' .state_'+state).removeClass('btn-danger');
-                $('#'+id+' .state_'+state).prop("disabled", true);
-                console.log('Se ha cumplido el estado '+ state+', '+id);
-            }else{
-                //A partir de estado 1, se valida si el estado anterior se cumplió, para esto se toma la clase btn-danger, si no se ha cumplido, se bloquea la función y se puede mandar una alerta.
-                if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-danger')){
-                    console.log('click '+state+', '+id+': No puedes ejecutar esta accion hasta que el paso anterior se halla cumplido');
-                //Por el contrario, si el estado anterior se ha cumplido, se procede a ejecutar la función
-                }else if($('#'+id+' .state_'+[stateInt-1]).hasClass('btn-success')){
-                    $('#'+id+' .state_'+state).addClass('btn-success');
-                    $('#'+id+' .state_'+state).removeClass('btn-danger');
-                    $('#'+id+' .state_'+state).prop("disabled", true);
-                    console.log('Se ha cumplido el estado '+ state+', '+id);
-                }
-            }
-        };
-    </script>
-    
 @endsection

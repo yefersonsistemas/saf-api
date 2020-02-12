@@ -312,8 +312,8 @@
                             <div class="card p-3" style="border-color:#00506b">
                              
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-vcenter table-striped"
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         cellspacing="0" id="addrowExample">
                                             <thead>
                                                 <tr>
@@ -358,8 +358,8 @@
                             <div class="card p-3" style="border-color:#00506b">
                                                              
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-vcenter table-striped"
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         cellspacing="0" id="addrowExample">
                                             <thead>
                                                 <tr>
@@ -406,8 +406,8 @@
                             <label class="form-label text-center"><h5>Alergias</h5></label>
                             <div class="card p-3" style="border-color:#00506b"> 
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-vcenter table-striped"
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         cellspacing="0" id="addrowExample">
                                             <thead>
                                                 <tr>
@@ -462,7 +462,7 @@
                         <div class="tab-content mx-auto">
                             <div class="col-lg-12">
                                 <div class="table-responsive mb-4">
-                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         <thead>
                                             <tr>
                                                 <th style="text-align:center">Fecha</th>
