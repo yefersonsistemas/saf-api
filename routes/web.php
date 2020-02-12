@@ -168,7 +168,6 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::post('doctor/referenceUpdate', 'DoctorController@reference_update')->name('doctor.reference_update');  // actualizar referecnia
 
-
         Route::post('doctor/cirugias', 'DoctorController@agregar_cirugias')->name('doctor.agregar_cirugias');  // eliminar examen
         //-------------------elimnar-------------------
         Route::post('doctor/eliminar/examen/actualizar', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
@@ -179,7 +178,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/eliminar/procedure', 'DoctorController@procedureR_eliminar2')->name('doctor.procedureR_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/cirugia', 'DoctorController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar examen
-
     
         
     });
