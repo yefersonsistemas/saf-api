@@ -232,7 +232,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <div id="accordion">
                                             <!-------------------agregar enfermedad-------------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro">
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white ">Enfermedades</h5>
@@ -259,7 +259,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <td>
                                                                                 <i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}
                                                                             </td>
-                                                                            <td class="text-center"><a id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                         </tr>
                                                                     @endforeach   
                                                                 </tbody>
@@ -274,7 +274,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <!----------------agregar alergias----------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro">
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Alergias</h5>
@@ -301,7 +301,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <td>
                                                                                 <i class="fa fa-check mr-3 text-verdePastel"></i>{{$allergy->name}}
                                                                             </td>
-                                                                            <td class="text-center"><a id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                         </tr>
                                                                     @endforeach   
                                                                 </tbody>
@@ -316,7 +316,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <!--------------------agregar cirugias------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro">
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Cirugias Previas</h5>
