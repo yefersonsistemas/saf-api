@@ -100,7 +100,7 @@
                                                     <span class="text form-control p-1"><i class="fa fa-address-card pl-1"></i>&nbsp;<span id="dni_c" class="text text-left"></span></span>
                                                 </div>
                                                 <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mt-2">
-                                                    <span class="text form-control p-1"><i class="fa fa-user pl-1"></i>&nbsp;<span id="name_c" class="text text-left"></span><span id="lastname_c" class="text text-left"></span></span>
+                                                    <span class="text form-control p-1"><i class="fa fa-user pl-1"></i>&nbsp;<span id="name_c" class="text text-left"></span>&nbsp;<span id="lastname_c" class="text text-left"></span></span>
                                                 </div>
                                                 <div class="col-lg-3 col-md-4 col-sm-12 mb-2 mt-2">
                                                     <span class="text form-control p-1"><i class="fa fa-phone pl-1"></i>&nbsp;<span id="phone_c" class="text text-left"></span></span>
@@ -232,13 +232,16 @@
 
     <!--modal-->
     <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog rowwww" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registrar cliente</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar cliente</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
                 </div>
                 <div class="modal-body pr-5 pl-5 pt-4">
                     <form >
@@ -255,13 +258,13 @@
                                         <option value="E">E</option>
                                     </select>
                                 </div>
-                                <input type="text" class="form-control mr-2" id="buscar_dni" maxlength="9" placeholder="Buscar cédula cliente existente" value="">
+                                <input type="text" class="form-control mr-2" id="buscar_dni" name="dni" maxlength="9" placeholder="Buscar cédula cliente existente" value="">
                                 <input type="hidden" name="newPerson" >
                                 <a id="buscar" class="btn btn-azuloscuro text-white "><i class="fa fa-search"></i></a>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <div class="input-group ">
                                 <div class="input-group-prepend">
                                 </div>
@@ -273,7 +276,7 @@
                                 </div>
                                 <input id="dniC" disabled required value="" type="text" class="form-control mr-2" maxlength="8" minlength="3" placeholder="Documento de Identidad" formControlName="dni" name="dni">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <div class="col">
                                 <input id="nameC" disabled required name="name" type="text" placeholder="Nombre" class="form-control" value="">
@@ -301,7 +304,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" id="agregar_agregar">
                 <a class="btn btn-secondary text-white" data-dismiss="modal">Cerrar</a>
                 <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="registrar">Registrar</a>
                 </div>
@@ -356,7 +359,6 @@
             }
         });
 
-
         function buscar(type_dni, dni) {
             $.ajax({
                 url: "{{ route('search.patient') }}",
@@ -401,24 +403,26 @@
         $('#emailC').removeAttr('disabled');
         $('#direccionC').removeAttr('disabled');
         $('#phoneC').removeAttr('disabled');
-        $('#tipo_dniC').removeAttr('disabled');
-        $('#dniC').removeAttr('disabled');
         }
 
         function mostrar_persona(data) {
+
+        $('#agregar_agregar').html(`<a class="btn btn-secondary text-white" data-dismiss="modal">Cerrar</a>
+                                    <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="registrar">Agregar</a>`);
+
         $('#nameC').val(data.name);
         $('#lastnameC').val(data.lastname);
         $('#emailC').val(data.email);
         $('#direccionC').val(data.address);
         $('#phoneC').val(data.phone);
-        $('#tipo_dniC').val(data.type_dni);
-        $('#dniC').val(data.dni);
+        // $('#tipo_dniC').val(data.type_dni);
+        // $('#dniC').val(data.dni);
     }
 
         // ==================== ejecuta cuando se clikea el boton de registrar otro =====================
         $("#registrar").click(function() {
-            var tipo_dni = $("#tipo_dniC").val();
-            var dni = $("#dniC").val();
+            var tipo_dni = $("#type_dni").val();
+            var dni = $("#buscar_dni").val();
             var name =  $("#nameC").val();
             var lastname = $("#lastnameC").val();
             var phone = $("#phoneC").val();
@@ -430,20 +434,33 @@
 
             console.log('cedule',dni.length);
 
-        if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 || name == '' || lastname == '' || address == ''){
-            
-            Swal.fire({
-            title: 'Datos incompletos',
-            text: "Click OK para continuar!!",
-            type: 'error',
-            allowOutsideClick:false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: '<a href="#otro" style="color:#fff" data-toggle="modal">OK</a>'
-            }).then((result) => {
-                if (result.value) {
-                }
-            })
-
+        if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 ){
+            if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 || name == '' || lastname == '' || address == ''){
+                
+                Swal.fire({
+                title: 'Datos incompletos',
+                text: "Click OK para continuar!!",
+                type: 'error',
+                allowOutsideClick:false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '<a href="#otro" style="color:#fff" data-toggle="modal">OK</a>'
+                }).then((result) => {
+                    if (result.value) {
+                    }
+                })
+            }else{
+                Swal.fire({
+                title: 'Documento de identidad incompleto',
+                text: "Click OK para continuar!!",
+                type: 'error',
+                allowOutsideClick:false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '<a href="#otro" style="color:#fff" data-toggle="modal">OK</a>'
+                }).then((result) => {
+                    if (result.value) {
+                    }
+                })
+            }
         }else{
             registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);
         }
