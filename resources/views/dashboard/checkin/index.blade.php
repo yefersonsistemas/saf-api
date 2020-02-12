@@ -216,7 +216,7 @@
                                                 @if ($reservation->status == 'Aprobada')
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                     <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                                    <a type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</a>
                                                 @endif
 
                                                 @if ($reservation->status == 'Cancelada')

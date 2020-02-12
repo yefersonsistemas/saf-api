@@ -101,6 +101,7 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group" id="newDoctor">
                                         <label class="form-label">Médico</label>
+                                        <input type="hidden" name="person_id" value="{{ $employe->id  }}">
                                         <select class="form-control custom-select" name="person_id" id="doctor" disabled>
                                              <option value="{{ $employe->id  }}">{{ $reservation->person->name }} {{ $reservation->person->lastname }}</option> 
                                             @foreach ($medicos as $item)
@@ -110,7 +111,7 @@
 
                                         {{-- <label class="form-label">Médico</label> --}}
                                         <input type="hidden" id="editar" value="{{ $employe->id }}">
-                                        {{-- <input type="hidden" name="person_id" value="{{ $employe->id  }}"> --}}
+                                        
                                         {{-- <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }} {{ $reservation->person->lastname }}" disabled id="doctor"> --}}
                                     </div>
                                 </div>
