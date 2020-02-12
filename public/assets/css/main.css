@@ -8399,6 +8399,12 @@ body *::-webkit-scrollbar-thumb {
     font-size: 17px
 }
 
+.texto1 {
+    font-size: 17px;
+    margin-top: -1%;
+    right: 100px;
+}
+
 .contenedor {
     background: #00ba88;
     ;
@@ -10201,7 +10207,11 @@ img {
 }
 
 .badge {
-    color: #fff
+    color: #fff;
+}
+
+.badgeMargin {
+    margin-right: 3%;
 }
 
 .badge-default {
