@@ -26,13 +26,14 @@
         color: #fff;
     }
 </style>
+
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">                                
+                    <div class="card-body py-2">
                         <h6>Reservaciones confirmadas</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
                     </div>
@@ -50,7 +51,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Pacientes atendidos</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>                             
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -78,14 +79,14 @@
                         </tfoot>
                         <tbody>
                             @foreach ($all as $surgeries)
-                            <tr style="height:40px;">
-                                @foreach ($surgeries->patient as $patient)
-                                <td style="text-align: center; font-size:10px; height:40px;">
-                                    @if (!empty($patient->person->image->path))
-                                        <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
-                                        @else
-                                        <img src="" alt="" width="100%" height="100%">
-                                        @endif
+                                <tr style="height:40px;">
+                                    @foreach ($surgeries->patient as $patient)
+                                        <td style="text-align: center; font-size:10px; height:40px;">
+                                            @if (!empty($patient->person->image->path))
+                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
+                                            @else
+                                                <img src="" alt="" width="100%" height="100%">
+                                            @endif
                                         {{-- <div class="text-center">
                                             @if ($reservation->patient->historyPatient == null)
                                             <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
@@ -103,21 +104,20 @@
                                     @foreach ($surgeries->patient as $patient)
                                         <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
                                     @endforeach
-                                    
                                     <td>{{$surgeries->typesurgeries->name}}</td>
                                     <td>{{$surgeries->area->name}}</td>
                                 </tr>
-                            @endforeach 
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 @endsection

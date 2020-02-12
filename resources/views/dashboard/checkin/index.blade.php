@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+
+    <!-- estilo para hacer lista scrolleable -->
+    <!-- <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}"> -->
 @endsection
 
 @section('title','Todas las citas')
@@ -49,40 +52,40 @@
 
 <div class="section-body  py-4">
     <div class="container-fluid">
-        <div class="row clearfix justify-content-center">
+        <div class="row clearfix">
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body py-2">
                         <h6>Total De Citas del año</h6>
-                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasAnual }}</span></h3>
+                        <h4 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasAnual }}</span></h4>
                         {{-- <h5>$1,25,451.23</h5> --}}
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body py-2">
                         <h6>Total De Citas Del Mes</h6>
-                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">{{ $citasDelMes }}</span></h3>
+                        <h4 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">{{ $citasDelMes }}</span></h4>
                         {{-- <h5>$3,80,451.00</h5> --}}
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body py-2">
                         <h6>Citas Para Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $citasDelDia }}</span></h3>
+                        <h4 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $citasDelDia }}</span></h4>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body py-2">
                         <h6>Atendidos Hoy</h6>
-                        <h3 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h3>
+                        <h4 class="pt-3"><i class="fa fa-user"></i> <span class="counter">{{ $atendidos }}</span></h4>
                         {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                     </div>
                 </div>
@@ -141,21 +144,19 @@
                                 </tfoot>
                                 <tbody>
                                     @if($reservations != '')
-                                    @foreach ($reservations as $reservation)
-                                    @if ($reservation->status=="Suspendida")
-                                        @if (!empty($reservation->cite) )
-                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
-                                        @endif
-                                        @else
-                                        <tr style="height:40px;">
-                                        @endif
-                                            <td style="text-align: center; font-size:10px; height:40px;">
+                                        @foreach ($reservations as $reservation)
+                                            @if ($reservation->status=="Suspendida")
+                                                @if (!empty($reservation->cite) )
+                                                    <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
+                                                @endif
+                                            @else
+                                                <tr style="height:40px;">
+                                            @endif
+                                                <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                    {{-- <div class="img-test" style="background-image:url('{{ Storage::url($reservation->patient->image->path) }}')"></div> --}}
+                                                    <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">
-                                                    {{-- <div class="img-test"></div> --}}
                                                 @endif
                                                 <div class="">
                                                     @if ($reservation->patient->historyPatient == null)
@@ -170,10 +171,10 @@
                                                 </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td class="">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>                                         
+                                            <td class="">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
                                             <td class="">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
-                                            <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
+                                            <td>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</td>
                                             <td>
                                                 @if ($reservation->status == 'Aprobada')
                                                     <span class="badge badge-success">{{ $reservation->status }}</span>
@@ -194,17 +195,17 @@
 
                                             <td style="display: inline-block">
                                                 @if ($reservation->status == 'Pendiente')
-                                                  @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
-                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
+                                                    @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                     @endif
                                                     @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
-                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                     @endif
                                                     @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
-                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
+                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
                                                     @endif
                                                     @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
-                                                    <button type="button" href="" disabled class="btn btn-success">A</button>
+                                                        <button type="button" href="" disabled class="btn btn-success">A</button>
                                                     @endif
 
                                                     <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
@@ -241,7 +242,7 @@
                                                     </form>
                                                 @endif
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 {{-- <div class="container" id="ID_element_0">
                                                     @if($reservation->patient->inputoutput->isEmpty() && $reservation->approved == null )
                                                         <button disabled class="btn btn-danger state state_0" state="0"></button>
@@ -285,7 +286,7 @@
                                                         <button class="btn btn-success state state_3" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     @endif
                                                 </div> --}}
-                                            </td>
+                                            </td> -->
                                         </tr>
                                     @endforeach
                                     @endif
@@ -370,7 +371,7 @@
                                                     @endif
                                                 </td>
     
-                                                <td style="display: inline-block">
+                                                <td style="display: inline-block ">
                                                     @if ($reservation->status == 'Pendiente')
                                                       @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
                                                         <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>

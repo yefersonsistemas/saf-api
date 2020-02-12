@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+    
 @endsection
 
 @section('title')
@@ -76,6 +77,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">

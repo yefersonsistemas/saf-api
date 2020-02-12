@@ -495,12 +495,12 @@
             
             @if($mostrar == 1)
                 <div>
-                    <a href="{{Route('checkin.day')}}" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
+                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
                     <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px" disabled> Guardar</button>
                 </div>
             @else
                 <div>
-                    <a href="{{Route('checkin.day')}}" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
+                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
                 </div>
             @endif
         </form>

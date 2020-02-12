@@ -1219,3 +1219,9 @@
             height: 55px;
             line-height: 45px;
         }
+
+
+        .dataTables_filter {
+            position: sticky;
+            top: 0px;
+        }
