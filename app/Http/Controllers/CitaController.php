@@ -313,11 +313,22 @@ class CitaController extends Controller
         $reservation = Reservation::with('patient','person','speciality')->find($id);
         // dd($reservation);
         $employe = Employe::where('person_id',$reservation->person_id)->first();
+        $b_medicos = Speciality::with('employe.person')->where('id',$reservation->specialitie_id)->first();
+// dd($employe);
+
+        // $dife = $employe->diff($medicos->employe);
+        // dd($dife);
+        foreach($b_medicos->employe as $item){
+            if($item->id != $employe->id){
+                $medicos[] = $item;
+            }
+        }
+        // dd($medicos);
 
         if (!is_null($reservation)) {
             $specialities = Speciality::with('employe.person')->get();
             // dd($specialities);
-            return view('dashboard.reception.edit', compact('reservation','specialities','employe'));
+            return view('dashboard.reception.edit', compact('reservation','specialities','employe','medicos'));
         }else{
             Alert::error('Cita no encontrada!');
             return redirect()->back()->withErrors('Cita no encontrada');
@@ -327,7 +338,6 @@ class CitaController extends Controller
     //========================actualizar reservacion ==============
     public function update(Reservation $cite, Request $request)
     {
-        // dd($cite);
         // dd($request);
         if (!is_null($cite)) {
             $cite->status = 'Pendiente';
@@ -348,10 +358,11 @@ class CitaController extends Controller
                     ]);
                 }
             }
-
+// dd($cite);
             //si se cambio la especialidad y medico
             if ($request->speciality) {
                 $employe = Employe::find($request->person_id);
+                // dd($employe);
                 $cite->specialitie_id = $request->speciality;
                 $cite->person_id  = $employe->person_id;
                 $cite->save();

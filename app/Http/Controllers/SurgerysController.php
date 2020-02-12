@@ -240,11 +240,7 @@ class SurgerysController extends Controller
                     }
                 }
 
-               
-
-
-                return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
-                
+                return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');                
 
             }else{
                 return response()->json([

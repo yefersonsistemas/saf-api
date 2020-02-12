@@ -89,21 +89,21 @@
             </div>
             {{-- Tabs de citas --}}
             <div class="col-lg-12 col-md-12 mt-10">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 d-flex justify-content-around" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Todas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Todas</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Aprobadas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Aprobadas</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Canceladas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Canceladas</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-reprogram-tab" data-toggle="pill" href="#pills-reprogram" role="tab" aria-controls="pills-reprogram" aria-selected="false">Reprogramadas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center btn btn-outline-warning" id="pills-reprogram-tab" data-toggle="pill" href="#pills-reprogram" role="tab" aria-controls="pills-reprogram" aria-selected="false">Reprogramadas</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-suspendidas" aria-selected="false">Suspendidas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-suspendidas-tab" data-toggle="pill" href="#pills-suspendidas" role="tab" aria-controls="pills-suspendidas" aria-selected="false">Suspendidas</a>
                     </li>
                 </ul>
             </div>
@@ -118,10 +118,10 @@
                                     <tr>
                                         <th>Foto</th>
                                         <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th class="fecha">Fecha</th>
+                                        <th>Nombre</th>                                       
                                         <th>Doctor</th>
                                         <th>Especialidad</th>
+                                        <th class="fecha">Fecha</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -131,9 +131,9 @@
                                         <th>Foto</th>
                                         <th>Cédula</th>
                                         <th>Nombre</th>
-                                        <th class="fecha">Fecha</th>
                                         <th>Doctor</th>
                                         <th>Especialidad</th>
+                                        <th class="fecha">Fecha</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -169,10 +169,10 @@
                                                 </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
-                                            <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
+                                            <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>                                         
                                             <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
+                                            <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                             <td>
                                                 @if ($reservation->status == 'Aprobada')
                                                     <span class="badge badge-success">{{ $reservation->status }}</span>
@@ -514,6 +514,7 @@
                                         <th>Apellido</th>
                                         <th>Doctor</th>
                                         <th>Especialidad</th>
+                                        <th>Fecha</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -526,6 +527,7 @@
                                         <th>Apellido</th>
                                         <th>Doctor</th>
                                         <th>Especialidad</th>
+                                        <th>Fecha</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -557,6 +559,7 @@
                                             <td>{{ $reservation->patient->lastname }}</td>
                                             <td>{{ $reservation->person->name }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
+                                            <td>{{ $reservation->date }}</td>
                                             <td>
                                                 @if ($reservation->status == 'Pendiente')
                                                     <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>

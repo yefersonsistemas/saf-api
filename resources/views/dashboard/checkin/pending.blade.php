@@ -76,15 +76,15 @@
 
               {{-- Tabs de citas --}}
             <div class="col-lg-12 col-md-12 mt-10">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 d-flex justify-content-around mx-4" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Hoy</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center active btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Hoy</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">48 Horas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">48 Horas</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-todas-tab" data-toggle="pill" href="#pills-todas" role="tab" aria-controls="pills-todas" aria-selected="false">Todas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex flex-row justify-content-center btn btn-outline-secondary" id="pills-todas-tab" data-toggle="pill" href="#pills-todas" role="tab" aria-controls="pills-todas" aria-selected="false">Todas</a>
                     </li>
                 </ul>
             </div>

@@ -81,7 +81,6 @@ Route::group(['middleware' => 'auth'], function (){
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
-        // Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
         Route::post('cite/store','CitaController@store')->name('reservation.store');
         Route::post('cite/status', 'CitaController@status')->name('reservation.status');
         Route::get('approved/cite/{reservation}', 'CitaController@approved')->name('cita.aprobada');
@@ -106,7 +105,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');           // para generar factura
         Route::get('facturacion/paciente/{id}', 'OutController@createF')->name('checkout.facturacionLista');           // para generar factura
 
-        Route::post('search/patient','OutController@search_patient')->name('checkout.patient');    // buscar paciente
+        Route::post('search/patient','OutController@search_patients')->name('checkout.patient');    // buscar paciente
         Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
         Route::POST('registro', 'OutController@create_cliente')->name('checkout.person');

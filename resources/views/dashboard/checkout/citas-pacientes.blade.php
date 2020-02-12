@@ -85,7 +85,7 @@
             <!--lista de reservaciones confirmadas-->
             <div class="col-lg-12 col-md-12 mt-10">
 
-                <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-end "  id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-around"  id="pills-tab" role="tablist">
                     <li class="nav-item mb-1">
                         <a class="nav-link btn-block  btn-outline-dark aprobadas pt-0 pb-0 pr-3 pl-3"  id="pills-aprobadas-tab" data-toggle="pill" href="#aprobadas" role="tab" aria-controls="aprobadas" aria-selected="false">Citas Aprobadas</a>
                     </li>

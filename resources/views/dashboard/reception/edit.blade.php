@@ -101,9 +101,17 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group" id="newDoctor">
                                         <label class="form-label">Médico</label>
+                                        <select class="form-control custom-select" name="person_id" id="doctor" disabled>
+                                             <option value="{{ $employe->id  }}">{{ $reservation->person->name }} {{ $reservation->person->lastname }}</option> 
+                                            @foreach ($medicos as $item)
+                                                <option value="{{ $item->id }}">{{ $item->person->name }} {{ $item->person->lastname }}</option> 
+                                            @endforeach                                           
+                                        </select>
+
+                                        {{-- <label class="form-label">Médico</label> --}}
                                         <input type="hidden" id="editar" value="{{ $employe->id }}">
-                                        <input type="hidden" name="person_id" value="{{ $employe->id  }}">
-                                        <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }} {{ $reservation->person->lastname }}" disabled id="doctor">
+                                        {{-- <input type="hidden" name="person_id" value="{{ $employe->id  }}"> --}}
+                                        {{-- <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }} {{ $reservation->person->lastname }}" disabled id="doctor"> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -148,10 +156,11 @@
     <script>
 
         $( document ).ready(function() {
-         var doctor = $('#editar').val();
+         var doctor = $('#editar').val();       
         //  var fecha = $('#fechanueva').val();
 
          console.log('este es', doctor);
+ 
          ajaxMedico(doctor); 
         });
 
@@ -171,6 +180,7 @@
             $('#speciality').removeAttr('disabled');
             $('#doctor').removeAttr('disabled');
             $('#date').removeAttr('disabled');
+         
         });
 
         // buscando medicos mediante la especialidad
