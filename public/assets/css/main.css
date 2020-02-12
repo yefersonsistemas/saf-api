@@ -8390,6 +8390,11 @@ body *::-webkit-scrollbar-thumb {
     margin-top: 8%
 }
 
+.row1 {
+    margin-left: 40%;
+    margin-top: 8%
+}
+
 .texto {
     font-size: 17px
 }
