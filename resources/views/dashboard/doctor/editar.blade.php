@@ -305,19 +305,6 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                        {{-- <div id="mostrar_enfermedad">
-                                                            @foreach ( $reservation->patient->historyPatient->disease as $disease )
-                                                            <div class="row" id="{{$disease->id}}">
-                                                                <div class="col-9">
-                                                                    <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
-                                                                </div> 
-                                                                <div class="col-3">
-                                                                    <input name="{{$disease->id}}" id="enfermedad_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class=" btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                        value="Eliminar">
-                                                                </div>
-                                                            </div>                                                           
-                                                        @endforeach    
-                                                        </div> --}}
                                                         <div class="card-body py-1">
                                                             <div class="table-responsive">
                                                                 <table class="table table-hover table-vcenter table-striped"
@@ -334,10 +321,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <td>
                                                                                     <i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}
                                                                                 </td>
-                                                                                <td class="d-flex justify-content-center">
-                                                                                    <input id="enfermedad_id" name="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                                    value="&#10006">
-                                                                                </td>
+                                                                                <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                             </tr>
                                                                         @endforeach   
                                                                     </tbody>
@@ -363,20 +347,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                        {{-- <div id="mostrar_alergias">
-                                                            @foreach ( $reservation->patient->historyPatient->allergy as $allergy )
-                                                                <div class="row" id="{{$allergy->id}}">
-                                                                    <div class="col-9">
-                                                                        <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
-                                                                    </div> 
-                                                                    <div class="col-3">
-                                                                        <input name="{{$allergy->id}}" id="alergia_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                            value="Eliminar">
-                                                                    </div>
-                                                                </div>     
-                                                            @endforeach
-                                                        </div> --}}
-                                                        <div class="card-body py-1">
+                                                         <div class="card-body py-1">
                                                             <div class="table-responsive">
                                                                 <table class="table table-hover table-vcenter table-striped"
                                                                 cellspacing="0" id="addrowExample">
@@ -392,10 +363,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <td>
                                                                                     <i class="fa fa-check mr-3 text-verdePastel"></i>{{$allergy->name}}
                                                                                 </td>
-                                                                                <td class="d-flex justify-content-center">
-                                                                                    <input id="alergia_id" name="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                                    value="&#10006">
-                                                                                </td>
+                                                                                <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                             </tr>
                                                                         @endforeach   
                                                                     </tbody>
@@ -427,9 +395,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="col-9">
                                                                     <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
                                                                 </div> 
-                                                                <div class="col-3" id="cirugia{{$cite->id}}">
-                                                                    <input name="cirugia{{$cite->id}}" id="borrar_cirugia" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
-                                                                        value="Eliminar">
+                                                                <div class="text-center">
+                                                                    <a style="cursor:pointer" id="borrar_cirugia" name="cirugia{{$cite->id}}" class="text-dark btn"><i class="icon-trash"></i>
+                                                                    </a>
                                                                 </div>
                                                             </div> 
                                                             @endif 
@@ -1614,9 +1582,7 @@ button[data-original-title="Help"]{ display: none; }
                             <td>
                                 <i class="fa fa-check mr-3 text-verdePastel"></i>${data[$i].name}
                             </td>
-                            <td class="d-flex justify-content-center">
-                                <input id="enfermedad_id" name="${data[$i].id}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="&#10006">
-                            </td>
+                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="${data[$i].id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                         </tr>`;
             $("#mostrar_enfermedad").append(enfermedad);
             $("div").remove("#quitar"+data[$i].id); //quitar del modal
@@ -1704,9 +1670,7 @@ button[data-original-title="Help"]{ display: none; }
                         <td>
                             <i class="fa fa-check mr-3 text-verdePastel"></i>${data.name}
                         </td>
-                        <td class="d-flex justify-content-center">
-                            <input id="enfermedad_id" name="${data.id}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="&#10006">
-                        </td>
+                        <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="${data.id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                     </tr>`;
        $("#mostrar_enfermedad").append(enfermedad);
     }
@@ -1768,9 +1732,7 @@ button[data-original-title="Help"]{ display: none; }
                             <td>
                                 <i class="fa fa-check mr-3 text-verdePastel"></i>${data[$i].name}
                             </td>
-                            <td class="d-flex justify-content-center">
-                                <input id="alergia_id" name="${data[$i].id}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="&#10006">
-                            </td>
+                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="${data[$i].id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                         </tr>`;
             $("#mostrar_alergias").append(alergia);
             $("div").remove("#quitarAlergia"+data[$i].id); //quitar del modal
@@ -1856,9 +1818,7 @@ button[data-original-title="Help"]{ display: none; }
                             <td>
                                 <i class="fa fa-check mr-3 text-verdePastel"></i>${data.name}
                             </td>
-                            <td class="d-flex justify-content-center">
-                                <input id="alergia_id" name="${data.id}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="&#10006">
-                            </td>
+                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="${data.id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                         </tr>`;
            $("#mostrar_alergias").append(alergia);
         }
@@ -1893,7 +1853,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-                mostrarCirugia(data[1]);
+                mostrarCirugia(data);
             }
 
             if (data[0] == 202) {                       //si no trae valores
@@ -1912,7 +1872,18 @@ button[data-original-title="Help"]{ display: none; }
 
    // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
-        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3"><input name="cirugia'+data.id+'" id="borrar_cirugia" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></div></div>',
+        // cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3"><input name="cirugia'+data.id+'" id="borrar_cirugia" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></div></div>',
+        cirugia = `<div class="row" id="cirugia${data[1].id}">
+                        <div class="col-9" id="cirugia${data[1].id}">
+                            <a class="list-group-item list-group-item-action row">${data[1].previous_surgery}</a>
+                        </div>
+                        <div class="text-center">
+                            <a style="cursor:pointer" id="borrar_cirugia" name="${data[1].id}" class="text-dark btn">
+                                <i class="icon-trash"></i>
+                            </a>
+                        </div>
+                    </div>`;
+
         $("#agregar_cirugia").html(cirugia);
     }
 
