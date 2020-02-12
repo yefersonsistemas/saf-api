@@ -140,7 +140,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
     });
-
+        // el metodo de historia medica esta en el metodo show en doctorcontroller
     Route::group(['middleware' => ['role:doctor, director']], function () {
         Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
         // Route::get('doctor', 'DoctorController@index')->name('doctor.index');

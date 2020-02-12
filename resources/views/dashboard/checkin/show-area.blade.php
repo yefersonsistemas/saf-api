@@ -1,4 +1,6 @@
 @extends('dashboard.layouts.app')
+@section('medicoss','active')
+@section('all','active')
 @section('inrol','d-block')
 @section('dire','d-none')
 
@@ -27,15 +29,16 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card">
+                <div class="card mt-4">
+                    <a  href="{{Route('checkin.day')}}" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-2 ml-2  "><i class="icon-action-undo mx-auto"></i></a>
                     <div class="card-body">
-                        <div class="col-lg-12 col-md-12 mt-10">
+                        <div class="col-lg-12 col-md-12">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                <li class="nav-item col-md-2">
-                                    <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-azuloscuro m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Mañana</a>
+                                <li class="nav-item col-md-3">
+                                    <a class="nav-link btn-block  p-1 d-flex flex-row justify-content-center active btn btn-outline-azuloscuro m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Mañana</a>
                                 </li>
-                                <li class="nav-item col-md-2">
-                                    <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center btn btn-outline-info" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Tarde</a>
+                                <li class="nav-item col-md-3">
+                                    <a class="nav-link btn-block  p-1 d-flex flex-row justify-content-center btn btn-outline-info" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Tarde</a>
                                 </li>
                             </ul>
                         </div>
@@ -44,7 +47,7 @@
 
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <div class="row gutters-sm d-row d-flex justify-content-between">
+                                <div class="row gutters-sm d-row d-flex justify-content-between px-4">
                                     @foreach ($areas as $area)
                                             @if ($area->typearea->name == 'Consultorio' && $area->status == null)
                                                 @if ($area->areaassigment != null  )  
@@ -176,5 +179,7 @@
     </div>
 </div>
 @endsection
+
+
 
 
