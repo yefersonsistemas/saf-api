@@ -104,9 +104,11 @@
                                         <input type="hidden" name="person_id" value="{{ $employe->id  }}">
                                         <select class="form-control custom-select" name="person_id" id="doctor" disabled>
                                              <option value="{{ $employe->id  }}">{{ $reservation->person->name }} {{ $reservation->person->lastname }}</option> 
+                                             @if($medicos != null)
                                             @foreach ($medicos as $item)
                                                 <option value="{{ $item->id }}">{{ $item->person->name }} {{ $item->person->lastname }}</option> 
-                                            @endforeach                                           
+                                            @endforeach                     
+                                            @endif                      
                                         </select>
 
                                         {{-- <label class="form-label">Médico</label> --}}

@@ -316,6 +316,7 @@ class CitaController extends Controller
 
         // $dife = $employe->diff($medicos->employe);
         // dd($dife);
+        $medicos = null;
         foreach($b_medicos->employe as $item){
             if($item->id != $employe->id){
                 $medicos[] = $item;
@@ -356,7 +357,7 @@ class CitaController extends Controller
                     ]);
                 }
             }
-// dd($cite);
+
             //si se cambio la especialidad y medico
             if ($request->speciality) {
                 $employe = Employe::find($request->person_id);
@@ -365,7 +366,7 @@ class CitaController extends Controller
                 $cite->person_id  = $employe->person_id;
                 $cite->save();
             }
-// dd($request->fecha);
+
             if ($request->fecha != null) {
                 $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);    
                 $schedule = Schedule::where('employe_id', $request->person_id)->where('day', $dia)->first(); 
