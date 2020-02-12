@@ -49,7 +49,7 @@
 
 <div class="section-body  py-4">
     <div class="container-fluid">
-        <div class="row clearfix">
+        <div class="row clearfix justify-content-center">
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
@@ -87,9 +87,10 @@
                     </div>
                 </div>
             </div>
+
             {{-- Tabs de citas --}}
             <div class="col-lg-12 col-md-12 mt-10">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills mb-4 justify-content-around" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
                         <a class="nav-link btn-block  p-2 d-flex flex-row justify-content-center active btn btn-outline-primary m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Todas</a>
                     </li>
@@ -111,7 +112,7 @@
             {{-- lista de todas --}}
             <div class="tab-content container-fluid" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-md-12 mt-10">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
@@ -751,6 +752,7 @@
 @section('scripts')
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal

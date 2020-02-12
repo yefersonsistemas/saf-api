@@ -275,7 +275,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 </div>
                                                 <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                    <div id="mostrar_alergias">
+                                                    <!-- <div id="mostrar_alergias">
                                                         @foreach ( $history->patient->historyPatient->allergy as $allergy )
                                                             <div class="row" id="{{$allergy->id}}">
                                                                 <div class="col-9">
@@ -287,7 +287,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 </div>
                                                             </div>     
                                                          @endforeach
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info mx-2" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
                                                         <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
