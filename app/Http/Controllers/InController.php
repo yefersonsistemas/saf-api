@@ -271,15 +271,21 @@ class InController extends Controller
 
             $patients = Person::find($patient->person_id);
 
-            $data = $request->validate([
-                'address' => 'nullable'
-            ]);
+            // $data = $request->validate([
+            //     'address' => 'nullable'
+            // ]);
 
-            if($person->historyPatient != null) {
+            // if($person->historyPatient != null) {
 
-                $patients->update([
-                    'address'=> $data['address'],
-                ]);
+            //     $patients->update([
+            //         'address'=> $data['address'],
+            //     ]);
+            // }
+            
+            if($request->address != null) {
+
+                $patients->address = $request->address;
+                $patients->save();
             }
             
 
@@ -303,7 +309,7 @@ class InController extends Controller
                 $image = new File;
                 $image->path = $path;
                 $image->fileable_type = "App\Person";
-                $image->fileable_id = $patient->id;
+                $image->fileable_id = $person->id;
                 $image->branch_id = 1;
                 $image->save();
             }

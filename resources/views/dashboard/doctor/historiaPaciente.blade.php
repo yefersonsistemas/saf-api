@@ -353,17 +353,24 @@ button[data-original-title="Help"]{ display: none; }
                                     <h2>Estudios complementarios</h2>
                                     <section class="ml-4 pb-0 pt-4">
                                         <div class="row">
-                                            @foreach ( $cite->person->reservationPatient as $cites )
+                                            {{-- @foreach ( $cite->person->reservationPatient as $cites ) --}}
                                                 <div class="col-md-4">
                                                     <div class="card">
+                                                        @if (!empty($cite->person->file->path))
                                                         <div class="card-header bg-azuloscuro">
-                                                            <h5 class="card-title text-white">{{$cites->date}}</h5>
+                                                            <h5 class="card-title text-white">{{$cite->date}}</h5>
                                                         </div>
                                                         <div class="card-body">
+                                                            <img src="{{ Storage::url($cite->person->file->path) }}" alt="" class="img-thumbnail" style=" width:100px">
                                                         </div>
+                                                        @else
+                                                        <div class="card">
+                                                            <h4>No tiene exámenes previos</h4>
+                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
-                                            @endforeach
+                                            {{-- @endforeach --}}
                                         </div>
                                     </section>
                                     <h2>Diagnostico</h2>

@@ -13,10 +13,10 @@ class Patient extends Model
         'social_network', 'about_us',
     ];
 
-    public function file()
-    {
-        return $this->morphOne('App\File', 'fileable');
-    }
+    // public function file()
+    // {
+    //     return $this->morphOne('App\File', 'fileable');
+    // }
 
     public function person()
     {
