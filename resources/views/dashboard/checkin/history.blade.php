@@ -33,7 +33,7 @@
             <div class="card "> 
 
                 @if($mostrar == 1)
-                    <div class="icon btn-scroll">
+                    <div class=" icon btn-scroll">
                         <a class="   ml-20 icon-primary fa fa-pencil  " href="#" id="EditPatient" title="Editar Historial"></a>	
                         <div class=" container-description">
                         <a class="  icon-description" href="#">Editar Historial</a>	
@@ -321,7 +321,7 @@
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
                                         <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
-                                        cellspacing="0" id="addrowExample">
+                                        
                                             <thead>
                                                 <tr>
                                                     <th>Enfermedad</th>
@@ -367,8 +367,7 @@
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
                                         <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
-                                        cellspacing="0" id="addrowExample">
-                                            <thead>
+                                             <thead>
                                                 <tr>
                                                     <th>Medicina</th>
                                                     <th class="text-center">Eliminar</th>
@@ -415,8 +414,7 @@
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
                                         <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
-                                        cellspacing="0" id="addrowExample">
-                                            <thead>
+                                             <thead>
                                                 <tr>
                                                     <th>Alergia</th>
                                                     <th class="text-center">Eliminar</th>
