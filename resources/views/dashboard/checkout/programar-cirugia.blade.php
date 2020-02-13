@@ -477,7 +477,7 @@ var form = $('#wizard_horizontal').show();
         todayHighlight: true,
         language: 'es',
         daysOfWeekHighlighted: [0,6],
-        // daysOfWeekDisabled: [0,6];
+        daysOfWeekDisabled: [0,6],
     });
     $('.inline-datepicker').on('changeDate', function() {
         $('#picker').val(
