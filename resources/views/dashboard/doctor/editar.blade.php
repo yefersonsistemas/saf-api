@@ -294,13 +294,13 @@ button[data-original-title="Help"]{ display: none; }
                                             <div id="accordion">
                                                 <!---------------mostrar enfermedades----------------->
                                                 <div class="card border border-info rounded">
-                                                    <div class="card-header bg-azuloscuro" >
+                                                    <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                         <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                             <div class="col-8">
                                                                 <h5 class="card-title text-white">Enfermedades</h5>
                                                             </div>
                                                             <div class="col-4 d-flex justify-content-end">
-                                                                <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -336,13 +336,13 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                               <!---------------mostrar alergias----------------->
                                                 <div class="card border border-info rounded">
-                                                    <div class="card-header bg-azuloscuro" >
+                                                    <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                         <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                             <div class="col-8">
                                                                 <h5 class="card-title text-white">Alergias</h5>
                                                             </div>
                                                             <div class="col-4 d-flex justify-content-end">
-                                                                <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">VER MAS</p>
+                                                                <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -378,13 +378,13 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 <!--------------------agregar cirugias---------------------->
                                                 <div class="card border border-info rounded">
-                                                    <div class="card-header bg-azuloscuro" >
+                                                    <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                         <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                             <div class="col-8">
                                                                 <h5 class="card-title text-white">Cirugias Previas</h5>
                                                             </div>
                                                             <div class="col-4 d-flex justify-content-end">
-                                                                <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                                <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1149,7 +1149,7 @@ button[data-original-title="Help"]{ display: none; }
 
      {{-- modal de los posible cirugia --}}
      <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -1229,7 +1229,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg row1" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>

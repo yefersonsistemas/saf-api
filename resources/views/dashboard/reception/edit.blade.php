@@ -15,7 +15,7 @@
 @section('content')
     <div class="section-body py-3">
         <div class="container-fluid">
-            <div class=" p-4">
+            <div class=" p-2">
                 <div class="col-lg-12">
                     <form class="card" method="POST" action="{{ route('reservations.update', $reservation) }}" autocomplete="off">
                         @csrf
@@ -23,7 +23,7 @@
                         <div class="card-body">
                             {{-- <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3> --}}
                             <div style="margin-bottom:12px">
-                                <a class="btn btn-primary" id="EditPatient" href="#">Editar datos paciente <i class="fa fa-vcard"></i></a>
+                                <a class="btn btn-verdePastel" id="EditPatient" href="#">Editar datos paciente <i class="fa fa-vcard"></i></a>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-md-1">
@@ -85,7 +85,7 @@
                                         <label class="form-label">Doctor <i class="fa fa-user-md"></i></label>
                                     </div>
                                     <div style="margin-bottom:12px">
-                                        <a class="btn btn-primary" href="#" id="newMedic">Elegir otro médico <i class="fa fa-user-md"></i></a>
+                                        <a class="btn btn-verdePastel" href="#" id="newMedic">Elegir otro médico <i class="fa fa-user-md"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-4">

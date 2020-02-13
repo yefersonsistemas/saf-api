@@ -281,7 +281,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="col-4 d-flex justify-content-end">
                                                             <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
-                                                    </div>
+                                                    </div>    
                                                 </div>
                                                 <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
                                                     <div class="card-body py-1">
@@ -611,7 +611,11 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="container">
                                                                 <div class="row mx-auto">
                                                                      <div class="col-12 justify-content-center text-center">
+<<<<<<< HEAD
                                                                         <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima">
+=======
+                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
+>>>>>>> 2b1e7605a803f82613374c7ccc504510c3453610
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
                                                                             Notificar proxima cita  
                                                                             
@@ -734,7 +738,7 @@ button[data-original-title="Help"]{ display: none; }
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer p-2 ">
+                    <div class="modal-footer p-2 ">                        
                         <a class="btn btn-azuloscuro rowww text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
@@ -766,6 +770,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
+                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
             </div>
@@ -800,7 +805,8 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <a  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</a>
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -831,6 +837,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
+                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
             </div>
@@ -856,6 +863,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
@@ -868,7 +876,7 @@ button[data-original-title="Help"]{ display: none; }
         <div class="modal-dialog modal-dialog-scrollable modal-lg rowwwww" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
-                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos sdsdsdsRealizados</h5>
                     <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -894,6 +902,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>
@@ -925,6 +934,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
+                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -934,7 +944,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los posible cirugia --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -1002,6 +1012,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                         <div class="modal-footer p-2">
+                            <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                             <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                         </div>
                         </div>
@@ -1013,7 +1024,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg row1" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>
@@ -1042,6 +1053,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer p-2">
+                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>

@@ -219,10 +219,6 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 67b7333c87888d3045c9057c0ccd6c3067c7c153
                 <div class="tab-pane fade" id="pills-procedure" role="tabpanel" aria-labelledby="pills-procedure-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">

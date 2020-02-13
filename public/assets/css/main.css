@@ -8390,8 +8390,23 @@ body *::-webkit-scrollbar-thumb {
     margin-top: 8%
 }
 
+.row1 {
+    margin-left: 40%;
+    margin-top: 8%
+}
+
 .texto {
     font-size: 17px
+}
+
+.texto1 {
+    font-size: 17px;
+    margin-top: -1%;
+    right: 100px;
+}
+
+.btnCerrarModal {
+    
 }
 
 .contenedor {
@@ -10196,7 +10211,11 @@ img {
 }
 
 .badge {
-    color: #fff
+    color: #fff;
+}
+
+.badgeMargin {
+    margin-right: 3%;
 }
 
 .badge-default {
