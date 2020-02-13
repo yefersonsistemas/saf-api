@@ -394,6 +394,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </tr>
                                                         </thead>
                                                         <tbody id="procesc">
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -577,14 +578,14 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                     <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
                                                                                     <span class="custom-control-label">Médico Interno</span>
-                                                                                    <select class="form-control custom-select" name="doctor" id="medicoInterno">
+                                                                                    <select class="form-control custom-select" disabled name="doctor" id="medicoInterno">
                                                                                         <option value="null">Médico Interno</option>
                                                                                     </select>
                                                                                 </label>
                                                                                 <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                     <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                     <span class="custom-control-label">Médico Externo</span>
-                                                                                    <input type="text" id="medicoExterno" class="form-control" required placeholder="" name="doctorExterno" >
+                                                                                    <input type="text" id="medicoExterno" disabled class="form-control" required placeholder="" name="doctorExterno" >
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -611,14 +612,9 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="container">
                                                                 <div class="row mx-auto">
                                                                      <div class="col-12 justify-content-center text-center">
-<<<<<<< HEAD
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima">
-=======
                                                                         <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
->>>>>>> 2b1e7605a803f82613374c7ccc504510c3453610
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
-                                                                            Notificar proxima cita  
-                                                                            
+                                                                            Notificar proxima cita                                                                            
                                                                         </button>
                                                                         <input type="hidden" id="proximaCita" name="proximaCita" value="0">
                                                                     </div>

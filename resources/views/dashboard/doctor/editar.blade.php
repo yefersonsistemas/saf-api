@@ -747,18 +747,28 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
                                                                                             @endif
                                                                                             <span class="custom-control-label">Médico Interno</span>
-                                                                                            <select class="form-control custom-select" name="doctor" id="medicoInterno">
                                                                                                 @if(!empty($itinerary->reference_id)) 
                                                                                                     @if(!empty($itinerary->reference->employe_id))
-                                                                                                        <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
-                                                                                                        @if($diff2 != null)
-                                                                                                            @foreach($diff2 as $spe)
-                                                                                                                <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
-                                                                                                            @endforeach
-                                                                                                        @endif   
+                                                                                                        <select class="form-control custom-select" name="doctor" id="medicoInterno">                                                                                               
+                                                                                                            
+                                                                                                            <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
+                                                                                                            @if($diff2 != null)
+                                                                                                                @foreach($diff2 as $spe)
+                                                                                                                    <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
+                                                                                                                @endforeach
+                                                                                                            @endif   
+                                                                                                                                                                                                        
+                                                                                                        </select>
+                                                                                                    @else
+                                                                                                    <select class="form-control custom-select" disabled name="doctor" id="medicoInterno">  
+                                                                                                    </select>
                                                                                                     @endif
                                                                                                 @endif
-                                                                                            </select>
+                                                                                                @if(empty($itinerary->reference_id)) 
+                                                                                                    <select class="form-control custom-select" disabled name="doctor" id="medicoInterno"> 
+
+                                                                                                    </select>
+                                                                                                @endif
                                                                                         </label>
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                             @if(!empty($itinerary->reference->doctor))
@@ -768,7 +778,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             @else
                                                                                             <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                                 <span class="custom-control-label">Médico Externo</span>
-                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
+                                                                                                <input type="text" id="medicoExterno" disabled class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
                                                                                             @endif
                                                                                         </label>
                                                                                     </div>
