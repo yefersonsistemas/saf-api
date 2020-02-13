@@ -394,7 +394,6 @@ button[data-original-title="Help"]{ display: none; }
                                                             </tr>
                                                         </thead>
                                                         <tbody id="procesc">
-                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -1202,7 +1201,6 @@ button[data-original-title="Help"]{ display: none; }
         $('#addRow').append('<tr class="gradeA"> <td>'+data.medicine.name+'</td> <td>'+data.doses+'</td> <td>'+data.measure+'</td> <td>'+data.duration+'</td> <td>'+data.indications+'</td> <td class="actions"> <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden=""><i class="icon-drawer" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden=""><i class="icon-close" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>');
     }
 
-
     //======================Referencia medica=========================
 
     $('input[name="tipoMedico"]').on('click',function(){
@@ -1763,7 +1761,7 @@ button[data-original-title="Help"]{ display: none; }
      //=============== mostrando procedimientos realizados ===============
     function mostrarProceduresC(data){
         for($i=0; $i < data.length; $i++){
-            procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureR_id" name="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td> <td class="text-center"><a style="cursor:pointer" id="procedureR_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td>  </tr>'
             $("#procesc").append(procesc); 
             $("div").remove("#quitar_procedureR"+data[$i].id); //quitar del modal
         }
@@ -1862,7 +1860,7 @@ button[data-original-title="Help"]{ display: none; }
     //==================== mostrando examenes ===================
     function mostrarExamen(data){
             for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="exam_id" name="'+data[$i].id+'" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="exam_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#examen").append(examen);
             $("label").remove("#quitar_examen"+data[$i].id); //quitar del modal
         }
@@ -1958,7 +1956,7 @@ button[data-original-title="Help"]{ display: none; }
    //================ mostrando posibles procedimientos =============
     function mostrarProcedure(data){
         for($i=0; $i < data.length; $i++){
-            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureP_id" name="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></td></tr>'
+            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#procedimientos").append(procedure);
             $("div").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal      
         }
@@ -2070,7 +2068,7 @@ button[data-original-title="Help"]{ display: none; }
     //======================== mostrando posibles cirugias ======================
     function mostrarSurgery(data){
         for($i=0; $i < data.length; $i++){
-            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="cirugiaP_id" name="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></td></tr>'
+            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#cirugias").html(cirugias);
             $("div").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
         }         
