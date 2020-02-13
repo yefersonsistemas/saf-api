@@ -48,7 +48,9 @@ class DoctorController extends Controller
         // dd( $empleado);
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         // dd($today->count());
+        // dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
+        // dd($all);
         $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
 
         $date = Carbon::now();
@@ -666,7 +668,7 @@ class DoctorController extends Controller
        
         if($itinerary != null){
             $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-          
+        //   dd($io);
             if (empty($io->outside_office) && (!empty($io->inside_office))) {
      
                 $io->outside_office = 'fuera';
@@ -756,15 +758,15 @@ class DoctorController extends Controller
                     return redirect()->route('doctor.index');
 
                 }else{
-                    Alert::error('No se pudo generar su diagnostico!');
+                    Alert::error('No se pudo generar su diagnostico 3!');
                     return redirect()->back();
                 }
             }else{
-                Alert::error('No se pudo generar su diagnostico!');
+                Alert::error('No se pudo generar su diagnostico 2!');
                 return redirect()->back();
             }
         }else{
-            Alert::error('No se pudo generar su diagnostico!');
+            Alert::error('No se pudo generar su diagnostico 1!');
             return redirect()->back();
         }
     }
@@ -1719,10 +1721,14 @@ class DoctorController extends Controller
         // dd($id);
         $person = User::find($id);
             // dd($person);
-        $employe = Employe::with('person')->where('person_id',$person->person_id)->first();
-    
-        $all = Surgery::with('patient.person','typesurgeries','area')->where('employe_id', $employe->id)->get();
+        $employe = Employe::with('person','patient.person.image','surgery' )->where('person_id',$person->person_id)->first();
+        // dd($employes);
+
+        $all = Surgery::with('patient.person.image','typesurgeries','area')->where('employe_id', $employe->id)->get();
         // dd($all); 
+
+        $reservations = Reservation::where('surgery', true)->where('person_id', $employe->id)->get();
+        dd( $reservations);
         return view('dashboard.doctor.lista_cirugias', compact('all'));
     }
 }

@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-            <form id="wizard_horizontal" method="POST" action="{{route('surgerys.store')}}" class="card pl-4 pr-4" novalidate="">
+            <form id="wizard_horizontal" method="POST" action="{{route('surgery.hospitalaria_store')}}" class="card pl-4 pr-4">
                     @csrf
                     <h2>Buscar Paciente</h2>
                     <section>
@@ -454,24 +454,6 @@ var form = $('#wizard_horizontal').show();
                 type: 'success',
                 allowOutsideClick:false,
             });
-            // $('#picker').val("");   
-            //         $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
-                    
-            //     //  $(".inline-datepicker").val("");
-            //         $('.inline-datepicker').datepicker({
-            //             todayHighlight: true,
-            //             language: 'es',
-            //             startDate: data.start,
-            //             endDate: data.end,
-            //             daysOfWeekHighlighted: [0,6],
-            //             datesDisabled: data.diff,
-            //         });
-            //         $('#fechas').val();
-            //         $('.inline-datepicker').on('changeDate', function() {
-            //             $('#picker').val(
-            //                 $('.inline-datepicker').datepicker('getFormattedDate')
-            //             );
-            //     });
         });
     }
 
@@ -491,11 +473,17 @@ var form = $('#wizard_horizontal').show();
 
 </script>
 <script>
-    $(".inline-datepicker").datepicker();
+    $(".inline-datepicker").datepicker({
+        todayHighlight: true,
+        language: 'es',
+        daysOfWeekHighlighted: [0,6],
+        // daysOfWeekDisabled: [0,6];
+    });
     $('.inline-datepicker').on('changeDate', function() {
         $('#picker').val(
             $('.inline-datepicker').datepicker('getFormattedDate')
         );
-    });    
+    });
+        
 </script>
 @endsection

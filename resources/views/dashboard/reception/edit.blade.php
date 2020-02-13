@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('cites','active')
-@section('all','active')
+{{-- @section('all','active') --}}
 @section('inrol','d-block')
 @section('dire','d-none')
 
@@ -21,7 +21,7 @@
                         @csrf
                         @method('PUT')
                         <div class="card-body">
-                            <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3>
+                            {{-- <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3> --}}
                             <div style="margin-bottom:12px">
                                 <a class="btn btn-verdePastel" id="EditPatient" href="#">Editar datos paciente <i class="fa fa-vcard"></i></a>
                             </div>
@@ -69,7 +69,7 @@
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Teléfono</label>
-                                        <input type="text" disabled id="phone" name="phone" class="form-control" value="{{ $reservation->patient->phone }}">
+                                        <input type="text" disabled id="phone" name="phone" class="form-control"  onkeypress="return num(event)" value="{{ $reservation->patient->phone }}">
                                         {{-- <input type="hidden" name="phone" value="{{ $reservation->patient->phone }}"> --}}
                                     </div>
                                 </div>
@@ -101,9 +101,20 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group" id="newDoctor">
                                         <label class="form-label">Médico</label>
-                                        <input type="hidden" id="editar" value="{{ $employe->id }}">
                                         <input type="hidden" name="person_id" value="{{ $employe->id  }}">
-                                        <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }} {{ $reservation->person->lastname }}" disabled id="doctor">
+                                        <select class="form-control custom-select" name="person_id" id="doctor" disabled>
+                                             <option value="{{ $employe->id  }}">{{ $reservation->person->name }} {{ $reservation->person->lastname }}</option> 
+                                             @if($medicos != null)
+                                            @foreach ($medicos as $item)
+                                                <option value="{{ $item->id }}">{{ $item->person->name }} {{ $item->person->lastname }}</option> 
+                                            @endforeach                     
+                                            @endif                      
+                                        </select>
+
+                                        {{-- <label class="form-label">Médico</label> --}}
+                                        <input type="hidden" id="editar" value="{{ $employe->id }}">
+                                        
+                                        {{-- <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }} {{ $reservation->person->lastname }}" disabled id="doctor"> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -142,16 +153,20 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
 <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
 
     <script>
 
         $( document ).ready(function() {
-         var doctor = $('#editar').val();
+         var doctor = $('#editar').val();       
         //  var fecha = $('#fechanueva').val();
 
          console.log('este es', doctor);
+ 
          ajaxMedico(doctor); 
         });
 
@@ -171,6 +186,7 @@
             $('#speciality').removeAttr('disabled');
             $('#doctor').removeAttr('disabled');
             $('#date').removeAttr('disabled');
+         
         });
 
         // buscando medicos mediante la especialidad
@@ -270,6 +286,20 @@
         });
 
     </script>
+
+
+<script type="text/javascript"> function num(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) 
+    return true;
+    else 
+    if (tecla==0||tecla==9)  
+    return true;
+    patron =/[0-9\s]/;// -> solo numeros
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+</script>
 @endsection
 
 {{-- + data[i].employe[j].id + --}}

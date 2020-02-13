@@ -209,7 +209,6 @@ button[data-original-title="Help"]{ display: none; }
                                                         <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
                                                         <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
                                                         <input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
-
                                                         <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
                                                         <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
                                                     </div>
@@ -232,62 +231,81 @@ button[data-original-title="Help"]{ display: none; }
                                         <div id="accordion">
                                             <!-------------------agregar enfermedad-------------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white ">Enfermedades</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white " style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="collapse card-body list-group " id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
-                                                    <div id="mostrar_enfermedad">
-                                                        @foreach ($history->patient->historyPatient->disease as $disease )
-                                                        <div class="row" id="{{$disease->id}}">
-                                                            <div class="col-9">
-                                                                <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
-                                                            </div> 
-                                                            <div class="col-3">
-                                                                <input id="enfermedad_id" name="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                    value="Eliminar">
-                                                            </div>
-                                                        </div>                                                           
-                                                    @endforeach    
+                                                    <div class="card-body py-1">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-vcenter table-striped"
+                                                            cellspacing="0" id="addrowExample">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Nombre</th>
+                                                                        <th class="text-center">Accion</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="mostrar_enfermedad">
+                                                                    @foreach ($history->patient->historyPatient->disease as $disease )
+                                                                        <tr id="{{$disease->id}}">
+                                                                            <td>
+                                                                                <i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}
+                                                                            </td>
+                                                                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                                        </tr>
+                                                                    @endforeach   
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                        <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <button class="btn btn-info mx-2" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-                                                            <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
-                                                        </div>                                                      
-                                                    </div>
+                                                    <div class="col-12 d-flex justify-content-end mt-4">
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
+                                                    </div>                                                      
+                                                </div>
                                             </div>
                                             <!----------------agregar alergias----------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Alergias</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>    
                                                 </div>
                                                 <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                    <div id="mostrar_alergias">
-                                                        <h6 class="text-center col-12 mt-2 p-2" style="font-weight:bold">Alergias Seleccionadas</h6>
-                                                        @foreach ( $history->patient->historyPatient->allergy as $allergy )
-                                                            <div class="row" id="{{$allergy->id}}">
-                                                                <div class="col-9">
-                                                                    <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
-                                                                </div> 
-                                                                <div class="col-3">
-                                                                    <input id="alergia_id" name="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                        value="Eliminar">
-                                                                </div>
-                                                            </div>     
-                                                        @endforeach
+                                                    <div class="card-body py-1">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-vcenter table-striped"
+                                                            cellspacing="0" id="addrowExample">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Nombre</th>
+                                                                        <th class="text-center">Accion</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="mostrar_alergias">
+                                                                    @foreach ( $history->patient->historyPatient->allergy as $allergy )
+                                                                        <tr id="{{$allergy->id}}">
+                                                                            <td>
+                                                                                <i class="fa fa-check mr-3 text-verdePastel"></i>{{$allergy->name}}
+                                                                            </td>
+                                                                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                                        </tr>
+                                                                    @endforeach   
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info mx-2" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
@@ -297,13 +315,13 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <!--------------------agregar cirugias------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Cirugias Previas</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -314,9 +332,9 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="col-9" id="cirugia{{$cite->id}}">
                                                                 <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
                                                             </div> 
-                                                            <div class="col-3" id="cirugia{{$cite->id}}">
-                                                                <input id="borrar_cirugia" name="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
-                                                                    value="Eliminar">
+                                                            <div class="text-center">
+                                                                <a style="cursor:pointer" id="borrar_cirugia" name="cirugia{{$cite->id}}" class="text-dark btn"><i class="icon-trash"></i>
+                                                                </a>
                                                             </div>
                                                         </div> 
                                                         @endif 
@@ -593,7 +611,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="container">
                                                                 <div class="row mx-auto">
                                                                      <div class="col-12 justify-content-center text-center">
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
+                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima">
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
                                                                             Notificar proxima cita  
                                                                             
@@ -672,7 +690,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww " role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3 " role="document">
             <div class="modal-content row " style="width: 150%;">
                 <div class="modal-header p-2 text-center " style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center " id="exampleModalLabel">Enfermedades</h5>
@@ -717,7 +735,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2 ">                        
-                        <a class="btn btn-azuloscuro rowww text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
+                        <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -726,7 +744,7 @@ button[data-original-title="Help"]{ display: none; }
 
       <!-------- modal Registrar Enfermedad ------------>
     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog rowwww" role="document">
+        <div class="modal-dialog row4" role="document">
             <div class="modal-content  ">
                 <div class="modal-header p-2"  style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Enfermedad</h5>
@@ -757,7 +775,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar alergias-->
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
@@ -793,7 +811,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog rowwww" role="document">
+        <div class="modal-dialog row4" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                         <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Alergia</h5>
@@ -824,7 +842,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -851,7 +869,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg rowwwww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg row5" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos sdsdsdsRealizados</h5>
@@ -890,7 +908,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los examenes --}}
     <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
@@ -922,7 +940,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los posible cirugia --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -998,8 +1016,7 @@ button[data-original-title="Help"]{ display: none; }
                 </form>
             </div>
         </div>
-    </div>
-    
+    </div>    
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1352,8 +1369,15 @@ button[data-original-title="Help"]{ display: none; }
    //=================  mostrando enfermedades ===================
    function mostrarEnfermedad(data){
         for($i=0; $i < data.length; $i++){
-            enfermedad = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input id="enfermedad_id" name="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+            enfermedad = `<tr id="${data[$i].id}">
+                            <td>
+                                <i class="fa fa-check mr-3 text-verdePastel"></i>${data[$i].name}
+                            </td>
+                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="${data[$i].id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                        </tr>`;
+
             $("#mostrar_enfermedad").append(enfermedad);
+
             $("label").remove("#quitar"+data[$i].id); //quitar del modal
         }
     }
@@ -1363,7 +1387,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#enfermedad_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id);   
+            $("tr").remove("#"+id);   
           
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
@@ -1436,7 +1460,13 @@ button[data-original-title="Help"]{ display: none; }
 
     //====================mostrar enfermedad creada================
     function agregar_diseases(data){
-       enfermedad = '<div class="row" id="'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data.name+'</a></div><div class="col-3"><input id="enfermedad_id" name="'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+        enfermedad = `<tr id="${data.id}">
+                        <td>
+                            <i class="fa fa-check mr-3 text-verdePastel"></i>${data.name}
+                        </td>
+                        <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="${data.id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                    </tr>`;
+
        $("#mostrar_enfermedad").append(enfermedad);
     }
 
@@ -1489,7 +1519,12 @@ button[data-original-title="Help"]{ display: none; }
    //====================  mostrando alergias =============
    function mostrarAlergias(data){
         for($i=0; $i < data.length; $i++){
-           alergia = '<div class="row" id="'+data[$i].id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data[$i].name+'</a></div><div class="col-3"><input id="alergia_id" name="'+data[$i].id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+        alergia = `<tr id="${data[$i].id}">
+                            <td>
+                                <i class="fa fa-check mr-3 text-verdePastel"></i>${data[$i].name}
+                            </td>
+                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="${data[$i].id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                        </tr>`;
             $("#mostrar_alergias").append(alergia);
             $("div").remove("#quitarAlergia"+data[$i].id); //quitar del modal alergia
         }
@@ -1500,7 +1535,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#alergia_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id);    //quitar de la lista de alergias
+            $("tr").remove("#"+id);    //quitar de la lista de alergias
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
@@ -1569,10 +1604,15 @@ button[data-original-title="Help"]{ display: none; }
 
     //=================mostrar alergia creada ===================
     function agregar_allergies(data){
-        alergia = '<div class="row" id="'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" ><i class="fa fa-check mr-3 text-verdePastel"></i>'+data.name+'</a></div><div class="col-3"><input id="alergia_id" name="'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
-            $("#mostrar_alergias").append(alergia);
-    }
+        alergia = `<tr id="${data.id}">
+                            <td>
+                                <i class="fa fa-check mr-3 text-verdePastel"></i>${data.name}
+                            </td>
+                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="${data.id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                        </tr>`;
 
+         $("#mostrar_alergias").append(alergia);
+    }
 
 
     //------------------------------------------- CIRUGIAS PREVIAS--------------------------------------------
@@ -1604,7 +1644,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-                mostrarCirugia(data[1]);
+                mostrarCirugia(data);
             }
 
             if (data[0] == 202) {                       //si no trae valores
@@ -1623,7 +1663,17 @@ button[data-original-title="Help"]{ display: none; }
 
    // ================== mostrando cirugias ==================
    function mostrarCirugia(data){
-        cirugia = '<div class="row" id="cirugia'+data.id+'"><div class="col-9"><a class="list-group-item list-group-item-action row" >'+data.previous_surgery+'</a></div><div class="col-3"><input id="borrar_cirugia" na,e="cirugia'+data.id+'" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"value="Eliminar"></div></div>',
+        cirugia = `<div class="row" id="cirugia${data[1].id}">
+                        <div class="col-9" id="cirugia${data[1].id}">
+                            <a class="list-group-item list-group-item-action row">${data[1].previous_surgery}</a>
+                        </div>
+                        <div class="text-center">
+                            <a style="cursor:pointer" id="borrar_cirugia" name="${data[1].id}" class="text-dark btn">
+                                <i class="icon-trash"></i>
+                            </a>
+                        </div>
+                    </div>`;
+
         $("#agregar_cirugia").html(cirugia); 
     }
 

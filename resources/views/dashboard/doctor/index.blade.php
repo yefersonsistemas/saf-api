@@ -62,16 +62,16 @@
             <div class="col-md-12 mt-3 doctor-tabs">
                 <ul class="nav nav-pills mb-3 d-flex justify-content-around" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  active btn btn-outline-primary m-auto" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-today" aria-selected="true">Hoy</a>
+                        <a class="nav-link btn-block pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  active btn btn-outline-primary m-auto" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-today" aria-selected="true">Hoy</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  btn btn-outline-success" id="pills-week-tab" data-toggle="pill" href="#pills-week" role="tab" aria-controls="pills-week" aria-selected="false">Semana</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  btn btn-outline-success" id="pills-week-tab" data-toggle="pill" href="#pills-week" role="tab" aria-controls="pills-week" aria-selected="false">Semana</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  btn btn-outline-danger" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="false">Mes</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  btn btn-outline-danger" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="false">Mes</a>
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link btn-block  p-2 d-flex justify-content-center  btn btn-outline-warning" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="false">Todas</a>
+                        <a class="nav-link btn-block  pt-0 pb-0 pr-3 pl-3 d-flex justify-content-center  btn btn-outline-warning" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="false">Todas</a>
                     </li>
                 </ul>
             </div>
@@ -133,11 +133,11 @@
 
                                         <tr>
                                             <td scope="row">{{ $loop->iteration}}</td>
-                                            <td style="height:40px;">
+                                            <td style="text-align: center; font-size:10px; height:40px;">
                                                 @if (!empty($reservation->patient->image->path))
-                                                    <img class="img-thumbnail" whidth="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+                                                    <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                                 @else
-                                                    <img src="" alt="" whidth="100%" height="100%">
+                                                    <img src="" alt="" width="100%" height="100%">
                                                 @endif
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
@@ -226,6 +226,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -237,6 +238,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -255,6 +257,7 @@
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
+                                            <td>{{ $reservation->date }}</td>
                                             <td> {{ $reservation->description }}</td>
 
                                             @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
@@ -317,6 +320,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -328,6 +332,7 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
                                         <th>Historia</th>
                                     </tr>
@@ -346,6 +351,7 @@
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
                                             <td>{{ $reservation->patient->lastname }}</td>
+                                            <td>{{ $reservation->date }}</td>
                                             <td> {{ $reservation->description }}</td>
                                             @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
                                             <td> 
@@ -408,8 +414,9 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>Historia</th>
                                     </tr>
                                 </thead>
@@ -420,8 +427,9 @@
                                         <th>DNI</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Fecha</th>
                                         <th>Motivo</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>Historia</th>
                                     </tr>
                                 </tfoot>
@@ -440,6 +448,7 @@
                                         <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
                                         <td>{{ $reservation->patient->name }}</td>
                                         <td>{{ $reservation->patient->lastname }}</td>
+                                        <td>{{ $reservation->date }}</td>
                                         <td> {{ $reservation->description }}</td>
                                         {{-- @if($reservation->inputoutput->isEmpty()) <!--esta en espera-->
                                         <td><span class="status-icon" style=" padding:5px; animation: pulse 2s infinite; background:#000;"></span><i class="fa fa-clock-o"></i>No ha llegado a las instalaciones</td>
@@ -467,7 +476,7 @@
                                         <td></td>
                                         @endif --}}
 
-                                        @if($reservation->patient->inputoutput->isEmpty())<!--esta en espera-->
+                                        {{-- @if($reservation->patient->inputoutput->isEmpty())<!--esta en espera-->
                                         <td><span class="status-icon" style=" padding:5px; animation: pulse 2s infinite;  background:#000;"></span><i class="fa fa-clock-o"></i>No ha llegado a las instalaciones</td>
                                         @endif
                                         
@@ -488,7 +497,7 @@
     
                                         @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))<!--fuera de las instalaciones-->
                                         <td><span class="status-icon" style= " padding:5px; animation: pulse 2s infinite; background:#ccc;"></span><i class="fa fa-hospital-o"></i> Fuera de las instalaciones</td>
-                                        @endif
+                                        @endif --}}
 
                                         @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
                                         <td> 

@@ -30,7 +30,7 @@
                                 <img src="{{ asset('assets\images\cirugia.jfif') }}" class="card-img-top img-thumbnail" width="">
                             </div>
                             <div class="col-md-12  col-lg-9 col-sm-12 text-justify">
-                                <p class="card-title m-0"><strong>Descripción: </strong>{{ $cirugias->description }}</p><br>
+                                <p class="card-text m-0"><strong>DESCRIPCIÓN: </strong>{{ $cirugias->description }}</p><br>
                                 <p class="card-title m-0"><strong>Duracion: </strong> {{ $cirugias->duration }} Horas</p><br>
                                 <p class="card-title m-0"><strong>Costo: </strong> {{ number_format($cirugias->cost,2) }} $</p>
                             </div>

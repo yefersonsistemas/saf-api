@@ -64,7 +64,7 @@
                                     <li class="@yield('medicos')">
                                         <a href="{{ route('checkin.doctor_todos') }}"><i class="fa fa-users"></i> &nbsp;&nbsp;Todos los médicos</a>
                                     </li>
-                                    <li>
+                                    <li class="@yield('all')">
                                         <a href="{{ route('checkin.consultorio') }}">Asistencia</a>
                                     </li>
                             </li>

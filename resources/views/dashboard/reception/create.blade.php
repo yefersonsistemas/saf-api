@@ -102,7 +102,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
                                                     <input type="number" disabled id="phone" name="phone"
-                                                        class="form-control" placeholder="Teléfono">
+                                                        class="form-control" onkeypress="return num(event)" placeholder="Teléfono">
                                                 </div>
                                             </div>
                                         </div>
@@ -224,6 +224,9 @@
 
 @endsection
 @section('scripts')
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
@@ -355,7 +358,9 @@
             if(type_dni == '' || dni ==  '' || dni.length < 7){
                 Swal.fire({
                     title: 'Datos incompletos.!',
-                    text: 'Por favor introduzca el documento de identidad completo.',
+                    type:'info',
+                    // text: 'Por favor introduzca el documento de identidad completo.',
+                    text: 'Click en OK para continuar',
                     allowOutsideClick:false,
                 });
             }else{
@@ -380,7 +385,7 @@
                     Swal.fire({
                         title: 'Paciente no encontrado.!',
                         text: 'Por favor realice el registro.',
-                        // type: 'error',
+                        type: 'info',
                         allowOutsideClick:false,
                     })
                     enabled();
@@ -604,7 +609,17 @@
             })
         }
 </script>
-<script>
 
+<script type="text/javascript"> function num(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) 
+    return true;
+    else 
+    if (tecla==0||tecla==9)  
+    return true;
+    patron =/[0-9\s]/;// -> solo numeros
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
 </script>
 @endsection

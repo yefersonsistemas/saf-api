@@ -254,8 +254,8 @@ class CitaController extends Controller
                     'branch_id'         => 1,
                 ]);
                 $reservation->cancel = Carbon::now();
+                $reservation->reschedule = null;
                 Alert::success('Cita Cancelada exitosamente');
-
             }
 
             $reservation->status = $data['type'];
@@ -312,11 +312,23 @@ class CitaController extends Controller
         $reservation = Reservation::with('patient','person','speciality')->find($id);
         // dd($reservation);
         $employe = Employe::where('person_id',$reservation->person_id)->first();
+        $b_medicos = Speciality::with('employe.person')->where('id',$reservation->specialitie_id)->first();
+// dd($employe);
+
+        // $dife = $employe->diff($medicos->employe);
+        // dd($dife);
+        $medicos = null;
+        foreach($b_medicos->employe as $item){
+            if($item->id != $employe->id){
+                $medicos[] = $item;
+            }
+        }
+        // dd($medicos);
 
         if (!is_null($reservation)) {
             $specialities = Speciality::with('employe.person')->get();
             // dd($specialities);
-            return view('dashboard.reception.edit', compact('reservation','specialities','employe'));
+            return view('dashboard.reception.edit', compact('reservation','specialities','employe','medicos'));
         }else{
             Alert::error('Cita no encontrada!');
             return redirect()->back()->withErrors('Cita no encontrada');
@@ -326,6 +338,7 @@ class CitaController extends Controller
     //========================actualizar reservacion ==============
     public function update(Reservation $cite, Request $request)
     {
+        // dd($request);
         if (!is_null($cite)) {
             $cite->status = 'Pendiente';
             //cuando se han editado los datos del paciente
@@ -349,20 +362,26 @@ class CitaController extends Controller
             //si se cambio la especialidad y medico
             if ($request->speciality) {
                 $employe = Employe::find($request->person_id);
+                // dd($employe);
                 $cite->specialitie_id = $request->speciality;
                 $cite->person_id  = $employe->person_id;
                 $cite->save();
             }
 
             if ($request->fecha != null) {
-                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);          
+                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);    
                 $schedule = Schedule::where('employe_id', $request->person_id)->where('day', $dia)->first(); 
+                // dd($schedule);
                 $cite->date       = Carbon::create($request->fecha);
                 $cite->reschedule = Carbon::now();
                 $cite->schedule_id = $schedule->id;
             }
    
             $cite->discontinued = null; //para que se actualice el registro y no aparezca en lista suspendida si se reprograma
+            if($cite->cancel != null &&  $cite->reschedule != null){
+                $cite->reschedule = null;
+                $cite->save();
+            }
             $cite->save();
 
             //guardar razon del reprogramar

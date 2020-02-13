@@ -44,9 +44,10 @@ class OutController extends Controller
     public function index()
     {
         $procedures_id = array();
-        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
-        $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
+        $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery.classification', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         // dd($itinerary);
+     
+        $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
                 $procedures_id[] = explode(',', $iti->procedure_id); //decodificando los procedimientos en $encontrado
@@ -60,10 +61,50 @@ class OutController extends Controller
         }
 
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
-        // dd($confirmadas->first()->speciality);
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
 
-        return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera'));
+        $dentro_instalacion = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->inside) && empty($item->patient->inputoutput->first()->inside_office)) {
+                    $dentro_instalacion = true;
+                }
+            }
+        }
+
+        // dd($confirmadas);
+
+        $dentro_office = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->inside_office) && empty($item->patient->inputoutput->first()->outside_office)) {
+                    $dentro_office = true;
+                }
+            }
+        }
+
+        $fuera_office = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->outside_office)  && empty($item->patient->inputoutput->first()->outside) ) {
+                    $fuera_office = true;
+                }
+            }
+        }
+
+        $fuera_instalacion = false;
+        foreach ($espera as $item) {
+            if (!empty($item->patient->inputoutput)) {
+                if (!empty($item->patient->inputoutput->first()->outside)) {
+                    $fuera_instalacion = true;
+                }
+            }
+        }
+
+        $reservation = Reservation::get();
+        $surgery = Surgery::get();
+
+        return view('dashboard.checkout.citas-pacientes', compact('itinerary','confirmadas','espera','itineraryFuera','dentro_office','dentro_instalacion','fuera_instalacion','fuera_office', 'reservation', 'surgery'));
     }
 
     // public function buscador(Request $request)
@@ -144,7 +185,7 @@ class OutController extends Controller
 
 
     //============================ buscanco paciente ============================ (listo)
-    public function search_patient(Request $request){
+    public function search_patients(Request $request){
 
         if(!empty($request->dni)){
 
