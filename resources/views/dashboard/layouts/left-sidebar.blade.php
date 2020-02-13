@@ -93,6 +93,7 @@
                 @endrole
                     {{-- FIN DEL MODULO DE LOS DOCTORES --}}
 
+
                 <!-- Se agregó el @yield('outrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
 
                 @role('OUT')
@@ -100,6 +101,7 @@
                     @role('director')
                     <div class="checkOut animated fadeIn d-none @yield('outrol')">
                     @endrole
+
                     <li class="g_heading">Check-OUT</li>
                     <li  class="@yield('citas')"><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Citas del día</span></a></li>                                          
                     <li class="@yield('facturacion')"><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturación</span></a></li>
@@ -145,18 +147,6 @@
                     </li>
                 </div>
                 @endrole
-
-                @role('in-out')
-                <div class="">
-                    @role('in-out')
-                    <div class="checkOut animated fadeIn d-none @yield('inout')">
-                    @endrole
-                    <li class="g_heading">IN-OUT</li>
-                    <li  class="@yield('agendar')"><a href="{{ route('inout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a></li>                                          
-                    {{-- <li class="@yield('lista')"><a href="{{ route('enfermeria.lista_cirugia') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Lista de Cirugias</span></a></li>
-                    <li class="@yield('facturacion')"><a href="{{ route('enfermeria.facturacion') }}"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>                          --}}
-                    </div>
-                @endrole   
             </ul>
         </nav>
     </div>
