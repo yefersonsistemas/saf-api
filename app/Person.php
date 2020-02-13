@@ -27,6 +27,11 @@ class Person extends Model
         return $this->morphOne('App\Image', 'imageable');
     }
 
+    public function file()
+    {
+        return $this->morphOne('App\File', 'fileable');
+    }
+
     public function employe()
     {
         return $this->hasOne('App\Employe');

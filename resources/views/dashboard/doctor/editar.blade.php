@@ -294,13 +294,13 @@ button[data-original-title="Help"]{ display: none; }
                                             <div id="accordion">
                                                 <!---------------mostrar enfermedades----------------->
                                                 <div class="card border border-info rounded">
-                                                    <div class="card-header bg-azuloscuro" >
+                                                    <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                         <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                             <div class="col-8">
                                                                 <h5 class="card-title text-white">Enfermedades</h5>
                                                             </div>
                                                             <div class="col-4 d-flex justify-content-end">
-                                                                <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -336,13 +336,13 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                               <!---------------mostrar alergias----------------->
                                                 <div class="card border border-info rounded">
-                                                    <div class="card-header bg-azuloscuro" >
+                                                    <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                         <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                             <div class="col-8">
                                                                 <h5 class="card-title text-white">Alergias</h5>
                                                             </div>
                                                             <div class="col-4 d-flex justify-content-end">
-                                                                <p class="card-title text-white" style="font-size:12px; cursor: pointer; text-transform: capitalize;">VER MAS</p>
+                                                                <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -378,13 +378,13 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                                 <!--------------------agregar cirugias---------------------->
                                                 <div class="card border border-info rounded">
-                                                    <div class="card-header bg-azuloscuro" >
+                                                    <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                         <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                             <div class="col-8">
                                                                 <h5 class="card-title text-white">Cirugias Previas</h5>
                                                             </div>
                                                             <div class="col-4 d-flex justify-content-end">
-                                                                <p class="card-title text-white" style="font-size:12px;">VER MAS</p>
+                                                                <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -747,18 +747,28 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
                                                                                             @endif
                                                                                             <span class="custom-control-label">Médico Interno</span>
-                                                                                            <select class="form-control custom-select" name="doctor" id="medicoInterno">
                                                                                                 @if(!empty($itinerary->reference_id)) 
                                                                                                     @if(!empty($itinerary->reference->employe_id))
-                                                                                                        <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
-                                                                                                        @if($diff2 != null)
-                                                                                                            @foreach($diff2 as $spe)
-                                                                                                                <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
-                                                                                                            @endforeach
-                                                                                                        @endif   
+                                                                                                        <select class="form-control custom-select" name="doctor" id="medicoInterno">                                                                                               
+                                                                                                            
+                                                                                                            <option value="{{$itinerary->reference->employe->person->id}}">{{$itinerary->reference->employe->person->name}}</option>
+                                                                                                            @if($diff2 != null)
+                                                                                                                @foreach($diff2 as $spe)
+                                                                                                                    <option value="{{$spe->person->id}}">{{$spe->person->name}}</option>
+                                                                                                                @endforeach
+                                                                                                            @endif   
+                                                                                                                                                                                                        
+                                                                                                        </select>
+                                                                                                    @else
+                                                                                                    <select class="form-control custom-select" disabled name="doctor" id="medicoInterno">  
+                                                                                                    </select>
                                                                                                     @endif
                                                                                                 @endif
-                                                                                            </select>
+                                                                                                @if(empty($itinerary->reference_id)) 
+                                                                                                    <select class="form-control custom-select" disabled name="doctor" id="medicoInterno"> 
+
+                                                                                                    </select>
+                                                                                                @endif
                                                                                         </label>
                                                                                         <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                             @if(!empty($itinerary->reference->doctor))
@@ -768,7 +778,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                             @else
                                                                                             <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                                 <span class="custom-control-label">Médico Externo</span>
-                                                                                                <input type="text" id="medicoExterno" class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
+                                                                                                <input type="text" id="medicoExterno" disabled class="form-control"  required placeholder="Médico externo" name="doctor Externo" >
                                                                                             @endif
                                                                                         </label>
                                                                                     </div>

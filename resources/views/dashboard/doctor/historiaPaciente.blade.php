@@ -352,17 +352,25 @@ button[data-original-title="Help"]{ display: none; }
                                     </section>
                                     <h2>Estudios complementarios</h2>
                                     <section class="ml-4 pb-0 pt-4">
-                                        <div class="row">
-                                            @foreach ( $cite->person->reservationPatient as $cites )
-                                                <div class="col-md-4">
-                                                    <div class="card">
-                                                        <div class="card-header bg-azuloscuro">
+                                        <div class="row d-flex d-row justify-content-between">
+                                            @foreach ($file as $item)
+                                                @if (!empty($item))
+                                                    <div class="col-3 card mr-2 p-0">
+                                                        @foreach ( $cite->person->reservationPatient as $cites )
+                                                            <div class="card-header bg-azuloscuro m-0">
                                                             <h5 class="card-title text-white">{{$cites->date}}</h5>
-                                                        </div>
-                                                        <div class="card-body">
-                                                        </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <input type="hidden" value="{{ $item->path }}" id="ruta_img">
+                                                                <img src="{{ Storage::url($item->path) }}" alt="Snow" id="exam" class="img-thumbnail" style=" width:100px">
+                                                            </div>
+                                                        @endforeach
+                                                    </div>                                                           
+                                                @else
+                                                    <div class="card-header bg-azuloscuro ">
+                                                        <h4 class="card-title text-white">No tiene exámenes previos</h4>
                                                     </div>
-                                                </div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </section>
@@ -394,6 +402,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </tr>
                                                         </thead>
                                                         <tbody id="procesc">
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -577,14 +586,14 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                     <input type="radio" class="custom-control-input" name="tipoMedico" value="Interno" id="interno">
                                                                                     <span class="custom-control-label">Médico Interno</span>
-                                                                                    <select class="form-control custom-select" name="doctor" id="medicoInterno">
+                                                                                    <select class="form-control custom-select" disabled name="doctor" id="medicoInterno">
                                                                                         <option value="null">Médico Interno</option>
                                                                                     </select>
                                                                                 </label>
                                                                                 <label class="custom-control custom-radio custom-control-inline flex-column col-md-6 form-label ">
                                                                                     <input type="radio" class="custom-control-input" name="tipoMedico" value="Externo" id="externo">
                                                                                     <span class="custom-control-label">Médico Externo</span>
-                                                                                    <input type="text" id="medicoExterno" class="form-control" required placeholder="" name="doctorExterno" >
+                                                                                    <input type="text" id="medicoExterno" disabled class="form-control" required placeholder="" name="doctorExterno" >
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -611,10 +620,9 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="container">
                                                                 <div class="row mx-auto">
                                                                      <div class="col-12 justify-content-center text-center">
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima">
+                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
-                                                                            Notificar proxima cita  
-                                                                            
+                                                                            Notificar proxima cita                                                                            
                                                                         </button>
                                                                         <input type="hidden" id="proximaCita" name="proximaCita" value="0">
                                                                     </div>
@@ -687,6 +695,34 @@ button[data-original-title="Help"]{ display: none; }
         </div>
       </div>
    </div>
+
+    <!-- Modal para mostar examenes previos-->
+   {{-- <div id="examshow" class="modal">
+       
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img">
+    <div id="caption"></div>
+  </div> --}}
+
+  <div class="modal" tabindex="-1" role="dialog" id="examshow">
+    <div class="modal-dialog" role="document" id="contenido" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1077,6 +1113,7 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
+
 <script>
     $('#selectexam').multiselect({
         enableFiltering: true,
@@ -1131,6 +1168,33 @@ button[data-original-title="Help"]{ display: none; }
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
+
+    $('#exam').click(function(){
+        var modalImg = $('#ruta_img').val();
+             console.log('prueba',modalImg)
+             concatenar = 'Storage\\';
+            //  hola= urldecode(modalImg);
+             var hola = decodeURIComponent(modalImg);
+             console.log('decodificar',hola)
+            //  url = concatenar+modalImg;
+            //  console.log('url', url);
+              
+            //    console.log('id',modalImg)
+            // modalImg.src = this.src;
+            // console.log('imagewn', modalImg.src)
+
+            // var modal = $("examshow").val();
+            // var img = $("#exam").val(); //id de la etiqueta <img>
+            // var modalImg = $("img").val();  //id del modal-content
+            // var captionText = $("caption").val();
+
+            // modal.style.display = "block";
+            
+            // captionText.innerHTML = this.alt;
+
+            $('#contenido').html('<img src="'+url+'" alt="Snow" class="img-thumbnail" style=" width:100px">');
+            $('#examshow').modal('toggle');
+         });
 
     //--------------------------------------------------RECIPE -------------------------------------
 

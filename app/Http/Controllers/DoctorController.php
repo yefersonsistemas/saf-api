@@ -28,6 +28,7 @@ use App\ReportMedico;
 use App\InputOutput;
 use App\Allergy;
 use App\User;
+use App\File;
 // use App\Redirect;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -45,16 +46,15 @@ class DoctorController extends Controller
         $id= Auth::id();
         // dd($id);
         $empleado = Employe::with('person')->where('id', $id)->first();
-        // dd( $empleado);
+    
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-        // dd($today->count());
-        // dd($today);
-        $all = Reservation::with('patient.historyPatient')->where('person_id',$id)->get();
-        // dd($all);
-        $month = Reservation::with('patient.historyPatient')->where('person_id',$id )->whereMonth('date', '=', Carbon::now()->month)->get();
+    
+        $all = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->get();
+ 
+        $month = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id  )->whereMonth('date', '=', Carbon::now()->month)->get();
 
         $date = Carbon::now();
-        $week = Reservation::with('patient.historyPatient')->where('person_id',$id)->whereBetween('date', [$date->startOfWeek()->format('Y-m-d'), $date->endOfWeek()->format('Y-m-d')])->get();
+        $week = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereBetween('date', [$date->startOfWeek()->format('Y-m-d'), $date->endOfWeek()->format('Y-m-d')])->get();
         
         $fecha= Carbon::now()->format('Y/m/d h:m:s'); //la h en minuscula muestra hora normal, y en mayuscula hora militar
 
@@ -172,8 +172,15 @@ class DoctorController extends Controller
         $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first(); 
      
         // dd($procesm->procedures);
-        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+        $cite = Patient::with('person.reservationPatient.speciality', 'person.file', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
+
+            // dd($cite->person->reservationPatient);
+
+        $persona = Person::where('id', $cite->person_id)->first();
+        // dd($person);
+        $file = File::where('fileable_id', $persona->id)->get();
+        // dd($file);
 
         $exams = Exam::all();
 
@@ -201,7 +208,7 @@ class DoctorController extends Controller
             }
         }
 
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron', 'file'));
     }
 
     /**
@@ -216,13 +223,15 @@ class DoctorController extends Controller
     {
         $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
         ->where('id',$id)->first();
+        // dd($reservation->person);
      
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
         ->where('person_id', $reservation->patient_id)->first();
    
         $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
-    
-        $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $reservation->person_id)->first();
+        $employe = Employe::where('person_id', $reservation->person_id)->first();
+
+        $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $employe->id)->first();
 
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
 
@@ -260,17 +269,14 @@ class DoctorController extends Controller
 
             //mostrar empleados en el editar rederir medico para que no se repitan los datos
             $empleados = Speciality::with('employe.person')->where('id', $buscar->id)->first();
-            // dd($empleados);
+
             foreach($empleados->employe as $item){
                 $data2[] = $item->id;  //medicos relacionados a la especialidad
             }
-        //  dd($data2);
+
             if($itinerary->reference->employe_id != null){ 
                     $buscarE_id[] =  $itinerary->reference->employe->id;
-                    // dd($buscarE_id);
-                    // dd($data2);
                     $diff_EM = array_diff($data2, $buscarE_id); //diferencia de medicos
-                    // dd($diff_EM);
                     if($diff_EM != []){
                         foreach($diff_EM as $di) { 
                             $diff2[] = Employe::with('person')->where('id',$di)->first(); 
@@ -289,8 +295,6 @@ class DoctorController extends Controller
             $diff_R = $data;
         }
 
-        // dd($diff2);
-
         //buscar datos de las especialidades
         if($diff_R != [] ){
             foreach($diff_R as $di) { 
@@ -301,7 +305,6 @@ class DoctorController extends Controller
         }
 
         $diff = $diff22; 
-        //  dd($diff);
 
          //decodificando y buscando datos de procedures realizados
             if (!empty($itinerary->procedure_id)) {
@@ -337,7 +340,6 @@ class DoctorController extends Controller
             }else{
                 $diff_PR = $procesm->procedures;
             }
-
         // buscando diferencia de examenes 
             if ($itinerary->exam_id != null) {
                 $diff_E = $examenes->diff($exams);
@@ -351,7 +353,7 @@ class DoctorController extends Controller
             }else{
                 $diff_P = $procesm->procedures;
             }
-         
+ 
         // buscando posibles cirugias
             $surgery = array($itinerary->typesurgery);
             if(!empty($itinerary->typesurgery)){
@@ -363,7 +365,6 @@ class DoctorController extends Controller
             foreach($diff_CC as $item){
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
-            // dd($diff);
 
         return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia'));
     }
@@ -385,7 +386,7 @@ class DoctorController extends Controller
             $reservation = Reservation::where('id',$id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->first();
 
         //buscando reservacion en itinerary
-            $itinerary = Itinerary::find($reservation->id);
+            $itinerary = Itinerary::where('reservation_id',$reservation->id)->first();
 
         //buscando el id del paciente para buscar diagnostico
             $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
@@ -1728,7 +1729,7 @@ class DoctorController extends Controller
         // dd($all); 
 
         $reservations = Reservation::where('surgery', true)->where('person_id', $employe->id)->get();
-        dd( $reservations);
+        // dd( $reservations);
         return view('dashboard.doctor.lista_cirugias', compact('all'));
     }
 }

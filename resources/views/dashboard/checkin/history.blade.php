@@ -501,7 +501,7 @@
             @if($mostrar == 1)
                 <div>
                     <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
-                    <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px" disabled> Guardar</button>
+                    <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px" > Guardar</button>
                 </div>
             @else
                 <div>
@@ -1395,7 +1395,7 @@ Dropzone.options.myDropzone = {
                 $('#previous_surgery').removeAttr('disabled');
                 $('#social_network').removeAttr('disabled');
                 $('#about_us').removeAttr('disabled');
-                $('#submit-all').removeAttr('disabled');
+                // $('#submit-all').removeAttr('disabled');
             });
         </script>
 

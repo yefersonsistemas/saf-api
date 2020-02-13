@@ -276,10 +276,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
 
-            //======================= rutas para vergel/enfermeria ====================
+    });
 
-            
+        Route::group(['middleware' => ['role:in-out']], function(){
+
+           
+        Route::get('home', 'NursingController@index')->name('inout.index');
+
 
 
     });
+
 });

@@ -146,19 +146,18 @@
                 </div>
                 @endrole
 
-
-                {{-- @role('Enfermeria')
+                @role('in-out')
                 <div class="">
-                    @role('enfermeria')
-                    <div class="checkOut animated fadeIn d-none @yield('nurse')">
+                    @role('in-out')
+                    <div class="checkOut animated fadeIn d-none @yield('inout')">
                     @endrole
-                    <li class="g_heading">Enfermeria</li>
-                    <li  class="@yield('agendar')"><a href="{{ route('enfermeria.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a></li>                                          
-                    <li class="@yield('lista')"><a href="{{ route('enfermeria.lista_cirugia') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Lista de Cirugias</span></a></li>
-                    <li class="@yield('facturacion')"><a href="{{ route('enfermeria.facturacion') }}"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>                         
+                    <li class="g_heading">IN-OUT</li>
+                    <li  class="@yield('agendar')"><a href="{{ route('inout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a></li>                                          
+                    {{-- <li class="@yield('lista')"><a href="{{ route('enfermeria.lista_cirugia') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Lista de Cirugias</span></a></li>
+                    <li class="@yield('facturacion')"><a href="{{ route('enfermeria.facturacion') }}"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>                          --}}
                     </div>
                 @endrole   
-            </ul> --}}
+            </ul>
         </nav>
     </div>
 </div>
