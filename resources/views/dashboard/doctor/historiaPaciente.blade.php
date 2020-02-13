@@ -354,25 +354,25 @@ button[data-original-title="Help"]{ display: none; }
                                     <section class="ml-4 pb-0 pt-4">
                                         <div class="row d-flex d-row justify-content-between">
                                             @foreach ($file as $item)
-                                            @if (!empty($item))
-                                            <div class="col-3 card mr-2 p-0">
-                                                @foreach ( $cite->person->reservationPatient as $cites )
-                                                <div class="card-header bg-azuloscuro m-0">
+                                                @if (!empty($item))
+                                                    <div class="col-3 card mr-2 p-0">
+                                                        @foreach ( $cite->person->reservationPatient as $cites )
+                                                            <div class="card-header bg-azuloscuro m-0">
                                                             <h5 class="card-title text-white">{{$cites->date}}</h5>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <input type="hidden" value="{{ $item->path }}" id="ruta_img">
-                                                            <img src="{{ Storage::url($item->path) }}" alt="Snow" id="exam" class="img-thumbnail" style=" width:100px">
-                                                        </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <input type="hidden" value="{{ $item->path }}" id="ruta_img">
+                                                                <img src="{{ Storage::url($item->path) }}" alt="Snow" id="exam" class="img-thumbnail" style=" width:100px">
+                                                            </div>
+                                                        @endforeach
                                                     </div>                                                           
-                                                    @endforeach
-                                                    @else
-                                                    <div class="card-header bg-azuloscuro">
-                                                        <h4 class="card-title text-black">No tiene exámenes previos</h4>
+                                                @else
+                                                    <div class="card-header bg-azuloscuro ">
+                                                        <h4 class="card-title text-white">No tiene exámenes previos</h4>
                                                     </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
                                     </section>
                                     <h2>Diagnostico</h2>
                                     <section class="ml-4 pb-0 pt-4">
