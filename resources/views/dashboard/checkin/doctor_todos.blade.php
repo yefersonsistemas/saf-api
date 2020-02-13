@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="section-body py-3">
-        <div class="container-fluid">
+        <div class="container-fluid p-0 m-0">
             <div class=" p-4">
                 <div class="col-lg-12 mt--15">
                     <div class="table-responsive mb-4">

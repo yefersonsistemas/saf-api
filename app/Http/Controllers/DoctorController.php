@@ -1721,10 +1721,14 @@ class DoctorController extends Controller
         // dd($id);
         $person = User::find($id);
             // dd($person);
-        $employe = Employe::with('person')->where('person_id',$person->person_id)->first();
-    
-        $all = Surgery::with('patient.person','typesurgeries','area')->where('employe_id', $employe->id)->get();
+        $employe = Employe::with('person','patient.person.image','surgery' )->where('person_id',$person->person_id)->first();
+        // dd($employes);
+
+        $all = Surgery::with('patient.person.image','typesurgeries','area')->where('employe_id', $employe->id)->get();
         // dd($all); 
+
+        $reservations = Reservation::where('surgery', true)->where('person_id', $employe->id)->get();
+        dd( $reservations);
         return view('dashboard.doctor.lista_cirugias', compact('all'));
     }
 }

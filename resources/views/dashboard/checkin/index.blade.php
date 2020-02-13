@@ -113,7 +113,7 @@
             </div>
 
             {{-- lista de todas --}}
-            <div class="tab-content container-fluid" id="pills-tabContent">
+            <div class="tab-content container-fluid p-0 m-0" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="col-lg-12 col-md-12 mt-10">
                         <div class="table-responsive mb-4">
@@ -754,6 +754,7 @@
 @endsection
 
 @section('scripts')
+
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>

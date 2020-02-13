@@ -14,7 +14,7 @@ class SurgeriesTableSeeder extends Seeder
     public function run()
     {
         Surgery::truncate();
-        factory(Surgery::class, 20)->create();
+        // factory(Surgery::class, 20)->create();
 
         // factory(Surgery::class, 20)->create()->each(function ($surgery) { 
         //     $procedure = Procedure::with('employe')->get();  

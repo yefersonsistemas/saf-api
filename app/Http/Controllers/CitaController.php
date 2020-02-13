@@ -254,6 +254,7 @@ class CitaController extends Controller
                     'branch_id'         => 1,
                 ]);
                 $reservation->cancel = Carbon::now();
+                $reservation->reschedule = null;
                 Alert::success('Cita Cancelada exitosamente');
             }
 
@@ -377,6 +378,10 @@ class CitaController extends Controller
             }
    
             $cite->discontinued = null; //para que se actualice el registro y no aparezca en lista suspendida si se reprograma
+            if($cite->cancel != null &&  $cite->reschedule != null){
+                $cite->reschedule = null;
+                $cite->save();
+            }
             $cite->save();
 
             //guardar razon del reprogramar

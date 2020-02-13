@@ -29,6 +29,7 @@
                             <input type="hidden" name="type_surgery_id" id="type_surgery_id" value="{{$paciente->typesurgery->id}}">
                             <input type="hidden" name="patient_id" id="patient_id" value="{{$paciente->person->id}}">
                             <input type="hidden" name="reservation_id" value="{{$paciente->reservation_id }}">
+                            <input type="hidden" name="itinerary_id" id="itinerary_id" value="{{$itinerary->id}}">
                             <div class="row justify-content-between">
                             @foreach ($medico->employe_surgery as $employe)
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">

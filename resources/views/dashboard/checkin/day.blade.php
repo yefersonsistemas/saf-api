@@ -10,9 +10,10 @@
     
 @endsection
 
-@section('title')
-     {{-- Citas para hoy: {{ $citasDelDia }} | Atendidos Hoy: {{ $atendidos }} --}}
-@endsection
+{{-- @section('title')
+     Citas para hoy: {{ $citasDelDia }} | Atendidos Hoy: {{ $atendidos }}     
+@endsection --}}
+@section('title','Citas del día')
 
 @section('content')
 

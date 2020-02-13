@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('cites','active')
-@section('all','active')
+{{-- @section('all','active') --}}
 @section('inrol','d-block')
 @section('dire','d-none')
 
@@ -21,7 +21,7 @@
                         @csrf
                         @method('PUT')
                         <div class="card-body">
-                            <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3>
+                            {{-- <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3> --}}
                             <div style="margin-bottom:12px">
                                 <a class="btn btn-verdePastel" id="EditPatient" href="#">Editar datos paciente <i class="fa fa-vcard"></i></a>
                             </div>
@@ -69,7 +69,7 @@
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Teléfono</label>
-                                        <input type="text" disabled id="phone" name="phone" class="form-control" value="{{ $reservation->patient->phone }}">
+                                        <input type="text" disabled id="phone" name="phone" class="form-control"  onkeypress="return num(event)" value="{{ $reservation->patient->phone }}">
                                         {{-- <input type="hidden" name="phone" value="{{ $reservation->patient->phone }}"> --}}
                                     </div>
                                 </div>
@@ -286,6 +286,20 @@
         });
 
     </script>
+
+
+<script type="text/javascript"> function num(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) 
+    return true;
+    else 
+    if (tecla==0||tecla==9)  
+    return true;
+    patron =/[0-9\s]/;// -> solo numeros
+    te = String.fromCharCode(tecla);
+    return patron.test(te);
+}
+</script>
 @endsection
 
 {{-- + data[i].employe[j].id + --}}

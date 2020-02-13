@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
-@section('title','Citas de hoy')
+@section('title','Citas confirmadas')
 
 @section('content')
 
@@ -108,7 +108,7 @@
                                 @if ($reservation->status == 'Aprobada')
                                     <tr style="height:40px;">
                                         <td style="text-align: center; font-size:10px; height:40px;">
-                                            @if (!empty($reservation->patient->image->path))
+                                            @if (!  ($reservation->patient->image->path))
                                                 <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                             @else
                                                 <img src="" alt="" width="100%" height="100%">
