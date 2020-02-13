@@ -19,7 +19,7 @@ class Surgery extends Model
 
     public function typesurgeries()
     {
-        return $this->belongsTo('App\Typesurgery', 'type_surgery_id');
+        return $this->belongsTo('App\Typesurgery');
     }
 
     public function branch()
@@ -27,7 +27,7 @@ class Surgery extends Model
         return $this->belongsTo('App\Branch');
     }
     
-    public function equipment() 
+    public function equipment()
     {
         return $this->belongsToMany('App\Equipment','equipment_surgery')
         ->withPivot('equipment_id','id');

@@ -454,24 +454,6 @@ var form = $('#wizard_horizontal').show();
                 type: 'success',
                 allowOutsideClick:false,
             });
-            // $('#picker').val("");   
-            //         $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
-                    
-            //     //  $(".inline-datepicker").val("");
-            //         $('.inline-datepicker').datepicker({
-            //             todayHighlight: true,
-            //             language: 'es',
-            //             startDate: data.start,
-            //             endDate: data.end,
-            //             daysOfWeekHighlighted: [0,6],
-            //             datesDisabled: data.diff,
-            //         });
-            //         $('#fechas').val();
-            //         $('.inline-datepicker').on('changeDate', function() {
-            //             $('#picker').val(
-            //                 $('.inline-datepicker').datepicker('getFormattedDate')
-            //             );
-            //     });
         });
     }
 
@@ -491,11 +473,17 @@ var form = $('#wizard_horizontal').show();
 
 </script>
 <script>
-    $(".inline-datepicker").datepicker();
+    $(".inline-datepicker").datepicker({
+        todayHighlight: true,
+        language: 'es',
+        daysOfWeekHighlighted: [0,6],
+        // daysOfWeekDisabled: [0,6];
+    });
     $('.inline-datepicker').on('changeDate', function() {
         $('#picker').val(
             $('.inline-datepicker').datepicker('getFormattedDate')
         );
-    });    
+    });
+        
 </script>
 @endsection
