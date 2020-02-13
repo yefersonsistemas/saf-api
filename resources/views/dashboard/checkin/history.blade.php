@@ -29,15 +29,21 @@
     <div class="container ml-4 mt-20">
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
             @csrf
-            @if($mostrar == 1)
-            <a class="btn btn-azuloscuro btn-scroll text-white" id="EditPatient" data-toggle="tooltip" data-placement="left" title="Editar Historial">
-                <i class="fa fa-pencil fa-lg"></i></a>
-            @endif
+            
             <div class="card "> 
-                <div>           
+
+                @if($mostrar == 1)
+                    <div class="icon btn-scroll">
+                        <a class="   ml-20 icon-primary fa fa-pencil  " href="#" id="EditPatient" title="Editar Historial"></a>	
+                        <div class=" container-description">
+                        <a class="  icon-description" href="#">Editar Historial</a>	
+                        </div>
+                      </div>
+                 @endif
+                 <div>           
+                    <label class="float-right position-absolute  m-4 d-block form-label" style="right: 5px">Nro. Historia <br>
+                       <span class=" ml-4  badgeMargin badge badge-azuloscuro texto1">{{ $rs->patient->historyPatient->history_number  }}</span></label>
                 <h5 class="text-center  ml--25 mt-20">Datos Personales </h5>
-                     <label class=" position-absolute  m-2 d-block form-label text align-right mt-20">Nro. Historia <br>
-                        <span class=" ml-4  badgeMargin badge badge-azuloscuro texto1">{{ $rs->patient->historyPatient->history_number  }}</span></label>
                 </div>                   
                 <div class="row mt--70">
                     <div class="col-3 ml-2 mb-4 mt-25">
@@ -294,7 +300,7 @@
             </div>
             
             @if($mostrar == 1)
-                <div class="card p-4">
+                <div class="card p-5">
                     <label class="form-label">Exámenes</label>
                     <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
                         <div class="fallback">
