@@ -148,6 +148,10 @@
                 </div>
                 @endrole
 
+                @role('enfermeria')
+                <li class="g_heading">Enfermeria</li>
+                @endrole
+
                 
                 
             </ul>
