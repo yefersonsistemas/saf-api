@@ -361,7 +361,8 @@ button[data-original-title="Help"]{ display: none; }
                                                             <h5 class="card-title text-white">{{$cites->date}}</h5>
                                                         </div>
                                                         <div class="card-body">
-                                                            <img src="{{ Storage::url($item->path) }}" alt="" class="img-thumbnail" style=" width:100px">
+                                                            <input type="hidden" value="{{ $item->path }}" id="ruta_img">
+                                                            <img src="{{ Storage::url($item->path) }}" alt="Snow" id="exam" class="img-thumbnail" style=" width:100px">
                                                         </div>
                                                     </div>                                                           
                                                     @endforeach
@@ -694,6 +695,34 @@ button[data-original-title="Help"]{ display: none; }
         </div>
       </div>
    </div>
+
+    <!-- Modal para mostar examenes previos-->
+   {{-- <div id="examshow" class="modal">
+       
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img">
+    <div id="caption"></div>
+  </div> --}}
+
+  <div class="modal" tabindex="-1" role="dialog" id="examshow">
+    <div class="modal-dialog" role="document" id="contenido" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1084,6 +1113,7 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
+
 <script>
     $('#selectexam').multiselect({
         enableFiltering: true,
@@ -1138,6 +1168,33 @@ button[data-original-title="Help"]{ display: none; }
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
+
+    $('#exam').click(function(){
+        var modalImg = $('#ruta_img').val();
+             console.log('prueba',modalImg)
+             concatenar = 'Storage\\';
+            //  hola= urldecode(modalImg);
+             var hola = decodeURIComponent(modalImg);
+             console.log('decodificar',hola)
+            //  url = concatenar+modalImg;
+            //  console.log('url', url);
+              
+            //    console.log('id',modalImg)
+            // modalImg.src = this.src;
+            // console.log('imagewn', modalImg.src)
+
+            // var modal = $("examshow").val();
+            // var img = $("#exam").val(); //id de la etiqueta <img>
+            // var modalImg = $("img").val();  //id del modal-content
+            // var captionText = $("caption").val();
+
+            // modal.style.display = "block";
+            
+            // captionText.innerHTML = this.alt;
+
+            $('#contenido').html('<img src="'+url+'" alt="Snow" class="img-thumbnail" style=" width:100px">');
+            $('#examshow').modal('toggle');
+         });
 
     //--------------------------------------------------RECIPE -------------------------------------
 
