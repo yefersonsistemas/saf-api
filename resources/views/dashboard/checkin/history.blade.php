@@ -278,7 +278,6 @@
                                 <input type="text" class="form-control" placeholder="Instagram" id="social_network" name="social_network" disabled value="{{ ($rs->patient->historyPatient->social_network != null) ? $rs->patient->historyPatient->social_network: '' }}">
                                 </div>
                             </div>
-
                             <div class="col-8">
                                 <div class="form-group">
                                     <label class="form-label text-center">Como nos Conocio</label>
@@ -302,7 +301,6 @@
                         Launch demo modal
                     </button> --}}
                 </div>
-
 
                 <div class="card p-4 d-flex justify-content-between">
                     <div class="row">

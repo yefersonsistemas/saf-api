@@ -113,7 +113,7 @@
             </div>
 
             {{-- lista de todas --}}
-            <div class="tab-content container-fluid" id="pills-tabContent">
+            <div class="tab-content container-fluid p-0 m-0" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="col-lg-12 col-md-12 mt-10">
                         <div class="table-responsive mb-4">

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
-@section('title','Citas de hoy')
+@section('title','Citas confirmadas')
 
 @section('content')
 
