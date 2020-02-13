@@ -10453,7 +10453,7 @@ img {
     border-radius: .55rem;
     border-color: #E6E9ED;
     position: relative;
-    width: 100%
+    width: 100%;
 }
 
 .card.box_shadow {
@@ -17542,3 +17542,5 @@ svg {
 .dark-mode .page-header .right .nav-pills .nav-link {
     color: #80868e
 }
+
+he

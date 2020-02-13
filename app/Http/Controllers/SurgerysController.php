@@ -82,7 +82,7 @@ class SurgerysController extends Controller
         // dd($person);
         
         if (!is_null($person)) {
-            $patient = Patient::with('person')->where('person_id', $person->id)->first();
+            $patient = Patient::with('person.image')->where('person_id', $person->id)->first();
             // dd($patient);
         
             if (!is_null($patient)) {
