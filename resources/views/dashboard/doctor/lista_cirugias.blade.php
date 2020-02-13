@@ -26,13 +26,14 @@
         color: #fff;
     }
 </style>
+
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
             
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">                                
+                    <div class="card-body py-2">
                         <h6>Reservaciones confirmadas</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
                     </div>
@@ -50,7 +51,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6>Pacientes atendidos</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>                             
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -165,7 +166,7 @@
                         </table>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -174,6 +175,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 @endsection

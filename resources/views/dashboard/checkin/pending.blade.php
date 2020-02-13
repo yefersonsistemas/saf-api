@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
-@section('title','Citas de hoy')
+@section('title','Citas pendientes')
 
 @section('content')
 
@@ -90,7 +90,7 @@
             </div>
 
             {{-- Tablas de los tabs de citas --}}
-            <div class="tab-content container-fluid" id="pills-tabContent">
+            <div class="tab-content container-fluid p-0 m-0" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="col-lg-12 col-md-12">
                         <div class="table-responsive mb-4">
@@ -130,7 +130,7 @@
                                                     <img src="" alt=""  width="100%" height="100%">
                                                     {{-- <div class="img-test"></div> --}}
                                                 @endif
-                                                <div class="text-center">
+                                                <div class="">
                                                     @if ($reservation->patient->historyPatient == null)
                                                         <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
                                                     @else
@@ -143,9 +143,9 @@
                                                 </div>
                                             </td>
                                             <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
+                                            <td class="">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
                                             <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
-                                            <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
+                                            <td class="">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
                                             <td>{{ $reservation->speciality->name }}</td>
                                             <td>
                                                 @if ($reservation->status == 'Pendiente')
@@ -242,7 +242,7 @@
                                                         <img src="" alt=""  width="100%" height="100%">
                                                         {{-- <div class="img-test"></div> --}}
                                                     @endif
-                                                    <div class="text-center">
+                                                    <div class="">
                                                         @if ($reservation->patient->historyPatient == null)
                                                             <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
                                                         @else
@@ -255,9 +255,9 @@
                                                     </div>
                                                 </td>
                                                 <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                                <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
+                                                <td class="">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
                                                 <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
-                                                <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
+                                                <td class="">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
                                                 <td>{{ $reservation->speciality->name }}</td>
                                                 <td>
                                                     @if ($reservation->status == 'Pendiente')
@@ -355,7 +355,7 @@
                                                 <img src="" alt=""  width="100%" height="100%">
                                                 {{-- <div class="img-test"></div> --}}
                                             @endif
-                                            <div class="text-center">
+                                            <div class="">
                                                 @if ($reservation->patient->historyPatient == null)
                                                     <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
                                                 @else
@@ -368,9 +368,9 @@
                                             </div>
                                         </td>
                                         <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                        <td class="text-center">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
+                                        <td class="">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
                                         <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
-                                        <td class="text-center">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
+                                        <td class="">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
                                         <td>{{ $reservation->speciality->name }}</td>
                                         <td>
                                             @if ($reservation->status == 'Pendiente')
@@ -467,8 +467,9 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {

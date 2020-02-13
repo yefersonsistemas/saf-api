@@ -256,7 +256,6 @@ class CitaController extends Controller
                 $reservation->cancel = Carbon::now();
                 $reservation->reschedule = null;
                 Alert::success('Cita Cancelada exitosamente');
-
             }
 
             $reservation->status = $data['type'];
@@ -318,6 +317,7 @@ class CitaController extends Controller
 
         // $dife = $employe->diff($medicos->employe);
         // dd($dife);
+        $medicos = null;
         foreach($b_medicos->employe as $item){
             if($item->id != $employe->id){
                 $medicos[] = $item;
@@ -358,7 +358,7 @@ class CitaController extends Controller
                     ]);
                 }
             }
-// dd($cite);
+
             //si se cambio la especialidad y medico
             if ($request->speciality) {
                 $employe = Employe::find($request->person_id);
@@ -369,8 +369,9 @@ class CitaController extends Controller
             }
 
             if ($request->fecha != null) {
-                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);          
+                $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);    
                 $schedule = Schedule::where('employe_id', $request->person_id)->where('day', $dia)->first(); 
+                // dd($schedule);
                 $cite->date       = Carbon::create($request->fecha);
                 $cite->reschedule = Carbon::now();
                 $cite->schedule_id = $schedule->id;

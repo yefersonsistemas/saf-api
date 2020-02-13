@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
-@section('title','Citas de hoy')
+@section('title','Citas confirmadas')
 
 @section('content')
 
@@ -35,11 +35,11 @@
 
 <div class="section-body  py-4">
     <div class="container-fluid">
-        <div class="row clearfix">
+        <div class="row clearfix justify-content-center">
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">                                
+                    <div class="card-body">
                         <h6>Total De Citas Agendadas</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasAnual }}</span></h3>
                         {{-- <h5>$1,25,451.23</h5> --}}
@@ -138,7 +138,7 @@
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                         </td>
 
-                                        {{-- <td>  
+                                        {{-- <td>
                                             <!--Si no a llegado a las instalaciones-->
                                             @if($reservation->patient->inputoutput->isEmpty())
                                                 <div>
@@ -158,10 +158,10 @@
                                                 <div>
                                                     <button href="{{ route ('checkin.insideOffice', $reservation) }}" class="btn btn-outside primero" disabled>E</button>
                                                 </div>
-                                            @endif   
+                                            @endif
                                         </td>
 
-                                        <td>  
+                                        <td>
                                             <!--Si no ha llegado a las instalaciones-->
                                             @if(empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside))
                                                 <div>
@@ -191,12 +191,12 @@
                                             @endif
                                         </td> --}}
                                     </tr>
-                                @endif 
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -235,8 +235,9 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {

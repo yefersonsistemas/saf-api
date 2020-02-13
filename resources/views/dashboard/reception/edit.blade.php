@@ -101,16 +101,19 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group" id="newDoctor">
                                         <label class="form-label">Médico</label>
+                                        <input type="hidden" name="person_id" value="{{ $employe->id  }}">
                                         <select class="form-control custom-select" name="person_id" id="doctor" disabled>
                                              <option value="{{ $employe->id  }}">{{ $reservation->person->name }} {{ $reservation->person->lastname }}</option> 
+                                             @if($medicos != null)
                                             @foreach ($medicos as $item)
                                                 <option value="{{ $item->id }}">{{ $item->person->name }} {{ $item->person->lastname }}</option> 
-                                            @endforeach                                           
+                                            @endforeach                     
+                                            @endif                      
                                         </select>
 
                                         {{-- <label class="form-label">Médico</label> --}}
                                         <input type="hidden" id="editar" value="{{ $employe->id }}">
-                                        {{-- <input type="hidden" name="person_id" value="{{ $employe->id  }}"> --}}
+                                        
                                         {{-- <input type="text" class="form-control" name="doctor" value="{{ $reservation->person->name }} {{ $reservation->person->lastname }}" disabled id="doctor"> --}}
                                     </div>
                                 </div>
@@ -150,6 +153,9 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
 <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
 

@@ -176,7 +176,12 @@ class DoctorController extends Controller
         $cite = Patient::with('person.reservationPatient.speciality', 'person.file', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
 
-            // dd($cite);
+            // dd($cite->person->reservationPatient);
+
+        $persona = Person::where('id', $cite->person_id)->first();
+        // dd($person);
+        $file = File::where('fileable_id', $persona->id)->get();
+        // dd($file);
 
         $exams = Exam::all();
 
@@ -204,7 +209,7 @@ class DoctorController extends Controller
             }
         }
 
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron', 'file'));
     }
 
     /**

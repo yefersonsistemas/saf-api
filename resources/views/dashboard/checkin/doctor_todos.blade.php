@@ -14,10 +14,10 @@
 
 @section('content')
     <div class="section-body py-3">
-        <div class="container-fluid">
+        <div class="container-fluid p-0 m-0">
             <div class=" p-4">
                 <div class="col-lg-12 mt--15">
-                    <div class="table-responsive mb-4 ">
+                    <div class="table-responsive mb-4">
                         <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                             <thead>
                                 <tr>
@@ -160,8 +160,9 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-    <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
       <script>
         $('#exampleModal').on('show.bs.modal', function (event) {

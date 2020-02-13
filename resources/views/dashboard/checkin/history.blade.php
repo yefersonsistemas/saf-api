@@ -278,7 +278,6 @@
                                 <input type="text" class="form-control" placeholder="Instagram" id="social_network" name="social_network" disabled value="{{ ($rs->patient->historyPatient->social_network != null) ? $rs->patient->historyPatient->social_network: '' }}">
                                 </div>
                             </div>
-
                             <div class="col-8">
                                 <div class="form-group">
                                     <label class="form-label text-center">Como nos Conocio</label>
@@ -303,7 +302,6 @@
                     </button> --}}
                 </div>
 
-
                 <div class="card p-4 d-flex justify-content-between">
                     <div class="row">
                         <!---------------------------Enfermedades-------------------------->
@@ -312,8 +310,8 @@
                             <div class="card p-3" style="border-color:#00506b">
                              
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-vcenter table-striped"
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         cellspacing="0" id="addrowExample">
                                             <thead>
                                                 <tr>
@@ -358,8 +356,8 @@
                             <div class="card p-3" style="border-color:#00506b">
                                                              
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-vcenter table-striped"
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         cellspacing="0" id="addrowExample">
                                             <thead>
                                                 <tr>
@@ -406,8 +404,8 @@
                             <label class="form-label text-center"><h5>Alergias</h5></label>
                             <div class="card p-3" style="border-color:#00506b"> 
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-vcenter table-striped"
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         cellspacing="0" id="addrowExample">
                                             <thead>
                                                 <tr>
@@ -462,7 +460,7 @@
                         <div class="tab-content mx-auto">
                             <div class="col-lg-12">
                                 <div class="table-responsive mb-4">
-                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
                                         <thead>
                                             <tr>
                                                 <th style="text-align:center">Fecha</th>
@@ -495,12 +493,12 @@
             
             @if($mostrar == 1)
                 <div>
-                    <a href="{{Route('checkin.day')}}" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
+                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
                     <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px" > Guardar</button>
                 </div>
             @else
                 <div>
-                    <a href="{{Route('checkin.day')}}" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
+                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
                 </div>
             @endif
         </form>
@@ -739,13 +737,14 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
-<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
-<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
 {{-- <script>
 $boton.addEventListener("click", function() {

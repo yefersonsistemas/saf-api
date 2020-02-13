@@ -231,13 +231,13 @@ button[data-original-title="Help"]{ display: none; }
                                         <div id="accordion">
                                             <!-------------------agregar enfermedad-------------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white ">Enfermedades</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white " style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -273,13 +273,13 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <!----------------agregar alergias----------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Alergias</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -315,13 +315,13 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <!--------------------agregar cirugias------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Cirugias Previas</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -352,26 +352,26 @@ button[data-original-title="Help"]{ display: none; }
                                     </section>
                                     <h2>Estudios complementarios</h2>
                                     <section class="ml-4 pb-0 pt-4">
-                                        <div class="row">
-                                            {{-- @foreach ( $cite->person->reservationPatient as $cites ) --}}
-                                                <div class="col-md-4">
-                                                    <div class="card">
-                                                        @if (!empty($cite->person->file->path))
-                                                        <div class="card-header bg-azuloscuro">
-                                                            <h5 class="card-title text-white">{{$cite->date}}</h5>
+                                        <div class="row d-flex d-row justify-content-between">
+                                            @foreach ($file as $item)
+                                            @if (!empty($item))
+                                            <div class="col-3 card mr-2 p-0">
+                                                @foreach ( $cite->person->reservationPatient as $cites )
+                                                <div class="card-header bg-azuloscuro m-0">
+                                                            <h5 class="card-title text-white">{{$cites->date}}</h5>
                                                         </div>
                                                         <div class="card-body">
-                                                            <img src="{{ Storage::url($cite->person->file->path) }}" alt="" class="img-thumbnail" style=" width:100px">
+                                                            <img src="{{ Storage::url($item->path) }}" alt="" class="img-thumbnail" style=" width:100px">
                                                         </div>
-                                                        @else
-                                                        <div class="card">
-                                                            <h4>No tiene exámenes previos</h4>
-                                                        </div>
-                                                        @endif
+                                                    </div>                                                           
+                                                    @endforeach
+                                                    @else
+                                                    <div class="card-header bg-azuloscuro">
+                                                        <h4 class="card-title text-black">No tiene exámenes previos</h4>
                                                     </div>
-                                                </div>
-                                            {{-- @endforeach --}}
-                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
                                     </section>
                                     <h2>Diagnostico</h2>
                                     <section class="ml-4 pb-0 pt-4">
