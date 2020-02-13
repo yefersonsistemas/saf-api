@@ -232,13 +232,13 @@ button[data-original-title="Help"]{ display: none; }
                                         <div id="accordion">
                                             <!-------------------agregar enfermedad-------------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white ">Enfermedades</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white " style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -274,13 +274,13 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <!----------------agregar alergias----------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Alergias</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -316,13 +316,13 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             <!--------------------agregar cirugias------------->
                                             <div class="card border border-info rounded">
-                                                <div class="card-header bg-azuloscuro" >
+                                                <div class="card-header bg-azuloscuro" style="cursor: pointer;">
                                                     <div class="row" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <div class="col-8">
                                                             <h5 class="card-title text-white">Cirugias Previas</h5>
                                                         </div>
                                                         <div class="col-4 d-flex justify-content-end">
-                                                            <p class="card-title text-white" style="font-size:12px; cursor: pointer;">Ver más</p>
+                                                            <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
                                                     </div>
                                                 </div>

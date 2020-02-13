@@ -59,9 +59,9 @@
                         {{-- <h5>$3,80,451.00</h5> --}}
                     </div>
                 </div>
-            </div> 
+            </div>
            
-            <div class="col-lg-12 mt--20">
+            <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                         <thead>
@@ -89,7 +89,7 @@
                         <tbody>
                             @foreach ($record as $reservation)
                             {{-- @if (empty($reservation->cancel) && empty($reservation->discontinued) && empty($reservation->reschedule)) --}}
-                                
+                            
                             <tr style="height:40px;">
                                 <td style="text-align: center; font-size:10px; height:40px;">
                                     @if (!empty($reservation->patient->image->path))
@@ -103,7 +103,7 @@
                                     <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                     <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
                                     <td>{{ $reservation->speciality->name }}</td>
-                                    
+                                
                                     <td style="display: inline-block">
                                         @if ($reservation->status == 'Atendida')
                                         <span class="badge badge-success">{{ $reservation->status }}</span>
@@ -121,8 +121,52 @@
                         </tbody>
                     </table>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
+
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var recipient = button.data('whatever'); // Extract info from data-* attributes
+            var id  = button.data('id');
+            var type = button.data('type');
+
+            if (type == 'Reprogramada') {
+                $('#fecha').html('<label>Seleccionar nueva fecha</label> <div class="input-group"> <input data-provide="datepicker" name="date" data-date-autoclose="true" class="form-control"> </div>');
+                $('.reservation_id').val(id);
+                $('.type').val(type);
+            }
+            insertDates(type, id);
+            var modal = $(this);
+            modal.find('.modal-title').text(recipient);
+            $('.reservation_id').val(id);
+            $('.type').val(type);
+
+        });
+
+        $('#modalReprogramadas').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var recipient = button.data('whatever'); // Extract info from data-* attributes
+            var id  = button.data('id');
+            var type = button.data('type');
+
+            var modal = $(this);
+            modal.find('.modal-title').text(recipient);
+            insertDates(type, id);
+        });
+
+        function insertDates(type, id){
+            $('#reservation_id').val(id);
+            $('#type').val(type);
+        }
+
+    </script>
 @endsection

@@ -38,8 +38,8 @@
                                     </div>
                                     @endforeach 
                                 </div>
-                                {{-- <div class="  table-responsive mb-4">
-                                    <table class="table table-hover js-basic-example dataTable table_custom spacing5">
+                                {{-- <div class="table-responsive mb-4">
+                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                         <thead>
                                             <tr>
                                                 <th>Nombre </th>  

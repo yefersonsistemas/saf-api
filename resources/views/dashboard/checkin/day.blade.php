@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
+    
 @endsection
 
 @section('title')
@@ -76,7 +77,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 mt--20">
+            
+            <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                         <thead>
@@ -280,6 +282,9 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+<script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
     <script>
 //         $('.prevent').on('click', function(e){              este script manda el aviso de confirmacion de accion  en el boton, colocando la
 //             e.preventDefault();                                  palabra prevent en la clases de la ref
