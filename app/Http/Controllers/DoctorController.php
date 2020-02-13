@@ -28,6 +28,7 @@ use App\ReportMedico;
 use App\InputOutput;
 use App\Allergy;
 use App\User;
+use App\File;
 // use App\Redirect;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -171,8 +172,15 @@ class DoctorController extends Controller
         $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first(); 
      
         // dd($procesm->procedures);
-        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+        $cite = Patient::with('person.reservationPatient.speciality', 'person.file', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
+
+            // dd($cite->person->reservationPatient);
+
+        $persona = Person::where('id', $cite->person_id)->first();
+        // dd($person);
+        $file = File::where('fileable_id', $persona->id)->get();
+        // dd($file);
 
         $exams = Exam::all();
 
@@ -200,7 +208,7 @@ class DoctorController extends Controller
             }
         }
 
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron'));
+        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron', 'file'));
     }
 
     /**
@@ -1721,7 +1729,7 @@ class DoctorController extends Controller
         // dd($all); 
 
         $reservations = Reservation::where('surgery', true)->where('person_id', $employe->id)->get();
-        dd( $reservations);
+        // dd( $reservations);
         return view('dashboard.doctor.lista_cirugias', compact('all'));
     }
 }
