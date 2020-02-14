@@ -1251,15 +1251,13 @@ button[data-original-title="Help"]{ display: none; }
 
     //===========================mostrar imagen en modal=================================
     $('img[id="myImg"]').on('click',function(){
-            var modalImg = this.name;
-            concatenar = '/Storage/';
-            url = concatenar+modalImg;
+        var modalImg = this.name;
+        concatenar = '/Storage/';
+        url = concatenar+modalImg;
 
         $('#caption').html('<img src="'+url+'" alt="Snow" class="img-thumbnail modal-content" style="margin: auto; display: block; width: 80%; max-width: 700px; ">');
         $('#myModall').modal('show');
-        });
-
-    
+    });    
 
     //--------------------------------------------------RECIPE -------------------------------------
 
@@ -2260,13 +2258,13 @@ button[data-original-title="Help"]{ display: none; }
 
             // $('#citaProxima').attr('disabled');
             $("#citaProxima").prop('disabled', true);
-            }else{
-                Swal.fire({
-                    title: 'No próxima Cita',
-                    text: 'Click en OK para continuar',
-                    type: 'error',
-                });
-            }
+        }else{
+            Swal.fire({
+                title: 'No próxima Cita',
+                text: 'Click en OK para continuar',
+                type: 'error',
+            });
+        }
 
     });
 </script>
