@@ -11,6 +11,105 @@
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\summernote\dist\summernote.css') }}">
+
+<style>
+    /* body {font-family: Arial, Helvetica, sans-serif;} */
+    
+    #myImg {
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+    
+    #myImg:hover {opacity: 1;}
+    
+    /* The Modal (background) */
+
+    .modall{
+        display: none;
+      position: fixed; /* Stay in place */
+      /* z-index: 1; Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.8); 
+
+    }
+  
+    
+    /* Modal Content (image) */
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+    }
+    
+    /* Caption of Modal Image */
+    #caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    img{
+        opacity: 1;
+    }
+    
+    /* Add Animation */
+    #caption {  
+      -webkit-animation-name: zoom;
+      -webkit-animation-duration: 0.6s;
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+    
+    @-webkit-keyframes zoom {
+      from {-webkit-transform:scale(0)} 
+      to {-webkit-transform:scale(1)}
+    }
+    
+    @keyframes zoom {
+      from {transform:scale(0)} 
+      to {transform:scale(1)}
+    }
+    
+    /* The Close Button */
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+      #caption {
+        width: 100%;
+      }
+    }
+</style>
+
 <style type="text/css"> button[data-original-title="Code View"], button[data-original-title="Video"],
 button[data-original-title="Picture"], button[data-original-title="Link (CTRL+K)"],
 button[data-original-title="Help"]{ display: none; }
@@ -352,26 +451,28 @@ button[data-original-title="Help"]{ display: none; }
                                     </section>
                                     <h2>Estudios complementarios</h2>
                                     <section class="ml-4 pb-0 pt-4">
-                                        <div class="row d-flex d-row justify-content-between">
-                                            @foreach ($file as $item)
-                                                @if (!empty($item))
+                                        <div class="row d-flex d-row justify-content-between rawp">
+                                            @if ($file->first() != null)
+                                                @foreach ($file as $item)
+
                                                     <div class="col-3 card mr-2 p-0">
                                                         @foreach ( $cite->person->reservationPatient as $cites )
-                                                            <div class="card-header bg-azuloscuro m-0">
-                                                            <h5 class="card-title text-white">{{$cites->date}}</h5>
+                                                            <div class="card-header bg-azuloscuro m-0 py-2">
+                                                                <h5 class="card-title text-white">{{$cites->date}}</h5>
                                                             </div>
-                                                            <div class="card-body">
-                                                                <input type="hidden" value="{{ $item->path }}" id="ruta_img">
-                                                                <img src="{{ Storage::url($item->path) }}" alt="Snow" id="exam" class="img-thumbnail" style=" width:100px">
+                                                            <div class="m-0 p-0" style="height:150px;">
+                                                                <img src="{{ Storage::url($item->path) }}" alt="Snow" id="myImg" name="{{ $item->path }}" class="img-thumbnail m-0" style="width:100%; height:100%; border-radius:none;">
                                                             </div>
                                                         @endforeach
                                                     </div>                                                           
-                                                @else
-                                                    <div class="card-header bg-azuloscuro ">
-                                                        <h4 class="card-title text-white">No tiene exámenes previos</h4>
-                                                    </div>
-                                                @endif
-                                            @endforeach
+                                                
+                                                @endforeach
+                                            @endif
+                                            @if($file->first() == null)
+                                                <div class="card text-center m-4 p-4">
+                                                    <h5 class="m-4">No tiene exámenes previos</h5>
+                                                </div>
+                                            @endif
                                         </div>
                                     </section>
                                     <h2>Diagnostico</h2>
@@ -402,7 +503,6 @@ button[data-original-title="Help"]{ display: none; }
                                                             </tr>
                                                         </thead>
                                                         <tbody id="procesc">
-                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -696,32 +796,12 @@ button[data-original-title="Help"]{ display: none; }
       </div>
    </div>
 
-    <!-- Modal para mostar examenes previos-->
-   {{-- <div id="examshow" class="modal">
-       
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img">
-    <div id="caption"></div>
-  </div> --}}
 
-  <div class="modal" tabindex="-1" role="dialog" id="examshow">
-    <div class="modal-dialog" role="document" id="contenido" >
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+  <div id="myModall" class="modal modall">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      <div id="caption">
+
       </div>
-    </div>
   </div>
 
     <!-- Modal para mostar enfermedades-->
@@ -1113,7 +1193,7 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
-
+    
 <script>
     $('#selectexam').multiselect({
         enableFiltering: true,
@@ -1169,32 +1249,17 @@ button[data-original-title="Help"]{ display: none; }
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
 
-    $('#exam').click(function(){
-        var modalImg = $('#ruta_img').val();
-             console.log('prueba',modalImg)
-             concatenar = 'Storage\\';
-            //  hola= urldecode(modalImg);
-             var hola = decodeURIComponent(modalImg);
-             console.log('decodificar',hola)
-            //  url = concatenar+modalImg;
-            //  console.log('url', url);
-              
-            //    console.log('id',modalImg)
-            // modalImg.src = this.src;
-            // console.log('imagewn', modalImg.src)
+    //===========================mostrar imagen en modal=================================
+    $('img[id="myImg"]').on('click',function(){
+            var modalImg = this.name;
+            concatenar = '/Storage/';
+            url = concatenar+modalImg;
 
-            // var modal = $("examshow").val();
-            // var img = $("#exam").val(); //id de la etiqueta <img>
-            // var modalImg = $("img").val();  //id del modal-content
-            // var captionText = $("caption").val();
+        $('#caption').html('<img src="'+url+'" alt="Snow" class="img-thumbnail modal-content" style="margin: auto; display: block; width: 80%; max-width: 700px; ">');
+        $('#myModall').modal('show');
+        });
 
-            // modal.style.display = "block";
-            
-            // captionText.innerHTML = this.alt;
-
-            $('#contenido').html('<img src="'+url+'" alt="Snow" class="img-thumbnail" style=" width:100px">');
-            $('#examshow').modal('toggle');
-         });
+    
 
     //--------------------------------------------------RECIPE -------------------------------------
 
@@ -1265,7 +1330,6 @@ button[data-original-title="Help"]{ display: none; }
     function addRow(data) {
         $('#addRow').append('<tr class="gradeA"> <td>'+data.medicine.name+'</td> <td>'+data.doses+'</td> <td>'+data.measure+'</td> <td>'+data.duration+'</td> <td>'+data.indications+'</td> <td class="actions"> <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden=""><i class="icon-drawer" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden=""><i class="icon-close" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>');
     }
-
 
     //======================Referencia medica=========================
 
@@ -1827,7 +1891,7 @@ button[data-original-title="Help"]{ display: none; }
      //=============== mostrando procedimientos realizados ===============
     function mostrarProceduresC(data){
         for($i=0; $i < data.length; $i++){
-            procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureR_id" name="'+data[$i].id+'" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td> <td class="text-center"><a style="cursor:pointer" id="procedureR_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td>  </tr>'
             $("#procesc").append(procesc); 
             $("div").remove("#quitar_procedureR"+data[$i].id); //quitar del modal
         }
@@ -1926,7 +1990,7 @@ button[data-original-title="Help"]{ display: none; }
     //==================== mostrando examenes ===================
     function mostrarExamen(data){
             for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="exam_id" name="'+data[$i].id+'" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="exam_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#examen").append(examen);
             $("label").remove("#quitar_examen"+data[$i].id); //quitar del modal
         }
@@ -2022,7 +2086,7 @@ button[data-original-title="Help"]{ display: none; }
    //================ mostrando posibles procedimientos =============
     function mostrarProcedure(data){
         for($i=0; $i < data.length; $i++){
-            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="procedureP_id" name="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></td></tr>'
+            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#procedimientos").append(procedure);
             $("div").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal      
         }
@@ -2134,7 +2198,7 @@ button[data-original-title="Help"]{ display: none; }
     //======================== mostrando posibles cirugias ======================
     function mostrarSurgery(data){
         for($i=0; $i < data.length; $i++){
-            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="cirugiaP_id" name="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" value="Eliminar"></td></tr>'
+            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#cirugias").html(cirugias);
             $("div").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
         }         

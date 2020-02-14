@@ -180,7 +180,7 @@ class DoctorController extends Controller
         $persona = Person::where('id', $cite->person_id)->first();
         // dd($person);
         $file = File::where('fileable_id', $persona->id)->get();
-        // dd($file);
+        // dd($file->first());
 
         $exams = Exam::all();
 
