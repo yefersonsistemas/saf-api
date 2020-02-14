@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Http\Middleware\role;
+use Illuminate\Routing\Route;
+
 Route::get('/', function() {
     return redirect()->route('login');
 })->name('welcome');
@@ -185,8 +189,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:director']], function(){
 
         //inicio de rutas para crear
-        Route::get('empleados', 'DirectorController@index')->name('employe.index');
-        Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
@@ -278,12 +280,11 @@ Route::group(['middleware' => 'auth'], function (){
 
     });
 
-        Route::group(['middleware' => ['role:in-out']], function(){
 
-           
-        Route::get('home', 'NursingController@index')->name('inout.index');
+    Route::group(['middleware' => ['role:in-out']], function(){
 
-
+        Route::get('inout/index', 'InoutController@index')->name('in-out.index');   
+        // Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');                       // mostrar pacientes del dia
 
     });
 

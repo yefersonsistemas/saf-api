@@ -147,6 +147,17 @@
                     </li>
                 </div>
                 @endrole
+
+                @role('enfermeria')
+                <li class="g_heading">Enfermeria</li>
+                <li class="@yield('facturacion')"><a href="{{ route('vergel.enfermeria.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
+                @endrole
+
+                @role('in-out')
+                <li class="g_heading">In-Out</li>
+                <li class="@yield('lista')"><  a href="{{ route('in-out.index') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Lista de Cirugias</span></a></li>      
+                 {{-- <li class="@yield('agendar')"><a href="{{ route('in-out.agendar_cirugia') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Agendar Cirugias</span></a></li>           --}}
+                @endrole    
             </ul>
         </nav>
     </div>

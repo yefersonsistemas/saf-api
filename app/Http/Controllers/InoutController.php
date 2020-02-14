@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Request;
+use PhpParser\Builder\Function_;
 
-class NursingController extends Controller
+class InoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +15,15 @@ class NursingController extends Controller
      */
     public function index()
     {
-        //
+       return view('dashboard.vergel.in-out.index');
     }
 
+// public function agendar_cirugia()
+//  {
+
+//    return view('dashboard.vergel.in-out.agendar_cirugia');
+//  }
+    
     /**
      * Show the form for creating a new resource.
      *
