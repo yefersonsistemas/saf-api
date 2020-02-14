@@ -209,6 +209,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
                                                         <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
                                                         <input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
+
                                                         <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
                                                         <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
                                                     </div>
@@ -266,8 +267,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#enfermedades" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </button>
                                                     </div>                                                      
                                                 </div>
                                             </div>
@@ -308,8 +309,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#alergias" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -611,11 +612,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="container">
                                                                 <div class="row mx-auto">
                                                                      <div class="col-12 justify-content-center text-center">
-<<<<<<< HEAD
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima">
-=======
                                                                         <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
->>>>>>> 2b1e7605a803f82613374c7ccc504510c3453610
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
                                                                             Notificar proxima cita  
                                                                             
@@ -770,7 +767,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
-                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
             </div>
@@ -805,7 +802,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
@@ -837,7 +834,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
-                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
             </div>
@@ -863,7 +860,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
@@ -902,7 +899,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>
@@ -934,7 +931,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -1012,7 +1009,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                         <div class="modal-footer p-2">
-                            <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                            <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                             <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                         </div>
                         </div>
@@ -1053,7 +1050,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer p-2">
-                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
@@ -1424,7 +1421,6 @@ button[data-original-title="Help"]{ display: none; }
 
     });
 
-    
     //=====================crear enfermedad======================
     $('#diseaseR').click(function(){
         var name = $('#newdisease').val();
@@ -1435,11 +1431,11 @@ button[data-original-title="Help"]{ display: none; }
     //=========================guardar enfermedad creada=================
     function nuevaenfermedad(name,patient_id){
         console.log(name,patient_id);
-        $.ajax({ 
-            url: "{{ route('checkin.diseases_create') }}",  
+        $.ajax({
+            url: "{{ route('checkin.diseases_create') }}",
             type: "POST",                            
             data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 name: name,
                 id:patient_id,                          
             }
@@ -1551,7 +1547,7 @@ button[data-original-title="Help"]{ display: none; }
                 reservacion_id:reservacion,
             }
         })
-            .done(function(data) {  
+            .done(function(data) {
             agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_alergias").append(agregarAlergia); //agregar al modal
 
@@ -1565,12 +1561,12 @@ button[data-original-title="Help"]{ display: none; }
         })
         .fail(function(data) {
             console.log(data);
-        })  
-        });    
+        })
+        });
     });
 
 
-    
+
     //=========================crear alergia=========================
     $('#allergyR').click(function(){
         var name = $('#newallergy').val();
@@ -1581,11 +1577,11 @@ button[data-original-title="Help"]{ display: none; }
     //=========================guardar alergia creada====================
     function nuevaalergia(name,patient_id){
         console.log(name,patient_id);
-        $.ajax({ 
-            url: "{{ route('checkin.allergies_create') }}",  
+        $.ajax({
+            url: "{{ route('checkin.allergies_create') }}",
             type: "POST",                            
             data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 name: name,
                 id: patient_id,                          
             }
@@ -1707,7 +1703,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }            
+            }
         })
         .fail(function(data) {
             console.log(data);
@@ -2014,7 +2010,8 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarC").click(function() {
 
             var reservacion = $("#reservacion").val();
-            var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+            var surgery = $("#posible-surgerys").serialize();  
+            console.log(surgery);        //asignando el valor que se ingresa en el campo
             
             var id = $("#cirugia_posible").val();
             var name = $("#cirugia_posible_name").val();

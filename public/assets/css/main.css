@@ -8405,8 +8405,8 @@ body *::-webkit-scrollbar-thumb {
     right: 100px;
 }
 
-.btnCerrarModal {
-    
+.btnCerrar {
+    width: 76px;
 }
 
 .contenedor {
