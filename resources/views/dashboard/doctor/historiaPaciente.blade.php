@@ -1143,7 +1143,48 @@ button[data-original-title="Help"]{ display: none; }
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="hospitalariaTab">
                                     <div class="form-group">
-                                        <div class="custom-controls-stacked" id="modal_cirugiaP_hospitalaria">
+                                        <div class="custom-controls-stacked">
+                                            <div class="row">
+                                                <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaH" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
+                                            </div>
+                                            <table class="px-2">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <div class="card-header">
+                                                                <h6>Nombre</h6>
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="d-flex justify-content-end">
+                                                                <h6>Precio</h6>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="modal_cirugiaP_hospitalaria" class="mt-4"> 
+                                                    @if($surgerys != null)
+                                                    @foreach ($surgerys as $surgery)
+                                                    @if ($surgery->classification->name == 'hospitalaria')
+                                                            <tr id="quitar_cirugia{{$surgery->id}}">
+                                                                <td>
+                                                                    <label class="custom-control custom-checkbox d-flex" >
+                                                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                                                        <span class="custom-control-label">{{ $surgery->name }}</span>
+                                                                    </label>                                                     
+                                                                </td>
+                                                                <td class="text-end d-flex justify-content-end">
+                                                                    {{ $surgery->cost }}
+                                                                </td>
+                                                            </tr>     
+                                                            @endif                                                    
+                                                        @endforeach
+                                                    @endif 
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {{-- <div class="custom-controls-stacked" id="modal_cirugiaP_hospitalaria">
                                             @foreach ($surgerys as $surgery)
                                             @if ($surgery->classification->name == 'hospitalaria')
                                             <div class="row"  id="quitar_cirugia{{$surgery->id}}">
@@ -1159,12 +1200,54 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
                                             @endif
                                             @endforeach
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">
                                     <div class="form-group">
-                                        <div class="custom-controls-stacked" id="modal_cirugiaP_ambulatoria">
+
+                                        <div class="custom-controls-stacked">
+                                            <div class="row">
+                                                <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaA" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
+                                            </div>
+                                            <table class="px-2">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <div class="card-header">
+                                                                <h6>Nombre</h6>
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="d-flex justify-content-end">
+                                                                <h6>Precio</h6>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="modal_cirugiaP_ambulatoria" class="mt-4"> 
+                                                    @if($surgerys != null)
+                                                    @foreach ($surgerys as $surgery)
+                                                    @if ($surgery->classification->name == 'ambulatoria')
+                                                            <tr id="quitar_cirugia{{$surgery->id}}">
+                                                                <td>
+                                                                    <label class="custom-control custom-checkbox d-flex" >
+                                                                        <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
+                                                                        <span class="custom-control-label">{{ $surgery->name }}</span>
+                                                                    </label>                                                     
+                                                                </td>
+                                                                <td class="text-end d-flex justify-content-end">
+                                                                    {{ $surgery->cost }}
+                                                                </td>
+                                                            </tr>     
+                                                            @endif                                                    
+                                                        @endforeach
+                                                    @endif 
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {{-- <div class="custom-controls-stacked" id="modal_cirugiaP_ambulatoria">
                                             @foreach ($surgerys as $surgery)
                                                 @if ($surgery->classification->name == 'ambulatoria')
                                                     <div class="row"  id="quitar_cirugia{{$surgery->id}}">
@@ -1180,7 +1263,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                 @endif
                                             @endforeach
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -1335,6 +1418,30 @@ button[data-original-title="Help"]{ display: none; }
       $("#buscar_procedureP").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#modal_procedureP tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de cirugia hospitalaria =======================
+    $(document).ready(function(){
+      $("#buscar_cirugiaH").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_cirugiaP_hospitalaria tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de cirugia ambulatoria =======================
+    $(document).ready(function(){
+      $("#buscar_cirugiaA").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_cirugiaP_ambulatoria tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
@@ -2289,7 +2396,7 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-            agregar_procedureP = `  <tr id="quitar_procedureP${data[1].id}">
+            agregar_procedureP = `<tr id="quitar_procedureP${data[1].id}">
                                         <td>
                                             <label class="custom-control custom-checkbox d-flex" >
                                                 <input type="checkbox" class="custom-control-input" name="procedures-office" value="${data[1].id}">
@@ -2332,9 +2439,25 @@ button[data-original-title="Help"]{ display: none; }
             var name = $("#cirugia_posible_name").val();
             var cost = $("#cirugia_posible_costo").val();
             var clasificacion = $("#cirugia_posible_clasificacion").val();
+
+            console.log(id);
+            console.log(name)
+            console.log(cost)
+            console.log(clasificacion)
         
             if(id != null && name != null && cost != null && clasificacion != null){
-                agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
+                agregar_cirugiaP =` <tr id="quitar_cirugia${id}">
+                                        <td>
+                                            <label class="custom-control custom-checkbox d-flex" >
+                                                <input type="radio" class="custom-control-input" name="surgerys" value="${id}">
+                                                <span class="custom-control-label">${name}</span>
+                                            </label>                                                     
+                                        </td>
+                                        <td class="text-end d-flex justify-content-end">
+                                            ${cost}
+                                        </td>
+                                    </tr> `;
+                // agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
                
                 if(clasificacion == 'hospitalaria'){
                     $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
@@ -2388,7 +2511,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#cirugias").html(cirugias);
-            $("div").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
+            $("tr").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
         }         
     }
 
@@ -2411,8 +2534,18 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
-            agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].cost+'</span></div></div>'
+            agregar_cirugiaP =` <tr id="quitar_cirugia${data[1].id}">
+                                        <td>
+                                            <label class="custom-control custom-checkbox d-flex" >
+                                                <input type="radio" class="custom-control-input" name="surgerys" value="${data[1].id}">
+                                                <span class="custom-control-label">${data[1].name}</span>
+                                            </label>                                                     
+                                        </td>
+                                        <td class="text-end d-flex justify-content-end">
+                                            ${data[1].cost}
+                                        </td>
+                                    </tr>      `;
+            // agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].cost+'</span></div></div>'
 
             if(data[1].classification.name == 'hospitalaria'){
                 $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP); //agregar al modal
