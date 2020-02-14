@@ -365,8 +365,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
+                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                     </div>                                                      
                                                 </div>
                                             </div>
@@ -407,8 +407,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-                                                        <button class="btn btn-info mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </button>
+                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -439,7 +439,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         @endif 
                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                                        <a class="btn btn-info text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -797,59 +797,58 @@ button[data-original-title="Help"]{ display: none; }
    </div>
 
 
-  <div id="myModall" class="modal modall">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-      <div id="caption">
-
-      </div>
-  </div>
+    <!--------------------------Estudios complementarios-------------------------------->
+    <div id="myModall" class="modal modall">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div id="caption">
+        </div>
+    </div>
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable row3 " role="document">
             <div class="modal-content row " style="width: 150%;">
-                <div class="modal-header p-2 text-center " style="background-color: #00506b; color: #fff;">
-                    <h5 class="col-11 modal-title text-center " id="exampleModalLabel">Enfermedades</h5>
-                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
-                        <h6><span aria-hidden="true">&times;</span></h6>
+                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
+                </div>          
                 <form action="" id="enfermedad">
-                    <div class="  modal-body  " style="max-height: 415px; ">
-                        <div class="  form-group">
-                            <div class="  custom-controls-stacked">
-                                <div class="  tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    <div class="  col-lg-12 col-md-12">
-                                        <div class="  table-responsive mb-4">
-                                            <table class=" table table-hover js-basic-example dataTable table_custom spacing5">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Nombre </th>                                                                                         
-                                                    </tr>
-                                                    <tr></tr>
-                                                   </thead>
-                                                </tfoot>
-                                                <tbody id="modal_enfermedad">
-                                                      @if($enfermedad != null)
-                                                        @foreach ($enfermedad as $item)
-                                                            <tr class="p-0 m-0">
-                                                                <td class="py-0 my-1">
-                                                                    <label id="quitar{{$item->id}}" class="custom-control custom-checkbox" >
-                                                                        <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
-                                                                        <span class="custom-control-label">{{ $item->name }} </span>
-                                                                    </label>
-                                                                </td>                                                               
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif                                                       
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>                              
+                    <div class="modal-body" style="max-height: 415px; ">         
+                        <div class="form-group">
+                            <div class="custom-controls-stacked">
+                                <div class="row">
+                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_enfermedad" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar enfermedad..">
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="card-header">
+                                                    <h6>Nombre</h6>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal_enfermedad" class="mt-4"> 
+                                            @if($enfermedad != null)
+                                            @foreach ($enfermedad as $item)
+                                                <tr id="quitar{{$item->id}}">
+                                                    <td>
+                                                        <label class="custom-control custom-checkbox" >
+                                                            <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $item->id }}">
+                                                            <span class="custom-control-label">{{ $item->name }} </span>
+                                                        </label>
+                                                    </td>
+                                                </tr>                                                
+                                            @endforeach
+                                        @endif 
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                    </div>
+                        </div>                             
+                   </div>
                     <div class="modal-footer p-2 ">                        
                         <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
@@ -902,23 +901,41 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="form_alergias">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked" id="modal_alergias">
-                                @if($alergia != null)
-                                    @foreach ($alergia as $item)
-                                        <div class="row" id="quitarAlergia{{$item->id}}">
-                                            <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="name_alergia" value="{{ $item->id }}">
-                                                <span class="custom-control-label">{{ $item->name }} </span>
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                @endif
+                            <div class="custom-controls-stacked">
+                                <div class="row">
+                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergia" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar alergia..">
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="card-header">
+                                                    <h6>Nombre</h6>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal_alergias" class="mt-4">
+                                         @if($alergia != null)
+                                            @foreach ($alergia as $item)
+                                                <tr id="quitarAlergia{{$item->id}}">
+                                                    <td>
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" name="name_alergia" value="{{ $item->id }}">
+                                                            <span class="custom-control-label">{{ $item->name }} </span>
+                                                        </label>
+                                                    </td>
+                                                </tr>                                                
+                                            @endforeach
+                                        @endif 
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
-                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
+                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
+                        <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -988,7 +1005,7 @@ button[data-original-title="Help"]{ display: none; }
         <div class="modal-dialog modal-dialog-scrollable modal-lg row5" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
-                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos sdsdsdsRealizados</h5>
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
                     <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -996,20 +1013,43 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="proceduresC-office">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked" id="modal_procedureR">
-                                @foreach ($procesm->procedures as $proces)
-                                <div class="row " id="quitar_procedureR{{$proces->id}}">
-                                    <div class="col-9">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
-                                        <span class="custom-control-label">{{ $proces->name }} </span>
-                                    </label>
-                                    </div>
-                                    <div class="col-3">
-                                        <span>{{ $proces->price }} </span>
-                                    </div>
+                            <div class="custom-controls-stacked px-4">
+                                <div class="row">
+                                    <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureR" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedimiento..">
                                 </div>
-                                @endforeach
+                                <table >
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="card-header">
+                                                    <h6>Nombre</h6>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="d-flex justify-content-end">
+                                                    <h6>Precio</h6>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal_procedureR" class="mt-4"> 
+                                            @if($procesm->procedures != null)
+                                            @foreach ($procesm->procedures as $proces)
+                                                <tr id="quitar_procedureR{{$proces->id}}">
+                                                    <td>
+                                                        <label class="custom-control custom-checkbox col-9">
+                                                            <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                                            <span class="custom-control-label">{{ $proces->name }} </span>
+                                                        </label>                                                       
+                                                    </td>
+                                                    <td class="text-end d-flex justify-content-end">
+                                                        {{ $proces->price }} 
+                                                    </td>
+                                                </tr>                                                
+                                            @endforeach
+                                        @endif 
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -1033,15 +1073,37 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="exam">
-                    <div class="modal-body m-3">
+                    <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked" id="modal_examen">
-                                @foreach ($exams as $exam)
-                                <label class="custom-control custom-checkbox" id="quitar_examen{{$exam->id}}">
-                                    <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
-                                    <span class="custom-control-label">{{ $exam->name }}</span>
-                                </label>
-                                @endforeach
+                            <div class="custom-controls-stacked">
+                                <div class="row">
+                                    <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_examen" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar examen..">
+                                </div>
+                                <table class="">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="card-header">
+                                                    <h6>Nombre</h6>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal_examen" class="mt-4"> 
+                                        @if($exams != null)
+                                            @foreach ($exams as $exam)
+                                                <tr id="quitar_examen{{$exam->id}}">
+                                                    <td>
+                                                        <label class="custom-control custom-checkbox" >
+                                                            <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
+                                                            <span class="custom-control-label">{{ $exam->name }}</span>
+                                                        </label>                                                     
+                                                    </td>
+                                                </tr>                                                
+                                            @endforeach
+                                        @endif 
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -1147,20 +1209,44 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="posible-procedures">
                 <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
-                        <div class="custom-controls-stacked" id="modal_procedureP">
-                            @foreach ($procesm->procedures as $proces)
-                            <div class="row" id="quitar_procedureP{{$proces->id}}">
-                                <div class="col-9 mt-3">
-                                <label class="custom-control custom-checkbox d-flex">
-                                    <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
-                                    <span class="custom-control-label">{{ $proces->name }} </span>
-                                </label>
-                                </div>
-                                <div class="col-3">
-                                    <span>{{ $proces->price }} </span>
-                                </div>
+
+                        <div class="custom-controls-stacked">
+                            <div class="row">
+                                <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureP" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedure..">
                             </div>
-                            @endforeach
+                            <table class="px-2">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="card-header">
+                                                <h6>Nombre</h6>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="d-flex justify-content-end">
+                                                <h6>Precio</h6>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modal_procedureP" class="mt-4"> 
+                                    @if($procesm->procedures != null)
+                                    @foreach ($procesm->procedures as $proces)
+                                            <tr id="quitar_procedureP{{$proces->id}}">
+                                                <td>
+                                                    <label class="custom-control custom-checkbox d-flex" >
+                                                        <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
+                                                        <span class="custom-control-label">{{ $proces->name }}</span>
+                                                    </label>                                                     
+                                                </td>
+                                                <td class="text-end d-flex justify-content-end">
+                                                    {{ $proces->price }}
+                                                </td>
+                                            </tr>                                                
+                                        @endforeach
+                                    @endif 
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -1193,6 +1279,66 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
+<script>
+    //========================buscador en tiempo real de enfermedades=======================
+    $(document).ready(function(){
+      $("#buscar_enfermedad").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_enfermedad tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de alergia=======================
+    $(document).ready(function(){
+      $("#buscar_alergia").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_alergias tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+
+<script>
+    //========================buscador en tiempo real procedure realizados=======================
+    $(document).ready(function(){
+      $("#buscar_procedureR").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_procedureR tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real examens=======================
+    $(document).ready(function(){
+      $("#buscar_examen").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_examen tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de posible procedures =======================
+    $(document).ready(function(){
+      $("#buscar_procedureP").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_procedureP tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
     
 <script>
     $('#selectexam').multiselect({
@@ -1504,7 +1650,7 @@ button[data-original-title="Help"]{ display: none; }
 
             $("#mostrar_enfermedad").append(enfermedad);
 
-            $("label").remove("#quitar"+data[$i].id); //quitar del modal
+            $("tr").remove("#quitar"+data[$i].id); //quitar del modal
         }
     }
 
@@ -1527,7 +1673,14 @@ button[data-original-title="Help"]{ display: none; }
 
             })
             .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
-            agregar = '<tr class="p-0 m-0"><td class="py-0 my-1"><label id="quitar'+data[1].id+'" class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></td></tr>',
+                agregar = ` <tr id="quitar${data[1].id}">
+                                <td>
+                                    <label class="custom-control custom-checkbox" >
+                                        <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="${data[1].id}">
+                                        <span class="custom-control-label">${data[1].name}</span>
+                                    </label>
+                                </td>
+                            </tr>   `;
             $("#modal_enfermedad").append(agregar); //agregar en el modal
 
             if(data[0] == 202){                  //si no trae valores
@@ -1652,7 +1805,7 @@ button[data-original-title="Help"]{ display: none; }
                             <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="${data[$i].id}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                         </tr>`;
             $("#mostrar_alergias").append(alergia);
-            $("div").remove("#quitarAlergia"+data[$i].id); //quitar del modal alergia
+            $("tr").remove("#quitarAlergia"+data[$i].id); //quitar del modal alergia
         }
     }
 
@@ -1674,7 +1827,17 @@ button[data-original-title="Help"]{ display: none; }
             }
         })
             .done(function(data) {  
-            agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+                agregarAlergia =  `<tr id="quitarAlergia${data[1].id}">
+                                        <td>
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="name_alergia" value="${data[1].id}">
+                                                <span class="custom-control-label">${data[1].name}</span>
+                                            </label>
+                                        </td>
+                                    </tr>   `;
+
+
+            // agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_alergias").append(agregarAlergia); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
@@ -1891,7 +2054,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td> <td class="text-center"><a style="cursor:pointer" id="procedureR_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td>  </tr>'
             $("#procesc").append(procesc); 
-            $("div").remove("#quitar_procedureR"+data[$i].id); //quitar del modal
+            $("tr").remove("#quitar_procedureR"+data[$i].id); //quitar del modal
         }
     }
 
@@ -1916,8 +2079,18 @@ button[data-original-title="Help"]{ display: none; }
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
-            agregar_procedureR = '<div class="row " id="quitar_procedureR'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
-             $("#modal_procedureR").append(agregar_procedureR); //agregar al modal
+            agregar_procedureR =` <tr id="quitar_procedureR${data[1].id}">
+                                    <td>
+                                        <label class="col-9 custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="procedures-office" value="${data[1].id}">
+                                            <span class="custom-control-label">${data[1].name}</span>
+                                        </label>                                                       
+                                    </td>
+                                    <td class="text-end d-flex justify-content-end">
+                                        ${data[1].price}
+                                    </td>
+                                </tr> `;
+            $("#modal_procedureR").append(agregar_procedureR); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
@@ -1990,10 +2163,9 @@ button[data-original-title="Help"]{ display: none; }
             for($i=0; $i < data.length; $i++){
             examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="exam_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#examen").append(examen);
-            $("label").remove("#quitar_examen"+data[$i].id); //quitar del modal
+            $("tr").remove("#quitar_examen"+data[$i].id); //quitar del modal
         }
     }
-
 
     //================ eliminar examen seleccionado ==========
     $(function() {
@@ -2014,7 +2186,14 @@ button[data-original-title="Help"]{ display: none; }
 
             })
             .done(function(data) {     //recibe lo que retorna el metodo en la ruta definida
-             agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
+             agregar_examen = ` <tr id="quitar_examen${data[1].id}">
+                                    <td>
+                                        <label class="custom-control custom-checkbox" >
+                                            <input type="checkbox" class="custom-control-input" name="exam" value="${data[1].id}">
+                                            <span class="custom-control-label">${data[1].name}</span>
+                                        </label>                                                     
+                                    </td>
+                                </tr>  `;
              $("#modal_examen").append(agregar_examen); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
@@ -2086,7 +2265,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#procedimientos").append(procedure);
-            $("div").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal      
+            $("tr").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal      
         }
     }
 
@@ -2110,8 +2289,18 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-            agregar_procedureP = '<div class="row" id="quitar_procedureP'+data[1].id+'"><div class="col-9 mt-3"><label class="custom-control custom-checkbox d-flex"><input type="checkbox" class="custom-control-input" name="procedures-office" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].price+'</span></div></div>',
-          $('#modal_procedureP').append(agregar_procedureP); //agregar al modal
+            agregar_procedureP = `  <tr id="quitar_procedureP${data[1].id}">
+                                        <td>
+                                            <label class="custom-control custom-checkbox d-flex" >
+                                                <input type="checkbox" class="custom-control-input" name="procedures-office" value="${data[1].id}">
+                                                <span class="custom-control-label">${data[1].name}</span>
+                                            </label>                                                     
+                                        </td>
+                                        <td class="text-end d-flex justify-content-end">
+                                            ${data[1].price}
+                                        </td>
+                                    </tr>  ` ;
+        $('#modal_procedureP').append(agregar_procedureP); //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
