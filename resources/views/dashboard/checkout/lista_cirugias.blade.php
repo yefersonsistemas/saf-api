@@ -107,6 +107,7 @@
                                             <td>{{$surgeries->employe->person->name}} {{$surgeries->employe->person->lastname}}</td>
                                             <td>{{$surgeries->typesurgeries->name}}</td>
                                             <td>{{$surgeries->area->name}}</td>
+
                                             {{-- <td style="display: inline-block">
                                                 <a type="button" href="" disabled class="btn btn-success">A</a>
                                                 <a href="" class="btn btn-warning" href="">R</a>

@@ -2110,6 +2110,7 @@ class UsersTableSeeder extends Seeder
         $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
+            'email' => 'asistente3@sinusandface.com',
             'person_id' => $person->id,
 
         ])->assignRole('in-out');
@@ -2137,6 +2138,7 @@ class UsersTableSeeder extends Seeder
         $this->to('employes', $employe->id, 'App\Employe');
 
         factory(User::class)->create([
+            'email' => 'farmaceuta@sinusandface.com',
             'person_id' => $person->id,
         ])->assignRole('farmaceuta');
 
@@ -2154,7 +2156,7 @@ class UsersTableSeeder extends Seeder
             ]);
 
             $position = factory(App\Position::class)->create([
-                'name' => 'enfermero',
+                'name' => 'enfermeria',
             ]);
 
             $employe = factory(App\Employe::class)->create([
@@ -2164,9 +2166,10 @@ class UsersTableSeeder extends Seeder
             $this->to('employes', $employe->id, 'App\Employe');
 
             factory(User::class)->create([
+                'email' => 'enfermeria@sinusandface.com',
                 'person_id' => $person->id,
 
-            ])->assignRole('enfermero');
+            ])->assignRole('enfermeria');
   
         
     }

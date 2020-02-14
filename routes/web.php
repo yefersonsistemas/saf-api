@@ -277,4 +277,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
 
     });
+
+    Route::group(['middleware' => ['role:enfermeria']], function(){
+
+        Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
+    });
 });

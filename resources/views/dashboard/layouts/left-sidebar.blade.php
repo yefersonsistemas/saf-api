@@ -148,6 +148,29 @@
                 </div>
                 @endrole
 
+                @role('enfermeria')
+                <li class="g_heading">Enfermeria</li>
+                <li class="@yield('facturacion')"><a href="{{ route('lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
+                @endrole
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @role('in-out')
+                <li class="g_heading">In-Out</li>
+                @endrole
+
                 
                 
             </ul>
