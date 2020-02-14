@@ -239,6 +239,11 @@ class DoctorController extends Controller
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
 
+        // $persona = Person::where('id', $cite->person_id)->first();
+        // dd($person);
+        $file = File::where('fileable_id', $cite->person_id)->get();
+
+
         //---------------------mostrar enfermedades-----------------
         if($reservation->patient->historyPatient->disease->first() != null && $enfermedades != null){
             $enfermedad = $enfermedades->diff($reservation->patient->historyPatient->disease);
@@ -366,7 +371,7 @@ class DoctorController extends Controller
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
 
-        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file'));
     }
 
     /**
