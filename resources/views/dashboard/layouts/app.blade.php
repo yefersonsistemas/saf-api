@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-@include('layouts.header')
+@include('dashboard.layouts.header')
 
 <body class="font-opensans">
     <!-- Page Loader -->

@@ -471,7 +471,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
+                                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
                                                             <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                         </div>
                                                     </div>
