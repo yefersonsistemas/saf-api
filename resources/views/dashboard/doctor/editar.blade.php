@@ -14,6 +14,106 @@
 button[data-original-title="Picture"], button[data-original-title="Link (CTRL+K)"],
 button[data-original-title="Help"]{ display: none; }
 </style>
+
+
+<style>
+    /* body {font-family: Arial, Helvetica, sans-serif;} */
+    
+    #myImg {
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+    
+    #myImg:hover {opacity: 1;}
+    
+    /* The Modal (background) */
+
+    .modall{
+        display: none;
+      position: fixed; /* Stay in place */
+      /* z-index: 1; Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.8); 
+
+    }
+  
+    
+    /* Modal Content (image) */
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+    }
+    
+    /* Caption of Modal Image */
+    #caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    img{
+        opacity: 1;
+    }
+    
+    /* Add Animation */
+    #caption {  
+      -webkit-animation-name: zoom;
+      -webkit-animation-duration: 0.6s;
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+    
+    @-webkit-keyframes zoom {
+      from {-webkit-transform:scale(0)} 
+      to {-webkit-transform:scale(1)}
+    }
+    
+    @keyframes zoom {
+      from {transform:scale(0)} 
+      to {transform:scale(1)}
+    }
+    
+    /* The Close Button */
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+      #caption {
+        width: 100%;
+      }
+    }
+</style>
+
 @endsection
 
 @section('title','Doctor')
@@ -417,8 +517,32 @@ button[data-original-title="Help"]{ display: none; }
                                         </section>
                                         <!-----------------------------ESTUDIOS COMPLEMENTARIOS--------------------------->
                                         <h2>Estudios complementarios</h2>
-                                        <section class="ml-4">
-                                            <div class="row">
+                                        <section class="ml-4 pb-0 pt-4">
+                                            <div class="row d-flex d-row justify-content-between rawp">
+                                                @if ($file->first() != null)
+                                                    @foreach ($file as $item)
+    
+                                                        <div class="col-3 card mr-2 p-0">
+                                                            @foreach ( $cite->person->reservationPatient as $cites )
+                                                                <div class="card-header bg-azuloscuro m-0 py-2">
+                                                                    <h5 class="card-title text-white">{{$cites->date}}</h5>
+                                                                </div>
+                                                                <div class="m-0 p-0" style="height:150px;">
+                                                                    <img src="{{ Storage::url($item->path) }}" alt="Snow" id="myImg" name="{{ $item->path }}" class="img-thumbnail m-0" style="width:100%; height:100%; border-radius:none;">
+                                                                </div>
+                                                            @endforeach
+                                                        </div>                                                           
+                                                    
+                                                    @endforeach
+                                                @endif
+                                                @if($file->first() == null)
+                                                    <div class="card text-center m-4 p-4">
+                                                        <h5 class="m-4">No tiene exámenes previos</h5>
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            {{-- <div class="row">
                                                  @foreach ( $cite->person->reservationPatient as $cites )
                                                     <div class="col-md-4">
                                                         <div class="card">
@@ -430,7 +554,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                 @endforeach 
-                                            </div>
+                                            </div> --}}
                                         </section>
                                          <!------------------------------DIAGNOSTICO ---------------------->
                                         <h2>Diagnostico</h2>
@@ -479,10 +603,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <td>
                                                                                             <div class="col-6" >{{ $proces->name }}</div> 
                                                                                         </td>
-                                                                                        <td class=" d-flex justify-content-center">
-                                                                                            <input name="{{ $proces->id }}" id="procedureR_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class=" btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip"
-                                                                                                value="Eliminar">
-                                                                                        </td>
+                                                                                        <td class="text-center"><a style="cursor:pointer" id="procedureR_id" name="{{ $proces->id }}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                                     </tr>
                                                                                 @endforeach
                                                                             @endif
@@ -559,10 +680,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                             <td>
                                                                                                                 <div class="col-6" >{{$exam->name}}</div> 
                                                                                                             </td>
-                                                                                                            <td class="d-flex justify-content-center">
-                                                                                                            <input name="{{$exam->id}}" id="exam_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                                                                    value="Eliminar">
-                                                                                                            </td>
+                                                                                                            <td class="text-center"><a style="cursor:pointer" id="exam_id" name="{{$exam->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                                                         </tr>
                                                                                                     @endforeach
                                                                                                 @endif
@@ -844,23 +962,24 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <th class="text-center">Accion</th>
                                                                                     </tr>
                                                                                 </thead>
-                                                                                <tbody id="ocultar_cirugia">
+                                                                                <tbody id="cirugiass">
                                                                                     @if(!empty($itinerary->typesurgery))
                                                                                         @foreach ($surgery as $surge)
                                                                                             <tr id="{{$surge->id}}">
+                                                                                                <input type="hidden" value="{{$surge->id}}" id="cirugia_posible">
+                                                                                                <input type="hidden" value="{{$surge->name}}" id="cirugia_posible_name">
+                                                                                                <input type="hidden" value="{{$surge->cost}}" id="cirugia_posible_costo">
+                                                                                                <input type="hidden" value="{{$surge->classification->name}}" id="cirugia_posible_clasificacion">
                                                                                                 <td>
                                                                                                     <div class="col-6" >{{$surge->name}}</div> 
                                                                                                 </td>
-                                                                                                <td class="d-flex justify-content-center">
-                                                                                                <input id="cirugiaP_id" name="{{$surge->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
-                                                                                                        value="Eliminar">
-                                                                                                </td>
+                                                                                                <td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="{{$surge->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                                             </tr>
                                                                                         @endforeach
                                                                                     @endif
                                                                                 </tbody>
-                                                                                <tbody id="cirugias">
-                                                                                </tbody>
+                                                                                {{-- <tbody id="cirugiass">
+                                                                                </tbody> --}}
                                                                             </table>
                                                                         </div>
                                                                     </div>
@@ -893,10 +1012,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                 <td>
                                                                                                     <div class="col-6" >{{$item->name}}</div> 
                                                                                                 </td>
-                                                                                                <td class="d-flex justify-content-center">
-                                                                                                <input name="{{$item->id}}" id="procedureP_id" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip"
-                                                                                                        value="Eliminar">
-                                                                                                </td>
+                                                                                                <td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="{{$item->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                                             </tr>
                                                                                         @endforeach
                                                                                     @endif
@@ -924,6 +1040,14 @@ button[data-original-title="Help"]{ display: none; }
             </div>
         </div>
     {{-- </div> --}}
+
+
+    <div id="myModall" class="modal modall">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div id="caption">
+
+        </div>
+    </div>
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1350,6 +1474,17 @@ button[data-original-title="Help"]{ display: none; }
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
+
+     //===========================mostrar imagen en modal=================================
+     $('img[id="myImg"]').on('click',function(){
+            var modalImg = this.name;
+            concatenar = '/Storage/';
+            url = concatenar+modalImg;
+
+        $('#caption').html('<img src="'+url+'" alt="Snow" class="img-thumbnail modal-content" style="margin: auto; display: block; width: 80%; max-width: 700px; ">');
+        $('#myModall').modal('show');
+    });
+
 
     //================================= Para el recipe============================
     $('#add').click(function () {
@@ -1840,6 +1975,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarCirugias").click(function() {
         var reservacion = $("#reservacion").val();
         var datos = $("#form_cirugias").val();
+    
         ajax_cirugia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1990,7 +2126,7 @@ button[data-original-title="Help"]{ display: none; }
     function mostrarProceduresC(data){
         console.log('hh',data);
         for($i=0; $i < data.length; $i++){
-            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureR_id" style="border-radius:5px; font-size:12px; padding:7px 20px 7px 20px;" type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default" data-toggle="tooltip"  value="Eliminar"></td></tr>'
+            procesc='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td> <td class="text-center"><a style="cursor:pointer" id="procedureR_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#procesc").append(procesc);
             $("div").remove("#quitar_procedureR"+data[$i].id);
         }
@@ -2095,7 +2231,7 @@ button[data-original-title="Help"]{ display: none; }
     //==================== mostrando examenes ===================
     function mostrarExamen(data){
             for($i=0; $i < data.length; $i++){
-            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="exam_id" type="button" class="btn-azuloscuro btn btn-sm btn-icon on-default button-remove" style="border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" data-toggle="tooltip" value="Eliminar"></td></tr>'
+            examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="exam_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#examen").append(examen);
             $("label").remove("#quitar_examen"+data[$i].id); //quitar del modal
         } 
@@ -2193,7 +2329,7 @@ button[data-original-title="Help"]{ display: none; }
   //================ mostrando posibles procedimientos =============
   function mostrarProcedure(data){
         for($i=0; $i < data.length; $i++){
-            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input name="'+data[$i].id+'" id="procedureP_id" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro btn btn-sm btn-icon on-default" data-toggle="tooltip" value="Eliminar"></td></tr>'
+            procedure='<tr id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td> <td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#procedimientos").append(procedure);
             $("div").remove("#quitar_procedureP"+data[$i].id);     //quitar del modal     
         }
@@ -2245,14 +2381,19 @@ button[data-original-title="Help"]{ display: none; }
 
     //============== captar datos de las posibles cirugias =============(listo)
     $("#guardarC").click(function() {
-
-        var reservacion = $("#reservacion").val();
-        var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
-
         var id = $("#cirugia_posible").val();
         var name = $("#cirugia_posible_name").val();
         var cost = $("#cirugia_posible_costo").val();
         var clasificacion = $("#cirugia_posible_clasificacion").val();
+        console.log(id)
+        console.log(name)
+        console.log(cost)
+        console.log(clasificacion)
+
+        var reservacion = $("#reservacion").val();
+        var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+
+    
     
         if(id != null && name != null && cost != null && clasificacion != null){
             agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
@@ -2310,8 +2451,8 @@ button[data-original-title="Help"]{ display: none; }
 
     console.log('jajaj',data);
         for($i=0; $i < data.length; $i++){
-            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="d-flex justify-content-center"><input id="cirugiaP_id" name="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro  btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
-            $("#cirugias").html(cirugias);
+            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
+            $("#cirugiass").html(cirugias);
             $("div").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
         }         
     }

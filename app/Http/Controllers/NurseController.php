@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Testing\WithoutEvents;
+use App\Reservation;
+use App\Surgery;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use PhpParser\Builder\Function_;
 
-class InoutController extends Controller
+class NurseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,49 +16,11 @@ class InoutController extends Controller
      */
     public function index()
     {
-       return view('dashboard.vergel.in-out.index');
+        $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image', 'employe.person','typesurgeries','area')->get();
+        // dd( $surgeries);
+
+        return  view('dashboard.vergel.enfermeria.lista_cirugias', compact('surgeries'));
     }
-
-    public function agendar_cirugia()
-    {
-
-    return view('dashboard.vergel.in-out.agendar_cirugia');
-    }
-        
-    public function facturacion()
-    {
-
-        return view('dashboard.vergel.in-out.facturacion');
-    
-    }
-
-    public function factura()
-    {
-
-        return view('dashboard.vergel.in-out.factura');
-    
-    }
-
-    
-    public function imprimir_factura()
-    {
-    return view('dashboard.vergel.in-out.imprimir_factura');
-
-    }
-    public function day(){
-
-    return view('dashboard.vergel.in-out.day');
-    }
-
-
-
-
-
-
-
-
-
-    
 
     /**
      * Show the form for creating a new resource.

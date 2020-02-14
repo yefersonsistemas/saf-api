@@ -1,4 +1,4 @@
-{{-- @extends('dashboard.layouts.app')
+ @extends('dashboard.layouts.app')
 
 @section('cites','active')
 @section('all','active')
@@ -719,4 +719,4 @@
 
     </script>
 
-@endsection --}}
+@endsection 

@@ -9,10 +9,14 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+// */
+// use Illuminate\Routing\Route;
+// use App\Http\Middleware\role;
+// use Illuminate\Support\Facades\Route;
 
-use App\Http\Middleware\role;
-use Illuminate\Routing\Route;
+
+ 
+
 
 Route::get('/', function() {
     return redirect()->route('login');
@@ -284,7 +288,13 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:in-out']], function(){
 
         Route::get('inout/index', 'InoutController@index')->name('in-out.index');   
-        // Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');                       // mostrar pacientes del dia
+        Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');    
+        Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');    
+        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');    
+        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
+        Route::get('inout/day','InoutController@day')->name('in-out.day');    
+
+
 
     });
 
