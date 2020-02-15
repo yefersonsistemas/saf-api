@@ -796,11 +796,10 @@ button[data-original-title="Help"]{ display: none; }
       </div>
    </div>
 
-
+ <!-- Modal para mostrar examenes previos-->
   <div id="myModall" class="modal modall">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
       <div id="caption">
-
       </div>
   </div>
 

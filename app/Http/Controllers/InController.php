@@ -202,7 +202,7 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  //REVISAR
      {
-        //  dd($request);
+         dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
@@ -303,15 +303,18 @@ class InController extends Controller
             }
 
             if ($request->file != null) {
-                $image = $request->file('file');
-                $path = $image->store('public/exams');
-                $path = str_replace('public/', '', $path);
-                $image = new File;
-                $image->path = $path;
-                $image->fileable_type = "App\Person";
-                $image->fileable_id = $person->id;
-                $image->branch_id = 1;
-                $image->save();
+                // foreach($request->file as $file){
+                    $image = $request->file('examen');
+                    // $path = $image->store('public/exams');
+                    // $path = str_replace('public/', '', $path);
+                    $image = new File;
+                    // $image->path = $path;
+                    $image->path = 'exam'.'\\'.$image;
+                    $image->fileable_type = "App\Person";
+                    $image->fileable_id = $person->id;
+                    $image->branch_id = 1;
+                    $image->save();
+                // }
             }
 
             if (!is_null($patient)) {

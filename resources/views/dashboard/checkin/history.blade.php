@@ -27,7 +27,7 @@
         </div>
     </div> --}}
     <div class="container ml-4 mt-20">
-        <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4" id="my-awesome-dropzone" enctype="multipart/form-data" >
+        <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4"  enctype="multipart/form-data" >
             @csrf
             
             <div class="card "> 
@@ -300,15 +300,12 @@
             
             @if($mostrar == 1)
                 <div class="card p-5">
-                    <label class="form-label">Exámenes</label>
+                    <label class="form-label">Exámenes</label> 
                     <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple />
+                        <div class="fallback" id="files2">
+                            {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
                         </div>
                     </div>
-                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Launch demo modal
-                    </button> --}}
                 </div>
 
                 <div class="card p-4 d-flex justify-content-between">
@@ -804,15 +801,21 @@ $boton.addEventListener("click", function() {
 </script> --}}
 
 
-{{-- <script>
+<script>
+var carga = {}
+var borrar ;
 Dropzone.options.myDropzone = {
-    url: "{{ route('checkin.exams') }}",
+    
+    url: "{{ route('save.history', $rs) }}",
     autoProcessQueue: true,
-    uploadMultiple: true,
     parallelUploads: 100,
+    uploadMultiple: true,
     maxFiles: 10,
     maxFilesize:10,
     addRemoveLinks: true,
+    // headers: {
+    //   'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    // },
     accept: function(file) {
         let fileReader = new FileReader();
 
@@ -820,13 +823,50 @@ Dropzone.options.myDropzone = {
         fileReader.onloadend = function() {
 
             let content = fileReader.result;
-            $('#files').val(content);
+            console.log('hols', content)
+
+            $('#files2').append('<input type="file" name="file[]" id="files" value="'+content+'" multiple/>')
+            // $('#files').val(content);
+            
             file.previewElement.classList.add("dz-success");
         }
         file.previewElement.classList.add("dz-complete");
         
     }
+    // success: function (file, response) {
+    //     // console.log('trae', file.name);
+    // //   $('#my-dropzone').append('<input type="text" name="file[]" class="'+file.name+'" id="examenb" value="'+file.name+'">')
+    //   carga[file.name] = response.name
+    // //   borrar = file.name;
+    // },
+
+    
+    
 }
+
+myDropzone.on("complete", function(file) {  
+  myDropzone.removeFile(file);
+  
+});
+
+("#examenb").hide();
+    console.log('hola')
+
+// $(document).on('click', '#examen', function(event) {
+//                 // let id = this.name;
+// // $("#examen").click(function(){
+//     console.log('hola');
+//     var borrar = $(this).val();
+//         // let borrar = this.val();
+//         console.log(borrar);
+//          $("."+borrar).remove();
+//         //  padre = imagen.parentNode;
+//         // padre.removeChild(imagen);
+//         // window.location = “borrar.HTML”;
+
+//         //  $("div").remove("#quitar"+data[$i].id); //quitar del modal
+//     });
+
 //  Dropzone.options.myDropzone = {
 //             url: "{{ route('save.history', $rs) }}",
 //             autoProcessQueue: true,
@@ -870,7 +910,7 @@ Dropzone.options.myDropzone = {
                 
 //             }
 //         };
-</script> --}}
+</script>
 <script>
         $('#disease').multiselect({
             enableFiltering: true,
