@@ -324,5 +324,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('farmaceuta/lista/insumos/agregar/{id}', 'FarmaciaController@add')->name('farmaceuta.add');
         Route::put('farmaceuta/lista/insumos/agregar/lote/{id}', 'FarmaciaController@add_lote')->name('farmaceuta.add_lote');
         Route::get('farmaceuta/lista/insumos/lista_lote', 'FarmaciaController@lista_lote')->name('farmaceuta.lista_lote');
+        Route::post('farmaceuta/lista/insumos/buscar', 'FarmaciaController@search_medicine')->name('farmaceuta.search_medicine');
+
+        Route::POST('farmaceuta/guardar/medicine', 'FarmaciaController@store_medicine')->name('farmaceuta.guardar_medicine');
     });
 });

@@ -67,7 +67,7 @@
                                         <th>Medida</th>
                                         <th>Cantidad</th>
                                         <th>Stock</th>
-                                        <th>Agregar lote</th>
+                                        <th class="text-center">Nuevo lote</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -79,7 +79,7 @@
                                         <th>Medida</th>
                                         <th>Cantidad</th>
                                         <th>Stock</th>
-                                        <th>Agregar lote</th>
+                                        <th class="text-center">Nuevo lote</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -92,7 +92,7 @@
                                             <td>{{$item->medicine_pharmacy->measure}}</td>
                                             <td>{{$item->medicine_pharmacy->quantity_Unit}}</td>
                                             <td>{{$item->total}}</td>
-                                            <td><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-info text-white">Agregar</a></td>
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-verdePastel text-white">Agregar</a></td>
                                         </tr>
                                     @endforeach                                  
                                 </tbody>

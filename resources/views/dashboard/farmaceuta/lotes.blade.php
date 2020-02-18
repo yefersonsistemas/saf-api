@@ -16,7 +16,7 @@
 
 @endsection
 
-@section('title','Lista de Insumos')
+@section('title','Lista de Insumos por Lote')
 
 @section('content')
     <div class="section-body  py-4">
@@ -60,8 +60,8 @@
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
-                                        <th>N° de lote</th>
-                                        <th>Fecha</th>
+                                        <th class="text-center">N°</th>
+                                        <th>Fecha Ingreso</th>
                                         <th>Nombre</th>
                                         <th>marca</th>
                                         <th>Laboratorio</th>
@@ -73,8 +73,8 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>N° de lote</th>
-                                        <th>Fecha</th>
+                                        <th class="text-center">N°</th>
+                                        <th>Fecha Ingreso</th>
                                         <th>Nombre</th>
                                         <th>marca</th>
                                         <th>Laboratorio</th>
@@ -87,7 +87,7 @@
                                 <tbody>
                                     @foreach ($lot_pharmacy as $item)
                                         <tr>
-                                            <td>{{$item->id}}</td>
+                                            <td class="text-center">{{$item->id}}</td>
                                             <td>{{$item->date}}</td>
                                             <td>{{$item->medicine_pharmacy->medicine->name}}</td>
                                             <td>{{$item->medicine_pharmacy->marca}}</td>

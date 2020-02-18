@@ -188,10 +188,10 @@
 
                 @role('farmaceuta')
                 <li class="g_heading">farmaceuta</li>
-                <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Lista de insumos</a></li>
-                <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;&nbsp;Asignación de insumos</a></li>
-                <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Registro de insumos</a></li>
-                <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Lista de insumos por lote</a></li>
+                <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;Lista de insumos</a></li>
+                <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
+                <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registro de insumos</a></li>
+                <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
                 @endrole
 
                 

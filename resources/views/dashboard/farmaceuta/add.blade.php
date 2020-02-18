@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-lg-4 ">
                                     <div class="form-group">
-                                        <label class="form-label">Nombre</label>
+                                        <label class="form-label">Nombre de Insumo</label>
                                         <input type="text" class="form-control" placeholder="Nombre" name="name" disabled value="{{$medicine_pharmacy->medicine->name}}" required>
                                     </div>
                                 </div>
@@ -60,14 +60,14 @@
                                     
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-label">Cantidad de unidad</label>
+                                            <label class="form-label">Cantidad por Unidad</label>
                                             <input type="text" placeholder="Cantidad" class="form-control" name="quantify_Unit" disabled value="{{ $medicine_pharmacy->quantity_Unit }}" required>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-label">Cantidad de lote</label>
+                                            <label class="form-label">Cantidad a Ingresar</label>
                                             <input type="text" placeholder="Stock" class="form-control" name="total" value="{{ old('total') }}" required>
                                         </div>
                                     </div>
@@ -75,10 +75,20 @@
                             </div>
                         </div>
                     </div>
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">    
-                        <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button> 
-                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel">Guardar</button>                      
+                        {{-- <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>  --}}
+                        <a type="submit" class="btn mr-2 pr-4 pl-4 text-white btn-azuloscuro">Guardar</a>                      
                     </div>
                 </div>
             </div>
