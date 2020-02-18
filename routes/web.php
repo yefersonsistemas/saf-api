@@ -293,7 +293,11 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/factura','InoutController@factura')->name('in-out.factura');    
         Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
         Route::get('inout/day','InoutController@day')->name('in-out.day');
-        Route::post('search/inout/patients','InoutController@search_patients_inout')->name('search.inout.patients');  
+        Route::post('search/inout/patients','InoutController@search_patients_inout')->name('search.inout.patients');
+        Route::post('surgery/other_day/store','SurgerysController@inout_hospitalaria_store')->name('inout.hospitalaria_store');  
+        Route::post('inout/search/doctor','SurgerysController@search_doctor_inout')->name('inout.search_doctor'); // agenda las cirugias otro dia de la candidatura 
+
+
 
 
     });

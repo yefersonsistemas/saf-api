@@ -84,8 +84,7 @@
                                 <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
                                         <div class="card assigment">
-                                            <input type="radio" class="imagecheck-input" disabled>
-                                            {{-- @if (!empty($quirofano->image->path)) --}}
+                                            <input type="radio"  name="area_id" class="imagecheck-input" disabled>
                                             <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
                                                 <img width="100%" height="100%" src="{{ asset('assets/images/consultorio.jpg') }}" alt="" class="imagecheck-image w-auto">
                                             </figure>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
 use App\Patient;
 use App\Person;
 use App\Surgery;
+use App\TypeArea;
 use App\Typesurgery;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Request;
@@ -28,9 +30,10 @@ class InoutController extends Controller
 
     public function agendar_cirugia()
     {
-        $surgery = Typesurgery::with('image')-> get();
-        // dd($surgery);
-    return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery'));
+     $surgery = Typesurgery::with('image')-> get();
+     $area = TypeArea::with('image') ->get();
+     
+     return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery','area'));
     }
         
 
