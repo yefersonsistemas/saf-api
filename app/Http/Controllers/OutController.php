@@ -212,7 +212,7 @@ class OutController extends Controller
                     }else{
                         $all = collect([]); //definiendo una coleccion|
                         $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
-                        // dd($encontrado);
+                                               // dd($encontrado);
                         $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
     
                         if($procedures[0] != ''){ 

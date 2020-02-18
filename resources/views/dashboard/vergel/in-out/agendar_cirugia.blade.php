@@ -117,40 +117,39 @@
                     <h2>Elegir Cirugia</h2>
                     <section> 
                         <div class="row justify-content-between">
-                            {{-- @foreach ($surgeries as $surgery) --}}
+                            @foreach ($surgery as $surgeries)
                             
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                 <label class="imagecheck m-0">
                                     <div class="card assigment">
                                         <input type="radio" name="type_surgery_id" value="   " id="type_surgery_id" class="imagecheck-input">
-                                       {{-- <inputtype="radio"name="type_surgery_id"value="$surgery->id --}}}" id="type_surgery_id" class="imagecheck-input"> --}}
+                                       <input type="radio"name="type_surgery_id"value="$surgery->id}" id="type_surgery_id" class="imagecheck-input"> 
 
-                                         {{-- @if (!empty($surgery->image->path)) --}}
+                                         @if (!empty($surgeries->image->path))
 
                                         <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
 
-                                            {{-- <img width="100%" height="100%" src="{{ Storage::url($surgery->image->path) }}" alt="" class="imagecheck-image w-auto">] --}}
-                                            <img width="100%" height="100%" src="    " alt="" class="imagecheck-image w-auto">
+                                            <img width="100%" height="100%" src="{{ Storage::url($surgeries->image->path) }}" alt="" class="imagecheck-image w-auto">]
                                         </figure>
 
-                                        {{-- @else --}}
+                                        @else
 
                                         <figure class="imagecheck-figure border-0 text-center">
                                             <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                         </figure>
 
-                                        {{-- @endif  --}}
+                                        @endif 
 
                                         <div class="card-body text-center pt-4" style="height:70px; width:170px">
 
 
-                                            {{-- <h6 class="font-weight-bold" style="font-size:15px">{{ $surgery->name }}</h6> --}}
+                                            <h6 class="font-weight-bold" style="font-size:15px">{{ $surgeries->name }}</h6>
                                             <h6 class="font-weight-bold" style="font-size:15px">    </h6>
                                         </div>
                                     </div>
                                 </label>
                             </div>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </div>
                     </section>
 
@@ -333,7 +332,7 @@ var form = $('#wizard_horizontal').show();
 
     function ajax(type_dni, dni) {
         $.ajax({
-                url: "{{ route('search.patients') }}",
+                url: "{{ route('search.inout.patients') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",

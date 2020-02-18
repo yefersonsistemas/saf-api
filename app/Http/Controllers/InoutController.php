@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Patient;
+use App\Person;
 use App\Surgery;
+use App\Typesurgery;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Function_;
@@ -21,12 +24,17 @@ class InoutController extends Controller
        return view('dashboard.vergel.in-out.index',compact('day'));
     }
 
+
+
     public function agendar_cirugia()
     {
-
-    return view('dashboard.vergel.in-out.agendar_cirugia');
+        $surgery = Typesurgery::with('image')-> get();
+        // dd($surgery);
+    return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery'));
     }
         
+
+    
     public function facturacion()
     {
 
@@ -53,15 +61,39 @@ class InoutController extends Controller
     return view('dashboard.vergel.in-out.day',compact('day'));
     }
 
+    //-----------------------buscar paciente para inout-----------------------------
+
+    public function search_patients_inout(Request $request){
+
+        // dd($request);
+        $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
+        // dd($person);
+        
+        if (!is_null($person)) {
+            $patient = Patient::with('person.image')->where('person_id', $person->id)->first();
+            // dd($patient);
+        
+            if (!is_null($patient)) {
+                // $patient = Patient::with('person')->where('person_id', $person->id)->first();
+                return response()->json([
+                'patient' => $patient, 201
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No encontrado',202
+                ]);
+            }
+        }else{
+            return response()->json([
+                'message' => 'Persona no registrada',202
+            ]);
+        }
+    }
 
 
 
 
 
-
-
-
-    
 
     /**
      * Show the form for creating a new resource.

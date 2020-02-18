@@ -292,8 +292,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');    
         Route::get('inout/factura','InoutController@factura')->name('in-out.factura');    
         Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
-        Route::get('inout/day','InoutController@day')->name('in-out.day');    
-
+        Route::get('inout/day','InoutController@day')->name('in-out.day');
+        Route::post('search/inout/patients','InoutController@search_patients_inout')->name('search.inout.patients');  
 
 
     });
