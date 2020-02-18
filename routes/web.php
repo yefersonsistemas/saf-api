@@ -281,9 +281,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
-
     });
-
 
     Route::group(['middleware' => ['role:in-out']], function(){
 
@@ -293,8 +291,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/factura','InoutController@factura')->name('in-out.factura');    
         Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
         Route::get('inout/day','InoutController@day')->name('in-out.day');    
-
-
 
     });
 

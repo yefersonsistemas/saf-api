@@ -87,7 +87,7 @@
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">    
                         <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button> 
-                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel">Guardar</button>                      
+                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-azuloscuro">Guardar</button>                      
                     </div>
                 </div>
             </div>
