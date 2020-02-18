@@ -193,6 +193,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:director']], function(){
 
         //inicio de rutas para crear
+        Route::get('empleados', 'DirectorController@index')->name('employe.index'); //ruta de empleado
+        Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
