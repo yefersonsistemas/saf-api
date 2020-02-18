@@ -302,9 +302,9 @@
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label> 
                     <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
-                        <div class="fallback" id="files2">
+                        {{-- <div class="fallback" id="files2"> --}}
                             {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
-                        </div>
+                        {{-- </div> --}}
                     </div>
                 </div>
 
@@ -813,44 +813,63 @@ Dropzone.options.myDropzone = {
     maxFiles: 10,
     maxFilesize:10,
     addRemoveLinks: true,
-    // headers: {
-    //   'X-CSRF-TOKEN': "{{ csrf_token() }}"
-    // },
-    accept: function(file) {
-        let fileReader = new FileReader();
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
 
-        fileReader.readAsDataURL(file);
-        fileReader.onloadend = function() {
+    // accept: function(file) {
+    //     let fileReader = new FileReader();
 
-            let content = fileReader.result;
-            console.log('hols', content)
+    //     fileReader.readAsDataURL(file);
+    //     fileReader.onloadend = function() {
 
-            $('#files2').append('<input type="file" name="file[]" id="files" value="'+content+'" multiple/>')
-            // $('#files').val(content);
+    //         let content = fileReader.result;
+    //         console.log('hols', content)
+
+    //         $('#files2').append('<input type="file" name="file[]" id="files" value="'+content+'" multiple/>')
+    //         // $('#files').val(content);
             
-            file.previewElement.classList.add("dz-success");
-        }
-        file.previewElement.classList.add("dz-complete");
+    //         file.previewElement.classList.add("dz-success");
+    //     }
+    //     file.previewElement.classList.add("dz-complete");
         
-    }
-    // success: function (file, response) {
-    //     // console.log('trae', file.name);
-    // //   $('#my-dropzone').append('<input type="text" name="file[]" class="'+file.name+'" id="examenb" value="'+file.name+'">')
-    //   carga[file.name] = response.name
-    // //   borrar = file.name;
-    // },
+    // }
+    success: function (file, response) {
+        // myDropzone = this
+        // console.log('trae', myDropzone);
+        // console.log('trae', file.name);
+        var cargar = $('#my-dropzone').append('<input type="hidden" name="'+file.name+'" class="'+file.name+'" id="examenb" value="'+file.name+'">')
+        carga[file.name] = response.name
+        // var data = $('input[name="file[]"]').filter('examenb');
+        console.log('ysbe',file.name)
+        // for(var i=0; i<data.length; i++){
 
+        // console.log('trae', data[i]);
+        // }
+    //   borrar = file.name;
+    },
+
+
+    removedfile: function(file) {
+    var name = file.name;
+    console.log('trae', name);
     
+        if(file.name != null){
+            var id= $('#my-dropzone');
+            $('.dropzone').remove(id.val());
+            console.log('borrado');
+        }
+    }
     
 }
 
-myDropzone.on("complete", function(file) {  
-  myDropzone.removeFile(file);
+// myDropzone.on("complete", function(file) {  
+//   myDropzone.removeFile(file);
   
-});
+// });
 
-("#examenb").hide();
-    console.log('hola')
+// ("#examenb").hide();
+//     console.log('hola')
 
 // $(document).on('click', '#examen', function(event) {
 //                 // let id = this.name;

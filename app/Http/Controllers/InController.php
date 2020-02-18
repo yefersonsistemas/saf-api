@@ -303,8 +303,10 @@ class InController extends Controller
             }
 
             if ($request->file != null) {
-                // foreach($request->file as $file){
-                    $image = $request->file('examen');
+                $photo = $request->file;
+
+                foreach($photo as $file){
+                    $image = $request->file('file');
                     // $path = $image->store('public/exams');
                     // $path = str_replace('public/', '', $path);
                     $image = new File;
@@ -314,7 +316,7 @@ class InController extends Controller
                     $image->fileable_id = $person->id;
                     $image->branch_id = 1;
                     $image->save();
-                // }
+                }
             }
 
             if (!is_null($patient)) {
