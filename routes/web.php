@@ -282,4 +282,14 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
     });
+
+    Route::group(['middleware' => ['role:farmaceuta']], function(){
+
+        Route::get('farmaceuta/lista/insumos', 'FarmaciaController@index')->name('farmaceuta.index');
+        Route::get('farmaceuta/lista/insumos/crear', 'FarmaciaController@create')->name('farmaceuta.create');
+        Route::post('farmaceuta/lista/insumos/guardar', 'FarmaciaController@store')->name('farmaceuta.store');
+        Route::get('farmaceuta/lista/insumos/agregar/{id}', 'FarmaciaController@add')->name('farmaceuta.add');
+        Route::put('farmaceuta/lista/insumos/agregar/lote/{id}', 'FarmaciaController@add_lote')->name('farmaceuta.add_lote');
+        Route::get('farmaceuta/lista/insumos/lista_lote', 'FarmaciaController@lista_lote')->name('farmaceuta.lista_lote');
+    });
 });
