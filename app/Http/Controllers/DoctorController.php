@@ -44,18 +44,51 @@ class DoctorController extends Controller
     public function index()
     {
         $id= Auth::id();
+
+
+        $doctores = [
+            [
+                'nroAfilia'=> 1,
+                'nombre'=> 'Dr. Víctor Pimentel',
+                'especialidad'=> 'Neurocirugía',
+                'imagenSlider'=> 'images/brand/carousel/Victor_Pimentel_2.png',
+                'imagenPagDoct'=> 'images/brand/fotos-doctores/Victor_Pimentel.png',
+                'especialidades'=> 'Neurocirujano Especialista en Cirugías de Columna Vertebral',
+                'descripcion'=> 'Es profesional en el Centro Médico Quirúrgico Docente S&F Dominicana, y destaca por tener más de 10 años de experiencia.',
+                'turno'=> 'Mañana',
+                'btnHorario'=> 'proximamente',
+                'educacion'=>'<p class="mb-2 text-justify"> Universidad Autónoma de Santo Domingo (UASD). Título: Doctor en Medicina Distinción: MAGNA CUM LAUDE, 1998-2004.</p>
+                <p class="mb-2 text-justify"> Hospital Docente Universitario Dr. Darío Contreras (HDUDDC) Título: Posgrado en Neurocirugía, 2006-2012.</p>
+               <p class="mb-2 text-justify"> Rotación Internacional. Departamento de Neurocirugía. Centro Médico Río Piedras, San Juan Recinto de Ciencias Médicas, Universidad de Puerto Rico, 2012.</p>
+              <p class="mb-2 text-justify">Programa Avanzado de Perfeccionamiento del idioma Inglés. Professional Training System. Pearson Education, 2010.</p>',
+              'descripcionPage'=>'Se graduó en el 2004 en la UASD como Doctor en Medicina, realizó su Posgrado en Neurocirugía en el Hospital Docente
+              Universitario Dr. Darío Contreras, desde entonces ha tenido una amplia y prestigiosa trayectoria laboral en múltiples centros de salud,
+              trabajando como Neurocirujano en lugares como el Hospital General de la Plaza de la salud, la Clínica Abreu y muchísimos más.',
+              'certificados'=>[
+                  '/images/certifications/Dr pimentel/Asset 2.png',
+                  '/images/certifications/Dr pimentel/Asset 3.png',
+                  '/images/certifications/Dr pimentel/Asset 4.png',
+                  '/images/certifications/Dr pimentel/Asset 5.png',
+                  '/images/certifications/Dr pimentel/Asset 6.png',
+                  '/images/certifications/Dr pimentel/Asset 7.png'
+              ]
+
+            ]
+              ];
+
+              dd($doctores);
         // dd($id);
         $empleado = Employe::with('person')->where('id', $id)->first();
-    
+
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-    
+
         $all = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->get();
- 
+
         $month = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id  )->whereMonth('date', '=', Carbon::now()->month)->get();
 
         $date = Carbon::now();
         $week = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->whereBetween('date', [$date->startOfWeek()->format('Y-m-d'), $date->endOfWeek()->format('Y-m-d')])->get();
-        
+
         $fecha= Carbon::now()->format('Y/m/d h:m:s'); //la h en minuscula muestra hora normal, y en mayuscula hora militar
 
         //esto es para los contadores del doctor
@@ -64,7 +97,7 @@ class DoctorController extends Controller
         $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
         $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
         $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
-        
+
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         $yasevieron = collect([]);
 
@@ -110,7 +143,7 @@ class DoctorController extends Controller
     public function show($id)
     {
         $medicines = Medicine::all();
-        $specialities = Speciality::all(); 
+        $specialities = Speciality::all();
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
@@ -120,57 +153,57 @@ class DoctorController extends Controller
 
         if($history->patient->historyPatient->disease->first() != null){
             foreach($enfermedades as $item){
-                $array1[] = $item->id; 
+                $array1[] = $item->id;
             }
 
             foreach($history->patient->historyPatient->disease as $item){
-                $array2[] = $item->id; 
+                $array2[] = $item->id;
             }
-           
+
             $diff = array_diff($array1, $array2);
-         
+
             if($diff != null){
                 foreach($diff as $item){
-                    $enfermedad[] = Disease::find($item); 
+                    $enfermedad[] = Disease::find($item);
                 }
             }else{
                 $enfermedad = [];
             }
-           
+
         }else{
             $enfermedad = Disease::all();
         }
 
         //----------------mostrar alergias---------------
           $alergias = Allergy::all();
-     
+
           if($history->patient->historyPatient->allergy->first() != null){
             foreach($alergias as $item){
-                $array1[] = $item->id; 
+                $array1[] = $item->id;
             }
-   
+
             foreach($history->patient->historyPatient->allergy as $item){
-                $array2[] = $item->id; 
+                $array2[] = $item->id;
             }
 
             $diff_A = array_diff($array1, $array2);
             if($diff_A != []){
                 foreach($diff_A as $item){
-                    $alergia[] = Allergy::find($item); 
-    
+                    $alergia[] = Allergy::find($item);
+
                 }
             }else{
                 $alergia = [];
             }
-           
-        }else{           
+
+        }else{
             $alergia = Allergy::all();
         }
 
         //-------------mostrar cirugias--------------
-      
-        $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first(); 
-     
+
+        $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first();
+
         // dd($procesm->procedures);
         $cite = Patient::with('person.reservationPatient.speciality', 'person.file', 'reservation.diagnostic.treatment')
             ->where('person_id', $id)->first();
@@ -187,18 +220,18 @@ class DoctorController extends Controller
         $surgerys = Typesurgery::all();
 
 
-        
+
         //--------------esto es para los contadores que aparecen en historia medica--------------
         $id= Auth::id();
         $empleado = Employe::with('person')->where('id', $id)->first();
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-        
+
         $mes = Carbon::now()->format('m');
         $año = Carbon::now()->format('Y');
         $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
         $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
         $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
-        
+
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         $yasevieron = collect([]);
 
@@ -224,10 +257,10 @@ class DoctorController extends Controller
         $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
         ->where('id',$id)->first();
         // dd($reservation->person);
-     
+
         $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
         ->where('person_id', $reservation->patient_id)->first();
-   
+
         $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
         $employe = Employe::where('person_id', $reservation->person_id)->first();
 
@@ -235,7 +268,7 @@ class DoctorController extends Controller
 
         $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
 
-        $speciality = Speciality::all(); 
+        $speciality = Speciality::all();
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
 
@@ -247,16 +280,16 @@ class DoctorController extends Controller
         //---------------------mostrar enfermedades-----------------
         if($reservation->patient->historyPatient->disease->first() != null && $enfermedades != null){
             $enfermedad = $enfermedades->diff($reservation->patient->historyPatient->disease);
-        }else{           
+        }else{
             $enfermedad = Disease::all();
         }
 
          //----------------mostrar alergias---------------
          $alergias = Allergy::all();
-      
+
            if($reservation->patient->historyPatient->allergy->first() != null && $alergias != null){
-            $alergia = $alergias->diff($reservation->patient->historyPatient->allergy);            
-         }else{           
+            $alergia = $alergias->diff($reservation->patient->historyPatient->allergy);
+         }else{
              $alergia = Allergy::all();
          }
 
@@ -269,7 +302,7 @@ class DoctorController extends Controller
             //mostrar especialidad en el editar de referir medico
             $buscar = Speciality::find($itinerary->reference->speciality->id);
             $buscar_id[] = $buscar->id; //id de especialidad
-     
+
             $diff_R = array_diff($data, $buscar_id); //diferencia de especialidades
 
             //mostrar empleados en el editar rederir medico para que no se repitan los datos
@@ -279,22 +312,22 @@ class DoctorController extends Controller
                 $data2[] = $item->id;  //medicos relacionados a la especialidad
             }
 
-            if($itinerary->reference->employe_id != null){ 
+            if($itinerary->reference->employe_id != null){
                     $buscarE_id[] =  $itinerary->reference->employe->id;
                     $diff_EM = array_diff($data2, $buscarE_id); //diferencia de medicos
                     if($diff_EM != []){
-                        foreach($diff_EM as $di) { 
-                            $diff2[] = Employe::with('person')->where('id',$di)->first(); 
+                        foreach($diff_EM as $di) {
+                            $diff2[] = Employe::with('person')->where('id',$di)->first();
                         }
                     }else{
-                        $diff2 = []; 
+                        $diff2 = [];
                     }
-                  
+
                     $diff_doctor = null;
             }else{
                 $diff_doctor = $itinerary->reference->doctor;
                 $diff2 = [];
-            }            
+            }
 
         }else{
             $diff_R = $data;
@@ -302,14 +335,14 @@ class DoctorController extends Controller
 
         //buscar datos de las especialidades
         if($diff_R != [] ){
-            foreach($diff_R as $di) { 
-                $diff22[] = Speciality::find($di); 
+            foreach($diff_R as $di) {
+                $diff22[] = Speciality::find($di);
             }
-        }else{           
+        }else{
             $diff22 = [];
         }
 
-        $diff = $diff22; 
+        $diff = $diff22;
 
          //decodificando y buscando datos de procedures realizados
             if (!empty($itinerary->procedure_id)) {
@@ -322,7 +355,7 @@ class DoctorController extends Controller
             }else{
                 $procedures = null;
             }
-            
+
             //decodificando y buscando datos de examenes
             if (!empty($itinerary->exam_id)) {
                 $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
@@ -335,30 +368,30 @@ class DoctorController extends Controller
                 $exams = null;
             }
 
-            $procesm = Employe::with('procedures')->where('person_id', $reservation->person_id)->first(); 
+            $procesm = Employe::with('procedures')->where('person_id', $reservation->person_id)->first();
             $examenes = Exam::all();
             $cirugias = TypeSurgery::get();
 
         // buscando diferencia de procedimientos realizados
             if (!empty($itinerary->procedureR_id)) {
-                $diff_PR = $procesm->procedures->diff($r_patient->procedures);    
+                $diff_PR = $procesm->procedures->diff($r_patient->procedures);
             }else{
                 $diff_PR = $procesm->procedures;
             }
-        // buscando diferencia de examenes 
+        // buscando diferencia de examenes
             if ($itinerary->exam_id != null) {
                 $diff_E = $examenes->diff($exams);
             }else{
                 $diff_E = $examenes;
             }
-      
-        // busacndo posibles procedimientos 
+
+        // busacndo posibles procedimientos
             if (!empty($itinerary->procedure_id)) {
                 $diff_P = $procesm->procedures->diff($procedures);
             }else{
                 $diff_P = $procesm->procedures;
             }
- 
+
         // buscando posibles cirugias
             $surgery = array($itinerary->typesurgery);
             if(!empty($itinerary->typesurgery)){
@@ -396,7 +429,7 @@ class DoctorController extends Controller
         //buscando el id del paciente para buscar diagnostico
             $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
 
-        //buscando diagnostico 
+        //buscando diagnostico
             $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
             ->where('patient_id', $b_patient->id)->where('employe_id', $itinerary->employe_id)->first();
 
@@ -416,23 +449,23 @@ class DoctorController extends Controller
             $diagnostic->indications = $request->indicaciones;
             $diagnostic->save();
 
-       
+
         //actualizacion de reposo
             if($request->reposo_id != null){
                 $reposo = Repose::find($request->reposo_id);
                 $reposo->description = $request->reposop;
                 $reposo->save();
             }
-            
+
         //crear reposo y actualizar campo en itinerary y diagnostico
             if($request->reposop != null && $request->reposo_id == null){
                 $reposo = Repose::create([
                     'patient_id'        =>  $reservation->patient_id,
                     'employe_id'        =>  $itinerary->employe_id,
-                    'description'       =>  $request->reposop, 
+                    'description'       =>  $request->reposop,
                     'branch_id'         =>  1
                 ]);
-               
+
                 $itinerary->repose_id = $reposo->id;
                 $itinerary->save();
                 $diagnostic->repose_id = $reposo->id;
@@ -445,7 +478,7 @@ class DoctorController extends Controller
                 $reporte->descripction = $request->reporte;
                 $reporte->save();
             }
-        
+
         //crear reporte medico y actualizar campo en itinerary y diagnostico
             if($request->reporte != null && $request->report_medico_id == null){
                 $reporte = ReportMedico::create([
@@ -454,7 +487,7 @@ class DoctorController extends Controller
                     'descripction'      =>  $request->reporte,
                     'branch_id'         =>  1
                 ]);
-             
+
                 $itinerary->report_medico_id = $reporte->id;
                 $itinerary->save();
                 $diagnostic->report_medico_id = $reporte->id;
@@ -476,7 +509,7 @@ class DoctorController extends Controller
     {
         //
     }
-    
+
     // Para visualizar el Pago total del doctor
     public function recordpago() {
         $id=Auth::id();
@@ -487,10 +520,10 @@ class DoctorController extends Controller
                 'message' => 'empleado no es medico',
             ]);
         }
-        
+
         $inicio = Carbon::now()->startOfWeek(Carbon::MONDAY);
         $fin = Carbon::now()->endOfWeek(Carbon::FRIDAY);
-        
+
         $billing = Billing::with('procedures', 'patient')->where('employe_id', $employe->id)->whereBetween('created_at', [$inicio , $fin])->get();
         // dd($billing);
         $total = 0;
@@ -506,20 +539,20 @@ class DoctorController extends Controller
         return view('dashboard.doctor.recordpago', compact('pago'));
     }
 
-    // ================= Redireccion a formulario para crear diagnostico ============== 
+    // ================= Redireccion a formulario para crear diagnostico ==============
     public function crearDiagnostico($id){
         $patient = Person::find($id);
         $exams = Exam::all();
         return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
     }
 
-    // ================= Redireccion a formulario para crear recipe ============== 
+    // ================= Redireccion a formulario para crear recipe ==============
     public function crearRecipe($paciente, $employe){
         $medicines = Medicine::all();
         return view('dashboard.doctor.crearRecipe', compact('medicines','paciente', 'employe'));
     }
 
-    // ================= Redireccion a formulario para crear referencia ============== 
+    // ================= Redireccion a formulario para crear referencia ==============
     public function crearReferencia(Person $patient){
         $specialities = Speciality::all();
         return view('dashboard.doctor.crearReferencia', compact('patient','specialities'));
@@ -530,7 +563,7 @@ class DoctorController extends Controller
     {
         $person = Person::with('historyPatient')->where('id',$request->patient)->first();
         $io = InputOutput::where('person_id', $person->id)->first();
-        
+
         if (!empty($io->inside) && !empty($io->inside_office) && empty($io->outside_office) && empty($io->outside) ) {
 
             if($request->doctor != null  || $request->doctorExterno != null){
@@ -575,12 +608,12 @@ class DoctorController extends Controller
        public function reference_update(Request $request)
        {
         //    dd($request);
-           $referencia = Reference::find($request->reference);            
-   
+           $referencia = Reference::find($request->reference);
+
                if($request->doctor != null  || $request->doctorExterno != null){
-   
+
                    if($request->speciality != null && $request->reason != null){
-   
+
                         if($referencia != null){
                             $referencia->specialitie_id = $request->speciality;
                             $referencia->doctor = $request->doctorExterno;
@@ -590,7 +623,7 @@ class DoctorController extends Controller
                             return response()->json([
                                 'reference' => 'Referencia actualizada correctamente',201,$referencia,
                             ]);
-                   
+
                         }else{
                             $referencia = Reference::create([
                                 'patient_id'    =>  $request->patient,
@@ -604,7 +637,7 @@ class DoctorController extends Controller
                                 'reference' => 'Referencia actualizada correctamente',201, $referencia,
                             ]);
                     }
-                     
+
                    }else{
                        return response()->json([
                            'reference' => 'Datos incompletos',202
@@ -625,16 +658,16 @@ class DoctorController extends Controller
 
         if(!empty($itinerary)){
             if($itinerary->recipe_id == null){
-                
+
                 // crear el recipe
-                $crear_recipe = Recipe::create([               
+                $crear_recipe = Recipe::create([
                     'patient_id'   =>  $itinerary->patient_id,
                     'employe_id'   =>  $itinerary->employe_id,
                     'branch_id'    =>  1,
                 ]);
 
                 //actualiza el campo de recipe en itinerary
-                $itinerary->recipe_id = $crear_recipe->id;     
+                $itinerary->recipe_id = $crear_recipe->id;
                 $itinerary->save();
 
             }else{
@@ -671,12 +704,12 @@ class DoctorController extends Controller
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $reservation = Reservation::where('id', $request->reservacion_id)->first();
         $patient = Patient::where('person_id', $reservation->patient_id)->first();
-       
+
         if($itinerary != null){
             $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
         //   dd($io);
             if (empty($io->outside_office) && (!empty($io->inside_office))) {
-     
+
                 $io->outside_office = 'fuera';
                 $io->save();
                 $itinerary->status = 'fuera_office';
@@ -686,7 +719,7 @@ class DoctorController extends Controller
                     $itinerary->proximaCita = 'posible';
                 }else{
                     $itinerary->proximaCita = null;
-                }                
+                }
                 $itinerary->save();
 
 
@@ -697,7 +730,7 @@ class DoctorController extends Controller
                     $reposo = Repose::create([
                         'patient_id'        =>  $request->patient_id,
                         'employe_id'        =>  $itinerary->employe_id,
-                        'description'       =>  $request->reposop, 
+                        'description'       =>  $request->reposop,
                         'branch_id'         =>  1
                     ]);
 
@@ -744,7 +777,7 @@ class DoctorController extends Controller
                     //--------------Guardando examenes------------
                     if(!empty($itinerary->exam_id)){
                         $examen  =  explode(',', $itinerary->exam_id);
-                        for ($i=0; $i < count($examen) ; $i++) { 
+                        for ($i=0; $i < count($examen) ; $i++) {
                             $exam = Exam::find($examen[$i]);
                             $exam->diagnostic()->sync($diagnostic);
                         }
@@ -753,13 +786,13 @@ class DoctorController extends Controller
                     //--------------Guardando procedimientos realizados------------
                     if(!empty($itinerary->procedureR_id)){
                         $procedure  =  explode(',', $itinerary->procedureR_id);
-                        for ($i=0; $i < count($procedure) ; $i++) { 
+                        for ($i=0; $i < count($procedure) ; $i++) {
                             $proce = Procedure::find($procedure[$i]);
                             $proce->diagnostic()->sync($diagnostic);
                         }
                     }
-                    
-                                    
+
+
                     Alert::success('Diagnostico creado exitosamente!');
                     return redirect()->route('doctor.index');
 
@@ -780,7 +813,7 @@ class DoctorController extends Controller
     public function searchDoctor(Request $request)
     {
         $doctors = Speciality::with('employe.person', 'employe.image')->where('id', $request->id)->get();
-        
+
         if (!is_null($doctors->first()->employe)) {
             return $doctors;
         }else{
@@ -792,10 +825,10 @@ class DoctorController extends Controller
     }
 
     /**
-     * 
-     * Busca el horario del doctor y 
+     *
+     * Busca el horario del doctor y
      * retorna los dias que el no tenga disponible
-     * 
+     *
      */
 
      //======================== buscando horario ====================
@@ -815,10 +848,10 @@ class DoctorController extends Controller
                 for ($i = 0; $i < count($date); $i++) {
                     /**
                      * El 12 del ciclo for j,
-                     * hace referencia a 12 semanas que es la mayor 
+                     * hace referencia a 12 semanas que es la mayor
                      * anticipacion a la q se puede tener una cita
                      */
-                    for ($j= 0; $j < 12; $j++) { 
+                    for ($j= 0; $j < 12; $j++) {
                         $citesToday = Reservation::whereDate('date', $date[$i])->where('approved', '!=', null)->get()->count();
                         if ($citesToday < $quota[$i]) {
                             $available->push((Carbon::create($date[$i]->year, $date[$i]->month, $date[$i]->day)));
@@ -832,8 +865,8 @@ class DoctorController extends Controller
                 // dd($total);
                 $not = collect([]);
                 $min = Carbon::create($available->min()->year, $available->min()->month, $available->min()->day)->addDay();
-                
-                for ($i=0; $i <$total ; $i++) { 
+
+                for ($i=0; $i <$total ; $i++) {
                     $not->push(Carbon::create($min->year, $min->month, $min->day));
                     $min->addDay();
                 }
@@ -842,7 +875,7 @@ class DoctorController extends Controller
 
                 $diff = $diff->map(function($d)
                 {
-                    return $d->format('m/d/Y'); 
+                    return $d->format('m/d/Y');
                 });
 
                 foreach ($diff as $d) {
@@ -869,13 +902,13 @@ class DoctorController extends Controller
             ]);
         }
     }
-    
+
 
     //============= Procedimientos realizados en el consultorio =============
     public function procedures_realizados(Request $request){
         // dd($request);
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-    
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
@@ -891,7 +924,7 @@ class DoctorController extends Controller
         }
 
         $data =  implode(',', $returndata2);
-       
+
         if($itinerary->procedureR_id != null){
             $b_procedure =  explode(',', $itinerary->procedureR_id);
             $diff= array_diff($returndata2,$b_procedure);
@@ -900,21 +933,21 @@ class DoctorController extends Controller
                 $string = implode(',', $diff);
                 $todo = $itinerary->procedureR_id .','. $string;
             }else{
-                $string = null; 
+                $string = null;
                 // dd($string);
                 $todo = $itinerary->procedureR_id;
-            }        
-           
+            }
+
         }else{
             $string = $data;
             $todo = $data;
         }
         $itinerary->procedureR_id = $todo;
-        $itinerary->save();    
+        $itinerary->save();
 
         $procedures = explode(',', $string); // decodificando los prcocedimientos json
- 
-        for ($i=0; $i < count($procedures) ; $i++) { 
+
+        for ($i=0; $i < count($procedures) ; $i++) {
             $procedure[] = Procedure::find($procedures[$i]);
         }
 
@@ -928,7 +961,7 @@ class DoctorController extends Controller
     public function agregar_enfermedad(Request $request){
         // dd($request->id);
         // $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-    
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
@@ -952,11 +985,11 @@ class DoctorController extends Controller
         $array1=array();
         if($reservation->patient->historyPatient->disease->first() != null){
             foreach($reservation->patient->historyPatient->disease as $item){
-                $array1[] = $item->id; 
+                $array1[] = $item->id;
             }
         }
 
-        
+
         if($array1 != []){
             $merge_enfermedad= array_merge($returndata2,$array1);
             $diff = array_diff($returndata2,$array1);
@@ -964,19 +997,19 @@ class DoctorController extends Controller
             $merge_enfermedad = $returndata2;
             $diff = $returndata2;
         }
-                      
+
         //guardando examens en la tabla diagnostic_exam
             foreach($merge_enfermedad as $item){
                 $b_enfermedad = Disease::find($item);
                 $b_enfermedad->patient()->sync($patients);
-            } 
+            }
 
             // dd($merge_enfermedad);
 
             foreach($diff as $item){
-                $enfermedad[] = Disease::find($item); 
+                $enfermedad[] = Disease::find($item);
             }
-       
+
             // dd($enfermedad);
         return response()->json([
             'enfermedad' => 'Enfermedad agregada exitosamente',201,$enfermedad
@@ -985,7 +1018,7 @@ class DoctorController extends Controller
 
      //============= agregar alergias a la historia en el doctor =============
     public function agregar_alergias(Request $request){
-    
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
@@ -1009,7 +1042,7 @@ class DoctorController extends Controller
         $array1=array();
         if($reservation->patient->historyPatient->allergy->first() != null){
             foreach($reservation->patient->historyPatient->allergy as $item){
-                $array1[] = $item->id; 
+                $array1[] = $item->id;
             }
         }
 
@@ -1019,18 +1052,18 @@ class DoctorController extends Controller
         }else{
             $merge_alergias = $returndata2;
             $diff = $returndata2;
-        }           
-                      
+        }
+
         //guardando examens en la tabla diagnostic_exam
             foreach($merge_alergias as $item){
                 $b_alergia = Allergy::find($item);
                 $b_alergia->patient()->sync($patients);
-            } 
+            }
 
             foreach($diff as $item){
-                $alergia[] = Allergy::find($item); 
+                $alergia[] = Allergy::find($item);
             }
-       
+
             // dd($alergia);
         return response()->json([
             'enfermedad' => 'Alergia agregada exitosamente',201,$alergia
@@ -1041,7 +1074,7 @@ class DoctorController extends Controller
     public function agregar_cirugias(Request $request){
 
         $reservation = Reservation::find($request->id);
-        
+
         $cirugia = Patient::where('person_id', $reservation->patient_id)->first();
         // dd($cirugia);
         if($cirugia != null){
@@ -1050,7 +1083,7 @@ class DoctorController extends Controller
         }else{
             $cirugia = null;
         }
-               
+
         return response()->json([
             'Cirugia' => 'Cirugia agregada exitosamente',201,$cirugia
             ]);
@@ -1062,81 +1095,81 @@ class DoctorController extends Controller
 
             //buscando procedimientos
             $diagnostic = Diagnostic::with('procedures')->where('id',$request->diagnostic_id)->first();
-        
+
             $returndata2 = array();
             if(!empty($request->data)){
                 $strArray = explode('&', $request->data);
-        
+
                 foreach($strArray as $item) {
                     $array = explode("=", $item);
                     $returndata[] = $array;
                 }
-        
+
                 for($i=0; $i < count($returndata); $i++){
                     for($y=1; $y <= 1; $y++){
                     $returndata2[$i] = $returndata[$i][$y];
                     }
                 }
-        
+
                 // codificando arreglo de examenes seleccionados
                     $data =  implode(',', $returndata2);
-    
+
                     if(!empty($itinerary->procedureR_id)){
-                 
+
                         // buscando solo el id de los examenes guardados
                             for($i=0; $i < count($diagnostic->procedures); $i++){
-                                $aux2[$i] = $diagnostic->procedures[$i]->id; 
-                            } 
-    
+                                $aux2[$i] = $diagnostic->procedures[$i]->id;
+                            }
+
                         //uniendo erreglos de examenes seleccionados y los guardados
                             $merge_procedure= array_merge($returndata2,$aux2);
-                      
+
                         //guardando examens en la tabla diagnostic_exam
                             foreach($merge_procedure as $item){
                                 $b_procedure = Procedure::find($item);
                                 $b_procedure->diagnostic()->sync($diagnostic);
-                            } 
-    
+                            }
+
                         //buscar todos los examenes guardados
                             $b_diagnostic = Diagnostic::with('procedures')->where('id',$diagnostic->id)->first();
-    
+
                         // colocando solo el id en un arreglo
                             for($i=0; $i < count($b_diagnostic->procedures); $i++){
-                                $todo[$i] = $b_diagnostic->procedures[$i]->id; 
-                            } 
-    
-                        //codificando arreglo 
+                                $todo[$i] = $b_diagnostic->procedures[$i]->id;
+                            }
+
+                        //codificando arreglo
                             $date = implode(',',$todo);
-                      
+
                         //actualizando campo de examenes en itinerary
-                            $itinerary->procedureR_id = $date; 
+                            $itinerary->procedureR_id = $date;
                             $itinerary->save(); //actualizando examenes
-    
+
                         //diferencias entre arrelogs para mostar al usuario
                             $diff_E = array_diff($returndata2,$aux2);
-    
+
                         //buscando datos de examenes para mostrar
                             if(!empty($diff_E)){
                                 foreach($diff_E as $item){
                                     $procedure[] = Procedure::find($item);
-                                } 
+                                }
                             }else{
                                 $procedure[]=null;
                             }
-    
+
                     }else{
                          //guardando examens en la tabla diagnostic_exam
                             foreach($returndata2 as $item){
                                 $b_procedure = Procedure::find($item);
                                 $procedure[] = $b_procedure;
                                 $b_procedure->diagnostic()->sync($diagnostic);
-                            } 
-    
+                            }
+
                         //actualizando campo de examenes en itinerary
                             $itinerary->procedureR_id = $data;
                             $itinerary->save(); //actualizando examenes
                     }
-        
+
                 return response()->json([
                     'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
                     ]);
@@ -1150,7 +1183,7 @@ class DoctorController extends Controller
 
     //================eliminar examen ===================
     public function procedureR_eliminar2(Request $request){
-    
+
         //buscando en itinerary para actualizar campo
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $procedures = explode(',', $itinerary->procedureR_id);
@@ -1164,7 +1197,7 @@ class DoctorController extends Controller
         // dd($procedure);
         $proce = Procedure::find($request->id);
         // dd($proce);
-        
+
         //actualizando campo de examenes
         if($procedure != null){
             $itinerary->procedureR_id = implode(',', $procedure);
@@ -1188,7 +1221,7 @@ class DoctorController extends Controller
 
         //borrando examen de la tabla pivote diagnostic_exam
         $diagnostic->procedures()->detach($procedure);
-    
+
         //buscando en itinerary para actualizar campo
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $procedures = explode(',', $itinerary->procedureR_id);
@@ -1215,8 +1248,8 @@ class DoctorController extends Controller
         ]);
 
     }
-    
-        
+
+
     //======================= Examenes a realizar(paciente) ==================
     public function examR(Request $request){
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
@@ -1233,7 +1266,7 @@ class DoctorController extends Controller
             for($y=1; $y <= 1; $y++){
             $returndata2[$i] = $returndata[$i][$y];
             }
-        } 
+        }
 
         $data =  implode(',', $returndata2);
 
@@ -1243,13 +1276,13 @@ class DoctorController extends Controller
 
             // dd($diff);
             if($diff != null){
-                $string = implode(',',$diff);                
+                $string = implode(',',$diff);
                 $todo = $itinerary->exam_id .','. $string;
             }else{
-                $string = null;                 
+                $string = null;
                 $todo = $itinerary->exam_id;
             }
-          
+
 
         }else{
             $string = $data;
@@ -1257,14 +1290,14 @@ class DoctorController extends Controller
         }
 
         $itinerary->exam_id = $todo;
-        $itinerary->save();    
+        $itinerary->save();
 
         $examenes = explode(',', $string); // decodificando los prcocedimientos json
- 
-        for ($i=0; $i < count($examenes) ; $i++) { 
+
+        for ($i=0; $i < count($examenes) ; $i++) {
             $examen[] = Exam::find($examenes[$i]);
         }
-               
+
         // dd($examen);
         return response()->json([
             'exam' => 'Examenes guardados exitosamente',201,$examen
@@ -1279,7 +1312,7 @@ class DoctorController extends Controller
 
         $returndata2 = array();
         if(!empty($request->data)){
-            $strArray = explode('&', $request->data); 
+            $strArray = explode('&', $request->data);
 
             foreach($strArray as $item) {
                 $array = explode("=", $item);
@@ -1290,41 +1323,41 @@ class DoctorController extends Controller
                 for($y=1; $y <= 1; $y++){
                 $returndata2[$i] = $returndata[$i][$y]; // colocando los datos en un arreglo
                 }
-            } 
-          
+            }
+
             // codificando arreglo de examenes seleccionados
-                $data =  implode(',', $returndata2); 
+                $data =  implode(',', $returndata2);
 
             //para asegurarse de que no se repitan los examenes
                 if(!empty($itinerary->exam_id)){
-                    
+
                     // buscando solo el id de los examenes guardados
                         for($i=0; $i < count($diagnostic->exam); $i++){
-                            $aux2[$i] = $diagnostic->exam[$i]->id; 
-                        } 
+                            $aux2[$i] = $diagnostic->exam[$i]->id;
+                        }
 
                     //uniendo erreglos de examenes seleccionados y los guardados
                         $merge_exam= array_merge($returndata2,$aux2);
-                   
+
                     //guardando examens en la tabla diagnostic_exam
                         foreach($merge_exam as $item){
                             $b_exam = Exam::find($item);
                             $b_exam->diagnostic()->sync($diagnostic);
-                        } 
-                       
+                        }
+
                     //buscar todos los examenes guardados
                         $b_diagnostic = Diagnostic::with('exam')->where('id',$diagnostic->id)->first();
-                     
+
                     // colocando solo el id en un arreglo
                         for($i=0; $i < count($b_diagnostic->exam); $i++){
-                            $todo[$i] = $b_diagnostic->exam[$i]->id; 
-                        } 
+                            $todo[$i] = $b_diagnostic->exam[$i]->id;
+                        }
 
-                    //codificando arreglo 
+                    //codificando arreglo
                         $date = implode(',',$todo);
-                  
+
                     //actualizando campo de examenes en itinerary
-                        $itinerary->exam_id = $date; 
+                        $itinerary->exam_id = $date;
                         $itinerary->save(); //actualizando examenes
 
                     //diferencias entre arrelogs para mostar al usuario
@@ -1334,7 +1367,7 @@ class DoctorController extends Controller
                         if(!empty($diff_E)){
                             foreach($diff_E as $item){
                                 $examen[] = Exam::find($item);
-                            } 
+                            }
                         }else{
                             $examen[]=null;
                         }
@@ -1345,13 +1378,13 @@ class DoctorController extends Controller
                             $b_exam = Exam::find($item);
                             $examen[] = $b_exam;
                             $b_exam->diagnostic()->sync($diagnostic);
-                        } 
+                        }
 
                     //actualizando campo de examenes en itinerary
                         $itinerary->exam_id = $data;
                         $itinerary->save(); //actualizando examenes
                 }
-            
+
             return response()->json([
                 'exam' => 'Examenes guardados exitosamente',201,$examen
             ]);
@@ -1364,7 +1397,7 @@ class DoctorController extends Controller
 
     //================eliminar examen ===================
     public function exam_eliminar2(Request $request){
-   
+
         //buscando en itinerary para actualizar campo
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $examenes = explode(',', $itinerary->exam_id);
@@ -1400,7 +1433,7 @@ class DoctorController extends Controller
 
         //borrando examen de la tabla pivote diagnostic_exam
         $diagnostic->exam()->detach($exams);
-    
+
         //buscando en itinerary para actualizar campo
         $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
         $examenes = explode(',', $itinerary->exam_id);
@@ -1444,10 +1477,10 @@ class DoctorController extends Controller
             for($y=1; $y <= 1; $y++){
             $returndata2[$i] = $returndata[$i][$y];
             }
-        } 
+        }
 
         $data =  implode(',', $returndata2);
-        
+
         if($itinerary->procedure_id != null){
             $b_procedure =  explode(',', $itinerary->procedure_id);
             $diff= array_diff($returndata2,$b_procedure);
@@ -1456,20 +1489,20 @@ class DoctorController extends Controller
                 $string = implode(',',$diff);
                 $todo = $itinerary->procedure_id .','. $string;
             }else{
-                $string = null;                 
+                $string = null;
                 $todo = $itinerary->procedure_id;
-            }          
+            }
 
         }else{
             $string = $data;
             $todo = $data;
         }
         $itinerary->procedure_id = $todo;
-        $itinerary->save();    
+        $itinerary->save();
 
         $procedures = explode(',', $string); // decodificando los prcocedimientos json
- 
-        for ($i=0; $i < count($procedures) ; $i++) { 
+
+        for ($i=0; $i < count($procedures) ; $i++) {
             $procedure[] = Procedure::find($procedures[$i]);
         }
 
@@ -1477,11 +1510,11 @@ class DoctorController extends Controller
             'proceduresR' => 'Procedimientos guardados exitosamente',201, $procedure
         ]);
     }
-    
+
 
     // ================ posibles procedimientos =================
     public function procedures_update(Request $request){
-        
+
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
         $returndata2 = array();
@@ -1497,25 +1530,25 @@ class DoctorController extends Controller
                 for($y=1; $y <= 1; $y++){
                 $returndata2[$i] = $returndata[$i][$y];
                 }
-            } 
+            }
 
             $data =  implode(',', $returndata2);
 
             if(!empty($itinerary->procedure_id)){
-                 
+
                 // decodificando los prcocedimientos json
-                    $procedures = explode(',', $itinerary->procedure_id); 
-        
+                    $procedures = explode(',', $itinerary->procedure_id);
+
                 //diferencias entre arrelogs para mostar al usuario
                     $diff_P = array_diff($returndata2,$procedures);
-    
-                //convirtiendo en string 
+
+                //convirtiendo en string
                     if(!empty($diff_P)){
                         $convertir = implode(',', $diff_P);
                         $itinerary->procedure_id =  $itinerary->procedure_id.','.$convertir;
                     }else{
                         $itinerary->procedure_id =  $itinerary->procedure_id;
-                    }                   
+                    }
 
                 //actualizando posibles en procedimientos en itinerary
                     $itinerary->save();
@@ -1524,17 +1557,17 @@ class DoctorController extends Controller
                     if(!empty($diff_P)){
                         foreach($diff_P as $item){
                             $procedure[] = Procedure::find($item);
-                        } 
+                        }
                     }else{
                         $procedure[]=null;
-                    }    
+                    }
             }else{
                  //guardando examens en la tabla diagnostic_exam
                     foreach($returndata2 as $item){
                         $b_procedure = Procedure::find($item);
                         $procedure[] = $b_procedure;
-                    } 
-    
+                    }
+
                 //actualizando campo de examenes en itinerary
                     $itinerary->procedure_id = $data;
                     $itinerary->save(); //actualizando examenes
@@ -1565,7 +1598,7 @@ class DoctorController extends Controller
                 $procedure[] = $procedures[$i];
             }
         }
-        
+
         $proce = Procedure::find($request->id);
         //actualizando campo de examenes
         if($procedure != null){
@@ -1585,7 +1618,7 @@ class DoctorController extends Controller
     public function surgerysP(Request $request){
 
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
-    
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
@@ -1606,8 +1639,8 @@ class DoctorController extends Controller
         $itinerary->save();
 
         $surgerys = explode(',', $itinerary->typesurgery_id); // decodificando los prcocedimientos json
-        
-        for ($i=0; $i < count($surgerys) ; $i++) { 
+
+        for ($i=0; $i < count($surgerys) ; $i++) {
                     $surgery[] = TypeSurgery::with('classification')->find($surgerys[$i]);
                 }
 
@@ -1644,7 +1677,7 @@ class DoctorController extends Controller
 
             $itinerary->typesurgery_id = $returndata2[0];
             $itinerary->save();
-        
+
             return response()->json([
                 'surgerysR' => 'Cirugias guardadas exitosamente',201,$surgery
             ]);
@@ -1665,7 +1698,7 @@ class DoctorController extends Controller
 
         $itinerary->typesurgery_id = null;
         $itinerary->save();
-     
+
         return response()->json([
             'cirugia' => 'Cirugia eliminada correctamente',202,$cirugia,
         ]);
@@ -1692,7 +1725,7 @@ class DoctorController extends Controller
     public function alergia_eliminar(Request $request){
 
         $reservation = Reservation::find($request->reservacion_id);
-     
+
         $b_alergia = Allergy::find($request->id);
 
         $patient = Patient::where('person_id',$reservation->patient_id)->first();
@@ -1731,7 +1764,7 @@ class DoctorController extends Controller
         // dd($employes);
 
         $all = Surgery::with('patient.person.image','typesurgeries','area')->where('employe_id', $employe->id)->get();
-        // dd($all); 
+        // dd($all);
 
         $reservations = Reservation::where('surgery', true)->where('person_id', $employe->id)->get();
         // dd( $reservations);

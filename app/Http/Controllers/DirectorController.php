@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;                               
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Allergy;
@@ -38,6 +38,7 @@ class DirectorController extends Controller
      */
     public function index()
     {
+
         $employes = Employe::with('person', 'position', 'speciality')->get();
 
         return view('dashboard.director.index', compact('employes'));
@@ -52,7 +53,7 @@ class DirectorController extends Controller
     //    dd($specialitys);
        $procedures = Procedure::with('speciality')->get();
     //    dd($procedures);
-   
+
        $surgerys = Typesurgery::with('classification')->get();
        $allergys = Allergy::get();
        $diseases = Disease::get();
@@ -67,7 +68,7 @@ class DirectorController extends Controller
        $payments = TypePayment::get();
        $classifications = ClassificationSurgery::get();
 
-       return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams', 
+       return view('dashboard.director.all', compact('positions', 'services', 'specialitys', 'procedures', 'surgerys', 'allergys', 'diseases', 'medicines', 'exams',
                                                      'types', 'areas', 'clases', 'doctors', 'payments', 'classifications'));
     }
 
@@ -101,7 +102,7 @@ class DirectorController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        
+
         $data = $request->validate([
             'name' => 'required',
             'type_dni'  => 'required',
@@ -131,7 +132,7 @@ class DirectorController extends Controller
             'branch_id' => 1
         ]);
         // dd($employe);
-            
+
         $user = User::create([
             'email'      => $person->email,
             'password'   => Hash::make($request->contra),
@@ -149,26 +150,26 @@ class DirectorController extends Controller
         $user->givePermissionTo([$permission]);
         }
 
-        if (!is_null($employe)) { 
+        if (!is_null($employe)) {
             if (!empty($request->speciality)) {
                 foreach ($request->speciality as $speciality) {
                     $especialidad = Speciality::find($speciality);
-                    $employe->speciality()->attach($especialidad); 
+                    $employe->speciality()->attach($especialidad);
                     }
             }
         }
-         
+
         if (!is_null($employe)) {
             if (!empty($request->procedure)) {
                 foreach ($request->procedure as $procedure) {
                     $procedimiento = Procedure::find($procedure);
-                    $employe->procedures()->attach($procedimiento); 
+                    $employe->procedures()->attach($procedimiento);
                 }
             }
         }
 
         if ($request->area_id != null) {
-           
+
             $area = AreaAssigment::create([
                 'employe_id' => $employe->id,
                 'area_id'    => $request->area_id,
@@ -177,8 +178,8 @@ class DirectorController extends Controller
         }
 
         // dd($area);
-    
-          
+
+
         if ($request->image != null) {
             $image = $request->file('image');
             $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
@@ -242,11 +243,11 @@ class DirectorController extends Controller
     public function update(Request $request, $id)
     {
         //  dd($request);
-        
+
         $employe = Employe::with('person.user', 'position','speciality', 'image')->find($id);
         $user = User::where('person_id', $employe->person->id )->first();
         $doctor = Doctor::where('employe_id', $employe->id)->first();
-       
+
         $employe->person->type_dni = $request->type_dni;
         $employe->person->dni = $request->dni;
         $employe->person->name = $request->name;
@@ -254,22 +255,22 @@ class DirectorController extends Controller
         $employe->person->address = $request->address;
         $employe->person->phone = $request->phone;
         $employe->person->email = $request->email;
-        
+
         $employe->speciality()->sync($request->speciality);
-        $employe->procedures()->sync($request->procedure); 
+        $employe->procedures()->sync($request->procedure);
 
         $doctor->price = $request->price;
         $doctor->type_doctor_id = $request->type_doctor_id;
-        
+
         $employe->update();
         $doctor->save();
 
         $user->permissions()->sync($request->perms);
         if ($request->image != null) {
             if ( $employe->image == null) {
-               
+
                 $image = $request->file('image');
-                $path = $image->store('public/employes');  
+                $path = $image->store('public/employes');
                 $path = str_replace('public/', '', $path);
                 $image = new Image;
                 $image->path = $path;
@@ -280,17 +281,17 @@ class DirectorController extends Controller
             }else{
                 // dd($employe->image->path);
                 Storage::disk('public')->delete($employe->image->path); //elimina la img de storage para generar la nueva
-                
+
 
                 $image = $request->file('image');
-                $path = $image->store('public/employes');  
+                $path = $image->store('public/employes');
                 $path = str_replace('public/', '', $path);
                 $employe->image->path = $path;
                 $employe->image->save();
             }
         }
 
-       return redirect()->route('employe.index')->withSuccess('Registro modificado'); 
+       return redirect()->route('employe.index')->withSuccess('Registro modificado');
     }
 
     /**
@@ -318,7 +319,7 @@ class DirectorController extends Controller
     public function store_price(Request $request)
     {
         // dd($request);
-        
+
         $data = $request->validate([
             'employe_id' => 'required',
             'type_doctor_id'  => 'required',
@@ -351,7 +352,7 @@ class DirectorController extends Controller
     public function update_price(Request $request)
     {
     //    dd($request);
-        
+
         $precio = Doctor::find($request->id);
         $employes = Employe::with('person.user', 'position', 'doctor')->get();
         $clase = TypeDoctor::all();

@@ -12,7 +12,7 @@
             <ul class="metismenu">
                 {{-- @role('recepcion')
                     <li class="g_heading">Recepcion</li>
-                    <li class=""><a href="index.html"><i class="icon-home"></i><span>Dashboard</span></a></li>                        
+                    <li class=""><a href="index.html"><i class="icon-home"></i><span>Dashboard</span></a></li>
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="icon-tag"></i><span>Citas</span></a>
                         <ul>
@@ -40,8 +40,8 @@
                     <div class="">
                         @role('director')
                         <div class="checkIn animated fadeIn d-none  @yield('inrol')" >
-                        @endrole   
-                        <li class="g_heading">Check-IN</li>                      
+                        @endrole
+                        <li class="g_heading">Check-IN</li>
                         <li class="@yield('cites')">
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Pacientes</span></a>
                             <ul>
@@ -68,7 +68,7 @@
                                         <a href="{{ route('checkin.consultorio') }}">Asistencia</a>
                                     </li>
                             </li>
-                        </li> 
+                        </li>
                         {{-- <div class="card bg-indigo" style="background-color: #00506b;">
                             <div class="card-body text-center">
                                 <div class="inline-datepicker datepicker-reception fill_bg"></div>
@@ -103,14 +103,14 @@
                     @endrole
 
                     <li class="g_heading">Check-OUT</li>
-                    <li  class="@yield('citas')"><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Citas del día</span></a></li>                                          
+                    <li  class="@yield('citas')"><a href="{{ route('checkout.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Citas del día</span></a></li>
                     <li class="@yield('facturacion')"><a href="{{ route('checkout.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturación</span></a></li>
-                    <li class="@yield('cirugias')"><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;<span>Cirugías</span></a></li> 
+                    <li class="@yield('cirugias')"><a href="{{ route('checkout.index_cirugias') }}"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;<span>Cirugías</span></a></li>
                     <li @yield('cites')>
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Agendar Cirugia</span></a>
                         <ul>
-                            <li class="@yield('agendar')"><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Hospitalaria</span></a></li>      
-                            <li class="@yield('newCite')"><a href="{{ route('checkout.agendar-ambulatoria') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Ambulatoria</span></a></li>                   
+                            <li class="@yield('agendar')"><a href="{{ route('checkout.programar-cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Hospitalaria</span></a></li>
+                            <li class="@yield('newCite')"><a href="{{ route('checkout.agendar-ambulatoria') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Ambulatoria</span></a></li>
                         </ul>
                     </li>
                     <li class="@yield('facturacion')"><a href="{{ route('checkout.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
@@ -120,10 +120,10 @@
 
                 @role('director')
                 <div class="director animated fadeIn @yield('dire')">
-                    <li class="g_heading">Director</li> 
+                    <li class="g_heading">Director</li>
                     <li ><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Lista de Empleados</a></li>
                     <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;&nbsp;Lista de Registros</a></li>
-                    
+
                     <li class="@yield('cites')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span>Registrar</span></a>
                         <ul>
@@ -175,13 +175,13 @@
                 <li @yield('cites')>
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Pacientes</span></a>
                         <ul>
-                            <li class="@yield('dia')"><a href="{{ route('in-out.day') }}"><i class="fa fa-list"></i><span>Cirugias del Dia</span></a></li>      
-                            <li class="@yield('lista')"><a href="{{ route('in-out.index') }}"><i class="fa fa-list"></i><span>Todas las Cirugias</span></a></li>      
+                            <li class="@yield('dia')"><a href="{{ route('in-out.day') }}"><i class="fa fa-list"></i><span>Cirugias del Dia</span></a></li>
+                            <li class="@yield('lista')"><a href="{{ route('in-out.index') }}"><i class="fa fa-list"></i><span>Todas las Cirugias</span></a></li>
                           </ul>
                     </li>
-                <li class="@yield('agendar')"><a href="{{ route('in-out.agendar_cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugias</span></a></li>   
-                <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>                   
-                @endrole    
+                <li class="@yield('agendar')"><a href="{{ route('in-out.agendar_cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugias</span></a></li>
+                <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>
+                @endrole
             </ul>
         </nav>
     </div>

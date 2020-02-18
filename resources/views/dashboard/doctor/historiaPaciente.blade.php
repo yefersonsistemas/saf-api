@@ -367,7 +367,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <a class="btn btn-verdePastel mx-2 text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                        <a class="btn btn-azulOscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                        <a class="btn btn-azuloscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                     </div>                                                      
                                                 </div>
                                             </div>
@@ -814,9 +814,9 @@ button[data-original-title="Help"]{ display: none; }
                     <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>          
+                </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 415px; ">         
+                    <div class="modal-body" style="max-height: 415px; ">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 <div class="row">
@@ -832,7 +832,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody id="modal_enfermedad" class="mt-4"> 
+                                    <tbody id="modal_enfermedad" class="mt-4">
                                             @if($enfermedad != null)
                                             @foreach ($enfermedad as $item)
                                                 <tr id="quitar{{$item->id}}">
@@ -844,13 +844,14 @@ button[data-original-title="Help"]{ display: none; }
                                                     </td>
                                                 </tr>                                                
                                             @endforeach
-                                        @endif 
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
                         </div>                             
                    </div>
-                    <div class="modal-footer p-2 ">                        
+                    <div class="modal-footer p-2 ">
+                        <a  class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>                       
                         <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
@@ -881,9 +882,9 @@ button[data-original-title="Help"]{ display: none; }
                     </ul>
                 </div>
                 @endif
-                <div class="modal-footer">
-                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
-                    <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
+                <div class="modal-footer p-2">
+                    <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
+                    <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
                 </div>
             </div>
         </div>
@@ -1033,7 +1034,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody id="modal_procedureR" class="mt-4"> 
+                                    <tbody id="modal_procedureR" class="mt-4">
                                             @if($procesm->procedures != null)
                                             @foreach ($procesm->procedures as $proces)
                                                 <tr id="quitar_procedureR{{$proces->id}}">
@@ -1041,22 +1042,22 @@ button[data-original-title="Help"]{ display: none; }
                                                         <label class="custom-control custom-checkbox col-9">
                                                             <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
                                                             <span class="custom-control-label">{{ $proces->name }} </span>
-                                                        </label>                                                       
+                                                        </label>
                                                     </td>
                                                     <td class="text-end d-flex justify-content-end">
-                                                        {{ $proces->price }} 
+                                                        {{ $proces->price }}
                                                     </td>
-                                                </tr>                                                
+                                                </tr>
                                             @endforeach
-                                        @endif 
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
-                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
+                        <a class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarO">Guardar</a>
                     </div>
                 </form>
             </div>
@@ -1109,8 +1110,8 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
-                        <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
+                        <a class="btn btn-secondary btnCerrar text-white" data-dismiss="modal"type="button" >Cerrar</a>        
+                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarE">Guardar</a>
                     </div>
                 </form>
             </div>
@@ -1269,10 +1270,10 @@ button[data-original-title="Help"]{ display: none; }
                             </div>
                         </div>
                     </div>
-                        <div class="modal-footer p-2">
-                            <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
-                            <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
-                        </div>
+                            <div class="modal-footer p-2">
+                                <a  class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
+                                <a type="submit" class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarC">Guardar</a>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -1293,7 +1294,6 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="posible-procedures">
                 <div class="modal-body" style="max-height: 415px;">
                     <div class="form-group">
-
                         <div class="custom-controls-stacked">
                             <div class="row">
                                 <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureP" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedure..">
@@ -1328,15 +1328,15 @@ button[data-original-title="Help"]{ display: none; }
                                                 </td>
                                             </tr>                                                
                                         @endforeach
-                                    @endif 
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer p-2">
-                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
-                    <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
+                    <a class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                    <a class="btn btn-azuloscuro text-white" id="guardarP" data-dismiss="modal">Guardar</a>
                 </div>
             </form>
             </div>
@@ -1780,7 +1780,7 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida
                 agregar = ` <tr id="quitar${data[1].id}">
                                 <td>
                                     <label class="custom-control custom-checkbox" >
