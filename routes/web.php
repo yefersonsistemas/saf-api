@@ -283,7 +283,25 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
+
+        
+
     });
+
+
+
+
+    Route::group(['middleware' => ['role:enfermeria']], function(){
+
+        Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
+        Route::get('create/lista/surgeries', 'NurseController@create')->name('create.lista_cirugias');
+        Route::POST('store/lista/surgeries', 'NurseController@store')->name('store.lista_cirugias');
+        Route::get('editar/lista/surgeries/{id}', 'NurseController@edit')->name('edit.lista_cirugias');
+        Route::put('editar/lista/surgeries/update/{id}', 'NurseController@update')->name('update.lista_cirugias');
+
+    });
+
+
 
     Route::group(['middleware' => ['role:in-out']], function(){
 
@@ -295,6 +313,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/day','InoutController@day')->name('in-out.day');    
 
     });
+
+
 
     Route::group(['middleware' => ['role:farmaceuta']], function(){
 

@@ -927,7 +927,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row">
                                                             <div class="container">
                                                                 <div class="row mx-auto">
-                                                                     <div class="col-12 justify-content-center text-center">
+                                                                     <div class="col-12 justify-content-center text-center citaProximaM">
                                                                          @if($itinerary->proximaCita == null)
                                                                         <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima">
                                                                             <i style="font-size:25px " class=" fa fa-bell"></i>
@@ -2503,7 +2503,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#citaProxima").click(function() {
 
     $('#proximaCita').val(1);
-    var proxima_cita = $('#proximaCita').val();
+    var proxima_cita = $('#proximaCita').val(1);
 
     if(proxima_cita == 1){                  //si no trae valores
             Swal.fire({
@@ -2512,7 +2512,8 @@ button[data-original-title="Help"]{ display: none; }
                 type: 'success',
             });
 
-        $("#citaProxima").prop('disabled', true);
+        // $("#citaProxima").prop('disabled', true);
+        $('.citaProximaM').html('<div class="badge btn-danger text-white py-2 px-4 mb-3" style="animation: pulse 2s infinite">Proxima cita notificada</div> <input type="hidden" id="proximaCita" name="proximaCita" value="'+proxima_cita+'">');
         }else{
             Swal.fire({
                 title: 'No próxima Cita',
