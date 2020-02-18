@@ -123,7 +123,7 @@
                                 <label class="imagecheck m-0">
                                     <div class="card assigment">
                                         <input type="radio" name="type_surgery_id" value="   " id="type_surgery_id" class="imagecheck-input">
-                                        {{-- <input type="radio" name="type_surgery_id" value="{{ $surgery->id }}" id="type_surgery_id" class="imagecheck-input"> --}}
+                                       {{-- <inputtype="radio"name="type_surgery_id"value="$surgery->id --}}}" id="type_surgery_id" class="imagecheck-input"> --}}
 
                                          {{-- @if (!empty($surgery->image->path)) --}}
 
@@ -230,14 +230,7 @@
                             </div>
                         </div>
                     </section>
-
-
-
-
-
                 </form>
-                
-
             </div>
         </div>
     </div>
@@ -305,6 +298,14 @@ var form = $('#wizard_horizontal').show();
         $(event.currentTarget).find('[role="menu"] li a').removeClass('');
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
+
+
+
+
+//-------------------------funcion buscar paciente--------------------------- 
+
+
+
     function search() {
         $("#search").click(function() {
             var type_dni = $("#type_dni").val();
@@ -385,6 +386,12 @@ var form = $('#wizard_horizontal').show();
         $('#submit').attr('disabled', true);
     }
 
+
+
+//----------------------------cirugias registradas------------------------------------
+
+
+
     function surgery() {
         $("input[name='type_surgery_id']").click(function() {
 
@@ -436,6 +443,12 @@ var form = $('#wizard_horizontal').show();
                                 </div>`);
         }
     }
+
+
+//----------------------------Doctores registrados------------------------------------
+
+
+
 
     function doctor() {
         $("input[name='employe_id']").click(function() {
