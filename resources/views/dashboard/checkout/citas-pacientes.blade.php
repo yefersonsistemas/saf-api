@@ -593,9 +593,8 @@
                                             </div>  --}}
                                                 
                                             <!--Posibles cirugias-->
-                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2">
+                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2 h-25">
                                                 <div class="card-body">
-                                                   
                                                     @if ($itinerary->reservation->operation == false && $itinerary->ambulatoria == null)
                                                         <h5 class="card-title color_titulo">Posible cirugias</h5>
                                                         @if($itinerary->typesurgery != null)
@@ -641,7 +640,7 @@
                                             </div> 
                                                 
                                             <!--Posibles procedimientos-->
-                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2" >
+                                            <div class="card col-md-5 col-sm-12 col-lg-5 ml-2 h-25">
                                                 <div class="card-body">
                                                     <h5 class="card-title color_titulo">Posibles procedimientos</h5>
                                                     @if ($itinerary->procedures != null)

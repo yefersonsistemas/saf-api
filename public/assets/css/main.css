@@ -8332,31 +8332,27 @@ body.h_menu.rtl .metismenu>li:last-child .collapse {
     }
 }
 
-
-/* MODIFICACIONES A MODALES DE AGREGAR ENFERMEDAD  */
-
 body *::-webkit-scrollbar {
-    overflow: hidden;
-    width: 8px;
-    height: 10px;
-    /* display: none; */
+    width: 0px;
+    height: 3px;
+    transition: .3s background
 }
 
 body *::-webkit-scrollbar-thumb {
-    overflow: hidden background: #E8E9E9;
-    border-radius: 10px;
+    background: #f8f9fa
 }
 
+body *:hover::-webkit-scrollbar-thumb {
+    background: #f8f9fa
+}
 
-/* ==============color de barra general del proyecto ===================*/
-
-
-/* body *:hover::-webkit-scrollbar-thumb {
-    background: #00ba88;
-} */
+a:hover {
+    text-decoration: none
+}
 
 #main_content {
     display: -ms-flexbox;
+    display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
     -ms-flex-pack: center;
@@ -8374,18 +8370,18 @@ body *::-webkit-scrollbar-thumb {
     margin-left: 2px
 }
 
-.rowww {
+.row3 {
     margin-left: 50%;
     margin-top: 8%
 }
 
-.rowwww {
+.row4 {
     margin-left: 50%;
     margin-top: 11%
     /* para procedimientos realizados en os modales de doctor */
 }
 
-.rowwwww {
+.row5 {
     margin-left: 40%;
     margin-top: 8%
 }
@@ -8405,8 +8401,8 @@ body *::-webkit-scrollbar-thumb {
     right: 100px;
 }
 
-.btnCerrarModal {
-    
+.btnCerrar {
+    width: 76px;
 }
 
 .contenedor {
@@ -8506,7 +8502,7 @@ body *::-webkit-scrollbar-thumb {
 }
 
 .input-group-text {
-    border-color: rgb(233, 233, 232);
+    border-color: #E8E9E9;
     background: transparent
 }
 
@@ -10211,11 +10207,7 @@ img {
 }
 
 .badge {
-    color: #fff;
-}
-
-.badgeMargin {
-    margin-right: 3%;
+    color: #fff
 }
 
 .badge-default {
@@ -10465,7 +10457,7 @@ img {
     border-radius: .55rem;
     border-color: #E6E9ED;
     position: relative;
-    width: 100%
+    width: 100%;
 }
 
 .card.box_shadow {
@@ -12365,8 +12357,7 @@ a.tag-addon:hover {
     text-align: right
 }
 
-
-/* .dataTables_wrapper .dataTables_filter input {
+.dataTables_wrapper .dataTables_filter input {
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
@@ -12374,7 +12365,7 @@ a.tag-addon:hover {
     *display: inline;
     width: auto;
     margin-left: 0.2rem
-} */
+}
 
 .dataTables_wrapper .dataTables_paginate {
     float: right;
@@ -17554,4 +17545,8 @@ svg {
 
 .dark-mode .page-header .right .nav-pills .nav-link {
     color: #80868e
+}
+
+.altura {
+    height: 800px;
 }

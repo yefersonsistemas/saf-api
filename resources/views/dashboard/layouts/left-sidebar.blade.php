@@ -167,15 +167,21 @@
 
 
 
+
+
+
                 @role('in-out')
-                <li class="g_heading">In-Out</li>
-                @endrole
-
-
-
-
-
-
+                <li class="g_heading">In-Out</li>               
+                <li @yield('cites')>
+                    <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Pacientes</span></a>
+                        <ul>
+                            <li class="@yield('dia')"><a href="{{ route('in-out.day') }}"><i class="fa fa-list"></i><span>Cirugias del Dia</span></a></li>      
+                            <li class="@yield('lista')"><a href="{{ route('in-out.index') }}"><i class="fa fa-list"></i><span>Todas las Cirugias</span></a></li>      
+                          </ul>
+                    </li>
+                <li class="@yield('agendar')"><a href="{{ route('in-out.agendar_cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugias</span></a></li>   
+                <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>                   
+                @endrole    
 
 
 
@@ -189,7 +195,7 @@
                 @endrole
 
                 
-                
+              
             </ul>
         </nav>
     </div>

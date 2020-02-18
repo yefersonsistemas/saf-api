@@ -4160,18 +4160,10 @@
     }
     /* pruebas de boton que se asoma */
     
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
     .icon {
-        top: 40%;
-        /*altura del boton en la pantalla*/
+        top: 50%;
         position: relative;
         margin-bottom: 10px;
-        /*no hace nada*/
     }
     
     .icon-primary {
@@ -4179,41 +4171,38 @@
         text-decoration: none;
         color: #fff;
         background-color: #00506b;
-        border-radius: 20%;
+        border-radius: 100%;
         position: relative;
         z-index: 1;
-        box-shadow: 2px 0 2px rgba(0, 0, 0, .5);
+        box-shadow: 4px 5px 4px rgba(0, 0, 0, .5);
         height: 40px;
         width: 40px;
         /*ancho del boton */
         text-align: center;
-        line-height: 60px;
+        line-height: 40px;
     }
     
     .container-description {
         overflow: hidden;
         position: absolute;
         top: 0;
-        right: 10px;
+        right: 6px;
         /*mueve ala derecha el contenedor */
     }
     
     .icon-description {
-        width: 135px;
+        width: 140px;
         /*larg (horizontal) del contenedor */
         display: inline-block;
         color: #fff;
         background-color: #00ba88;
         height: 40px;
-        /*altura del contenedor */
-        border-radius: 0%;
-        line-height: 62px;
-        padding-left: 16px;
+        line-height: 40px;
+        padding-left: 18px;
         /*mueve la descr del contenedor */
-        border-radius: 20px 0 0 20px;
+        border-radius: 20px 20px 20px 20px;
         transform: translate3d(100%, 0, 0);
         transition: transform 175ms ease;
-        font-size: 14px;
     }
     
     .icon-primary:hover {
@@ -4224,4 +4213,8 @@
     
     .icon-primary:hover~.container-description .icon-description {
         transform: translate(0, 0);
+    }
+
+    .btnAcordion{
+        background: #00be88;
     }

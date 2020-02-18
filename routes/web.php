@@ -9,7 +9,15 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+// */
+// use Illuminate\Routing\Route;
+// use App\Http\Middleware\role;
+// use Illuminate\Support\Facades\Route;
+
+
+ 
+
+
 Route::get('/', function() {
     return redirect()->route('login');
 })->name('welcome');
@@ -185,8 +193,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:director']], function(){
 
         //inicio de rutas para crear
-        Route::get('empleados', 'DirectorController@index')->name('employe.index');
-        Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
@@ -278,9 +284,18 @@ Route::group(['middleware' => 'auth'], function (){
 
     });
 
-    Route::group(['middleware' => ['role:enfermeria']], function(){
 
-        Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
+    Route::group(['middleware' => ['role:in-out']], function(){
+
+        Route::get('inout/index', 'InoutController@index')->name('in-out.index');   
+        Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');    
+        Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');    
+        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');    
+        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
+        Route::get('inout/day','InoutController@day')->name('in-out.day');    
+
+
+
     });
 
     Route::group(['middleware' => ['role:farmaceuta']], function(){
