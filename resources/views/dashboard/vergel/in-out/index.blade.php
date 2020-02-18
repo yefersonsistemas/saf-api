@@ -117,10 +117,9 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
+                                        <th>Paciente</th>
                                         <th>Doctor</th>
-                                        <th>Especialidad</th>
+                                         <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
@@ -129,518 +128,108 @@
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
+                                        <th>Paciente</th>
                                         <th>Doctor</th>
-                                        <th>Especialidad</th>
+                                         <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
                                         <th>Status</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </tfoot>
-                                {{-- <tbody>
-                                   (!empty($reservation->cite) )
-                                                    < @if($reservations != '')
-                                        @foreach ($reservations as $reservation)
-                                            @if ($reservation->status=="Suspendida")
-                                                @if tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="{{$reservation->cite->first()->reason}}">
-                                                @endif
-                                            @else
+                               <tbody>
+                              
+                                        @foreach ($day as $surgeries)
                                                 <tr style="height:40px;">
-                                            @endif
-                                                <td style="text-align: center; font-size:10px; height:40px;">
-                                                @if (!empty($reservation->patient->image->path))
-                                                    <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
+
+                                                @foreach ($surgeries->patient as $patient)
+                                                <td style="text-align: center; font-size:10px; height:40px;">                                               
+                                                @if (!empty($patient->person->image->path))
+                                                    <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">
-                                                @endif
-                                                <div class="">
-                                                    @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
-                                                    @else
-                                                        @if($reservation->patient->inputoutput != '')
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
-                                                        @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
-                                                        @endif
-                                                    @endif
-                                                </div>
+                                                @endif     
                                             </td>
-                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td class="">{{ $reservation->patient->name }} <br> {{ $reservation->patient->lastname }}</td>
-                                            <td class="">{{ $reservation->person->name }} <br> {{ $reservation->person->lastname }}</td>
-                                            <td>{{ $reservation->speciality->name }}</td>
-                                            <td>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</td>
-                                            <td>
-                                                @if ($reservation->status == 'Aprobada')
-                                                    <span class="badge badge-success">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Cancelada')
-                                                    <span class="badge badge-danger">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Reprogramada')
-                                                    <span class="badge badge-secondary">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Suspendida')
-                                                    <span class="badge badge-warning">{{ $reservation->status }}</span>
-                                                @endif
-                                                @if ($reservation->status == 'Pendiente')
-                                                    <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
-                                                @endif
-                                            </td>
+                                            @endforeach   
 
-                                            <td style="display: inline-block">
-                                                @if ($reservation->status == 'Pendiente')
-                                                    @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
-                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                    @endif
-                                                    @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
-                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                    @endif
-                                                    @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
-                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                    @endif
-                                                    @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
-                                                        <button type="button" href="" disabled class="btn btn-success">A</button>
-                                                    @endif
 
-                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
+                                         @foreach ( $surgeries->patient as $patient ) 
+                                            <td>{{ $patient->person->name }} {{$patient->person->lastname }}</td> 
+                                         @endforeach
+                                            <td class="">{{ $surgeries->employe->person->name }} {{$surgeries->employe->person->lastname }}</td> 
+                                            <td class="">{{ $surgeries->typesurgeries->name }} </td> 
+                                            <td> {{ $surgeries->date }}  </td>
+                                            <td> 
+                                            @if ($surgeries->status == 'Aprobada') 
+                                                    <span class="badge badge-success">{{ $surgeries->status }}</span> 
                                                 @endif
+                                                @if ($surgeries->status == 'Cancelada') --}}
+                                                    <span class="badge badge-danger">{{ $surgeries->status }}</span> 
+                                                @endif 
+                                                @if ($surgeries->status == 'Reprogramada') --}}
+                                                    <span class="badge badge-secondary">{{ $surgeries->status }}</span> 
+                                                @endif 
+                                                @if ($surgeries->status == 'Suspendida') --}}
+                                                    <span class="badge badge-warning">{{ $surgeries->status }}</span> 
+                                                @endif 
+                                                @if ($surgeries->status == 'Pendiente') --}}
+                                                    <span class="badge badge-azuloscuro">{{ $surgeries->status }}</span> 
+                                                @endif 
+                                            </td> 
 
-                                                @if ($reservation->status == 'Aprobada')
-                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                    <a type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</a>
-                                                @endif
-
-                                                @if ($reservation->status == 'Cancelada')
-                                                    <button type="button" class="btn btn-secondary" disabled>A</button>
-                                                    <button type="button" class="btn btn-secondary" disabled>R</button>
-                                                    <button type="button" class="btn btn-secondary" disabled>S</button>
-                                                    <button type="button" class="btn btn-secondary" disabled>C</button>
-                                                @endif
-                                                @if ($reservation->status == 'Reprogramada')
-                                                    <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                                @endif
-                                                @if ($reservation->status == 'Suspendida')
-                                                    <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
-                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                        <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
-                                                        @method('delete')
-                                                        @csrf
-                                                    </form>
-                                                @endif
-                                            </td>
+                                             <td style="display:inline-block"> 
+                                                {{-- @if ($reservation->status == 'Pendiente') --}}
+                                                    {{-- @if(Carbon::now()->format('Y-m-d') == ($reservation->date )) --}}
+                                                        <a href="  " class="btn btn-success">A</a>
+                                                    {{-- @endif --}}
+                                                    {{-- @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date)) --}}
+                                                        {{-- <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a> --}}
+                                                    {{-- @endif --}}
+                                                    {{-- @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date)) --}}
+                                                        {{-- <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a> --}}
+                                                    {{-- @endif --}}
+                                                    {{-- @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d'))) --}}
+                                                        {{-- <button type="button" href="" disabled class="btn btn-success">A</button> --}}
+                                                    {{-- @endif --}}
+{{--  --}}
+                                            <a href="   " class="btn btn-warning">R</a>
+                                            <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever= Suspender cita de: ddata-type= "Suspendida " >S</button> 
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever= Cancelar cita de:  data-type= "Cancelada " >C</button> 
+                                                {{-- @endif --}}
+                                            
+                                                {{-- @if ($reservation->status == 'Aprobada') --}}
+                                                    {{-- <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a> --}}
+                                                    {{-- <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button> --}}
+                                                    {{-- <a type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</a> --}}
+                                                {{-- @endif --}}
+{{--  --}}
+                                                {{-- @if ($reservation->status == 'Cancelada') --}}
+                                                    {{-- <button type="button" class="btn btn-secondary" disabled>A</button> --}}
+                                                    {{-- <button type="button" class="btn btn-secondary" disabled>R</button> --}}
+                                                    {{-- <button type="button" class="btn btn-secondary" disabled>S</button> --}}
+                                                    {{-- <button type="button" class="btn btn-secondary" disabled>C</button> --}}
+                                                {{-- @endif --}}
+                                                {{-- @if ($reservation->status == 'Reprogramada') --}}
+                                                    {{-- <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a> --}}
+                                                    {{-- <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button> --}}
+                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
+                                                {{-- @endif --}}
+                                                {{-- @if ($reservation->status == 'Suspendida') --}}
+                                                    {{-- <form method="POST" action="{{ route('delete.cite', $reservation->id) }}"> --}}
+                                                        {{-- <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a> --}}
+                                                        {{-- <button class="btn btn-danger"><i class="fa fa-eraser"></i></button> --}}
+                                                        {{-- @method('delete') --}}
+                                                        {{-- @csrf --}}
+                                                    {{-- </form> --}}
+                                                {{-- @endif --}}
+                                            </td> 
                                           
                                         </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody> --}}
+                                    @endforeach                                  
+                                </tbody> 
                             </table>
                         </div>
                     </div>
                 </div>
-
-
-                {{-- lista aprobadas --}}
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </tfoot>
-                                {{-- <tbody>
-                                    @if($aprobadas != '')
-                                    @forelse ($aprobadas as $reservation)
-                                        @if ($reservation->status == 'Aprobada')
-                                            <tr>
-                                                <td style="text-align: center; font-size:10px">
-                                                    @if (!empty($reservation->patient->image->path))
-                                                    <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                    @else
-                                                    <img src="" alt="" >
-                                                    @endif
-                                                    <div class="">
-                                                        @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
-                                                        @else
-                                                            @if($reservation->patient->inputoutput->isEmpty())
-                                                                <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
-                                                            @else
-                                                                <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia </a>
-                                                            @endif
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                                <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                                <td>{{ $reservation->patient->name }}</td>
-                                                <td>{{ $reservation->patient->lastname }}</td>
-                                                <td>{{ $reservation->person->name }}</td>
-                                                <td>{{ $reservation->speciality->name }}</td>                                        
-                                                    @if ($reservation->status == 'Aprobada')
-                                                        <span class="badge badge-success">{{ $reservation->status }}</span>
-                                                    @endif
-                                                    @if ($reservation->status == 'Cancelada')
-                                                        <span class="badge badge-danger">{{ $reservation->status }}</span>
-                                                    @endif
-                                                    @if ($reservation->status == 'Reprogramada')
-                                                        <span class="badge badge-secondary">{{ $reservation->status }}</span>
-                                                    @endif
-                                                    @if ($reservation->status == 'Suspendida')
-                                                        <span class="badge badge-warning">{{ $reservation->status }}</span>
-                                                    @endif
-                                                    @if ($reservation->status == 'Pendiente')
-                                                        <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
-                                                    @endif
-                                                </td>
-    
-                                                <td style="display: inline-block ">
-                                                    @if ($reservation->status == 'Pendiente')
-                                                      @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
-                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                        @endif
-                                                        @if ((Carbon::now()->addDay()->format('Y-m-d') == $reservation->date))
-                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                        @endif
-                                                        @if ((Carbon::now()->addDay(2)->format('Y-m-d') == $reservation->date))
-                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                        @endif
-                                                        @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
-                                                        <button type="button" href="" disabled class="btn btn-success">A</button>
-                                                        @endif
-    
-                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                        <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                                    @endif
-    
-                                                    @if ($reservation->status == 'Aprobada')
-                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                        <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                                    @endif
-    
-                                                    @if ($reservation->status == 'Cancelada')
-                                                        <button type="button" class="btn btn-success" disabled>A</button>
-                                                        <button type="button" class="btn btn-warning" disabled>R</button>
-                                                        <button type="button" class="btn btn-repro" disabled>S</button>
-                                                        <button type="button" class="btn btn-danger" disabled>C</button>
-                                                    @endif
-                                                    @if ($reservation->status == 'Reprogramada')
-                                                        <a href="{{ route('cita.aprobada', $reservation) }}" class="btn btn-success">A</a>
-                                                        <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                                    @endif
-                                                    @if ($reservation->status == 'Suspendida')     
-                                                        <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
-                                                            <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                            <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
-                                                            @method('delete')
-                                                            @csrf
-                                                        </form>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @empty
-                                    @endforelse
-                                    @endif
-                                </tbody> --}}
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-
-                  {{-- lista canceladas --}}
-                  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </tfoot>
-                                {{-- <tbody>
-                                    @if($canceladas != '')
-                                    @foreach ($canceladas as $reservation)
-                                        <tr>
-                                            <td style="text-align: center; font-size:10px">
-                                                @if (!empty($reservation->patient->image->path))
-                                                    <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                @else
-                                                    <img src="" alt="" >
-                                                @endif
-                                                <div class="">
-                                                    @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
-                                                    @else
-                                                        @if($reservation->patient->inputoutput->isEmpty())
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
-                                                        @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                            </td>
-                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td>{{ $reservation->person->name }}</td>
-                                            <td>{{ $reservation->speciality->name }}</td>
-                                            <td><span class="badge badge-danger">{{ $reservation->status }}</span></td>
-                                        </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody> --}}
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        
-
-                 
-                {{-- lista reprogramadas --}}
-                <div class="tab-pane fade" id="pills-reprogram" role="tabpanel" aria-labelledby="pills-reprogram-tab">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Fecha</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Fecha</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </tfoot>
-                                {{-- <tbody>
-                                    @if($reprogramadas != '')
-                                    @foreach ($reprogramadas as $reservation)
-                                        <tr>
-                                            <td style="text-align: center; font-size:10px">
-                                                @if (!empty($reservation->patient->image->path))
-                                                <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                @else
-                                                <img src="" alt="" >
-                                                @endif
-                                                <div class="">
-                                                    @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
-                                                    @else
-                                                        @if($reservation->patient->inputoutput->isEmpty())
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
-                                                        @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                            </td>
-                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td>{{ $reservation->person->name }}</td>
-                                            <td>{{ $reservation->speciality->name }}</td>
-                                            <td>{{ $reservation->date }}</td>
-                                            <td>
-                                                @if ($reservation->status == 'Pendiente')
-                                                    <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
-                                                @endif
-                                            </td>
-                                            <td style="display: inline-block">
-                                                @if ($reservation->status == 'Pendiente')
-                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                                @endif
-                                                @if ($reservation->status == 'Aprobada')
-                                                    
-                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                                @endif
-                                                @if ($reservation->status == 'Cancelada')
-                                                    <button type="button" class="btn btn-success" disabled>A</button>
-                                                    <button type="button" class="btn btn-warning" disabled>R</button>
-                                                    <button type="button" class="btn btn-repro" disabled>S</button>
-                                                    <button type="button" class="btn btn-danger" disabled>C</button>
-                                                @endif
-                                                @if ($reservation->status == 'Reprogramada')                                                   
-                                                    <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
-                                                @endif
-                                                @if ($reservation->status == 'Suspendida')
-                                                    <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
-                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                        <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
-                                                        @method('delete')
-                                                        @csrf
-                                                    </form>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody> --}}
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                  {{-- lista suspendidas --}}
-                  <div class="tab-pane fade" id="pills-suspendidas" role="tabpanel" aria-labelledby="pills-suspendidas-tab">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Cédula</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Doctor</th>
-                                        <th>Especialidad</th>
-                                        <th>Status</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </tfoot>
-                                {{-- <tbody>
-                                    @if($suspendidas != '')
-                                    @foreach ($suspendidas as $reservation)
-                                        @if ($reservation->status=="Suspendida")
-                                        @if (!empty($reservation->cite) )
-                                        <tr style="height:40px;" data-toggle="tooltip" data-placement="top" title="Motivo de cita: {{$reservation->cite->first()->reason}}">
-                                        @endif
-                                        @else
-                                        <tr style="height:40px;">
-                                        @endif
-                                            <td style="text-align: center; font-size:10px">
-                                                @if (!empty($reservation->patient->image->path))
-                                                    <img class="rounded circle" width="150px" height="auto"  src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
-                                                @else
-                                                    <img src="" alt="" >
-                                                @endif
-                                                <div class="">
-                                                    @if ($reservation->patient->historyPatient == null)
-                                                        <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a>
-                                                    @else
-                                                        @if($reservation->patient->inputoutput->isEmpty())
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
-                                                        @else
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                            </td>
-                                            <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                            <td>{{ $reservation->patient->name }}</td>
-                                            <td>{{ $reservation->patient->lastname }}</td>
-                                            <td>{{ $reservation->person->name }}</td>
-                                            <td>{{ $reservation->speciality->name }}</td>
-                                            <td>
-                                                @if ($reservation->status == 'Suspendida')
-                                                    <span class="badge badge-secondary">{{ $reservation->status }}</span>
-                                                @endif
-                                            </td>
-                                            <td style="display: inline-block">
-                                                @if ($reservation->status == 'Pendiente')
-                                                    <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                @endif
-                                                @if ($reservation->status == 'Suspendida')
-                                                
-                                                    <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
-                                                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                        <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
-                                                        @method('delete')
-                                                        @csrf
-                                                    </form>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody> --}}
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 {{-- modals --}}
 

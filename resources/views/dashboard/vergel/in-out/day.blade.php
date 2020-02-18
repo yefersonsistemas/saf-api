@@ -83,10 +83,11 @@
                         <thead>
                             <tr>
                                 <th>Foto</th>
-                                <th>Cédula</th>
-                                <th>Nombre</th>
+                                <th>Paciente</th>
                                 <th>Doctor</th>
-                                <th>Especialidad</th>
+                                <th>Cirugia</th>
+                                <th>Quirofano</th>
+                                <th>Fecha</th>
                                 <th>Acciones</th>
                                 <th class="text-center">Estaciones</th>
                             </tr>
@@ -94,62 +95,39 @@
                         <tfoot>
                             <tr>
                                 <th>Foto</th>
-                                <th>Cédula</th>
-                                <th>Nombre</th>
+                                <th>Paciente</th>
                                 <th>Doctor</th>
-                                <th>Especialidad</th>
+                                <th>Cirugia</th>
+                                <th>Quirofano</th>
+                                <th>Fecha</th>
                                 <th>Acciones</th>
                                 <th class="text-center">Estaciones</th>
                             </tr>
                         </tfoot>
-                        <tbody>
-
-                            
-                            {{-- @foreach ($day as $reservation) --}}
-                            {{-- @if (empty($reservation->cancel) && empty($reservation->discontinued) && empty($reservation->reschedule)) --}}
-
+                        <tbody>  
+                            @foreach ($day as $surgeries)
                             <tr style="height:40px;">
-                                <td style="text-align: center; font-size:10px; height:40px;">
-                                        {{-- @if (!empty($reservation->patient->image->path)) --}}
-                                        <img class="rounded circle" width="100%" height="100%" src="            " alt="">
-                                        {{-- <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt=""> --}}
-                                        {{-- @else --}}
-                                            <img src="" alt="" width="100%" height="100%">
-                                            {{-- @endif --}}
-                                            <div class="text-center">
-                                                {{-- @if ($reservation->patient->historyPatient == null) --}}
-                                                <a href="">Generar</a>
-                                                {{-- <a href="{{ route('checkin.history', $reservation->patient_id) }}">Generar</a> --}}
-                                                {{-- @else --}}
-                                                    {{-- @if($reservation->patient->inputoutput->isEmpty()) --}}
-                                                    <a href="    ">Ver Historia</a>
-                                                    {{-- <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a> --}}
-                                                    {{-- @else --}}
-                                                    <a href="">Ver Historia</a>
-                                                    {{-- <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a> --}}
-                                                    {{-- @endif --}}
-                                            {{-- @endif --}}
-                                        </div>
-                                    </td>
+                                @foreach ( $surgeries->patient as $patient )
 
-
-                                    <td>  </td>
-                                    <td>  </td>
-                                    <td>  </td>
-                                    <td>  </td>
-
-                                    {{-- <td>{{ $reservation->patient->type_dni }}-{{ $reservation->patient->dni }}</td>
-                                    <td>{{ $reservation->patient->name }} {{ $reservation->patient->lastname }}</td>
-                                    <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
-                                    <td>{{ $reservation->speciality->name }}</td> --}}
-
-                                    <td style="display: inline-block">
+                                     <td style="text-align: center; font-size:10px; height:40px;">
+                                        @if(!empty($patient->person->image->path)) 
+                                         <img class="roundedcircle"width="100%"height="100%" src="{{ Storage::url($patient->person->image->path)}}" alt="">                                          
+                                         @endif  
+                                     </td> 
+                                     @endforeach
+                                    @foreach ( $surgeries->patient as $patient )
+                                        <td> {{ $patient->person->name }} {{ $surgeries->employe->person->lastname }} </td> 
+                                    @endforeach
+                                    <td> {{ $surgeries->employe->person->name }} {{ $surgeries->employe->person->lastname }}</td>
+                                    <td> {{ $surgeries->typesurgeries->name }} </td>
+                                    <td> {{ $surgeries->area->name }}  </td>
+                                    <td> {{ $surgeries->date }}  </td>
+                                    <td style="display: inline-block">                                       
                                         {{-- @if ($reservation->patient->inputoutput->isEmpty()) --}}
                                         <a href="     " class="btn btn-warning">R</a>
                                         {{-- <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a> --}}
                                             <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: " data-id="" data-type="Suspendida">S</button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: " data-id="" data-type="Cancelada">C</button>
-                                        
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: " data-id="" data-type="Cancelada">C</button>                                      
                                             {{-- <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
                                         {{-- @endif --}}
@@ -294,7 +272,7 @@
                                     </td>
                                 </tr>
                                 {{-- @endif --}}
-                            {{-- @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

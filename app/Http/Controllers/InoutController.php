@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Surgery;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Function_;
@@ -15,7 +16,9 @@ class InoutController extends Controller
      */
     public function index()
     {
-       return view('dashboard.vergel.in-out.index');
+     $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+
+       return view('dashboard.vergel.in-out.index',compact('day'));
     }
 
     public function agendar_cirugia()
@@ -37,8 +40,7 @@ class InoutController extends Controller
         return view('dashboard.vergel.in-out.factura');
     
     }
-
-    
+   
     public function imprimir_factura()
     {
     return view('dashboard.vergel.in-out.imprimir_factura');
@@ -46,7 +48,9 @@ class InoutController extends Controller
     }
     public function day(){
 
-    return view('dashboard.vergel.in-out.day');
+    $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+    // dd($day);
+    return view('dashboard.vergel.in-out.day',compact('day'));
     }
 
 

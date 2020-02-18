@@ -29,48 +29,54 @@
 
                     @csrf
                     <h2>Buscar Paciente</h2>
-                    <section>
+                    <section class="py-1">
                         <div class="row clearfix">
                             <div class="col-lg-12">
-                                <div class="card">
-                                    <h2 class=" mt-2 text-center card-title">Datos del paciente</h2>
-                                    <div class="card-body  p-1 ">
+                                <div class="card">                                     
+                                    <div class="card-body py-0">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
                                         <div class="col-lg-4  col-md-6">
-                                            <div class="form-group d-flex flex-row  align-items-center">
+                                            <div class="form-group d-flex flex-row align-items-center">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend bg-white">
                                                         <span class="input-group-text btn-turquesa"><i
                                                                 class="fa fa-id-card"></i></span>
                                                     </div>
                                                     <div class="input-group-prepend">
-                                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white" required="">
-                                                        <option>...</option>
-                                                        <option>N</option>
-                                                        <option>E</option>
-                                                    </select>
+                                                        <select name="type_dni" id="type_dni"
+                                                            class="custom-select input-group-text bg-white">
+                                                            <option value="">...</option>
+                                                            <option value="N">N</option>
+                                                            <option value="E">E</option>
+                                                        </select>
                                                     </div>
-                                                        <input type="text" maxlength="9" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
-                                                    <input type="hidden" name="patient_id" id="patient_id" value="">
-                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white" ><i
-                                                            class="fa fa-search"></i></button>
+                                                    <input type="text" class="form-control mr-2" id="dni" maxlength="9" placeholder="Cédula">
+                                                    <input type="hidden" name="patient_id" id="patient_id">
+                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white "><i class="fa fa-search"></i></button>
                                                 </div>
                                             </div>
                                         </div>
-                                                    {{-- aqui llamamos la imagen --}}
-                                        <div class="row ml-5 ">                                          
-                                        <div class="row justify-content-between">                                                  
+                                        <div class="col md-12" >
+                                            <h2 class=" mt-2 text-center card-title">Datos del paciente</h2>
+                                          </div>
+                                        </div>
+                                    </div>
+                                 </div>                                      
+                                        <div class="row ml-5 ">
+                                            <div class="row justify-content-between">   
                                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                 <label class="imagecheck m-0">
                                                     <div class="card assigment">                              
                                                         <figure class="imagecheck-figure border-0 text-center">
                                                             <div class="" style="height:180px; width:150px" id="photo">
-                                                                <img src="" alt=""  class="img-thumbnail" style=" width:100%; height:100%; background:#000">                        
+                                                                <img src="" alt=""  class="img-thumbnail"  style=" width:100%; height:100%; background:#000">                        
                                                             </div>       
                                                         </figure>                            
                                                     </div>
                                                 </label>
-                                            </div>  
-                                                    {{-- aqui llamamos la imagen --}}
+                                            </div>                                                                            
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
