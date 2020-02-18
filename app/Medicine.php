@@ -35,4 +35,9 @@ class Medicine extends Model
          return $this->belongsToMany('App\Recipe','recipe_medicine')
                       ->withPivot('recipe_id','id');
     }
+
+    public function medicine_pharmacy()
+    {
+         return $this->belongsTo('App\Medicine_pharmacy');
+    }
 }

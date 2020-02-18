@@ -411,8 +411,8 @@ button[data-original-title="Help"]{ display: none; }
                                                                 cellspacing="0" id="addrowExample">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Nombre</th>
-                                                                            <th class="text-center">Accion</th>
+                                                                            <th style="width: 825px">Nombre</th>
+                                                                            <th class="text-center" style="width: 175px">Accion</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="mostrar_enfermedad">
@@ -429,8 +429,8 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px; cursor:pointer;" ><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -446,15 +446,15 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                         <div class="card-body py-1">
+                                                    <div id="collapseTwo" class="collapse card-body list-group row" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                        <div class="card-body py-1">
                                                             <div class="table-responsive">
                                                                 <table class="table table-hover table-vcenter table-striped"
                                                                 cellspacing="0" id="addrowExample">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Nombre</th>
-                                                                            <th class="text-center">Accion</th>
+                                                                            <th style="width: 825px">Nombre</th>
+                                                                            <th class="text-center" style="width: 175px">Accion</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="mostrar_alergias">
@@ -471,8 +471,8 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <button class="btn btn-info" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
-                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1051,7 +1051,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2 text-center" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
@@ -1077,7 +1077,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
                     </div>
                 </form>
@@ -1087,7 +1087,7 @@ button[data-original-title="Help"]{ display: none; }
 
      <!-------- modal Registrar Enfermedad ------------>
      <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog rowwww" role="document">
+        <div class="modal-dialog row4" role="document">
             <div class="modal-content">
                 <div class="modal-header  p-2"  style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center"  class="btn btn-azuloscuro" id="exampleModalLabel">Registrar Enfermedad</h5>
@@ -1109,7 +1109,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
-                    <button type="button"  data-dismiss="modal" class="btn btn-secondary"   >Cerrar</button>    
+                    <button type="button"  data-dismiss="modal" class="btn btn-secondary btnCerrar"   >Cerrar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
             </div>
@@ -1118,7 +1118,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar alergias-->
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
@@ -1144,7 +1144,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
                     </div>
                 </form>
@@ -1154,7 +1154,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog rowwww" role="document">
+        <div class="modal-dialog row4" role="document">
             <div class="modal-content">
                 <div class="modal-header  p-2"style="background-color: #00506b; color: #fff;">
                         <h5 class="col-11 modal-title text-center " id="exampleModalLabel">Registrar Alergia</h5>
@@ -1176,7 +1176,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
-                    <button  type="button"  data-dismiss="modal" class="btn btn-secondary"  >Cerrar</button>        
+                    <button  type="button"  data-dismiss="modal" class="btn btn-secondary btnCerrar"  >Cerrar</button>        
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
             </div>
@@ -1185,7 +1185,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -1202,7 +1202,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
@@ -1212,7 +1212,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg rowwwww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg row5" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
@@ -1241,7 +1241,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  type="button"  data-dismiss="modal" class="btn btn-secondary"  >Cerrar</button>        
+                        <button  type="button"  data-dismiss="modal" class="btn btn-secondary btnCerrar"  >Cerrar</button>        
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>
@@ -1251,7 +1251,7 @@ button[data-original-title="Help"]{ display: none; }
  
     {{-- modal de los examenes --}}
     <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
@@ -1273,7 +1273,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal"  type="button"  >Cerrar</button>        
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal"  type="button"  >Cerrar</button>        
                         <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -1283,7 +1283,7 @@ button[data-original-title="Help"]{ display: none; }
 
      {{-- modal de los posible cirugia --}}
      <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -1351,7 +1351,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                         <div class="modal-footer p-2">
-                            <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                            <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                             <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                         </div>
                         </div>
@@ -1394,7 +1394,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer p-2">
-                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>

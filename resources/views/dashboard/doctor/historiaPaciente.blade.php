@@ -308,6 +308,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <input type="hidden" value="{{ $history->patient_id }}" id="patient"><!--paciente-->
                                                         <input type="hidden" value="{{ $history->person_id }}" id="employe"><!--Empleado-->
                                                         <input type="hidden" value="{{ $history->id }}" id="reservacion"><!--reservation-->
+
                                                         <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled="" value="{{ $history->person->name }}" name="nameM">
                                                         <input type="text" class="form-control col-md-4 ml-1 border-0 bg-white" disabled=""  value="{{ $history->person->lastname }}" name="lastnameM">
                                                     </div>
@@ -365,8 +366,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                        <a class="btn btn-verdePastel mx-2 text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                        <a class="btn btn-azulOscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                     </div>                                                      
                                                 </div>
                                             </div>
@@ -407,8 +408,8 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                        <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                        <a class="btn btn-verdePastel mx-2 text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                        <a class="btn btn-azuloscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -806,7 +807,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww " role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3 " role="document">
             <div class="modal-content row " style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
@@ -850,7 +851,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>                             
                    </div>
                     <div class="modal-footer p-2 ">                        
-                        <a class="btn btn-azuloscuro rowww text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
+                        <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -859,7 +860,7 @@ button[data-original-title="Help"]{ display: none; }
 
       <!-------- modal Registrar Enfermedad ------------>
     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog rowwww" role="document">
+        <div class="modal-dialog row4" role="document">
             <div class="modal-content  ">
                 <div class="modal-header p-2"  style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Enfermedad</h5>
@@ -881,7 +882,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
-                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="diseaseR">Guardar</button>
                 </div>
             </div>
@@ -890,7 +891,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar alergias-->
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
@@ -944,7 +945,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog rowwww" role="document">
+        <div class="modal-dialog row4" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                         <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Alergia</h5>
@@ -966,7 +967,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
-                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
             </div>
@@ -975,7 +976,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -992,7 +993,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
@@ -1002,7 +1003,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg rowwwww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg row5" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
@@ -1054,7 +1055,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarO">Guardar</button>
                     </div>
                 </form>
@@ -1064,7 +1065,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los examenes --}}
     <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
@@ -1108,7 +1109,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                         <button class="btn btn-azuloscuro" data-dismiss="modal" id="guardarE">Guardar</button>
                     </div>
                 </form>
@@ -1118,7 +1119,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los posible cirugia --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable rowww" role="document">
+        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -1269,7 +1270,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                         <div class="modal-footer p-2">
-                            <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                            <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                             <button type="submit" class="btn btn-azuloscuro" data-dismiss="modal" id="guardarC">Guardar</button>
                         </div>
                         </div>
@@ -1334,7 +1335,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer p-2">
-                    <button  class="btn btn-secondary"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
                     <button class="btn btn-azuloscuro" id="guardarP" data-dismiss="modal">Guardar</button>
                 </div>
             </form>
@@ -1806,7 +1807,6 @@ button[data-original-title="Help"]{ display: none; }
 
     });
 
-    
     //=====================crear enfermedad======================
     $('#diseaseR').click(function(){
         var name = $('#newdisease').val();
@@ -1817,11 +1817,11 @@ button[data-original-title="Help"]{ display: none; }
     //=========================guardar enfermedad creada=================
     function nuevaenfermedad(name,patient_id){
         console.log(name,patient_id);
-        $.ajax({ 
-            url: "{{ route('checkin.diseases_create') }}",  
+        $.ajax({
+            url: "{{ route('checkin.diseases_create') }}",
             type: "POST",                            
             data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 name: name,
                 id:patient_id,                          
             }
@@ -1957,12 +1957,12 @@ button[data-original-title="Help"]{ display: none; }
         })
         .fail(function(data) {
             console.log(data);
-        })  
-        });    
+        })
+        });
     });
 
 
-    
+
     //=========================crear alergia=========================
     $('#allergyR').click(function(){
         var name = $('#newallergy').val();
@@ -1973,11 +1973,11 @@ button[data-original-title="Help"]{ display: none; }
     //=========================guardar alergia creada====================
     function nuevaalergia(name,patient_id){
         console.log(name,patient_id);
-        $.ajax({ 
-            url: "{{ route('checkin.allergies_create') }}",  
+        $.ajax({
+            url: "{{ route('checkin.allergies_create') }}",
             type: "POST",                            
             data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 name: name,
                 id: patient_id,                          
             }
@@ -2099,7 +2099,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }            
+            }
         })
         .fail(function(data) {
             console.log(data);
@@ -2432,7 +2432,8 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarC").click(function() {
 
             var reservacion = $("#reservacion").val();
-            var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+            var surgery = $("#posible-surgerys").serialize();  
+            console.log(surgery);        //asignando el valor que se ingresa en el campo
             
             var id = $("#cirugia_posible").val();
             var name = $("#cirugia_posible_name").val();
