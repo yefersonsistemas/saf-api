@@ -263,27 +263,27 @@
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
 
-    // function search() {
-        // $("#search").click(function() {
-            // var type_dni = $("#type_dni").val();
-            // var dni = $("#dni").val();
+    function search() {
+        $("#search").click(function() {
+            var type_dni = $("#type_dni").val();
+            var dni = $("#dni").val();
 
-            // console.log(type_dni)
-            // console.log(dni)
+            console.log(type_dni)
+            console.log(dni)
 
-            // if(type_dni == '' || dni ==  '' || dni.length < 7){
-                // Swal.fire({
-                    // title: 'Datos incompletos.!',
-                    // text: 'Por favor introduzca el documento de identidad completo.',
-                    // type: 'info',
-                    // allowOutsideClick:false,
-                // });
-            // }else{
+            if(type_dni == '' || dni ==  '' || dni.length < 7){
+                Swal.fire({
+                    title: 'Datos incompletos.!',
+                    text: 'Por favor introduzca el documento de identidad completo.',
+                    type: 'info',
+                    allowOutsideClick:false,
+                });
+            }else{
 
-            // ajax(type_dni, dni);
-            // }
-        // });
-    // }
+            ajax(type_dni, dni);
+            }
+        });
+    }
 
     function ajax(type_dni, dni) {
         $.ajax({

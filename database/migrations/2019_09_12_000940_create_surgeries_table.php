@@ -22,7 +22,19 @@ class CreateSurgeriesTable extends Migration
             $table->unsignedBigInteger('type_surgery_id');
             // $table->unsignedBigInteger('hospitalization_id');
             $table->unsignedBigInteger('branch_id');
+            //campos nuevos del modulo de quirofano
+            $table->unsignedBigInteger('billing_id');
+            $table->unsignedBigInteger('payment');
+            $table->unsignedBigInteger('status');
+
             $table->timestamps();
+         
+
+
+            $table->foreign('billing_id')
+            ->references('id')
+            ->on('billings')
+            ->onDelete('CASCADE');
 
             $table->foreign('employe_id')
             ->references('id')

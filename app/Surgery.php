@@ -8,8 +8,8 @@ class Surgery extends Model
 {
     protected $table = 'surgeries';
     
-    protected $fillable = [ 
-        'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branch_id'
+    protected $fillable = [                                                 //faltan las relaciones 
+        'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branch_id',  'billing_id', 'payment', 'status'    
     ];
 
     public function employe()
@@ -44,7 +44,7 @@ class Surgery extends Model
         return $this->belongsToMany('App\Patient','patient_surgery')
                     ->withPivot('patient_id','id');
     }
-
+    
     public function area()
     {
         return $this->belongsTo('App\Area');
@@ -53,6 +53,11 @@ class Surgery extends Model
     public function reservation()
     {
         return $this->hasMany('App\Reservation');
+    }
+    
+    public function billing()
+    {
+        return $this->belongsToMany('App\billing','billing_id');
     }
     // public function procedure() //relacion  con la tabla m:m 
     // {

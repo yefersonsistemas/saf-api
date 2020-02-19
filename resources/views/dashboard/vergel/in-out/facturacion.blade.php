@@ -293,7 +293,7 @@
         //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
         function ajax(dni) {
                 $.ajax({ 
-                    url: "{{ route('checkout.patient') }}",   //definiendo ruta
+                    url: "{{ route('inout.search_patients') }}",   //definiendo ruta
                     type: "POST",                             //definiendo metodo
                     data: {
                         _token: "{{ csrf_token() }}",        
@@ -301,7 +301,7 @@
                     }
                 })
                 .done(function(data) {               
-                    console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+                   // console.log('paciente -> -> -> encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
                     if(data[0] == 202){   
                         console.log('si')             

@@ -295,6 +295,8 @@ class SurgerysController extends Controller
         $a = $request->area_id;
         $d = Carbon::create($request->date)->format('Y-m-d');
 
+
+
         if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
             
             $surgery = Surgery::create([		
@@ -303,7 +305,7 @@ class SurgerysController extends Controller
                 'employe_id' => $e,
                 'area_id' => $a,
                 'date'=> $d,
-                'branch_id' => 1,
+                'branch_id' => 1,                
                 ]);
                 // dd($surgery);
 
@@ -435,7 +437,7 @@ class SurgerysController extends Controller
                 //     'surgery_id' => $surgery->id,
                 //     'branch_id' => 1
                 // ]);
-            return redirect()->route('checkout.index')->withSuccess('Cirugia Agendada Exitosamente!');
+            return redirect()->route('in-out.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
             return redirect()->back()->withError('Cirugia no Agendada, Verifique los Datos!');

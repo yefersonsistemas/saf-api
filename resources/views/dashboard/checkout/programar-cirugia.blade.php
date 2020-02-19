@@ -119,18 +119,10 @@
                             </div>
                         </div>
                     </section>
-
-
-
-
-
-
-                    
                     <h2>Elegir Cirugia</h2>
                     <section> 
                         <div class="row justify-content-between">
-                            @foreach ($surgeries as $surgery)
-                            
+                            @foreach ($surgeries as $surgery)                           
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                 <label class="imagecheck m-0">
                                     <div class="card assigment">
