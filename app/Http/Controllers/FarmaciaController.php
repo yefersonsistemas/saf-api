@@ -186,9 +186,17 @@ class FarmaciaController extends Controller
      //===========================asignacion====================
      public function create_asignacion()
      {
-        //  $lot_pharmacy = Lot_pharmacy::with('medicine_pharmacy.medicine')->get();
+  
          return view('dashboard.farmaceuta.asignacion');
-     }
+    }
+
+     //===========================asignacion====================
+     public function asignacion_medicine($id)
+     {
+        $stock = Stock_pharmacy::with('medicine_pharmacy_id')->get();
+        // dd($stock);
+        return view('dashboard.farmaceuta.asignar_medicine',compact('stock'));
+    }
  
     /**
      * Update the specified resource in storage.

@@ -332,5 +332,6 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::POST('farmaceuta/guardar/medicine', 'FarmaciaController@store_medicine')->name('farmaceuta.guardar_medicine');
         Route::get('farmaceuta/asignar/medicine', 'FarmaciaController@create_asignacion')->name('farmaceuta.asignacion');
+        Route::get('farmaceuta/asignar/medicine/paciente/{id}', 'FarmaciaController@asignacion_medicine')->name('farmaceuta.asignar_medicine');
     });
 });

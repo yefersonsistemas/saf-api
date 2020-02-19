@@ -66,7 +66,7 @@
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha culminar</th>
                                         <th>Motivo</th>
-                                        <th>Medicamento</th>
+                                        <th class="text-center">Medicamento</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -77,10 +77,20 @@
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha culminar</th>
                                         <th>Motivo</th>
-                                        <th>Medicamento</th>
+                                        <th class="text-center">Medicamento</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                        <tr>
+                                            <td>foto</td>
+                                            <td>nombre</td>
+                                            <td>apellido</td>
+                                            <td>fecha ingreso</td>
+                                            <td>fecha culminar</td>
+                                            <td>motivo</td>
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',1)}}" class="btn btn-verdePastel text-white">Asignar</a></td>
+                                        </tr>
+
                                     {{-- @foreach ($stock as $item)
                                         <tr>
                                             <td>{{$item->medicine_pharmacy->medicine->name}}</td>
