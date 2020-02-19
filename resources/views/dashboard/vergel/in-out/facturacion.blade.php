@@ -2,7 +2,7 @@
 
 @section('citas de pacientes','active')
 @section('facturacion','active')
-@section('outrol','d-block')
+@section('iorol','d-block')
 @section('dire','d-none')
 
 @section('css')

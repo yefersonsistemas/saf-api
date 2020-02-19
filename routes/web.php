@@ -194,6 +194,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         //inicio de rutas para crear
         Route::get('empleados', 'DirectorController@index')->name('employe.index'); //ruta de empleado
+        Route::get('visitors', 'DirectorController@visitantes')->name('visitantes');  //lista de visitantes
         Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
@@ -283,6 +284,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
+        
+        //rutas para exportar e imprimir detalles por empleado/lista de empleados/lista de visitantes
+        
 
         
 
