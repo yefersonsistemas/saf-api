@@ -1,8 +1,6 @@
 @extends('dashboard.layouts.app')
 
 @section('doctor','active')
-@section('docrol','d-block')
-@section('dire','d-none')
 @section('css')
 
 
@@ -27,7 +25,7 @@
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Total De Visitantes</h6>
-                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
+                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter"> {{ $visitors }} </span></h4>
                         </div>
                     </div>
                 </div>
@@ -58,10 +56,10 @@
                                     <tr>
                                         <th>Documento </th>
                                         <th>Nombre</th>
-                                          <th>Apellido</th>
-                                          <th>Direccion</th>
-                                          <th>Teléfono</th>
-                                          <th>Imprimir</th>
+                                        <th>Apellido</th>
+                                        <th>Direccion</th>
+                                        <th>Teléfono</th>
+                                        <th class="justify-content-center text-center">Imprimir</th>
                                         {{-- <th>Acompañante de:</th> --}}
                                     </tr>
                                 </thead>
@@ -69,10 +67,10 @@
                                     <tr>
                                         <th>Documento de identidad</th>
                                         <th>Nombre</th>
-                                          <th>Apellido</th>
-                                          <th>Direccion</th>
-                                          <th>Teléfono</th>
-                                          <th>Imprimir</th>
+                                        <th>Apellido</th>
+                                        <th>Direccion</th>
+                                        <th>Teléfono</th>
+                                        <th class="justify-content-center text-center">Imprimir</th>
                                         {{-- <th>Acompañante de:</th> --}}
                                     </tr>
                                 </tfoot>
@@ -84,9 +82,10 @@
                                             <td>{{$item->lastname}}</td>
                                             <td>{{$item->address}}</td>
                                             <td>{{$item->phone}}</td>
-                                            <td><a href="" class="btn btn-info text-white"><i class="fa fa-arrow-circle-o-down"></i></a></td>
+                                            <td class="justify-content-center text-center"><a href="" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Imprimir"><i class="fe fe-printer"></i></a></td>
+                                            {{-- <td><a href="{{ route('', $item->id) }}" class="btn btn-info text-white"><i class="fa fa-arrow-circle-o-down"></i></a></td> --}}
                                             {{-- {{route('visitantes.print',$item->id)}} --}}
-                                        </tr>
+                                        </tr> 
                                     @endforeach                                  
                                 </tbody>
                             </table>

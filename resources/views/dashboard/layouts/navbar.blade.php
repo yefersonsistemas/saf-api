@@ -44,7 +44,7 @@
                     @role('farmaceuta')
                     <a  class="nav-link icon" id="far" style="font-size:10PX"> Farmacia </a>
                     @endrole
-
+                    
 
                     @endrole
 

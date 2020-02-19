@@ -46,12 +46,15 @@ class DirectorController extends Controller
 
     public function exporEmploye(){}
 
-    public function visitantes(){
+    /**
+     * lista los visitantes  o acompañentes
+     */
+    public function visitantes(){  
         $patients = Patient::with('person')->get();
         $employes = Employe::with('person')->get();
         $persons = Person::get();
 
-        foreach($patients as $item){
+        foreach($patients as $item){   //busca  las personas que estan en pacientes
             foreach($persons as $person){
                     if($person == $item->person){
                         $encontrado[] = $person;
@@ -59,7 +62,7 @@ class DirectorController extends Controller
                 }   
         }
 
-        foreach($employes as $item){
+        foreach($employes as $item){  //busca  las personas que estan en empleados
             foreach($persons as $person){
                     if($person == $item->person){
                         $encontrado2[] = $person;
@@ -67,11 +70,12 @@ class DirectorController extends Controller
                 }   
         }
 
-        $all = $persons->diff($encontrado);
-        $all2 = $all->diff($encontrado2);
+        $all = $persons->diff($encontrado);  //tiene aquellos que no estan en pacientes
+        $all2 = $all->diff($encontrado2);   //tiene los encontrados en pacientes y empleados y muestra el total de los q no estan
         // dd($all2);
+        $visitors = $all2->count();   //contador total en la vista de visitantes
 
-        return view('dashboard.director.visitors', compact('all2'));
+        return view('dashboard.director.visitors', compact('all2', 'visitors'));
     }
 
     public function exporVisitante(){}

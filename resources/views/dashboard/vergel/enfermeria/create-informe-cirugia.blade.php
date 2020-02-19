@@ -19,7 +19,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 {{-- <form id="wizard_horizontal" action="{{route('update.lista_cirugias', $paciente->id)}}" method='POST' enctype="multipart/form-data" lass="card pl-4 pr-4"> --}}
                     {{-- @method('PUT') --}}
-                    <form id="wizard_horizontal" action="" method='POST' enctype="multipart/form-data" lass="card pl-4 pr-4">
+                    <form id="wizard_horizontal" action="{{ route('', $patient->id) }}" method='POST' enctype="multipart/form-data" lass="card pl-4 pr-4">
                     @csrf
                     <h2>Informe del Internista</h2>
                     <section class="py-1">
@@ -53,7 +53,7 @@
                             </a>
                         </div> --}}
 
-                        <div class="card mt-3">
+                        {{-- <div class="card mt-3">
                             <div class="row">
                                 <div class="col-3 mt-3 mb-2">
                                 <img src="{{ asset('assets/images/consultorio.jpg') }}" alt="Nature" style="width:100%" onclick="myFunction(this);">
@@ -74,7 +74,7 @@
                             <img id="expandedImg" style="width:100%">
                             <div id="imgtext"></div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class=" p-5">
                             <label class="form-label">Agregar Informe</label>

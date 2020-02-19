@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\File;
 use App\Reservation;
 use App\Surgery;
 use Carbon\Carbon;
@@ -38,13 +39,29 @@ class NurseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         // dd($request);
+        // dd($id);
 
-        $data = $request->validate([
-             
-        ]);
+        if ($request->file != null) {
+            $photo = $request->file;
+
+            foreach($photo as $file){
+                $image = $request->file('file');
+                $path = $image->store('public/exams');
+                $path = str_replace('public/', '', $path);
+                $image = new File();
+                $image->path = $path;
+                // $image->path = 'exam'.'\\'.$image;
+                $image->fileable_type = "App\Person";
+                $image->fileable_id = $person->id;
+                $image->branch_id = 1;
+                $image->save();
+            }
+        }
+
+        return redirect()->route('lista_cirugias')->withSuccess('Informe guardado correctamente');
     }
 
     /**
