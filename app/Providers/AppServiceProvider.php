@@ -69,4 +69,14 @@ class AppServiceProvider extends ServiceProvider
         View::share('porAtender', count($poratender)); 
       
     }
+
+
+
+
+
+
+
+
+
+    
 }

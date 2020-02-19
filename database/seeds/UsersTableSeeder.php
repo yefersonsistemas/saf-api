@@ -135,7 +135,6 @@ class UsersTableSeeder extends Seeder
         ]);
         $cirugia->employe_surgery()->attach($employe->id);
         $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
-
         //creando especialidad
         $especialidad = factory(App\Speciality::class)->create([
             'name' => 'Otorrinolaringología',

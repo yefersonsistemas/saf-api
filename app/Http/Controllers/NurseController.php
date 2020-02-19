@@ -29,7 +29,7 @@ class NurseController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.vergel.enfermeria.create-informe-cirugia');
     }
 
     /**
@@ -40,7 +40,11 @@ class NurseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+
+        $data = $request->validate([
+             
+        ]);
     }
 
     /**
@@ -62,7 +66,7 @@ class NurseController extends Controller
      */
     public function edit($id)
     {
-        //
+       
     }
 
     /**

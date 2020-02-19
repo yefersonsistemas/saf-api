@@ -83,7 +83,7 @@
 
           
             <!--lista de reservaciones confirmadas-->
-            <div class="col-lg-12 col-md-12 mt-10">
+            <div class="col-lg-12 col-md-12 mt-10 mb-2">
 
                 <ul class="nav nav-pills mb-3 mt-4 d-flex justify-content-around"  id="pills-tab" role="tablist">
                     <li class="nav-item mb-1">
@@ -104,7 +104,7 @@
                     {{-- <li class="nav-item mb-1">
                         <a class="nav-link btn-outline-info total pt-0 pb-0 pr-3 pl-3"  id="pills-total-tab" data-toggle="pill" href="#total" role="tab" aria-controls="total" aria-selected="false">Todas</a>
                     </li> --}}
-                </ul><br>
+                </ul>
             </div>
 
             <div class="tab-content container-fluid" id="pills-tabContent">
@@ -115,6 +115,9 @@
 
                 <!---------------------------Citas aprobadas------------------------------->
                 <div class="tab-pane fade" id="aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">
+                    <div class="row mb-4 d-flex justify-content-end">
+                        <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_aprobadas" type="text" class="form-control p-1 pl-3 mr-2 col-3" placeholder="Buscar ..">
+                    </div>
                     <div  class="accordion" id="accordionExample2" id="aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">
                         @foreach ($confirmadas as $item)
                             {{-- @if ($item->status == null )
@@ -124,10 +127,9 @@
                             @else
                                 
                             @endif --}}
-                            <div class="card " style="border-radius:3px; border:2px solid #000">                
-
+                            <div class="card" style="border-radius:3px; border:2px solid #000">               
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
-                                    <div class="col-lg-8 col-md-8">
+                                    <div class="col-lg-8 col-md-8 b_aprobadas">
                                         <div class="row">                                            
                                             <!--Imagen del paciente-->
                                             <div class="col-3" style="max-height: 100px; ">
@@ -192,7 +194,7 @@
                                 <div id="aprobadas{{ $item->patient->type_dni }}{{ $item->patient->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample2">
                                     <div class="col-md-12 col-lg-9 col-sm-12">
                                         <div class="row card-body d-flex justify-content-lg-between">
-
+    
                                             <!--Medico tratente-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
@@ -200,7 +202,7 @@
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->person->name }} </span>  <span class="text-muted">{{ $item->person->lastname }}</span> <span class="text-muted"><i class="fe fe-phone"></i> {{ $item->person->phone }}</span></div>
                                                 </div>
                                             </div>  
-
+    
                                             <!--Motivo de la cita-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
@@ -208,7 +210,7 @@
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->speciality->name }} </span></div>
                                                 </div>
                                             </div> 
-
+    
                                             <!--Motivo de la cita-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
@@ -219,9 +221,10 @@
             
                                         </div>
                                     </div>
-
+    
                                 </div>
                             </div>
+                            
                         @endforeach
 
                         @if($confirmadas->first() == [])
@@ -231,11 +234,14 @@
                                 </div>
                             </div>
                         @endif  
-                    </div>
+                        </div>
                 </div>
 
                 <!---------------------------Citas en espera------------------------------->
                 <div class="tab-pane fade" id="espera" role="tabpanel" aria-labelledby="pills-espera-tab">
+                    <div class="row mb-4 d-flex justify-content-end">
+                        <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_espera" type="text" class="form-control p-1 pl-3 mr-2 col-3" placeholder="Buscar ..">
+                    </div>
                     <div  class="accordion" id="accordionExample3" id="espera" role="tabpanel" aria-labelledby="pills-espera-tab">
                         @foreach ($espera as $es)
                             @if(!empty($es->patient->inputoutput->first()->inside) && empty($es->patient->inputoutput->first()->inside_office) && empty($es->patient->inputoutput->first()->outside_office) && empty($es->patient->inputoutput->first()->outside))
@@ -244,7 +250,7 @@
 
                                     <div class="row card-header pl-5 pr-5 heig" id="headingOne">
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="row">
+                                            <div class="row" id="b_espera">
                                                 <!--Imagen del paciente-->
                                                 <div class="col-3" style="max-height: 100px; ">
                                                     @if (!empty($es->patient->image->path))
@@ -352,12 +358,15 @@
 
                 <!---------------------------Dentro del consultorio------------------------------->
                 <div class="tab-pane fade" id="dentro" role="tabpanel" aria-labelledby="pills-dentro-tab">
+                    <div class="row mb-4 d-flex justify-content-end">
+                        <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_dentro" type="text" class="form-control p-1 pl-3 mr-2 col-3" placeholder="Buscar ..">
+                    </div>
                     <div  class="accordion" id="accordionExample4" id="espera" role="tabpanel" aria-labelledby="pills-dentro-tab">
                         @foreach ($espera as $dentro)
                             @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside)  && empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
                             <div class="card" style="border-radius:3px; border:2px solid  #00ad88">             
                                     <div class="row card-header pl-5 pr-5 heig" id="headingOne">
-                                        <div class="col-lg-8 col-md-8">
+                                        <div class="col-lg-8 col-md-8" id="b_dentro">
                                             <div class="row">
                                                 <!--Imagen del paciente-->
                                                 <div class="col-3" style="max-height: 100px; ">
@@ -468,6 +477,9 @@
                 
                 <!----------------------Fuera del consultorio----------------------->
                 <div class="tab-pane fade show active" id="fuera_office" role="tabpanel" aria-labelledby="pills-fuera_office-tab">
+                    <div class="row mb-4 d-flex justify-content-end">
+                        <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_fueraC" type="text" class="form-control p-1 pl-3 mr-2 col-3" placeholder="Buscar ..">
+                    </div>
                     <div  class="accordion" id="accordionExampleff" id="fuera_office" role="tabpanel" aria-labelledby="pills-fuera_office-tab">
                         @foreach ($itinerary as $itinerary)
                         @if(!empty($itinerary->person->inputoutput->first()->inside_office) && !empty($itinerary->person->inputoutput->first()->inside) && !empty($itinerary->person->inputoutput->first()->outside_office) && empty($itinerary->person->inputoutput->first()->outside))
@@ -493,7 +505,7 @@
 
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
 
-                                    <div class="col-lg-8 col-md-8">
+                                    <div class="col-lg-8 col-md-8" id="b_fueraC">
                                         <div class="row">
                                             @if($itinerary->proximaCita == 'posible')
                                             <div class="col-1 mt-2" style="max-height: 100px;">
@@ -751,6 +763,9 @@
 
                 <!----------------------Fuera de las instalaciones----------------------->
                 <div class="tab-pane fade" id="fuera" role="tabpanel" aria-labelledby="pills-fuera-tab">
+                    <div class="row mb-4 d-flex justify-content-end ">
+                        <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_fueraI" type="text" class="form-control p-1 pl-3 mr-2 col-3" placeholder="Buscar ..">
+                    </div>
                     <div  class="accordion" id="accordionExample5" id="fuera" role="tabpanel" aria-labelledby="pills-fuera-tab">
                         @foreach ($itineraryFuera as $fuera)
                         @if(!empty($fuera->person->inputoutput->first()->inside_office) && !empty($fuera->person->inputoutput->first()->inside) && !empty($fuera->person->inputoutput->first()->outside_office) && !empty($fuera->person->inputoutput->first()->outside))    
@@ -758,7 +773,7 @@
                             <div class="card " style="border-radius:3px; border:2px solid #ccc">
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
 
-                                    <div class="col-lg-8 col-md-8">
+                                    <div class="col-lg-8 col-md-8" id="b_fueraI">
                                         <div class="row">
                                             <!--Imagen del paciente-->
                                             <div class="col-3" style="max-height: 100px; ">
@@ -1126,6 +1141,71 @@
 @section('scripts')
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+    <script>
+        //========================buscador en tiempo real de enfermedades=======================
+        $(document).ready(function(){
+          $("#buscar_aprobadas").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            console.log(value);
+            $(".b_aprobadas div").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+    </script>
+
+    <script>
+        //========================buscador en tiempo real de enfermedades=======================
+        $(document).ready(function(){
+        $("#buscar_espera").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            console.log(value);
+            $("#b_espera div").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+
+    <script>
+        //========================buscador en tiempo real de enfermedades=======================
+        $(document).ready(function(){
+        $("#buscar_dentro").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            console.log(value);
+            $("#b_dentro div").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+
+    <script>
+        //========================buscador en tiempo real de enfermedades=======================
+        $(document).ready(function(){
+        $("#buscar_fueraC").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            console.log(value);
+            $("#b_fueraC div").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+
+<script>
+    //========================buscador en tiempo real de enfermedades=======================
+    $(document).ready(function(){
+    $("#buscar_fueraI").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        console.log(value);
+        $("#b_fueraI div").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    });
+</script>
+
     <script>
         function entradas(value, value2) {
             var state = value; //el estado del objeto

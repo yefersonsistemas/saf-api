@@ -39,9 +39,10 @@ class DirectorController extends Controller
     public function index()
     {
 
+            //   dd($doctores[0]['nombre']);
         $employes = Employe::with('person', 'position', 'speciality')->get();
 
-        return view('dashboard.director.index', compact('employes'));
+        return view('dashboard.director.index', compact('employes', 'doctores'));
     }
 
     public function all_register()

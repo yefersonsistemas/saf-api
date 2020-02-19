@@ -45,38 +45,6 @@ class DoctorController extends Controller
     {
         $id= Auth::id();
 
-
-        $doctores = [
-            [
-                'nroAfilia'=> 1,
-                'nombre'=> 'Dr. Víctor Pimentel',
-                'especialidad'=> 'Neurocirugía',
-                'imagenSlider'=> 'images/brand/carousel/Victor_Pimentel_2.png',
-                'imagenPagDoct'=> 'images/brand/fotos-doctores/Victor_Pimentel.png',
-                'especialidades'=> 'Neurocirujano Especialista en Cirugías de Columna Vertebral',
-                'descripcion'=> 'Es profesional en el Centro Médico Quirúrgico Docente S&F Dominicana, y destaca por tener más de 10 años de experiencia.',
-                'turno'=> 'Mañana',
-                'btnHorario'=> 'proximamente',
-                'educacion'=>'<p class="mb-2 text-justify"> Universidad Autónoma de Santo Domingo (UASD). Título: Doctor en Medicina Distinción: MAGNA CUM LAUDE, 1998-2004.</p>
-                <p class="mb-2 text-justify"> Hospital Docente Universitario Dr. Darío Contreras (HDUDDC) Título: Posgrado en Neurocirugía, 2006-2012.</p>
-               <p class="mb-2 text-justify"> Rotación Internacional. Departamento de Neurocirugía. Centro Médico Río Piedras, San Juan Recinto de Ciencias Médicas, Universidad de Puerto Rico, 2012.</p>
-              <p class="mb-2 text-justify">Programa Avanzado de Perfeccionamiento del idioma Inglés. Professional Training System. Pearson Education, 2010.</p>',
-              'descripcionPage'=>'Se graduó en el 2004 en la UASD como Doctor en Medicina, realizó su Posgrado en Neurocirugía en el Hospital Docente
-              Universitario Dr. Darío Contreras, desde entonces ha tenido una amplia y prestigiosa trayectoria laboral en múltiples centros de salud,
-              trabajando como Neurocirujano en lugares como el Hospital General de la Plaza de la salud, la Clínica Abreu y muchísimos más.',
-              'certificados'=>[
-                  '/images/certifications/Dr pimentel/Asset 2.png',
-                  '/images/certifications/Dr pimentel/Asset 3.png',
-                  '/images/certifications/Dr pimentel/Asset 4.png',
-                  '/images/certifications/Dr pimentel/Asset 5.png',
-                  '/images/certifications/Dr pimentel/Asset 6.png',
-                  '/images/certifications/Dr pimentel/Asset 7.png'
-              ]
-
-            ]
-              ];
-
-              dd($doctores);
         // dd($id);
         $empleado = Employe::with('person')->where('id', $id)->first();
 

@@ -193,6 +193,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:director']], function(){
 
         //inicio de rutas para crear
+        Route::get('empleados', 'DirectorController@index')->name('employe.index'); //ruta de empleado
+        Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
@@ -282,7 +284,23 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
 
+        
+
     });
+
+
+
+
+    Route::group(['middleware' => ['role:enfermeria']], function(){
+
+        Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
+        Route::get('create/lista/surgeries', 'NurseController@create')->name('create.lista_cirugias');
+        Route::POST('store/lista/surgeries', 'NurseController@store')->name('store.lista_cirugias');
+        Route::get('editar/lista/surgeries/{id}', 'NurseController@edit')->name('edit.lista_cirugias');
+        Route::put('editar/lista/surgeries/update/{id}', 'NurseController@update')->name('update.lista_cirugias');
+
+    });
+
 
 
     Route::group(['middleware' => ['role:in-out']], function(){
@@ -294,8 +312,20 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
         Route::get('inout/day','InoutController@day')->name('in-out.day');    
 
-
-
     });
 
+
+
+    Route::group(['middleware' => ['role:farmaceuta']], function(){
+
+        Route::get('farmaceuta/lista/insumos', 'FarmaciaController@index')->name('farmaceuta.index');
+        Route::get('farmaceuta/lista/insumos/crear', 'FarmaciaController@create')->name('farmaceuta.create');
+        Route::post('farmaceuta/lista/insumos/guardar', 'FarmaciaController@store')->name('farmaceuta.store');
+        Route::get('farmaceuta/lista/insumos/agregar/{id}', 'FarmaciaController@add')->name('farmaceuta.add');
+        Route::put('farmaceuta/lista/insumos/agregar/lote/{id}', 'FarmaciaController@add_lote')->name('farmaceuta.add_lote');
+        Route::get('farmaceuta/lista/insumos/lista_lote', 'FarmaciaController@lista_lote')->name('farmaceuta.lista_lote');
+        Route::post('farmaceuta/lista/insumos/buscar', 'FarmaciaController@search_medicine')->name('farmaceuta.search_medicine');
+
+        Route::POST('farmaceuta/guardar/medicine', 'FarmaciaController@store_medicine')->name('farmaceuta.guardar_medicine');
+    });
 });

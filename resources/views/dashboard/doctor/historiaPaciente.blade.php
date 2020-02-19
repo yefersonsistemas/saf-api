@@ -720,11 +720,11 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row">
                                                             <div class="container">
                                                                 <div class="row mx-auto">
-                                                                     <div class="col-12 justify-content-center text-center">
-                                                                        <button class=" mb-3 btn btn-verdePastel px-5 py-2" id="citaProxima" data-toggle="tooltip" >
+                                                                     <div class="col-12 justify-content-center text-center citaProximaM">
+                                                                        <a class=" mb-3 btn btn-verdePastel px-5 py-2 text-white" id="citaProxima" data-toggle="tooltip" >
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
                                                                             Notificar proxima cita                                                                            
-                                                                        </button>
+                                                                        </a>
                                                                         <input type="hidden" id="proximaCita" name="proximaCita" value="0">
                                                                     </div>
                                                                  </div>
@@ -2567,9 +2567,9 @@ button[data-original-title="Help"]{ display: none; }
         });
     });
 
-    $("#citaProxima").click(function() {
+    $("#citaProxima").click(function() { //id del boton
 
-        $('#proximaCita').val(1);
+        $('#proximaCita').val(1);  //id del hidden que esta pordefecto en 0
         var proxima_cita = $('#proximaCita').val();
 
         if(proxima_cita == 1){                  //si no trae valores
@@ -2580,7 +2580,8 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             // $('#citaProxima').attr('disabled');
-            $("#citaProxima").prop('disabled', true);
+            // $("#citaProxima").prop('disabled', true);
+            $('.citaProximaM').html('<div class="badge btn-danger text-white py-2 px-4 mb-3" style="animation: pulse 2s infinite">Proxima cita notificada</div> <input type="hidden" id="proximaCita" name="proximaCita" value="'+proxima_cita+'">');
         }else{
             Swal.fire({
                 title: 'No próxima Cita',

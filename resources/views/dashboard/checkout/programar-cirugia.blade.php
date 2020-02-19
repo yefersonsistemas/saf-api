@@ -25,37 +25,47 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
             <form id="wizard_horizontal" method="POST" action="{{route('surgery.hospitalaria_store')}}" class="card pl-4 pr-4">
                     @csrf
-                    <h2>Buscar Paciente</h2>
-                    <section>
+                    <h2>Buscar Paciente</h2>            
+                    <section class="py-1"> 
                         <div class="row clearfix">
                             <div class="col-lg-12">
-                                <div class="card">
-                                    <h2 class=" mt-2 text-center card-title">Datos del paciente</h2>
-                                    <div class="card-body  p-1 ">
-                                        <div class="col-lg-4  col-md-6">
-                                            <div class="form-group d-flex flex-row  align-items-center">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend bg-white">
-                                                        <span class="input-group-text btn-turquesa"><i
-                                                                class="fa fa-id-card"></i></span>
-                                                    </div>
-                                                    <div class="input-group-prepend">
-                                                    <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white" required="">
-                                                        <option>...</option>
-                                                        <option>N</option>
-                                                        <option>E</option>
-                                                    </select>
-                                                    </div>
-                                                        <input type="text" maxlength="9" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
-                                                    <input type="hidden" name="patient_id" id="patient_id" value="">
-                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white" ><i
-                                                            class="fa fa-search"></i></button>
+                                <div class="card">                                     
+
+                                <div class="card-body py-0 ">                                  
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                    <div class="col-lg-4  col-md-6">
+                                        <div class="form-group d-flex flex-row  align-items-center">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-white">
+                                                    <span class="input-group-text btn-turquesa"><i
+                                                            class="fa fa-id-card"></i></span>
                                                 </div>
+                                                <div class="input-group-prepend">
+                                                <select name="type_dni" id="type_dni" class="custom-select input-group-text bg-white" required="">
+                                                    <option>...</option>
+                                                    <option>N</option>
+                                                    <option>E</option>
+                                                </select>
+                                                </div>
+                                                    <input type="text" maxlength="9" class="form-control mr-2" type="text" id="dni" placeholder="Cédula" value="">
+                                                <input type="hidden" name="patient_id" id="patient_id" value="">
+                                                <button type="button" id="search" class="btn btn-azuloscuro text-white" ><i
+                                                        class="fa fa-search"></i></button>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col md-12">
+                                        <h2 class=" mt-2 text-center card-title">Datos del paciente</h2>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="card-body  p-1 "> 
                                                     {{-- aqui llamamos la imagen --}}
                                         <div class="row ml-5 ">                                          
-                                        <div class="row justify-content-between">                                                  
+                                        <div class="row justify-content-between">                                                                                             
                                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                 <label class="imagecheck m-0">
                                                     <div class="card assigment">                              
@@ -66,44 +76,56 @@
                                                         </figure>                            
                                                     </div>
                                                 </label>
-                                            </div>  
-                                                    {{-- aqui llamamos la imagen --}}
+                                            </div>                                            
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
-                                                    <input type="text" id="name" name="name" disabled class="form-control" placeholder="Nombre" value="" required="">
+                                                    <input type="text" id="name" name="name" disabled 
+                                                    class="form-control" placeholder="Nombre" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Apellido</label>
-                                                    <input type="text" disabled id="lastname" name="lastname" class="form-control" placeholder="Apellido" value="" required="">
+                                                    <input type="text" disabled id="lastname"
+                                                     name="lastname" class="form-control" placeholder="Apellido" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Correo Electrónico</label>
-                                                    <input type="text" disabled id="email" name="email" class="form-control" placeholder="Correo Electrónico" value="" required="">
+                                                    <input type="text" disabled id="email"
+                                                     name="email" class="form-control" placeholder="Correo Electrónico" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Dirección</label>
-                                                    <input type="text" disabled id="address" name="address" class="form-control" placeholder="Dirección" value="" required="">
+                                                    <input type="text" disabled id="address"
+                                                     name="address" class="form-control" placeholder="Dirección" value="" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
-                                                    <input type="number" disabled id="phone" name="phone" class="form-control number" placeholder="Teléfono" value="" required="">
+                                                    <input type="number" disabled id="phone" 
+                                                    name="phone" class="form-control number" placeholder="Teléfono" value="" required="">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
                     </section>
+
+
+
+
+
+
+                    
                     <h2>Elegir Cirugia</h2>
                     <section> 
                         <div class="row justify-content-between">
@@ -355,7 +377,7 @@ var form = $('#wizard_horizontal').show();
                 }
             })
             .done(function(data) {
-                console.log('paciente', data);
+                console.log(' paciente localizado', data);
                 if (data[0] == 202) {
                     Swal.fire({
                         title: data.message,
@@ -387,6 +409,7 @@ var form = $('#wizard_horizontal').show();
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
         var concatenar = "Storage\\";
+        console.log('RUTA',data.patient.person.image.path)
         console.log(concatenar+data.patient.person.image.path);
         $("#photo").html('<img src="'+concatenar+data.patient.person.image.path+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000">');
 
@@ -488,7 +511,7 @@ var form = $('#wizard_horizontal').show();
         todayHighlight: true,
         language: 'es',
         daysOfWeekHighlighted: [0,6],
-        // daysOfWeekDisabled: [0,6];
+        daysOfWeekDisabled: [0,6],
     });
     $('.inline-datepicker').on('changeDate', function() {
         $('#picker').val(

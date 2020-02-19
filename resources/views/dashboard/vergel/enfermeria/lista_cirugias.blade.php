@@ -79,7 +79,7 @@
                                     {{-- @endforeach --}}
                                     <td>{{$surgeries->area->name}}</td>
                                     <td class="d-flex justify-content-center" style="display: inline-block ">
-                                        <a href="" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                        <a href="{{route('create.lista_cirugias')}}" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach 
