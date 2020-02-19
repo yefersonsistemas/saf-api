@@ -173,7 +173,7 @@ class InController extends Controller
 
         // $reservation = Reservation::find($id);
         // dd($reservation);
-        $rs = Reservation::with('patient.historyPatient','patient.image')->where('id', $id)
+        $rs = Reservation::with('patient.historyPatient.medicine','patient.historyPatient.disease','patient.historyPatient.allergy','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
                             // dd($rs->patient->historyPatient);
 
@@ -189,7 +189,12 @@ class InController extends Controller
         $allergy = Allergy::get();
         $alergias = Allergy::all();
         // dd($cites);
-        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar','enfermedades','alergias','medicinas'));
+        // dd($medicine);
+
+        $diff_medicine = $medicine->diff($rs->patient->historyPatient->medicine); //modal de medicinas
+        // dd($diff_medicine);
+
+        return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar','enfermedades','alergias','medicinas','diff_medicine'));
     }
 
      /**
@@ -202,7 +207,7 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  //REVISAR
      {
-         dd($request);
+        //  dd($request);
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {

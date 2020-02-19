@@ -311,14 +311,34 @@
                 <div class="card p-4 d-flex justify-content-between">
                     <div class="row">
                         <!---------------------------Enfermedades-------------------------->
-                        <div class="col-lg-6 col-md-3" id="framework_form">
+                        <div class="col-lg-12 col-md-12" id="framework_form">
                             <label class="form-label text-center"><h5>Enfermedades</h5></label>
-                            <div class="card p-3" style="border-color:#00506b">
-                             
+                            <div class="card p-3" style="border-color:#00506b">                             
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
-                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
-                                        
+                                        <div class="row mb-3">
+                                            <div class="col-5">
+                                                <div class="row justify-content-start">
+                                                    <div>
+                                                        <a class="btn btn-azuloscuro text-white mx-2"  data-toggle="modal" data-target="#listaEnfermedades" style="font-size:12px;">
+                                                            <i class="fa fa-plus"></i>&nbsp;Agregar
+                                                        </a>
+                                                    </div>
+                                                    <div>
+                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;">
+                                                            <i class="fa fa-plus"></i>&nbsp;Crear
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="row justify-content-end">
+                                                    <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_enfermedades" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar enfermedad..">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <table class="table table-hover  table_custom spacing5 table-vcenter table-striped">                                        
                                             <thead>
                                                 <tr>
                                                     <th>Enfermedad</th>
@@ -326,38 +346,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="enfermedades">
-                                                @foreach ($disease as $disease)
-                                                    <tr id="enfermedad{{$disease->id}}">
-                                                        @if ($rs->patient->historyPatient->disease->contains($disease->id))
+                                                @if($rs->patient->historyPatient->disease != null)
+                                                    @foreach ($rs->patient->historyPatient->disease as $disease)
+                                                        <tr id="enfermedad{{$disease->id}}">
                                                             <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</td>
-                                                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
-                                                        @else
-                                                    
-                                                        @endif
-                                                    </tr>
-                                                @endforeach
+                                                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>                                                   
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
 
-                                <div class="row justify-content-end">
-                                    <div>
-                                        <a class="btn btn-azuloscuro text-white mx-2"  data-toggle="modal" data-target="#listaEnfermedades" style="font-size:12px;">
-                                            <i class="fa fa-plus"></i>&nbsp;Agregar
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;">
-                                            <i class="fa fa-plus"></i>&nbsp;Crear
-                                        </a>
-                                    </div>
-                                </div>
+                                
                             </div>                            
                         </div>
                         
                         <!------------------------Medicamentos--------------------------->
-                        <div class="col-lg-6 col-md-3" id="framework_form2">
+                        <div class="col-lg-12 col-md-12 mt-4" id="framework_form2">
                             <label class="form-label text-center"><h5>Medicamentos</h5></label>
                             <div class="card p-3" style="border-color:#00506b">
                                                              
@@ -371,16 +378,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="medicamentos">
-                                                @foreach ($medicine as $medicine)
+                                                @if($rs->patient->historyPatient->medicine != null)
+                                                @foreach ($rs->patient->historyPatient->medicine as $medicine)
                                                     <tr id="medicina{{$medicine->id}}">
-                                                        @if ($rs->patient->historyPatient->medicine->contains($medicine->id))
-                                                            <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</td>
-                                                            <td class="text-center"><a style="cursor:pointer" id="medicina_id" name="{{$medicine->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
-                                                        @else
-                                                    
-                                                        @endif
+                                                        <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</td>
+                                                        <td class="text-center"><a style="cursor:pointer" id="medicina_id" name="{{$medicine->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                     </tr>
                                                 @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -405,7 +410,7 @@
 
                     <div class="row">
                         <!------------------------Alergias-------------------------------->
-                        <div class="col-lg-6 col-md-3" id="framework_form3">
+                        <div class="col-lg-12 col-md-12 mt-4" id="framework_form3">
                             <label class="form-label text-center"><h5>Alergias</h5></label>
                             <div class="card p-3" style="border-color:#00506b"> 
                                 <div class="card-body">
@@ -418,16 +423,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="alergias">
-                                                @foreach ($allergy as $allergy)
-                                                    <tr id="alergia{{$allergy->id}}">
-                                                        @if ($rs->patient->historyPatient->allergy->contains($allergy->id))
-                                                            <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$allergy->name}}</td>
-                                                            <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
-                                                        @else
-                                                    
-                                                        @endif
-                                                    </tr>
-                                                @endforeach
+                                                @if($rs->patient->historyPatient->allergy != null)
+                                                    @foreach ($rs->patient->historyPatient->allergy as $allergy)
+                                                        <tr id="alergia{{$allergy->id}}">
+                                                                <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$allergy->name}}</td>
+                                                                <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -544,28 +547,46 @@
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 415px; ">         
                         <div class="form-group">
-                            <div class="custom-controls-stacked" id="modal_enfermedad">
-                                @if($enfermedades != null)
-                                    @foreach($enfermedades as $enfermedades)
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if(!($rs->patient->historyPatient->disease->contains($enfermedades->id)))
-                                                <div class="row" id="quitar{{$enfermedades->id}}">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $enfermedades->id }}">
-                                                        <span class="custom-control-label">{{ $enfermedades->name }} </span>
-                                                    </label>
+                            <div class="custom-controls-stacked">
+                                <div class="row">
+                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_enfermedad" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar enfermedad..">
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="card-header">
+                                                    <h6>Nombre</h6>
                                                 </div>
-                                            @endif
-                                        @endif
-                                @endforeach
-                                @endif
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal_enfermedad" class="mt-4"> 
+                                        @if($enfermedades != null)
+                                            @foreach($enfermedades as $enfermedades)
+                                                @if ($rs->patient->historyPatient != null)
+                                                    @if(!($rs->patient->historyPatient->disease->contains($enfermedades->id)))
+                                                        <tr id="quitarEnfermedad_modal{{$enfermedades->id}}">
+                                                            <td>
+                                                                <label class="custom-control custom-checkbox" >
+                                                                    <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $enfermedades->id }}">
+                                                                    <span class="custom-control-label">{{ $enfermedades->name }} </span>
+                                                                </label>
+                                                            </td>
+                                                        </tr>    
+                                                    @endif   
+                                                @endif                                           
+                                            @endforeach
+                                        @endif 
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer p-2">
-                        <button class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</button>
+                        </div>                             
+                   </div>
+                    <div class="modal-footer p-2 ">                        
+                        <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -615,26 +636,45 @@
                 <form action="" id="form_alergias">
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked" id="modal_alergias">
-                                @if($alergias != null)
-                                    @foreach ($alergias as $alergia)
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if(!($rs->patient->historyPatient->allergy->contains($alergia->id)))
-                                                <div class="row" id="quitarAlergia{{$alergia->id}}">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $alergia->id }}">
-                                                        <span class="custom-control-label">{{ $alergia->name }} </span>
-                                                    </label>
+                            <div class="custom-controls-stacked">
+                                <div class="row">
+                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergia" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar alergia..">
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="card-header">
+                                                    <h6>Nombre</h6>
                                                 </div>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                @endif                         
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modal_alergias" class="mt-4">
+                                        @if($alergias != null)
+                                            @foreach ($alergias as $alergia)
+                                                @if ($rs->patient->historyPatient != null)
+                                                    @if(!($rs->patient->historyPatient->allergy->contains($alergia->id)))
+                                                        <tr id="quitarAlergia{{$alergia->id}}">
+                                                            <td>
+                                                                <label class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" name="name_alergia" value="{{ $alergia->id }}">
+                                                                    <span class="custom-control-label">{{ $alergia->name }} </span>
+                                                                </label>
+                                                            </td>
+                                                        </tr>   
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        @endif               
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarAlergias">Agregar</button>
+                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
+                        <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -749,6 +789,67 @@
 <script src="{{ asset('assets\css\brandAn.css') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
+
+
+<script>
+    //========================buscador en tiempo real de enfermedades =======================
+    $(document).ready(function(){
+      $("#buscar_enfermedad").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_enfermedad tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de enfermedades =======================
+    $(document).ready(function(){
+      $("#buscar_enfermedades").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#enfermedades tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de enfermedades =======================
+    $(document).ready(function(){
+      $("#buscar_alergias").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#enfermedades tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de medicamentos=======================
+    $(document).ready(function(){
+      $("#buscar_medicamentos").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_medicamentos tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de alergias=======================
+    $(document).ready(function(){
+      $("#buscar_alergia").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_alergias tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
 
 {{-- <script>
 $boton.addEventListener("click", function() {
@@ -928,7 +1029,7 @@ Dropzone.options.myDropzone = {
 //             }
 //         };
 </script>
-<script>
+    <script>
         $('#disease').multiselect({
             enableFiltering: true,
             enableCaseInsensitiveFiltering: true,
@@ -1002,53 +1103,12 @@ Dropzone.options.myDropzone = {
     } // fin de la funcion
 
 
-        // ================================ enfermedades ========================
-        // $("#guardarEnfermedad").change(function(){
-        //     //  disease_id = $(this).val(); // Capta el id de la enfermedad
-        //     // var patient_id = $('#patient-id').val();
-        //     var reservacion = $("#reservacion").val();
-        //     var enfermedad = $("#enfermedad").serialize();    
-
-        //     console.log('enfermedad', disease_id);
-        //     console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-
-        //     enfermedades(disease_id, patient_id);
-        // });
-
-        // function enfermedades(disease_id, patient_id){
-        //     console.log(disease_id);
-        //     $.ajax({ 
-        //         url: "{{ route('checkin.diseases') }}",  
-        //         type: "POST",                            
-        //         data: {
-        //             _token: "{{ csrf_token() }}",        
-        //             data:enfermedad,
-        //             id:reservacion,                          
-        //         }
-        //     })
-        //     .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-        //         console.log('esto',data[0][0]);
-        //         if (data[1] == 201) {                       
-        //             Swal.fire({
-        //                 title: 'Excelente!',
-        //                 text:  'Enfermedad Agregada con Exito!',
-        //                 type:  'success',
-        //             })
-        //                 show_diseases(data[0][0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-        //         }
-        //     })
-        //     .fail(function(data) {
-        //         console.log(data);
-        //     })
-        // }
-
-
         //================================ agregar enfermedad ======================
         function show_diseases(data){
             for($i=0; $i < data.length; $i++){
                 enfermedad = '<tr id="enfermedad'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
                 $("#enfermedades").append(enfermedad);
-                $("div").remove("#quitar"+data[$i].id); //quitar del modal
+                $("tr").remove("#quitarEnfermedad_modal"+data[$i].id); //quitar del modal
             }
         }
 
@@ -1071,7 +1131,17 @@ Dropzone.options.myDropzone = {
 
                 })
                 .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
-                agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+
+                   agregar=  `<tr id="quitarEnfermedad_modal${data[1].id}">
+                                    <td>
+                                        <label class="custom-control custom-checkbox" >
+                                            <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="${data[1].id}">
+                                            <span class="custom-control-label">${data[1].name}</span>
+                                        </label>
+                                    </td>
+                                </tr> `;
+
+                // agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
                 $("#modal_enfermedad").append(agregar); //agregar en el modal
 
                 if(data[0] == 202){                  //si no trae valores
@@ -1183,47 +1253,13 @@ Dropzone.options.myDropzone = {
             })
         } // fin de la funcion
 
-
-        //===================guardar alergias========================
-        // $('#allergy').change(function(){
-        //     var allergy_id = $(this).val();
-        //     var patient_id = $('#patient-id').val();    
-        //     alergias(allergy_id,patient_id)
-        // });
-
-        // function alergias(allergy_id,patient_id){
-            // console.log('alergia,paciente', allergy_id, patient_id);
-            // $.ajax({ 
-            //     url: "{{ route('checkin.allergies') }}",  
-            //     type: "POST",                            
-            //     data: {
-            //         _token: "{{ csrf_token() }}",        
-            //         data:allergy_id,
-            //         id:patient_id,                          
-            //     }
-            // })
-        //     .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
-        //         console.log('esto',data[0][0]);
-        //         if (data[1] == 201) {                       
-        //             Swal.fire({
-        //                 title: 'Excelente!',
-        //                 text:  'Alergia Agregada!',
-        //                 type:  'success',
-        //             })
-        //                 show_allergies(data[0][0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-        //         }
-        //     })
-        //     .fail(function(data) {
-        //         console.log(data);
-        //     })
-        //  }
             
         //============================mostrar alergias=========================
         function show_allergies(data){
             for($i=0; $i < data.length; $i++){
                 alergia = '<tr id="alergia'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="alergia_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
                 $("#alergias").append(alergia);
-                $("div").remove("#quitarAlergia"+data[$i].id); //quitar del modal
+                $("tr").remove("#quitarAlergia"+data[$i].id); //quitar del modal
             }
         }
 
@@ -1245,7 +1281,16 @@ Dropzone.options.myDropzone = {
                 }
             })
                 .done(function(data) {  
-                agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+
+                agregarAlergia = `<tr id="quitarAlergia${data[1].id}">
+                                    <td>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="name_alergia" value="${data[1].id}">
+                                            <span class="custom-control-label">${data[1].name}</span>
+                                        </label>
+                                    </td>
+                                  </tr> `;
+                // agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
                 $("#modal_alergias").append(agregarAlergia); //agregar al modal
 
                 if(data[0] == 202){                  //si no trae valores
@@ -1314,10 +1359,10 @@ Dropzone.options.myDropzone = {
         $("#guardarMedicamentos").click(function(){
             var reservacion = $("#reservacion_id").val();
             var datos = $("#form_medicamentos").serialize(); 
-            medicamentos(reservacion,datos);
+            medicamentos1(reservacion,datos);
         });
 
-        function medicamentos(reservacion,datos){
+        function medicamentos1(reservacion,datos){
             $.ajax({ 
                 url: "{{ route('checkin.medicines') }}",  
                 type: "POST",                            
