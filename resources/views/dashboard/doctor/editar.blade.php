@@ -429,8 +429,8 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px; cursor:pointer;" ><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                            <a class="btn btn-verdePastel mx-2 text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                            <a class="btn btn-azuloscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -471,8 +471,8 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
-                                                            <a class="btn btn-info text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                            <a class="btn btn-info mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                            <a class="btn btn-verdePastel text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
+                                                            <a class="btn btn-azuloscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px; cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -504,7 +504,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     </div>
                                                         <div class="col-12 d-flex justify-content-end mt-4">
 
-                                                                <a class="btn btn-info text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
+                                                                <a class="btn btn-verdePastel text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
                                                         </div>
                                                     </div>
                                                 </div>

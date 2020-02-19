@@ -440,7 +440,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         @endif 
                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <a class="btn btn-info text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
+                                                        <a class="btn btn-verdePastel text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
                                                     </div>
                                                 </div>
                                             </div>
