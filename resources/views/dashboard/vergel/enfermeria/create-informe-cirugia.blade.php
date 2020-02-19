@@ -2,7 +2,7 @@
 @section('cites','active')
 @section('newCite','active')
 @section('title','Agregar informes al paciente')
-@section('inrol','d-block')
+@section('enrol','d-block')
 @section('dire','d-none')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">

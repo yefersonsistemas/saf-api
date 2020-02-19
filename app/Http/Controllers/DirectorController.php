@@ -25,6 +25,7 @@ use App\TypeDoctor;
 use App\Typesurgery;
 use App\User;
 use App\ClassificationSurgery;
+use App\Patient;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
@@ -42,6 +43,39 @@ class DirectorController extends Controller
 
         return view('dashboard.director.index', compact('employes'));
     }
+
+    public function exporEmploye(){}
+
+    public function visitantes(){
+        $patients = Patient::with('person')->get();
+        $employes = Employe::with('person')->get();
+        $persons = Person::get();
+
+        foreach($patients as $item){
+            foreach($persons as $person){
+                    if($person == $item->person){
+                        $encontrado[] = $person;
+                    }               
+                }   
+        }
+
+        foreach($employes as $item){
+            foreach($persons as $person){
+                    if($person == $item->person){
+                        $encontrado2[] = $person;
+                    }               
+                }   
+        }
+
+        $all = $persons->diff($encontrado);
+        $all2 = $all->diff($encontrado2);
+        // dd($all2);
+
+        return view('dashboard.director.visitors', compact('all2'));
+    }
+
+    public function exporVisitante(){}
+
 
     public function all_register()
     {
@@ -369,4 +403,6 @@ class DirectorController extends Controller
         $doctor->delete();
         return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
+
+    
 }

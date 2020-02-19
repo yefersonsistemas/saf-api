@@ -1,6 +1,8 @@
 @extends('dashboard.layouts.app')
 
 @section('cites','active')
+@section('farmarol','d-block')
+@section('dire','d-none')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">

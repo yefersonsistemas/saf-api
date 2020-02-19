@@ -27,6 +27,7 @@
                                     <th>Apellido</th>
                                     <th>Cargo</th>
                                     <th>Acción</th>
+                                    <th>visitante</th>
                                     {{-- <th>Esepcialidad</th> --}}
                                 </tr>
                             </thead>
@@ -38,6 +39,7 @@
                                     <th>Apellido</th>
                                     <th>Cargo</th>
                                     <th>Acción</th>
+                                     <th>visitante</th>
                                     {{-- <th>Esepcialidad</th> --}}
                                 </tr>
                             </tfoot>
