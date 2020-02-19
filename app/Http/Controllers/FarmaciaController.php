@@ -22,7 +22,7 @@ class FarmaciaController extends Controller
     public function index()
     {
         $stock = Stock_pharmacy::with('medicine_pharmacy.medicine')->get();
-        return view('dashboard.farmaceuta.index',compact('stock'));
+        return view('dashboard.vergel.farmaceuta.index',compact('stock'));
     }
 
     /**
@@ -35,7 +35,7 @@ class FarmaciaController extends Controller
     public function create()
     {
         $medicine = Medicine::all();
-        return view('dashboard.farmaceuta.create', compact('medicine'));
+        return view('dashboard.vergel.farmaceuta.create', compact('medicine'));
     }
 
 
@@ -138,7 +138,7 @@ class FarmaciaController extends Controller
     public function add($id)
     {
         $medicine_pharmacy = Medicine_pharmacy::with('medicine')->find($id);
-        return view('dashboard.farmaceuta.add',compact('medicine_pharmacy'));
+        return view('dashboard.vergel.farmaceuta.add',compact('medicine_pharmacy'));
     }
 
 
@@ -179,7 +179,7 @@ class FarmaciaController extends Controller
     public function lista_lote()
     {
         $lot_pharmacy = Lot_pharmacy::with('medicine_pharmacy.medicine')->get();
-        return view('dashboard.farmaceuta.lotes',compact('lot_pharmacy'));
+        return view('dashboard.vergel.farmaceuta.lotes',compact('lot_pharmacy'));
     }
 
 
@@ -187,7 +187,7 @@ class FarmaciaController extends Controller
      public function create_asignacion()
      {
   
-         return view('dashboard.farmaceuta.asignacion');
+         return view('dashboard.vergel.farmaceuta.asignacion');
     }
 
      //===========================asignacion====================
@@ -195,7 +195,7 @@ class FarmaciaController extends Controller
      {
         $stock = Stock_pharmacy::with('medicine_pharmacy_id')->get();
         // dd($stock);
-        return view('dashboard.farmaceuta.asignar_medicine',compact('stock'));
+        return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('stock'));
     }
  
     /**
