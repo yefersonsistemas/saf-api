@@ -2739,12 +2739,152 @@ button[data-original-title="Help"]{ display: none; }
 
    //-----------------------------------------  POSIBLE CIRUGIA ------------------------------------------
 
-    $("#citaProxima").click(function() {
 
-    $('#proximaCita').val(1);
-    var proxima_cita = $('#proximaCita').val(1);
+   //============== captar datos de las posibles cirugias =============(listo)
+   $("#guardarC").click(function() {
+        var id = $("#cirugia_posible").val();
+        var name = $("#cirugia_posible_name").val();
+        var cost = $("#cirugia_posible_costo").val();
+        var clasificacion = $("#cirugia_posible_clasificacion").val();
+        console.log(id)
+        console.log(name)
+        console.log(cost)
+        console.log(clasificacion)
 
-    if(proxima_cita == 1){                  //si no trae valores
+        var reservacion = $("#reservacion").val();
+        var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+
+    
+    
+        if(id != null && name != null && cost != null && clasificacion != null){
+            agregar_cirugiaP =` <tr id="quitar_cirugia${id}">
+                                    <td>
+                                        <label class="custom-control custom-checkbox d-flex" >
+                                            <input type="radio" class="custom-control-input" name="surgerys" value="${id}">
+                                            <span class="custom-control-label">${name}</span>
+                                        </label>
+                                    </td>
+                                    <td class="text-end d-flex justify-content-end">
+                                        ${cost}
+                                    </td>
+                                </tr> `;
+            // agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
+            
+            if(clasificacion == 'hospitalaria'){
+                $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
+            }else{
+                $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
+            }
+        }
+
+        ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
+    }); //fin de la funcion clikea
+        
+        function ajax_S(surgery,reservacion) {
+        $.ajax({
+        url: "{{ route('doctor.surgerysP') }}",   //definiendo ruta
+        type: "POST",
+        dataType:'json', //definiendo metodo
+        data: {
+            _token: "{{ csrf_token() }}",
+            data:surgery,
+            id:reservacion
+        }
+        })
+        .done(function(data) {
+        console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+
+            if(data[0] == 201){                  //si no trae valores
+                Swal.fire({
+                    title: data.surgerysR,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+                mostrarSurgery(data[1]);
+            }
+
+            if (data[0] == 202) {                       //si no trae valores
+                Swal.fire({
+                    title: data.surgerysR2,
+                    text:  'Click en OK para continuar',
+                    type:  'error',
+                })
+                // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+            }
+        })
+            .fail(function(data) {
+            console.log(data);
+        })
+    } // fin de la funcion
+
+    //======================== mostrando posibles cirugias ======================
+    function mostrarSurgery(data){
+        for($i=0; $i < data.length; $i++){
+            cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
+            $("#cirugias").html(cirugias);
+            $("tr").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
+        }
+    }
+
+    //======================= eliminar posible cirugia seleccionada ==============
+    $(function() {
+        $(document).on('click', '#cirugiaP_id', function(event) {
+        let id = this.name;
+        var reservacion = $("#reservacion_id").val();
+        $("tr").remove("#"+id);
+
+            $.ajax({
+                url: "{{ route('doctor.cirugiaP_eliminar2') }}",
+                type: 'POST',
+                dataType:'json',
+                data: {
+                _token: "{{ csrf_token() }}",
+                id:id,
+                reservacion_id:reservacion,
+            }
+        })
+        .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+            agregar_cirugiaP =` <tr id="quitar_cirugia${data[1].id}">
+                                        <td>
+                                            <label class="custom-control custom-checkbox d-flex" >
+                                                <input type="radio" class="custom-control-input" name="surgerys" value="${data[1].id}">
+                                                <span class="custom-control-label">${data[1].name}</span>
+                                            </label>
+                                        </td>
+                                        <td class="text-end d-flex justify-content-end">
+                                            ${data[1].cost}
+                                        </td>
+                                    </tr>      `;
+            // agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].cost+'</span></div></div>'
+
+            if(data[1].classification.name == 'hospitalaria'){
+                $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP); //agregar al modal
+            }else{
+                $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP); //agregar al modal
+            }
+
+            if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.cirugia,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+        })
+                .fail(function(data) {
+                console.log(data);
+                })
+            });
+        });
+
+
+        $("#citaProxima").click(function() {
+
+        $('#proximaCita').val(1);
+            var proxima_cita = $('#proximaCita').val();
+
+        if(proxima_cita == 1){                  //si no trae valores
             Swal.fire({
                 title: 'Próxima Cita',
                 text: 'Click en OK para continuar',
@@ -2761,165 +2901,7 @@ button[data-original-title="Help"]{ display: none; }
             });
         }
 
-        var reservacion = $("#reservacion").val();
-        var surgery = $("#posible-surgerys").serialize();
-        console.log(surgery);        //asignando el valor que se ingresa en el campo
-
-        var id = $("#cirugia_posible").val();
-        var name = $("#cirugia_posible_name").val();
-        var cost = $("#cirugia_posible_costo").val();
-        var clasificacion = $("#cirugia_posible_clasificacion").val();
-
-        console.log(id);
-        console.log(name)
-        console.log(cost)
-        console.log(clasificacion)
-
-if(id != null && name != null && cost != null && clasificacion != null){
-    agregar_cirugiaP =` <tr id="quitar_cirugia${id}">
-                            <td>
-                                <label class="custom-control custom-checkbox d-flex" >
-                                    <input type="radio" class="custom-control-input" name="surgerys" value="${id}">
-                                    <span class="custom-control-label">${name}</span>
-                                </label>
-                            </td>
-                            <td class="text-end d-flex justify-content-end">
-                                ${cost}
-                            </td>
-                        </tr> `;
-    // agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
-
-    if(clasificacion == 'hospitalaria'){
-        $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
-    }else{
-        $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP);
-    }
-}
-
-ajax_S(surgery,reservacion); // enviando el valor a la funcion ajax(darle cualquier nombre)
-}); //fin de la funcion clikea
-
-function ajax_S(surgery,reservacion) {
-$.ajax({
-url: "{{ route('doctor.surgerysP') }}",   //definiendo ruta
-type: "POST",
-dataType:'json', //definiendo metodo
-data: {
-    _token: "{{ csrf_token() }}",
-    data:surgery,
-    id:reservacion
-}
-})
-.done(function(data) {
-console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-
-if(data[0] == 201){                  //si no trae valores
-    Swal.fire({
-        title: data.surgerysR,
-        text: 'Click en OK para continuar',
-        type: 'success',
     });
-    mostrarSurgery(data[1]);
-}
-
-if (data[0] == 202) {                       //si no trae valores
-    Swal.fire({
-        title: data.surgerysR2,
-        text:  'Click en OK para continuar',
-        type:  'error',
-    })
-    // disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
-}
-})
-.fail(function(data) {
-console.log(data);
-})
-} // fin de la funcion
-
-//======================== mostrando posibles cirugias ======================
-function mostrarSurgery(data){
-for($i=0; $i < data.length; $i++){
-cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
-$("#cirugias").html(cirugias);
-$("tr").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
-}
-}
-
-//======================= eliminar posible cirugia seleccionada ==============
-$(function() {
-$(document).on('click', '#cirugiaP_id', function(event) {
-let id = this.name;
-var reservacion = $("#reservacion_id").val();
-$("tr").remove("#"+id);
-
-    $.ajax({
-        url: "{{ route('doctor.cirugiaP_eliminar2') }}",
-        type: 'POST',
-        dataType:'json',
-        data: {
-        _token: "{{ csrf_token() }}",
-        id:id,
-        reservacion_id:reservacion,
-    }
-})
-.done(function(data) {
-console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-agregar_cirugiaP =` <tr id="quitar_cirugia${data[1].id}">
-                            <td>
-                                <label class="custom-control custom-checkbox d-flex" >
-                                    <input type="radio" class="custom-control-input" name="surgerys" value="${data[1].id}">
-                                    <span class="custom-control-label">${data[1].name}</span>
-                                </label>
-                            </td>
-                            <td class="text-end d-flex justify-content-end">
-                                ${data[1].cost}
-                            </td>
-                        </tr>      `;
-// agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+data[1].id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div><div class="col-3"><span>'+data[1].cost+'</span></div></div>'
-
-if(data[1].classification.name == 'hospitalaria'){
-    $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP); //agregar al modal
-}else{
-    $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP); //agregar al modal
-}
-
-if(data[0] == 202){                  //si no trae valores
-    Swal.fire({
-        title: data.cirugia,
-        text: 'Click en OK para continuar',
-        type: 'success',
-    });
-}
-})
-.fail(function(data) {
-console.log(data);
-})
-});
-});
-
-$("#citaProxima").click(function() {
-
-$('#proximaCita').val(1);
-var proxima_cita = $('#proximaCita').val();
-
-if(proxima_cita == 1){                  //si no trae valores
-    Swal.fire({
-        title: 'Próxima Cita',
-        text: 'Click en OK para continuar',
-        type: 'success',
-    });
-
-// $('#citaProxima').attr('disabled');
-$("#citaProxima").prop('disabled', true);
-}else{
-Swal.fire({
-    title: 'No próxima Cita',
-    text: 'Click en OK para continuar',
-    type: 'error',
-});
-}
-
-});
 </script>
 
 @endsection
