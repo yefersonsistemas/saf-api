@@ -958,7 +958,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         <th class="text-center">Accion</th>
                                                                                     </tr>
                                                                                 </thead>
-                                                                                <tbody id="cirugiass">
+                                                                                <tbody id="cirugias">
                                                                                     @if(!empty($itinerary->typesurgery))
                                                                                         @foreach ($surgery as $surge)
                                                                                             <tr id="{{$surge->id}}">
@@ -2742,6 +2742,9 @@ button[data-original-title="Help"]{ display: none; }
 
    //============== captar datos de las posibles cirugias =============(listo)
    $("#guardarC").click(function() {
+        var reservacion = $("#reservacion").val();
+        var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
+
         var id = $("#cirugia_posible").val();
         var name = $("#cirugia_posible_name").val();
         var cost = $("#cirugia_posible_costo").val();
@@ -2750,10 +2753,6 @@ button[data-original-title="Help"]{ display: none; }
         console.log(name)
         console.log(cost)
         console.log(clasificacion)
-
-        var reservacion = $("#reservacion").val();
-        var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
-
     
     
         if(id != null && name != null && cost != null && clasificacion != null){
@@ -2782,7 +2781,7 @@ button[data-original-title="Help"]{ display: none; }
         
         function ajax_S(surgery,reservacion) {
         $.ajax({
-        url: "{{ route('doctor.surgerysP') }}",   //definiendo ruta
+        url: "{{ route('doctor.surgery_actualizar') }}",   //definiendo ruta
         type: "POST",
         dataType:'json', //definiendo metodo
         data: {
