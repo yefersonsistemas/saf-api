@@ -172,7 +172,7 @@ button[data-original-title="Help"]{ display: none; }
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">
                                             <label class="m-4 d-block p-2 form-label">Nro. Historia: <br> 
-                                                 <span class=" ml-4   badge badge-verdePastel  texto ">{{ $reservation->patient->historyPatient->history_number }}</span></label>
+                                            <span class=" ml-4   badge badge-verdePastel  texto ">{{ $reservation->patient->historyPatient->history_number }}</span></label>
                                         </div>            
                                         <div class="col-3">
                                             <img src="{{ Storage::url($reservation->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
@@ -596,7 +596,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <th class="text-center">Accion</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody id="ocultar_procedureR">
+                                                                        <tbody id="procesc">
                                                                             @if(!empty($r_patient->procedures))
                                                                             @foreach ($r_patient->procedures as $proces)
                                                                                     <tr id="{{ $proces->id }}">
@@ -607,8 +607,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     </tr>
                                                                                 @endforeach
                                                                             @endif
-                                                                        </tbody>
-                                                                        <tbody id="procesc">
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -673,7 +671,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                     <th class="text-center">Eliminar examen</th>
                                                                                                 </tr>
                                                                                             </thead>
-                                                                                            <tbody id="ocultar_examen">
+                                                                                            <tbody id="examen">
                                                                                                 @if(!empty($r_patient->exam))
                                                                                                     @foreach ($r_patient->exam as $exam)
                                                                                                         <tr id="{{$exam->id}}">
@@ -684,8 +682,6 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                         </tr>
                                                                                                     @endforeach
                                                                                                 @endif
-                                                                                            </tbody>
-                                                                                            <tbody id="examen">
                                                                                             </tbody>
                                                                                         </table>
                                                                                     </div>

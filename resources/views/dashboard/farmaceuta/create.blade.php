@@ -60,7 +60,7 @@
                                     </div>
             
                                     
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-label">Medida</label>
                                             <input type="text" class="form-control" placeholder="Medida" name="measure" value="{{ old('measure') }}" required>
@@ -68,7 +68,7 @@
                                     </div>
                                         
                                     
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-label">Cantidad por Unidad</label>
                                             <input type="text" placeholder="Cantidad por unidad" class="form-control" name="quantify_Unit" value="{{ old('quantify_Unit') }}" required>
@@ -81,6 +81,21 @@
                                             <input type="text" placeholder="Stock" class="form-control" name="total" value="{{ old('total') }}" required>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Numero de Lote</label>
+                                            <input type="text" placeholder="Número de lote" class="form-control" name="number_lot" value="{{ old('number_lot') }}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Fecha de Vencimiento</label>
+                                            <input type="text" placeholder="Fecha de Vencimiento" class="form-control" name="date_vence" value="{{ old('date_vence') }}" required>
+                                        </div>
+                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>

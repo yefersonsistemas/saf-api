@@ -85,6 +85,7 @@ class FarmaciaController extends Controller
     //=====================guardar registro de medicina=================
     public function store(Request $request)
     {
+        // dd($request);
         if($request->id != null){
             $medicine_pharmacy = Medicine_pharmacy::create([
                 'medicine_id' => $request->id,
@@ -97,12 +98,13 @@ class FarmaciaController extends Controller
             ]);
             
             $fecha = Carbon::now()->format('Y-m-d');
-     
+ 
             $lot_pharmacy = Lot_pharmacy::create([
                 'medicine_pharmacy_id' => $medicine_pharmacy->id,
                 'date'  => $fecha,            
-                'number_lot'  => 2,
+                'number_lot'  => $request->number_lot,
                 'quantity_total'  => $request->total,
+                'date_vence' => $request->date_vence,
                 'branch_id' => 1,
             ]);
     
@@ -148,8 +150,9 @@ class FarmaciaController extends Controller
         $lot_pharmacy = Lot_pharmacy::create([
             'medicine_pharmacy_id' => $id,
             'date'  => $fecha,            
-            'number_lot'  => 3,
+            'number_lot'  => $request->number_lot,
             'quantity_total'  => $request->total,
+            'date_vence' => $request->date_vence,
             'branch_id' => 1,
         ]);
 

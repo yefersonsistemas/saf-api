@@ -16,9 +16,10 @@ class CreateLotPharmacyTable extends Migration
         Schema::create('lot_pharmacy', function (Blueprint $table) {
             $table->bigIncrements('id');          
             $table->unsignedBigInteger('medicine_pharmacy_id');
-            $table->integer('number_lot');
+            $table->string('number_lot');
             $table->string('date');
             $table->string('quantity_total');
+            $table->string('date_vence');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
