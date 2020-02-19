@@ -1404,8 +1404,8 @@ button[data-original-title="Help"]{ display: none; }
                                                     </tr>
                                                 </thead>
                                                 <tbody id="modal_cirugiaP_hospitalaria" class="mt-4">
-                                                    @if($surgerys != null)
-                                                        @foreach ($surgerys as $surgery)
+                                                    @if($diff_C != null)
+                                                        @foreach ($diff_C as $surgery)
                                                             @if ($surgery->classification->name == 'hospitalaria')
                                                                 <tr id="quitar_cirugia{{$surgery->id}}">
                                                                     <td>
@@ -1449,8 +1449,9 @@ button[data-original-title="Help"]{ display: none; }
                                                     </tr>
                                                 </thead>
                                                 <tbody id="modal_cirugiaP_ambulatoria" class="mt-4">
-                                                    @if($surgerys != null)
-                                                        @foreach ($surgerys as $surgery)
+
+                                                    @if($diff_C != null)
+                                                        @foreach ($diff_C as $surgery)
                                                             @if ($surgery->classification->name == 'ambulatoria')
                                                                 <tr id="quitar_cirugia{{$surgery->id}}">
                                                                     <td>
@@ -2760,19 +2761,19 @@ button[data-original-title="Help"]{ display: none; }
             });
         }
 
-var reservacion = $("#reservacion").val();
-var surgery = $("#posible-surgerys").serialize();
-console.log(surgery);        //asignando el valor que se ingresa en el campo
+        var reservacion = $("#reservacion").val();
+        var surgery = $("#posible-surgerys").serialize();
+        console.log(surgery);        //asignando el valor que se ingresa en el campo
 
-var id = $("#cirugia_posible").val();
-var name = $("#cirugia_posible_name").val();
-var cost = $("#cirugia_posible_costo").val();
-var clasificacion = $("#cirugia_posible_clasificacion").val();
+        var id = $("#cirugia_posible").val();
+        var name = $("#cirugia_posible_name").val();
+        var cost = $("#cirugia_posible_costo").val();
+        var clasificacion = $("#cirugia_posible_clasificacion").val();
 
-console.log(id);
-console.log(name)
-console.log(cost)
-console.log(clasificacion)
+        console.log(id);
+        console.log(name)
+        console.log(cost)
+        console.log(clasificacion)
 
 if(id != null && name != null && cost != null && clasificacion != null){
     agregar_cirugiaP =` <tr id="quitar_cirugia${id}">
