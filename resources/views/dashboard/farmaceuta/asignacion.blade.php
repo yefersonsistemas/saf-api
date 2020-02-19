@@ -16,7 +16,7 @@
 
 @endsection
 
-@section('title','Lista de Insumos')
+@section('title','Asignación de Insumos')
 
 @section('content')
     <div class="section-body  py-4">
@@ -60,30 +60,28 @@
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
+                                        <th>Foto</th>
                                         <th>Nombre</th>
-                                        <th>marca</th>
-                                        <th>Laboratorio</th>
-                                        <th>Presentación</th>
-                                        <th>Medida</th>
-                                        <th>Cantidad</th>
-                                        <th>Stock</th>
-                                        <th class="text-center">Lote</th>
+                                        <th>Apellido</th>
+                                        <th>Fecha Ingreso</th>
+                                        <th>Fecha culminar</th>
+                                        <th>Motivo</th>
+                                        <th>Medicamento</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Foto</th>
                                         <th>Nombre</th>
-                                        <th>marca</th>
-                                        <th>Laboratorio</th>
-                                        <th>Presentación</th>
-                                        <th>Medida</th>
-                                        <th>Cantidad</th>
-                                        <th>Stock</th>
-                                        <th class="text-center">Lote</th>
+                                        <th>Apellido</th>
+                                        <th>Fecha Ingreso</th>
+                                        <th>Fecha culminar</th>
+                                        <th>Motivo</th>
+                                        <th>Medicamento</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach ($stock as $item)
+                                    {{-- @foreach ($stock as $item)
                                         <tr>
                                             <td>{{$item->medicine_pharmacy->medicine->name}}</td>
                                             <td>{{$item->medicine_pharmacy->marca}}</td>
@@ -94,7 +92,7 @@
                                             <td>{{$item->total}}</td>
                                             <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-verdePastel text-white">Agregar</a></td>
                                         </tr>
-                                    @endforeach                                  
+                                    @endforeach                                   --}}
                                 </tbody>
                             </table>
                         </div>
