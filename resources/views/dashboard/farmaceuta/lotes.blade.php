@@ -16,7 +16,7 @@
 
 @endsection
 
-@section('title','Lista de Insumos')
+@section('title','Lista de Insumos por Lote')
 
 @section('content')
     <div class="section-body  py-4">
@@ -60,35 +60,36 @@
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
-                                        <th>N° de lote</th>
-                                        <th>Fecha</th>
+                                        <th class="text-center">Lote</th>                                       
                                         <th>Nombre</th>
                                         <th>marca</th>
                                         <th>Laboratorio</th>
                                         <th>Presentación</th>
                                         <th>Medida</th>
-                                        <th>Cantidad (und)</th>
-                                        <th>Cantidad ingresada</th>
+                                        <th>und</th>
+                                        <th>Cant/in.</th>
+                                        <th>Ingreso</th>
+                                        <th>Venc.</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>N° de lote</th>
-                                        <th>Fecha</th>
+                                        <th class="text-center">Lote</th>
                                         <th>Nombre</th>
                                         <th>marca</th>
                                         <th>Laboratorio</th>
                                         <th>Presentación</th>
                                         <th>Medida</th>
-                                        <th>Cantidad (und)</th>
-                                        <th>Cantidad ingresada</th>
+                                        <th>und</th>
+                                        <th>Cant/in.</th>
+                                        <th>Ingreso</th>
+                                        <th>Venc.</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     @foreach ($lot_pharmacy as $item)
                                         <tr>
-                                            <td>{{$item->id}}</td>
-                                            <td>{{$item->date}}</td>
+                                            <td class="text-center">{{$item->number_lot}}</td>
                                             <td>{{$item->medicine_pharmacy->medicine->name}}</td>
                                             <td>{{$item->medicine_pharmacy->marca}}</td>
                                             <td>{{$item->medicine_pharmacy->laboratory}}</td>
@@ -96,6 +97,8 @@
                                             <td>{{$item->medicine_pharmacy->measure}}</td>
                                             <td>{{$item->medicine_pharmacy->quantity_Unit}}</td>
                                             <td>{{$item->quantity_total}}</td>
+                                            <td>{{$item->date}}</td>
+                                            <td>{{$item->date_vence}}</td>
                                             {{-- <td><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-info text-white">Agregar</a></td> --}}
                                         </tr>
                                     @endforeach                                  

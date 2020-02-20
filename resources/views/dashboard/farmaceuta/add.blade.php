@@ -10,7 +10,7 @@
 
 @endsection
 
-@section('title','Registro de Insumos')
+@section('title','Agregar Insumos')
 
 @section('content')
 <div class="section-body py-4">
@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-lg-4 ">
                                     <div class="form-group">
-                                        <label class="form-label">Nombre</label>
+                                        <label class="form-label">Nombre de Insumo</label>
                                         <input type="text" class="form-control" placeholder="Nombre" name="name" disabled value="{{$medicine_pharmacy->medicine->name}}" required>
                                     </div>
                                 </div>
@@ -37,50 +37,73 @@
                                     </div>
                                 </div>
                     
-                                    <div class="col-lg-4">
-                                        <div class="form-group"> 
-                                            <label class="form-label">Laboratorio</label>
-                                            <input type="text" class="form-control" placeholder="Laboratorio" disabled name="laboratory" value="{{ $medicine_pharmacy->laboratory }}" required>
-                                        </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group"> 
+                                        <label class="form-label">Laboratorio</label>
+                                        <input type="text" class="form-control" placeholder="Laboratorio" disabled name="laboratory" value="{{ $medicine_pharmacy->laboratory }}" required>
                                     </div>
-    
-                                    <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label class="form-label">Presentación</label>
-                                                <input type="text" name="presentation" id="presentacion" class="form-control" disabled placeholder="presentacion" value="{{ $medicine_pharmacy->presentation }}" required>
-                                            </div>
-                                        </div>
-                
-                                        
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label class="form-label">Medida</label>
-                                                <input type="text" class="form-control" placeholder="Medida" name="measure" disabled value="{{ $medicine_pharmacy->measure }}" required>
-                                            </div>
-                                        </div>
-                                        
-                                    
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Cantidad de unidad</label>
-                                            <input type="text" placeholder="Cantidad" class="form-control" name="quantify_Unit" disabled value="{{ $medicine_pharmacy->quantity_Unit }}" required>
-                                        </div>
-                                    </div>
+                                </div>
 
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Cantidad de lote</label>
-                                            <input type="text" placeholder="Stock" class="form-control" name="total" value="{{ old('total') }}" required>
-                                        </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Presentación</label>
+                                        <input type="text" name="presentation" id="presentacion" class="form-control" disabled placeholder="presentacion" value="{{ $medicine_pharmacy->presentation }}" required>
+                                    </div>
+                                </div>
+            
+                                    
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Medida</label>
+                                        <input type="text" class="form-control" placeholder="Medida" name="measure" disabled value="{{ $medicine_pharmacy->measure }}" required>
+                                    </div>
+                                </div>                                        
+                                    
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Cantidad por Unidad</label>
+                                        <input type="text" placeholder="Cantidad" class="form-control" name="quantify_Unit" disabled value="{{ $medicine_pharmacy->quantity_Unit }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Cantidad a Ingresar</label>
+                                        <input type="text" placeholder="Stock" class="form-control" name="total" value="{{ old('total') }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Numero de Lote</label>
+                                        <input type="text" placeholder="Número de lote" class="form-control" name="number_lot" value="{{ old('number_lot') }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha de Vencimiento</label>
+                                        <input type="text" placeholder="Fecha de Vencimiento" class="form-control" name="date_vence" value="{{ old('date_vence') }}" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
         
                     <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">    
-                        <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button> 
-                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel">Guardar</button>                      
+                        {{-- <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>  --}}
+                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white btn-azuloscuro">Guardar</button>                      
                     </div>
                 </div>
             </div>

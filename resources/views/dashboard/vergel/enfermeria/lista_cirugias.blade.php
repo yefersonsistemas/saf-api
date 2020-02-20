@@ -81,7 +81,7 @@
                                     {{-- @endforeach --}}
                                     <td>{{$surgeries->area->name}}</td>
                                     <td class="d-flex justify-content-center" style="display: inline-block ">
-                                        <a href="{{route('create.lista_cirugias')}}" class="btn btn-azuloscuro"  data-toggle="tooltip" data-placement="bottom" title="Subir informe Pre-operatorio"><i class="fa fa-arrow-circle-o-up" style="font-size:18px"></i></a>
+                                        <a href="{{route('create.lista_cirugias', [$patient->id, $surgeries->id ] )}}" class="btn btn-azuloscuro"  data-toggle="tooltip" data-placement="bottom" title="Subir informe Pre-operatorio"><i class="fa fa-arrow-circle-o-up" style="font-size:18px"></i></a>
                                     </td>
                                 </tr>
                             @endforeach 

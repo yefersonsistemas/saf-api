@@ -54,6 +54,11 @@ class Surgery extends Model
     {
         return $this->hasMany('App\Reservation');
     }
+
+    public function informe()
+    {
+        return $this->hasMany('App\Informesurgey','file_id');
+    }
     // public function procedure() //relacion  con la tabla m:m 
     // {
     //     return $this->belongsToMany('App\Procedure','procedure_surgery')

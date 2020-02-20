@@ -9,7 +9,7 @@ class Lot_pharmacy extends Model
     protected $table = 'lot_pharmacy';
 
     protected $fillable = [
-        'medicine_pharmacy_id', 'date', 'quantity_total', 'number_lot', 'branch_id'
+        'medicine_pharmacy_id', 'date', 'quantity_total', 'number_lot','date_vence','branch_id'
     ];
 
     public function medicine_pharmacy()
