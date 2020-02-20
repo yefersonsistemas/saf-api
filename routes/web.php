@@ -15,7 +15,7 @@
 // use Illuminate\Support\Facades\Route;
 
 
- 
+
 
 
 Route::get('/', function() {
@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('doctor/eliminar/medicamento', 'InController@medicine_borrar')->name('checkin.medicine_borrar');  // eliminar examen
 
     //agregar
-    Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen     
+    Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen
     Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
 
     //crear
@@ -186,8 +186,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/eliminar/procedure', 'DoctorController@procedureR_eliminar2')->name('doctor.procedureR_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/cirugia', 'DoctorController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar examen
-    
-        
+
+
     });
 
     Route::group(['middleware' => ['role:director']], function(){
@@ -284,7 +284,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
 
-        
+
 
     });
 
@@ -305,12 +305,12 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::group(['middleware' => ['role:in-out']], function(){
 
-        Route::get('inout/index', 'InoutController@index')->name('in-out.index');   
-        Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');    
-        Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');    
-        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');    
-        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
-        Route::get('inout/day','InoutController@day')->name('in-out.day');    
+        Route::get('inout/index', 'InoutController@index')->name('in-out.index');
+        Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');
+        Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');
+        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');
+        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
+        Route::get('inout/day','InoutController@day')->name('in-out.day');
 
     });
 
