@@ -61,6 +61,12 @@ Route::group(['middleware' => 'auth'], function (){
 
      //======================= rutas para el usuario ckeckin ====================
     Route::group(['middleware' => ['role:IN, director']], function () {
+        Route::get('prueba', 'InController@prueba')->name('prueba');
+        Route::post('prueba/guardar', 'InController@prueba_guardar')->name('prueba.guardar');
+        Route::post('delete', 'InController@prueba_eliminar')->name('prueba.eliminar');
+
+
+
         Route::get('cite/day', 'InController@day')->name('checkin.day');
         Route::get('record/cite', 'InController@record')->name('checkin.record');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
@@ -329,7 +335,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('farmaceuta/lista/insumos/agregar/lote/{id}', 'FarmaciaController@add_lote')->name('farmaceuta.add_lote');
         Route::get('farmaceuta/lista/insumos/lista_lote', 'FarmaciaController@lista_lote')->name('farmaceuta.lista_lote');
         Route::post('farmaceuta/lista/insumos/buscar', 'FarmaciaController@search_medicine')->name('farmaceuta.search_medicine');
-
         Route::POST('farmaceuta/guardar/medicine', 'FarmaciaController@store_medicine')->name('farmaceuta.guardar_medicine');
         Route::get('farmaceuta/asignar/medicine', 'FarmaciaController@create_asignacion')->name('farmaceuta.asignacion');
         Route::get('farmaceuta/asignar/medicine/paciente/{id}', 'FarmaciaController@asignacion_medicine')->name('farmaceuta.asignar_medicine');

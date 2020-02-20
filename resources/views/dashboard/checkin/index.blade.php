@@ -163,7 +163,7 @@
                                                         <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
                                                     @else
                                                         @if($reservation->patient->inputoutput != '')
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>                                                          
                                                         @else
                                                             <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                         @endif
