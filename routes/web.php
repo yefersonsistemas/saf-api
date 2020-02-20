@@ -200,7 +200,6 @@ Route::group(['middleware' => 'auth'], function (){
 
         //inicio de rutas para crear
         Route::get('empleados', 'DirectorController@index')->name('employe.index'); //ruta de empleado
-        Route::get('visitors', 'DirectorController@visitantes')->name('visitantes');  //lista de visitantes
         Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
@@ -292,7 +291,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
         
         //rutas para exportar e imprimir detalles por empleado/lista de empleados/lista de visitantes
-        
+        Route::get('visitors', 'DirectorController@visitantes')->name('visitantes');  //lista de visitantes
 
 
 
@@ -304,10 +303,10 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:enfermeria']], function(){
 
         Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
-        Route::get('create/lista/surgeries', 'NurseController@create')->name('create.lista_cirugias');
+        Route::get('create/lista/surgeries/{id}/{surgery}', 'NurseController@create')->name('create.lista_cirugias');
         Route::POST('store/lista/surgeries', 'NurseController@store')->name('store.lista_cirugias');
-        Route::get('editar/lista/surgeries/{id}', 'NurseController@edit')->name('edit.lista_cirugias');
-        Route::put('editar/lista/surgeries/update/{id}', 'NurseController@update')->name('update.lista_cirugias');
+        // Route::get('editar/lista/surgeries/{id}', 'NurseController@edit')->name('edit.lista_cirugias');
+        // Route::put('editar/lista/surgeries/update/{id}', 'NurseController@update')->name('update.lista_cirugias');
 
     });
 

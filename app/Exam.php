@@ -12,6 +12,11 @@ class Exam extends Model
         'name', 'branch_id'
     ];
 
+    public function file()
+    {
+        return $this->morphOne('App\File', 'fileable');
+    }
+
     public function patient()
     {
         return $this->belongsTo('App\Patient');

@@ -183,7 +183,7 @@ class InController extends Controller
     public function search_history($id, $id2){
         $mostrar = $id2;
         // dd($mostrar);
-
+        
         // $reservation = Reservation::find($id);
         // dd($reservation);
         $rs = Reservation::with('patient.historyPatient.medicine','patient.historyPatient.disease','patient.historyPatient.allergy','patient.image')->where('id', $id)

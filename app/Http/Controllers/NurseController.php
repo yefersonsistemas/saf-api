@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\File;
+use App\Informesurgery;
+use App\Patient;
+use App\Person;
 use App\Reservation;
 use App\Surgery;
 use Carbon\Carbon;
@@ -27,9 +31,13 @@ class NurseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id, $surgery)
     {
-        return view('dashboard.vergel.enfermeria.create-informe-cirugia');
+        // dd($id);
+        $person = Person::where('id', $id)->first();
+        // $cirugia = Surgery::with();
+
+        return view('dashboard.vergel.enfermeria.create-informe-cirugia', compact('person'));
     }
 
     /**
@@ -41,10 +49,46 @@ class NurseController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        // $patient = Patient::with('surgery')->where('person_id', $request->patient_id)->first();
+        // dd($patient->surgery);
+        $person = Person::where('id', $request->person_id)->first();
+        // dd($person);
 
-        $data = $request->validate([
-             
-        ]);
+
+
+        if ($request->file != null) {
+            // dd($request->file);
+
+            foreach($request->file as $file){
+                $image = $request->file('file');
+                $path = $file->store('public/exams');
+                $path = str_replace('public/', '', $path);
+                $image = new File();
+                $image->path = $path;
+                // $image->path = 'exam'.'\\'.$image;
+                $image->fileable_type = "App\Person";
+                $image->fileable_id = $person->id;
+                $image->branch_id = 1;
+                $image->save();
+
+                dd($image);
+
+                // if($image != null){
+                //     foreach( $patient->surgery as $surgery)
+                //         $informe = Informesurgery::create([
+                //             'file_id' => $image->id,
+                //             'surgery_id' => $surgery->id,
+                //             'branch_id' => 1,
+        
+                //         ]);
+                //     }
+                    
+                //     dd($informe );
+                // }
+            }
+        }
+
+        return redirect()->route('lista_cirugias')->withSuccess('Informe guardado correctamente');
     }
 
     /**
