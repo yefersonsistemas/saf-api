@@ -39,6 +39,52 @@ class InController extends Controller
      * de pacientes
      *
      */
+
+    public function prueba()
+    {
+        return view('dashboard.checkin.pruebaKen');
+    }
+
+
+    //=============================guardar dropzone=========================
+    public function prueba_guardar(Request $request)
+    {
+        dd($request);
+        $image = $request->file('file');
+        $path = $image->store('public/Person');
+        $path = str_replace('public/', '', $path);
+        $image = new File;
+        $image->path = $path;
+        $image->fileable_type = "App\Person";
+        $image->fileable_id = 1;
+        $image->branch_id = 1;
+        $image->save();
+
+        return response()->json(["status" => "success", "data" => $data]);
+    }
+
+
+     //=============================Eliminar dropzone=========================
+    public function prueba_eliminar(Request $request)
+    {
+        dd($request->filename);
+
+        $id= $request->filename;
+        $image = File::find($id);
+        $image->delete();
+        
+        $image = $request->file('filename');
+        $filename =  $request->get('filename').'.jpeg';
+        ImageUpload::where('image_name', $filename)->delete();
+        $path = public_path().'/images/'.$filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        return $filename;
+    }
+
+
+
     public function index()
     {
         // $carbon = Carbon::now()->addDay(2)->format('Y-m-d');
@@ -176,9 +222,7 @@ class InController extends Controller
         $rs = Reservation::with('patient.historyPatient.medicine','patient.historyPatient.disease','patient.historyPatient.allergy','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
                             // dd($rs->patient->historyPatient);
-
         // dd($rs);
-
         $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
         // dd($cites);
         $disease = Disease::all();
@@ -208,6 +252,24 @@ class InController extends Controller
     public function guardar(Request $request, $id)  //REVISAR
      {
         //  dd($request);
+
+        if($request->file('file')){
+            $image = $request->file('file');
+
+            $image = $request->file('file');
+            $path = $image->store('public/Person');
+            $path = str_replace('public/', '', $path);
+            $image = new File;
+            $image->path = $path;
+            $image->fileable_type = "App\Person";
+            $image->fileable_id = 1;
+            $image->branch_id = 1;
+            $image->save();
+   
+            // dd($image);
+            return response()->json(["status" => "success", "data" => $image]);
+        }
+       
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {

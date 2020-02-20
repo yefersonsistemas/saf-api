@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
-    @endsection
+@endsection
 
     @section('title','Historia Medica')
     
@@ -87,7 +87,6 @@
                             </div>
                         </div>
                     </div> --}}
-
                     <div class="col-8 mt-90">
                         <div class="row mt--10">
                            <div class="col-12">
@@ -301,11 +300,11 @@
             @if($mostrar == 1)
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label> 
-                    <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
+                        <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
                         {{-- <div class="fallback" id="files2"> --}}
                             {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
                         {{-- </div> --}}
-                    </div>
+                        </div>
                 </div>
 
                 <div class="card p-4 d-flex justify-content-between">
@@ -790,7 +789,6 @@
                     <div class="modal-footer">          
                         <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>                
                         <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarMedicamentos">Agregar</a>
-                        {{-- <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarMedicamentos">Agregar</a> --}}
                     </div>
                 </form>
             </div>
@@ -837,259 +835,226 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
-
 <script>
-    //========================buscador en tiempo real de enfermedades modal=======================
-    $(document).ready(function(){
-      $("#buscar_enfermedad").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#modal_enfermedad tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
 
-
-<script>
-    //========================buscador en tiempo real de medicamentos modal=======================
-    $(document).ready(function(){
-      $("#buscar_medicamentos").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#modal_medicamentos tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
-
-<script>
-    //========================buscador en tiempo real de alergias modal=======================
-    $(document).ready(function(){
-      $("#buscar_alergia").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#modal_alergias tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
-
-
-<script>
-    //========================buscador en tiempo real de enfermedades en vista =======================
-    $(document).ready(function(){
-      $("#buscar_enfermedades").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#enfermedades tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
-
-<script>
-    //========================buscador en tiempo real de alergias en vista =======================
-    $(document).ready(function(){
-      $("#buscar_alergias").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#alergias tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
-
-<script>
-    //========================buscador en tiempo real de medicamentos en vista=======================
-    $(document).ready(function(){
-      $("#buscar_medicinas").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#medicamentos tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
-
-{{-- <script>
-$boton.addEventListener("click", function() {
     
-    // Codificarlo como JSON
-    //Pausar reproducción
-    $video.pause();
-        //Obtener contexto del canvas y dibujar sobre él
-        let contexto = $canvas.getContext("2d");
-        $canvas.width = $video.videoWidth;
-        $canvas.height = $video.videoHeight;
-        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+    var carga = {}
+    var borrar ;
+    Dropzone.options.myDropzone = {
         
-        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-        let datafoto=encodeURIComponent(foto);
-            var data1 = {
-                "tokenmodalfoto": $('#tokenfoto').val(),
-                "idpatient":$('#patient-id').val(),
-                "idimage":$('#imagen-id').val(),
-                "pic":datafoto
-                };
-        const datos=JSON.stringify(data1)
-        $estado.innerHTML = "Enviando foto. Por favor, espera...";
-        fetch("{{ route('checkin.avatar') }}", {
-            method: "POST",
-            body: datos,
+        // $("for#dropzone").dropzone({ url: "prueba/guardar" });
+        // url: "prueba/guardar",
+        // var name = file.upload.filename;
+        url: "{{ route('save.history', $rs) }}",
+        // url: "{{ route('prueba.guardar') }}",
+        // $.ajax
+            maxFilesize: 10, //cantidad de archivos que se cargararn
             headers: {
-                "Content-type": "application/x-www-form-urlencoded",
-                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+          'X-CSRF-TOKEN': "{{ csrf_token() }}"
+         },
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+            return time+file.name;
             },
-        }).then(function(response) {
-            // console.log(response.json());
-                return response.json();
-            }).then(nombreDeLaFoto => {
-                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                console.log("La foto fue enviada correctamente");
-                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-            })
-        //Reanudar reproducción
-        $video.play();
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 50000,
+            removedfile: function(file,response)
+            {
+                var name = file.upload.filename;
+                var name2 = file.xhr.response;
+                console.log('imagen', name2)
+                console.log('kenwherly', file)
+                // var name = file;
+                console.log('hola', name)
+                $.ajax({                        
+                    type: 'POST',
+                    url: '{{ route("prueba.eliminar") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        filename: name2
+                        },
+                    success: function (data){
+                        console.log('data',data);
+                        console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
 
-        $('.avatar-preview').load(
-            $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
-            $('#imagePreview').hide(),
-            $('#imagePreview').fadeIn(650)
-        );        
-        });
-</script> --}}
+                    var fileRef;
+                    return (fileRef = file.previewElement) != null ?
+                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
+            },
+            success: function(file, response)
+            {
+                console.log('controlador',response);
+            },
+            error: function(file, response)
+            {
+            return false;
+            }
 
-
-<script>
-var carga = {}
-var borrar ;
-Dropzone.options.myDropzone = {
+        // autoProcessQueue: true,
+        // parallelUploads: 100,
+        // uploadMultiple: true,
+        // maxFiles: 10,
+        // maxFilesize:10,
+        // addRemoveLinks: true,
+        // headers: {
+        //   'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        // },
+        // success: function (file, response) {
+        //     var cargar = $('#my-dropzone').append('<input type="hidden" name="file" class="'+file.name+'" id="examenb" value="'+file.name+'">')
+        //     carga[file.name] = response.name
+        //     console.log('ysbe',file.name)
+        // },
     
-    url: "{{ route('save.history', $rs) }}",
-    autoProcessQueue: true,
-    parallelUploads: 100,
-    uploadMultiple: true,
-    maxFiles: 10,
-    maxFilesize:10,
-    addRemoveLinks: true,
-    headers: {
-      'X-CSRF-TOKEN': "{{ csrf_token() }}"
-    },
-
-    // accept: function(file) {
-    //     let fileReader = new FileReader();
-
-    //     fileReader.readAsDataURL(file);
-    //     fileReader.onloadend = function() {
-
-    //         let content = fileReader.result;
-    //         console.log('hols', content)
-
-    //         $('#files2').append('<input type="file" name="file[]" id="files" value="'+content+'" multiple/>')
-    //         // $('#files').val(content);
-            
-    //         file.previewElement.classList.add("dz-success");
-    //     }
-    //     file.previewElement.classList.add("dz-complete");
+    
+        // removedfile: function(file) {
+        // var name = file.name;
+        // console.log('trae', name);
         
-    // }
-    success: function (file, response) {
-        // myDropzone = this
-        // console.log('trae', myDropzone);
-        // console.log('trae', file.name);
-        var cargar = $('#my-dropzone').append('<input type="hidden" name="'+file.name+'" class="'+file.name+'" id="examenb" value="'+file.name+'">')
-        carga[file.name] = response.name
-        // var data = $('input[name="file[]"]').filter('examenb');
-        console.log('ysbe',file.name)
-        // for(var i=0; i<data.length; i++){
-
-        // console.log('trae', data[i]);
+        //     if(file.name != null){
+        //         var id= $('#my-dropzone');
+        //         $('.dropzone').remove(id.val());
+        //         console.log('borrado');
+        //     }
         // }
-    //   borrar = file.name;
-    },
-
-
-    removedfile: function(file) {
-    var name = file.name;
-    console.log('trae', name);
-    
-        if(file.name != null){
-            var id= $('#my-dropzone');
-            $('.dropzone').remove(id.val());
-            console.log('borrado');
-        }
+        
     }
-    
-}
+   
 
-// myDropzone.on("complete", function(file) {  
-//   myDropzone.removeFile(file);
-  
-// });
+    </script>
 
-// ("#examenb").hide();
-//     console.log('hola')
+    {{-- <script>
+        var carga = {}
+        var borrar ;
+        Dropzone.options.dropzone =
+        {
+            url: "{{ route('save.history', $rs) }}",
+            maxFilesize: 10, //cantidad de archivos que se cargararn
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+            return time+file.name;
+            },
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 50000,
+            removedfile: function(file)
+            {
+                var name = file.upload.filename;
+                console.log('hola', name)
+                $.ajax({                        
+                    type: 'POST',
+                    url: '{{ route("prueba.eliminar") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        filename: name
+                        },
+                    success: function (data){
+                        console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
 
-// $(document).on('click', '#examen', function(event) {
-//                 // let id = this.name;
-// // $("#examen").click(function(){
-//     console.log('hola');
-//     var borrar = $(this).val();
-//         // let borrar = this.val();
-//         console.log(borrar);
-//          $("."+borrar).remove();
-//         //  padre = imagen.parentNode;
-//         // padre.removeChild(imagen);
-//         // window.location = “borrar.HTML”;
+                    var fileRef;
+                    return (fileRef = file.previewElement) != null ?
+                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
+            },
+            success: function(file, response)
+            {
+                console.log(response);
+            },
+            error: function(file, response)
+            {
+            return false;
+            }
+        };
 
-//         //  $("div").remove("#quitar"+data[$i].id); //quitar del modal
-//     });
+    </script> --}}
 
-//  Dropzone.options.myDropzone = {
-//             url: "{{ route('save.history', $rs) }}",
-//             autoProcessQueue: true,
-//             uploadMultiple: true,
-//             parallelUploads: 100,
-//             maxFiles: 10,
-//             maxFilesize:10,
-//             // acceptedFiles: "image/*",
+    <script>
+    $("div#dropzone").dropzone({ url: "prueba/guardar" });
+    </script>
 
-//             init: function () {
+    <script>
+        //========================buscador en tiempo real de enfermedades modal=======================
+        $(document).ready(function(){
+        $("#buscar_enfermedad").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#modal_enfermedad tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
 
-//                 var submitButton = document.querySelector("#submit-all");
-//                 var wrapperThis = this;
 
-//                 submitButton.addEventListener("click", function () {
-//                     e.preventDefault();
-//                     e.stopPropagation();
-//                     wrapperThis.processQueue();
-//                 });
+    <script>
+        //========================buscador en tiempo real de medicamentos modal=======================
+        $(document).ready(function(){
+        $("#buscar_medicamentos").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#modal_medicamentos tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
 
-//                 this.on("addedfile", function (file) {
+    <script>
+        //========================buscador en tiempo real de alergias modal=======================
+        $(document).ready(function(){
+        $("#buscar_alergia").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#modal_alergias tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
 
-//                     // Create the remove button
-//                     var removeButton = Dropzone.createElement("<button class='btn btn-danger mt-2 text-center'><i class='fa fa-remove'></i></button>");
 
-//                     // Escucha el evento click
-//                     removeButton.addEventListener("click", function (e) {
-//                         // Asegúrese de que el clic del botón no envíe el formulario:
-//                         e.preventDefault();
-//                         e.stopPropagation();
+    <script>
+        //========================buscador en tiempo real de enfermedades en vista =======================
+        $(document).ready(function(){
+        $("#buscar_enfermedades").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#enfermedades tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
 
-//                         // Eliminar la vista previa del archivo.
-//                         wrapperThis.removeFile(file);
-//                         // Si también quieres eliminar el archivo en el servidor,
-//                         // puedes hacer la solicitud AJAX aquí.
-//                     });
+    <script>
+        //========================buscador en tiempo real de alergias en vista =======================
+        $(document).ready(function(){
+        $("#buscar_alergias").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#alergias tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
 
-//                     // Agregue el botón al elemento de vista previa del archivo.
-//                     file.previewElement.appendChild(removeButton);
-//                 });
-                
-//             }
-//         };
-</script>
+    <script>
+        //========================buscador en tiempo real de medicamentos en vista=======================
+        $(document).ready(function(){
+        $("#buscar_medicinas").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#medicamentos tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+
     <script>
         $('#disease').multiselect({
             enableFiltering: true,
