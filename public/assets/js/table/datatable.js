@@ -158,4 +158,12 @@ $(function() {
     $(function() {
         addRowTable.initialize()
     })
+
+    $(document).ready(function() {
+        $('.scrollableTable').DataTable( {
+            "scrollY":        "200px",
+            "scrollCollapse": true,
+            "paging":         false
+        } );
+    } );
 });

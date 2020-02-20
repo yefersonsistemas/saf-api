@@ -8338,6 +8338,7 @@ body *::-webkit-scrollbar {
     transition: .3s background
 }
 
+/*---------- AQUI SE ENCIENDEN LOS SCROLL DEL PROYECTO ----------*/
 body *::-webkit-scrollbar-thumb {
     background: #f8f9fa
 }

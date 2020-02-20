@@ -20,7 +20,7 @@
     @endsection
 
     @section('title','Historia Medica')
-    
+
 @section('content')
 {{-- <div class="container mt-25">
         <div class="card p-4">
@@ -29,22 +29,22 @@
     <div class="container ml-4 mt-20">
         <form action="{{ route('save.history', $rs) }}" method='POST' class="card p-4"  enctype="multipart/form-data" >
             @csrf
-            
-            <div class="card "> 
+
+            <div class="card ">
 
                 @if($mostrar == 1)
                     <div class=" icon btn-scroll">
-                        <a class="   ml-20 icon-primary fa fa-pencil  " href="#" id="EditPatient" title="Editar Historial"></a>	
+                        <a class="   ml-20 icon-primary fa fa-pencil  " href="#" id="EditPatient" title="Editar Historial"></a>
                         <div class=" container-description">
-                        <a class="  icon-description" href="#">Editar Historial</a>	
+                        <a class="  icon-description" href="#">Editar Historial</a>
                         </div>
                       </div>
                  @endif
-                 <div>           
+                 <div>
                     <label class="float-right position-absolute  m-4 d-block form-label" style="right: 5px">Nro. Historia <br>
                        <span class=" ml-4  badgeMargin badge badge-azuloscuro texto1">{{ $rs->patient->historyPatient->history_number  }}</span></label>
                 <h5 class="text-center  ml--25 mt-20">Datos Personales </h5>
-                </div>                   
+                </div>
                 <div class="row mt--70">
                     <div class="col-3 ml-2 mb-4 mt-25">
                         <div class="avatar-upload">
@@ -105,15 +105,15 @@
                                             <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
                                         </div>
                                     </div>
-                                
+
                                     <div class="col-4">
                                         <label class="m-0 form-label">Nombre</label>
-                                        <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
+                                        <input type="text" disabled class="form-control" placeholder="Nombre del Paciente" value="{{ $rs->patient->name }}">
                                     </div>
-                                    
+
                                     <div class="col-4">
                                         <label class="m-0 form-label">Apellido</label>
-                                        <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
+                                        <input type="text" disabled class="form-control" placeholder="Apellido del Paciente" value="{{ $rs->patient->lastname }}">
                                     </div>
                                 </div>
                            </div>
@@ -127,16 +127,16 @@
                                         <label class="m-0 form-label">Fecha</label>
                                         <input type="text" disabled class="form-control" placeholder="Fecha de reservación" value="{{ $rs->date }}">
                                     </div>
-                
+
                                     <div class="col-4">
                                         <label class="m-0 form-label">Médico tratante</label>
                                         <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
                                     </div>
-                                    
+
                                     <div class="col-4">
                                         <label class="m-0 form-label">Razón</label>
                                         <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
-                                    </div>    
+                                    </div>
                                 </div>
                            </div>
                         </div>
@@ -168,7 +168,7 @@
                                     <input type="text" id="place" name="place" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ ($rs->patient->historyPatient->place != null) ? $rs->patient->historyPatient->place : '' }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
@@ -180,7 +180,7 @@
                                     @endif
                                 </div>
                             </div>
-                            
+
                             <div class="col-2">
                                 {{-- <div class="form-group">
                                     <label class="form-label">Peso</label>
@@ -198,14 +198,14 @@
                                     <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ ($rs->patient->historyPatient->weight != null) ? $rs->patient->historyPatient->weight : '' }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-8">
                                 <div class="form-group">
                                     <label class="form-label">Direccion</label>
                                     <input type="text" disabled name="address" id="address" class="form-control" placeholder="Direccion" value="{{ ($rs->patient->address != null) ? $rs->patient->address: '' }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
@@ -216,12 +216,12 @@
                                                 @if ($rs->patient->historyPatient->gender == 'Masculino')
                                                     checked
                                                     @endif
-                                            @endif 
+                                            @endif
                                             name="gender" class="form-check-input" value="Masculino">
                                             <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-                                            <input disabled type="radio" id="genero2" 
+                                            <input disabled type="radio" id="genero2"
                                             @if ($rs->patient->historyPatient != null)
                                                 @if ($rs->patient->historyPatient->gender == 'Femenino')
                                                     checked
@@ -252,11 +252,11 @@
                                     <input type="text" disabled id="another_phone" name="another_phone" class="form-control" placeholder="Teléfono adicional" value="{{ ($rs->patient->historyPatient->another_phone != null) ? $rs->patient->historyPatient->another_phone : '' }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Email adicional</label>
-                                    <input type="email" disabled id="another_email" name="another_email" class="form-control" placeholder="Email" value="{{ ($rs->patient->historyPatient->another_email != null) ? $rs->patient->historyPatient->another_email : '' }}">
+                                    <input type="email" disabled id="another_email" name="another_email" class="form-control" placeholder="Email adicional" value="{{ ($rs->patient->historyPatient->another_email != null) ? $rs->patient->historyPatient->another_email : '' }}">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -297,10 +297,10 @@
                     </div>
                 </div>
             </div>
-            
+
             @if($mostrar == 1)
                 <div class="card p-5">
-                    <label class="form-label">Exámenes</label> 
+                    <label class="form-label">Exámenes</label>
                     <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
                         {{-- <div class="fallback" id="files2"> --}}
                             {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
@@ -313,32 +313,32 @@
                         <!---------------------------Enfermedades-------------------------->
                         <div class="col-lg-12 col-md-12" id="framework_form">
                             <label class="form-label text-center"><h5>Enfermedades</h5></label>
-                            <div class="card p-3" style="border-color:#00506b">                             
+                            <div class="card p-3" style="border-color:#00506b">
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
-                                        <div class="row mb-3">
-                                            <div class="col-5">
+                                        <div class="row mb-0">
+                                            <div class="col-12">
                                                 <div class="row justify-content-start">
                                                     <div>
-                                                        <a class="btn btn-azuloscuro text-white mx-2"  data-toggle="modal" data-target="#listaEnfermedades" style="font-size:12px;">
+                                                        <a class="btn btn-verdePastel btnEstandar text-white mx-2"  data-toggle="modal" data-target="#listaEnfermedades" style="font-size:12px;">
                                                             <i class="fa fa-plus"></i>&nbsp;Agregar
                                                         </a>
                                                     </div>
                                                     <div>
-                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;">
+                                                        <a class="btn btn-azuloscuro btnEstandar text-white mx-2" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;">
                                                             <i class="fa fa-plus"></i>&nbsp;Crear
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-7">
+                                            {{-- <div class="col-7">
                                                 <div class="row justify-content-end">
                                                     <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_enfermedades" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar enfermedad..">
                                                 </div>
-                                            </div>
-                                            
+                                            </div> --}}
+
                                         </div>
-                                        <table class="table table-hover  table_custom spacing5 table-vcenter table-striped">                                        
+                                        <table class="table table-hover  table_custom spacing5 table-vcenter table-striped scrollableTable">
                                             <thead>
                                                 <tr>
                                                     <th>Enfermedad</th>
@@ -350,7 +350,7 @@
                                                     @foreach ($rs->patient->historyPatient->disease as $disease)
                                                         <tr id="enfermedad{{$disease->id}}">
                                                             <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$disease->name}}</td>
-                                                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>                                                   
+                                                            <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -359,40 +359,40 @@
                                     </div>
                                 </div>
 
-                                
-                            </div>                            
+
+                            </div>
                         </div>
-                        
+
                         <!------------------------Medicamentos--------------------------->
                         <div class="col-lg-12 col-md-12 mt-4" id="framework_form2">
                             <label class="form-label text-center"><h5>Medicamentos</h5></label>
                             <div class="card p-3" style="border-color:#00506b">
-                                                             
+
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
-                                        <div class="row mb-3">
-                                            <div class="col-5">
+                                        <div class="row mb-0">
+                                            <div class="col-12">
                                                 <div class="row justify-content-start">
                                                     <div>
-                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaMedicamentos" style="font-size:12px;">
+                                                        <a class="btn btn-verdePastel btnEstandar text-white mx-2" data-toggle="modal" data-target="#listaMedicamentos" style="font-size:12px;">
                                                             <i class="fa fa-plus"></i>&nbsp;Agregar
                                                         </a>
                                                     </div>
                                                     <div>
-                                                        <a type="button" class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevomedicamento" style="font-size:12px;">
+                                                        <a type="button" class="btn btn-azuloscuro btnEstandar text-white mx-2" data-toggle="modal" data-target="#nuevomedicamento" style="font-size:12px;">
                                                             <i class="fa fa-plus"></i>&nbsp;Crear
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-7">
+                                            {{-- <div class="col-7">
                                                 <div class="row justify-content-end">
-                                                    <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_medicinas" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar enfermedad..">
+                                                    <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_medicinas" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar medicamento..">
                                                 </div>
-                                            </div>
-                                            
+                                            </div> --}}
+
                                         </div>
-                                        <table class="table dataTable table_custom spacing5 table-vcenter table-striped">
+                                        <table class="table dataTable table_custom spacing5 table-vcenter table-striped scrollableTable">
                                              <thead>
                                                 <tr>
                                                     <th>Medicina</th>
@@ -425,34 +425,34 @@
                         <!------------------------Alergias-------------------------------->
                         <div class="col-lg-12 col-md-12 mt-4" id="framework_form3">
                             <label class="form-label text-center"><h5>Alergias</h5></label>
-                            <div class="card p-3" style="border-color:#00506b"> 
+                            <div class="card p-3" style="border-color:#00506b">
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
 
-                                        <div class="row mb-3">
-                                            <div class="col-5">
+                                        <div class="row mb-0">
+                                            <div class="col-12">
                                                 <div class="row justify-content-start">
                                                     <div>
-                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaAlergias" style="font-size:12px;">
-                                                            <i class="fa fa-plus"></i>&nbsp;Agregar alergia
+                                                        <a class="btn btn-verdePastel btnEstandar text-white mx-2" data-toggle="modal" data-target="#listaAlergias" style="font-size:12px;">
+                                                            <i class="fa fa-plus"></i>&nbsp;Agregar
                                                         </a>
                                                     </div>
                                                     <div>
-                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;">
+                                                        <a class="btn btn-azuloscuro btnEstandar text-white mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;">
                                                             <i class="fa fa-plus"></i>&nbsp;crear
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-7">
+                                            {{-- <div class="col-7">
                                                 <div class="row justify-content-end">
-                                                    <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergias" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar enfermedad..">
+                                                    <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergias" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar alergia..">
                                                 </div>
-                                            </div>
-                                            
+                                            </div> --}}
+
                                         </div>
 
-                                        <table class="table table-hover table_custom spacing5 table-vcenter table-striped">
+                                        <table class="table table-hover table_custom spacing5 table-vcenter table-striped scrollableTable">
                                              <thead>
                                                 <tr>
                                                     <th>Alergia</th>
@@ -474,7 +474,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!------------------------------Cirugias previas-------------------------------->
                         <div class="col-lg-12 col-md-12 mt-4">
                             <div class="form-group col-12">
@@ -485,7 +485,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card p-4 row d-flex d-row justify-content-between">
                     <h5 class="text-center">Historial de Citas</h5>
                     <div class="">
@@ -513,17 +513,17 @@
                                                     {{-- <td style="text-align:center"></td> --}}
                                             </tr>
                                             @empty
-                                                
+
                                             @endforelse
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>                
+                            </div>
                         </div>
                     </div>
                 </div>
             @endif
-            
+
             @if($mostrar == 1)
                 <div>
                     <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
@@ -536,7 +536,7 @@
             @endif
         </form>
     </div>
-    
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -554,7 +554,7 @@
                     <div class="fallback">
                         <input name="file" type="file" multiple id="files" />
                     </div>
-                </div>                    
+                </div>
                         <button type="submit" class="btn btn-azuloscuro">Submit</button>
                     </form>
                 </div>
@@ -573,7 +573,7 @@
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 415px; ">         
+                    <div class="modal-body" style="max-height: 415px; ">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 <div class="row">
@@ -589,7 +589,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody id="modal_enfermedad" class="mt-4"> 
+                                    <tbody id="modal_enfermedad" class="mt-4">
                                         @if($enfermedades != null)
                                             @foreach($enfermedades as $enfermedades)
                                                 @if ($rs->patient->historyPatient != null)
@@ -601,19 +601,19 @@
                                                                     <span class="custom-control-label">{{ $enfermedades->name }} </span>
                                                                 </label>
                                                             </td>
-                                                        </tr>    
-                                                    @endif   
-                                                @endif                                           
+                                                        </tr>
+                                                    @endif
+                                                @endif
                                             @endforeach
-                                        @endif 
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
-                        </div>                             
+                        </div>
                    </div>
-                    <div class="modal-footer">           
-                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>               
-                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
+                    <div class="modal-footer">
+                        <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                        <a class="btn btn-azuloscuro btnEstandar text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -622,7 +622,7 @@
 
     <!-------- modal Registrar Enfermedad ------------>
     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Registrar Enfermedad</h5>
@@ -630,7 +630,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                    
+
                 <div class="modal-body">
                     <input type="text" placeholder="Nombre de la Enfermedad" name="name" value="{{ old('name') }}" class="form-control" required id="newdisease">
                 </div>
@@ -689,24 +689,24 @@
                                                                     <span class="custom-control-label">{{ $alergia->name }} </span>
                                                                 </label>
                                                             </td>
-                                                        </tr>   
+                                                        </tr>
                                                     @endif
                                                 @endif
                                             @endforeach
-                                        @endif               
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
-                        <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
+                        <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                        <a  class="btn btn-azuloscuro btnEstandar text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
                     </div>
                 </form>
             </div>
         </div>
-    </div>   
+    </div>
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -718,7 +718,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                    
+
                 <div class="modal-body">
                     <input type="text" placeholder="Nombre de la Alergia" name="name" value="{{ old('name') }}" class="form-control" required id="newallergy">
                 </div>
@@ -749,11 +749,11 @@
                     </button>
                 </div>
                 <form action="" id="form_medicamentos">
-                    <div class="modal-body" style="max-height: 415px; ">         
+                    <div class="modal-body" style="max-height: 415px; ">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
                                 <div class="row">
-                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_medicamentos" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar enfermedad..">
+                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_medicamentos" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar medicamento..">
                                 </div>
                                 <table>
                                     <thead>
@@ -765,7 +765,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody  id="modal_medicamentos" class="mt-4"> 
+                                    <tbody  id="modal_medicamentos" class="mt-4">
                                         @if($medicinas != null)
                                             @foreach ($medicinas as $medicina)
                                                 @if ($rs->patient->historyPatient != null)
@@ -777,19 +777,19 @@
                                                                     <span class="custom-control-label">{{ $medicina->name }} </span>
                                                                 </label>
                                                             </td>
-                                                        </tr>    
-                                                    @endif   
-                                                @endif                                           
+                                                        </tr>
+                                                    @endif
+                                                @endif
                                             @endforeach
-                                        @endif 
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
-                        </div>                             
+                        </div>
                    </div>
-                    <div class="modal-footer">          
-                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>                
-                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarMedicamentos">Agregar</a>
+                    <div class="modal-footer">
+                        <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                        <a class="btn btn-azuloscuro btnEstandar text-white" data-dismiss="modal" id="guardarMedicamentos">Agregar</a>
                         {{-- <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarMedicamentos">Agregar</a> --}}
                     </div>
                 </form>
@@ -914,7 +914,7 @@
 
 {{-- <script>
 $boton.addEventListener("click", function() {
-    
+
     // Codificarlo como JSON
     //Pausar reproducción
     $video.pause();
@@ -923,7 +923,7 @@ $boton.addEventListener("click", function() {
         $canvas.width = $video.videoWidth;
         $canvas.height = $video.videoHeight;
         contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
-        
+
         let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
         let datafoto=encodeURIComponent(foto);
             var data1 = {
@@ -956,7 +956,7 @@ $boton.addEventListener("click", function() {
             $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
             $('#imagePreview').hide(),
             $('#imagePreview').fadeIn(650)
-        );        
+        );
         });
 </script> --}}
 
@@ -965,7 +965,7 @@ $boton.addEventListener("click", function() {
 var carga = {}
 var borrar ;
 Dropzone.options.myDropzone = {
-    
+
     url: "{{ route('save.history', $rs) }}",
     autoProcessQueue: true,
     parallelUploads: 100,
@@ -988,11 +988,11 @@ Dropzone.options.myDropzone = {
 
     //         $('#files2').append('<input type="file" name="file[]" id="files" value="'+content+'" multiple/>')
     //         // $('#files').val(content);
-            
+
     //         file.previewElement.classList.add("dz-success");
     //     }
     //     file.previewElement.classList.add("dz-complete");
-        
+
     // }
     success: function (file, response) {
         // myDropzone = this
@@ -1013,19 +1013,19 @@ Dropzone.options.myDropzone = {
     removedfile: function(file) {
     var name = file.name;
     console.log('trae', name);
-    
+
         if(file.name != null){
             var id= $('#my-dropzone');
             $('.dropzone').remove(id.val());
             console.log('borrado');
         }
     }
-    
+
 }
 
-// myDropzone.on("complete", function(file) {  
+// myDropzone.on("complete", function(file) {
 //   myDropzone.removeFile(file);
-  
+
 // });
 
 // ("#examenb").hide();
@@ -1086,7 +1086,7 @@ Dropzone.options.myDropzone = {
 //                     // Agregue el botón al elemento de vista previa del archivo.
 //                     file.previewElement.appendChild(removeButton);
 //                 });
-                
+
 //             }
 //         };
 </script>
@@ -1113,17 +1113,17 @@ Dropzone.options.myDropzone = {
             maxHeight: 200,
         })
     </script>
-    
-    
+
+
     <script>
         var disease_id;
-        //-----------------------------------ENFERMEDADES---------------------------------------------  
+        //-----------------------------------ENFERMEDADES---------------------------------------------
 
    //=================guardar enfermedades================
    $("#guardarEnfermedad").click(function() {
         var reservacion = $("#reservacion_id").val();
         var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
-        
+
         ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1178,20 +1178,20 @@ Dropzone.options.myDropzone = {
             $(document).on('click', '#enfermedad_id', function(event) {
                 let id = this.name;
                 var reservacion = $("#reservacion_id").val();
-                $("tr").remove("#enfermedad"+id);   
-            
+                $("tr").remove("#enfermedad"+id);
+
                 $.ajax({
                     url: "{{ route('doctor.enfermedad_eliminar') }}",
                     type: 'POST',
-                    dataType:'json',   
+                    dataType:'json',
                     data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     id:id,
                     reservacion_id:reservacion,
                 }
 
                 })
-                .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
+                .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida
 
                    agregar=  `<tr id="quitarEnfermedad_modal${data[1].id}">
                                     <td>
@@ -1211,14 +1211,14 @@ Dropzone.options.myDropzone = {
                         text: 'Click en OK para continuar',
                         type: 'success',
                     });
-                }            
+                }
             })
             .fail(function(data) {
                 console.log(data);
-            })  
+            })
 
             });
-        
+
         });
 
 
@@ -1232,18 +1232,18 @@ Dropzone.options.myDropzone = {
         //=========================guardar enfermedad creada=================
         function nuevaenfermedad(name,patient_id){
             console.log(name,patient_id);
-            $.ajax({ 
-                url: "{{ route('checkin.diseases_create') }}",  
-                type: "POST",                            
+            $.ajax({
+                url: "{{ route('checkin.diseases_create') }}",
+                type: "POST",
                 data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     name: name,
-                    id:patient_id,                          
+                    id:patient_id,
                 }
             })
             .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
                 console.log('esto',data);
-                if (data[1] == 201) {                       
+                if (data[1] == 201) {
                     Swal.fire({
                         title: 'Excelente!',
                         text:  data.data,
@@ -1275,7 +1275,7 @@ Dropzone.options.myDropzone = {
             console.log('hopla')
             var reservacion = $("#reservacion_id").val();
             var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
-            
+
             ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
         }); //fin de la funcion clikea
 
@@ -1291,7 +1291,7 @@ Dropzone.options.myDropzone = {
                 }
             })
             .done(function(data) {        //recibe lo que retorna el metodo en la ruta definida
-            
+
                 if(data[0] == 201){                  //si no trae valores
                     Swal.fire({
                         title: data.alergia,
@@ -1314,7 +1314,7 @@ Dropzone.options.myDropzone = {
             })
         } // fin de la funcion
 
-            
+
         //============================mostrar alergias=========================
         function show_allergies(data){
             for($i=0; $i < data.length; $i++){
@@ -1335,14 +1335,14 @@ Dropzone.options.myDropzone = {
                 $.ajax({
                     url: "{{ route('doctor.alergia_eliminar') }}",
                     type: 'POST',
-                    dataType:'json',   
+                    dataType:'json',
                     data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     id:id,
                     reservacion_id:reservacion,
                 }
             })
-                .done(function(data) {  
+                .done(function(data) {
 
                 agregarAlergia = `<tr id="quitarAlergia${data[1].id}">
                                     <td>
@@ -1361,12 +1361,12 @@ Dropzone.options.myDropzone = {
                         text: 'Click en OK para continuar',
                         type: 'success',
                     });
-                }            
+                }
             })
             .fail(function(data) {
                 console.log(data);
-            })  
-            });    
+            })
+            });
         });
 
 
@@ -1381,18 +1381,18 @@ Dropzone.options.myDropzone = {
         //=========================guardar alergia creada====================
         function nuevaalergia(name,patient_id){
             console.log(name,patient_id);
-            $.ajax({ 
-                url: "{{ route('checkin.allergies_create') }}",  
-                type: "POST",                            
+            $.ajax({
+                url: "{{ route('checkin.allergies_create') }}",
+                type: "POST",
                 data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     name: name,
-                    id: patient_id,                          
+                    id: patient_id,
                 }
             })
             .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
                 console.log('esto',data);
-                if (data[1] == 201) {                       
+                if (data[1] == 201) {
                     Swal.fire({
                         title: 'Excelente!',
                         text:  data.data,
@@ -1420,23 +1420,23 @@ Dropzone.options.myDropzone = {
         //==========================guardar medicamentos==========================
         $("#guardarMedicamentos").click(function(){
             var reservacion = $("#reservacion_id").val();
-            var datos = $("#form_medicamentos").serialize(); 
+            var datos = $("#form_medicamentos").serialize();
             medicamentos1(reservacion,datos);
         });
 
         function medicamentos1(reservacion,datos){
-            $.ajax({ 
-                url: "{{ route('checkin.medicines') }}",  
-                type: "POST",                            
+            $.ajax({
+                url: "{{ route('checkin.medicines') }}",
+                type: "POST",
                 data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     data:datos,
-                    id:reservacion,                          
+                    id:reservacion,
                 }
             })
             .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
                 console.log('esto',data[0][0]);
-                if (data[1] == 201) {                       
+                if (data[1] == 201) {
                     Swal.fire({
                         title: 'Excelente!',
                         text:  'Medicamento Agregado con Exito!',
@@ -1452,7 +1452,7 @@ Dropzone.options.myDropzone = {
 
         //=================================mostrar medicamentos=============================
         function show_medicines(data){
-            for($i=0; $i < data.length; $i++){           
+            for($i=0; $i < data.length; $i++){
                 medicina = '<tr id="medicina'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="medicina_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
                 $("#medicamentos").append(medicina);
                 $("tr").remove("#quitarMedicina"+data[$i].id);
@@ -1465,20 +1465,20 @@ Dropzone.options.myDropzone = {
             $(document).on('click', '#medicina_id', function(event) {
                 let id = this.name;
                 var reservacion = $("#reservacion_id").val();
-                $("tr").remove("#medicina"+id);   
-            
+                $("tr").remove("#medicina"+id);
+
                 $.ajax({
                     url: "{{ route('checkin.medicine_borrar') }}",
                     type: 'POST',
-                    dataType:'json',   
+                    dataType:'json',
                     data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     id:id,
                     reservacion_id:reservacion,
                 }
 
                 })
-                .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
+                .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida
                 agregar = ` <tr id="quitarMedicina${data[1].id}">
                                 <td>
                                     <label class="custom-control custom-checkbox" >
@@ -1496,14 +1496,14 @@ Dropzone.options.myDropzone = {
                         text: 'Click en OK para continuar',
                         type: 'success',
                     });
-                }            
+                }
             })
             .fail(function(data) {
                 console.log(data);
-            })  
+            })
 
             });
-        
+
         });
 
 
@@ -1518,18 +1518,18 @@ Dropzone.options.myDropzone = {
         //==================guardar medicina=====================
         function nuevamedicina(name,patient_id){
             console.log(name,patient_id);
-            $.ajax({ 
-                url: "{{ route('checkin.medicines_create') }}",  
-                type: "POST",                            
+            $.ajax({
+                url: "{{ route('checkin.medicines_create') }}",
+                type: "POST",
                 data: {
-                    _token: "{{ csrf_token() }}",        
+                    _token: "{{ csrf_token() }}",
                     name: name,
-                    id: patient_id,                          
+                    id: patient_id,
                 }
             })
             .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
                 console.log('esto',data);
-                if (data[1] == 201) {                       
+                if (data[1] == 201) {
                     Swal.fire({
                         title: 'Excelente!',
                         text:  data.data,
@@ -1577,8 +1577,8 @@ Dropzone.options.myDropzone = {
         <script>
         // $("#submit-all").click(function() {
         //     console.log('hello');
-            // var tipo_dni = $("#tipo_dniC").val(); 
-            // var dni = $("#dniC").val(); 
+            // var tipo_dni = $("#tipo_dniC").val();
+            // var dni = $("#dniC").val();
             // var name =  $("#nameC").val();
             // var lastname = $("#lastnameC").val();
             // var phone = $("#phoneC").val();
@@ -1588,10 +1588,10 @@ Dropzone.options.myDropzone = {
         //     if(phone == ''){ phone = null; }
         //     if(email == ''){ email=null;   }
 
-            
+
 
         // if(tipo_dni == '' || dni == '' || dni.length < 4 || name == '' || lastname == '' || address == ''){
-            
+
         //     Swal.fire({
         //     title: 'Datos incompletos',
         //     text: "Click OK para continuar!!",
@@ -1605,8 +1605,8 @@ Dropzone.options.myDropzone = {
         //     })
 
         // }else{
-        //     registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);  
-        // }        
+        //     registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);
+        // }
         // }); //fin de la funcion clikea
         // //=================== funcion para registrar al cliente================
         // function registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address) {
@@ -1617,23 +1617,23 @@ Dropzone.options.myDropzone = {
         //     console.log(lastname)
         //     console.log(name)
         //     console.log(email)
-        //     $.ajax({ 
-        //         url: "{{ route('checkout.person') }}",  
-        //         type: "POST",                            
+        //     $.ajax({
+        //         url: "{{ route('checkout.person') }}",
+        //         type: "POST",
         //         data: {
-        //             _token: "{{ csrf_token() }}",        
+        //             _token: "{{ csrf_token() }}",
         //             type_dni: tipo_dni,
         //             dni:dni,
         //             name:name,
         //             lastname:lastname,
         //             phone:phone,
         //             email:email,
-        //             address:address,                           
+        //             address:address,
         //         }
         //     })
         //     .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
         //         console.log('esto',data);
-        //         if (data[0] == 201) {                       
+        //         if (data[0] == 201) {
         //             Swal.fire({
         //                 title: 'Excelente!',
         //                 text:  'Registro satisfactorio',
