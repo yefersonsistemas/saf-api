@@ -300,7 +300,7 @@
             @if($mostrar == 1)
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label> 
-                        <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
+                        <div class="dropzone d-flex d-row" id="my-dropzone" style="border-color:#00506b">
                         {{-- <div class="fallback" id="files2"> --}}
                             {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
                         {{-- </div> --}}
@@ -839,8 +839,7 @@
 
     Dropzone.options.myDropzone = {
         
-        url: "{{ route('save.history', $rs) }}",
-            maxFilesize: 10, //cantidad de archivos que se cargararn
+        url: "{{ route('save.history', $rs) }}",          
             headers: {
           'X-CSRF-TOKEN': "{{ csrf_token() }}"
          },
@@ -849,13 +848,15 @@
                 var time = dt.getTime();
             return time+file.name;
             },
+            // autoProcessQueue:true,
+            maxFilesize: 10,
+            // maxFiles:3,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             timeout: 50000,
             removedfile: function(file,response)
             {
                 var name = file.xhr.response;
-                console.log('hola', name)
                 $.ajax({                        
                     type: 'POST',
                     url: '{{ route("prueba.eliminar") }}',
@@ -863,9 +864,13 @@
                         _token: "{{ csrf_token() }}",
                         filename: name
                         },
-                    success: function (data){
-                        console.log('data',data);
-                        console.log("File has been successfully removed!!");
+                    success: function (data){                 //si no trae valores
+                            Swal.fire({
+                                title: 'Archivo eliminado correctamente',
+                                text: 'Click en OK para continuar',
+                                type: 'success',
+                            });
+                        // console.log("File has been successfully removed!!");
                     },
                     error: function(e) {
                         console.log(e);

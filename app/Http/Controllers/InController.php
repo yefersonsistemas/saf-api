@@ -40,31 +40,8 @@ class InController extends Controller
      *
      */
 
-    public function prueba()
-    {
-        return view('dashboard.checkin.pruebaKen');
-    }
 
-
-    //=============================guardar dropzone=========================
-    public function prueba_guardar(Request $request)
-    {
-        dd($request);
-        $image = $request->file('file');
-        $path = $image->store('public/Person');
-        $path = str_replace('public/', '', $path);
-        $image = new File;
-        $image->path = $path;
-        $image->fileable_type = "App\Person";
-        $image->fileable_id = 1;
-        $image->branch_id = 1;
-        $image->save();
-
-        return response()->json(["status" => "success", "data" => $data]);
-    }
-
-
-     //=============================Eliminar dropzone=========================
+    //=============================Eliminar dropzone=========================
     public function prueba_eliminar(Request $request)
     {
         $datos=json_decode($request->filename);
@@ -73,7 +50,6 @@ class InController extends Controller
         $image->delete();
         return $image;
     }
-
 
 
     public function index()
@@ -242,10 +218,6 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  //REVISAR
      {
-        //  dd($request);
-        // dd($id);
-       
-
         if($request->file('file')){
             $reservation = Reservation::find($id);
             $image = $request->file('file');
