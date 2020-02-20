@@ -162,7 +162,7 @@ $(function() {
     $(document).ready(function() {
         $('.scrollableTable').DataTable( {
             "scrollY":        "200px",
-            "scrollCollapse": true,
+            "scrollCollapse": false,
             "paging":         false
         } );
     } );

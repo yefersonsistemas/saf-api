@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
-@endsection
+    @endsection
 
     @section('title','Historia Medica')
 
@@ -38,12 +38,23 @@
                         <div class=" container-description">
                         <a class="  icon-description" href="#">Editar Historial</a>
                         </div>
-                      </div>
-                 @endif
+                    </div>
+                    {{-- <ul class="share">
+                        <!--Facebook-->
+                        <li>
+                            <div class="social-link">
+                                <div class="nav-label">
+                                    <span>Share Button</span>
+                                </div>
+                            </div>
+                        </li>
+                      </ul> --}}
+
+                @endif
                  <div>
                     <label class="float-right position-absolute  m-4 d-block form-label" style="right: 5px">Nro. Historia <br>
                        <span class=" ml-4  badgeMargin badge badge-azuloscuro texto1">{{ $rs->patient->historyPatient->history_number  }}</span></label>
-                <h5 class="text-center  ml--25 mt-20">Datos Personales </h5>
+                <h5 class="text-center ml-125 mt-20">Datos Personales </h5>
                 </div>
                 <div class="row mt--70">
                     <div class="col-3 ml-2 mb-4 mt-25">
@@ -87,6 +98,7 @@
                             </div>
                         </div>
                     </div> --}}
+
                     <div class="col-8 mt-90">
                         <div class="row mt--10">
                            <div class="col-12">
@@ -119,7 +131,7 @@
 
                            <div class="col-12">
                                 <div class="justify-content-center row mt-4">
-                                    <h5>Datos de la Cita</h5>
+                                    <h5 class="ml--50">Datos de la Cita</h5>
                                 </div>
                                 <div class="row mt-2 mb-2" >
                                     <div class="col-4">
@@ -300,11 +312,11 @@
             @if($mostrar == 1)
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label>
-                        <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
+                    <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
                         {{-- <div class="fallback" id="files2"> --}}
                             {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
                         {{-- </div> --}}
-                        </div>
+                    </div>
                 </div>
 
                 <div class="card p-4 d-flex justify-content-between">
@@ -338,10 +350,10 @@
 
                                         </div>
                                         <table class="table table-hover  table_custom spacing5 table-vcenter table-striped scrollableTable">
-                                            <thead>
+                                            <thead class="theadColor">
                                                 <tr>
-                                                    <th>Enfermedad</th>
-                                                    <th class="text-center">Eliminar</th>
+                                                    <th class="text-white">Enfermedad</th>
+                                                    <th class="text-center text-white">Eliminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="enfermedades">
@@ -392,10 +404,10 @@
 
                                         </div>
                                         <table class="table dataTable table_custom spacing5 table-vcenter table-striped scrollableTable">
-                                             <thead>
+                                             <thead class="theadColor">
                                                 <tr>
-                                                    <th>Medicina</th>
-                                                    <th class="text-center">Eliminar</th>
+                                                    <th class="text-white">Medicina</th>
+                                                    <th class="text-center text-white">Eliminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="medicamentos">
@@ -452,10 +464,10 @@
                                         </div>
 
                                         <table class="table table-hover table_custom spacing5 table-vcenter table-striped scrollableTable">
-                                             <thead>
+                                             <thead class="theadColor">
                                                 <tr>
-                                                    <th>Alergia</th>
-                                                    <th class="text-center">Eliminar</th>
+                                                    <th class="text-white">Alergia</th>
+                                                    <th class="text-center text-white">Eliminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="alergias">
@@ -565,7 +577,7 @@
     <div class="modal fade" id="listaEnfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header p-2 text-center" style="background-color: #00506b; color: #fff;">
+                <div class="modal-header p-2 text-center">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
                     <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <h6><span aria-hidden="true">&times;</span></h6>
@@ -623,10 +635,10 @@
     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registrar Enfermedad</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <div class="modal-header p-2 text-center">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Enfermedad</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                        <h6><span aria-hidden="true">&times;</span></h6>
                     </button>
                 </div>
 
@@ -653,10 +665,10 @@
     <div class="modal fade" id="listaAlergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                <div class="modal-header p-2 text-center">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                        <h6><span aria-hidden="true">&times;</span></h6>
                     </button>
                 </div>
                 <form action="" id="form_alergias">
@@ -709,12 +721,12 @@
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Registrar Alergia</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <div class="modal-header p-2 text-center">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Alergia</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                        <h6><span aria-hidden="true">&times;</span></h6>
                     </button>
                 </div>
 
@@ -741,10 +753,10 @@
      <div class="modal fade" id="listaMedicamentos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                <div class="modal-header p-2 text-center">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Medicamentos</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                        <h6><span aria-hidden="true">&times;</span></h6>
                     </button>
                 </div>
                 <form action="" id="form_medicamentos">
@@ -798,12 +810,12 @@
 
     <!------------ modal Registrar Medicamento ----------->
     <div class="modal fade" id="nuevomedicamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Registrar Medicamento</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <div class="modal-header p-2 text-center">
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Medicamento</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                        <h6><span aria-hidden="true">&times;</span></h6>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -836,136 +848,259 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
+
 <script>
+    //========================buscador en tiempo real de enfermedades modal=======================
+    $(document).ready(function(){
+      $("#buscar_enfermedad").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_enfermedad tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
 
-    Dropzone.options.myDropzone = {
 
-        url: "{{ route('save.history', $rs) }}",
-            maxFilesize: 10, //cantidad de archivos que se cargararn
+<script>
+    //========================buscador en tiempo real de medicamentos modal=======================
+    $(document).ready(function(){
+      $("#buscar_medicamentos").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_medicamentos tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de alergias modal=======================
+    $(document).ready(function(){
+      $("#buscar_alergia").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#modal_alergias tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+
+<script>
+    //========================buscador en tiempo real de enfermedades en vista =======================
+    $(document).ready(function(){
+      $("#buscar_enfermedades").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#enfermedades tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de alergias en vista =======================
+    $(document).ready(function(){
+      $("#buscar_alergias").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#alergias tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de medicamentos en vista=======================
+    $(document).ready(function(){
+      $("#buscar_medicinas").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#medicamentos tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+{{-- <script>
+$boton.addEventListener("click", function() {
+
+    // Codificarlo como JSON
+    //Pausar reproducción
+    $video.pause();
+        //Obtener contexto del canvas y dibujar sobre él
+        let contexto = $canvas.getContext("2d");
+        $canvas.width = $video.videoWidth;
+        $canvas.height = $video.videoHeight;
+        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+
+        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+        let datafoto=encodeURIComponent(foto);
+            var data1 = {
+                "tokenmodalfoto": $('#tokenfoto').val(),
+                "idpatient":$('#patient-id').val(),
+                "idimage":$('#imagen-id').val(),
+                "pic":datafoto
+                };
+        const datos=JSON.stringify(data1)
+        $estado.innerHTML = "Enviando foto. Por favor, espera...";
+        fetch("{{ route('checkin.avatar') }}", {
+            method: "POST",
+            body: datos,
             headers: {
-          'X-CSRF-TOKEN': "{{ csrf_token() }}"
-         },
-            renameFile: function(file) {
-                var dt = new Date();
-                var time = dt.getTime();
-            return time+file.name;
+                "Content-type": "application/x-www-form-urlencoded",
+                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
             },
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
-            timeout: 50000,
-            removedfile: function(file,response)
-            {
-                var name = file.xhr.response;
-                console.log('hola', name)
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route("prueba.eliminar") }}',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        filename: name
-                        },
-                    success: function (data){
-                        console.log('data',data);
-                        console.log("File has been successfully removed!!");
-                    },
-                    error: function(e) {
-                        console.log(e);
-                    }});
+        }).then(function(response) {
+            // console.log(response.json());
+                return response.json();
+            }).then(nombreDeLaFoto => {
+                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                console.log("La foto fue enviada correctamente");
+                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+            })
+        //Reanudar reproducción
+        $video.play();
 
-                    var fileRef;
-                    return (fileRef = file.previewElement) != null ?
-                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
-            },
-            success: function(file, response)
-            {
-                console.log('controlador',response);
+        $('.avatar-preview').load(
+            $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
+            $('#imagePreview').hide(),
+            $('#imagePreview').fadeIn(650)
+        );
+        });
+</script> --}}
 
 
-            },
-            error: function(file, response)
-            {
-            return false;
-            }
+<script>
+var carga = {}
+var borrar ;
+Dropzone.options.myDropzone = {
+
+    url: "{{ route('save.history', $rs) }}",
+    autoProcessQueue: true,
+    parallelUploads: 100,
+    uploadMultiple: true,
+    maxFiles: 10,
+    maxFilesize:10,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+
+    // accept: function(file) {
+    //     let fileReader = new FileReader();
+
+    //     fileReader.readAsDataURL(file);
+    //     fileReader.onloadend = function() {
+
+    //         let content = fileReader.result;
+    //         console.log('hols', content)
+
+    //         $('#files2').append('<input type="file" name="file[]" id="files" value="'+content+'" multiple/>')
+    //         // $('#files').val(content);
+
+    //         file.previewElement.classList.add("dz-success");
+    //     }
+    //     file.previewElement.classList.add("dz-complete");
+
+    // }
+    success: function (file, response) {
+        // myDropzone = this
+        // console.log('trae', myDropzone);
+        // console.log('trae', file.name);
+        var cargar = $('#my-dropzone').append('<input type="hidden" name="'+file.name+'" class="'+file.name+'" id="examenb" value="'+file.name+'">')
+        carga[file.name] = response.name
+        // var data = $('input[name="file[]"]').filter('examenb');
+        console.log('ysbe',file.name)
+        // for(var i=0; i<data.length; i++){
+
+        // console.log('trae', data[i]);
+        // }
+    //   borrar = file.name;
+    },
+
+
+    removedfile: function(file) {
+    var name = file.name;
+    console.log('trae', name);
+
+        if(file.name != null){
+            var id= $('#my-dropzone');
+            $('.dropzone').remove(id.val());
+            console.log('borrado');
+        }
     }
 
+}
 
-    </script>
+// myDropzone.on("complete", function(file) {
+//   myDropzone.removeFile(file);
 
+// });
 
-    <script>
-        //========================buscador en tiempo real de enfermedades modal=======================
-        $(document).ready(function(){
-        $("#buscar_enfermedad").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#modal_enfermedad tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>
+// ("#examenb").hide();
+//     console.log('hola')
 
+// $(document).on('click', '#examen', function(event) {
+//                 // let id = this.name;
+// // $("#examen").click(function(){
+//     console.log('hola');
+//     var borrar = $(this).val();
+//         // let borrar = this.val();
+//         console.log(borrar);
+//          $("."+borrar).remove();
+//         //  padre = imagen.parentNode;
+//         // padre.removeChild(imagen);
+//         // window.location = “borrar.HTML”;
 
-    <script>
-        //========================buscador en tiempo real de medicamentos modal=======================
-        $(document).ready(function(){
-        $("#buscar_medicamentos").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#modal_medicamentos tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>
+//         //  $("div").remove("#quitar"+data[$i].id); //quitar del modal
+//     });
 
-    <script>
-        //========================buscador en tiempo real de alergias modal=======================
-        $(document).ready(function(){
-        $("#buscar_alergia").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#modal_alergias tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>
+//  Dropzone.options.myDropzone = {
+//             url: "{{ route('save.history', $rs) }}",
+//             autoProcessQueue: true,
+//             uploadMultiple: true,
+//             parallelUploads: 100,
+//             maxFiles: 10,
+//             maxFilesize:10,
+//             // acceptedFiles: "image/*",
 
+//             init: function () {
 
-    <script>
-        //========================buscador en tiempo real de enfermedades en vista =======================
-        $(document).ready(function(){
-        $("#buscar_enfermedades").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#enfermedades tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>
+//                 var submitButton = document.querySelector("#submit-all");
+//                 var wrapperThis = this;
 
-    <script>
-        //========================buscador en tiempo real de alergias en vista =======================
-        $(document).ready(function(){
-        $("#buscar_alergias").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#alergias tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>
+//                 submitButton.addEventListener("click", function () {
+//                     e.preventDefault();
+//                     e.stopPropagation();
+//                     wrapperThis.processQueue();
+//                 });
 
-    <script>
-        //========================buscador en tiempo real de medicamentos en vista=======================
-        $(document).ready(function(){
-        $("#buscar_medicinas").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#medicamentos tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>
+//                 this.on("addedfile", function (file) {
 
+//                     // Create the remove button
+//                     var removeButton = Dropzone.createElement("<button class='btn btn-danger mt-2 text-center'><i class='fa fa-remove'></i></button>");
+
+//                     // Escucha el evento click
+//                     removeButton.addEventListener("click", function (e) {
+//                         // Asegúrese de que el clic del botón no envíe el formulario:
+//                         e.preventDefault();
+//                         e.stopPropagation();
+
+//                         // Eliminar la vista previa del archivo.
+//                         wrapperThis.removeFile(file);
+//                         // Si también quieres eliminar el archivo en el servidor,
+//                         // puedes hacer la solicitud AJAX aquí.
+//                     });
+
+//                     // Agregue el botón al elemento de vista previa del archivo.
+//                     file.previewElement.appendChild(removeButton);
+//                 });
+
+//             }
+//         };
+</script>
     <script>
         $('#disease').multiselect({
             enableFiltering: true,
