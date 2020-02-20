@@ -2,6 +2,8 @@
 
 @section('cites','active')
 @section('day','active')
+@section('iorol','d-block')
+@section('dire','d-none')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">

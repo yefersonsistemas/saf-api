@@ -370,7 +370,29 @@
                                                              
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
-                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
+                                        <div class="row mb-3">
+                                            <div class="col-5">
+                                                <div class="row justify-content-start">
+                                                    <div>
+                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaMedicamentos" style="font-size:12px;">
+                                                            <i class="fa fa-plus"></i>&nbsp;Agregar
+                                                        </a>
+                                                    </div>
+                                                    <div>
+                                                        <a type="button" class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevomedicamento" style="font-size:12px;">
+                                                            <i class="fa fa-plus"></i>&nbsp;Crear
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="row justify-content-end">
+                                                    <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_medicinas" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar enfermedad..">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <table class="table dataTable table_custom spacing5 table-vcenter table-striped">
                                              <thead>
                                                 <tr>
                                                     <th>Medicina</th>
@@ -378,29 +400,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="medicamentos">
-                                                @if($rs->patient->historyPatient->medicine != null)
+                                                @if($rs->patient->historyPatient->medicine->first() != '')
                                                 @foreach ($rs->patient->historyPatient->medicine as $medicine)
                                                     <tr id="medicina{{$medicine->id}}">
                                                         <td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i> {{$medicine->name}}</td>
                                                         <td class="text-center"><a style="cursor:pointer" id="medicina_id" name="{{$medicine->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                     </tr>
                                                 @endforeach
+                                                @else
+                                                <tr class="d-flex justify-content-center" id="quitando">
+                                                    <td class="text-center">La Información no esta disponible en la tabla</td>
+                                                </tr>
                                                 @endif
                                             </tbody>
                                         </table>
-                                    </div>
-                                </div>
-
-                                <div class="row justify-content-end">
-                                    <div>
-                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaMedicamentos" style="font-size:12px;">
-                                            <i class="fa fa-plus"></i>&nbsp;Agregar
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a type="button" class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevomedicamento" style="font-size:12px;">
-                                            <i class="fa fa-plus"></i>&nbsp;Crear
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -415,7 +428,31 @@
                             <div class="card p-3" style="border-color:#00506b"> 
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
-                                        <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
+
+                                        <div class="row mb-3">
+                                            <div class="col-5">
+                                                <div class="row justify-content-start">
+                                                    <div>
+                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaAlergias" style="font-size:12px;">
+                                                            <i class="fa fa-plus"></i>&nbsp;Agregar alergia
+                                                        </a>
+                                                    </div>
+                                                    <div>
+                                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;">
+                                                            <i class="fa fa-plus"></i>&nbsp;crear
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="row justify-content-end">
+                                                    <label for="" class="mr-2 col-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergias" type="text" class="col-8 form-control p-1 pl-3" placeholder="Buscar enfermedad..">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <table class="table table-hover table_custom spacing5 table-vcenter table-striped">
                                              <thead>
                                                 <tr>
                                                     <th>Alergia</th>
@@ -435,23 +472,11 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="row justify-content-end">
-                                    <div>
-                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#listaAlergias" style="font-size:12px;">
-                                            <i class="fa fa-plus"></i>&nbsp;Agregar alergia
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a class="btn btn-azuloscuro text-white mx-2" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;">
-                                            <i class="fa fa-plus"></i>&nbsp;crear
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         
                         <!------------------------------Cirugias previas-------------------------------->
-                        <div class="col-lg-6 col-md-3">
+                        <div class="col-lg-12 col-md-12 mt-4">
                             <div class="form-group col-12">
                                 <label class="form-label text-center">Cirugias previas</label>
                                 <input style="height:85px" type="text" disabled id="previous_surgery" class="form-control" placeholder="Cirugias anteriores" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->previous_surgery : ''  }}" name="previous_surgery" disabled>
@@ -463,8 +488,9 @@
                 
                 <div class="card p-4 row d-flex d-row justify-content-between">
                     <h5 class="text-center">Historial de Citas</h5>
-                    <div class="container-fluid">
-                        <div class="tab-content mx-auto">
+                    <div class="">
+                        {{-- <div class="tab-content mx-auto"> --}}
+                        <div class="">
                             <div class="col-lg-12">
                                 <div class="table-responsive mb-4">
                                     <table class="table table-hover js-basic-example dataTable table_custom spacing5 table-vcenter table-striped">
@@ -585,8 +611,9 @@
                             </div>
                         </div>                             
                    </div>
-                    <div class="modal-footer p-2 ">                        
-                        <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
+                    <div class="modal-footer">           
+                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>               
+                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -722,28 +749,48 @@
                     </button>
                 </div>
                 <form action="" id="form_medicamentos">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 415px; ">         
                         <div class="form-group">
-                            <div class="custom-controls-stacked" id="modal_medicamentos">
-                                @if($medicinas != null)
-                                    @foreach ($medicinas as $medicina)
-                                        @if ($rs->patient->historyPatient != null)
-                                            @if(!($rs->patient->historyPatient->medicine->contains($medicina->id)))
-                                                <div class="row" id="quitarMedicina{{$medicina->id}}">
-                                                    <label class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" name="name_enfermedad" value="{{ $medicina->id }}">
-                                                        <span class="custom-control-label">{{ $medicina->name }} </span>
-                                                    </label>
+                            <div class="custom-controls-stacked">
+                                <div class="row">
+                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_medicamentos" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar enfermedad..">
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="card-header">
+                                                    <h6>Nombre</h6>
                                                 </div>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                @endif          
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  id="modal_medicamentos" class="mt-4"> 
+                                        @if($medicinas != null)
+                                            @foreach ($medicinas as $medicina)
+                                                @if ($rs->patient->historyPatient != null)
+                                                    @if(!($rs->patient->historyPatient->medicine->contains($medicina->id)))
+                                                        <tr id="quitarMedicina{{$medicina->id}}">
+                                                            <td>
+                                                                <label class="custom-control custom-checkbox" >
+                                                                    <input type="checkbox" class="custom-control-input" name="name_medicina" value="{{ $medicina->id }}">
+                                                                    <span class="custom-control-label">{{ $medicina->name }} </span>
+                                                                </label>
+                                                            </td>
+                                                        </tr>    
+                                                    @endif   
+                                                @endif                                           
+                                            @endforeach
+                                        @endif 
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer p-2">
-                        <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarMedicamentos">Agregar</button>
+                        </div>                             
+                   </div>
+                    <div class="modal-footer">          
+                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>                
+                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarMedicamentos">Agregar</a>
+                        {{-- <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarMedicamentos">Agregar</a> --}}
                     </div>
                 </form>
             </div>
@@ -792,7 +839,7 @@
 
 
 <script>
-    //========================buscador en tiempo real de enfermedades =======================
+    //========================buscador en tiempo real de enfermedades modal=======================
     $(document).ready(function(){
       $("#buscar_enfermedad").on("keyup", function() {
         var value = $(this).val().toLowerCase();
@@ -803,32 +850,9 @@
     });
 </script>
 
-<script>
-    //========================buscador en tiempo real de enfermedades =======================
-    $(document).ready(function(){
-      $("#buscar_enfermedades").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#enfermedades tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
 
 <script>
-    //========================buscador en tiempo real de enfermedades =======================
-    $(document).ready(function(){
-      $("#buscar_alergias").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#enfermedades tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-</script>
-
-<script>
-    //========================buscador en tiempo real de medicamentos=======================
+    //========================buscador en tiempo real de medicamentos modal=======================
     $(document).ready(function(){
       $("#buscar_medicamentos").on("keyup", function() {
         var value = $(this).val().toLowerCase();
@@ -840,11 +864,48 @@
 </script>
 
 <script>
-    //========================buscador en tiempo real de alergias=======================
+    //========================buscador en tiempo real de alergias modal=======================
     $(document).ready(function(){
       $("#buscar_alergia").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#modal_alergias tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+
+<script>
+    //========================buscador en tiempo real de enfermedades en vista =======================
+    $(document).ready(function(){
+      $("#buscar_enfermedades").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#enfermedades tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de alergias en vista =======================
+    $(document).ready(function(){
+      $("#buscar_alergias").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#alergias tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+<script>
+    //========================buscador en tiempo real de medicamentos en vista=======================
+    $(document).ready(function(){
+      $("#buscar_medicinas").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#medicamentos tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
@@ -1260,6 +1321,7 @@ Dropzone.options.myDropzone = {
                 alergia = '<tr id="alergia'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="alergia_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
                 $("#alergias").append(alergia);
                 $("tr").remove("#quitarAlergia"+data[$i].id); //quitar del modal
+                $("tr").remove("#quitandoAlergia");
             }
         }
 
@@ -1393,7 +1455,8 @@ Dropzone.options.myDropzone = {
             for($i=0; $i < data.length; $i++){           
                 medicina = '<tr id="medicina'+data[$i].id+'"><td class="lis-group-item"><i class="fa fa-check text-verdePastel mr-2"></i>'+data[$i].name+'</td><td class="text-center"><a style="cursor:pointer" id="medicina_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>';
                 $("#medicamentos").append(medicina);
-                $("div").remove("#quitarMedicina"+data[$i].id);
+                $("tr").remove("#quitarMedicina"+data[$i].id);
+                $("tr").remove("#quitando");
             }
         }
 
@@ -1416,7 +1479,15 @@ Dropzone.options.myDropzone = {
 
                 })
                 .done(function(data) {  //recibe lo que retorna el metodo en la ruta definida  
-                agregar = '<div class="row" id="quitarMedicina'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
+                agregar = ` <tr id="quitarMedicina${data[1].id}">
+                                <td>
+                                    <label class="custom-control custom-checkbox" >
+                                        <input type="checkbox" class="custom-control-input" name="name_medicina" value="${data[1].id}">
+                                        <span class="custom-control-label">${data[1].name}</span>
+                                    </label>
+                                </td>
+                            </tr>   ` ;
+                // agregar = '<div class="row" id="quitarMedicina'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
                 $("#modal_medicamentos").append(agregar); //agregar en el modal
 
                 if(data[0] == 202){                  //si no trae valores

@@ -440,7 +440,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         @endif 
                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
-                                                        <a class="btn btn-info text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
+                                                        <a class="btn btn-verdePastel text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1760,7 +1760,7 @@ button[data-original-title="Help"]{ display: none; }
 
             $("tr").remove("#quitar"+data[$i].id); //quitar del modal
         }
-    }
+}
 
     //================ eliminar enfermedad seleccionado ==========
     $(function() {
@@ -1914,7 +1914,7 @@ button[data-original-title="Help"]{ display: none; }
             $("#mostrar_alergias").append(alergia);
             $("tr").remove("#quitarAlergia"+data[$i].id); //quitar del modal alergia
         }
-    }
+}
 
     //================ eliminar alergia seleccionado ==========
     $(function() {
@@ -1960,8 +1960,6 @@ button[data-original-title="Help"]{ display: none; }
         })
         });
     });
-
-
 
     //=========================crear alergia=========================
     $('#allergyR').click(function(){
@@ -2374,7 +2372,7 @@ button[data-original-title="Help"]{ display: none; }
             $("#procedimientos").append(procedure);
             $("tr").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal      
         }
-    }
+}
 
     //================ eliminar posible procedimiento seleccionado ==========
     $(function() {

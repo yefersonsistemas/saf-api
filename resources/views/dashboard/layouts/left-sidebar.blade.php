@@ -145,33 +145,33 @@
                             <li><a href="{{ route('payment.create') }}"><i class=""></i>&nbsp;&nbsp;Tipos de pagos</a></li>
                         </ul>
                     </li>
+
+                    <li><a href="{{ route('visitantes') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Lista de Visitantes</a></li>
                 </div>
                 @endrole
 
+
+                    <!-- Se agregó el @yield('enrol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('enfermeria')
+                <div class="">
+                    @role('director')
+                    <div class="enfermeria animated fadeIn d-none @yield('enrol')">
+                    @endrole
                 <li class="g_heading">Enfermeria</li>
                 <li class="@yield('facturacion')"><a href="{{ route('lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
+                    </div>
                 @endrole
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <!-- Se agregó el @yield('iorol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('in-out')
-                <li class="g_heading">In-Out</li>
+                <div class="">
+                    @role('director')
+                    <div class="inout animated fadeIn d-none @yield('iorol')">
+                    @endrole
+                <li class="g_heading">In-Out</li>               
                 <li @yield('cites')>
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Pacientes</span></a>
                         <ul>
@@ -186,10 +186,16 @@
 
 
 
+                
+                <!-- Se agregó el @yield('farmarol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('farmaceuta')
+                <div class="">
+                    @role('director')
+                    <div class="farmacia animated fadeIn d-none @yield('farmarol')">
+                    @endrole
                 <li class="g_heading">farmaceuta</li>
                 <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;Lista de insumos</a></li>
-                <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
+                <li><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
                 <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registro de insumos</a></li>
                 <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
                 @endrole
