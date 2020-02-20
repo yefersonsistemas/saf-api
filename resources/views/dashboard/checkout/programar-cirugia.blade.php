@@ -143,8 +143,7 @@
                                 </label>
                             </div>
                             @endforeach
-                            {{-- <input type="hidden" name="surgerys" id="surgery"> --}}
-                        </div>
+                         </div>
                     </section>
                     <h2>Elegir Medico</h2>
                     <section>
@@ -431,7 +430,7 @@ var form = $('#wizard_horizontal').show();
                     }
                 })
                 .done(function(data) {
-                    console.log("d",data.surgery.employe_surgery);
+                    console.log("este es el dato",data.surgery.employe_surgery);
                     Swal.fire({
                         title: 'Cirugia Seleccionada!',
                         text: 'Click en OK para continuar',

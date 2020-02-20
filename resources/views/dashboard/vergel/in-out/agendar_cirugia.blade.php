@@ -111,6 +111,7 @@
                         </div>
                     </section>
                     <h2>Elegir Cirugia</h2>
+ 
                     <section> 
                         <div class="row justify-content-between">
                             @foreach ($surgery as $surgeries)                           
@@ -129,8 +130,7 @@
                                         @endif 
                                         <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                             <h6 class="font-weight-bold" style="font-size:15px">{{ $surgeries->name }}</h6>
-                                            <h6 class="font-weight-bold" style="font-size:15px">    </h6>
-                                        </div>
+                                         </div>
                                     </div>
                                 </label>
                             </div>
@@ -144,6 +144,7 @@
                         <div class="row justify-content-between" id="medicos">
                         </div>
                     </section>
+                    
                     <h2>Seleccione Quirofano</h2>
                     <section class="container">
                         <div class="row justify-content-between">
@@ -402,14 +403,13 @@ var form = $('#wizard_horizontal').show();
                     }
                 })
                 .done(function(data) {
-                    console.log("d",data.surgery.employe_surgery[0]);
+                    console.log("este es el dato",data.surgery.employe_surgery);
                     Swal.fire({
                         title: 'Cirugia Seleccionada!',
                         text: 'Click en OK para continuar',
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    // $('#surgery').val(data[0].id);
                     cargarMedicos(data);
                 })
                 .fail(function(data) {
@@ -417,6 +417,9 @@ var form = $('#wizard_horizontal').show();
                 })
         });
     }
+
+
+
 
     function cargarMedicos(data) {
         console.log('dataaaa',data.surgery.employe_surgery[0] );

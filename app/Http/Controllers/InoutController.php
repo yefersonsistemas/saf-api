@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Billing;
+use App\ClassificationSurgery;
 use App\Itinerary;
 use App\Patient;
 use App\Person;
 use App\Procedure;
+use App\Reservation;
 use App\Surgery;
 use App\TypeArea;
 use App\Typesurgery;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Function_;
@@ -33,12 +36,16 @@ class InoutController extends Controller
 
     public function agendar_cirugia()
     {
-     $surgery = Typesurgery::with('image')-> get();
-     $area = TypeArea::with('image') ->get();
-     
-     return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery','area'));
+        $clasificacion = ClassificationSurgery::where('name', 'hospitalaria')->first();
+        $surgery = Typesurgery::with('image')->where('classification_surgery_id',  $clasificacion->id)-> get();
+        $tipo = TypeArea::where('name', 'Quirofano')->first();
+        $area = Area::with('image')->where('type_area_id', $tipo->id)->get();
+
+        return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery','area'));
     }
         
+
+
 
     
     public function facturacion()
@@ -218,17 +225,7 @@ class InoutController extends Controller
 
 
 //---------------------------fin del metodo buscar para facturacion de cirugia----------------------------------------
-
-
-
-
-
-
-
-
-
-
-
+ 
     /**
      * Show the form for creating a new resource.
      *
