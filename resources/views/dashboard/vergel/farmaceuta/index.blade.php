@@ -67,7 +67,7 @@
                                         <th>Medida</th>
                                         <th>Cantidad</th>
                                         <th>Stock</th>
-                                        <th class="text-center">Nuevo lote</th>
+                                        <th class="text-center">Lote</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -79,7 +79,7 @@
                                         <th>Medida</th>
                                         <th>Cantidad</th>
                                         <th>Stock</th>
-                                        <th class="text-center">Nuevo lote</th>
+                                        <th class="text-center">Lote</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>

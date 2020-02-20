@@ -14,6 +14,11 @@
 @can('ver lista de empleados')
 <div class="section-body  py-4">
     <div class="container-fluid">
+        @foreach ($doctores as $item)
+
+        <p>{{ $item['nombre'] }}</p>
+    @endforeach
+    
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="col-lg-12">
@@ -44,9 +49,10 @@
                                 </tr>
                             </tfoot>
                             <tbody>
+
                                 @foreach ($employes as $employe)
                                     <tr>
-                                    
+
                                         <td>
                                             @if (!empty($employe->image->path))
                                                 <img class="img-fluid" style="max-width:100%; height:3em" src="{{ Storage::url($employe->image->path) }}" alt="">
@@ -87,7 +93,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </div>
