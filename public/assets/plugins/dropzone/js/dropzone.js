@@ -485,7 +485,7 @@ var Dropzone = function(_Emitter) {
                 /**
                  * If `addRemoveLinks` is true, the text to be used to remove a file.
                  */
-                dictRemoveFile: "Remover archivo",
+                dictRemoveFile: "Eliminar archivo",
 
                 /**
                  * If this is not null, then the user will be prompted before removing a file.
@@ -493,7 +493,7 @@ var Dropzone = function(_Emitter) {
                 dictRemoveFileConfirmation: null,
 
                 /**
-                 * Displayed if `maxFiles` is st and exceeded.
+                 * Displayed if `maxFiles` is st and exceeded.$('.images').addClass('col-md-6');
                  * The string `{{maxFiles}}` will be replaced by the configuration value.
                  */
                 dictMaxFilesExceeded: "No puedes subir más archivos.",

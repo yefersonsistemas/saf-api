@@ -312,7 +312,7 @@
             @if($mostrar == 1)
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label>
-                    <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
+                        <div class="dropzone d-flex d-row" id="my-dropzone" style="border-color:#00506b">
                         {{-- <div class="fallback" id="files2"> --}}
                             {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
                         {{-- </div> --}}
@@ -848,14 +848,75 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
-
 <script>
-    //========================buscador en tiempo real de enfermedades modal=======================
-    $(document).ready(function(){
-      $("#buscar_enfermedad").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#modal_enfermedad tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    Dropzone.options.myDropzone = {
+
+        url: "{{ route('save.history', $rs) }}",
+            headers: {
+          'X-CSRF-TOKEN': "{{ csrf_token() }}"
+         },
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+            return time+file.name;
+            },
+            // autoProcessQueue:true,
+            maxFilesize: 10,
+            // maxFiles:3,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 50000,
+            removedfile: function(file,response)
+            {
+                var name = file.xhr.response;
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("prueba.eliminar") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        filename: name
+                        },
+                    success: function (data){                 //si no trae valores
+                            Swal.fire({
+                                title: 'Archivo eliminado correctamente',
+                                text: 'Click en OK para continuar',
+                                type: 'success',
+                            });
+                        // console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
+
+                    var fileRef;
+                    return (fileRef = file.previewElement) != null ?
+                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
+            },
+            success: function(file, response)
+            {
+                console.log('controlador',response);
+
+
+            },
+            error: function(file, response)
+            {
+            return false;
+            }
+    }
+
+
+    </script>
+
+
+    <script>
+        //========================buscador en tiempo real de enfermedades modal=======================
+        $(document).ready(function(){
+        $("#buscar_enfermedad").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#modal_enfermedad tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
         });
       });
     });

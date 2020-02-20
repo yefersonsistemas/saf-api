@@ -222,9 +222,12 @@
       text-align: center;
       display: block;
       cursor: pointer;
+      color:  #00506b;
+      /* text-decoration:none; */
       border: none; }
       .dropzone .dz-preview .dz-remove:hover {
-        text-decoration: underline; }
+        text-decoration: none;
+        color: #00ad88; }
     .dropzone .dz-preview:hover .dz-details {
       opacity: 1; }
     .dropzone .dz-preview .dz-details {

@@ -1,3 +1,21 @@
+
+    //=============================guardar dropzone=========================
+    public function prueba_guardar(Request $request)
+    {
+        dd($request);
+        $image = $request->file('file');
+        $path = $image->store('public/Person');
+        $path = str_replace('public/', '', $path);
+        $image = new File;
+        $image->path = $path;
+        $image->fileable_type = "App\Person";
+        $image->fileable_id = 1;
+        $image->branch_id = 1;
+        $image->save();
+
+        return response()->json(["status" => "success", "data" => $data]);
+    }
+
 <!doctype html>
 <html lang="en">
   <head>
