@@ -67,20 +67,11 @@ class InController extends Controller
      //=============================Eliminar dropzone=========================
     public function prueba_eliminar(Request $request)
     {
-        dd($request->filename);
-
-        $id= $request->filename;
+        $datos=json_decode($request->filename);
+        $id= $datos->data->id;
         $image = File::find($id);
         $image->delete();
-        
-        $image = $request->file('filename');
-        $filename =  $request->get('filename').'.jpeg';
-        ImageUpload::where('image_name', $filename)->delete();
-        $path = public_path().'/images/'.$filename;
-        if (file_exists($path)) {
-            unlink($path);
-        }
-        return $filename;
+        return $image;
     }
 
 
@@ -252,8 +243,11 @@ class InController extends Controller
     public function guardar(Request $request, $id)  //REVISAR
      {
         //  dd($request);
+        // dd($id);
+       
 
         if($request->file('file')){
+            $reservation = Reservation::find($id);
             $image = $request->file('file');
 
             $image = $request->file('file');
@@ -262,7 +256,7 @@ class InController extends Controller
             $image = new File;
             $image->path = $path;
             $image->fileable_type = "App\Person";
-            $image->fileable_id = 1;
+            $image->fileable_id = $reservation->patient_id;
             $image->branch_id = 1;
             $image->save();
    

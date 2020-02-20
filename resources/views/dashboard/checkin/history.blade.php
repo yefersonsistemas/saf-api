@@ -837,17 +837,9 @@
 
 <script>
 
-    
-    var carga = {}
-    var borrar ;
     Dropzone.options.myDropzone = {
         
-        // $("for#dropzone").dropzone({ url: "prueba/guardar" });
-        // url: "prueba/guardar",
-        // var name = file.upload.filename;
         url: "{{ route('save.history', $rs) }}",
-        // url: "{{ route('prueba.guardar') }}",
-        // $.ajax
             maxFilesize: 10, //cantidad de archivos que se cargararn
             headers: {
           'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -862,18 +854,14 @@
             timeout: 50000,
             removedfile: function(file,response)
             {
-                var name = file.upload.filename;
-                var name2 = file.xhr.response;
-                console.log('imagen', name2)
-                console.log('kenwherly', file)
-                // var name = file;
+                var name = file.xhr.response;
                 console.log('hola', name)
                 $.ajax({                        
                     type: 'POST',
                     url: '{{ route("prueba.eliminar") }}',
                     data: {
                         _token: "{{ csrf_token() }}",
-                        filename: name2
+                        filename: name
                         },
                     success: function (data){
                         console.log('data',data);
@@ -890,96 +878,18 @@
             success: function(file, response)
             {
                 console.log('controlador',response);
+
+
             },
             error: function(file, response)
             {
             return false;
-            }
-
-        // autoProcessQueue: true,
-        // parallelUploads: 100,
-        // uploadMultiple: true,
-        // maxFiles: 10,
-        // maxFilesize:10,
-        // addRemoveLinks: true,
-        // headers: {
-        //   'X-CSRF-TOKEN': "{{ csrf_token() }}"
-        // },
-        // success: function (file, response) {
-        //     var cargar = $('#my-dropzone').append('<input type="hidden" name="file" class="'+file.name+'" id="examenb" value="'+file.name+'">')
-        //     carga[file.name] = response.name
-        //     console.log('ysbe',file.name)
-        // },
-    
-    
-        // removedfile: function(file) {
-        // var name = file.name;
-        // console.log('trae', name);
-        
-        //     if(file.name != null){
-        //         var id= $('#my-dropzone');
-        //         $('.dropzone').remove(id.val());
-        //         console.log('borrado');
-        //     }
-        // }
-        
+            }        
     }
    
 
     </script>
 
-    {{-- <script>
-        var carga = {}
-        var borrar ;
-        Dropzone.options.dropzone =
-        {
-            url: "{{ route('save.history', $rs) }}",
-            maxFilesize: 10, //cantidad de archivos que se cargararn
-            renameFile: function(file) {
-                var dt = new Date();
-                var time = dt.getTime();
-            return time+file.name;
-            },
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
-            timeout: 50000,
-            removedfile: function(file)
-            {
-                var name = file.upload.filename;
-                console.log('hola', name)
-                $.ajax({                        
-                    type: 'POST',
-                    url: '{{ route("prueba.eliminar") }}',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        filename: name
-                        },
-                    success: function (data){
-                        console.log("File has been successfully removed!!");
-                    },
-                    error: function(e) {
-                        console.log(e);
-                    }});
-
-                    var fileRef;
-                    return (fileRef = file.previewElement) != null ?
-                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
-            },
-            success: function(file, response)
-            {
-                console.log(response);
-            },
-            error: function(file, response)
-            {
-            return false;
-            }
-        };
-
-    </script> --}}
-
-    <script>
-    $("div#dropzone").dropzone({ url: "prueba/guardar" });
-    </script>
 
     <script>
         //========================buscador en tiempo real de enfermedades modal=======================
