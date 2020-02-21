@@ -35,7 +35,7 @@ class NurseController extends Controller
     {
         // dd($id);
         $person = Person::where('id', $id)->first();
-        $cirugia = Surgery::with();
+        // $cirugia = Surgery::with();
 
         return view('dashboard.vergel.enfermeria.create-informe-cirugia', compact('person'));
     }
@@ -49,9 +49,9 @@ class NurseController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $patient = Patient::with('surgery')->where('id', $request->patient_id)->first();
+        // $patient = Patient::with('surgery')->where('person_id', $request->patient_id)->first();
         // dd($patient->surgery);
-        $person = Person::where('id', $patient->person_id)->first();
+        $person = Person::where('id', $request->person_id)->first();
         // dd($person);
 
 
@@ -71,32 +71,21 @@ class NurseController extends Controller
                 $image->branch_id = 1;
                 $image->save();
 
-                // dd($image);
+                dd($image);
 
-                if($image != null){
-                    foreach( $patient->surgery as $surgery)
-                        $informe = Informesurgery::create([
-                            'file_id' => $image->id,
-                            'surgery_id' => $surgery->id,
-                            'branch_id' => 1,
+                // if($image != null){
+                //     foreach( $patient->surgery as $surgery)
+                //         $informe = Informesurgery::create([
+                //             'file_id' => $image->id,
+                //             'surgery_id' => $surgery->id,
+                //             'branch_id' => 1,
         
-                        ]);
-                    }
+                //         ]);
+                //     }
                     
-                    dd($informe );
-                }
+                //     dd($informe );
+                // }
             }
-
-            // foreach($image as $img){
-            //     $informe = Informesurgery::create([
-            //         'file_id' => $image->id,
-            //         'surgery_id' => $patient->surgery->id,
-            //         'branch_id' => 1,
-
-            //     ]);
-
-            //     dd($informe );
-            // }
         }
 
         return redirect()->route('lista_cirugias')->withSuccess('Informe guardado correctamente');
