@@ -15,15 +15,12 @@ class CreateInformeSurgery extends Migration
     {
         Schema::create('informe_surgery', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('file_id');
             $table->unsignedBigInteger('surgery_id');
+            $table->boolean('status');
+            $table->date('fecha_ingreso');
+            $table->date('fecha_culminar');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
-
-            $table->foreign('file_id')
-            ->references('id')
-            ->on('file')
-            ->onDelete('CASCADE');
 
             $table->foreign('surgery_id')
             ->references('id')

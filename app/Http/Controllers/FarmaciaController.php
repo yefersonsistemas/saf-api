@@ -7,6 +7,7 @@ use App\Medicine_pharmacy;
 use App\Stock_pharmacy;
 use App\Lot_pharmacy;
 use App\Medicine;
+use App\Informesurgery;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -186,13 +187,15 @@ class FarmaciaController extends Controller
      //===========================asignacion====================
      public function create_asignacion()
      {
-  
+        $informe = Informesurgery::with('surgery.file_doctor')->where('status', true)->get();
+        dd($informe);
          return view('dashboard.vergel.farmaceuta.asignacion');
     }
 
      //===========================asignacion====================
      public function asignacion_medicine($id)
      {
+        
         $stock = Stock_pharmacy::with('medicine_pharmacy_id')->get();
         // dd($stock);
         return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('stock'));

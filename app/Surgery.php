@@ -12,6 +12,11 @@ class Surgery extends Model
         'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branch_id'
     ];
 
+    public function file_doctor()
+    {
+        return $this->morphMany('App\FileDoctor', 'fileable');
+    }
+
     public function employe()
     {
         return $this->belongsTo('App\Employe','employe_id');
