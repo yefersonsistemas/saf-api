@@ -17,6 +17,16 @@ class Surgery extends Model
         return $this->morphMany('App\FileDoctor', 'fileable');
     }
 
+    public function file_internista()
+    {
+        return $this->morphMany('App\FileInternista', 'fileable');
+    }
+
+    public function file_anestesiologo()
+    {
+        return $this->morphMany('App\FileAnestesiologo', 'fileable');
+    }
+
     public function employe()
     {
         return $this->belongsTo('App\Employe','employe_id');

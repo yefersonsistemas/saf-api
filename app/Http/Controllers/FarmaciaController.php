@@ -8,6 +8,7 @@ use App\Stock_pharmacy;
 use App\Lot_pharmacy;
 use App\Medicine;
 use App\Informesurgery;
+use App\Surgery;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -187,7 +188,9 @@ class FarmaciaController extends Controller
      //===========================asignacion====================
      public function create_asignacion()
      {
-        $informe = Informesurgery::with('surgery.file_doctor')->where('status', true)->get();
+         $surgery = Surgery::with('patient')->get();
+         dd($surgery);
+        $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person','surgery.employe.person')->where('status', true)->get();
         dd($informe);
          return view('dashboard.vergel.farmaceuta.asignacion');
     }
