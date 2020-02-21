@@ -63,9 +63,9 @@
                                         <th>Foto</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Cirugía</th>
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha culminar</th>
-                                        <th>Motivo</th>
                                         <th class="text-center">Medicamento</th>
                                     </tr>
                                 </thead>
@@ -74,35 +74,34 @@
                                         <th>Foto</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
+                                        <th>Cirugía</th>
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha culminar</th>
-                                        <th>Motivo</th>
                                         <th class="text-center">Medicamento</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @foreach ($informe as $item)
                                         <tr>
-                                            <td>foto</td>
-                                            <td>nombre</td>
-                                            <td>apellido</td>
-                                            <td>fecha ingreso</td>
-                                            <td>fecha culminar</td>
-                                            <td>motivo</td>
-                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',1)}}" class="btn btn-verdePastel text-white">Asignar</a></td>
+                                            <td style="text-align: center; font-size:10px; height:40px;">
+                                                @if (!empty($item->surgery->patient->first()->person->image->path))
+                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($item->surgery->patient->first()->person->image->path) }}" alt="">
+                                                @else
+                                                    <img src="" alt="" width="100%" height="100%">
+                                                @endif
+                                            </td>
+                                            <td>{{$item->surgery->patient[0]->person->name}}</td>
+                                            <td>{{$item->surgery->patient[0]->person->lastname}}</td>
+                                            <td>{{$item->surgery->typesurgeries->name}}</td>
+                                            <td>{{$item->fecha_ingreso}}</td>
+                                            <td>{{$item->fecha_culminar}}</td>
+                                            @if(!empty($item->surgery->file_doctor->first()))
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white">Asignar</a></td>
+                                            @else
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white">Agregar</a></td>
+                                            @endif
                                         </tr>
-
-                                    {{-- @foreach ($stock as $item)
-                                        <tr>
-                                            <td>{{$item->medicine_pharmacy->medicine->name}}</td>
-                                            <td>{{$item->medicine_pharmacy->marca}}</td>
-                                            <td>{{$item->medicine_pharmacy->laboratory}}</td>
-                                            <td>{{$item->medicine_pharmacy->presentation}}</td>
-                                            <td>{{$item->medicine_pharmacy->measure}}</td>
-                                            <td>{{$item->medicine_pharmacy->quantity_Unit}}</td>
-                                            <td>{{$item->total}}</td>
-                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-verdePastel text-white">Agregar</a></td>
-                                        </tr>
-                                    @endforeach                                   --}}
+                                    @endforeach                                  
                                 </tbody>
                             </table>
                         </div>
