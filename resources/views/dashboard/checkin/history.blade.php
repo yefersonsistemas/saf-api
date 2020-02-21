@@ -1004,7 +1004,7 @@
         var reservacion = $("#reservacion_id").val();
         var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
         
-        ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+        ajax_enfermedad(enfermedad,reservacion); 
     }); //fin de la funcion clikea
 
     function ajax_enfermedad(enfermedad,reservacion){
@@ -1314,7 +1314,7 @@
                     id:reservacion,                          
                 }
             })
-            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+            .done(function(data) {        
                 console.log('esto',data[0][0]);
                 if (data[1] == 201) {                       
                     Swal.fire({
@@ -1322,7 +1322,7 @@
                         text:  'Medicamento Agregado con Exito!',
                         type:  'success',
                     })
-                        show_medicines(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                        show_medicines(data[0]);      
                 }
             })
             .fail(function(data) {
