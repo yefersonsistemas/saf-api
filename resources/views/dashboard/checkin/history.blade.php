@@ -848,6 +848,127 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
+<script>
+    Dropzone.options.myDropzone = {
+
+        url: "{{ route('save.history', $rs) }}",
+            headers: {
+          'X-CSRF-TOKEN': "{{ csrf_token() }}"
+         },
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+            return time+file.name;
+            },
+            // autoProcessQueue:true,
+            maxFilesize: 10,
+            // maxFiles:3,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 50000,
+            removedfile: function(file,response)
+            {
+                var name = file.xhr.response;
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("prueba.eliminar") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        filename: name
+                        },
+                    success: function (data){                 //si no trae valores
+                            Swal.fire({
+                                title: 'Archivo eliminado correctamente',
+                                text: 'Click en OK para continuar',
+                                type: 'success',
+                            });
+                        // console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
+                    var fileRef;
+                    return (fileRef = file.previewElement) != null ?
+                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
+            },
+            success: function(file, response)
+            {
+                console.log('controlador',response);
+            },
+            error: function(file, response)
+            {
+            return false;
+            }
+    }
+
+    </script>
+    <script>
+        //========================buscador en tiempo real de enfermedades modal=======================
+        $(document).ready(function(){
+        $("#buscar_enfermedad").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#modal_enfermedad tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+    <script>
+        //========================buscador en tiempo real de medicamentos modal=======================
+        $(document).ready(function(){
+        $("#buscar_medicamentos").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#modal_medicamentos tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+    <script>
+        //========================buscador en tiempo real de alergias modal=======================
+        $(document).ready(function(){
+        $("#buscar_alergia").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#modal_alergias tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+    <script>
+        //========================buscador en tiempo real de enfermedades en vista =======================
+        $(document).ready(function(){
+        $("#buscar_enfermedades").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#enfermedades tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+    <script>
+        //========================buscador en tiempo real de alergias en vista =======================
+        $(document).ready(function(){
+        $("#buscar_alergias").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#alergias tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+    <script>
+        //========================buscador en tiempo real de medicamentos en vista=======================
+        $(document).ready(function(){
+        $("#buscar_medicinas").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#medicamentos tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
+    
 
     <script>
         $('#disease').multiselect({
@@ -883,7 +1004,7 @@
         var reservacion = $("#reservacion_id").val();
         var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
 
-        ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
+        ajax_enfermedad(enfermedad,reservacion);
     }); //fin de la funcion clikea
 
     function ajax_enfermedad(enfermedad,reservacion){
@@ -1193,7 +1314,7 @@
                     id:reservacion,
                 }
             })
-            .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
+            .done(function(data) {
                 console.log('esto',data[0][0]);
                 if (data[1] == 201) {
                     Swal.fire({
@@ -1201,7 +1322,7 @@
                         text:  'Medicamento Agregado con Exito!',
                         type:  'success',
                     })
-                        show_medicines(data[0]);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
+                        show_medicines(data[0]);
                 }
             })
             .fail(function(data) {
