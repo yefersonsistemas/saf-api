@@ -203,7 +203,7 @@ class FarmaciaController extends Controller
         $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image')->where('id',$id)->first();
         // dd($informe->surgery->file_doctor->first()->path);
         $stock = Stock_pharmacy::with('medicine_pharmacy.medicine')->get();
-        // dd($stock->first()->medicine_pharmacy->medicine->name);
+        // dd($stock);
         return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('stock','informe'));
     }
  
