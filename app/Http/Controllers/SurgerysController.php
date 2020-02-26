@@ -105,8 +105,8 @@ class SurgerysController extends Controller
     
     public function buscar_doctor(Request $request)
     {
-        $employe = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment')->where('id', $request->id)->first();
-        // dd($employe);
+        $employe = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment', 'surgery')->where('id', $request->id)->first();
+        dd($employe);
         if (!is_null($employe)) {
         
             return response()->json([
@@ -403,8 +403,11 @@ class SurgerysController extends Controller
         $e = $request->employe_id;
         $a = $request->area_id;
         $d = Carbon::create($request->date)->format('Y-m-d');
+        $parcial = $request->parcial;
+        $total = $request->total;
+        $payment = $request->monto;
 
-        if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null){
+        if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null  && $parcial !=null  && $total !=null  && $payment !=null){
             
             $surgery = Surgery::create([		
                 'patient_id' => $p->id,
@@ -413,6 +416,8 @@ class SurgerysController extends Controller
                 'area_id' => $a,
                 'date'=> $d,
                 'branch_id' => 1,
+                'status'=> $parcial,
+                'payment' => $payment,
                 ]);
                 // dd($surgery);
                 //Actualiza el status del quirofano a ocupado

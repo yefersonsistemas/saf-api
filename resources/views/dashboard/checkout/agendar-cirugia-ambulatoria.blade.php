@@ -351,6 +351,7 @@
         console.log('hola')
         $("input[name='employe']").click(function() {
             var employe = $(this).val();
+ 
             console.log('empleado_id',employe);
             $.ajax({
                     url: "{{ route('search.schedule') }}",

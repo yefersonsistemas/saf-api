@@ -37,10 +37,12 @@ class InoutController extends Controller
     public function agendar_cirugia()
     {
         $clasificacion = ClassificationSurgery::where('name', 'hospitalaria')->first();
-        $surgery = Typesurgery::with('image')->where('classification_surgery_id',  $clasificacion->id)-> get();
+       //dd($clasificacion);
+        $surgery = Typesurgery::with('image')->where('classification_surgery_id', $clasificacion->id)->get();
+        //  dd($surgery);
         $tipo = TypeArea::where('name', 'Quirofano')->first();
+        //dd($tipo);
         $area = Area::with('image')->where('type_area_id', $tipo->id)->get();
-
         return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery','area'));
     }
         

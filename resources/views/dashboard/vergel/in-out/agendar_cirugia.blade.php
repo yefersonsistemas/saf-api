@@ -111,13 +111,15 @@
                         </div>
                     </section>
                     <h2>Elegir Cirugia</h2>
- 
                     <section> 
                         <div class="row justify-content-between">
                             @foreach ($surgery as $surgeries)                           
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                 <label class="imagecheck m-0">
                                     <div class="card assigment">
+                                        {{-- aqui --}}
+                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" class="imagecheck-input">  
+                                        {{-- aqui --}}                               
                                         <input type="radio" name="type_surgery_id" value="{{ $surgeries->id }}" id="type_surgery_id" class="imagecheck-input">
                                          @if (!empty($surgeries->image->path))                                     
                                         <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
@@ -210,22 +212,92 @@
                         </div>
                     </section>
 
-
-
                     <h2>Pago</h2>
-                    <section class="py-1 align-items-center">
-                        <div class="col-md-8 mx-auto mt-3">
+                    <section ml-4>
+                    <div class="card p-2 mt-2">
+                        <div class="ml-4 container">
+
+                            <div class="row  ">
                             
-                                   <h3 class="card-title text-center ">Cancelar Cirugia</h3>
-                              
-                                <div class="form-group mx-4">
-                                    <div class="input-group date">
-                                       
+                                
+                                <div class="col-4">
+                                    <p class="row h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>    
+                                    <div class="row ">
+                                        <span id="name_pay"></span> <br> &nbsp <span id="lastname_pay"></span>   
                                     </div>
-                                              
-                                </div>              
-                           
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-md-8  ">
+                                            <p class=" row h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i>DOCTOR</p>
+                                            <div class="row" id="medic"></div>                                            
+                                        </div>                                                                                                    
+                                    </div>                                          
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-md-8  ">
+                                            <p class=" row h6" style="color:#000; font-weight:bold;"><i class="fa fa-calendar mr-2" style="font-size:16px"></i>FECHA</p>
+                                            <div class="row ">
+                                                <span id="medic"></span>   
+                                            </div>
+                                        </div>                                  
+                                    </div>                                          
+                                </div>
+
+                            </div>
+
+                        </div> 
+                    </div>      
+                    
+                    <div class="col-lg-12">
+                        <div class="card mt-4">                                     
+                            <div class="card-body py-0">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">                            
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                    <th scope="col">Cirugia</th>
+                                                    <th scope="col">Precio</th>
+                                                    <th scope="col">Pago</th>
+                                
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td >NOMBRE DE LA CIRUGIA </td>
+                                                    <td >AQUI VA EL PRECIO DE LA CIRUGIA</td>
+                                                    <td >
+                                                        <div class="form-check form-check">
+                                                            <input class= "form-check-input"  style="font-size:15px" type="radio" name="parcial"  value="parcial">
+                                                            <label class="form-check-label" for="inlineRadio1">PARCIAL</label>
+                                                        </div>
+                                                        <div class="form-check form-check">
+                                                            <input class="form-check-input"  style="font-size:15px" type="radio" name="total"   value="total">
+                                                            <label class="form-check-label" for="inlineRadio2">TOTAL</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>                                         
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                        <div class="row mt-4">
+                                <div class="col-10 text-right mt-1 ">
+                                    <p style="color:#000; font-weight:bold;"><i style="font-size:16px"></i>MONTO A CANCELAR</p>     
+                                </div>  
+                                <div class="col-2">
+                                    <input type="text" id="monto" name="monto" class="form-control"  value="" required="">
+                                </div>                                            
+                        </div>                  
                     </section>
                 </form>
             </div>
@@ -233,8 +305,8 @@
     </div>
 </div>
 
- @endsection 
- @section('scripts')
+@endsection 
+@section('scripts')
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\bundles\fullcalendar.bundle.js') }}"></script>
@@ -338,7 +410,7 @@ var form = $('#wizard_horizontal').show();
                 }
             })
             .done(function(data) {
-                console.log('paciente', data);
+                console.log('paciente es', data);
                 if (data[0] == 202) {
                     Swal.fire({
                         title: data.message,
@@ -364,7 +436,9 @@ var form = $('#wizard_horizontal').show();
 
     function disabled(data) {
         $('#name').val(data.patient.person.name);
+        $('#name_pay').text(data.patient.person.name);       
         $('#lastname').val(data.patient.person.lastname);
+        $('#lastname_pay').text(data.patient.person.lastname);
         $('#email').val(data.patient.person.email);
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
@@ -391,8 +465,17 @@ var form = $('#wizard_horizontal').show();
     function surgery() {
         $("input[name='type_surgery_id']").click(function() {
 
+         
             var surgery = $(this).val();
-            console.log("aqui van las cirugias", surgery);
+            console.log("lee aqui para verificar cirugia",surgery);
+
+            //aqui
+            var name = $('#name_surgery'+surgery).val();
+             //aqui
+
+            console.log("lee aqui para verificar nombre",name);
+
+
 
             $.ajax({
                     url: "{{ route('inout.search_doctor') }}",
@@ -422,14 +505,15 @@ var form = $('#wizard_horizontal').show();
 
 
     function cargarMedicos(data) {
-        console.log('dataaaa',data.surgery.employe_surgery[0] );
+        console.log('datos captados---->',data.surgery.employe_surgery[0] );
         $('#medicos').empty();
             for (let j = 0; j < data.surgery.employe_surgery.length; j++) {
                 $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                         <div class="card assigment">
+
                                                 <input type="radio" name="employe_id" value="${data.surgery.employe_surgery[j].id }" id="employe_id" class="imagecheck-input">
-                                                <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
+                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
                                                     <img width="100%" height="100%" src="/storage/${data.surgery.employe_surgery[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                 </figure>
                                                 <div class="card-body text-center bg-grisinus pt-4" style="height:70px; width:170px">
@@ -440,8 +524,21 @@ var form = $('#wizard_horizontal').show();
                                     </label>
                                 </div>`);
         }
+        $('#medic').empty();
+        for (let j = 0; j < data.surgery.employe_surgery.length; j++)
+    {
+                $('#medic').append(`<div">
+                
+                                            <h6>${data.surgery.employe_surgery[j].person.name} ${data.surgery.employe_surgery[j].person.lastname}</h6>
+                                </div>`);
+        }
+        $('#surgery').empty();
+        for (let j = 0; j < data.type_surgery.length; j++) {
+                $('#medic').append(`<div">
+                                            <h6>${data.type_surgeries[j].name} </h6>
+                                </div>`);
+        }
     }
-
 
 //----------------------------Doctores registrados------------------------------------
 
