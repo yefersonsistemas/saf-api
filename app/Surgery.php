@@ -75,17 +75,10 @@ class Surgery extends Model
     {
         return $this->hasMany('App\Reservation');
     }
-<<<<<<< HEAD
     
     public function billing()
     {
         return $this->belongsToMany('App\billing','billing_id');
-=======
-
-    public function informe()
-    {
-        return $this->hasMany('App\Informesurgey','file_id');
->>>>>>> 004b2b0b1b67a3156f3f3389fbaa0ec10049d6de
     }
     // public function procedure() //relacion  con la tabla m:m 
     // {
