@@ -23,10 +23,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-
-                {{-- <form id="wizard_horizontal" method="POST" action="{{route('surgery.hospitalaria_store')}}" class="card pl-4 pr-4">          --}}
-                 <form id="wizard_horizontal" method="POST" action="   " class="card pl-4 pr-4">         
-
+                  <form id="wizard_horizontal" method="POST" action="{{route('inout.hospitalaria_store')}}" class="card pl-4 pr-4">         
                     @csrf
                     <h2>Buscar Paciente</h2>
                     <section class="py-1">
@@ -113,44 +110,33 @@
                             </div>
                         </div>
                     </section>
-
                     <h2>Elegir Cirugia</h2>
                     <section> 
                         <div class="row justify-content-between">
-                            {{-- @foreach ($surgeries as $surgery) --}}
-                            
+                            @foreach ($surgery as $surgeries)                           
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                 <label class="imagecheck m-0">
                                     <div class="card assigment">
-                                        <input type="radio" name="type_surgery_id" value="   " id="type_surgery_id" class="imagecheck-input">
-                                       {{-- <inputtype="radio"name="type_surgery_id"value="$surgery->id --}}}" id="type_surgery_id" class="imagecheck-input"> --}}
-
-                                         {{-- @if (!empty($surgery->image->path)) --}}
-
+                                        {{-- aqui --}}
+                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" class="imagecheck-input">  
+                                        {{-- aqui --}}                               
+                                        <input type="radio" name="type_surgery_id" value="{{ $surgeries->id }}" id="type_surgery_id" class="imagecheck-input">
+                                         @if (!empty($surgeries->image->path))                                     
                                         <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
-
-                                            {{-- <img width="100%" height="100%" src="{{ Storage::url($surgery->image->path) }}" alt="" class="imagecheck-image w-auto">] --}}
-                                            <img width="100%" height="100%" src="    " alt="" class="imagecheck-image w-auto">
+                                            <img width="100%" height="100%" src="{{ Storage::url($surgeries->image->path) }}" alt="" class="imagecheck-image w-auto">
                                         </figure>
-
-                                        {{-- @else --}}
-
+                                        @else
                                         <figure class="imagecheck-figure border-0 text-center">
                                             <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image w-auto">
                                         </figure>
-
-                                        {{-- @endif  --}}
-
+                                        @endif 
                                         <div class="card-body text-center pt-4" style="height:70px; width:170px">
-
-
-                                            {{-- <h6 class="font-weight-bold" style="font-size:15px">{{ $surgery->name }}</h6> --}}
-                                            <h6 class="font-weight-bold" style="font-size:15px">    </h6>
-                                        </div>
+                                            <h6 class="font-weight-bold" style="font-size:15px">{{ $surgeries->name }}</h6>
+                                         </div>
                                     </div>
                                 </label>
                             </div>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </div>
                     </section>
 
@@ -160,30 +146,28 @@
                         <div class="row justify-content-between" id="medicos">
                         </div>
                     </section>
+                    
                     <h2>Seleccione Quirofano</h2>
                     <section class="container">
                         <div class="row justify-content-between">
-                            {{-- @foreach ($quirofano as $quirofano) --}}
-                                {{-- @if ($quirofano->status == '') --}}
+                            @foreach ($area as $area)
+                                @if ($area->status == '')
                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                             <div class="card assigment">
-                                                <input type="radio" name="area_id" value="   " id="area_id" class="imagecheck-input">                               
-                                                {{-- <input type="radio" name="area_id" value="{{ $quirofano->id }}" id="area_id" class="imagecheck-input">                                --}}
+                                                 <input type="radio" name="area_id" value="{{ $area->id }}" id="area_id" class="imagecheck-input">                               
                                                 <figure class="imagecheck-figure border-0 text-center">
                                                     <img src="{{ asset('assets/images/sm/default.jpg') }}" alt="" class="imagecheck-image">
-                                                </figure>
-                                                {{-- @endif --}}
+                                                </figure>                              
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                                    <h6 class="font-weight-bold" style="font-size:15px">  </h6>
-                                                    {{-- <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6> --}}
+                                                     <h6 class="font-weight-bold" style="font-size:15px">{{ $area->name }}</h6>
                                                     <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
-                                {{-- @else --}}
-                                {{-- @if ( $quirofano->status == 'ocupado') --}}
+                                @else
+                                @if ( $area->status == 'ocupado')
                                 <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                     <label class="imagecheck m-0">
                                         <div class="card assigment">
@@ -193,18 +177,15 @@
                                             </figure>
                                             {{-- @endif --}}
                                             <div class="card-body text-center pt-4" style="height:70px; width:170px">
-                                                <h6 class="font-weight-bold" style="font-size:15px">    </h6>
-                                                {{-- <h6 class="font-weight-bold" style="font-size:15px">{{ $quirofano->name }}</h6> --}}
-
-                                                <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">    </span> </h6>
-                                                {{-- <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $quirofano->status }}</span> </h6> --}}
+                                                 <h6 class="font-weight-bold" style="font-size:15px">{{ $area->name }}</h6>
+                                                 <h6 class="card-subtitle mt-1"><span class="badge badge-light text-danger pl-3 pr-3 pb-1" style="color:red">{{ $area->status }}</span> </h6>
                                             </div>
                                         </div>
                                     </label>
                                 </div>
-                            {{-- @endif --}}
-                                {{-- @endif --}}
-                            {{-- @endforeach --}}
+                            @endif
+                                @endif
+                            @endforeach
                         </div>
                     </section>
 
@@ -230,19 +211,106 @@
                             </div>
                         </div>
                     </section>
+
+                    <h2>Pago</h2>
+                    <section ml-4>
+                    <div class="card p-2 mt-2">
+                        <div class="ml-4 container">
+
+                            <div class="row  ">
+                            
+                                
+                                <div class="col-4">
+                                    <p class="row h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>    
+                                    <div class="row ">
+                                        <span id="name_pay"></span> <br> &nbsp <span id="lastname_pay"></span>   
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-md-8  ">
+                                            <p class=" row h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i>DOCTOR</p>
+                                            <div class="row" id="medic"></div>                                            
+                                        </div>                                                                                                    
+                                    </div>                                          
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-md-8  ">
+                                            <p class=" row h6" style="color:#000; font-weight:bold;"><i class="fa fa-calendar mr-2" style="font-size:16px"></i>FECHA</p>
+                                            <div class="row ">
+                                                <span id="medic"></span>   
+                                            </div>
+                                        </div>                                  
+                                    </div>                                          
+                                </div>
+
+                            </div>
+
+                        </div> 
+                    </div>      
+                    
+                    <div class="col-lg-12">
+                        <div class="card mt-4">                                     
+                            <div class="card-body py-0">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">                            
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                    <th scope="col">Cirugia</th>
+                                                    <th scope="col">Precio</th>
+                                                    <th scope="col">Pago</th>
+                                
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td >NOMBRE DE LA CIRUGIA </td>
+                                                    <td >AQUI VA EL PRECIO DE LA CIRUGIA</td>
+                                                    <td >
+                                                        <div class="form-check form-check">
+                                                            <input class= "form-check-input"  style="font-size:15px" type="radio" name="parcial"  value="parcial">
+                                                            <label class="form-check-label" for="inlineRadio1">PARCIAL</label>
+                                                        </div>
+                                                        <div class="form-check form-check">
+                                                            <input class="form-check-input"  style="font-size:15px" type="radio" name="total"   value="total">
+                                                            <label class="form-check-label" for="inlineRadio2">TOTAL</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>                                         
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row mt-4">
+                                <div class="col-10 text-right mt-1 ">
+                                    <p style="color:#000; font-weight:bold;"><i style="font-size:16px"></i>MONTO A CANCELAR</p>     
+                                </div>  
+                                <div class="col-2">
+                                    <input type="text" id="monto" name="monto" class="form-control"  value="" required="">
+                                </div>                                            
+                        </div>                  
+                    </section>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
- @endsection 
- @section('scripts')
+@endsection 
+@section('scripts')
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\bundles\fullcalendar.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
-para el calendario js 
 <script src='{{asset('assets\fullcalendar\packages\core\main.js')}}'></script>
 <script src='{{asset('assets\fullcalendar\packages\interaction\main.js')}}'></script>
 <script src='{{asset('assets\fullcalendar\packages\daygrid\main.js')}}'></script>
@@ -333,7 +401,7 @@ var form = $('#wizard_horizontal').show();
 
     function ajax(type_dni, dni) {
         $.ajax({
-                url: "{{ route('search.patients') }}",
+                url: "{{ route('search.inout.patients') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -342,7 +410,7 @@ var form = $('#wizard_horizontal').show();
                 }
             })
             .done(function(data) {
-                console.log('paciente', data);
+                console.log('paciente es', data);
                 if (data[0] == 202) {
                     Swal.fire({
                         title: data.message,
@@ -368,7 +436,9 @@ var form = $('#wizard_horizontal').show();
 
     function disabled(data) {
         $('#name').val(data.patient.person.name);
+        $('#name_pay').text(data.patient.person.name);       
         $('#lastname').val(data.patient.person.lastname);
+        $('#lastname_pay').text(data.patient.person.lastname);
         $('#email').val(data.patient.person.email);
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
@@ -395,11 +465,20 @@ var form = $('#wizard_horizontal').show();
     function surgery() {
         $("input[name='type_surgery_id']").click(function() {
 
+         
             var surgery = $(this).val();
-            console.log("hh", surgery);
+            console.log("lee aqui para verificar cirugia",surgery);
+
+            //aqui
+            var name = $('#name_surgery'+surgery).val();
+             //aqui
+
+            console.log("lee aqui para verificar nombre",name);
+
+
 
             $.ajax({
-                    url: "{{ route('search.doctor') }}",
+                    url: "{{ route('inout.search_doctor') }}",
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -407,14 +486,13 @@ var form = $('#wizard_horizontal').show();
                     }
                 })
                 .done(function(data) {
-                    console.log("d",data.surgery.employe_surgery);
+                    console.log("este es el dato",data.surgery.employe_surgery);
                     Swal.fire({
                         title: 'Cirugia Seleccionada!',
                         text: 'Click en OK para continuar',
                         type: 'success',
                         allowOutsideClick:false,
                     });
-                    // $('#surgery').val(data[0].id);
                     cargarMedicos(data);
                 })
                 .fail(function(data) {
@@ -423,15 +501,19 @@ var form = $('#wizard_horizontal').show();
         });
     }
 
+
+
+
     function cargarMedicos(data) {
-        console.log('dataaaa',data.surgery.employe_surgery.length);
+        console.log('datos captados---->',data.surgery.employe_surgery[0] );
         $('#medicos').empty();
             for (let j = 0; j < data.surgery.employe_surgery.length; j++) {
                 $('#medicos').append(`<div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                         <div class="card assigment">
+
                                                 <input type="radio" name="employe_id" value="${data.surgery.employe_surgery[j].id }" id="employe_id" class="imagecheck-input">
-                                                <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
+                                                 <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px;">
                                                     <img width="100%" height="100%" src="/storage/${data.surgery.employe_surgery[j].image.path}" alt="" class="imagecheck-image m-auto">
                                                 </figure>
                                                 <div class="card-body text-center bg-grisinus pt-4" style="height:70px; width:170px">
@@ -442,8 +524,21 @@ var form = $('#wizard_horizontal').show();
                                     </label>
                                 </div>`);
         }
+        $('#medic').empty();
+        for (let j = 0; j < data.surgery.employe_surgery.length; j++)
+    {
+                $('#medic').append(`<div">
+                
+                                            <h6>${data.surgery.employe_surgery[j].person.name} ${data.surgery.employe_surgery[j].person.lastname}</h6>
+                                </div>`);
+        }
+        $('#surgery').empty();
+        for (let j = 0; j < data.type_surgery.length; j++) {
+                $('#medic').append(`<div">
+                                            <h6>${data.type_surgeries[j].name} </h6>
+                                </div>`);
+        }
     }
-
 
 //----------------------------Doctores registrados------------------------------------
 
@@ -468,7 +563,7 @@ var form = $('#wizard_horizontal').show();
     function quirofano() {
         $("input[name='area_id']").click(function() {
             var quirofano = $(this).val();
-            console.log(quirofano);
+            console.log('seleccionaste el quirofano',quirofano);
 
             Swal.fire({
                 title: 'Quirofano seleccionado!',

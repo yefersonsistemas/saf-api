@@ -2365,7 +2365,10 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
+ 
+ 
    //================ mostrando posibles procedimientos =============
+
     function mostrarProcedure(data){
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
