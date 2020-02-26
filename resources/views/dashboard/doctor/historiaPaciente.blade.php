@@ -14,34 +14,34 @@
 
 <style>
     /* body {font-family: Arial, Helvetica, sans-serif;} */
-    
+
     #myImg {
       border-radius: 5px;
       cursor: pointer;
       transition: 0.3s;
       opacity: 0.6;
     }
-    
+
     #myImg:hover {opacity: 1;}
-    
+
     /* The Modal (background) */
 
     .modall{
         display: none;
       position: fixed; /* Stay in place */
-      /* z-index: 1; Sit on top */
-      padding-top: 100px; /* Location of the box */
+        /* z-index: 1; Sit on top */
+      padding-top: 20px; /* Location of the box */
       left: 0;
       top: 0;
       width: 100%; /* Full width */
       height: 100%; /* Full height */
       overflow: auto; /* Enable scroll if needed */
       background-color: rgb(0,0,0);
-      background-color: rgba(0,0,0,0.8); 
+      background-color: rgba(0,0,0,0.8);
 
     }
-  
-    
+
+
     /* Modal Content (image) */
     .modal-content {
       margin: auto;
@@ -49,7 +49,7 @@
       width: 80%;
       max-width: 700px;
     }
-    
+
     /* Caption of Modal Image */
     #caption {
       margin: auto;
@@ -65,25 +65,25 @@
     img{
         opacity: 1;
     }
-    
+
     /* Add Animation */
-    #caption {  
+    #caption {
       -webkit-animation-name: zoom;
       -webkit-animation-duration: 0.6s;
       animation-name: zoom;
       animation-duration: 0.6s;
     }
-    
+
     @-webkit-keyframes zoom {
-      from {-webkit-transform:scale(0)} 
+      from {-webkit-transform:scale(0)}
       to {-webkit-transform:scale(1)}
     }
-    
+
     @keyframes zoom {
-      from {transform:scale(0)} 
+      from {transform:scale(0)}
       to {transform:scale(1)}
     }
-    
+
     /* The Close Button */
     .close {
       position: absolute;
@@ -94,14 +94,14 @@
       font-weight: bold;
       transition: 0.3s;
     }
-    
+
     .close:hover,
     .close:focus {
       color: #bbb;
       text-decoration: none;
       cursor: pointer;
     }
-    
+
     /* 100% Image Width on Smaller Screens */
     @media only screen and (max-width: 700px){
       #caption {
@@ -185,10 +185,10 @@ button[data-original-title="Help"]{ display: none; }
                                     <div class="col-4 ml-4">
                                         <label class="m-4 d-block p-2 form-label">Nro. Historia: <br>
                                             <span class=" ml-4   badge badge-verdePastel texto  ">{{ $history->patient->historyPatient->history_number }}</span></label>
-                                    </div>            
+                                    </div>
                                     <div class="col-3">
                                         <img src="{{ Storage::url($history->patient->image->path) }}" alt="" class="img-thumbnail" style=" width:100px">
-                                    </div>           
+                                    </div>
                                     <div class="col">
                                         <div class=" d-flex align-items-center">
                                             <label class="m-0 d-block p-2 form-label">DNI:</label>
@@ -211,7 +211,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <label class="m-0 d-block p-2 form-label">Apellido:</label>
                                             <input type="text" class="form-control border-0 bg-white" disabled=""  value="{{ $history->patient->lastname }}" name="lastnameP">
                                         </div>
-                                   </div>  
+                                   </div>
                                 </div>
                             <hr style="border: 0;
                             height: 1px;
@@ -270,7 +270,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-group">    
+                                        <div class="card-group">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Telefono:</h5>
@@ -326,7 +326,7 @@ button[data-original-title="Help"]{ display: none; }
                                     <section class="ml-4 pb-0 pt -4">
                                         <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote" ></textarea>
                                     </section>
-                                    <h2>Antecedentes</h2>   
+                                    <h2>Antecedentes</h2>
                                     <section class="ml-4 pb-0 pt-4">
                                         <div id="accordion">
                                             <!-------------------agregar enfermedad-------------------->
@@ -360,15 +360,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                             </td>
                                                                             <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                         </tr>
-                                                                    @endforeach   
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <a class="btn btn-verdePastel mx-2 text-white" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                        <a class="btn btn-azuloscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
-                                                    </div>                                                      
+                                                        <a class="btn btn-azuloscuro btnEstandar mx-2 text-white" data-toggle="modal" data-target="#nuevaenfermedad" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Crear </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!----------------agregar alergias----------------->
@@ -381,7 +381,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="col-4 d-flex justify-content-end">
                                                             <p class="card-title text-white text-capitalize" style="font-size:12px;">Ver más</p>
                                                         </div>
-                                                    </div>    
+                                                    </div>
                                                 </div>
                                                 <div id="collapseTwo" class="collapse card-body list-group" aria-labelledby="headingTwo" data-parent="#accordion">
                                                     <div class="card-body py-1">
@@ -402,14 +402,14 @@ button[data-original-title="Help"]{ display: none; }
                                                                             </td>
                                                                             <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                         </tr>
-                                                                    @endforeach   
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <a class="btn btn-verdePastel mx-2 text-white" data-toggle="modal" data-target="#alergias" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Agregar </a>
-                                                        <a class="btn btn-azuloscuro mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;crear </a>
+                                                        <a class="btn btn-azuloscuro btnEstandar mx-2 text-white" data-toggle="modal" data-target="#nuevaalergia" style="font-size:12px;cursor:pointer;"><i class="fa fa-plus"></i>&nbsp;Crear </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -429,15 +429,15 @@ button[data-original-title="Help"]{ display: none; }
                                                    <div id="agregar_cirugia">
                                                         @if($cite->previous_surgery != null)
                                                         <div class="row" id="cirugia{{$cite->id}}">
-                                                            <div class="col-9" id="cirugia{{$cite->id}}">
+                                                            <div class="col-10" id="cirugia{{$cite->id}}">
                                                                 <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
-                                                            </div> 
+                                                            </div>
                                                             <div class="text-center">
                                                                 <a style="cursor:pointer" id="borrar_cirugia" name="cirugia{{$cite->id}}" class="text-dark btn"><i class="icon-trash"></i>
                                                                 </a>
                                                             </div>
-                                                        </div> 
-                                                        @endif 
+                                                        </div>
+                                                        @endif
                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <a class="btn btn-verdePastel text-white" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
@@ -461,12 +461,12 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="card-header bg-azuloscuro m-0 py-2">
                                                                 <h5 class="card-title text-white">{{$cites->date}}</h5>
                                                             </div>
-                                                            <div class="m-0 p-0" style="height:150px;">
-                                                                <img src="{{ Storage::url($item->path) }}" alt="Snow" id="myImg" name="{{ $item->path }}" class="img-thumbnail m-0" style="width:100%; height:100%; border-radius:none;">
+                                                            <div class="m-0 p-0" style="height:200px;">
+                                                                <img src="{{ Storage::url($item->path) }}" alt="Snow" id="myImg" name="{{ $item->path }}" class="img-thumbnail m-0" style="width:100%; max-height:100%; border-radius:none;">
                                                             </div>
                                                         @endforeach
-                                                    </div>                                                           
-                                                
+                                                    </div>
+
                                                 @endforeach
                                             @endif
                                             @if($file->first() == null)
@@ -723,7 +723,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                      <div class="col-12 justify-content-center text-center citaProximaM">
                                                                         <a class=" mb-3 btn btn-verdePastel px-5 py-2 text-white" id="citaProxima" data-toggle="tooltip" >
                                                                             <i style="font-size:25px" class=" fa fa-bell"></i>
-                                                                            Notificar proxima cita                                                                            
+                                                                            Notificar proxima cita
                                                                         </a>
                                                                         <input type="hidden" id="proximaCita" name="proximaCita" value="0">
                                                                     </div>
@@ -778,18 +778,18 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                    </div>                                                                
-                                                                </div>                   
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                           
+                                        </div>
                                     </section>
                                 </form>
                             </div>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -806,33 +806,33 @@ button[data-original-title="Help"]{ display: none; }
     </div>
 
     <!-- Modal para mostar enfermedades-->
-    <div class="modal fade " id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3 " role="document">
-            <div class="modal-content row " style="width: 150%;">
+    <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content row" style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
-                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 415px; ">
+                    <div class="modal-body" style="height: 450px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_enfermedad" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar enfermedad..">
-                                </div>
-                                <table>
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody id="modal_enfermedad" class="mt-4">
+                                    <tbody class="mb-0" id="modal_enfermedad">
                                             @if($enfermedad != null)
                                             @foreach ($enfermedad as $item)
                                                 <tr id="quitar{{$item->id}}">
@@ -842,17 +842,17 @@ button[data-original-title="Help"]{ display: none; }
                                                             <span class="custom-control-label">{{ $item->name }} </span>
                                                         </label>
                                                     </td>
-                                                </tr>                                                
+                                                </tr>
                                             @endforeach
                                         @endif
                                     </tbody>
                                 </table>
                             </div>
-                        </div>                             
+                        </div>
                    </div>
-                    <div class="modal-footer p-2 ">
-                        <a  class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>                       
-                        <a class="btn btn-azuloscuro row3 text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
+                    <div class="modal-footer p-2">
+                        <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                        <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarEnfermedad">Agregar</a>
                     </div>
                 </form>
             </div>
@@ -861,7 +861,7 @@ button[data-original-title="Help"]{ display: none; }
 
       <!-------- modal Registrar Enfermedad ------------>
     <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog row4" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content  ">
                 <div class="modal-header p-2"  style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Enfermedad</h5>
@@ -869,7 +869,7 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                    
+
                 <div class="modal-body">
                     <input type="text" placeholder="Nombre de la Enfermedad" name="name" value="{{ old('name') }}" class="form-control" required id="newdisease">
                 </div>
@@ -883,7 +883,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer p-2">
-                    <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
+                    <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
                     <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
                 </div>
             </div>
@@ -892,8 +892,8 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar alergias-->
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content row " style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
                     <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
@@ -901,17 +901,17 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="height: 450px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergia" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar alergia..">
-                                </div>
-                                <table>
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
@@ -927,16 +927,16 @@ button[data-original-title="Help"]{ display: none; }
                                                             <span class="custom-control-label">{{ $item->name }} </span>
                                                         </label>
                                                     </td>
-                                                </tr>                                                
+                                                </tr>
                                             @endforeach
-                                        @endif 
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <a  class="btn btn-secondary text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
+                        <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
                         <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
                     </div>
                 </form>
@@ -946,7 +946,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog row4" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                         <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Registrar Alergia</h5>
@@ -954,7 +954,7 @@ button[data-original-title="Help"]{ display: none; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                    
+
                 <div class="modal-body">
                     <input type="text" placeholder="Nombre de la Alergia" name="name" value="{{ old('name') }}" class="form-control" required id="newallergy">
                 </div>
@@ -968,7 +968,7 @@ button[data-original-title="Help"]{ display: none; }
                 </div>
                 @endif
                 <div class="modal-footer">
-                    <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
+                    <button  class="btn btn-secondary btnEstandar"  data-dismiss="modal" type="button" >Cerrar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-azuloscuro" id="allergyR">Guardar</button>
                 </div>
             </div>
@@ -977,7 +977,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -989,12 +989,12 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>
+                                <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; width:370px; height:100%;">{{ $cite->previous_surgery }}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <button  class="btn btn-secondary btnCerrar"  data-dismiss="modal" type="button" >Cerrar</button>         
+                        <button  class="btn btn-secondary btnEstandar"  data-dismiss="modal" type="button" >Cerrar</button>
                         <button  class="btn btn-azuloscuro" data-dismiss="modal" id="guardarCirugias">Agregar</button>
                     </div>
                 </form>
@@ -1004,31 +1004,31 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg row5" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content row">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
-                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="proceduresC-office">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="height: 450px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked px-4">
-                                <div class="row">
+                            <div class="custom-controls-stacked">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureR" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedimiento..">
-                                </div>
-                                <table >
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
-                                            <th>
-                                                <div class="d-flex justify-content-end">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Precio</h6>
                                                 </div>
                                             </th>
@@ -1056,7 +1056,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <a class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                        <a class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
                         <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarO">Guardar</a>
                     </div>
                 </form>
@@ -1066,8 +1066,8 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los examenes --}}
     <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content row" style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
                     <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
@@ -1075,23 +1075,23 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="exam">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_examen" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar examen..">
-                                </div>
-                                <table class="">
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody id="modal_examen" class="mt-4"> 
+                                    <tbody id="modal_examen" class="mt-4">
                                         @if($exams != null)
                                             @foreach ($exams as $exam)
                                                 <tr id="quitar_examen{{$exam->id}}">
@@ -1099,18 +1099,18 @@ button[data-original-title="Help"]{ display: none; }
                                                         <label class="custom-control custom-checkbox" >
                                                             <input type="checkbox" class="custom-control-input" name="exam" value="{{ $exam->id }}">
                                                             <span class="custom-control-label">{{ $exam->name }}</span>
-                                                        </label>                                                     
+                                                        </label>
                                                     </td>
-                                                </tr>                                                
+                                                </tr>
                                             @endforeach
-                                        @endif 
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-2">
-                        <a class="btn btn-secondary btnCerrar text-white" data-dismiss="modal"type="button" >Cerrar</a>        
+                        <a class="btn btn-secondary btnEstandar text-white" data-dismiss="modal"type="button" >Cerrar</a>
                         <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarE">Guardar</a>
                     </div>
                 </form>
@@ -1120,16 +1120,16 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los posible cirugia --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content row" style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="posible-surgerys">
-                    <div class="modal-body ml-4 pb-0 pt-2 plan">
+                    <div class="modal-body ml-4 pb-0 pt-2 plan" style="height: 450px;">
                         <div class="plan-steps">
                             <!-- Nav tabs -->
                             <ul style="list-style: none !important" class="nav nav-pills row" id="pills-tab" role="tablist">
@@ -1145,25 +1145,25 @@ button[data-original-title="Help"]{ display: none; }
                                 <div role="tabpanel" class="tab-pane active" id="hospitalariaTab">
                                     <div class="form-group">
                                         <div class="custom-controls-stacked">
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaH" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
-                                            </div>
-                                            <table class="px-2">
+                                            </div> --}}
+                                            <table class="table table-borderless scrollableTable">
                                                 <thead>
                                                     <tr>
-                                                        <th>
-                                                            <div class="card-header">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Nombre</h6>
                                                             </div>
                                                         </th>
-                                                        <th>
-                                                            <div class="d-flex justify-content-end">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Precio</h6>
                                                             </div>
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="modal_cirugiaP_hospitalaria" class="mt-4"> 
+                                                <tbody id="modal_cirugiaP_hospitalaria" class="mt-4">
                                                     @if($surgerys != null)
                                                     @foreach ($surgerys as $surgery)
                                                     @if ($surgery->classification->name == 'hospitalaria')
@@ -1172,15 +1172,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <label class="custom-control custom-checkbox d-flex" >
                                                                         <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
                                                                         <span class="custom-control-label">{{ $surgery->name }}</span>
-                                                                    </label>                                                     
+                                                                    </label>
                                                                 </td>
                                                                 <td class="text-end d-flex justify-content-end">
                                                                     {{ $surgery->cost }}
                                                                 </td>
-                                                            </tr>     
-                                                            @endif                                                    
+                                                            </tr>
+                                                            @endif
                                                         @endforeach
-                                                    @endif 
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1208,25 +1208,25 @@ button[data-original-title="Help"]{ display: none; }
                                     <div class="form-group">
 
                                         <div class="custom-controls-stacked">
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaA" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
-                                            </div>
-                                            <table class="px-2">
+                                            </div> --}}
+                                            <table class="table table-borderless scrollableTable">
                                                 <thead>
                                                     <tr>
-                                                        <th>
-                                                            <div class="card-header">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Nombre</h6>
                                                             </div>
                                                         </th>
-                                                        <th>
-                                                            <div class="d-flex justify-content-end">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Precio</h6>
                                                             </div>
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="modal_cirugiaP_ambulatoria" class="mt-4"> 
+                                                <tbody id="modal_cirugiaP_ambulatoria" class="mt-4">
                                                     @if($surgerys != null)
                                                     @foreach ($surgerys as $surgery)
                                                     @if ($surgery->classification->name == 'ambulatoria')
@@ -1235,15 +1235,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <label class="custom-control custom-checkbox d-flex" >
                                                                         <input type="radio" class="custom-control-input" name="surgerys" value="{{ $surgery->id }}">
                                                                         <span class="custom-control-label">{{ $surgery->name }}</span>
-                                                                    </label>                                                     
+                                                                    </label>
                                                                 </td>
                                                                 <td class="text-end d-flex justify-content-end">
                                                                     {{ $surgery->cost }}
                                                                 </td>
-                                                            </tr>     
-                                                            @endif                                                    
+                                                            </tr>
+                                                            @endif
                                                         @endforeach
-                                                    @endif 
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1271,7 +1271,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>
                             <div class="modal-footer p-2">
-                                <a  class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>         
+                                <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
                                 <a type="submit" class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarC">Guardar</a>
                             </div>
                         </div>
@@ -1279,41 +1279,41 @@ button[data-original-title="Help"]{ display: none; }
                 </form>
             </div>
         </div>
-    </div>    
+    </div>
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg row1" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content row">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>
-                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="posible-procedures">
-                <div class="modal-body" style="max-height: 415px;">
+                <div class="modal-body" style="max-height: 450px;">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                            <div class="row">
+                            {{-- <div class="row">
                                 <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureP" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedure..">
-                            </div>
-                            <table class="px-2">
+                            </div> --}}
+                            <table class="table table-borderless scrollableTable">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <div class="card-header">
+                                        <th class="my-0 py-0">
+                                            <div class="card-header my-0 py-0">
                                                 <h6>Nombre</h6>
                                             </div>
                                         </th>
-                                        <th>
-                                            <div class="d-flex justify-content-end">
+                                        <th class="my-0 py-0">
+                                            <div class="card-header my-0 py-0">
                                                 <h6>Precio</h6>
                                             </div>
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="modal_procedureP" class="mt-4"> 
+                                <tbody id="modal_procedureP" class="mt-4">
                                     @if($procesm->procedures != null)
                                     @foreach ($procesm->procedures as $proces)
                                             <tr id="quitar_procedureP{{$proces->id}}">
@@ -1321,12 +1321,12 @@ button[data-original-title="Help"]{ display: none; }
                                                     <label class="custom-control custom-checkbox d-flex" >
                                                         <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
                                                         <span class="custom-control-label">{{ $proces->name }}</span>
-                                                    </label>                                                     
+                                                    </label>
                                                 </td>
                                                 <td class="text-end d-flex justify-content-end">
                                                     {{ $proces->price }}
                                                 </td>
-                                            </tr>                                                
+                                            </tr>
                                         @endforeach
                                     @endif
                                 </tbody>
@@ -1335,7 +1335,7 @@ button[data-original-title="Help"]{ display: none; }
                     </div>
                 </div>
                 <div class="modal-footer p-2">
-                    <a class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                    <a class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
                     <a class="btn btn-azuloscuro text-white" id="guardarP" data-dismiss="modal">Guardar</a>
                 </div>
             </form>
@@ -1447,7 +1447,7 @@ button[data-original-title="Help"]{ display: none; }
       });
     });
 </script>
-    
+
 <script>
     $('#selectexam').multiselect({
         enableFiltering: true,
@@ -1511,7 +1511,7 @@ button[data-original-title="Help"]{ display: none; }
 
         $('#caption').html('<img src="'+url+'" alt="Snow" class="img-thumbnail modal-content" style="margin: auto; display: block; width: 80%; max-width: 700px; ">');
         $('#myModall').modal('show');
-    });    
+    });
 
     //--------------------------------------------------RECIPE -------------------------------------
 
@@ -1706,7 +1706,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarEnfermedad").click(function() {
         var reservacion = $("#reservacion").val();
         var enfermedad = $("#enfermedad").serialize();          //asignando el valor que se ingresa en el campo
-        
+
         ajax_enfermedad(enfermedad,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1767,8 +1767,8 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#enfermedad_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
-          
+            $("tr").remove("#"+id);
+
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
                 type: 'POST',
@@ -1797,7 +1797,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }            
+            }
         })
         .fail(function(data) {
             console.log(data);
@@ -1819,16 +1819,16 @@ button[data-original-title="Help"]{ display: none; }
         console.log(name,patient_id);
         $.ajax({
             url: "{{ route('checkin.diseases_create') }}",
-            type: "POST",                            
+            type: "POST",
             data: {
                 _token: "{{ csrf_token() }}",
                 name: name,
-                id:patient_id,                          
+                id:patient_id,
             }
         })
         .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
             console.log('esto',data);
-            if (data[1] == 201) {                       
+            if (data[1] == 201) {
                 Swal.fire({
                     title: 'Excelente!',
                     text:  data.data,
@@ -1863,7 +1863,7 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarAlergias").click(function() {
         var reservacion = $("#reservacion").val();
         var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
-        
+
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1879,7 +1879,7 @@ button[data-original-title="Help"]{ display: none; }
             }
         })
         .done(function(data) {        //recibe lo que retorna el metodo en la ruta definida
-           
+
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
                     title: data.alergia,
@@ -1933,7 +1933,7 @@ button[data-original-title="Help"]{ display: none; }
                 reservacion_id:reservacion,
             }
         })
-            .done(function(data) {  
+            .done(function(data) {
                 agregarAlergia =  `<tr id="quitarAlergia${data[1].id}">
                                         <td>
                                             <label class="custom-control custom-checkbox">
@@ -1953,7 +1953,7 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }            
+            }
         })
         .fail(function(data) {
             console.log(data);
@@ -1973,16 +1973,16 @@ button[data-original-title="Help"]{ display: none; }
         console.log(name,patient_id);
         $.ajax({
             url: "{{ route('checkin.allergies_create') }}",
-            type: "POST",                            
+            type: "POST",
             data: {
                 _token: "{{ csrf_token() }}",
                 name: name,
-                id: patient_id,                          
+                id: patient_id,
             }
         })
         .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
             console.log('esto',data);
-            if (data[1] == 201) {                       
+            if (data[1] == 201) {
                 Swal.fire({
                     title: 'Excelente!',
                     text:  data.data,
@@ -2068,7 +2068,7 @@ button[data-original-title="Help"]{ display: none; }
                         </div>
                     </div>`;
 
-        $("#agregar_cirugia").html(cirugia); 
+        $("#agregar_cirugia").html(cirugia);
     }
 
     //================ eliminar cirugia previa  ==========
@@ -2076,7 +2076,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#borrar_cirugia', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("div").remove("#"+id); 
+            $("div").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
@@ -2088,7 +2088,7 @@ button[data-original-title="Help"]{ display: none; }
             }
 
             })
-            .done(function(data) {               //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {               //recibe lo que retorna el metodo en la ruta definida
             $("#form_cirugias").val('');
 
             if(data[0] == 202){                  //si no trae valores
@@ -2158,7 +2158,7 @@ button[data-original-title="Help"]{ display: none; }
     function mostrarProceduresC(data){
         for($i=0; $i < data.length; $i++){
             procesc='<tr  id="'+data[$i].id+'"><td><div class="col-6">'+data[$i].name+'</div></td> <td class="text-center"><a style="cursor:pointer" id="procedureR_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td>  </tr>'
-            $("#procesc").append(procesc); 
+            $("#procesc").append(procesc);
             $("tr").remove("#quitar_procedureR"+data[$i].id); //quitar del modal
         }
     }
@@ -2168,7 +2168,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#procedureR_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            $("tr").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.procedureR_eliminar2') }}",
@@ -2189,7 +2189,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <label class="col-9 custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="procedures-office" value="${data[1].id}">
                                             <span class="custom-control-label">${data[1].name}</span>
-                                        </label>                                                       
+                                        </label>
                                     </td>
                                     <td class="text-end d-flex justify-content-end">
                                         ${data[1].price}
@@ -2277,7 +2277,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#exam_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            $("tr").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.exam_eliminar2') }}",
@@ -2296,7 +2296,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <label class="custom-control custom-checkbox" >
                                             <input type="checkbox" class="custom-control-input" name="exam" value="${data[1].id}">
                                             <span class="custom-control-label">${data[1].name}</span>
-                                        </label>                                                     
+                                        </label>
                                     </td>
                                 </tr>  `;
              $("#modal_examen").append(agregar_examen); //agregar al modal
@@ -2365,12 +2365,15 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
+ 
+ 
    //================ mostrando posibles procedimientos =============
+
     function mostrarProcedure(data){
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#procedimientos").append(procedure);
-            $("tr").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal      
+            $("tr").remove("#quitar_procedureP"+data[$i].id);    //quitar del modal
         }
 }
 
@@ -2379,7 +2382,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#procedureP_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            $("tr").remove("#"+id);
 
             $.ajax({
                 url: "{{ route('doctor.procedureP_eliminar2') }}",
@@ -2399,7 +2402,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <label class="custom-control custom-checkbox d-flex" >
                                                 <input type="checkbox" class="custom-control-input" name="procedures-office" value="${data[1].id}">
                                                 <span class="custom-control-label">${data[1].name}</span>
-                                            </label>                                                     
+                                            </label>
                                         </td>
                                         <td class="text-end d-flex justify-content-end">
                                             ${data[1].price}
@@ -2430,9 +2433,9 @@ button[data-original-title="Help"]{ display: none; }
     $("#guardarC").click(function() {
 
             var reservacion = $("#reservacion").val();
-            var surgery = $("#posible-surgerys").serialize();  
+            var surgery = $("#posible-surgerys").serialize();
             console.log(surgery);        //asignando el valor que se ingresa en el campo
-            
+
             var id = $("#cirugia_posible").val();
             var name = $("#cirugia_posible_name").val();
             var cost = $("#cirugia_posible_costo").val();
@@ -2442,21 +2445,21 @@ button[data-original-title="Help"]{ display: none; }
             console.log(name)
             console.log(cost)
             console.log(clasificacion)
-        
+
             if(id != null && name != null && cost != null && clasificacion != null){
                 agregar_cirugiaP =` <tr id="quitar_cirugia${id}">
                                         <td>
                                             <label class="custom-control custom-checkbox d-flex" >
                                                 <input type="radio" class="custom-control-input" name="surgerys" value="${id}">
                                                 <span class="custom-control-label">${name}</span>
-                                            </label>                                                     
+                                            </label>
                                         </td>
                                         <td class="text-end d-flex justify-content-end">
                                             ${cost}
                                         </td>
                                     </tr> `;
                 // agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
-               
+
                 if(clasificacion == 'hospitalaria'){
                     $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
                 }else{
@@ -2510,7 +2513,7 @@ button[data-original-title="Help"]{ display: none; }
             cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#cirugias").html(cirugias);
             $("tr").remove("#quitar_cirugia"+data[0].id);   //quitar del modal
-        }         
+        }
     }
 
     //======================= eliminar posible cirugia seleccionada ==============
@@ -2518,7 +2521,7 @@ button[data-original-title="Help"]{ display: none; }
         $(document).on('click', '#cirugiaP_id', function(event) {
             let id = this.name;
             var reservacion = $("#reservacion_id").val();
-            $("tr").remove("#"+id);   
+            $("tr").remove("#"+id);
 
                 $.ajax({
                     url: "{{ route('doctor.cirugiaP_eliminar2') }}",
@@ -2537,7 +2540,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <label class="custom-control custom-checkbox d-flex" >
                                                 <input type="radio" class="custom-control-input" name="surgerys" value="${data[1].id}">
                                                 <span class="custom-control-label">${data[1].name}</span>
-                                            </label>                                                     
+                                            </label>
                                         </td>
                                         <td class="text-end d-flex justify-content-end">
                                             ${data[1].cost}
@@ -2549,7 +2552,7 @@ button[data-original-title="Help"]{ display: none; }
                 $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP); //agregar al modal
             }else{
                 $("#modal_cirugiaP_ambulatoria").append(agregar_cirugiaP); //agregar al modal
-            }           
+            }
 
             if(data[0] == 202){                  //si no trae valores
                 Swal.fire({

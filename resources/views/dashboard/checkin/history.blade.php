@@ -39,17 +39,6 @@
                         <a class="  icon-description" href="#">Editar Historial</a>
                         </div>
                     </div>
-                    {{-- <ul class="share">
-                        <!--Facebook-->
-                        <li>
-                            <div class="social-link">
-                                <div class="nav-label">
-                                    <span>Share Button</span>
-                                </div>
-                            </div>
-                        </li>
-                      </ul> --}}
-
                 @endif
                  <div>
                     <label class="float-right position-absolute  m-4 d-block form-label" style="right: 5px">Nro. Historia <br>
@@ -378,7 +367,6 @@
                         <div class="col-lg-12 col-md-12 mt-4" id="framework_form2">
                             <label class="form-label text-center"><h5>Medicamentos</h5></label>
                             <div class="card p-3" style="border-color:#00506b">
-
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
                                         <div class="row mb-0">
@@ -403,7 +391,7 @@
                                             </div> --}}
 
                                         </div>
-                                        <table class="table dataTable table_custom spacing5 table-vcenter table-striped scrollableTable">
+                                        <table class="table table-hover  table_custom spacing5 table-vcenter table-striped scrollableTable">
                                              <thead class="theadColor">
                                                 <tr>
                                                     <th class="text-white">Medicina</th>
@@ -418,10 +406,10 @@
                                                         <td class="text-center"><a style="cursor:pointer" id="medicina_id" name="{{$medicine->id}}" class="text-dark btn"><i style="color:#00506b;" class="icon-trash"></i></a></td>
                                                     </tr>
                                                 @endforeach
-                                                @else
+                                                {{-- @else
                                                 <tr class="d-flex justify-content-center" id="quitando">
                                                     <td class="text-center">La Información no esta disponible en la tabla</td>
-                                                </tr>
+                                                </tr> --}}
                                                 @endif
                                             </tbody>
                                         </table>
@@ -439,7 +427,6 @@
                             <div class="card p-3" style="border-color:#00506b">
                                 <div class="card-body">
                                     <div class="table-responsive mb-4">
-
                                         <div class="row mb-0">
                                             <div class="col-12">
                                                 <div class="row justify-content-start">
@@ -463,7 +450,7 @@
 
                                         </div>
 
-                                        <table class="table table-hover table_custom spacing5 table-vcenter table-striped scrollableTable">
+                                        <table class="table table-hover  table_custom spacing5 table-vcenter table-striped scrollableTable">
                                              <thead class="theadColor">
                                                 <tr>
                                                     <th class="text-white">Alergia</th>
@@ -1016,7 +1003,7 @@ $boton.addEventListener("click", function() {
         });
         });
     </script>
-    
+
 
     <script>
         $('#disease').multiselect({

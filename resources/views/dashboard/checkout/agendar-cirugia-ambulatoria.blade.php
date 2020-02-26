@@ -268,8 +268,8 @@
             var type_dni = $("#type_dni").val();
             var dni = $("#dni").val();
 
-            // console.log(type_dni)
-            // console.log(dni)
+            console.log(type_dni)
+            console.log(dni)
 
             if(type_dni == '' || dni ==  '' || dni.length < 7){
                 Swal.fire({
@@ -351,6 +351,7 @@
         console.log('hola')
         $("input[name='employe']").click(function() {
             var employe = $(this).val();
+ 
             console.log('empleado_id',employe);
             $.ajax({
                     url: "{{ route('search.schedule') }}",

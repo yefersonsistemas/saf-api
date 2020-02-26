@@ -161,9 +161,11 @@ $(function() {
 
     $(document).ready(function() {
         $('.scrollableTable').DataTable( {
-            "scrollY":        "200px",
-            "scrollCollapse": false,
-            "paging":         false
+            "scrollY": "325px",
+            "scrollCollapse": true,
+            "paging": false,
+            bSort: false,
+            "info": false
         } );
     } );
 });
