@@ -772,7 +772,7 @@ class OutController extends Controller
     public function surgeries_lista(){
 
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
-
+// dd($surgeries);
     $ambulatorias = Reservation::with('patient', 'employe.person')->where('surgery', true)->get(); // 'employe.areaassigment.area'
     
     // dd($ambulatorias);

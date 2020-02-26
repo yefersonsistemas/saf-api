@@ -7,6 +7,8 @@ use App\Medicine_pharmacy;
 use App\Stock_pharmacy;
 use App\Lot_pharmacy;
 use App\Medicine;
+use App\Informesurgery;
+use App\Surgery;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -137,7 +139,9 @@ class FarmaciaController extends Controller
     //============================agregar lote de medicamentos==============
     public function add($id)
     {
+        // dd($id);
         $medicine_pharmacy = Medicine_pharmacy::with('medicine')->find($id);
+
         return view('dashboard.vergel.farmaceuta.add',compact('medicine_pharmacy'));
     }
 
@@ -186,16 +190,21 @@ class FarmaciaController extends Controller
      //===========================asignacion====================
      public function create_asignacion()
      {
-  
-         return view('dashboard.vergel.farmaceuta.asignacion');
+        //  $surgery = Surgery::with('patient')->get();
+        //  dd($surgery);
+        $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image','surgery.employe.person','surgery.typesurgeries')->where('status', true)->get();
+        // dd($informe->first()->surgery->file_doctor);
+         return view('dashboard.vergel.farmaceuta.asignacion',compact('informe'));
     }
 
      //===========================asignacion====================
      public function asignacion_medicine($id)
      {
-        $stock = Stock_pharmacy::with('medicine_pharmacy_id')->get();
+        $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image')->where('id',$id)->first();
+        // dd($informe->surgery->file_doctor->first()->path);
+        $stock = Stock_pharmacy::with('medicine_pharmacy.medicine')->get();
         // dd($stock);
-        return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('stock'));
+        return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('stock','informe'));
     }
  
     /**
