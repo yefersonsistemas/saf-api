@@ -3,6 +3,8 @@
 
 @section('Lista de Cirugias','active')
 @section('all','active')
+@section('enrol','d-block')
+@section('dire','d-none')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
@@ -79,7 +81,7 @@
                                     {{-- @endforeach --}}
                                     <td>{{$surgeries->area->name}}</td>
                                     <td class="d-flex justify-content-center" style="display: inline-block ">
-                                        <a href="" class="btn btn-azuloscuro"><i class="fa fa-edit"></i></a>
+                                        <a href="{{route('create.lista_cirugias', [$patient->id, $surgeries->id ] )}}" class="btn btn-azuloscuro"  data-toggle="tooltip" data-placement="bottom" title="Subir informe Pre-operatorio"><i class="fa fa-arrow-circle-o-up" style="font-size:18px"></i></a>
                                     </td>
                                 </tr>
                             @endforeach 

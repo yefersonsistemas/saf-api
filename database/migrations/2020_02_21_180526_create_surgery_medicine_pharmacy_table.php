@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateLotPharmacyTable extends Migration
+class CreateSurgeryMedicinePharmacyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,22 @@ class CreateLotPharmacyTable extends Migration
      */
     public function up()
     {
-        Schema::create('lot_pharmacy', function (Blueprint $table) {
-            $table->bigIncrements('id');          
+        Schema::create('surgery_medicine_pharmacy', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('surgery_id');
             $table->unsignedBigInteger('medicine_pharmacy_id');
-            $table->string('number_lot');
-            $table->string('date');
-            $table->string('quantity_total');
-            $table->string('date_vence');
-            $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
             $table->foreign('medicine_pharmacy_id')
             ->references('id')
             ->on('medicine_pharmacy')
             ->onDelete('CASCADE');
-
-            $table->foreign('branch_id')
+            
+            $table->foreign('surgery_id')
             ->references('id')
-            ->on('branch')
+            ->on('surgeries')
             ->onDelete('CASCADE');
+            
         });
     }
 
@@ -42,6 +39,6 @@ class CreateLotPharmacyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lot_pharmacy');
+        Schema::dropIfExists('surgery_medicine_pharmacy');
     }
 }

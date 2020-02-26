@@ -11,22 +11,22 @@
     </div>
     @include('dashboard.layouts.left-sidebar');
     @include('dashboard.layouts.navbar');
-    
+
     <div id="main_content">
         <div class="page">
-            
+
             @include('dashboard.layouts.page')
 
             @yield('content')
-            
+
             @include('sweetalert::alert')
-            
+
             @include('dashboard.layouts.footer')
-            
+
         </div>
     </div>
-    
-    
+
+
 <script src={{ asset("assets\bundles\lib.vendor.bundle.js") }}></script>
 <script src={{ asset("assets\bundles\counterup.bundle.js") }}></script>
 <script src={{ asset("assets\bundles\apexcharts.bundle.js") }}></script>

@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('doctor','active')
-@section('docrol','d-block')
+@section('farmarol','d-block')
 @section('dire','d-none')
 @section('css')
 
@@ -16,7 +16,7 @@
 
 @endsection
 
-@section('title','Lista de Insumos')
+@section('title','Asignación de Insumos')
 
 @section('content')
     <div class="section-body  py-4">
@@ -60,39 +60,46 @@
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
+                                        <th>Foto</th>
                                         <th>Nombre</th>
-                                        <th>marca</th>
-                                        <th>Laboratorio</th>
-                                        <th>Presentación</th>
-                                        <th>Medida</th>
-                                        <th>Cantidad</th>
-                                        <th>Stock</th>
-                                        <th>Agregar lote</th>
+                                        <th>Apellido</th>
+                                        <th>Cirugía</th>
+                                        <th>Fecha Ingreso</th>
+                                        <th>Fecha culminar</th>
+                                        <th class="text-center">Medicamento</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Foto</th>
                                         <th>Nombre</th>
-                                        <th>marca</th>
-                                        <th>Laboratorio</th>
-                                        <th>Presentación</th>
-                                        <th>Medida</th>
-                                        <th>Cantidad</th>
-                                        <th>Stock</th>
-                                        <th>Agregar lote</th>
+                                        <th>Apellido</th>
+                                        <th>Cirugía</th>
+                                        <th>Fecha Ingreso</th>
+                                        <th>Fecha culminar</th>
+                                        <th class="text-center">Medicamento</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach ($stock as $item)
+                                    @foreach ($informe as $item)
                                         <tr>
-                                            <td>{{$item->medicine_pharmacy->medicine->name}}</td>
-                                            <td>{{$item->medicine_pharmacy->marca}}</td>
-                                            <td>{{$item->medicine_pharmacy->laboratory}}</td>
-                                            <td>{{$item->medicine_pharmacy->presentation}}</td>
-                                            <td>{{$item->medicine_pharmacy->measure}}</td>
-                                            <td>{{$item->medicine_pharmacy->quantity_Unit}}</td>
-                                            <td>{{$item->total}}</td>
-                                            <td><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-info text-white">Agregar</a></td>
+                                            <td style="text-align: center; font-size:10px; height:40px;">
+                                                @if (!empty($item->surgery->patient->first()->person->image->path))
+                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($item->surgery->patient->first()->person->image->path) }}" alt="">
+                                                @else
+                                                    <img src="" alt="" width="100%" height="100%">
+                                                @endif
+                                            </td>
+                                            <td>{{$item->surgery->patient[0]->person->name}}</td>
+                                            <td>{{$item->surgery->patient[0]->person->lastname}}</td>
+                                            <td>{{$item->surgery->typesurgeries->name}}</td>
+                                            <td>{{$item->fecha_ingreso}}</td>
+                                            <td>{{$item->fecha_culminar}}</td>
+                                            @if(!empty($item->surgery->file_doctor->first()))
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white">Asignar</a></td>
+                                            @else
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white">Agregar</a></td>
+                                            @endif
                                         </tr>
                                     @endforeach                                  
                                 </tbody>

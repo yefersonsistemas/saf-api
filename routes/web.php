@@ -15,7 +15,7 @@
 // use Illuminate\Support\Facades\Route;
 
 
- 
+
 
 
 Route::get('/', function() {
@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('doctor/eliminar/medicamento', 'InController@medicine_borrar')->name('checkin.medicine_borrar');  // eliminar examen
 
     //agregar
-    Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen     
+    Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen
     Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
 
     //crear
@@ -61,6 +61,12 @@ Route::group(['middleware' => 'auth'], function (){
 
      //======================= rutas para el usuario ckeckin ====================
     Route::group(['middleware' => ['role:IN, director']], function () {
+        Route::get('prueba', 'InController@prueba')->name('prueba');
+        Route::post('prueba/guardar', 'InController@prueba_guardar')->name('prueba.guardar');
+        Route::post('delete', 'InController@prueba_eliminar')->name('prueba.eliminar');
+
+
+
         Route::get('cite/day', 'InController@day')->name('checkin.day');
         Route::get('record/cite', 'InController@record')->name('checkin.record');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
@@ -186,13 +192,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('doctor/eliminar/procedure', 'DoctorController@procedureR_eliminar2')->name('doctor.procedureR_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen
         Route::post('doctor/eliminar/cirugia', 'DoctorController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar examen
-    
-        
+
+
     });
 
     Route::group(['middleware' => ['role:director']], function(){
 
         //inicio de rutas para crear
+        Route::get('empleados', 'DirectorController@index')->name('employe.index'); //ruta de empleado
+        Route::get('doctores/create', 'DirectorController@create')->name('doctores.create');
         Route::POST('/doctores', 'DirectorController@store')->name('doctores.store');
         Route::get('create', 'EmployesController@create')->name('employe.create');
         Route::POST('/employe', 'EmployesController@store')->name('employe.store');
@@ -281,11 +289,15 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
+        
+        //rutas para exportar e imprimir detalles por empleado/lista de empleados/lista de visitantes
+        Route::get('visitors', 'DirectorController@visitantes')->name('visitantes');  //lista de visitantes
+
+
 
     });
 
 
-    Route::group(['middleware' => ['role:in-out']], function(){
 
         Route::get('inout/index', 'InoutController@index')->name('in-out.index');   
         Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');    
@@ -300,9 +312,30 @@ Route::group(['middleware' => 'auth'], function (){
 
 
 
+    Route::group(['middleware' => ['role:enfermeria']], function(){
 
+        Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
+        Route::get('create/lista/surgeries/{id}/{surgery}', 'NurseController@create')->name('create.lista_cirugias');
+        Route::POST('store/lista/surgeries', 'NurseController@store')->name('store.lista_cirugias');
+        // Route::get('editar/lista/surgeries/{id}', 'NurseController@edit')->name('edit.lista_cirugias');
+        // Route::put('editar/lista/surgeries/update/{id}', 'NurseController@update')->name('update.lista_cirugias');
 
     });
+
+
+
+    Route::group(['middleware' => ['role:in-out']], function(){
+
+        Route::get('inout/index', 'InoutController@index')->name('in-out.index');
+        Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');
+        Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');
+        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');
+        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
+        Route::get('inout/day','InoutController@day')->name('in-out.day');
+
+    });
+
+
 
     Route::group(['middleware' => ['role:farmaceuta']], function(){
 
@@ -312,5 +345,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('farmaceuta/lista/insumos/agregar/{id}', 'FarmaciaController@add')->name('farmaceuta.add');
         Route::put('farmaceuta/lista/insumos/agregar/lote/{id}', 'FarmaciaController@add_lote')->name('farmaceuta.add_lote');
         Route::get('farmaceuta/lista/insumos/lista_lote', 'FarmaciaController@lista_lote')->name('farmaceuta.lista_lote');
+        Route::post('farmaceuta/lista/insumos/buscar', 'FarmaciaController@search_medicine')->name('farmaceuta.search_medicine');
+        Route::POST('farmaceuta/guardar/medicine', 'FarmaciaController@store_medicine')->name('farmaceuta.guardar_medicine');
+        Route::get('farmaceuta/asignar/medicine', 'FarmaciaController@create_asignacion')->name('farmaceuta.asignacion');
+        Route::get('farmaceuta/asignar/medicine/paciente/{id}', 'FarmaciaController@asignacion_medicine')->name('farmaceuta.asignar_medicine');
     });
 });

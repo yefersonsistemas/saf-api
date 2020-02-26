@@ -32,6 +32,20 @@
                     @role('doctor')
                     <a  class="nav-link icon" id="doc" style="font-size:12px"> Doctor </a>
                     @endrole
+
+                    @role('in-out')
+                    <a  class="nav-link icon" id="io" style="font-size:12px">In-out</a>
+                    @endrole
+                 
+                    @role('enfermeria')
+                    <a  class="nav-link icon" id="en" style="font-size:10PX"> Enfermeria </a>
+                    @endrole
+                  
+                    @role('farmaceuta')
+                    <a  class="nav-link icon" id="far" style="font-size:10PX"> Farmacia </a>
+                    @endrole
+                    
+
                     @endrole
 
                 @endif

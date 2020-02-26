@@ -1,8 +1,6 @@
 @extends('dashboard.layouts.app')
 
 @section('doctor','active')
-@section('docrol','d-block')
-@section('dire','d-none')
 @section('css')
 
 
@@ -16,30 +14,27 @@
 
 @endsection
 
-@section('title','Lista de Insumos')
+@section('title','Lista de Visitantes')
 
 @section('content')
     <div class="section-body  py-4">
         <div class="container-fluid">
-            <div class="row clearfix d-flex justify-content-between mb-2">
+            <div class="row clearfix d-flex justify-content-center mb-2">
                 {{-- Contadores --}}
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card">
                         <div class="card-body py-2">
-                            <h6>Total De Insumos</h6>
-                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
-                            {{--
-                                <h5>$1,25,451.23</h5> --}}
+                            <h6>Total De Visitantes</h6>
+                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter"> {{ $visitors }} </span></h4>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                {{-- <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Total De Insumos Asignados</h6>
                             <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">750</span></h4>
-                            {{--
-                                <h5>$3,80,451.00</h5> --}}
+                          
                         </div>
                     </div>
                 </div>
@@ -48,56 +43,49 @@
                         <div class="card-body py-2">
                             <h6>Total De insumos Usados</h6>
                             <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">25</span></h4>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span> --}}
+                  
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
-                {{-- --------Step-----------}}
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="table-responsive mb-4">
                             <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                 <thead>
                                     <tr>
-                                        <th>N° de lote</th>
-                                        <th>Fecha</th>
+                                        <th>Documento </th>
                                         <th>Nombre</th>
-                                        <th>marca</th>
-                                        <th>Laboratorio</th>
-                                        <th>Presentación</th>
-                                        <th>Medida</th>
-                                        <th>Cantidad (und)</th>
-                                        <th>Cantidad ingresada</th>
+                                        <th>Apellido</th>
+                                        <th>Direccion</th>
+                                        <th>Teléfono</th>
+                                        <th class="justify-content-center text-center">Imprimir</th>
+                                        {{-- <th>Acompañante de:</th> --}}
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>N° de lote</th>
-                                        <th>Fecha</th>
+                                        <th>Documento de identidad</th>
                                         <th>Nombre</th>
-                                        <th>marca</th>
-                                        <th>Laboratorio</th>
-                                        <th>Presentación</th>
-                                        <th>Medida</th>
-                                        <th>Cantidad (und)</th>
-                                        <th>Cantidad ingresada</th>
+                                        <th>Apellido</th>
+                                        <th>Direccion</th>
+                                        <th>Teléfono</th>
+                                        <th class="justify-content-center text-center">Imprimir</th>
+                                        {{-- <th>Acompañante de:</th> --}}
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach ($lot_pharmacy as $item)
+                                    @foreach ($all2 as $item)
                                         <tr>
-                                            <td>{{$item->id}}</td>
-                                            <td>{{$item->date}}</td>
-                                            <td>{{$item->medicine_pharmacy->medicine->name}}</td>
-                                            <td>{{$item->medicine_pharmacy->marca}}</td>
-                                            <td>{{$item->medicine_pharmacy->laboratory}}</td>
-                                            <td>{{$item->medicine_pharmacy->presentation}}</td>
-                                            <td>{{$item->medicine_pharmacy->measure}}</td>
-                                            <td>{{$item->medicine_pharmacy->quantity_Unit}}</td>
-                                            <td>{{$item->quantity_total}}</td>
-                                            {{-- <td><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-info text-white">Agregar</a></td> --}}
-                                        </tr>
+                                            <td>{{$item->dni}}</td>
+                                            <td>{{$item->name}}</td>
+                                            <td>{{$item->lastname}}</td>
+                                            <td>{{$item->address}}</td>
+                                            <td>{{$item->phone}}</td>
+                                            <td class="justify-content-center text-center"><a href="" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Imprimir"><i class="fe fe-printer"></i></a></td>
+                                            {{-- <td><a href="{{ route('', $item->id) }}" class="btn btn-info text-white"><i class="fa fa-arrow-circle-o-down"></i></a></td> --}}
+                                            {{-- {{route('visitantes.print',$item->id)}} --}}
+                                        </tr> 
                                     @endforeach                                  
                                 </tbody>
                             </table>

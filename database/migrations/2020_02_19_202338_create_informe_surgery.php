@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLotPharmacyTable extends Migration
+class CreateInformeSurgery extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class CreateLotPharmacyTable extends Migration
      */
     public function up()
     {
-        Schema::create('lot_pharmacy', function (Blueprint $table) {
-            $table->bigIncrements('id');          
-            $table->unsignedBigInteger('medicine_pharmacy_id');
-            $table->string('number_lot');
-            $table->string('date');
-            $table->string('quantity_total');
-            $table->string('date_vence');
+        Schema::create('informe_surgery', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('surgery_id');
+            $table->boolean('status');
+            $table->date('fecha_ingreso');
+            $table->date('fecha_culminar');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
-            $table->foreign('medicine_pharmacy_id')
+            $table->foreign('surgery_id')
             ->references('id')
-            ->on('medicine_pharmacy')
+            ->on('surgeries')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')
@@ -42,6 +41,6 @@ class CreateLotPharmacyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lot_pharmacy');
+        Schema::dropIfExists('informe_surgery');
     }
 }

@@ -12,6 +12,27 @@ class Surgery extends Model
         'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branch_id',  'billing_id', 'payment', 'status'    
     ];
 
+    public function medicine_pharmacy() 
+    {
+        return $this->belongsToMany('App\Medicine_pharmacy','surgery_medicine_pharmacy')
+        ->withPivot('medicine_pharmacy_id','id');
+    }
+
+    public function file_doctor()
+    {
+        return $this->morphMany('App\FileDoctor', 'fileable');
+    }
+
+    public function file_internista()
+    {
+        return $this->morphMany('App\FileInternista', 'fileable');
+    }
+
+    public function file_anestesiologo()
+    {
+        return $this->morphMany('App\FileAnestesiologo', 'fileable');
+    }
+
     public function employe()
     {
         return $this->belongsTo('App\Employe','employe_id');
@@ -54,10 +75,17 @@ class Surgery extends Model
     {
         return $this->hasMany('App\Reservation');
     }
+<<<<<<< HEAD
     
     public function billing()
     {
         return $this->belongsToMany('App\billing','billing_id');
+=======
+
+    public function informe()
+    {
+        return $this->hasMany('App\Informesurgey','file_id');
+>>>>>>> 004b2b0b1b67a3156f3f3389fbaa0ec10049d6de
     }
     // public function procedure() //relacion  con la tabla m:m 
     // {
