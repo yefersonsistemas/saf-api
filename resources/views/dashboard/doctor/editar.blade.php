@@ -1047,7 +1047,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content row" style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
@@ -1056,23 +1056,23 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="enfermedad">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_enfermedad" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar enfermedad..">
-                                </div>
-                                <table>
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody id="modal_enfermedad" class="mt-4">
+                                    <tbody class="mb-0" id="modal_enfermedad">
                                             @if($enfermedad != null)
                                             @foreach ($enfermedad as $item)
                                                 <tr id="quitar{{$item->id}}">
@@ -1101,7 +1101,7 @@ button[data-original-title="Help"]{ display: none; }
 
      <!-------- modal Registrar Enfermedad ------------>
      <div class="modal fade" id="nuevaenfermedad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog row4" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header  p-2"  style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center"  class="btn btn-azuloscuro" id="exampleModalLabel">Registrar Enfermedad</h5>
@@ -1132,26 +1132,26 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar alergias-->
     <div class="modal fade" id="alergias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content row " style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Alergias</h5>
-                    <button type="button"  class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="form_alergias">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergia" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar alergia..">
-                                </div>
-                                <table>
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
@@ -1186,7 +1186,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-------------- modal  Registrar Alergia ------------>
     <div class="modal fade" id="nuevaalergia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog row4" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header  p-2"style="background-color: #00506b; color: #fff;">
                         <h5 class="col-11 modal-title text-center " id="exampleModalLabel">Registrar Alergia</h5>
@@ -1217,7 +1217,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostrar cirugias-->
     <div class="modal fade" id="mcirugias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
@@ -1244,31 +1244,31 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de procedimientos en la consulta --}}
     <div class="modal fade" id="proceconsul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg row5" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content row">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos Realizados</h5>
-                    <button type="button" class="btn btn-azuloscuro"  data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="proceduresC-office">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked px-4">
-                                <div class="row">
+                            <div class="custom-controls-stacked">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureR" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedimiento..">
-                                </div>
-                                <table >
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
-                                            <th>
-                                                <div class="d-flex justify-content-end">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Precio</h6>
                                                 </div>
                                             </th>
@@ -1306,8 +1306,8 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de los examenes --}}
     <div class="modal fade" id="examenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content row" style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Examenes</h5>
                     <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
@@ -1315,17 +1315,17 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="exam">
-                    <div class="modal-body" style="max-height: 415px;">
+                    <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_examen" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar examen..">
-                                </div>
-                                <table class="">
+                                </div> --}}
+                                <table class="table table-borderless scrollableTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <div class="card-header">
+                                            <th class="my-0 py-0">
+                                                <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
@@ -1360,16 +1360,16 @@ button[data-original-title="Help"]{ display: none; }
 
      {{-- modal de los posible cirugia --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable row3" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content row" style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
-                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="posible-surgerys">
-                    <div class="modal-body ml-4 pb-0 pt-2 plan">
+                    <div class="modal-body ml-4 pb-0 pt-2 plan" style="height: 450px;">
                         <div class="plan-steps">
                             <!-- Nav tabs -->
                             <ul style="list-style: none !important" class="nav nav-pills row" id="pills-tab" role="tablist">
@@ -1385,19 +1385,19 @@ button[data-original-title="Help"]{ display: none; }
                                 <div role="tabpanel" class="tab-pane active" id="hospitalariaTab">
                                     <div class="form-group">
                                         <div class="custom-controls-stacked">
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaH" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
-                                            </div>
-                                            <table class="px-2">
+                                            </div> --}}
+                                            <table class="table table-borderless scrollableTable">
                                                 <thead>
                                                     <tr>
-                                                        <th>
-                                                            <div class="card-header">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Nombre</h6>
                                                             </div>
                                                         </th>
-                                                        <th>
-                                                            <div class="d-flex justify-content-end">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Precio</h6>
                                                             </div>
                                                         </th>
@@ -1430,19 +1430,19 @@ button[data-original-title="Help"]{ display: none; }
                                     <div class="form-group">
 
                                         <div class="custom-controls-stacked">
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaA" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
-                                            </div>
-                                            <table class="px-2">
+                                            </div> --}}
+                                            <table class="table table-borderless scrollableTable">
                                                 <thead>
                                                     <tr>
-                                                        <th>
-                                                            <div class="card-header">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Nombre</h6>
                                                             </div>
                                                         </th>
-                                                        <th>
-                                                            <div class="d-flex justify-content-end">
+                                                        <th class="my-0 py-0">
+                                                            <div class="card-header my-0 py-0">
                                                                 <h6>Precio</h6>
                                                             </div>
                                                         </th>
@@ -1488,31 +1488,31 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg row1" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content row">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" id="posible-procedures">
-                <div class="modal-body" style="max-height: 415px;">
+                <div class="modal-body" style="max-height: 450px;">
                     <div class="form-group">
                         <div class="custom-controls-stacked">
-                            <div class="row">
+                            {{-- <div class="row">
                                 <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureP" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedure..">
-                            </div>
-                            <table class="px-2">
+                            </div> --}}
+                            <table class="table table-borderless scrollableTable">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <div class="card-header">
+                                        <th class="my-0 py-0">
+                                            <div class="card-header my-0 py-0">
                                                 <h6>Nombre</h6>
                                             </div>
                                         </th>
-                                        <th>
-                                            <div class="d-flex justify-content-end">
+                                        <th class="my-0 py-0">
+                                            <div class="card-header my-0 py-0">
                                                 <h6>Precio</h6>
                                             </div>
                                         </th>
@@ -1564,7 +1564,9 @@ button[data-original-title="Help"]{ display: none; }
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
 <script src="{{ asset('assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js') }}"></script>
-
+<script src="{{ asset('assets\bundles\modalSearch.js') }}"></script>
+<!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
+<script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script>
     //========================buscador en tiempo real de enfermedades=======================
     $(document).ready(function(){
@@ -2753,8 +2755,8 @@ button[data-original-title="Help"]{ display: none; }
         console.log(name)
         console.log(cost)
         console.log(clasificacion)
-    
-    
+
+
         if(id != null && name != null && cost != null && clasificacion != null){
             agregar_cirugiaP =` <tr id="quitar_cirugia${id}">
                                     <td>
@@ -2768,7 +2770,7 @@ button[data-original-title="Help"]{ display: none; }
                                     </td>
                                 </tr> `;
             // agregar_cirugiaP = ' <div class="row"  id="quitar_cirugia'+id+'"><div class="col-9"><label class="custom-control custom-checkbox"><input type="radio" class="custom-control-input" name="surgerys" value="'+id+'"><span class="custom-control-label">'+name+'</span></label></div><div class="col-3"><span>'+cost+'</span></div></div>'
-            
+
             if(clasificacion == 'hospitalaria'){
                 $("#modal_cirugiaP_hospitalaria").append(agregar_cirugiaP);
             }else{
@@ -2778,7 +2780,7 @@ button[data-original-title="Help"]{ display: none; }
 
         ajax_S(surgery,reservacion);                          // enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
-        
+
         function ajax_S(surgery,reservacion) {
         $.ajax({
         url: "{{ route('doctor.surgery_actualizar') }}",   //definiendo ruta
