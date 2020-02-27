@@ -302,9 +302,7 @@
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label>
                         <div class="dropzone d-flex d-row" id="my-dropzone" style="border-color:#00506b">
-                        {{-- <div class="fallback" id="files2"> --}}
-                            {{-- <input type="file" name="file[]" id="files" value="" multiple/> --}}
-                        {{-- </div> --}}
+                        
                     </div>
                 </div>
 
@@ -896,7 +894,7 @@ $boton.addEventListener("click", function() {
             return time+file.name;
             },
             // autoProcessQueue:true,
-            maxFilesize: 10,
+            maxFilesize: 6,
             // maxFiles:3,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
