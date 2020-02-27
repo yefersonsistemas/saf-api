@@ -347,7 +347,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="card-body py-1">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover table-vcenter table-striped"
-                                                            cellspacing="0" id="addrowExample">
+                                                            cellspacing="0" id="">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Nombre</th>
@@ -391,7 +391,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="card-body py-1">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover table-vcenter table-striped"
-                                                            cellspacing="0" id="addrowExample">
+                                                            cellspacing="0" id="">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Nombre</th>
@@ -500,7 +500,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="card-body">
                                                 <div class="table-responsive">
                                                     <table class="table table-hover table-vcenter table-striped"
-                                                    cellspacing="0" id="addrowExample">
+                                                    cellspacing="0" id="">
                                                         <thead>
                                                             <tr>
                                                                 <th>Procedimiento Seleccionado</th>
@@ -555,7 +555,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="card-body py-1">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover table-vcenter table-striped"
-                                                                    cellspacing="0" id="addrowExample">
+                                                                    cellspacing="0" id="">
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Examen Seleccionado</th>
@@ -635,7 +635,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="card-body">
                                                                     <div class="table-responsive">
                                                                         <table class="table table-hover table-vcenter table-striped"
-                                                                        cellspacing="0" id="addrowExample">
+                                                                        cellspacing="0" id="">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Medicamento Seleccionado</th>
@@ -744,7 +744,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <div class="card-body py-1">
                                                                         <div class="table-responsive">
                                                                             <table class="table table-hover table-vcenter table-striped"
-                                                                                cellspacing="0" id="addrowExample">
+                                                                                cellspacing="0" id="">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Posible Cirugía</th>
@@ -771,7 +771,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <div class="card-body py-1">
                                                                         <div class="table-responsive">
                                                                             <table class="table table-hover table-vcenter table-striped"
-                                                                                cellspacing="0" id="addrowExample">
+                                                                                cellspacing="0">
+                                                                                {{-- <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample"> --}}
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Posibles procedimientos </th>
