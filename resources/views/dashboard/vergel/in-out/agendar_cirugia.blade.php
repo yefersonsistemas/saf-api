@@ -273,11 +273,11 @@
                                                     <td >AQUI VA EL PRECIO DE LA CIRUGIA</td>
                                                     <td >
                                                         <div class="form-check form-check">
-                                                            <input class= "form-check-input"  style="font-size:15px" type="radio" name="parcial"  value="parcial">
+                                                            <input class= "form-check-input"  style="font-size:15px"   class="custom-control-input" type="radio" id="parcial" name="status"  value="PARCIAL">
                                                             <label class="form-check-label" for="inlineRadio1">PARCIAL</label>
                                                         </div>
                                                         <div class="form-check form-check">
-                                                            <input class="form-check-input"  style="font-size:15px" type="radio" name="total"   value="total">
+                                                            <input class="form-check-input"  style="font-size:15px"  class="custom-control-input"  type="radio" id="total" name="status"   value="TOTAL">
                                                             <label class="form-check-label" for="inlineRadio2">TOTAL</label>
                                                         </div>
                                                     </td>
@@ -292,10 +292,11 @@
                     </div>
                         <div class="row mt-4">
                                 <div class="col-10 text-right mt-1 ">
-                                    <p style="color:#000; font-weight:bold;"><i style="font-size:16px"></i>MONTO A CANCELAR</p>     
+                                    <p style="color:#000; font-weight:bold;"><i style="font-size:16px"></i>MONTO A CANCELAR</p>   
                                 </div>  
                                 <div class="col-2">
-                                    <input type="text" id="monto" name="monto" class="form-control"  value="" required="">
+                                    <input type="text" id="monto" name="monto" class="form-control"  value="" required>
+                            
                                 </div>                                            
                         </div>                  
                     </section>
@@ -355,10 +356,11 @@ var form = $('#wizard_horizontal').show();
 
             if (currentIndex === 3) {
                 quirofano();
-            }
+            }            
         },
         onFinished: function(event, currentIndex) {
             var form = $(this);
+
             form.submit();
         }
     });
@@ -572,7 +574,7 @@ var form = $('#wizard_horizontal').show();
                 allowOutsideClick:false,
             });
         });
-    }
+    }  
 
 </script>
 <script>

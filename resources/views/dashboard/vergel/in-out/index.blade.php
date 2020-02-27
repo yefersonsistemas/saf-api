@@ -1,4 +1,4 @@
- @extends('dashboard.layouts.app')
+     @extends('dashboard.layouts.app')
 
 @section('cites','active')
 @section('all','active')
@@ -121,7 +121,7 @@
                                         <th>Doctor</th>
                                          <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
-                                        <th>Status</th>
+                                        <th>Status de pago</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -132,7 +132,7 @@
                                         <th>Doctor</th>
                                          <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
-                                        <th>Status</th>
+                                        <th>Status de pago</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </tfoot>
@@ -152,29 +152,30 @@
                                             @endforeach   
 
 
-                                         @foreach ( $surgeries->patient as $patient ) 
+                                        @foreach ( $surgeries->patient as $patient ) 
                                             <td>{{ $patient->person->name }} {{$patient->person->lastname }}</td> 
-                                         @endforeach
+                                        @endforeach
                                             <td class="">{{ $surgeries->employe->person->name }} {{$surgeries->employe->person->lastname }}</td> 
                                             <td class="">{{ $surgeries->typesurgeries->name }} </td> 
                                             <td> {{ $surgeries->date }}  </td>
-                                            <td> 
+                                            <td class="text-center">{{ $surgeries->status }} </td>
+                                            {{-- <td> 
                                             @if ($surgeries->status == 'Aprobada') 
                                                     <span class="badge badge-success">{{ $surgeries->status }}</span> 
                                                 @endif
-                                                @if ($surgeries->status == 'Cancelada') --}}
+                                                @if ($surgeries->status == 'Cancelada') 
                                                     <span class="badge badge-danger">{{ $surgeries->status }}</span> 
                                                 @endif 
-                                                @if ($surgeries->status == 'Reprogramada') --}}
+                                                @if ($surgeries->status == 'Reprogramada') 
                                                     <span class="badge badge-secondary">{{ $surgeries->status }}</span> 
                                                 @endif 
-                                                @if ($surgeries->status == 'Suspendida') --}}
+                                                @if ($surgeries->status == 'Suspendida') 
                                                     <span class="badge badge-warning">{{ $surgeries->status }}</span> 
                                                 @endif 
-                                                @if ($surgeries->status == 'Pendiente') --}}
+                                                @if ($surgeries->status == 'Pendiente') 
                                                     <span class="badge badge-azuloscuro">{{ $surgeries->status }}</span> 
                                                 @endif 
-                                            </td> 
+                                            </td>  --}}
 
                                              <td style="display:inline-block"> 
                                                 {{-- @if ($reservation->status == 'Pendiente') --}}

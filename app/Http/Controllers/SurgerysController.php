@@ -396,19 +396,22 @@ class SurgerysController extends Controller
 
     public function inout_hospitalaria_store(Request $request)
     {   
-        // dd($request);
+        //  dd($request);
         //datos a guardar en la tabla surgeries
         $p = Patient::with('person')->where('id', $request->patient_id)->first(); //tabla trayendo id del paciente
         $ts = $request->type_surgery_id;
         $e = $request->employe_id;
         $a = $request->area_id;
         $d = Carbon::create($request->date)->format('Y-m-d');
-        $parcial = $request->parcial;
-        $total = $request->total;
+        $status = $request->status;
         $payment = $request->monto;
 
-        if($p !=null && $ts !=null && $e !=null && $a !=null && $d !=null  && $parcial !=null  && $total !=null  && $payment !=null){
-            
+        if($p != null && $ts != null && $e != null &&  $a != null && $d !=null && $payment  && $status !=null)
+        {
+            // dd($p);
+            if($status == 'TOTAL' )
+            {
+               // dd($status);
             $surgery = Surgery::create([		
                 'patient_id' => $p->id,
                 'type_surgery_id' => $ts,
@@ -416,9 +419,27 @@ class SurgerysController extends Controller
                 'area_id' => $a,
                 'date'=> $d,
                 'branch_id' => 1,
-                'status'=> $parcial,
-                'payment' => $payment,
+                'status'=> $status,
+                'payment' => $payment,               
                 ]);
+                //  dd($surgery);
+            }else {
+                if($status == 'PARCIAL')
+                //   dd($total);
+                
+                {
+                    $surgery = Surgery::create([		
+                        'patient_id' => $p->id,
+                        'type_surgery_id' => $ts,
+                        'employe_id' => $e,
+                        'area_id' => $a,
+                        'date'=> $d,
+                        'branch_id' => 1,
+                        'status'=> $status,
+                        'payment' => $payment,
+                        ]);
+                    }
+                }
                 // dd($surgery);
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);
@@ -432,10 +453,8 @@ class SurgerysController extends Controller
                 // $operation = Reservation::find($request->reservation_id);
                 // $operation->operation = true;
                 // $operation->save();
-
                 //Relacion de paciente con la cirugia
                 $surgery->patient()->attach($p);
-
                 //llena los campos de la tabla Reservation_Surgery
                 // $relation = Reservationsurgery::create([
                 //     'reservation_id' => $request->reservation_id,
