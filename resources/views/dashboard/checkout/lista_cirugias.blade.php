@@ -3,6 +3,8 @@
 
 @section('Lista de Cirugias','active')
 @section('all','active')
+@section('outrol','d-block')
+@section('dire','d-none')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
@@ -34,7 +36,7 @@
             {{-- Contadores --}}
             {{-- <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">                                
+                    <div class="card-body">
                         <h6>Cirugías</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter"></span></h3>
                     </div>
@@ -48,7 +50,7 @@
                     </div>
                 </div>
             </div> --}}
-           
+
             <div class="col-lg-12 col-md-12 mt-10">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item col-md-2">
@@ -103,7 +105,7 @@
                                             @foreach ($surgeries->patient as $patient)
                                                 <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
                                             @endforeach
-                                            
+
                                             <td>{{$surgeries->employe->person->name}} {{$surgeries->employe->person->lastname}}</td>
                                             <td>{{$surgeries->typesurgeries->name}}</td>
                                             <td>{{$surgeries->area->name}}</td>
@@ -115,7 +117,7 @@
                                                 <a type="button" class="btn btn-danger" href="">C</a>
                                             </td> --}}
                                         </tr>
-                                    @endforeach 
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -170,7 +172,7 @@
                                                 <a type="button" class="btn btn-danger" href="">C</a>
                                             </td> --}}
                                         </tr>
-                                    @endforeach 
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

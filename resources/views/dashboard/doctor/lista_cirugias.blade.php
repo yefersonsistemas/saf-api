@@ -2,6 +2,8 @@
 
 @section('Lista de Cirugias','active')
 @section('cirugia','active')
+@section('docrol','d-block')
+@section('dire','d-none')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
@@ -30,7 +32,7 @@
 <div class="section-body  py-4">
     <div class="container-fluid">
         <div class="row clearfix justify-content-between">
-            
+
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
                     <div class="card-body py-2">
@@ -107,11 +109,11 @@
                                         @foreach ($surgeries->patient as $patient)
                                             <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
                                         @endforeach
-                                        
+
                                         {{-- <td>{{$surgeries->typesurgeries->name}}</td> --}}
                                         <td>{{$surgeries->area->name}}</td>
                                     </tr>
-                                @endforeach 
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -157,11 +159,11 @@
                                         @foreach ($surgeries->patient as $patient)
                                             <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
                                         @endforeach
-                                        
+
                                         {{-- <td>{{$surgeries->typesurgeries->name}}</td> --}}
                                         <td>{{$surgeries->area->name}}</td>
                                     </tr>
-                                @endforeach 
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

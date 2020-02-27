@@ -2,6 +2,8 @@
 @extends('dashboard.layouts.app')
 
 @section('doctor','active')
+@section('docrol','d-block')
+@section('dire','d-none')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
@@ -218,7 +220,7 @@ button[data-original-title="Help"]{ display: none; }
                                         <textarea name="enfermedad_actual" cols="30" rows="10" class="summernote" ></textarea>
                                     </section>
 
-                                    <h2>Antecedentes</h2>   
+                                    <h2>Antecedentes</h2>
                                     <section class="ml-4 pb-0 pt-4">
                                         <div id="accordion">
                                             <!--agregar enfermedad-->
@@ -239,13 +241,13 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row" id="{{$disease->id}}">
                                                             <div class="col-9">
                                                                 <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $disease->name }}</a>
-                                                            </div> 
+                                                            </div>
                                                             <div class="col-3">
                                                                 <input id="{{$disease->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="enfermedad_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                     value="Eliminar">
                                                             </div>
-                                                        </div>                                                           
-                                                    @endforeach    
+                                                        </div>
+                                                    @endforeach
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                         <button class="btn btn-info" data-toggle="modal" data-target="#enfermedades" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar </button>
@@ -271,12 +273,12 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="row" id="{{$allergy->id}}">
                                                                 <div class="col-9">
                                                                     <a class="list-group-item list-group-item-action row "><i class="fa fa-check mr-3 text-verdePastel"></i>{{ $allergy->name }}</a>
-                                                                </div> 
+                                                                </div>
                                                                 <div class="col-3">
                                                                     <input id="{{$allergy->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="alergia_id btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                         value="Eliminar">
                                                                 </div>
-                                                            </div>     
+                                                            </div>
                                                          @endforeach
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
@@ -304,13 +306,13 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="row" id="cirugia{{$cite->id}}">
                                                             <div class="col-9" id="cirugia{{$cite->id}}">
                                                                 <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
-                                                            </div> 
+                                                            </div>
                                                             <div class="col-3" id="cirugia{{$cite->id}}">
-                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" 
+                                                                <input id="cirugia{{$cite->id}}" style="padding: 7px 20px 7px 20px; font-size:12px; border-radius:7px;" type="button" class="borrar_cirugia btn-azuloscuro btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip"
                                                                     value="Eliminar">
                                                             </div>
-                                                        </div> 
-                                                        @endif 
+                                                        </div>
+                                                        @endif
                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end mt-4">
                                                             <button class="btn btn-info" data-toggle="modal" data-target="#mcirugias" style="font-size:12px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
@@ -1269,22 +1271,22 @@ button[data-original-title="Help"]{ display: none; }
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
             console.log('jajja',reservacion);
-            console.log('id', id);    
+            console.log('id', id);
             $("#"+id).remove();
-          
+
             $.ajax({
                 url: "{{ route('doctor.enfermedad_eliminar') }}",
                 type: 'POST',
-                dataType:'json',   
+                dataType:'json',
                 data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 id:id,
                 reservacion_id:reservacion,
             }
 
             })
-            .done(function(data) {               
-            console.log('enfermedad modal',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {
+            console.log('enfermedad modal',data[1])         //recibe lo que retorna el metodo en la ruta definida
             agregar = '<div class="row" id="quitar'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_enfermedad" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $("#modal_enfermedad").append(agregar);
 
@@ -1296,14 +1298,14 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             }
-            
+
         })
         .fail(function(data) {
             console.log(data);
-        })  
+        })
 
         });
-    
+
     });
 
     //-------------------------------------------- ALERGIAS -----------------------------------------------
@@ -1313,7 +1315,7 @@ button[data-original-title="Help"]{ display: none; }
         var reservacion = $("#reservacion").val();
         var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
         console.log("hh",datos);
-        
+
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
 
@@ -1330,7 +1332,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-           
+
             if(data[0] == 201){                  //si no trae valores
                 Swal.fire({
                     title: data.alergia,
@@ -1371,22 +1373,22 @@ button[data-original-title="Help"]{ display: none; }
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
             console.log('jajja',reservacion);
-            console.log('id', id);    
+            console.log('id', id);
             $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.alergia_eliminar') }}",
                 type: 'POST',
-                dataType:'json',   
+                dataType:'json',
                 data: {
-                _token: "{{ csrf_token() }}",        
+                _token: "{{ csrf_token() }}",
                 id:id,
                 reservacion_id:reservacion,
             }
 
             })
-            .done(function(data) {               
-            // console.log('alergia',data[1])         //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {
+            // console.log('alergia',data[1])         //recibe lo que retorna el metodo en la ruta definida
             agregarAlergia = '<div class="row" id="quitarAlergia'+data[1].id+'"><label class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" name="name_alergia" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label></div>',
             $(".modal_alergias").append(agregarAlergia);
 
@@ -1398,14 +1400,14 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             }
-            
+
         })
         .fail(function(data) {
             console.log(data);
-        })  
+        })
 
         });
-    
+
     });
 
 
@@ -1470,21 +1472,21 @@ button[data-original-title="Help"]{ display: none; }
             let id = this.id;
             var reservacion = $("#reservacion_id").val();
             console.log('jajja',reservacion);
-            console.log('id', id);    
+            console.log('id', id);
             $("#"+id).remove();
 
             $.ajax({
                 url: "{{ route('doctor.cirugia_borrar') }}",
                 type: 'POST',
-                dataType:'json',   
+                dataType:'json',
                 data: {
-                _token: "{{ csrf_token() }}", 
+                _token: "{{ csrf_token() }}",
                 reservacion_id:reservacion,
             }
 
             })
-            .done(function(data) {               
-            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida  
+            .done(function(data) {
+            console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
             $("#form_cirugias").val('');
 
             if(data[0] == 202){                  //si no trae valores
@@ -1495,15 +1497,15 @@ button[data-original-title="Help"]{ display: none; }
                 });
 
             }
-            
+
         })
         .fail(function(data) {
             console.log(data);
-        })  
+        })
 
         });
     });
-    
+
 
     //-------------------------------PROCEDIMIENTOS REALIZADOS ------------------------------------------
 
@@ -1762,7 +1764,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'" type="button" style=" border-radius:7px; font-size:12px; padding:7px 20px 7px 20px;" class="btn-azuloscuro procedureP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove" value="Eliminar"></td></tr>'
             $("#procedimientos").append(procedure);
-            $("#quitar_procedureP"+data[$i].id).remove();         
+            $("#quitar_procedureP"+data[$i].id).remove();
         }
     }
 
@@ -1809,7 +1811,7 @@ button[data-original-title="Help"]{ display: none; }
 
     });
 
-           
+
     //-----------------------------------------  POSIBLE CIRUGIA ------------------------------------------
 
     //=============== captar datos de las posibles cirugias===============
@@ -1865,7 +1867,7 @@ button[data-original-title="Help"]{ display: none; }
         for($i=0; $i < data.length; $i++){
             cirugias='<tr id="'+data[$i].id+'"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td id="'+data[$i].id+'" class="d-flex justify-content-center"><input id="'+data[$i].id+'"style="padding:7px 20px 7px 20px; border-radius:7px; font-size:12px;  color:#fff"  type="button" class="btn-azuloscuro cirugiaP_id btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Eliminar cirugia seleccionada" value="Eliminar"></td></tr>'
             $("#cirugias").html(cirugias);
-            $("#quitar_cirugia"+data[$i].id).remove();   
+            $("#quitar_cirugia"+data[$i].id).remove();
         }
     }
 

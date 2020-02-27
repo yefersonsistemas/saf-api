@@ -2,16 +2,18 @@
 
 @section('cites','active')
 @section('day','active')
+@section('inrol','d-block')
+@section('dire','d-none')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
-    
+
 @endsection
 
 {{-- @section('title')
-     Citas para hoy: {{ $citasDelDia }} | Atendidos Hoy: {{ $atendidos }}     
+     Citas para hoy: {{ $citasDelDia }} | Atendidos Hoy: {{ $atendidos }}
 @endsection --}}
 @section('title','Citas del día')
 
@@ -78,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -171,9 +173,9 @@
 
 
                                         <div class="container text-center" id="ID_element_0">
-                                            {{-- El paciente ha ingresado a las instalaciones --}}											
-                                            @if($reservation->patient->inputoutput->isEmpty())  											
-                                                @if ($reservation->status == 'Aprobada')			
+                                            {{-- El paciente ha ingresado a las instalaciones --}}
+                                            @if($reservation->patient->inputoutput->isEmpty())
+                                                @if ($reservation->status == 'Aprobada')
                                                 <a href="{{ route ('checkin.statusIn', $reservation->id) }}"  data-toggle="tooltip" data-placement="left" title="Marcar cuando el paciente llegue a las instalaciones" class="btn btn-danger state state_0" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
                                                 @elseif($reservation->status != 'Aprobada')
                                                 <button type="button" class="btn btn-secondary state state_0" disabled></button>
@@ -198,7 +200,7 @@
                                             @endif --}}
 
 
-                                            
+
 
                                             {{-- El paciente ha ingresado al consultorio --}}
                                             @if(!empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))

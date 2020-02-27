@@ -97,10 +97,10 @@ class UsersTableSeeder extends Seeder
             'position_id' => $position->id
         ]);
         $this->to('employes', $employe->id, 'App\Employe');
-        
+
          /**
          * clase de medico
-         * 
+         *
          */
 
         $type = factory(App\TypeDoctor::class)->create([
@@ -117,7 +117,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'hospitalaria',
             'description' => 'con hospitalizacion',
             'branch_id' => '1',
-        ]); 
+        ]);
 
         //================ DAtos para cirugia hospitalaria ================================
 
@@ -144,7 +144,7 @@ class UsersTableSeeder extends Seeder
             'service_id' => 3,
             'branch_id' => '1',
             ]);
-            
+
             //relacion de especialidad con el medico
             $especialidad->employe()->attach($employe->id);
 
@@ -163,7 +163,7 @@ class UsersTableSeeder extends Seeder
         $procedimiento = factory(App\Procedure::class)->create([
             'name' => 'Septoplastia endoscópica',
             'description' => 'La septoplastía es uno de los procedimientos quirúrgicos, cuya principal
-                                indicación es la presencia de desviación septal nasal 
+                                indicación es la presencia de desviación septal nasal
                                 significativa',
             'price' => 2500,
             // 'speciality_id' => $especialidad->id,
@@ -178,7 +178,7 @@ class UsersTableSeeder extends Seeder
           //creando procedimiento
         $procedimiento2 = factory(App\Procedure::class)->create([
             'name' => 'Maxiloetmoidectomia bilateral',
-            'description' => 'Procedimiento utilizado para eliminar los bloqueos en los senos 
+            'description' => 'Procedimiento utilizado para eliminar los bloqueos en los senos
             (espacios llenos de aire en algunos de los huesos del cráneo).',
             'price' => 1200,
             // 'speciality_id' => $especialidad->id,
@@ -223,8 +223,8 @@ class UsersTableSeeder extends Seeder
         $cirugia->procedure()->attach($procedimiento4);
         $employe->procedures()->attach($procedimiento4);
 
-            
-       
+
+
 
         //relacion de la cirugia con el procedimiento
         // $especialidad->procedures()->attach($procedimiento);
@@ -254,11 +254,11 @@ class UsersTableSeeder extends Seeder
 
 
 
-        
+
 
         //=========================  Procedimientos otros ==========================
 
-   
+
 
 
         $pro2= factory(Procedure::class)->create([
@@ -275,7 +275,7 @@ class UsersTableSeeder extends Seeder
 
 
         $pro3= factory(Procedure::class)->create([
-            'name'    => 'Plasma rico en plaquetas (estético)',          
+            'name'    => 'Plasma rico en plaquetas (estético)',
              'price' => 25000,
              'branch_id' => '1',
 
@@ -290,7 +290,7 @@ class UsersTableSeeder extends Seeder
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Colocación de hilos PDO',
              'price' => 18000,
-             'branch_id' => '1',            
+             'branch_id' => '1',
         ]);
 
           //relacion de la cirugia con el procedimiento
@@ -300,9 +300,9 @@ class UsersTableSeeder extends Seeder
 
 
         $pro5= factory(Procedure::class)->create([
-             'name'    => ' Nutrición facial (peelin, microdermacioin)',           
+             'name'    => ' Nutrición facial (peelin, microdermacioin)',
              'price' => 22000,
-             'branch_id' => '1',            
+             'branch_id' => '1',
         ]);
 
         //relacion de la cirugia con el procedimiento
@@ -312,9 +312,9 @@ class UsersTableSeeder extends Seeder
 
 
         $pro6= factory(Procedure::class)->create([
-            'name'    => ' Dermapen',            
+            'name'    => ' Dermapen',
              'price' => 22000,
-             'branch_id' => '1',            
+             'branch_id' => '1',
         ]);
 
         //relacion de la cirugia con el procedimiento
@@ -335,7 +335,7 @@ class UsersTableSeeder extends Seeder
             $equipo1 = factory(App\Equipment::class)->create([
                 'name' => 'Monitor',
                 'description' => 'Extracción de la porción media de unciforme',
-    
+
                 'quantity' => 250,
                 'type_equipment_id' => $tipo_equipo->id,
                 'branch_id' => '1',
@@ -346,7 +346,7 @@ class UsersTableSeeder extends Seeder
             $equipo2 = factory(App\Equipment::class)->create([
                 'name' => 'Cuchillas mocrodebridador',
                 'description' => 'Extracción de la porción media de unciforme',
-    
+
                 'quantity' => 250,
                 'type_equipment_id' => $tipo_equipo->id,
                 'branch_id' => '1',
@@ -357,7 +357,7 @@ class UsersTableSeeder extends Seeder
             $equipo3 = factory(App\Equipment::class)->create([
                 'name' => 'Mircodebridador y punta de microdebridador',
                 'description' => 'Extracción de la porción media de unciforme',
-    
+
                 'quantity' => 250,
                 'type_equipment_id' => $tipo_equipo->id,
                 'branch_id' => '1',
@@ -369,7 +369,7 @@ class UsersTableSeeder extends Seeder
               $equipo4 = factory(App\Equipment::class)->create([
                 'name' => 'Radiodrecuencia',
                 'description' => 'Extracción de la porción media de unciforme',
-    
+
                 'quantity' => 250,
                 'type_equipment_id' => $tipo_equipo->id,
                 'branch_id' => '1',
@@ -383,27 +383,27 @@ class UsersTableSeeder extends Seeder
                 'description' => 'altas el mismo día',
                 'branch_id' => '1',
             ]);
-    
+
             //creando cirugia
             $cirugia = factory(App\Typesurgery::class)->create([
                 'name' => 'Endoscopica Nasosinusal',
                 'duration' => 3,
                 'cost' => 25000.00,
-                'description' => 'Se realiza para remodelar las estructuras de la cabeza y el cuello, por lo general la nariz, 
+                'description' => 'Se realiza para remodelar las estructuras de la cabeza y el cuello, por lo general la nariz,
                 las orejas, el mentón, los pómulos y el cuello',
                 'day_hospitalization' => 'ambulatoria',
                 'classification_surgery_id' => $clasificacion->id,
                 'branch_id' => '1',
             ]);
             $this->to('surgeries', $cirugia->id, 'App\Typesurgery');
-    
+
 
         /**
          * Especialidades para el medico
          * y sus procedimientos
          */
         // $num = rand(1,3);
-        // for ($i=0; $i < $num ; $i++) { 
+        // for ($i=0; $i < $num ; $i++) {
         //     $speciality = Speciality::inRandomOrder()->first();
         //     $speciality->employe()->attach($employe->id);
         //     foreach ($speciality->procedures as $procedure) {
@@ -429,7 +429,7 @@ class UsersTableSeeder extends Seeder
         /**
          * Se crea el horario del medico
          */
-            
+
         // $schedule = factory(Schedule::class, rand(1,3))->create([
         //     'employe_id' => $employe->id
         // ]);
@@ -500,11 +500,11 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $person->id,
                 'employe_id' => $employe->id
             ]);
-                
+
             /**
              * Enfermedades del paciente
              */
-            for ($i=0; $i < rand(1,3) ; $i++) { 
+            for ($i=0; $i < rand(1,3) ; $i++) {
                 $disease = Disease::inRandomOrder()->first();
                 $disease->patient()->attach($patient->id);
             }
@@ -514,11 +514,11 @@ class UsersTableSeeder extends Seeder
              * y su daignostico
              */
 
-            // for ($i=0; $i < rand(1,3) ; $i++) { 
+            // for ($i=0; $i < rand(1,3) ; $i++) {
             //     $medicine = Medicine::inRandomOrder()->first();
             //     $medicine->patient()->attach($patient->id);
             // }
-            
+
             // $medicine = factory(App\Medicine::class)->create();
 
             // $treatment = factory(App\Treatment::class)->create([
@@ -553,7 +553,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'carlosperez@hotmail.com',
                 'branch_id' => '1',
             ]);
-    
+
                 $this->to('person', $person->id, 'App\Person');
                 /**
                  * Registro de la historia medica
@@ -563,15 +563,15 @@ class UsersTableSeeder extends Seeder
                     'person_id' => $person->id,
                     'employe_id' => $employe->id
                 ]);
-                    
+
                 /**
                  * Enfermedades del paciente
                  */
-                for ($i=0; $i < rand(1,5) ; $i++) { 
+                for ($i=0; $i < rand(1,5) ; $i++) {
                     $disease = Disease::inRandomOrder()->first();
                     $disease->patient()->attach($patient->id);
                 }
-    
+
                 /**
                  * Tratamiento para el paciente
                  * y su daignostico
@@ -586,7 +586,7 @@ class UsersTableSeeder extends Seeder
                 //     'patient_id' => $patient->id,
                 //     'treatment_id' => $treatment->id
                 // ]);
-    
+
                 /**
                  * Registro de la reservacion
                  */
@@ -607,7 +607,7 @@ class UsersTableSeeder extends Seeder
                     'email' => 'lupeparra@gmail.com',
                     'branch_id' => '1',
                 ]);
-        
+
                     $this->to('person', $person->id, 'App\Person');
                     /**
                      * Registro de la historia medica
@@ -617,15 +617,15 @@ class UsersTableSeeder extends Seeder
                         'person_id' => $person->id,
                         'employe_id' => $employe->id
                     ]);
-                        
+
                     /**
                      * Enfermedades del paciente
                      */
-                    for ($i=0; $i < rand(1,5) ; $i++) { 
+                    for ($i=0; $i < rand(1,5) ; $i++) {
                         $disease = Disease::inRandomOrder()->first();
                         $disease->patient()->attach($patient->id);
                     }
-        
+
                     /**
                      * Tratamiento para el paciente
                      * y su daignostico
@@ -640,7 +640,7 @@ class UsersTableSeeder extends Seeder
                     //     'patient_id' => $patient->id,
                     //     'treatment_id' => $treatment->id,
                     // ]);
-        
+
                     /**
                      * Registro de la reservacion
                      */
@@ -650,7 +650,7 @@ class UsersTableSeeder extends Seeder
                         'schedule_id'    => $employe->schedule->first()->id,
                         'specialitie_id' => $employe->speciality->first()->id,
                     ]);
-        
+
 
         // $persons = factory(Person::class, 5)->create()->each(function ($person) use ($employe) {
         //     $this->to('person', $person->id, 'App\Person');
@@ -662,11 +662,11 @@ class UsersTableSeeder extends Seeder
         //         'person_id' => $person->id,
         //         'employe_id' => $employe->id
         //     ]);
-                
+
         //     /**
         //      * Enfermedades del paciente
         //      */
-        //     for ($i=0; $i < rand(1,5) ; $i++) { 
+        //     for ($i=0; $i < rand(1,5) ; $i++) {
         //         $disease = Disease::inRandomOrder()->first();
         //         $disease->patient()->attach($patient->id);
         //     }
@@ -722,10 +722,10 @@ class UsersTableSeeder extends Seeder
             'position_id' => $position->id
         ]);
         $this->to('employes', $employe1->id, 'App\Employe');
-        
+
          /**
          * clase de medico
-         * 
+         *
          */
 
         $type = factory(App\TypeDoctor::class)->create([
@@ -759,7 +759,7 @@ class UsersTableSeeder extends Seeder
 
         //creando procedimientos otros
         $pro= factory(Procedure::class)->create([
-             'name'    => 'Cura post-operatoria (por nasosinusal o tumores, retiros de puntos, aspiración en cada fosa nasal)',            
+             'name'    => 'Cura post-operatoria (por nasosinusal o tumores, retiros de puntos, aspiración en cada fosa nasal)',
              'price' => 10000,
              'branch_id' => '1',
         ]);
@@ -775,7 +775,7 @@ class UsersTableSeeder extends Seeder
 
         $pro1= factory(Procedure::class)->create([
             'name'    => 'Cauterización al paciente (por hemorragia)',
-            'branch_id' => '1',            
+            'branch_id' => '1',
             'price' => 20000,
         ]);
 
@@ -789,7 +789,7 @@ class UsersTableSeeder extends Seeder
 
         // $pro2= factory(Procedure::class)->create([
         //     'name'    => 'Aspiración en oídos (ya sea por cuerpo extraño u otocerumen en ambos oídos)',
-        //     'branch_id' => '1',             
+        //     'branch_id' => '1',
         //     'price' => 15000,
         // ]);
 
@@ -809,7 +809,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $employe1->procedures()->attach($pro3);
-        
+
          //relacion de la cirugia con el procedimiento
           $pro3->speciality()->attach($especialidad);
           $cirugia->procedure()->attach($pro3);
@@ -860,13 +860,13 @@ class UsersTableSeeder extends Seeder
                 'turn' => 'tarde',
                 'employe_id' => $employe1->id
             ]);
-    
+
             factory(Schedule::class)->create([
                 'day' => 'wednesday',
                 'turn' => 'mañana',
                 'employe_id' => $employe1->id
             ]);
-    
+
             factory(Schedule::class)->create([
                 'day' => 'monday',
                 'turn' => 'mañana',
@@ -877,7 +877,7 @@ class UsersTableSeeder extends Seeder
                 'name'          => 'consultorio 3',
                 'type_area_id' =>  $typearea->id,
             ]);
-    
+
             factory(Area::class)->create([
                 'name'          => 'consultorio 4',
                 'type_area_id' =>  $typearea->id,
@@ -906,7 +906,7 @@ class UsersTableSeeder extends Seeder
                 'email' => ' lauracortez@gmail.com',
                 'branch_id' => '1',
             ]);
-    
+
                 $this->to('person', $person->id, 'App\Person');
                 /**
                  * Registro de la historia medica
@@ -918,15 +918,15 @@ class UsersTableSeeder extends Seeder
                 ]);
 
                 // dd($patient);
-                    
+
                 /**
                  * Enfermedades del paciente
                  */
-                for ($i=0; $i < rand(1,5) ; $i++) { 
+                for ($i=0; $i < rand(1,5) ; $i++) {
                     $disease = Disease::inRandomOrder()->first();
                     $disease->patient()->attach($patient->id);
                 }
-    
+
                 /**
                  * Tratamiento para el paciente
                  * y su daignostico
@@ -941,7 +941,7 @@ class UsersTableSeeder extends Seeder
             //     //     'patient_id' => $patient->id,
             //     //     'treatment_id' => $treatment->id
             //     // ]);
-    
+
                 /**
                  * Registro de la reservacion
                  */
@@ -953,7 +953,7 @@ class UsersTableSeeder extends Seeder
                 ]);
 
                 // dd($reservation);
-    
+
                 $person = Person::create([
                     'type_dni' => 'N',
                     'dni' => '12184037',
@@ -964,7 +964,7 @@ class UsersTableSeeder extends Seeder
                     'email' => 'manuelc@hotmail.com',
                     'branch_id' => '1',
                 ]);
-        
+
                     $this->to('person', $person->id, 'App\Person');
                     /**
                      * Registro de la historia medica
@@ -974,15 +974,15 @@ class UsersTableSeeder extends Seeder
                         'person_id' => $person->id,
                         'employe_id' => $employe1->id
                     ]);
-                        
+
                     /**
                      * Enfermedades del paciente
                      */
-                    for ($i=0; $i < rand(1,5) ; $i++) { 
+                    for ($i=0; $i < rand(1,5) ; $i++) {
                         $disease = Disease::inRandomOrder()->first();
                         $disease->patient()->attach($patient->id);
                     }
-        
+
                     /**
                      * Tratamiento para el paciente
                      * y su daignostico
@@ -997,7 +997,7 @@ class UsersTableSeeder extends Seeder
             //         //     'patient_id' => $patient->id,
             //         //     'treatment_id' => $treatment->id
             //         // ]);
-        
+
                     /**
                      * Registro de la reservacion
                      */
@@ -1007,7 +1007,7 @@ class UsersTableSeeder extends Seeder
                         'schedule_id'    => $employe1->schedule->first()->id,
                         'specialitie_id' => $employe1->speciality->first()->id,
                     ]);
-    
+
                     $person = Person::create([
                         'type_dni' => 'N',
                         'dni' => '18184030',
@@ -1018,7 +1018,7 @@ class UsersTableSeeder extends Seeder
                         'email' => 'vicenterojas@gmail.com',
                         'branch_id' => '1',
                     ]);
-            
+
                         $this->to('person', $person->id, 'App\Person');
                         /**
                          * Registro de la historia medica
@@ -1028,15 +1028,15 @@ class UsersTableSeeder extends Seeder
                             'person_id' => $person->id,
                             'employe_id' => $employe1->id
                         ]);
-                            
+
                         /**
                          * Enfermedades del paciente
                          */
-                        for ($i=0; $i < rand(1,5) ; $i++) { 
+                        for ($i=0; $i < rand(1,5) ; $i++) {
                             $disease = Disease::inRandomOrder()->first();
                             $disease->patient()->attach($patient->id);
                         }
-            
+
             //             /**
             //              * Tratamiento para el paciente
             //              * y su daignostico
@@ -1051,7 +1051,7 @@ class UsersTableSeeder extends Seeder
             //             //     'patient_id' => $patient->id,
             //             //     'treatment_id' => $treatment->id
             //             // ]);
-            
+
                         /**
                          * Registro de la reservacion
                          */
@@ -1085,10 +1085,10 @@ class UsersTableSeeder extends Seeder
             'position_id' => $position->id
         ]);
         $this->to('employes', $employe2->id, 'App\Employe');
-        
+
          /**
          * clase de medico
-         * 
+         *
          */
 
         $type = factory(App\TypeDoctor::class)->create([
@@ -1108,7 +1108,7 @@ class UsersTableSeeder extends Seeder
             'service_id' => 2,
             'branch_id' => '1',
             ]);
-            
+
         //relacion de especialidad con el medico
         $especialidad2->employe()->attach($employe2->id);
 
@@ -1119,7 +1119,7 @@ class UsersTableSeeder extends Seeder
         $pro5= factory(Procedure::class)->create([
             'name'    => 'Cateterismo o sondaje vía lagrimal.',
             'description' => 'El sondaje de vías lagrimales es un procedimiento quirúrgico que se emplea para
-             tratar la obstrucción congénita del conducto lagrimal, una condición muy frecuente en niños recién 
+             tratar la obstrucción congénita del conducto lagrimal, una condición muy frecuente en niños recién
              nacidos o con pocos meses de edad.',
             'branch_id' => '1',
              'price' => 20000,
@@ -1150,7 +1150,7 @@ class UsersTableSeeder extends Seeder
 
         $pro2= factory(Procedure::class)->create([
             'name'    => 'Curva de tensión ocular',
-            'description' => 'La curva de tensión ocular, es un examen o método oftalmológico que nos permite comprender 
+            'description' => 'La curva de tensión ocular, es un examen o método oftalmológico que nos permite comprender
             el mecanismo fisiopatológico del daño producido en la mayor parte de los glacuomas y avala el concepto de la
              etiopatogenia de la enfermedad',
             'branch_id' => '1',
@@ -1171,7 +1171,7 @@ class UsersTableSeeder extends Seeder
         $pro3= factory(Procedure::class)->create([
             'name'    => 'Exploración vitreorretinal',
             'description' => 'es una prueba rutinaria que permite obtener información de las estructuras más importantes
-             de la parte posterior del globo ocular, así como realizar el diagnóstico y seguimiento de diversas patologías 
+             de la parte posterior del globo ocular, así como realizar el diagnóstico y seguimiento de diversas patologías
              oftalmológicas',
             'branch_id' => '1',
              'price' => 17000,
@@ -1184,13 +1184,13 @@ class UsersTableSeeder extends Seeder
             $cirugia->procedure()->attach($pro3);
             $employe->procedures()->attach($pro3);
 
-        
+
 
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Microscopia especular',
-            'description' => 'es un procedimiento rápido e indoloro. El microscopio de luz reflejada 
+            'description' => 'es un procedimiento rápido e indoloro. El microscopio de luz reflejada
             brilla en la córnea y captura imágenes que se reflejan en la interfaz óptica entre el endotelio y el humor acuoso.',
-           'branch_id' => '1',            
+           'branch_id' => '1',
             'price' => 30000,
         ]);
 
@@ -1229,13 +1229,13 @@ class UsersTableSeeder extends Seeder
                 'turn' => 'tarde',
                 'employe_id' => $employe2->id
             ]);
-    
+
             factory(Schedule::class)->create([
                 'day' => 'wednesday',
                 'turn' => 'mañana',
                 'employe_id' => $employe2->id
             ]);
-    
+
             factory(Schedule::class)->create([
                 'day' => 'tuesday',
                 'turn' => 'mañana',
@@ -1276,7 +1276,7 @@ class UsersTableSeeder extends Seeder
                 'email' => '    dianaalvarez@gmail.com',
                 'branch_id' => '1',
             ]);
-    
+
                 $this->to('person', $person->id, 'App\Person');
                 /**
                  * Registro de la historia medica
@@ -1288,15 +1288,15 @@ class UsersTableSeeder extends Seeder
                 ]);
 
                 // dd($patient);
-                    
+
                 /**
                  * Enfermedades del paciente
                  */
-                for ($i=0; $i < rand(1,5) ; $i++) { 
+                for ($i=0; $i < rand(1,5) ; $i++) {
                     $disease = Disease::inRandomOrder()->first();
                     $disease->patient()->attach($patient->id);
                 }
-    
+
                 /**
                  * Registro de la reservacion
                  */
@@ -1331,10 +1331,10 @@ class UsersTableSeeder extends Seeder
             'position_id' => $position->id
         ]);
         $this->to('employes', $employe3->id, 'App\Employe');
-        
+
          /**
          * clase de medico
-         * 
+         *
          */
 
         $type = factory(App\TypeDoctor::class)->create([
@@ -1354,7 +1354,7 @@ class UsersTableSeeder extends Seeder
             'service_id' => 2,
             'branch_id' => '1',
             ]);
-            
+
         //relacion de especialidad con el medico
         $especialidad3->employe()->attach($employe3->id);
 
@@ -1365,7 +1365,7 @@ class UsersTableSeeder extends Seeder
         $pro5= factory(Procedure::class)->create([
             'name'    => 'Citología de Cuello uterino.',
             'description' => 'La citología cervical es
-             una prueba diagnóstica en la que se examinan 
+             una prueba diagnóstica en la que se examinan
              células del cuello uterino.',
             'branch_id' => '1',
             'price' => 20000,
@@ -1399,7 +1399,7 @@ class UsersTableSeeder extends Seeder
 
         $pro2= factory(Procedure::class)->create([
             'name'    => 'Biopsias de cérvix y área genital (vulva clítoris, entre otros)',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
             para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
             'branch_id' => '1',
              'price' => 15000,
@@ -1414,7 +1414,7 @@ class UsersTableSeeder extends Seeder
 
         $pro3= factory(Procedure::class)->create([
             'name'    => 'Vaporización',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
              para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
             'branch_id' => '1',
              'price' => 17000,
@@ -1429,7 +1429,7 @@ class UsersTableSeeder extends Seeder
 
         $pro4= factory(Procedure::class)->create([
             'name'    => 'Retiro e inserción de DIU',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
              para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
             'branch_id' => '1',
              'price' => 30000,
@@ -1446,7 +1446,7 @@ class UsersTableSeeder extends Seeder
 
         $pro6= factory(Procedure::class)->create([
             'name'    => 'Resección de pólipo endometrial',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos 
+            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
             para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
            'branch_id' => '1',
              'price' => 40000,
@@ -1487,13 +1487,13 @@ class UsersTableSeeder extends Seeder
                 'turn' => 'tarde',
                 'employe_id' => $employe3->id
             ]);
-    
+
             factory(Schedule::class)->create([
                 'day' => 'wednesday',
                 'turn' => 'tarde',
                 'employe_id' => $employe3->id
             ]);
-    
+
             factory(Schedule::class)->create([
                 'day' => 'tuesday',
                 'turn' => 'tarde',
@@ -1533,7 +1533,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'elenapuerta@gmail.com',
                 'branch_id' => '1',
             ]);
-    
+
                 $this->to('person', $person->id, 'App\Person');
                 /**
                  * Registro de la historia medica
@@ -1545,15 +1545,15 @@ class UsersTableSeeder extends Seeder
                 ]);
 
                 // dd($patient);
-                    
+
                 /**
                  * Enfermedades del paciente
                  */
-                for ($i=0; $i < rand(1,5) ; $i++) { 
+                for ($i=0; $i < rand(1,5) ; $i++) {
                     $disease = Disease::inRandomOrder()->first();
                     $disease->patient()->attach($patient->id);
                 }
-    
+
                 /**
                  * Registro de la reservacion
                  */
@@ -1568,37 +1568,37 @@ class UsersTableSeeder extends Seeder
                 /*
                 * Creacion de areas restantes
                 */
-        
-               
+
+
                 factory(Area::class)->create([
                     'name'          => 'consultorio 10',
                     'type_area_id' =>  $typearea->id,
                 ]);
-                
+
                 $tipo = factory(TypeArea::class)->create([
                     'name' => 'Quirofano',
                 ]);
-        
+
                 factory(Area::class)->create([
                     'name'          => 'Quirofano 1',
                     'type_area_id' =>  $tipo->id,
                 ]);
-        
+
                 factory(Area::class)->create([
                     'name'          => 'Quirofano 2',
                     'type_area_id' =>  $tipo->id,
                 ]);
-        
+
                 factory(Area::class)->create([
                     'name'          => 'Quirofano 3',
                     'type_area_id' =>  $tipo->id,
                 ]);
-        
+
                 factory(Area::class)->create([
                     'name'          => 'Quirofano 4',
                     'type_area_id' =>  $tipo->id,
                 ]);
-        
+
                 // factory(Area::class)->create()->each(function($area)
                 // {
                 //     $this->to('area', $area->id, 'App\Area');
@@ -1617,11 +1617,11 @@ class UsersTableSeeder extends Seeder
                 //     'employe_id' => $employe->id
                 // ]);
                 // $this->to('person', $person->id, 'App\Person');
-                    
+
                 /**
                  * Enfermedades del paciente
                  */
-                // for ($i=0; $i < rand(1,5) ; $i++) { 
+                // for ($i=0; $i < rand(1,5) ; $i++) {
                 //     $disease = Disease::inRandomOrder()->first();
                 //     $disease->patient()->attach($patient->id);
                 // }
@@ -1654,8 +1654,8 @@ class UsersTableSeeder extends Seeder
         // });
 
          /**
-         * Registro de 10 usuarios medicos de 
-         * manera automatica se crean primero 
+         * Registro de 10 usuarios medicos de
+         * manera automatica se crean primero
          * las 10 personas que seran los medicos
          */
         // factory(Person::class, 3)->create()->each(function ($person) use ($position) {
@@ -1683,7 +1683,7 @@ class UsersTableSeeder extends Seeder
              * y sus procedimientos
              */
             // $num = rand(1,3);
-            // for ($i=0; $i < $num ; $i++) { 
+            // for ($i=0; $i < $num ; $i++) {
             //     $speciality = Speciality::inRandomOrder()->first();
             //     $speciality->employe()->attach($employe->id);
                 // foreach ($speciality->procedures as $procedure) {
@@ -1726,11 +1726,11 @@ class UsersTableSeeder extends Seeder
                 //     'employe_id' => $employe->id
                 // ]);
                 // $this->to('person', $person->id, 'App\Person');
-                    
+
                 /**
                  * Enfermedades del paciente
                  */
-                // for ($i=0; $i < rand(1,5) ; $i++) { 
+                // for ($i=0; $i < rand(1,5) ; $i++) {
                 //     $disease = Disease::inRandomOrder()->first();
                 //     $disease->patient()->attach($patient->id);
                 // }
@@ -1763,8 +1763,8 @@ class UsersTableSeeder extends Seeder
         // });
 
          /**
-         * Registro de 10 usuarios medicos de 
-         * manera automatica se crean primero 
+         * Registro de 10 usuarios medicos de
+         * manera automatica se crean primero
          * las 10 personas que seran los medicos
          */
         // factory(Person::class, 3)->create()->each(function ($person) use ($position) {
@@ -1793,7 +1793,7 @@ class UsersTableSeeder extends Seeder
              * y sus procedimientos
              */
             // $num = rand(1,3);
-            // for ($i=0; $i < $num ; $i++) { 
+            // for ($i=0; $i < $num ; $i++) {
             //     $speciality = Speciality::inRandomOrder()->first();
             //     $speciality->employe()->attach($employe->id);
                 // foreach ($speciality->procedures as $procedure) {
@@ -1836,11 +1836,11 @@ class UsersTableSeeder extends Seeder
                 //     'employe_id' => $employe->id
                 // ]);
                 // $this->to('person', $person->id, 'App\Person');
-                    
+
                 /**
                  * Enfermedades del paciente
                  */
-                // for ($i=0; $i < rand(1,5) ; $i++) { 
+                // for ($i=0; $i < rand(1,5) ; $i++) {
                 //     $disease = Disease::inRandomOrder()->first();
                 //     $disease->patient()->attach($patient->id);
                 // }
@@ -2044,7 +2044,7 @@ class UsersTableSeeder extends Seeder
         //     ])->assignRole('OUT');
         // });
 
-        /* 
+        /*
          * Crea un usuario
          * con el rol director
          */
@@ -2063,7 +2063,7 @@ class UsersTableSeeder extends Seeder
 
         $position = factory(App\Position::class)->create([
             'name' => 'director',
-            'description' => 'Se encarga de prever, organizar, mandar, 
+            'description' => 'Se encarga de preveer, organizar, mandar,
             coordinar y controlar las actividades de la organización. ',
         ]);
 
@@ -2169,8 +2169,8 @@ class UsersTableSeeder extends Seeder
                 'person_id' => $person->id,
 
             ])->assignRole('enfermeria');
-  
-        
+
+
     }
 }
 
