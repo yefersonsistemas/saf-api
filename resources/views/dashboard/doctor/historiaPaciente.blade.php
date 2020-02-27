@@ -355,6 +355,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="mostrar_enfermedad">
+                                                                    @if($history->patient->historyPatient->disease->first() != '')
                                                                     @foreach ($history->patient->historyPatient->disease as $disease )
                                                                         <tr id="{{$disease->id}}">
                                                                             <td>
@@ -363,6 +364,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                         </tr>
                                                                     @endforeach
+                                                                    @endif
                                                                 </tbody>
                                                             </table>
                                                         </div>
