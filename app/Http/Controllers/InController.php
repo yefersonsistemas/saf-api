@@ -871,8 +871,9 @@ class InController extends Controller
 
     public function diseases_create(Request $request){ //Metodo para crear enfermedad si no existe en el multiselect de editar historia
         //buscar paciente
+        // dd($request);
         $patient = Patient::where('person_id', $request->id)->first();
-        
+        // dd($patient);
         $data = $request->validate([
             'name' => 'required',
             ]);
