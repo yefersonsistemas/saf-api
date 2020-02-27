@@ -24,11 +24,11 @@
                     @role('IN')
                     <a  class="nav-link icon" id="in" style="font-size:12px">IN</a>
                     @endrole
-                 
+
                     @role('OUT')
                     <a  class="nav-link icon" id="out" style="font-size:12px"> OUT </a>
                     @endrole
-                  
+
                     @role('doctor')
                     <a  class="nav-link icon" id="doc" style="font-size:12px"> Doctor </a>
                     @endrole
@@ -36,15 +36,15 @@
                     @role('in-out')
                     <a  class="nav-link icon" id="io" style="font-size:12px">In-out</a>
                     @endrole
-                 
+
                     @role('enfermeria')
                     <a  class="nav-link icon" id="en" style="font-size:10PX"> Enfermeria </a>
                     @endrole
-                  
+
                     @role('farmaceuta')
                     <a  class="nav-link icon" id="far" style="font-size:10PX"> Farmacia </a>
                     @endrole
-                    
+
 
                     @endrole
 
@@ -64,8 +64,8 @@
                 <a href="javascript:void(0)" class="nav-link icon settingbar"><i class="fa fa-gear fa-spin" data-toggle="tooltip" data-placement="right" title="Settings"></i></a>
                 <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar" src="..\assets\images\user.png" alt="" data-toggle="tooltip" data-placement="right" title="User Menu"></a>
                 <a href="javascript:void(0)" class="nav-link icon menu_toggle"><i class="fa  fa-align-left"></i></a>
-                
-            </div>            
+
+            </div>
         </div>
     </div>
 </div>

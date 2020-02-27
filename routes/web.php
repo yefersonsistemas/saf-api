@@ -40,20 +40,22 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
     Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
 
-    //eliminar
-    Route::post('doctor/eliminar/enfermedad', 'DoctorController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar');  // eliminar examen
-    Route::post('doctor/eliminar/alergia', 'DoctorController@alergia_eliminar')->name('doctor.alergia_eliminar');  // eliminar examen
-    Route::post('doctor/eliminar/cirugia_previas', 'DoctorController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
+    //enfermedad
+    Route::post('doctor/eliminar/enfermedad', 'DiseasesController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar'); 
+    Route::post('doctor/enfermedad', 'DiseasesController@agregar_enfermedad')->name('doctor.agregar_enfermedad'); 
+    Route::POST('patient/diseases/create', 'DiseasesController@diseases_create')->name('checkin.diseases_create');
+
+    //alergias
+    Route::post('doctor/eliminar/alergia', 'AllergyController@alergia_eliminar')->name('doctor.alergia_eliminar');  
+    Route::post('doctor/alergias', 'AllergyController@agregar_alergias')->name('doctor.agregar_alergias');  
+    Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
+
+    //medicamentos
+    Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
     Route::post('doctor/eliminar/medicamento', 'InController@medicine_borrar')->name('checkin.medicine_borrar');  // eliminar examen
 
-    //agregar
-    Route::post('doctor/enfermedad', 'DoctorController@agregar_enfermedad')->name('doctor.agregar_enfermedad');  // eliminar examen
-    Route::post('doctor/alergias', 'DoctorController@agregar_alergias')->name('doctor.agregar_alergias');  // eliminar examen
-
-    //crear
-    Route::POST('patient/diseases/create', 'InController@diseases_create')->name('checkin.diseases_create');
-    Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
-    Route::POST('patient/medicines/create', 'InController@medicines_create')->name('checkin.medicines_create');
+    //cirugias
+    Route::post('doctor/eliminar/cirugia_previas', 'TypeSurgerysController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
 
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
@@ -156,43 +158,43 @@ Route::group(['middleware' => 'auth'], function (){
     });
         // el metodo de historia medica esta en el metodo show en doctorcontroller
     Route::group(['middleware' => ['role:doctor, director']], function () {
+        Route::resource('doctor', 'DoctorController');
         Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
-        // Route::get('doctor', 'DoctorController@index')->name('doctor.index');
-        // Route::get('doctor/store', 'DoctorController@store')->name('doctor.index');
+
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
         Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
-        Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
-        Route::resource('doctor', 'DoctorController');
-        Route::post('procedures_realizados', 'DoctorController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta
-        Route::post('examR', 'DoctorController@examR')->name('doctor.examR'); // guardar los examenes que se realizara el paciente
-        Route::post('proceduresP', 'DoctorController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos
-        Route::post('surgerysP', 'DoctorController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
-        Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
-        Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
-        Route::get('doctor/surgeries/list','DoctorController@surgeries_list')->name('doctor.lista_cirugias');
 
-        //-----------actualizar registros-------------
-        Route::post('doctor/examUpdate', 'DoctorController@exam_update')->name('doctor.exam_actualizar');  // guardar los procedimientos realizados en la consulta
-        Route::post('doctor/proceduresRUpdate', 'DoctorController@proceduresR_update')->name('doctor.proceduresR_actualizar');  // guardar los procedimientos realizados en la consulta
-
-        Route::post('doctor/proceduresUpdate', 'DoctorController@procedures_update')->name('doctor.procedures_actualizar');  // guardar los procedimientos realizados en la consulta
-        Route::post('doctor/surgeryUpdate', 'DoctorController@surgerysP_update')->name('doctor.surgery_actualizar');  // guardar los procedimientos realizados en la consulta
-
+        //referencia
+        Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
+        Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
         Route::post('doctor/referenceUpdate', 'DoctorController@reference_update')->name('doctor.reference_update');  // actualizar referecnia
+      
+        //recipe
+        Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
 
-        Route::post('doctor/cirugias', 'DoctorController@agregar_cirugias')->name('doctor.agregar_cirugias');  // eliminar examen
-        //-------------------elimnar-------------------
-        Route::post('doctor/eliminar/examen/actualizar', 'DoctorController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
-        Route::post('doctor/eliminar/procedimientos_realizados/actualizar', 'DoctorController@procedureR_eliminar')->name('doctor.procedureR_eliminar');  // eliminar examen
-        // Route::post('doctor/eliminar/posible_cirugia/actualizar', 'DoctorController@cirugiaR_eliminar')->name('doctor.cirugiaP_eliminar');
+        //procedimientos
+        Route::post('procedures_realizados', 'ProcedureController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta
+        Route::post('doctor/proceduresRUpdate', 'ProcedureController@proceduresR_update')->name('doctor.proceduresR_actualizar');  // guardar los procedimientos realizados en la consulta /editar
+        Route::post('doctor/proceduresUpdate', 'ProcedureController@procedures_update')->name('doctor.procedures_actualizar');  // guardar los procedimientos realizados en la consulta /editar
+        Route::post('proceduresP', 'ProcedureController@proceduresP')->name('doctor.proceduresP'); // guardar los posibles procedimientos
+        Route::post('doctor/eliminar/procedure', 'ProcedureController@procedureR_eliminar2')->name('doctor.procedureR_eliminar2');  // eliminar examen
+        Route::post('doctor/eliminar/posible_procedimiento', 'ProcedureController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen /editar
+        Route::post('doctor/eliminar/procedimientos_realizados/actualizar', 'ProcedureController@procedureR_eliminar')->name('doctor.procedureR_eliminar');  // eliminar examen /editar
 
-        Route::post('doctor/eliminar/examen', 'DoctorController@exam_eliminar2')->name('doctor.exam_eliminar2');  // eliminar examen
-        Route::post('doctor/eliminar/procedure', 'DoctorController@procedureR_eliminar2')->name('doctor.procedureR_eliminar2');  // eliminar examen
-        Route::post('doctor/eliminar/posible_procedimiento', 'DoctorController@procedureP_eliminar2')->name('doctor.procedureP_eliminar2');  // eliminar examen
-        Route::post('doctor/eliminar/cirugia', 'DoctorController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar examen
+        //examenes
+        Route::post('examR', 'ExamController@examR')->name('doctor.examR'); // guardar los examenes que se realizara el paciente
+        Route::post('doctor/examUpdate', 'ExamController@exam_update')->name('doctor.exam_actualizar');  // guardar los procedimientos realizados en la consulta /editar
+        Route::post('doctor/eliminar/examen/actualizar', 'ExamController@exam_eliminar')->name('doctor.exam_eliminar');  // eliminar examen
+        Route::post('doctor/eliminar/examen', 'ExamController@exam_eliminar2')->name('doctor.exam_eliminar2');  // eliminar examen /editar
 
+       //cirugias
+        Route::post('doctor/surgeryUpdate', 'TypeSurgerysController@surgerysP_update')->name('doctor.surgery_actualizar');  // actualizar posible cirugia
+        Route::post('doctor/cirugias', 'TypeSurgerysController@agregar_cirugias')->name('doctor.agregar_cirugias');  // agregar cirugia
+        Route::post('doctor/eliminar/cirugia', 'TypeSurgerysController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar cirugia        
+        Route::post('surgerysP', 'TypeSurgerysController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias     
+        Route::get('doctor/surgeries/list','DoctorController@surgeries_list')->name('doctor.lista_cirugias');
 
     });
 

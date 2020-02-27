@@ -4170,11 +4170,11 @@
         display: inline-block;
         text-decoration: none;
         color: #fff;
-        background-color: #00506b;
-        border-radius: 10px;
+        background-color: #00ba88;
+        border-radius: 7px;
         position: relative;
         z-index: 1;
-        box-shadow: 4px 5px 4px rgba(0, 0, 0, .5);
+        /* box-shadow: 4px 5px 4px rgba(0, 0, 0, .5); */
         height: 40px;
         width: 40px;
         /*ancho del boton */
@@ -4200,7 +4200,7 @@
         line-height: 40px;
         padding-left: 18px;
         /*mueve la descr del contenedor */
-        border-radius: 10px;
+        border-radius: 7px;
         transform: translate3d(100%, 0, 0);
         transition: transform 175ms ease;
     }
@@ -4263,5 +4263,6 @@
 
 
 
+/*---------- SEGUNDO ICONO FLOTANTE ----------*/
 /*---------- SEGUNDO ICONO FLOTANTE ----------*/
 
