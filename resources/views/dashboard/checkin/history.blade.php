@@ -894,8 +894,8 @@ $boton.addEventListener("click", function() {
             return time+file.name;
             },
             // autoProcessQueue:true,
-            maxFilesize: 6,
-            // maxFiles:3,
+            // maxFilesize: 10, //peso del archivo q se subira
+            // maxFiles:3,  //cantidad de archivos q se guardaran en bd asi se hayan colocado mas
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             timeout: 50000,
