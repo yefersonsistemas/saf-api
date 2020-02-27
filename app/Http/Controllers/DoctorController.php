@@ -216,6 +216,7 @@ class DoctorController extends Controller
     public function crearDiagnostico($id){
         $patient = Person::find($id);
         $exams = Exam::all();
+
         return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
     }
 
@@ -228,7 +229,7 @@ class DoctorController extends Controller
   
           if($itinerary != null){
               $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
-          //   dd($io);
+            // dd($io);
               if (empty($io->outside_office) && (!empty($io->inside_office))) {
   
                   $io->outside_office = 'fuera';
