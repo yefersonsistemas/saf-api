@@ -1059,11 +1059,13 @@ class DoctorController extends Controller
 
     //================= actualizar procedimientos realizados ==============
     public function proceduresR_update(Request $request){
+        // dd($request);
             $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
             //buscando procedimientos
             $diagnostic = Diagnostic::with('procedures')->where('id',$request->diagnostic_id)->first();
 
+            // dd($diagnostic);
             $returndata2 = array();
             if(!empty($request->data)){
                 $strArray = explode('&', $request->data);
@@ -1138,6 +1140,7 @@ class DoctorController extends Controller
                             $itinerary->save(); //actualizando examenes
                     }
 
+                    // dd($procedure);
                 return response()->json([
                     'procedures' => 'Procedimientos guardados exitosamente',201,$procedure
                     ]);
@@ -1174,7 +1177,7 @@ class DoctorController extends Controller
             $itinerary->procedureR_id = null;
             $itinerary->save();
         }
-
+// dd($itinerary);
         return response()->json([
             'procedure' => 'Procedimiento eliminado correctamente',202,$proce,
         ]);
@@ -1483,6 +1486,7 @@ class DoctorController extends Controller
     // ================ posibles procedimientos =================
     public function procedures_update(Request $request){
 
+        // dd($request);
         $itinerary = Itinerary::where('reservation_id', $request->id)->first();
 
         $returndata2 = array();
