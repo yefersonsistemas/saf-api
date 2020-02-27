@@ -54,7 +54,7 @@ class EmployesController extends Controller
                     ]);
                 }
             }
-            
+
         $employes = Visitor::with('person.employe.position')->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->where('type_visitor', 'Empleado')->get();
 
@@ -67,7 +67,7 @@ class EmployesController extends Controller
     {
         $employes = Employe::with('image','person.user', 'position')->get();
         $em = collect([]);
-        
+
         if ($employes->isNotEmpty()) {
             foreach($employes as $employe){
                 if ($employe->position->name == 'doctor' && $employe->person->user->role('doctor')) {
@@ -79,10 +79,10 @@ class EmployesController extends Controller
                 'doctors' => $em,
             ]);
         }
-    } 
+    }
 
     public function assistance(Request $request) //control de asistencia del medico de los dias q no asiste
-    {     
+    {
         if($request->motivo != null){
             $date = Carbon::now()->format('Y-m-d');
 
@@ -98,7 +98,7 @@ class EmployesController extends Controller
 
                 Alert::success('Asistencia medica cancelada exitosamente');
                 return redirect()->back();
-            
+
             }else{
                 Alert::error('Ya ha sido registrado como inasistente');
                 return redirect()->back();
@@ -128,7 +128,7 @@ class EmployesController extends Controller
                             }
                         }
                     }
-                    
+
                 }
             }
         }
@@ -141,7 +141,7 @@ class EmployesController extends Controller
 
         $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule','areaassigment.area')->get();
         // dd($employes->first()->areaassigment->area);
-        $consultorio = 
+        $consultorio =
         $e = collect([]);
         if ($employes->isNotEmpty()) {
             foreach($employes as $employe){
@@ -217,7 +217,7 @@ class EmployesController extends Controller
                 'branch_id' => 1
             ]);
 
-    
+
             $cargo = Position::find($request->position_id);
             // dd($cargo);
 
@@ -227,7 +227,7 @@ class EmployesController extends Controller
             $user->givePermissionTo([$permission]);
             }
         }
-        
+
         if ($request->image != null) {
             $image = $request->file('image');
             $path = $image->store('public/employes');  //cambiar el nombre de carpeta cuando se tenga el cargo a que pertenece
@@ -240,7 +240,7 @@ class EmployesController extends Controller
             $image->save();
         }
 
-        return redirect()->route('employe.index')->withSuccess('Empleado'.' '.$cargo->name.' '.'registrado');
+        return redirect()->route('employe.index')->withSuccess('Empleado registrado');
     }
 
     public function positions()
@@ -274,12 +274,12 @@ class EmployesController extends Controller
         // dd($employe);
         $position = Position::all();
         $permissions = Permission::all();
-        $buscar_P = Position::where('id', $employe->position->id)->first(); 
+        $buscar_P = Position::where('id', $employe->position->id)->first();
         $posi = array($buscar_P);
         $diff = $position->diff($posi);
         $perms = $employe->person->user->permissions;
         // dd($perms);
-      
+
 
         return view('dashboard.director.employe-edit', compact('employe','position', 'buscar_P', 'diff', 'permissions','perms'));
     }
@@ -297,24 +297,24 @@ class EmployesController extends Controller
         // dd($request->image);
         $employe = Employe::with('person.user', 'position', 'image')->find($request->id);
         $user = User::where('person_id', $employe->person->id )->first();
-        
+
         $employe->person->type_dni = $request->type_dni;
         $employe->person->dni = $request->dni;
         $employe->person->name = $request->name;
         $employe->person->lastname = $request->lastname;
         $employe->person->address = $request->address;
         $employe->person->phone = $request->phone;
-        $employe->person->email = $request->email; 
+        $employe->person->email = $request->email;
         $employe->update();
-                
+
         // dd($request->perms);
         $user->permissions()->sync($request->perms);
 
         if ($request->image != null) {
             if ( $employe->image == null) {
-               
+
                 $image = $request->file('image');
-                $path = $image->store('public/employes');  
+                $path = $image->store('public/employes');
                 $path = str_replace('public/', '', $path);
                 $image = new Image;
                 $image->path = $path;
@@ -325,10 +325,10 @@ class EmployesController extends Controller
             }else{
                 // dd($employe->image->path);
                 Storage::disk('public')->delete($employe->image->path); //permite eliminar la foto en storage
-                
+
 
                 $image = $request->file('image');
-                $path = $image->store('public/employes');  
+                $path = $image->store('public/employes');
                 $path = str_replace('public/', '', $path);
                 $employe->image->path = $path;
                 $employe->image->save();
@@ -336,7 +336,7 @@ class EmployesController extends Controller
         }
 
 
-       return redirect()->route('employe.index')->withSuccess('Registro modificado'); 
+       return redirect()->route('employe.index')->withSuccess('Registro modificado');
     }
 
     /**
@@ -353,26 +353,26 @@ class EmployesController extends Controller
     }
 
     public function statusIn(Request $request){
-        
+
         $visitor = Visitor::where('person_id', $request->id)->first();
-    
+
         if (!empty($visitor)) {
             $visitor->type_visitor = 'Empleado';
             $visitor->inside = Carbon::now();
 
             if ($visitor->save()){
-                // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego 
+                // event(new Security($visitor)); //envia el aviso a recepcion de que el paciente citado llego
                 return response()->json([
-                    'message' => 'Empleado dentro de las instalaciones', 
+                    'message' => 'Empleado dentro de las instalaciones',
                 ]);
             }else{
                 return response()->json([
-                    'message' => 'No guardo', 
+                    'message' => 'No guardo',
                 ]);
             }
         }else{
             return response()->json([
-                'message' => 'No actualizo', 
+                'message' => 'No actualizo',
             ]);
         }
     }
@@ -438,7 +438,7 @@ class EmployesController extends Controller
             'pago' => $pago,
         ]);
     }
-    
+
     public function record_patient(Request $request){  //todos los pacientes por doctor
         $employe = Employe::with('person.user', 'patient.person')->where('id', $request->id)->first();
 
@@ -447,7 +447,7 @@ class EmployesController extends Controller
                 'patients' => $employe,
             ]);
         }
-    } 
+    }
 
     public function patient_on_day(Request $request){  //pacientes del dia por doctor
         $patients = Reservation::with('patient')->where('person_id', $request->person_id)
@@ -467,7 +467,7 @@ class EmployesController extends Controller
             if ($doctor->person->user->role('doctor')) {
                 return response()->json([
                     'doctor' => $doctor,
-                ]);   
+                ]);
             }
         }
     }

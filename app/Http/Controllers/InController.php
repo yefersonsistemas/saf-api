@@ -870,31 +870,7 @@ class InController extends Controller
             ]);
     }
 
-    public function diseases_create(Request $request){ //Metodo para crear enfermedad si no existe en el multiselect de editar historia
-        //buscar paciente
-        // dd($request);
-        $patient = Patient::where('person_id', $request->id)->first();
-        // dd($patient);
-        $data = $request->validate([
-            'name' => 'required',
-            ]);
-            
-        // dd($data);
-            
-        $disease = Disease::create([
-            'name' => $data['name'],
-            'branch_id' => 1
-            ]);
-        // dd($disease);
-        // guardar en tabla pivote con el registro de paciente y enfermedad
-
-        $disease->patient()->attach($patient);
-        // dd($disease);
-        // Enviar el registro de enfermedad 
-        return response()->json([
-            'data' => 'Enfermedad Agregada',$disease,201
-            ]);
-    }
+ 
 
     public function allergies_create(Request $request){ //Metodo para crear alergia si no existe en el multiselect de editar historia
         //buscar paciente

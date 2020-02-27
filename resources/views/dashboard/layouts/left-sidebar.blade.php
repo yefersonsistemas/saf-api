@@ -171,7 +171,7 @@
                     @role('director')
                     <div class="inout animated fadeIn d-none @yield('iorol')">
                     @endrole
-                <li class="g_heading">In-Out</li>               
+                <li class="g_heading">In-Out</li>
                 <li @yield('cites')>
                     <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Pacientes</span></a>
                         <ul>
@@ -186,7 +186,7 @@
 
 
 
-                
+
                 <!-- Se agregó el @yield('farmarol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('farmaceuta')
                 <div class="">

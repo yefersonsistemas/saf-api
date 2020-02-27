@@ -2,6 +2,8 @@
 @extends('dashboard.layouts.app')
 
 @section('doctor','active')
+@section('docrol','d-block')
+@section('dire','d-none')
 
 
 @section('css')
@@ -30,7 +32,7 @@
         display: none;
       position: fixed; /* Stay in place */
         /* z-index: 1; Sit on top */
-      padding-top: 20px; /* Location of the box */
+      padding-top: 50px; /* Location of the box */
       left: 0;
       top: 0;
       width: 100%; /* Full width */
@@ -345,7 +347,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="card-body py-1">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover table-vcenter table-striped"
-                                                            cellspacing="0" id="addrowExample">
+                                                            cellspacing="0" id="">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Nombre</th>
@@ -353,6 +355,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="mostrar_enfermedad">
+                                                                    @if($history->patient->historyPatient->disease->first() != '')
                                                                     @foreach ($history->patient->historyPatient->disease as $disease )
                                                                         <tr id="{{$disease->id}}">
                                                                             <td>
@@ -361,6 +364,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                         </tr>
                                                                     @endforeach
+                                                                    @endif
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -387,7 +391,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div class="card-body py-1">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover table-vcenter table-striped"
-                                                            cellspacing="0" id="addrowExample">
+                                                            cellspacing="0" id="">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Nombre</th>
@@ -496,7 +500,7 @@ button[data-original-title="Help"]{ display: none; }
                                             <div class="card-body">
                                                 <div class="table-responsive">
                                                     <table class="table table-hover table-vcenter table-striped"
-                                                    cellspacing="0" id="addrowExample">
+                                                    cellspacing="0" id="">
                                                         <thead>
                                                             <tr>
                                                                 <th>Procedimiento Seleccionado</th>
@@ -551,7 +555,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="card-body py-1">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover table-vcenter table-striped"
-                                                                    cellspacing="0" id="addrowExample">
+                                                                    cellspacing="0" id="">
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Examen Seleccionado</th>
@@ -631,7 +635,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="card-body">
                                                                     <div class="table-responsive">
                                                                         <table class="table table-hover table-vcenter table-striped"
-                                                                        cellspacing="0" id="addrowExample">
+                                                                        cellspacing="0" id="">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Medicamento Seleccionado</th>
@@ -740,7 +744,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <div class="card-body py-1">
                                                                         <div class="table-responsive">
                                                                             <table class="table table-hover table-vcenter table-striped"
-                                                                                cellspacing="0" id="addrowExample">
+                                                                                cellspacing="0" id="">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Posible Cirugía</th>
@@ -767,7 +771,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <div class="card-body py-1">
                                                                         <div class="table-responsive">
                                                                             <table class="table table-hover table-vcenter table-striped"
-                                                                                cellspacing="0" id="addrowExample">
+                                                                                cellspacing="0">
+                                                                                {{-- <table class="table table-hover table-vcenter table-striped"
+                                                                                cellspacing="0" id="addrowExample"> --}}
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Posibles procedimientos </th>

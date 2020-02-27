@@ -13,7 +13,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
      */
     public function run()
     {
-     
+
         // Reset cached roles and permissions
         app()['cache']->forget('spatie.permission.cache');
 
@@ -38,11 +38,11 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Role::create(['name' => 'enfermeria']);
         Role::create(['name' => 'farmaceuta']);
 
-       
+
         //Permisos del rol seguridad
         Permission::create(['name' => 'Registrar visitantes']);
         Permission::create(['name' => 'Ver lista de visitantes']);
-       
+
 
         //Permisos  del rol recepcion
         Permission::create(['name' => 'ver lista de pacientes']);
@@ -54,7 +54,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         //Permisos  del rol out
         Permission::create(['name' => 'crear factura']);
         Permission::create(['name' => 'Recibir notificacion de paciente candidato a cirugia']);
-        
+
         //Permisos  del rol doctor
         Permission::create(['name' => 'crear historia de paciente']);
         Permission::create(['name' => 'crear diagnostico']);
@@ -146,7 +146,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Permission::create(['name' => 'registrar tipo de area']);
         Permission::create(['name' => 'eliminar tipo de area']);
         Permission::create(['name' => 'modificar tipo de area']);
-        
+
         Permission::create(['name' => 'registrar tipo de pago']);
         Permission::create(['name' => 'eliminar tipo de pago']);
         Permission::create(['name' => 'modificar tipo de pago']);
@@ -158,7 +158,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Permission::create(['name' => 'asignar permisos']);
         Permission::create(['name' => 'revocar permisos']);
 
-        
+
         // $role->givePermissionTo(Permission::all());
 
         // $user = User::create([
@@ -170,7 +170,7 @@ class RolesAndPermissionsTablesSeeders extends Seeder
 
         // $user->assignRole('director');
         // echo 'User admin has been created';
-        
+
 
     }
 }

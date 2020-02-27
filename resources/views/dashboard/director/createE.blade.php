@@ -42,37 +42,37 @@
                                             <input minlength="7" maxlength="9" type="text" class="form-control" placeholder="Documento de Identidad" value=" {{ old('dni') }}" required name="dni">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-4 ">
                                         <div class="form-group">
                                             <label class="form-label">Nombre</label>
                                             <input type="text" class="form-control" placeholder="Nombre" name="name" value="{{ old('name') }}" required>
                                         </div>
                                     </div>
-                    
+
                                     <div class="col-lg-4">
-                                        <div class="form-group"> 
+                                        <div class="form-group">
                                             <label class="form-label">Apellido</label>
                                             <input type="text" class="form-control" placeholder="Apellido" name="lastname" value="{{ old('lastname') }}" required>
                                         </div>
                                     </div>
-    
+
                                     <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label class="form-label">Direccion</label>
                                                 <input type="text" name="address" id="address" class="form-control" placeholder="Direccion" value="{{ old('address') }}" required>
                                             </div>
                                         </div>
-                
-                                        
+
+
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label class="form-label"> Teléfono </label>
                                                 <input type="text" class="form-control validanumericos" placeholder="Telefono" name="phone" value="{{ old('phone') }}" required>
                                             </div>
                                         </div>
-                                        
-                                    
+
+
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label"> Correo Electronico </label>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="row d-flex justify-content-between">
-                        
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-label">Cargo</label>
@@ -115,11 +115,11 @@
                                         </div>
                                     </div>
 
-                                    @can('asignar permisos')
+                                    {{-- @can('asignar permisos') --}}
                                     <div class="col-lg-6 mt-3">
                                         <button disabled type="button" id="boton" class="btn btn-info" style="width: 230px" data-toggle="modal" data-target="#permission"> Agregar Permisos </button>
                                     </div>
-                                    @endcan
+                                    {{-- @endcan --}}
                                 </div>
                             </div>
                         </div>
@@ -134,8 +134,8 @@
                             </ul>
                         </div>
                     @endif
-        
-                    <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">     
+
+                    <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
                         <button type="submit" class="btn mr-2 pr-4 pl-4 text-white bg-verdePastel" >Enviar</button>
                         <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>
                     </div>
@@ -161,7 +161,7 @@
                                     </div>
                                 </div>
                                     <p id="charNum"></p>
-                            </div>  
+                            </div>
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
@@ -227,7 +227,7 @@
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
 <script>
-onload = function(){ 
+onload = function(){
   var ele = document.querySelectorAll('.validanumericos')[0];
   ele.onkeypress = function(e) {
      if(isNaN(this.value+String.fromCharCode(e.charCode)))
@@ -259,7 +259,7 @@ function mostrarPassword(){
             eye.type = "password";
             $('#icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
         }
-    } 
+    }
 
     $(document).ready(function () {
 	//CheckBox mostrar contraseña
@@ -282,4 +282,3 @@ function contar(obj){
 @endsection
 
 
-    

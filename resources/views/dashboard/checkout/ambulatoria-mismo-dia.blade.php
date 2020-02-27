@@ -2,7 +2,7 @@
 @section('cites','active')
 @section('newCite','active')
 @section('title','Agendar procedimiento ambulatorio')
-@section('inrol','d-block')
+@section('outrol','d-block')
 @section('dire','d-none')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\jquery-steps\jquery.steps.css') }}">
@@ -25,11 +25,11 @@
                         <div class="row justify-content-between">
                             <div class="card p-3">
                                 <div class="form-group">
-                                    @foreach ($procedures as $procedure) 
+                                    @foreach ($procedures as $procedure)
                                     <div class="row">
                                         <div class="col-9">
                                             <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="procedure[]" value="{{ $procedure->id }}">  
+                                                <input type="checkbox" class="custom-control-input" name="procedure[]" value="{{ $procedure->id }}">
                                                 <span class="custom-control-label">{{ $procedure->name }} </span>
                                             </label>
                                         </div>
@@ -37,14 +37,14 @@
                                             <span> {{$procedure->price}}</span>
                                         </div>
                                     </div>
-                                    @endforeach 
+                                    @endforeach
                                 </div>
                                 {{-- <div class="table-responsive mb-4">
                                         <table class="table table-hover js-basic-example dataTable table_custom spacing5">
                                         <thead>
                                             <tr>
-                                                <th>Nombre </th>  
-                                                <th>Precio </th>                                                                                      
+                                                <th>Nombre </th>
+                                                <th>Precio </th>
                                             </tr>
                                         </thead>
                                         </tfoot>
@@ -53,24 +53,24 @@
                                                     <tr class="p-0 m-0">
                                                         <td class="py-0 my-1">
                                                             <label class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" name="procedure[]" value="{{ $procedure->id }}">  
+                                                                <input type="checkbox" class="custom-control-input" name="procedure[]" value="{{ $procedure->id }}">
                                                                 <span class="custom-control-label">{{ $procedure->name }} </span>
                                                             </label>
-                                                        </td>  
-                                                        <td>{{ $procedure->price }}</td>                                                             
+                                                        </td>
+                                                        <td>{{ $procedure->price }}</td>
                                                     </tr>
                                                 @endforeach
                                         </tbody>
                                     </table>
-                                </div> --}}   
+                                </div> --}}
                             </div>
                         </div>
-                    </section> 
+                    </section>
                     <h2>Elegir Medico</h2>
                     <section class="py-1">
                         <div class="card-body">
-                            <div class="row gutters-sm d-row d-flex justify-content-between"> 
-                                @foreach ($em as $employe) 
+                            <div class="row gutters-sm d-row d-flex justify-content-between">
+                                @foreach ($em as $employe)
                                     <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                         <label class="imagecheck m-0">
                                             <div class="card assigment">
@@ -113,7 +113,7 @@
                                                     </div>
                                                 @endif
                                             </div>
-{{--                                             
+{{--
                                             <div class="card assigment">
                                                 @foreach ($employe->speciality as $item)
                                                 <input type="hidden" name="speciality_id" value="{{ $item->id }}">
@@ -135,10 +135,10 @@
                                             </div> --}}
                                         </label>
                                     </div>
-                                @endforeach 
+                                @endforeach
                             </div>
                         </div>
-                    </section> 
+                    </section>
                     <h2>Elegir Fecha</h2>
                     <section class="py-1 align-items-center">
                         <div class="col-md-8 mx-auto mt-3">
@@ -156,8 +156,8 @@
                                     </div>
                                     <div id="div">
                                         <div class="inline-datepicker" data-provide="datepicker"></div>
-                                    </div>                  
-                                </div>              
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -181,7 +181,7 @@
         //  var fecha = $('#fechanueva').val();
 
          console.log('este es', employe);
-         schedule_inicio(employe); 
+         schedule_inicio(employe);
         });
 
     function stopDefAction(evt) {
@@ -233,9 +233,9 @@
             }
         })
         .done(function(data) {
-            $('#picker').val("");   
+            $('#picker').val("");
             $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
-            
+
             $('.inline-datepicker').datepicker({
                 todayHighlight: true,
                 language: 'es',
@@ -249,12 +249,12 @@
                 $('#picker').val(
                     $('.inline-datepicker').datepicker('getFormattedDate')
                 );
-        });    
+        });
         })
         .fail(function(data) {
             console.log(data);
         })
-    }   
+    }
 
 
     function schedule() {
@@ -277,9 +277,9 @@
                         allowOutsideClick:false,
                     });
                     // $('#employe_id').val(data.employe.id);
-                    $('#picker').val("");   
+                    $('#picker').val("");
                     $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
-                    
+
                 //  $(".inline-datepicker").val("");
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
@@ -294,7 +294,7 @@
                         $('#picker').val(
                             $('.inline-datepicker').datepicker('getFormattedDate')
                         );
-                });    
+                });
                 })
                 .fail(function(data) {
                     console.log(data);

@@ -23,7 +23,7 @@
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body py-2">                                
+                    <div class="card-body py-2">
                         <h6>Total De Citas Agendadas</h6>
                         <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">{{ $reserva2->count() }}</span></h4>
                         {{-- <h5>$1,25,451.23</h5> --}}
@@ -111,22 +111,22 @@
                                         {{-- @if($reservation->inputoutput->isEmpty()) <!--esta en espera-->
                                         <tr class="event-click" style="border-radius:3px; border:2px solid  #FACC2E;">
                                         @endif
-        
+
                                         @if(!empty($reservation->inputoutput->first()->inside) && empty($reservation->inputoutput->first()->inside_office) && empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
                                         <!--esta en espera-->
                                         <tr class="event-click" style="border-radius:3px; border:2px solid  #000;">
                                         @endif
-    
+
                                         @if(!empty($reservation->inputoutput->first()->inside_office) && !empty($reservation->inputoutput->first()->inside)  && empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
                                         <!--dentro del consultorio-->
                                         <tr class="event-click" style="border-radius:3px; border:2px solid  #00ad88">
                                         @endif
-    
+
                                         @if(!empty($reservation->inputoutput->first()->outside_office) && !empty($reservation->inputoutput->first()->inside) && !empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
                                         <!--fuera del consultorio-->
                                         <tr class="event-click" style="border-radius:3px; border:2px solid #B40404">
                                         @endif
-    
+
                                         @if(!empty($reservation->inputoutput->first()->outside) && !empty($reservation->inputoutput->first()->inside) && !empty($reservation->inputoutput->first()->outside_office) && !empty($reservation->inputoutput->first()->outside))<!--fuera de las instalaciones-->
                                         <tr class="event-click" style="border-radius:3px; border:2px solid #ccc">
                                         @endif --}}
@@ -153,28 +153,28 @@
                                                 <td><span class="status-icon" style="  padding:5px; animation: pulse 2s infinite; background:#000;"></span><i class="fa fa-hospital-o"></i> Dentro de las instalaciones</td>
                                             @endif --}}
 
-            
+
                                             @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                             <!--esta en espera-->
                                                 <td><span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#FACC2E;"></span><i class="fa fa-hospital-o"></i>Sala de espera</td>
                                             @endif
-        
+
                                             @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                             <!--dentro del consultorio-->
                                                 <td><span class="status-icon" style=" ppadding:5px; animation: pulse 2s infinite; background:#00ad88;"></span><i class="fa fa-user-md"></i> Dentro del consultorio</td>
                                             @endif
-        
+
                                             @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                             <!--fuera del consultorio-->
                                             <td><span class="status-icon" style="  padding:5px; animation: pulse 2s infinite; background: #B40404;"></span><i class="fa fa-user-md"></i> Fuera del consultorio</td>
                                             @endif
-        
+
                                             @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))<!--fuera de las instalaciones-->
                                             <td><span class="status-icon" style= " padding:5px; animation: pulse 2s infinite; background:#ccc;"></span><i class="fa fa-hospital-o"></i> Fuera de las instalaciones</td>
                                             @endif
 
                                             <!--accion de realizar o editar consulta-->
-                                            <td> 
+                                            <td>
                                                 <!--si esta en espera-->
                                                 @if(!empty($reservation->patient->inputoutput) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                     <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
@@ -183,7 +183,7 @@
                                                 @endif
 
                                                 @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
-                                                  
+
                                                     @if($reservation->patient->historyPatient->diagnostic->isEmpty())
                                                     <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-success btn p-2 d-block"style="background: #00ad88" >
                                                         <i class="fa fa-eye"></i> Realizar consulta
@@ -213,7 +213,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>                
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-week" role="tabpanel" aria-labelledby="pills-week-tab">
                     <div class="col-lg-12">
@@ -261,7 +261,7 @@
                                             <td> {{ $reservation->description }}</td>
 
                                             @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
-                                                <td> 
+                                                <td>
                                                     <!--si esta en espera-->
                                                     @if(!empty($reservation->patient->inputoutput) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                         <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
@@ -270,7 +270,7 @@
                                                     @endif
 
                                                     @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
-                                                    
+
                                                         @if($reservation->patient->historyPatient->diagnostic->isEmpty())
                                                         <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-success btn p-2 d-block"style="background: #00ad88" >
                                                             <i class="fa fa-eye"></i> Realizar consulta
@@ -296,7 +296,7 @@
                                                     @endif
                                                 </td>
                                             @else
-                                                <td> 
+                                                <td>
                                                     <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
                                                         <i class="fa fa-eye"></i> Realizar consulta
                                                     </button>
@@ -307,7 +307,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>                
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-month" role="tabpanel" aria-labelledby="pills-month-tab">
                     <div class="col-lg-12">
@@ -354,7 +354,7 @@
                                             <td>{{ $reservation->date }}</td>
                                             <td> {{ $reservation->description }}</td>
                                             @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
-                                            <td> 
+                                            <td>
                                                 <!--si esta en espera-->
                                                 @if(!empty($reservation->patient->inputoutput) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                     <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
@@ -363,7 +363,7 @@
                                                 @endif
 
                                                 @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
-                                                
+
                                                     @if($reservation->patient->historyPatient->diagnostic->isEmpty())
                                                     <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-success btn p-2 d-block"style="background: #00ad88" >
                                                         <i class="fa fa-eye"></i> Realizar consulta
@@ -389,19 +389,19 @@
                                                 @endif
                                             </td>
                                         @else
-                                            <td> 
+                                            <td>
                                                 <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
                                                     <i class="fa fa-eye"></i> Realizar consulta
                                                 </button>
                                             </td>
                                         @endif
-                                        
+
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                    </div>                
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                     <div class="col-lg-12">
@@ -453,22 +453,22 @@
                                         {{-- @if($reservation->inputoutput->isEmpty()) <!--esta en espera-->
                                         <td><span class="status-icon" style=" padding:5px; animation: pulse 2s infinite; background:#000;"></span><i class="fa fa-clock-o"></i>No ha llegado a las instalaciones</td>
                                         @endif
-        
+
                                         @if(!empty($reservation->inputoutput->first()->inside) && empty($reservation->inputoutput->first()->inside_office) && empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
                                         <!--esta en espera-->
                                             <td><span class="status-icon" style="  padding:5px; animation: pulse 2s infinite; background:#FACC2E;"></span><i class="fa fa-hospital-o"></i>Sala de espera</td>
                                         @endif
-    
+
                                         @if(!empty($reservation->inputoutput->first()->inside_office) && !empty($reservation->inputoutput->first()->inside)  && empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
                                         <!--dentro del consultorio-->
                                             <td><span class="status-icon" style=" ppadding:5px; animation: pulse 2s infinite; background:#00ad88;"></span><i class="fa fa-user-md"></i> Dentro del consultorio</td>
                                         @endif
-    
+
                                         @if(!empty($reservation->inputoutput->first()->outside_office) && !empty($reservation->inputoutput->first()->inside) && !empty($reservation->inputoutput->first()->outside_office) && empty($reservation->inputoutput->first()->outside))
                                         <!--fuera del consultorio-->
                                         <td><span class="status-icon" style="  padding:5px; animation: pulse 2s infinite; background: #B40404;"></span><i class="fa fa-user-md"></i> Fuera del consultorio</td>
                                         @endif
-    
+
                                         @if(!empty($reservation->inputoutput->first()->outside) && !empty($reservation->inputoutput->first()->inside) && !empty($reservation->inputoutput->first()->outside_office) && !empty($reservation->inputoutput->first()->outside))<!--fuera de las instalaciones-->
                                         <td><span class="status-icon" style= " padding:5px; animation: pulse 2s infinite; background:#ccc;"></span><i class="fa fa-hospital-o"></i> Fuera de las instalaciones</td>
                                         @endif
@@ -479,28 +479,28 @@
                                         {{-- @if($reservation->patient->inputoutput->isEmpty())<!--esta en espera-->
                                         <td><span class="status-icon" style=" padding:5px; animation: pulse 2s infinite;  background:#000;"></span><i class="fa fa-clock-o"></i>No ha llegado a las instalaciones</td>
                                         @endif
-                                        
+
                                         @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                         <!--esta en espera-->
                                             <td><span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#FACC2E;"></span><i class="fa fa-hospital-o"></i>Sala de espera</td>
                                         @endif
-    
+
                                         @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                         <!--dentro del consultorio-->
                                             <td><span class="status-icon" style=" ppadding:5px; animation: pulse 2s infinite; background:#00ad88;"></span><i class="fa fa-user-md"></i> Dentro del consultorio</td>
                                         @endif
-    
+
                                         @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                         <!--fuera del consultorio-->
                                         <td><span class="status-icon" style="  padding:5px; animation: pulse 2s infinite; background: #B40404;"></span><i class="fa fa-user-md"></i> Fuera del consultorio</td>
                                         @endif
-    
+
                                         @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->outside_office) && !empty($reservation->patient->inputoutput->first()->outside))<!--fuera de las instalaciones-->
                                         <td><span class="status-icon" style= " padding:5px; animation: pulse 2s infinite; background:#ccc;"></span><i class="fa fa-hospital-o"></i> Fuera de las instalaciones</td>
                                         @endif --}}
 
                                         @if ((Carbon::now()->format('Y-m-d') == $reservation->date))
-                                        <td> 
+                                        <td>
                                             <!--si esta en espera-->
                                             @if(!empty($reservation->patient->inputoutput) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                                 <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
@@ -509,7 +509,7 @@
                                             @endif
 
                                             @if(!empty($reservation->patient->inputoutput) && !empty($reservation->patient->inputoutput->first()->inside_office) && !empty($reservation->patient->inputoutput->first()->inside)  && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
-                                            
+
                                                 @if($reservation->patient->historyPatient->diagnostic->isEmpty())
                                                 <a href="{{ route('doctor.show', $reservation->patient_id) }}" class="badge badge-success btn p-2 d-block"style="background: #00ad88" >
                                                     <i class="fa fa-eye"></i> Realizar consulta
@@ -535,7 +535,7 @@
                                             @endif
                                         </td>
                                     @else
-                                        <td> 
+                                        <td>
                                             <button disabled class="badge badge-info btn p-2" style="background: #a1a1a1">
                                                 <i class="fa fa-eye"></i> Realizar consulta
                                             </button>
@@ -546,7 +546,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>                
+                    </div>
                 </div>
             </div>
         </div>
