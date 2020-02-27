@@ -408,7 +408,7 @@
         function mostrar_persona(data) {
 
         $('#agregar_agregar').html(`<a class="btn btn-secondary text-white" data-dismiss="modal">Cerrar</a>
-                                    <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="registrar1">Agregar</a>`);
+                                    <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="registrar">Agregar</a>`);
 
         $('#nameC').val(data.name);
         $('#lastnameC').val(data.lastname);
