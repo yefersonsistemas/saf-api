@@ -2494,7 +2494,7 @@ button[data-original-title="Help"]{ display: none; }
             for($i=0; $i < data.length; $i++){
             examen='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="exam_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#examen").append(examen);
-            $("label").remove("#quitar_examen"+data[$i].id); //quitar del modal
+            $("tr").remove("#quitar_examen"+data[$i].id); //quitar del modal
         }
     }
 
@@ -2522,7 +2522,17 @@ button[data-original-title="Help"]{ display: none; }
             })
             .done(function(data) {
             console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
-            agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
+
+            agregar_examen = `<tr id="quitar_examen${data[1].id}">
+                                <td>
+                                    <label class="custom-control custom-checkbox" >
+                                        <input type="checkbox" class="custom-control-input" name="exam" value="${data[1].id}">
+                                        <span class="custom-control-label">${data[1].name}</span>
+                                    </label>
+                                </td>
+                            </tr>`;
+
+            // agregar_examen = '<label class="custom-control custom-checkbox" id="quitar_examen'+data[1].id+'"><input type="checkbox" class="custom-control-input" name="exam" value="'+data[1].id+'"><span class="custom-control-label">'+data[1].name+'</span></label>',
              $("#modal_examen").append(agregar_examen);  //agregar al modal
 
             if(data[0] == 202){                  //si no trae valores
