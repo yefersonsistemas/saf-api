@@ -360,6 +360,8 @@ var form = $('#wizard_horizontal').show();
         },
         onFinished: function(event, currentIndex) {
             var form = $(this);
+            
+            // if()
 
             form.submit();
         }
@@ -544,9 +546,6 @@ var form = $('#wizard_horizontal').show();
 
 //----------------------------Doctores registrados------------------------------------
 
-
-
-
     function doctor() {
         $("input[name='employe_id']").click(function() {
             var doctor = $(this).val();
@@ -590,4 +589,6 @@ var form = $('#wizard_horizontal').show();
     });
         
 </script> 
+
+
 @endsection
