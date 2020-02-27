@@ -305,7 +305,7 @@
                     }
                 })
                 .done(function(data) {               
-                    console.log('encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+                    console.log('paciente -> encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
                     if(data[0] == 202){   
                         console.log('si')             
@@ -369,7 +369,7 @@
 
              // --------------------Procedures -------------
              if(data.procedureS != null){
-                console.log('procedures', data.procedureS)
+                console.log('procedures encontrados', data.procedureS)
                 $("#procedure").append(procedure);
 
                 for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
@@ -377,7 +377,7 @@
                         costo = financial(data.procedureS[i].price);
                         costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
                         procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
-                        console.log('proceduressss',procedures_id)
+                        console.log('id de los procedimientos',procedures_id)
                         procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
                         $("#columna").append(procedure_select);
                     }

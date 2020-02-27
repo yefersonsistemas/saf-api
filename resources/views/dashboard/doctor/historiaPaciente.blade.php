@@ -886,7 +886,7 @@ button[data-original-title="Help"]{ display: none; }
                 @endif
                 <div class="modal-footer p-2">
                     <a  class="btn btn-secondary btnEstandar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
-                    <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarAlergias">Agregar</a>
+                    <a  class="btn btn-azuloscuro text-white" data-dismiss="modal" id="diseaseR">Agregar</a>
                 </div>
             </div>
         </div>
@@ -1863,8 +1863,10 @@ button[data-original-title="Help"]{ display: none; }
 
     //================ guardar alergias =================
     $("#guardarAlergias").click(function() {
+        console.log('hola');
         var reservacion = $("#reservacion").val();
         var datos = $("#form_alergias").serialize(); //asignando el valor que se ingresa en el campo
+
 
         ajax_alergia(datos,reservacion); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
@@ -2367,7 +2369,10 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
+ 
+ 
    //================ mostrando posibles procedimientos =============
+
     function mostrarProcedure(data){
         for($i=0; $i < data.length; $i++){
             procedure='<tr id="'+data[$i].id+'"><td><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="procedureP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'

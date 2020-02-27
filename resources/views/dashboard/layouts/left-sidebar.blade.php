@@ -85,11 +85,8 @@
                         @endrole
 
 
-                        <li class="g_heading">Doctores</li>
-                        <li class="@yield('doctor')"><a href=" {{ route('doctor.index')  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a>
-
-                        </li>
-
+                        <li class="g_heading">Doctor</li>
+                        <li class="@yield('doctor')"><a href=" {{ route('doctor.index')  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a></li>
                         <li class="@yield('cirugia')"><a href="{{ route('doctor.lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
                         {{-- <li><a href=" {{ route('doctor.recordpago') }}"><i class="fe fe-list"></i><span>Record de Ingresos</span></a></li> --}}
                     </div>
