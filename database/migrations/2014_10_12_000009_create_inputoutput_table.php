@@ -20,6 +20,7 @@ class CreateInputoutputTable extends Migration
             $table->string('inside_office')->nullable();
             $table->string('outside')->nullable();
             $table->string('outside_office')->nullable();
+            $table->boolean('activo')->nullable();
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();

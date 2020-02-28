@@ -45,7 +45,6 @@ class OutController extends Controller
     {
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery.classification', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
-        // dd($itinerary);
      
         $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         foreach ($itinerary as $iti) {
@@ -72,7 +71,6 @@ class OutController extends Controller
             }
         }
 
-
         $dentro_office = false;
         foreach ($espera as $item) {
             if (!empty($item->patient->inputoutput)) {
@@ -90,7 +88,6 @@ class OutController extends Controller
                 }
             }
         }
-
 
         $fuera_instalacion = false;
         foreach ($espera as $item) {
@@ -141,7 +138,6 @@ class OutController extends Controller
 
         $itinerary->exam_id = $examenes;
         $itinerary->save();
-
 
         //Para mostrar lista de citas de pacientes
         $procedures_id = array();
