@@ -7,11 +7,11 @@
 
 <div id="left-sidebar" class="sidebar">
     <div class="container mt--20">
-        @if (Auth::user()->role('director') == 'director')
-        <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[11]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
-       @elseif(Auth::user()->role('director') != 'director')
+        {{-- @if (Auth::user()->role('director') == 'director') --}}
+        {{-- <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[11]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5> --}}
+       {{-- @elseif(Auth::user()->role('director') != 'director') --}}
         <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[0]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
-        @endif
+        {{-- @endif --}}
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
                 {{-- @role('recepcion')
