@@ -166,7 +166,7 @@ class SurgerysController extends Controller
 
     public function ambulatoria_store(Request $request)
     {
-        // dd($request); 
+        dd($request); 
         
         $patient = Patient::where('id', $request->patient_id)->first();  // paciente 1
         // dd($patient);
