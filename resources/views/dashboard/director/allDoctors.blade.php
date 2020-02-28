@@ -100,7 +100,6 @@
                                             <td>
                                                 <li class="@yield('doctor')"><a href=" {{ route('director.reservations_doctor', $employe->person_id)  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a></li>
                                                 <li class="@yield('cirugia')"><a href="{{ route('director.surgeriesDoctor', $employe->person_id) }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
-
                                             </td>
 
                                         </tr>
