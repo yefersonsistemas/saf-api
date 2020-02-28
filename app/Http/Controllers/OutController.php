@@ -773,7 +773,7 @@ class OutController extends Controller
 
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
 // dd($surgeries);
-    $ambulatorias = Reservation::with('patient', 'employe.person')->where('surgery', true)->get(); // 'employe.areaassigment.area'
+    $ambulatorias = Reservation::with('patient', 'person')->where('surgery', true)->get(); // 'employe.areaassigment.area'
     
     // dd($ambulatorias);
     // $approved =

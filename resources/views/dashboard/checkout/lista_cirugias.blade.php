@@ -162,8 +162,8 @@
                                             </td>
                                             <td>{{$ambulatoria->date}}</td>
                                             <td>{{$ambulatoria->patient->name}} {{$ambulatoria->patient->lastname}}</td>
-                                            <td>{{$ambulatoria->employe->person->name}} {{$ambulatoria->employe->person->lastname}}</td>
-                                            <td>{{$ambulatoria->employe->areaassigment->area->name}}</td>
+                                            <td>{{$ambulatoria->person->name}} {{$ambulatoria->person->lastname}}</td>
+                                            <td>{{$ambulatoria->person->employe->areaassigment->area->name}}</td>
                                             <td>{{$ambulatoria->description}}</td>
                                             {{-- <td style="display: inline-block">
                                                 <a type="button" href="" disabled class="btn btn-success">A</a>
