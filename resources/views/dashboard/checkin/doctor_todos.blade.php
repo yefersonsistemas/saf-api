@@ -66,20 +66,20 @@
                                     @if ($employe->areaassigment != null)
                                         <td>{{$employe->areaassigment->area->name}}</td>
                                     @else
-                                        <td>Sin Consultorio</td>    
+                                        <td>Sin Consultorio</td>
                                     @endif
-                                </tr>                                  
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Modal para ver especialidades -->
-    @foreach ($e as $employe) 
+    @foreach ($e as $employe)
         <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->dni }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -90,7 +90,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        @foreach ($employe->speciality as $item)  
+                        @foreach ($employe->speciality as $item)
                         {{ $item->name }} <br>
                         @endforeach
                     </div>
@@ -103,7 +103,7 @@
     @endforeach
 
     <!--Modal para ver horario-->
-    @foreach ($e as $employe) 
+    @foreach ($e as $employe)
     <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -148,7 +148,7 @@
                                 </tr>
                                 @endforeach
                         </tbody>
-                    </table>    
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

@@ -58,9 +58,9 @@
                         <li class="@yield('medicoss')">
                                 <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-user-md"></i>&nbsp;&nbsp;<span>Médicos</span></a>
                                 <ul>
-                                    <li>
-                                        {{-- <a href="{{ route('checkin.doctor') }}">Médicos del día</a>                                    --}}
-                                    </li>
+                                    {{-- <li>
+                                        <a href="{{ route('checkin.doctor') }}">Médicos del día</a>
+                                    </li> --}}
                                     <li class="@yield('medicos')">
                                         <a href="{{ route('checkin.doctor_todos') }}"><i class="fa fa-users"></i> &nbsp;&nbsp;Todos los médicos</a>
                                     </li>
@@ -122,6 +122,9 @@
                 <div class="director animated fadeIn @yield('dire')">
                     <li class="g_heading">Director</li>
                     <li ><a href="{{ route('employe.index') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Lista de Empleados</a></li>
+                    <li>
+                        <a href="{{ route('checkin.doctor') }}"><i class="fa fa-user-md"></i>&nbsp;&nbsp;Médicos del día</a>
+                    </li>
                     <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;&nbsp;Lista de Registros</a></li>
 
                     <li class="@yield('cites')">

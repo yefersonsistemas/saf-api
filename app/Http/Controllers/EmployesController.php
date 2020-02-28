@@ -114,6 +114,7 @@ class EmployesController extends Controller
     {
         // dd($id);
         $employes = Employe::with('image','person.user', 'speciality', 'assistance', 'schedule','areaassigment.area')->get();
+        // dd($employes);
         $a = AreaAssigment::first();
         // dd($employes);
         $em = collect([]);
@@ -133,7 +134,7 @@ class EmployesController extends Controller
             }
         }
 
-        return view('dashboard.checkin.doctor', compact('em'));
+        return view('dashboard.director.allDoctors', compact('em'));
     }
 
     public function doctor_on_todos()//todos los medicos
@@ -270,6 +271,7 @@ class EmployesController extends Controller
      */
     public function edit($id)
     {
+        // dd($id);
         $employe = Employe::with('person.user', 'position', 'image')->find($id);
         // dd($employe);
         $position = Position::all();

@@ -29,9 +29,9 @@
                     <a  class="nav-link icon" id="out" style="font-size:12px"> OUT </a>
                     @endrole
 
-                    @role('doctor')
+                    {{-- @role('doctor')
                     <a  class="nav-link icon" id="doc" style="font-size:12px"> Doctor </a>
-                    @endrole
+                    @endrole --}}
 
                     @role('in-out')
                     <a  class="nav-link icon" id="io" style="font-size:12px">In-out</a>
