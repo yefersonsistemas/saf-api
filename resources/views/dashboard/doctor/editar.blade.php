@@ -127,9 +127,8 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Total De Citas Agendadas</h6>
-                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
-                            {{--
-                                <h5>$1,25,451.23</h5> --}}
+                            <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">{{ $reserva2->count() }}</span></h4>
+                            {{-- <h5>$1,25,451.23</h5> --}}
                         </div>
                     </div>
                 </div>
@@ -137,9 +136,8 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Total De Citas Del Mes</h6>
-                            <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">750</span></h4>
-                            {{--
-                                <h5>$3,80,451.00</h5> --}}
+                            <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">{{ $todas }}</span></h4>
+                            {{-- <h5>$3,80,451.00</h5> --}}
                         </div>
                     </div>
                 </div>
@@ -147,8 +145,8 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Citas Para Hoy</h6>
-                            <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">25</span></h4>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span> --}}
+                            <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">{{ $today->count() }}</span></h4>
+                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
                 </div>
@@ -156,8 +154,8 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Atendidos Hoy</h6>
-                            <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">5</span></h4>
-                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span> --}}
+                            <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">{{ $yasevieron->count() }}</span></h4>
+                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
                 </div>
@@ -404,11 +402,12 @@ button[data-original-title="Help"]{ display: none; }
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="collapse card-body list-group row" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                         <div class="card-body py-1">
                                                             <div class="table-responsive">
                                                                 <table class="table table-hover table-vcenter table-striped"
-                                                                cellspacing="0" id="addrowExample">
+                                                                cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th style="width: 825px">Nombre</th>
@@ -416,6 +415,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="mostrar_enfermedad">
+                                                                        @if($reservation->patient->historyPatient->disease->first() != [])
                                                                         @foreach($reservation->patient->historyPatient->disease as $disease)
                                                                             <tr id="{{$disease->id}}">
                                                                                 <td>
@@ -424,6 +424,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <td class="text-center"><a style="cursor:pointer" id="enfermedad_id" name="{{$disease->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                             </tr>
                                                                         @endforeach
+                                                                        @endif
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -450,7 +451,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="card-body py-1">
                                                             <div class="table-responsive">
                                                                 <table class="table table-hover table-vcenter table-striped"
-                                                                cellspacing="0" id="addrowExample">
+                                                                cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th style="width: 825px">Nombre</th>
@@ -458,6 +459,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="mostrar_alergias">
+                                                                        @if( $reservation->patient->historyPatient->allergy->first() != [] )
                                                                         @foreach ( $reservation->patient->historyPatient->allergy as $allergy )
                                                                             <tr id="{{$allergy->id}}">
                                                                                 <td>
@@ -466,6 +468,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <td class="text-center"><a style="cursor:pointer" id="alergia_id" name="{{$allergy->id}}" class="text-dark btn"><i class="icon-trash"></i></a></td>
                                                                             </tr>
                                                                         @endforeach
+                                                                        @endif
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -589,7 +592,7 @@ button[data-original-title="Help"]{ display: none; }
                                                             <div class="card-body">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover table-vcenter table-striped"
-                                                                        cellspacing="0" id="addrowExample">
+                                                                        cellspacing="0">
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Procedimiento Seleccionado</th>
@@ -664,7 +667,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                                 <div class="card-body">
                                                                                     <div class="table-responsive">
                                                                                         <table class="table table-hover table-vcenter table-striped"
-                                                                                            cellspacing="0" id="addrowExample">
+                                                                                            cellspacing="0">
+                                                                                            {{-- <table class="table table-hover table-vcenter table-striped"
+                                                                                            cellspacing="0" id="addrowExample"> --}}
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th>Examen Seleccionado</th>
@@ -755,7 +760,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
                                                                                 <table class="table table-hover table-vcenter table-striped"
-                                                                                    cellspacing="0" id="addrowExample">
+                                                                                    cellspacing="0">
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>Medicamento Seleccionado</th>
@@ -951,7 +956,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <div class="card-body py-1">
                                                                         <div class="table-responsive">
                                                                             <table class="table table-hover table-vcenter table-striped"
-                                                                                cellspacing="0" id="addrowExample">
+                                                                                cellspacing="0">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Posible Cirugía</th>
@@ -994,7 +999,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                     <div class="card-body py-1">
                                                                         <div class="table-responsive">
                                                                             <table class="table table-hover table-vcenter table-striped"
-                                                                                cellspacing="0" id="addrowExample">
+                                                                                cellspacing="0">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Posibles procedimientos </th>

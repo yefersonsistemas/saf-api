@@ -7,6 +7,8 @@ use App\Employe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Patient;
+use App\Reservation;
+use App\Itinerary;
 use App\Procedure;
 Use App\Typesurgery;
 
@@ -222,6 +224,134 @@ class TypeSurgerysController extends Controller
         $classification = ClassificationSurgery::find($id);
         $classification->delete();
         return redirect()->route('all.register')->withSuccess('Tipo de cirugía eliminada');
+    }
+
+
+    //============= agregar cirugias a la historia en el doctor =============
+    public function agregar_cirugias(Request $request){
+
+        $reservation = Reservation::find($request->id);
+
+        $cirugia = Patient::where('person_id', $reservation->patient_id)->first();
+        // dd($cirugia);
+        if($cirugia != null){
+            $cirugia->previous_surgery = $request->data;
+            $cirugia->save();
+        }else{
+            $cirugia = null;
+        }
+
+        return response()->json([
+            'Cirugia' => 'Cirugia agregada exitosamente',201,$cirugia
+            ]);
+    }
+
+    //============== guardando Candidato a cirugias===============
+    public function surgerysP(Request $request){
+
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+        $returndata2 = array();
+        $strArray = explode('&', $request->data);
+
+        foreach($strArray as $item) {
+            $array = explode("=", $item);
+            $returndata[] = $array;
+        }
+
+        for($i=0; $i < count($returndata); $i++){
+            for($y=1; $y <= 1; $y++){
+            $returndata2[$i] = $returndata[$i][$y];
+            }
+        }
+        $data =  implode(',', $returndata2);
+
+        // dd($returndata2);
+        $itinerary->typesurgery_id = $data;
+        $itinerary->save();
+
+        $surgerys = explode(',', $itinerary->typesurgery_id); // decodificando los prcocedimientos json
+
+        for ($i=0; $i < count($surgerys) ; $i++) {
+                    $surgery[] = TypeSurgery::with('classification')->find($surgerys[$i]);
+                }
+
+        return response()->json([
+            'surgerysR' => 'Cirugias guardadas exitosamente',201,$surgery
+        ]);
+    }
+
+    //===================== actualizar Candidato a cirugias ====================
+    public function surgerysP_update(Request $request){
+
+        $itinerary = Itinerary::where('reservation_id', $request->id)->first();
+
+        $returndata2 = array();
+        if(!empty($request->data)){
+            $strArray = explode('&', $request->data);
+
+            foreach($strArray as $item) {
+                $array = explode("=", $item);
+                $returndata[] = $array;
+            }
+
+            for($i=0; $i < count($returndata); $i++){
+                for($y=1; $y <= 1; $y++){
+                $returndata2[$i] = $returndata[$i][$y];
+                }
+            }
+
+            if($itinerary->typesurgery_id != $returndata2[0]){
+                $surgery[] = TypeSurgery::with('classification')->find($returndata2[0]);
+            }else{
+                $surgery[] = null;
+            }
+
+            $itinerary->typesurgery_id = $returndata2[0];
+            $itinerary->save();
+
+            return response()->json([
+                'surgerysR' => 'Cirugias guardadas exitosamente',201,$surgery
+            ]);
+        }else{
+            return response()->json([
+                'surgerysR' => 'Seleccione una cirugia',202
+            ]);
+        }
+    }
+
+    //================eliminar posibles procedimientos ===================
+    public function cirugiaP_eliminar2(Request $request){
+
+        $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
+
+        $cirugia = Typesurgery::with('classification')->find($itinerary->typesurgery_id);
+        // dd($cirugia);
+
+        $itinerary->typesurgery_id = null;
+        $itinerary->save();
+
+        return response()->json([
+            'cirugia' => 'Cirugia eliminada correctamente',202,$cirugia,
+        ]);
+
+    }
+
+
+    //===================eliminar cirugias previas ==========================
+    public function cirugia_borrar(Request $request){
+
+        $reservation = Reservation::find($request->reservacion_id);
+
+        $patient = Patient::where('person_id',$reservation->patient_id)->first();
+
+        $patient->previous_surgery= null;
+        $patient->save();
+
+        return response()->json([
+            'cirugias' => 'Cirugias previas eliminada correctamente',202
+        ]);
+
     }
 
 }

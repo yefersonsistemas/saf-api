@@ -9,7 +9,7 @@ class Diagnostic extends Model
     protected $table = 'diagnostics';
 
     protected $fillable = [
-        'patient_id', 'description', 'reason', 'treatment_id', 'indications', 'enfermedad_actual', 'examen_fisico', 'employe_id', 'report_medico_id', 'repose_id', 'branch_id'
+        'patient_id', 'description', 'reason', 'reservation_id',  'treatment_id', 'indications','status', 'enfermedad_actual', 'examen_fisico', 'employe_id', 'report_medico_id', 'repose_id', 'branch_id'
     ];
 
     public function patient()
@@ -44,7 +44,7 @@ class Diagnostic extends Model
 
      public function reservation()
     {
-        return $this->belongsTo('App\Reservation');
+        return $this->hasOne('App\Reservation','reservation_id');
     }
 
     public function treatment()
@@ -56,6 +56,7 @@ class Diagnostic extends Model
     {
         return $this->belongsTo('App\Speciality');
     }
+
     
     public function exams()
     {
