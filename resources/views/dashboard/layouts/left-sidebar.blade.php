@@ -160,9 +160,10 @@
                     @role('director')
                     <div class="enfermeria animated fadeIn d-none @yield('enrol')">
                     @endrole
-                <li class="g_heading">Enfermeria</li>
-                <li class="@yield('facturacion')"><a href="{{ route('lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
-                    </div>
+                    
+                    <li class="g_heading">Enfermeria</li>
+                    <li class="@yield('facturacion')"><a href="{{ route('lista_cirugias') }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
+                </div>
                 @endrole
 
 
