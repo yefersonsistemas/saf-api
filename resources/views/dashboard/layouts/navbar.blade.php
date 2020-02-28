@@ -19,14 +19,14 @@
 
                     @role('director')
 
-                    <a class="nav-link icon" id="dir" style="font-size:12px">Director</a>
+                    <a class="nav-link icon" id="dir" style="font-size:12px" title="Director"><i class="fa fa-user-circle"></i></a>
 
                     @role('IN')
-                    <a  class="nav-link icon" id="in" style="font-size:12px">IN</a>
+                    <a  class="nav-link icon" id="in" style="font-size:12px" title="In"><i class="fa fa-user"></i></a>
                     @endrole
 
                     @role('OUT')
-                    <a  class="nav-link icon" id="out" style="font-size:12px"> OUT </a>
+                    <a  class="nav-link icon" id="out" style="font-size:12px" title="Out"><i class="fa fa-user"></i></a>
                     @endrole
 
                     {{-- @role('doctor')
@@ -34,15 +34,15 @@
                     @endrole --}}
 
                     @role('in-out')
-                    <a  class="nav-link icon" id="io" style="font-size:12px">In-out</a>
+                    <a  class="nav-link icon" id="io" style="font-size:12px" title="In-Out"><i class="fa fa-user"></i></a>
                     @endrole
 
                     @role('enfermeria')
-                    <a  class="nav-link icon" id="en" style="font-size:10PX"> Enfermeria </a>
+                    <a  class="nav-link icon" id="en" style="font-size:10PX" title="Enfermeria"><i class="fa fa-medkit"></i></a>
                     @endrole
 
                     @role('farmaceuta')
-                    <a  class="nav-link icon" id="far" style="font-size:10PX"> Farmacia </a>
+                    <a  class="nav-link icon" id="far" style="font-size:10PX" title="Farmaceuta"><i class="fe fe-slash"></i></a>
                     @endrole
 
 
