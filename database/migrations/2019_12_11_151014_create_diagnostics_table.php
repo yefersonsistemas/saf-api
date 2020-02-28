@@ -25,6 +25,8 @@ class CreateDiagnosticsTable extends Migration
             $table->unsignedBigInteger('repose_id')->nullable();
             $table->longText('indications')->nullable();
             $table->unsignedBigInteger('employe_id');
+            $table->unsignedBigInteger('reservation_id');
+            $table->boolean('status')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
@@ -51,6 +53,11 @@ class CreateDiagnosticsTable extends Migration
             $table->foreign('repose_id')
             ->references('id')
             ->on('reposes')
+            ->onDelete('CASCADE');
+
+            $table->foreign('reservation_id')
+            ->references('id')
+            ->on('reservations')
             ->onDelete('CASCADE');
 
             $table->foreign('branch_id')

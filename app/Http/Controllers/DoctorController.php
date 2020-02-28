@@ -69,6 +69,7 @@ class DoctorController extends Controller
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         $yasevieron = collect([]);
 
+        // dd($today->last()->patient->historyPatient->diagnostic->first());
         foreach ($day as $key) {
             if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
                $yasevieron->push($key);
@@ -112,105 +113,280 @@ class DoctorController extends Controller
     {
         $medicines = Medicine::all();
         $specialities = Speciality::all();
-        $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('patient_id',$id)
+        $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('id',$id)
         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
 
-        // dd($history->patient->historyPatient->disease);
-        //----------------mostrar enfermedades----------
+        $employe = Employe::where('person_id',$history->person_id)->first();
+        $patient = Patient::where('person_id',$history->patient_id)->first();
+
+        $buscar_diagnostic = Diagnostic::where('reservation_id', $history->id)->first();
+
+         // ------ guardando diagnostico ------
+         if($buscar_diagnostic == null){
+            $diagnostic = Diagnostic::create([
+                'patient_id'        =>  $patient->id, //esta
+                'employe_id'        =>  $employe->id, //esta
+                'reservation_id'        =>  $history->id, //esta
+                'status'            => false,
+                'branch_id'         =>  1,
+            ]);
+         }
+       
+        $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
+        ->where('id',$history->id)->first();
+        // dd($reservation->person);
+
+        $cite = Patient::with('person.reservationPatient.speciality', 'reservation.diagnostic.treatment')
+        ->where('person_id', $reservation->patient_id)->first();
+
+        $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
+        $employe = Employe::where('person_id', $reservation->person_id)->first();
+
+        $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $employe->id)->first();
+
+        $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
+
+        $speciality = Speciality::all();
+        $medicines = Medicine::all();
         $enfermedades = Disease::all();
 
-        if($history->patient->historyPatient->disease->first() != null){
-            foreach($enfermedades as $item){
-                $array1[] = $item->id;
-            }
+        $file = File::where('fileable_id', $cite->person_id)->get();
 
-            foreach($history->patient->historyPatient->disease as $item){
-                $array2[] = $item->id;
-            }
 
-            $diff = array_diff($array1, $array2);
-
-            if($diff != null){
-                foreach($diff as $item){
-                    $enfermedad[] = Disease::find($item);
-                }
-            }else{
-                $enfermedad = [];
-            }
-
+        //---------------------mostrar enfermedades-----------------
+        if($reservation->patient->historyPatient->disease->first() != null && $enfermedades != null){
+            $enfermedad = $enfermedades->diff($reservation->patient->historyPatient->disease);
         }else{
             $enfermedad = Disease::all();
         }
 
-        //----------------mostrar alergias---------------
-          $alergias = Allergy::all();
+         //----------------mostrar alergias---------------
+         $alergias = Allergy::all();
 
-          if($history->patient->historyPatient->allergy->first() != null){
-            foreach($alergias as $item){
-                $array1[] = $item->id;
+           if($reservation->patient->historyPatient->allergy->first() != null && $alergias != null){
+            $alergia = $alergias->diff($reservation->patient->historyPatient->allergy);
+         }else{
+             $alergia = Allergy::all();
+         }
+
+        foreach($speciality as $item){
+            $data[] = $item->id;
+        }
+
+        //-----------------datos de la referencia-----------------
+        if($itinerary->reference_id != null){
+            //mostrar especialidad en el editar de referir medico
+            $buscar = Speciality::find($itinerary->reference->speciality->id);
+            $buscar_id[] = $buscar->id; //id de especialidad
+
+            $diff_R = array_diff($data, $buscar_id); //diferencia de especialidades
+
+            //mostrar empleados en el editar rederir medico para que no se repitan los datos
+            $empleados = Speciality::with('employe.person')->where('id', $buscar->id)->first();
+
+            foreach($empleados->employe as $item){
+                $data2[] = $item->id;  //medicos relacionados a la especialidad
             }
 
-            foreach($history->patient->historyPatient->allergy as $item){
-                $array2[] = $item->id;
-            }
+            if($itinerary->reference->employe_id != null){
+                    $buscarE_id[] =  $itinerary->reference->employe->id;
+                    $diff_EM = array_diff($data2, $buscarE_id); //diferencia de medicos
+                    if($diff_EM != []){
+                        foreach($diff_EM as $di) {
+                            $diff2[] = Employe::with('person')->where('id',$di)->first();
+                        }
+                    }else{
+                        $diff2 = [];
+                    }
 
-            $diff_A = array_diff($array1, $array2);
-            if($diff_A != []){
-                foreach($diff_A as $item){
-                    $alergia[] = Allergy::find($item);
-
-                }
+                    $diff_doctor = null;
             }else{
-                $alergia = [];
+                $diff_doctor = $itinerary->reference->doctor;
+                $diff2 = [];
             }
 
         }else{
-            $alergia = Allergy::all();
+            $diff_R = $data;
         }
 
-        //-------------mostrar cirugias--------------
-
-        $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first();
-
-        // dd($procesm->procedures);
-        $cite = Patient::with('person.reservationPatient.speciality', 'person.file', 'reservation.diagnostic.treatment')
-            ->where('person_id', $id)->first();
-
-            // dd($cite->person->reservationPatient);
-
-        $persona = Person::where('id', $cite->person_id)->first();
-        // dd($person);
-        $file = File::where('fileable_id', $persona->id)->get();
-        // dd($file->first());
-
-        $exams = Exam::all();
-
-        $surgerys = Typesurgery::all();
-
-
-
-        //--------------esto es para los contadores que aparecen en historia medica--------------
-        $id= Auth::id();
-        $empleado = Employe::with('person')->where('id', $id)->first();
-        $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-
-        $mes = Carbon::now()->format('m');
-        $año = Carbon::now()->format('Y');
-        $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
-        $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
-        $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
-
-        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
-        $yasevieron = collect([]);
-
-        foreach ($day as $key) {
-            if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
-               $yasevieron->push($key);
+        //buscar datos de las especialidades
+        if($diff_R != [] ){
+            foreach($diff_R as $di) {
+                $diff22[] = Speciality::find($di);
             }
+        }else{
+            $diff22 = [];
         }
 
-        return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron', 'file'));
-    }
+        $diff = $diff22;
+
+         //decodificando y buscando datos de procedures realizados
+            if (!empty($itinerary->procedure_id)) {
+                $proceduresP_id = explode(',', $itinerary->procedure_id); //decodificando los procedimientos en $encontrado
+                if (!empty($proceduresP_id)) {
+                    foreach($proceduresP_id as $procedure){
+                        $procedures[] = Procedure::find($procedure);
+                    }
+                }
+            }else{
+                $procedures = null;
+            }
+
+            //decodificando y buscando datos de examenes
+            if (!empty($itinerary->exam_id)) {
+                $exam_id = explode(',', $itinerary->exam_id); //decodificando los procedimientos en $encontrado
+                if (!empty($exam_id)) {
+                    foreach($exam_id as $exam){
+                        $exams[] = Exam::find($exam);
+                    }
+                }
+            }else{
+                $exams = null;
+            }
+
+            $procesm = Employe::with('procedures')->where('person_id', $reservation->person_id)->first();
+            $examenes = Exam::all();
+            $cirugias = TypeSurgery::get();
+
+        // buscando diferencia de procedimientos realizados
+            if (!empty($itinerary->procedureR_id)) {
+                $diff_PR = $procesm->procedures->diff($r_patient->procedures);
+            }else{
+                $diff_PR = $procesm->procedures;
+            }
+        // buscando diferencia de examenes
+            if ($itinerary->exam_id != null) {
+                $diff_E = $examenes->diff($exams);
+            }else{
+                $diff_E = $examenes;
+            }
+
+        // busacndo posibles procedimientos
+            if (!empty($itinerary->procedure_id)) {
+                $diff_P = $procesm->procedures->diff($procedures);
+            }else{
+                $diff_P = $procesm->procedures;
+            }
+
+        // buscando posibles cirugias
+            $surgery = array($itinerary->typesurgery);
+            if(!empty($itinerary->typesurgery)){
+                $diff_CC = $cirugias->diff($surgery);
+            }else{
+                $diff_CC = $cirugias;
+            }
+
+            foreach($diff_CC as $item){
+                $diff_C[] = TypeSurgery::with('classification')->find($item->id);
+            }
+
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file'));
+      
+   }
+
+
+//     public function show($id)
+//     {
+//         $medicines = Medicine::all();
+//         $specialities = Speciality::all();
+//         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('id',$id)
+//         ->whereDate('date', Carbon::now()->format('Y-m-d'))->first();
+//  // dd($history->patient->historyPatient->disease);
+//         // //----------------mostrar enfermedades----------
+//         $enfermedades = Disease::all();
+
+//         if($history->patient->historyPatient->disease->first() != null){
+//             foreach($enfermedades as $item){
+//                 $array1[] = $item->id;
+//             }
+
+//             foreach($history->patient->historyPatient->disease as $item){
+//                 $array2[] = $item->id;
+//             }
+
+//             $diff = array_diff($array1, $array2);
+
+//             if($diff != null){
+//                 foreach($diff as $item){
+//                     $enfermedad[] = Disease::find($item);
+//                 }
+//             }else{
+//                 $enfermedad = [];
+//             }
+
+//         }else{
+//             $enfermedad = Disease::all();
+//         }
+
+//         // //----------------mostrar alergias---------------
+//           $alergias = Allergy::all();
+
+//           if($history->patient->historyPatient->allergy->first() != null){
+//             foreach($alergias as $item){
+//                 $array1[] = $item->id;
+//             }
+
+//             foreach($history->patient->historyPatient->allergy as $item){
+//                 $array2[] = $item->id;
+//             }
+
+//             $diff_A = array_diff($array1, $array2);
+//             if($diff_A != []){
+//                 foreach($diff_A as $item){
+//                     $alergia[] = Allergy::find($item);
+
+//                 }
+//             }else{
+//                 $alergia = [];
+//             }
+
+//         }else{
+//             $alergia = Allergy::all();
+//         }
+
+//         // //-------------mostrar cirugias--------------
+
+//         $procesm = Employe::with('procedures')->where('person_id', $history->person_id)->first();
+
+//         // dd($procesm->procedures);
+//         $cite = Patient::with('person.reservationPatient.speciality', 'person.file', 'reservation.diagnostic.treatment')
+//             ->where('person_id', $id)->first();
+
+//             // dd($cite->person->reservationPatient);
+
+//         $persona = Person::where('id', $cite->person_id)->first();
+//         // dd($person);
+//         $file = File::where('fileable_id', $persona->id)->get();
+//         // dd($file->first());
+
+//         $exams = Exam::all();
+
+//         $surgerys = Typesurgery::all();
+
+
+
+//         // //--------------esto es para los contadores que aparecen en historia medica--------------
+//         $id= Auth::id();
+//         $empleado = Employe::with('person')->where('id', $id)->first();
+//         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+
+//         $mes = Carbon::now()->format('m');
+//         $año = Carbon::now()->format('Y');
+//         $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
+//         $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+//         $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
+
+//         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+//         $yasevieron = collect([]);
+
+//         foreach ($day as $key) {
+//             if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
+//                $yasevieron->push($key);
+//             }
+//         }
+
+//         return view('dashboard.doctor.historiaPaciente', compact('history','cite', 'exams','medicines','specialities', 'surgerys', 'procesm', 'enfermedad','alergia', 'today', 'todas', 'reserva2', 'yasevieron', 'file'));
+//     }
 
       // ================= Redireccion a formulario para crear diagnostico ==============
     public function crearDiagnostico($id){
@@ -220,7 +396,7 @@ class DoctorController extends Controller
         return view('dashboard.doctor.crearDiagnostico', compact('patient', 'exams'));
     }
 
-    // ================================= Guardar diagnostico ======================================
+    // ================================= Guardar diagnostico ====================================== no se esta usando.
     public function storeDiagnostic(Request $request)
     {
           $itinerary = Itinerary::where('reservation_id', $request->reservacion_id)->first();
@@ -514,12 +690,24 @@ class DoctorController extends Controller
         //buscando reservacion en itinerary
             $itinerary = Itinerary::where('reservation_id',$reservation->id)->first();
 
+            $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
+            // dd($io);
+              if (empty($io->outside_office) && (!empty($io->inside_office))) {
+  
+                  $io->outside_office = 'fuera';
+                  $io->save();
+                  $itinerary->status = 'fuera_office';
+              }
+
         //buscando el id del paciente para buscar diagnostico
             $b_patient = Patient::where('person_id', $reservation->patient_id)->first();
 
         //buscando diagnostico
-            $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
-            ->where('patient_id', $b_patient->id)->where('employe_id', $itinerary->employe_id)->first();
+            // $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
+            // ->where('patient_id', $b_patient->id)->where('employe_id', $itinerary->employe_id)->first();
+
+              $diagnostic = Diagnostic::whereDate('created_at', Carbon::now()->format('Y-m-d'))
+            ->where('reservation_id', $id)->first();
 
         //actualizando campo de proxima cita
             if($request->proximaCita == 1){
@@ -535,6 +723,7 @@ class DoctorController extends Controller
             $diagnostic->enfermedad_actual = $request->enfermedad;
             $diagnostic->examen_fisico = $request->examen_fisico;
             $diagnostic->indications = $request->indicaciones;
+            $diagnostic->status = true;
             $diagnostic->save();
 
 
