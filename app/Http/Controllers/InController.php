@@ -182,28 +182,20 @@ class InController extends Controller
      */
     public function search_history($id, $id2){
         $mostrar = $id2;
-        // dd($mostrar);
-        
-        // $reservation = Reservation::find($id);
-        // dd($reservation);
+  
         $rs = Reservation::with('patient.historyPatient.medicine','patient.historyPatient.disease','patient.historyPatient.allergy','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-                            // dd($rs->patient->historyPatient);
-        // dd($rs->patient_id);
+   
         $cites = Reservation::with('patient.historyPatient','patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
-        // dd($cites->patient->historyPatient->diagnostic);
+ 
         $disease = Disease::all();
         $enfermedades = Disease::all();
-        // dd($disease);
         $medicine = Medicine::get();
         $medicinas = Medicine::all();
         $allergy = Allergy::get();
         $alergias = Allergy::all();
-        // dd($cites);
-        // dd($medicine);
 
         $diff_medicine = $medicine->diff($rs->patient->historyPatient->medicine); //modal de medicinas
-        // dd($diff_medicine);
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar','enfermedades','alergias','medicinas','diff_medicine'));
     }
