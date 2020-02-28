@@ -734,6 +734,7 @@ class DoctorController extends Controller
      //=============================== actualizar diagnostico =============================
     public function update(Request $request, $id)
     {
+        // dd($request);
         //buscar reservacion
             $reservation = Reservation::where('id',$id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->first();
 
@@ -742,11 +743,55 @@ class DoctorController extends Controller
 
             $io = InputOutput::where('person_id', $itinerary->patient_id)->where('employe_id', $itinerary->employe_id)->first();
             // dd($io);
+
+            $employe  = Reservation::with('patient.inputoutput')->where('person_id', $reservation->person_id)->where('id' , '<>', $reservation->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
+        
+            $pacientes = array();
+            // dd($employe);
+            foreach($employe as $em){
+                // dd($em);
+                // dd($em->patient->inputoutput->first());
+                if(!empty($em->patient->inputoutput->first())){
+                   if($em->patient->inputoutput->first()->activo == null && $em->patient->inputoutput->first()->outside_office == null){
+                      $pacientes[] = $em;
+                  }
+                }
+            }
+            // dd($pacientes);
+
               if (empty($io->outside_office) && (!empty($io->inside_office))) {
-  
+                // dd($io);
                   $io->outside_office = 'fuera';
+                  $io->activo = false;
                   $io->save();
                   $itinerary->status = 'fuera_office';
+
+                 
+                //   $medicos = array();
+                //   $dia = strtolower(Carbon::now()->locale('en')->dayName); 
+                  // dd($dia);
+          
+                  
+                  //buscando pacientes que atenderan los medicos que atenderan citas hoy
+            
+                  $active  = null;
+                  if($pacientes != []){
+                    for($i=0; $i < count($pacientes); $i++){
+                     
+                        if( $active  == null){
+                            $active = $pacientes[$i];
+                        }elseif($active->patient->inputoutput->first()->created_at->format('H:i:s')  >  $pacientes[$i]->patient->inputoutput->first()->created_at->format('H:i:s')){
+                                $active = $pacientes[$i];
+                           
+                      }   
+                }
+                $itin = InputOutput::where('id',$active->patient->inputoutput->first()->id)->first();
+                $itin->activo =true;
+                $itin->save();
+                  }
+                      
+                    
+
               }
 
         //buscando el id del paciente para buscar diagnostico

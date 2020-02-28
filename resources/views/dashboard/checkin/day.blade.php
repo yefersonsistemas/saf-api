@@ -113,7 +113,7 @@
                             @if (empty($reservation->cancel) && empty($reservation->discontinued) && empty($reservation->reschedule))
 
                             <tr style="height:40px;">
-                                <td style="text-align: center; font-size:10px; height:40px;">
+                                    <td style="text-align: center; font-size:10px; height:40px;">
                                         @if (!empty($reservation->patient->image->path))
                                         <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                         @else
@@ -171,7 +171,6 @@
 
                                     <td>
 
-
                                         <div class="container text-center" id="ID_element_0">
                                             {{-- El paciente ha ingresado a las instalaciones --}}
                                             @if($reservation->patient->inputoutput->isEmpty())
@@ -200,15 +199,15 @@
                                             @endif --}}
 
 
-
-
                                             {{-- El paciente ha ingresado al consultorio --}}
                                             @if(!empty($reservation->patient->inputoutput->first()->inside) && empty($reservation->patient->inputoutput->first()->inside_office) && empty($reservation->patient->inputoutput->first()->outside_office) && empty($reservation->patient->inputoutput->first()->outside))
                                             <button class="btn btn-success state state_0" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
 
-
+                                            @if($reservation->patient->inputoutput->first()->activo == true)
                                            <a href="{{ route ('checkin.insideOffice', $reservation->id) }}" data-toggle="tooltip" data-placement="left" title="Marcar cuando el paciente entre al consultorio" class="btn btn-danger state state_1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')"></a>
-
+                                           @else
+                                                <button type="button" class="btn btn-secondary state state_0" disabled></button>
+                                            @endif
                                            {{-- <button class="btn btn-success state state_1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button> --}}
 
 
