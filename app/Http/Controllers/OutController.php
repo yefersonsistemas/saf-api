@@ -62,7 +62,7 @@ class OutController extends Controller
 
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
-
+ 
         $dentro_instalacion = false;
         foreach ($espera as $item) {
             if (!empty($item->patient->inputoutput)) {
@@ -72,7 +72,6 @@ class OutController extends Controller
             }
         }
 
-        // dd($confirmadas);
 
         $dentro_office = false;
         foreach ($espera as $item) {
@@ -82,15 +81,16 @@ class OutController extends Controller
                 }
             }
         }
-
+  
         $fuera_office = false;
-        foreach ($espera as $item) {
-            if (!empty($item->patient->inputoutput)) {
-                if (!empty($item->patient->inputoutput->first()->outside_office)  && empty($item->patient->inputoutput->first()->outside) ) {
+        foreach ($itinerary as $item) {
+            if (!empty($item->person->inputoutput)) {  
+                if (!empty($item->person->inputoutput->first()->outside_office)  && empty($item->person->inputoutput->first()->outside) ) {
                     $fuera_office = true;
                 }
             }
         }
+
 
         $fuera_instalacion = false;
         foreach ($espera as $item) {
@@ -99,7 +99,7 @@ class OutController extends Controller
                     $fuera_instalacion = true;
                 }
             }
-        }
+        }        
 
         $reservation = Reservation::get();
         $surgery = Surgery::get();
