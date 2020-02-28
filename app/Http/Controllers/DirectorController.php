@@ -26,6 +26,8 @@ use App\Typesurgery;
 use App\User;
 use App\ClassificationSurgery;
 use App\Patient;
+use App\Reservation;
+use App\Surgery;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
@@ -51,7 +53,7 @@ class DirectorController extends Controller
     /**
      * lista los visitantes  o acompañentes
      */
-    public function visitantes(){  
+    public function visitantes(){
         $patients = Patient::with('person')->get();
         $employes = Employe::with('person')->get();
         $persons = Person::get();
@@ -60,16 +62,16 @@ class DirectorController extends Controller
             foreach($persons as $person){
                     if($person == $item->person){
                         $encontrado[] = $person;
-                    }               
-                }   
+                    }
+                }
         }
 
         foreach($employes as $item){  //busca  las personas que estan en empleados
             foreach($persons as $person){
                     if($person == $item->person){
                         $encontrado2[] = $person;
-                    }               
-                }   
+                    }
+                }
         }
 
         $all = $persons->diff($encontrado);  //tiene aquellos que no estan en pacientes
@@ -252,6 +254,7 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
+        // dd($id);
         $employe = Employe::with('person.user', 'position','speciality', 'image','procedures')->find($id);
         $position = Position::where('name', 'doctor')->first();
         $speciality = Speciality::get();
@@ -410,5 +413,47 @@ class DirectorController extends Controller
         return redirect()->route('all.register')->withSuccess('Registro eliminado');
     }
 
-    
+    public function reservations_doctor($person_id){
+        // dd($id);
+
+        $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        // dd($today);
+        $all = Reservation::with('patient.historyPatient')->where('person_id',$person_id )->get();
+
+        $month = Reservation::with('patient.historyPatient')->where('person_id',$person_id  )->whereMonth('date', '=', Carbon::now()->month)->get();
+
+        $date = Carbon::now();
+        $week = Reservation::with('patient.historyPatient')->where('person_id',$person_id )->whereBetween('date', [$date->startOfWeek()->format('Y-m-d'), $date->endOfWeek()->format('Y-m-d')])->get();
+
+        $fecha= Carbon::now()->format('Y/m/d h:m:s'); //la h en minuscula muestra hora normal, y en mayuscula hora militar
+
+        //esto es para los contadores del doctor
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $reserva1 = Reservation::where('person_id', $person_id )->whereMonth('created_at', '=', $mes)->get();
+        $reserva2 = Reservation::where('person_id', $person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+        $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
+
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $yasevieron = collect([]);
+
+        foreach ($day as $key) {
+            if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
+               $yasevieron->push($key);
+            }
+        }
+        return view('dashboard.director.reservations_doctor', compact('today','month', 'all', 'week', 'fecha', 'todas', 'reserva2', 'yasevieron'));
+    }
+
+    public function surgeriesDoctor($id){
+
+        $person = User::find($id);
+
+        $employe = Employe::with('person','patient.person.image','surgery' )->where('person_id',$person->person_id)->first();
+
+        $all = Surgery::with('patient.person.image','typesurgeries','area')->where('employe_id', $id)->get();
+
+        $reservations = Reservation::where('surgery', true)->where('person_id', $employe->id)->get();
+        return view('dashboard.director.surgeriesDoctor', compact('all'));
+    }
 }

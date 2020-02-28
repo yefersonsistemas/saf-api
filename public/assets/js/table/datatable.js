@@ -161,6 +161,7 @@ $(function() {
 
     $(document).ready(function() {
         $('.scrollableTable').DataTable( {
+            "ordering": false,
             "scrollY": "325px",
             "scrollCollapse": true,
             "paging": false,

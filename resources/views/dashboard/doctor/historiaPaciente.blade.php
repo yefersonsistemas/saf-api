@@ -343,7 +343,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="collapse card-body list-group " id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
+                                                <div class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                     <div class="card-body py-1">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover table-vcenter table-striped"
@@ -2373,8 +2373,8 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
- 
- 
+
+
    //================ mostrando posibles procedimientos =============
 
     function mostrarProcedure(data){
