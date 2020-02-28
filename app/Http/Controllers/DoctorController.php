@@ -29,6 +29,7 @@ use App\InputOutput;
 use App\Allergy;
 use App\User;
 use App\File;
+
 // use App\Redirect;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -64,8 +65,9 @@ class DoctorController extends Controller
         $año = Carbon::now()->format('Y');
         $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
         $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+        // dd($reserva2);
         $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
-
+        // dd($todas);
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
         $yasevieron = collect([]);
 
@@ -111,6 +113,31 @@ class DoctorController extends Controller
      //============= doctor por reservacion con su diagnostico y razon de la cita ============
     public function show($id)
     {
+        // dd($id);
+
+        //esto es para los contadores del doctor
+        $id= Auth::id();
+        // dd($id);
+        $empleado = Employe::with('person')->where('id', $id)->first();
+        $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
+        $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+    
+        $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
+        // dd($todas);
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+        $yasevieron = collect([]);
+
+        // dd($today->last()->patient->historyPatient->diagnostic->first());
+        foreach ($day as $key) {
+            if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
+               $yasevieron->push($key);
+            }
+        }
+        //==========hasta aqui los contadores=============
+
         $medicines = Medicine::all();
         $specialities = Speciality::all();
         $history = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')->where('id',$id)
@@ -279,8 +306,7 @@ class DoctorController extends Controller
             foreach($diff_CC as $item){
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
-
-        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file', 'todas', 'reserva2', 'today', 'yasevieron'));
       
    }
 
@@ -518,6 +544,32 @@ class DoctorController extends Controller
      // ======================== actualizacion de historia ======================
     public function edit($id)
     {
+        // dd($id);
+
+         //esto es para los contadores del doctor
+         $id= Auth::id();
+         // dd($id);
+         $empleado = Employe::with('person')->where('id', $id)->first();
+         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+         $mes = Carbon::now()->format('m');
+         $año = Carbon::now()->format('Y');
+         $reserva1 = Reservation::where('person_id', $empleado->person_id )->whereMonth('created_at', '=', $mes)->get();
+         $reserva2 = Reservation::where('person_id', $empleado->person_id )->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+     
+         $todas = $reserva1->intersect($reserva2)->count();  //arroja todas del mes y mismo año
+         // dd($todas);
+         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality')->get();
+         $yasevieron = collect([]);
+ 
+         // dd($today->last()->patient->historyPatient->diagnostic->first());
+         foreach ($day as $key) {
+             if (!empty($key->patient->inputoutput->first()->inside_office) && !empty($key->patient->inputoutput->first()->inside) && !empty($key->patient->inputoutput->first()->outside_office)){
+                $yasevieron->push($key);
+             }
+         }
+         //==========hasta aqui los contadores=============
+
+
         $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
         ->where('id',$id)->first();
         // dd($reservation->person);
@@ -668,7 +720,7 @@ class DoctorController extends Controller
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
 
-        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file'));
+        return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file', 'todas', 'reserva2', 'today', 'yasevieron'));
     }
 
     /**
