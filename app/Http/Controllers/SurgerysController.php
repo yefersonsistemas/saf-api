@@ -224,11 +224,14 @@ class SurgerysController extends Controller
                     $actualizar->surgery = true;
                     $actualizar->save();
                     // dd($actualizar);
+
+                    if($request->itinerary_id != null){
+                        $itinerary =Itinerary::find($request->itinerary_id);
+                        $itinerary->ambulatoria = $reservation->id;
+                        $itinerary->save();
+                        // dd($itinerary);
+                    }
                     
-                    $itinerary =Itinerary::find($request->itinerary_id);
-                    $itinerary->ambulatoria = $reservation->id;
-                    $itinerary->save();
-                    // dd($itinerary);
                 }
 
                  
