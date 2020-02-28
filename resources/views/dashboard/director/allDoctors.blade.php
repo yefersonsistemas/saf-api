@@ -11,7 +11,7 @@
 @section('content')
     <div class="section-body py-3">
         <div class="container-fluid">
-            <div class=" p-4">
+            <div class=" py-4">
                 <div class="tab-content mx-auto" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="col-lg-12 mt--35">
@@ -98,8 +98,10 @@
                                             </td>
 
                                             <td>
-                                                <li class="@yield('doctor')"><a href=" {{ route('director.reservations_doctor', $employe->person_id)  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a></li>
-                                                <li class="@yield('cirugia')"><a href="{{ route('director.surgeriesDoctor', $employe->person_id) }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
+                                                <ul style="list-style-type: none;" class="p-0 m-0 text-nowrap" >
+                                                    <li class="@yield('doctor')"><a href=" {{ route('director.reservations_doctor', $employe->person_id)  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a></li>
+                                                    <li class="@yield('cirugia')"><a href="{{ route('director.surgeriesDoctor', $employe->person_id) }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
+                                                </ul>
                                             </td>
 
                                         </tr>
