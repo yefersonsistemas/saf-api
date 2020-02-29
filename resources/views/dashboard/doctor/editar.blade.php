@@ -31,12 +31,13 @@ button[data-original-title="Help"]{ display: none; }
     /* The Modal (background) */
 
     .modall{
-        display: none;
+      display: none;
       position: fixed; /* Stay in place */
       /* z-index: 1; Sit on top */
-      padding-top: 100px; /* Location of the box */
+      padding-top: 20px; /* Location of the box */
       left: 0;
       top: 0;
+      /* max-width: 1500px; */
       width: 100%; /* Full width */
       height: 100%; /* Full height */
       overflow: auto; /* Enable scroll if needed */
@@ -50,16 +51,49 @@ button[data-original-title="Help"]{ display: none; }
     .modal-content {
       margin: auto;
       display: block;
-      width: 80%;
-      max-width: 700px;
+      width: 85%;
+      max-width: 1500px;
     }
 
     /* Caption of Modal Image */
-    #caption {
+    .caption {
+      margin: auto;
+      display: block;
+      width: 50%;
+      /* max-width: 400px; */
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    .caption_medio {
+      margin: auto;
+      display: block;
+      width: 65%;
+      /* max-width: 700px; */
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    .caption_grande {
       margin: auto;
       display: block;
       width: 80%;
-      max-width: 700px;
+      /* max-width: 1000px; */
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    .caption_extra_grande {
+      margin: auto;
+      display: block;
+      width: 100%;
+      /* max-width: 1700px; */
       text-align: center;
       color: #ccc;
       padding: 10px 0;
@@ -71,7 +105,7 @@ button[data-original-title="Help"]{ display: none; }
     }
 
     /* Add Animation */
-    #caption {
+    .caption {
       -webkit-animation-name: zoom;
       -webkit-animation-duration: 0.6s;
       animation-name: zoom;
@@ -108,7 +142,7 @@ button[data-original-title="Help"]{ display: none; }
 
     /* 100% Image Width on Smaller Screens */
     @media only screen and (max-width: 700px){
-      #caption {
+     #caption {
         width: 100%;
       }
     }
@@ -533,6 +567,10 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="m-0 p-0" style="height:150px;">
                                                                     <img src="{{ Storage::url($item->path) }}" alt="Snow" id="myImg" name="{{ $item->path }}" class="img-thumbnail m-0" style="width:100%; height:100%; border-radius:none;">
                                                                 </div>
+
+                                                                {{-- <div id="contenido"> --}}
+                                                                    {{-- <img id="botella" src="imagen_640px.jpg" alt="botella con zoom" data-big="imagen_1280px.jpg" data-overlay="fondo.png" /> --}}
+                                                                 {{-- </div> --}}
                                                             @endforeach
                                                         </div>
 
@@ -1044,8 +1082,12 @@ button[data-original-title="Help"]{ display: none; }
 
 
     <div id="myModall" class="modal modall">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-        <div id="caption">
+        <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"></button>
+        <div id="cambiar">
+            <a class="btn medio" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
+        </div>  
+      
+        <div class="caption" id="caption">
 
         </div>
     </div>
@@ -1572,6 +1614,44 @@ button[data-original-title="Help"]{ display: none; }
 <script src="{{ asset('assets\bundles\modalSearch.js') }}"></script>
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
+
+
+<script>
+    $('.medio').click(function(){
+        console.log('medio');
+        $("#caption").removeClass("caption");
+        $("#caption").addClass("caption_medio");
+
+       $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> 
+                          <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
+
+       //aumentar
+       $('#grande').click(function(){
+            console.log('grande');
+            $("#caption").removeClass("caption_medio");
+            $("#caption").addClass("caption_grande");
+
+            $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> 
+                               <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
+
+           $('#extra_grande').click(function(){
+                console.log('extra grande');
+                $("#caption").removeClass("caption_grande");
+                $("#caption").addClass("caption_extra_grande");
+
+                $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>');
+
+      });
+
+      });
+   
+    });
+
+
+   
+</script>
+
+
 <script>
     //========================buscador en tiempo real de enfermedades=======================
     $(document).ready(function(){
@@ -1619,6 +1699,7 @@ button[data-original-title="Help"]{ display: none; }
       });
     });
 </script>
+
 
 <script>
     //========================buscador en tiempo real de posible procedures =======================
@@ -1718,7 +1799,7 @@ button[data-original-title="Help"]{ display: none; }
             concatenar = '/Storage/';
             url = concatenar+modalImg;
 
-        $('#caption').html('<img src="'+url+'" alt="Snow" class="img-thumbnail modal-content" style="margin: auto; display: block; width: 80%; max-width: 700px; ">');
+        $('#caption').html('<img src="'+url+'" alt="Snow" class="img-thumbnail modal-content" style="margin: auto; display: block; width: 80%; max-width: 1500px; ">');
         $('#myModall').modal('show');
     });
 
