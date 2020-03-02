@@ -812,26 +812,20 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     <tbody id="addRow">
                                                                                         @if($itinerary->recipe != '')
                                                                                             @foreach ($itinerary->recipe->medicine as $item)
-                                                                                                <tr>
-                                                                                                <td>{{$item->name}}</td>
-                                                                                                <td>{{$item->treatment->doses}}</td>
-                                                                                                <td>{{$item->treatment->measure}}</td>
-                                                                                                <td>{{$item->treatment->duration}}</td>
-                                                                                                <td>{{$item->treatment->indications}}</td>
-                                                                                                <td class="actions">
-                                                                                                    <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden="">
-                                                                                                        <i class="icon-drawer" aria-hidden="true"></i>
-                                                                                                    </button>
-                                                                                                    <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden="">
-                                                                                                        <i class="icon-close" aria-hidden="true"></i>
-                                                                                                    </button>
-                                                                                                    <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit">
-                                                                                                        <i class="icon-pencil" aria-hidden="true"></i>
-                                                                                                    </button>
-                                                                                                    <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove">
-                                                                                                        <i class="icon-trash" aria-hidden="true"></i>
-                                                                                                    </button>
-                                                                                                </td>
+                                                                                                <tr id="recipe{{ $item->id }}">
+                                                                                                    <td>{{$item->name}}</td>
+                                                                                                    <td>{{$item->treatment->doses}}</td>
+                                                                                                    <td>{{$item->treatment->measure}}</td>
+                                                                                                    <td>{{$item->treatment->duration}}</td>
+                                                                                                    <td>{{$item->treatment->indications}}</td>
+                                                                                                    <td class="text-center d-flex">
+                                                                                                        <a  style="cursor:pointer" class="btn text-dark d-inline">
+                                                                                                            <i class="icon-pencil" aria-hidden="true"></i>
+                                                                                                        </a>
+                                                                                                        <a style="cursor:pointer" id="{{$item->id}}" name="{{$itinerary->recipe->id}}" class="text-dark btn d-inline recipe_id">
+                                                                                                            <i class="icon-trash"></i>
+                                                                                                        </a>                                                                                                   
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                             @endforeach
                                                                                         @endif
@@ -1868,8 +1862,58 @@ button[data-original-title="Help"]{ display: none; }
     }
 
     function addRow(data) {
-        $('#addRow').append('<tr class="gradeA"> <td>'+data.medicine.name+'</td> <td>'+data.doses+'</td> <td>'+data.measure+'</td> <td>'+data.duration+'</td> <td>'+data.indications+'</td> <td class="actions"> <button class="btn btn-sm btn-icon on-editing m-r-5 button-save" data-toggle="tooltip" data-original-title="Save" hidden=""><i class="icon-drawer" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-editing button-discard" data-toggle="tooltip" data-original-title="Discard" hidden=""><i class="icon-close" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default m-r-5 button-edit" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i> </button> <button class="btn btn-sm btn-icon on-default button-remove" data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></button></td></tr>');
-    }
+        console.log('recibo',data);
+        $('#addRow').append(`<tr class="gradeA" id="recipe${data.medicine.id}"> 
+                                <td>${data.medicine.name}</td> 
+                                <td>${data.doses}</td>
+                                <td>${data.measure}</td> 
+                                <td>${data.duration}</td> 
+                                <td>${data.indications}</td> 
+                                <td class="text-center d-flex">
+                                    <a  style="cursor:pointer" class="btn text-dark d-inline">
+                                        <i class="icon-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a style="cursor:pointer" id="${data.medicine.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
+                                        <i class="icon-trash"></i>
+                                    </a>                                                                                                   
+                                </td>                
+                                </tr>`);
+     }
+
+   
+
+    $(document).on('click', '.recipe_id', function(event) {
+        let recipe_id = this.name;
+        let medicine_id = this.id;
+        console.log('recipe_id',recipe_id, medicine_id);
+        $('tr').remove("#recipe"+medicine_id);
+
+        $.ajax({
+            url: "{{ route('doctor.recipe_eliminar') }}",
+            type: 'POST',
+            dataType:'json',
+            data: {
+            _token: "{{ csrf_token() }}",
+            medicine_id:medicine_id,
+            recipe_id:recipe_id,
+            }
+        })
+            .done(function(data) { 
+                if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    title: data.recipe,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+          
+            console.log('hola como esta',medicine_id);
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+
+    })
 
     //======================Referencia medica=========================
 

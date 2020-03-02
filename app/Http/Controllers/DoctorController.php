@@ -1174,5 +1174,18 @@ class DoctorController extends Controller
         return view('dashboard.doctor.lista_cirugias', compact('all'));
     }
 
+
+    public function recipeDelete(Request $request){
+        // dd($request);
+        $recipe = Recipe::find($request->recipe_id);
+        $medicine = Medicine::find($request->medicine_id);
+        $recipe->medicine()->detach($medicine);
+
+
+        return response()->json([
+            'recipe' => 'Medicamento eliminado correctamente',202
+        ]);
+    }
+
     
 }
