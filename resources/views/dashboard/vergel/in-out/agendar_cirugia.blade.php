@@ -50,7 +50,7 @@
                                                         </select>
                                                     </div>
                                                     <input type="text" class="form-control mr-2" id="dni" maxlength="9" placeholder="Cédula">
-                                                    <input type="hidden" name="patient_id" id="patient_id">
+                                                    <input type="hidden" name="patient_id" id="patient_id" >
                                                     <button type="button" id="search" class="btn btn-azuloscuro text-white "><i class="fa fa-search"></i></button>
                                                 </div>
                                             </div>
@@ -118,7 +118,7 @@
                                 <label class="imagecheck m-0">
                                     <div class="card assigment">
                                         {{-- aqui --}}
-                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" class="imagecheck-input">  
+                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" name="hola" class="imagecheck-input">  
                                         {{-- aqui --}}                               
                                         <input type="radio" name="type_surgery_id" value="{{ $surgeries->id }}" id="type_surgery_id" class="imagecheck-input">
                                          @if (!empty($surgeries->image->path))                                     
@@ -241,7 +241,7 @@
                                         <div class="col-md-8  ">
                                             <p class=" row h6" style="color:#000; font-weight:bold;"><i class="fa fa-calendar mr-2" style="font-size:16px"></i>FECHA</p>
                                             <div class="row ">
-                                                <span id="medic"></span>   
+                                                <span id="name"></span>   
                                             </div>
                                         </div>                                  
                                     </div>                                          
@@ -269,8 +269,8 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td >NOMBRE DE LA CIRUGIA </td>
-                                                    <td >AQUI VA EL PRECIO DE LA CIRUGIA</td>
+                                                    <td >NOMBRE </td>
+                                                    <td >PRECIO </td>                                                    
                                                     <td >
                                                         <div class="form-check form-check">
                                                             <input class= "form-check-input"  style="font-size:15px"   class="custom-control-input" type="radio" id="parcial" name="status"  value="PARCIAL">
@@ -295,7 +295,8 @@
                                     <p style="color:#000; font-weight:bold;"><i style="font-size:16px"></i>MONTO A CANCELAR</p>   
                                 </div>  
                                 <div class="col-2">
-                                    <input type="text" id="monto" name="monto" class="form-control"  value="" required>
+                                    <input type="text" id="monto" name="monto" class="form-control"  placeholder="Formato 1000000.00" onKeyPress="return soloNumeros(event)" value="" required>
+                                   
                             
                                 </div>                                            
                         </div>                  
@@ -361,9 +362,9 @@ var form = $('#wizard_horizontal').show();
         onFinished: function(event, currentIndex) {
             var form = $(this);
             
-            // if()
-
+            
             form.submit();
+
         }
     });
     function setButtonWavesEffect(event) {
@@ -447,6 +448,7 @@ var form = $('#wizard_horizontal').show();
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
+         
         var concatenar = "Storage\\";
         console.log(concatenar+data.patient.person.image.path);
         $("#photo").html('<img src="'+concatenar+data.patient.person.image.path+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000">');
@@ -589,6 +591,14 @@ var form = $('#wizard_horizontal').show();
     });
         
 </script> 
+
+<script type="text/javascript">
+    // Solo permite ingresar numeros.
+    function soloNumeros(e){
+        var key = window.Event ? e.which : e.keyCode
+        return (key >= 48 && key <= 57)
+    }
+</script>
 
 
 @endsection

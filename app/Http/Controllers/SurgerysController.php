@@ -405,8 +405,9 @@ class SurgerysController extends Controller
         $d = Carbon::create($request->date)->format('Y-m-d');
         $status = $request->status;
         $payment = $request->monto;
+        
 
-        if($p != null && $ts != null && $e != null &&  $a != null && $d !=null && $payment  && $status !=null)
+        if($p != null ) //&& $ts != null && $e != null &&  $a != null && $d !=null && $payment  && $status !=null)
         {
             // dd($p);
             if($status == 'TOTAL' )
@@ -464,7 +465,7 @@ class SurgerysController extends Controller
             return redirect()->route('in-out.index')->withSuccess('Cirugia Agendada Exitosamente!');
 
         }else{
-            return redirect()->back()->withError('Cirugia no Agendada, Verifique los Datos!');
+            return redirect()->back()->withError('Cirugia no Agendada, Debe seleccionar un paciente!');
         }
 
     }
