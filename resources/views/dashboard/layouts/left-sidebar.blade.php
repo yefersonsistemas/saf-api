@@ -210,8 +210,6 @@
                 <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
                 @endrole
 
-
-
             </ul>
         </nav>
     </div>
