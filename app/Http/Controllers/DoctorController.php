@@ -48,7 +48,7 @@ class DoctorController extends Controller
         $empleado = Employe::with('person')->where('id', $id)->first();
 
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-
+// dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->get();
 
         $month = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id  )->whereMonth('date', '=', Carbon::now()->month)->get();
@@ -114,9 +114,9 @@ class DoctorController extends Controller
         // dd($id);
 
         //esto es para los contadores del doctor
-        $id= Auth::id();
+        $ide= Auth::id();
         // dd($id);
-        $empleado = Employe::with('person')->where('id', $id)->first();
+        $empleado = Employe::with('person')->where('id', $ide)->first();
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         $mes = Carbon::now()->format('m');
         $año = Carbon::now()->format('Y');
@@ -145,6 +145,7 @@ class DoctorController extends Controller
         $patient = Patient::where('person_id',$history->patient_id)->first();
 
         $buscar_diagnostic = Diagnostic::where('reservation_id', $history->id)->first();
+        // dd($buscar_diagnostic);
 
          // ------ guardando diagnostico ------
          if($buscar_diagnostic == null){
@@ -547,9 +548,9 @@ class DoctorController extends Controller
         // dd($id);
 
          //esto es para los contadores del doctor
-         $id= Auth::id();
+         $ide= Auth::id();
          // dd($id);
-         $empleado = Employe::with('person')->where('id', $id)->first();
+         $empleado = Employe::with('person')->where('id', $ide)->first();
          $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
          $mes = Carbon::now()->format('m');
          $año = Carbon::now()->format('Y');
@@ -1196,6 +1197,15 @@ class DoctorController extends Controller
 
         return response()->json([
             'recipe' => 'Medicamento eliminado correctamente',202
+        ]);
+    }
+
+    public function treatment_detalles(Request $request){
+  
+        $treatment = Treatment::with('medicine')->where('id',$request->treatment_id);
+
+        return response()->json([
+            'treatment' => $treatment,202
         ]);
     }
 

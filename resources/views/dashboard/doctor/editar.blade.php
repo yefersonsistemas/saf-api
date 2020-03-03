@@ -1870,7 +1870,7 @@ button[data-original-title="Help"]{ display: none; }
                                 <td>${data.duration}</td> 
                                 <td>${data.indications}</td> 
                                 <td class="text-center d-flex">
-                                    <a  style="cursor:pointer" class="btn text-dark d-inline">
+                                    <a  style="cursor:pointer" id="editar_medicine" name="${data.id}" class="btn text-dark d-inline">
                                         <i class="icon-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a style="cursor:pointer" id="${data.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
@@ -1923,30 +1923,30 @@ button[data-original-title="Help"]{ display: none; }
         // console.log('recipe_id',recipe_id, medicine_id);
         // $('tr').remove("#recipe"+medicine_id);
 
-        // $.ajax({
-        //     url: "{{ route('doctor.recipe_eliminar') }}",
-        //     type: 'POST',
-        //     dataType:'json',
-        //     data: {
-        //     _token: "{{ csrf_token() }}",
-        //     medicine_id:medicine_id,
-        //     recipe_id:recipe_id,
-        //     }
-        // })
-        //     .done(function(data) { 
-        //         if(data[0] == 202){                  //si no trae valores
-        //         Swal.fire({
-        //             title: data.recipe,
-        //             text: 'Click en OK para continuar',
-        //             type: 'success',
-        //         });
-        //     }
+        $.ajax({
+            url: "{{ route('doctor.treatment_detalles') }}",
+            type: 'POST',
+            dataType:'json',
+            data: {
+            _token: "{{ csrf_token() }}",
+                treatment_id:data,
+            }
+        })
+            .done(function(data) { 
+                console.log('detalles',data)
+                if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    // title: data.treatment,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
           
-        //     console.log('hola como esta',medicine_id);
-        // })
-        // .fail(function(data) {
-        //     console.log(data);
-        // })
+            // console.log('hola como esta',medicine_id);
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
 
     })
 
