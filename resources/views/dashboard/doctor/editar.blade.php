@@ -1929,7 +1929,6 @@ button[data-original-title="Help"]{ display: none; }
                                 </td>                
                                 </tr>`);
      }
-
    
 
     $(document).on('click', '.recipe_id', function(event) {
@@ -1962,6 +1961,42 @@ button[data-original-title="Help"]{ display: none; }
         .fail(function(data) {
             console.log(data);
         })
+
+    })
+
+    $(document).on('click', '#editar_medicine', function(event) {
+        console.log('para editar');
+        let data = this.name;
+        console.log(data);
+        // let recipe_id = this.name;
+        // let medicine_id = this.id;
+        // console.log('recipe_id',recipe_id, medicine_id);
+        // $('tr').remove("#recipe"+medicine_id);
+
+        // $.ajax({
+        //     url: "{{ route('doctor.recipe_eliminar') }}",
+        //     type: 'POST',
+        //     dataType:'json',
+        //     data: {
+        //     _token: "{{ csrf_token() }}",
+        //     medicine_id:medicine_id,
+        //     recipe_id:recipe_id,
+        //     }
+        // })
+        //     .done(function(data) { 
+        //         if(data[0] == 202){                  //si no trae valores
+        //         Swal.fire({
+        //             title: data.recipe,
+        //             text: 'Click en OK para continuar',
+        //             type: 'success',
+        //         });
+        //     }
+          
+        //     console.log('hola como esta',medicine_id);
+        // })
+        // .fail(function(data) {
+        //     console.log(data);
+        // })
 
     })
 
