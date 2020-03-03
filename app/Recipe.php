@@ -22,15 +22,21 @@ class Recipe extends Model
         return $this->belongsTo('App\Person', 'patient_id');
     }
 
-    public function treatment ()
+    public function treatmentR()
     {
-        return $this->hasMany('App\Treatment', 'recipe_id');
+        return $this->belongsTo('App\Treatment', 'recipe_id');
     }
 
-    public function medicine()
+    // public function medicine()
+    // {
+    //      return $this->belongsToMany('App\Medicine','recipe_medicine')
+    //                   ->withPivot('medicine_id','id');
+    // }
+
+    public function treatment()
     {
-         return $this->belongsToMany('App\Medicine','recipe_medicine')
-                      ->withPivot('medicine_id','id');
+         return $this->belongsToMany('App\Treatment','recipe_treatment')
+                      ->withPivot('treatment_id','id');
     }
 
 
