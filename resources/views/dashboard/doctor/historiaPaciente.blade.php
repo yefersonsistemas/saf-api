@@ -148,6 +148,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="card-body py-2">
                             <h6>Total De Citas Agendadas</h6>
                             <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">{{ $reserva2->count() }}</span></h4>
+                            {{-- <h5>$1,25,451.23</h5> --}}
                         </div>
                     </div>
                 </div>
@@ -156,6 +157,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="card-body py-2">
                             <h6>Total De Citas Del Mes</h6>
                             <h4 class="pt-2"><i class="fa fa-calendar"></i> <span class="counter">{{ $todas }}</span></h4>
+                            {{-- <h5>$3,80,451.00</h5> --}}
                         </div>
                     </div>
                 </div>
@@ -164,6 +166,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="card-body py-2">
                             <h6>Citas Para Hoy</h6>
                             <h4 class="pt-2"><i class="fa fa-users"></i> <span class="counter">{{ $today->count() }}</span></h4>
+                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 65.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
                 </div>
@@ -172,6 +175,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="card-body py-2">
                             <h6>Atendidos Hoy</h6>
                             <h4 class="pt-2"><i class="fa fa-user"></i> <span class="counter">{{ $yasevieron->count() }}</span></h4>
+                            {{-- <span><span class="text-danger mr-2"><i class="fa fa-long-arrow-up"></i> 165.27%</span> Since last month</span>                                --}}
                         </div>
                     </div>
                 </div>
@@ -343,7 +347,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="collapse card-body list-group " id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
+                                                <div class="collapse card-body list-group" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" >
                                                     <div class="card-body py-1">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover table-vcenter table-striped"
@@ -2373,8 +2377,8 @@ button[data-original-title="Help"]{ display: none; }
         })
     } // fin de la funcion
 
- 
- 
+
+
    //================ mostrando posibles procedimientos =============
 
     function mostrarProcedure(data){

@@ -75,8 +75,66 @@ class InController extends Controller
     //========================= Citas del dia (las que estan aprobadas) ======================
     public function day()
     {
-        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
+        $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person.inputoutput', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
         // dd($day);
+        $employe = Employe::with('schedule')->get();
+            
+        $medicos = array();
+        $dia = strtolower(Carbon::now()->locale('en')->dayName); 
+        // dd($dia);
+
+        //buscando medicos que atenderan citas hoy
+        foreach($employe as $item){
+            foreach($item->schedule as $em){
+                if($em->day == $dia){
+                    $medicos[] = $item;
+                }
+            }
+        }
+    
+        //buscando pacientes que atenderan los medicos que atenderan citas hoy
+        $pacientes = array();
+        for($i=0; $i < count($medicos); $i++){
+         
+            for($j=0; $j < count($day); $j++){
+// dd($day[$j]->patient->inputoutput->first());
+                if($day[$j]->person_id ==  $medicos[$i]->person_id){
+                    $pacientes[$i][] = $day[$j]; 
+                }
+            }   
+        }
+// dd($pacientes);
+        // && $day[$j]->patient->inputoutput->first()->outside_office == null
+
+        for($i=0; $i < count($pacientes); $i++){
+         $active =null;
+            for($j=0; $j < count($pacientes[$i]); $j++){
+                // dd($pacientes[$i][$j]->patient->inputoutput->first()->outside_office);
+                if(!empty($pacientes[$i][$j]->patient->inputoutput->first())){
+                if($pacientes[$i][$j]->patient->inputoutput->first()->outside_office == null){
+
+                    if( $active  == null){
+                       $active = $pacientes[$i][$j];
+                    }else{
+                        if($active->patient->inputoutput->first()->created_at->format('H:i:s')  >  $pacientes[$i][$j]->patient->inputoutput->first()->created_at->format('H:i:s')){
+                           $active = $pacientes[$i][$j];
+                     } 
+                     
+                    } 
+                }
+            }
+            }   
+
+            if($active != null){
+                $inputoutput = Inputoutput::find($active->patient->inputoutput->first()->id);
+                $inputoutput->activo =true;
+                $inputoutput->save();
+            }
+          
+        }
+
+        // dd($active);
+
 
         return view('dashboard.checkin.day', compact('day'));
     }
@@ -182,28 +240,20 @@ class InController extends Controller
      */
     public function search_history($id, $id2){
         $mostrar = $id2;
-        // dd($mostrar);
-        
-        // $reservation = Reservation::find($id);
-        // dd($reservation);
+  
         $rs = Reservation::with('patient.historyPatient.medicine','patient.historyPatient.disease','patient.historyPatient.allergy','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-                            // dd($rs->patient->historyPatient);
-        // dd($rs);
-        $cites = Reservation::with('patient.historyPatient', 'patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
-        // dd($cites);
+   
+        $cites = Reservation::with('patient.historyPatient','patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
+ 
         $disease = Disease::all();
         $enfermedades = Disease::all();
-        // dd($disease);
         $medicine = Medicine::get();
         $medicinas = Medicine::all();
         $allergy = Allergy::get();
         $alergias = Allergy::all();
-        // dd($cites);
-        // dd($medicine);
 
         $diff_medicine = $medicine->diff($rs->patient->historyPatient->medicine); //modal de medicinas
-        // dd($diff_medicine);
 
         return view('dashboard.checkin.history', compact('rs', 'cites', 'disease', 'medicine', 'allergy', 'mostrar','enfermedades','alergias','medicinas','diff_medicine'));
     }

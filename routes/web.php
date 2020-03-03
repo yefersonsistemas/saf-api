@@ -173,6 +173,7 @@ Route::group(['middleware' => 'auth'], function (){
       
         //recipe
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
+        Route::post('doctor/recipe/medicamentos/eliminar','DoctorController@recipeDelete')->name('doctor.recipe_eliminar');
 
         //procedimientos
         Route::post('procedures_realizados', 'ProcedureController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta
@@ -291,25 +292,25 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
-        
+
         //rutas para exportar e imprimir detalles por empleado/lista de empleados/lista de visitantes
         Route::get('visitors', 'DirectorController@visitantes')->name('visitantes');  //lista de visitantes
 
-
-
+        Route::get('doctor/reservations/{id}', 'DirectorController@reservations_doctor')->name('director.reservations_doctor');
+        Route::get('doctor/surgeries/list/{id}', 'DirectorController@surgeriesDoctor')->name('director.surgeriesDoctor');
     });
 
 
 
-        Route::get('inout/index', 'InoutController@index')->name('in-out.index');   
-        Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');    
-        Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');    
-        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');    
-        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');   
+        Route::get('inout/index', 'InoutController@index')->name('in-out.index');
+        Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');
+        Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');
+        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');
+        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
         Route::get('inout/day','InoutController@day')->name('in-out.day');
         Route::post('search/inout/patients','InoutController@search_patients_inout')->name('search.inout.patients');
-        Route::post('surgery/inout/store','SurgerysController@inout_hospitalaria_store')->name('inout.hospitalaria_store');  
-        Route::post('inout/search/doctor','SurgerysController@search_doctor_inout')->name('inout.search_doctor'); // agenda las cirugias otro dia de la candidatura 
+        Route::post('surgery/inout/store','SurgerysController@inout_hospitalaria_store')->name('inout.hospitalaria_store');
+        Route::post('inout/search/doctor','SurgerysController@search_doctor_inout')->name('inout.search_doctor'); // agenda las cirugias otro dia de la candidatura
         Route::post('inout/search/patient','InoutController@search_patients_cirugia')->name('inout.search_patients');    // buscar paciente en la tabla cirugias
 
 

@@ -45,7 +45,6 @@ class OutController extends Controller
     {
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery.classification', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
-        // dd($itinerary);
      
         $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         foreach ($itinerary as $iti) {
@@ -62,7 +61,7 @@ class OutController extends Controller
 
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
-
+ 
         $dentro_instalacion = false;
         foreach ($espera as $item) {
             if (!empty($item->patient->inputoutput)) {
@@ -72,8 +71,6 @@ class OutController extends Controller
             }
         }
 
-        // dd($confirmadas);
-
         $dentro_office = false;
         foreach ($espera as $item) {
             if (!empty($item->patient->inputoutput)) {
@@ -82,11 +79,11 @@ class OutController extends Controller
                 }
             }
         }
-
+  
         $fuera_office = false;
-        foreach ($espera as $item) {
-            if (!empty($item->patient->inputoutput)) {
-                if (!empty($item->patient->inputoutput->first()->outside_office)  && empty($item->patient->inputoutput->first()->outside) ) {
+        foreach ($itinerary as $item) {
+            if (!empty($item->person->inputoutput)) {  
+                if (!empty($item->person->inputoutput->first()->outside_office)  && empty($item->person->inputoutput->first()->outside) ) {
                     $fuera_office = true;
                 }
             }
@@ -99,7 +96,7 @@ class OutController extends Controller
                     $fuera_instalacion = true;
                 }
             }
-        }
+        }        
 
         $reservation = Reservation::get();
         $surgery = Surgery::get();
@@ -141,7 +138,6 @@ class OutController extends Controller
 
         $itinerary->exam_id = $examenes;
         $itinerary->save();
-
 
         //Para mostrar lista de citas de pacientes
         $procedures_id = array();
@@ -773,7 +769,7 @@ class OutController extends Controller
 
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
 // dd($surgeries);
-    $ambulatorias = Reservation::with('patient', 'employe.person')->where('surgery', true)->get(); // 'employe.areaassigment.area'
+    $ambulatorias = Reservation::with('patient', 'person')->where('surgery', true)->get(); // 'employe.areaassigment.area'
     
     // dd($ambulatorias);
     // $approved =
