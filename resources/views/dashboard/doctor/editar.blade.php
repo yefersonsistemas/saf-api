@@ -1337,7 +1337,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </tr>
                                     </thead>
                                     <tbody id="modal_examen" class="mt-4">
-                                        @if($diff_E != null)        
+                                        @if($diff_E != null)
                                             @foreach ($diff_E as $exam)
                                                 <tr id="quitar_examen{{$exam->id}}">
                                                     <td>
@@ -2334,7 +2334,7 @@ button[data-original-title="Help"]{ display: none; }
         var reservacion = $("#reservacion").val();
         var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
         var diagnostic = $("#diagnostic_id").val();
-        
+
 
         ajax_PO(procesof,reservacion,diagnostic); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
@@ -2553,7 +2553,7 @@ button[data-original-title="Help"]{ display: none; }
         })
         });
     });
- 
+
 
 
     //-------------------------------------    POSIBLE PROCEDIMIENTOS ------------------------------------
@@ -2741,7 +2741,7 @@ button[data-original-title="Help"]{ display: none; }
     } // fin de la funcion
 
     //======================== mostrando posibles cirugias ======================
-    function mostrarSurgery(data){  
+    function mostrarSurgery(data){
         for($i=0; $i < data.length; $i++){
             cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#cirugias").html(cirugias);
