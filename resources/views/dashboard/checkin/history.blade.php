@@ -301,8 +301,7 @@
             @if($mostrar == 1)
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label>
-                        <div class="dropzone d-flex d-row" id="my-dropzone" style="border-color:#00506b">
-                        
+                    <div class="dropzone row d-flex p-0" id="my-dropzone" style="border-color:#00506b; height:360px; overflow-y: scroll;" >                        
                     </div>
                 </div>
 
