@@ -1076,6 +1076,7 @@ button[data-original-title="Help"]{ display: none; }
 
 
     <div id="myModall" class="modal modall">
+
         <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"></button>
         <div id="cambiar">
             <a class="btn medio" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
@@ -1619,24 +1620,27 @@ button[data-original-title="Help"]{ display: none; }
         $("#caption").removeClass("caption");
         $("#caption").addClass("caption_extra_grande");
 
-       $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
-    //                     //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
+        $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>');
 
-    //    //aumentar
-    //    $('#extra_grande').click(function(){
+
+    //    $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
+                        //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
+
+       //aumentar
+    //    $('#grande').click(function(){
     //         console.log('grande');
-    //         $("#caption").removeClass("caption");
-    //     $("#caption").addClass("caption_extra_grande");
+    //         $("#caption").removeClass("caption_medio");
+    //         $("#caption").addClass("caption_grande");
 
     //         $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
-    //                         //    <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
+                            //    <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
 
-    //        $('#extra_grande').click(function(){
-    //             console.log('extra grande');
-    //             $("#caption").removeClass("caption");
-    //             $("#caption").addClass("caption_extra_grande");
+        //    $('#extra_grande').click(function(){
+        //         console.log('extra grande');
+        //         $("#caption").removeClass("caption_grande");
+        //         $("#caption").addClass("caption_extra_grande");
 
-    //             $('#cambiar').html('<a class="btn " style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>');
+        //         $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>');
                 
                 
 
@@ -1652,34 +1656,34 @@ button[data-original-title="Help"]{ display: none; }
 
 <script>
     $('.atras').click(function(){
-        console.log('caption_medio');
+        console.log('medio_atras');
         $("#caption").removeClass("caption_extra_grande");
         $("#caption").addClass("caption");
 
-       $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> ` );
+       $('#cambiar').html(`<a class="btn extra_grande" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> ` );
                         //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
 
         //aumentar
-        // $('#grande').click(function(){
-        //         console.log('grande_atras');
-        //         $("#caption").removeClass("caption_extra_grande");
-        //         $("#caption").addClass("caption");
+        $('#grande').click(function(){
+                console.log('grande_atras');
+                $("#caption").removeClass("caption_medio");
+                $("#caption").addClass("caption_grande");
 
-        //         $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
+                $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
                                 // <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
 
-    //         $('#grande').click(function(){
-    //                 console.log('atras3');
-    //                 $("#caption").removeClass("caption_extra_grande");
-    //                 $("#caption").addClass("caption");
+            $('#extra_grande').click(function(){
+                    console.log('atras3');
+                    $("#caption").removeClass("caption_grande");
+                    $("#caption").addClass("caption_extra_grande");
 
-    //                 $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>');
+                    $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>');
                 
                 
 
-    //   });
+      });
 
-    //   });
+      });
    
     });
 
@@ -1840,6 +1844,9 @@ button[data-original-title="Help"]{ display: none; }
      //===========================mostrar imagen en modal=================================
      $('img[id="myImg"]').on('click',function(){
             var modalImg = this.name;
+
+            console.log('aqui va la imagen seleccionada', modalImg);
+
             concatenar = '/Storage/';
             url = concatenar+modalImg;
 
@@ -1928,8 +1935,8 @@ button[data-original-title="Help"]{ display: none; }
                                     </a>                                                                                                   
                                 </td>                
                                 </tr>`);
-     }
-   
+    }
+
 
     $(document).on('click', '.recipe_id', function(event) {
         let recipe_id = this.name;
@@ -1954,49 +1961,12 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }
-          
+            }         
             console.log('hola como esta',medicine_id);
         })
         .fail(function(data) {
             console.log(data);
         })
-
-    })
-
-    $(document).on('click', '#editar_medicine', function(event) {
-        console.log('para editar');
-        let data = this.name;
-        console.log(data);
-        // let recipe_id = this.name;
-        // let medicine_id = this.id;
-        // console.log('recipe_id',recipe_id, medicine_id);
-        // $('tr').remove("#recipe"+medicine_id);
-
-        // $.ajax({
-        //     url: "{{ route('doctor.recipe_eliminar') }}",
-        //     type: 'POST',
-        //     dataType:'json',
-        //     data: {
-        //     _token: "{{ csrf_token() }}",
-        //     medicine_id:medicine_id,
-        //     recipe_id:recipe_id,
-        //     }
-        // })
-        //     .done(function(data) { 
-        //         if(data[0] == 202){                  //si no trae valores
-        //         Swal.fire({
-        //             title: data.recipe,
-        //             text: 'Click en OK para continuar',
-        //             type: 'success',
-        //         });
-        //     }
-          
-        //     console.log('hola como esta',medicine_id);
-        // })
-        // .fail(function(data) {
-        //     console.log(data);
-        // })
 
     })
 

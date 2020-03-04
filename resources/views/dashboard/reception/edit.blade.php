@@ -9,13 +9,19 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
-
+<link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/dropzone/css/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
 @section('content')
     <div class="section-body py-3">
         <div class="container-fluid">            
-            <div class=" p-2">     
+            <div class=" p-4">     
                     <form class="card" method="POST" action="{{ route('reservations.update', $reservation) }}" autocomplete="off">
                         @csrf
                         @method('PUT')
