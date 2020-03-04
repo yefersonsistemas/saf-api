@@ -30,11 +30,11 @@ class Medicine extends Model
         return $this->hasOne('App\Treatment', 'medicine_id');
     }
 
-    public function recipe()
-    {
-         return $this->belongsToMany('App\Recipe','recipe_medicine')
-                      ->withPivot('recipe_id','id');
-    }
+    // public function recipe()
+    // {
+    //      return $this->belongsToMany('App\Recipe','recipe_medicine')
+    //                   ->withPivot('recipe_id','id');
+    // }
 
     public function medicine_pharmacy()
     {

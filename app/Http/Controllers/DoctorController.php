@@ -48,7 +48,7 @@ class DoctorController extends Controller
         $empleado = Employe::with('person')->where('id', $id)->first();
 
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
-
+// dd($today);
         $all = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id )->get();
 
         $month = Reservation::with('patient.historyPatient')->where('person_id',$empleado->person_id  )->whereMonth('date', '=', Carbon::now()->month)->get();
@@ -114,9 +114,9 @@ class DoctorController extends Controller
         // dd($id);
 
         //esto es para los contadores del doctor
-        $id= Auth::id();
+        $ide= Auth::id();
         // dd($id);
-        $empleado = Employe::with('person')->where('id', $id)->first();
+        $empleado = Employe::with('person')->where('id', $ide)->first();
         $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
         $mes = Carbon::now()->format('m');
         $año = Carbon::now()->format('Y');
@@ -145,6 +145,7 @@ class DoctorController extends Controller
         $patient = Patient::where('person_id',$history->patient_id)->first();
 
         $buscar_diagnostic = Diagnostic::where('reservation_id', $history->id)->first();
+        // dd($buscar_diagnostic);
 
          // ------ guardando diagnostico ------
          if($buscar_diagnostic == null){
@@ -168,9 +169,9 @@ class DoctorController extends Controller
         $employe = Employe::where('person_id', $reservation->person_id)->first();
 
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $employe->id)->first();
-
-        $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
-
+// dd($r_patient);
+        $itinerary = Itinerary::with('recipe.treatment.medicine', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
+// dd($itinerary->recipe);
         $speciality = Speciality::all();
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
@@ -304,6 +305,8 @@ class DoctorController extends Controller
             foreach($diff_CC as $item){
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
+
+            // dd($itinerary->recipe);
         return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file', 'todas', 'reserva2', 'today', 'yasevieron'));
       
    }
@@ -545,9 +548,9 @@ class DoctorController extends Controller
         // dd($id);
 
          //esto es para los contadores del doctor
-         $id= Auth::id();
+         $ide= Auth::id();
          // dd($id);
-         $empleado = Employe::with('person')->where('id', $id)->first();
+         $empleado = Employe::with('person')->where('id', $ide)->first();
          $today = Reservation::with('patient.historyPatient','patient.inputoutput')->where('person_id',$empleado->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
          $mes = Carbon::now()->format('m');
          $año = Carbon::now()->format('Y');
@@ -580,7 +583,7 @@ class DoctorController extends Controller
 
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $employe->id)->first();
 
-        $itinerary = Itinerary::with('recipe.medicine.treatment', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
+        $itinerary = Itinerary::with('recipe.treatment.medicine', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
 
         $speciality = Speciality::all();
         $medicines = Medicine::all();
@@ -952,10 +955,11 @@ class DoctorController extends Controller
                 'branch_id'     =>  1,
             ]);
 
-            $crear_recipe->medicine()->attach($request->medicina);
+            $crear_recipe->treatment()->attach($treatment);
 
             $treatments = Treatment::with('medicine')->where('id', $treatment->id)->first();
 
+            // dd($treatments);
             return response()->json($treatments);
         }else{
             return response()->json([
@@ -1178,12 +1182,30 @@ class DoctorController extends Controller
     public function recipeDelete(Request $request){
         // dd($request);
         $recipe = Recipe::find($request->recipe_id);
-        $medicine = Medicine::find($request->medicine_id);
-        $recipe->medicine()->detach($medicine);
+        $treatment = Treatment::find($request->tratamiento_id);
+        $recipe->treatment()->detach($treatment);
+        $treatment->delete();
 
+        $recipe= Recipe::with('treatment')->where('id', $request->recipe_id)->first();
+
+        if(empty($recipe->treatment->first())){
+            $itinerary = Itinerary::where('recipe_id', $recipe->id)->first();
+            $itinerary->recipe_id = null;
+            $itinerary->save();
+            $recipe->delete();
+        }
 
         return response()->json([
             'recipe' => 'Medicamento eliminado correctamente',202
+        ]);
+    }
+
+    public function treatment_detalles(Request $request){
+  
+        $treatment = Treatment::with('medicine')->where('id',$request->treatment_id);
+
+        return response()->json([
+            'treatment' => $treatment,202
         ]);
     }
 

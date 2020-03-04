@@ -66,38 +66,44 @@ button[data-original-title="Help"]{ display: none; }
       padding: 10px 0;
       height: 150px;
     }
+    .sombra
+    {
+        -webkit-box-shadow: 1px 1px 3px #878585; /* Sombra normal */
+        border-radius: 2px
+        
+    }
 
-    .caption_medio {
+    /* .caption_medio {
       margin: auto;
       display: block;
-      width: 65%;
+      width: 65%; */
       /* max-width: 700px; */
-      text-align: center;
+      /* text-align: center;
       color: #ccc;
       padding: 10px 0;
       height: 150px;
-    }
+    } */
 
-    .caption_grande {
+    /* .caption_grande {
       margin: auto;
       display: block;
-      width: 80%;
+      width: 80%; */
       /* max-width: 1000px; */
-      text-align: center;
+      /* text-align: center;
       color: #ccc;
       padding: 10px 0;
       height: 150px;
-    }
+    } */
 
     .caption_extra_grande {
       margin: auto;
       display: block;
-      width: 100%;
+      width: 130%;
       /* max-width: 1700px; */
       text-align: center;
       color: #ccc;
-      padding: 10px 0;
-      height: 150px;
+      padding: 5px 0;
+      height: 180px;
     }
 
     img{
@@ -811,15 +817,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     </thead>
                                                                                     <tbody id="addRow">
                                                                                         @if($itinerary->recipe != '')
-                                                                                            @foreach ($itinerary->recipe->medicine as $item)
+                                                                                            @foreach ($itinerary->recipe->treatment as $item)
                                                                                                 <tr id="recipe{{ $item->id }}">
-                                                                                                    <td>{{$item->name}}</td>
-                                                                                                    <td>{{$item->treatment->doses}}</td>
-                                                                                                    <td>{{$item->treatment->measure}}</td>
-                                                                                                    <td>{{$item->treatment->duration}}</td>
-                                                                                                    <td>{{$item->treatment->indications}}</td>
+                                                                                                    <td>{{$item->medicine->name}}</td>
+                                                                                                    <td>{{$item->doses}}</td>
+                                                                                                    <td>{{$item->measure}}</td>
+                                                                                                    <td>{{$item->duration}}</td>
+                                                                                                    <td>{{$item->indications}}</td>
                                                                                                     <td class="text-center d-flex">
-                                                                                                        <a  style="cursor:pointer" class="btn text-dark d-inline">
+                                                                                                        <a  style="cursor:pointer" id="editar_medicine" name="{{$item->id}}" class="btn text-dark d-inline">
                                                                                                             <i class="icon-pencil" aria-hidden="true"></i>
                                                                                                         </a>
                                                                                                         <a style="cursor:pointer" id="{{$item->id}}" name="{{$itinerary->recipe->id}}" class="text-dark btn d-inline recipe_id">
@@ -1076,17 +1082,17 @@ button[data-original-title="Help"]{ display: none; }
 
 
     <div id="myModall" class="modal modall">
-
-        <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"></button>
-        <div id="cambiar">
-            <a class="btn medio" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
+        <button type="button" class=" close cerrar" data-dismiss="modal" aria-label="Close"></button>
+        <div class="container"> 
+        <div class="row">   
+        <div class="col-6 align-right"  id="cambiar">
+            <a class="btn medio  " style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a>
         </div>  
-        <div id="restaurar">
-            <a class="btn atras" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>
-        </div> 
-      
+        <div class="col-6 " id="restaurar">
+            <a class="btn atras  " style="color:#fff; font-size:20px;"><i class=" fe fe-minus"></i></a>
+        </div>       
+        </div>      
         <div class="caption" id="caption">
-
         </div>
     </div>
 
@@ -1616,11 +1622,11 @@ button[data-original-title="Help"]{ display: none; }
 
 <script>
     $('.medio').click(function(){
-        console.log('medio');
+        console.log('zoon_max');
         $("#caption").removeClass("caption");
         $("#caption").addClass("caption_extra_grande");
 
-        $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>');
+        $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="  fe fe-plus"></i></a>');
 
 
     //    $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
@@ -1656,32 +1662,32 @@ button[data-original-title="Help"]{ display: none; }
 
 <script>
     $('.atras').click(function(){
-        console.log('medio_atras');
+        console.log('zoon_max_atras');
         $("#caption").removeClass("caption_extra_grande");
         $("#caption").addClass("caption");
 
-       $('#cambiar').html(`<a class="btn extra_grande" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> ` );
+       $('#cambiar').html(`<a class="btn extra_grande" id="grande" style="color:#fff; font-size:20px;"><i class="   fe fe-plus"></i></a> ` );
                         //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
 
         //aumentar
         $('#grande').click(function(){
-                console.log('grande_atras');
+                console.log('zoon_max');
                 $("#caption").removeClass("caption_medio");
-                $("#caption").addClass("caption_grande");
+                $("#caption").addClass("caption_extra_grande");
 
-                $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
+                $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a> `);
                                 // <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
 
-            $('#extra_grande').click(function(){
-                    console.log('atras3');
-                    $("#caption").removeClass("caption_grande");
-                    $("#caption").addClass("caption_extra_grande");
+            // $('#extra_grande').click(function(){
+            //         console.log('zoon_1.2');
+            //         $("#caption").removeClass("caption_grande");
+            //         $("#caption").addClass("caption_extra_grande");
 
-                    $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>');
+            //         $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>');
                 
                 
 
-      });
+    //   });
 
       });
    
@@ -1850,7 +1856,7 @@ button[data-original-title="Help"]{ display: none; }
             concatenar = '/Storage/';
             url = concatenar+modalImg;
 
-        $('#caption').html('<img src="'+url+'" alt="Snow" class="img-thumbnail modal-content" style="margin: auto; display: block; width: 80%; max-width: 1500px; ">');
+        $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
         $('#myModall').modal('show');
     });
 
@@ -1920,17 +1926,17 @@ button[data-original-title="Help"]{ display: none; }
 
     function addRow(data) {
         console.log('recibo',data);
-        $('#addRow').append(`<tr class="gradeA" id="recipe${data.medicine.id}"> 
+        $('#addRow').append(`<tr class="gradeA" id="recipe${data.id}"> 
                                 <td>${data.medicine.name}</td> 
                                 <td>${data.doses}</td>
                                 <td>${data.measure}</td> 
                                 <td>${data.duration}</td> 
                                 <td>${data.indications}</td> 
                                 <td class="text-center d-flex">
-                                    <a  style="cursor:pointer" class="btn text-dark d-inline">
+                                    <a  style="cursor:pointer" id="editar_medicine" name="${data.id}" class="btn text-dark d-inline">
                                         <i class="icon-pencil" aria-hidden="true"></i>
                                     </a>
-                                    <a style="cursor:pointer" id="${data.medicine.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
+                                    <a style="cursor:pointer" id="${data.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
                                         <i class="icon-trash"></i>
                                     </a>                                                                                                   
                                 </td>                
@@ -1940,9 +1946,9 @@ button[data-original-title="Help"]{ display: none; }
 
     $(document).on('click', '.recipe_id', function(event) {
         let recipe_id = this.name;
-        let medicine_id = this.id;
-        console.log('recipe_id',recipe_id, medicine_id);
-        $('tr').remove("#recipe"+medicine_id);
+        let tratamiento_id = this.id;
+        console.log('recipe_id',recipe_id, tratamiento_id);
+        $('tr').remove("#recipe"+tratamiento_id);
 
         $.ajax({
             url: "{{ route('doctor.recipe_eliminar') }}",
@@ -1950,7 +1956,7 @@ button[data-original-title="Help"]{ display: none; }
             dataType:'json',
             data: {
             _token: "{{ csrf_token() }}",
-            medicine_id:medicine_id,
+            tratamiento_id:tratamiento_id,
             recipe_id:recipe_id,
             }
         })
@@ -1961,8 +1967,45 @@ button[data-original-title="Help"]{ display: none; }
                     text: 'Click en OK para continuar',
                     type: 'success',
                 });
-            }         
-            console.log('hola como esta',medicine_id);
+            }
+          
+            console.log('hola como esta',tratamiento_id);
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
+
+    })
+
+    $(document).on('click', '#editar_medicine', function(event) {
+        console.log('para editar');
+        let data = this.name;
+        console.log(data);
+        // let recipe_id = this.name;
+        // let medicine_id = this.id;
+        // console.log('recipe_id',recipe_id, medicine_id);
+        // $('tr').remove("#recipe"+medicine_id);
+
+        $.ajax({
+            url: "{{ route('doctor.treatment_detalles') }}",
+            type: 'POST',
+            dataType:'json',
+            data: {
+            _token: "{{ csrf_token() }}",
+                treatment_id:data,
+            }
+        })
+            .done(function(data) { 
+                console.log('detalles',data)
+                if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    // title: data.treatment,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
+          
+            // console.log('hola como esta',medicine_id);
         })
         .fail(function(data) {
             console.log(data);
