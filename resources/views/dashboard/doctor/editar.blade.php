@@ -811,15 +811,15 @@ button[data-original-title="Help"]{ display: none; }
                                                                                     </thead>
                                                                                     <tbody id="addRow">
                                                                                         @if($itinerary->recipe != '')
-                                                                                            @foreach ($itinerary->recipe->medicine as $item)
+                                                                                            @foreach ($itinerary->recipe->treatment as $item)
                                                                                                 <tr id="recipe{{ $item->id }}">
-                                                                                                    <td>{{$item->name}}</td>
-                                                                                                    <td>{{$item->treatment->doses}}</td>
-                                                                                                    <td>{{$item->treatment->measure}}</td>
-                                                                                                    <td>{{$item->treatment->duration}}</td>
-                                                                                                    <td>{{$item->treatment->indications}}</td>
+                                                                                                    <td>{{$item->medicine->name}}</td>
+                                                                                                    <td>{{$item->doses}}</td>
+                                                                                                    <td>{{$item->measure}}</td>
+                                                                                                    <td>{{$item->duration}}</td>
+                                                                                                    <td>{{$item->indications}}</td>
                                                                                                     <td class="text-center d-flex">
-                                                                                                        <a  style="cursor:pointer" class="btn text-dark d-inline">
+                                                                                                        <a  style="cursor:pointer" id="editar_medicine" name="{{$item->id}}" class="btn text-dark d-inline">
                                                                                                             <i class="icon-pencil" aria-hidden="true"></i>
                                                                                                         </a>
                                                                                                         <a style="cursor:pointer" id="{{$item->id}}" name="{{$itinerary->recipe->id}}" class="text-dark btn d-inline recipe_id">
@@ -1863,17 +1863,17 @@ button[data-original-title="Help"]{ display: none; }
 
     function addRow(data) {
         console.log('recibo',data);
-        $('#addRow').append(`<tr class="gradeA" id="recipe${data.medicine.id}">
+        $('#addRow').append(`<tr class="gradeA" id="recipe${data.id}">
                                 <td>${data.medicine.name}</td>
                                 <td>${data.doses}</td>
                                 <td>${data.measure}</td>
                                 <td>${data.duration}</td>
                                 <td>${data.indications}</td>
                                 <td class="text-center d-flex">
-                                    <a  style="cursor:pointer" class="btn text-dark d-inline">
+                                    <a  style="cursor:pointer" id="editar_medicine" name="${data.id}" class="btn text-dark d-inline">
                                         <i class="icon-pencil" aria-hidden="true"></i>
                                     </a>
-                                    <a style="cursor:pointer" id="${data.medicine.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
+                                    <a style="cursor:pointer" id="${data.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
                                         <i class="icon-trash"></i>
                                     </a>
                                 </td>
@@ -1883,9 +1883,9 @@ button[data-original-title="Help"]{ display: none; }
 
     $(document).on('click', '.recipe_id', function(event) {
         let recipe_id = this.name;
-        let medicine_id = this.id;
-        console.log('recipe_id',recipe_id, medicine_id);
-        $('tr').remove("#recipe"+medicine_id);
+        let tratamiento_id = this.id;
+        console.log('recipe_id',recipe_id, tratamiento_id);
+        $('tr').remove("#recipe"+tratamiento_id);
 
         $.ajax({
             url: "{{ route('doctor.recipe_eliminar') }}",
@@ -1893,7 +1893,7 @@ button[data-original-title="Help"]{ display: none; }
             dataType:'json',
             data: {
             _token: "{{ csrf_token() }}",
-            medicine_id:medicine_id,
+            tratamiento_id:tratamiento_id,
             recipe_id:recipe_id,
             }
         })
@@ -1906,7 +1906,7 @@ button[data-original-title="Help"]{ display: none; }
                 });
             }
 
-            console.log('hola como esta',medicine_id);
+            console.log('hola como esta',tratamiento_id);
         })
         .fail(function(data) {
             console.log(data);
@@ -1923,30 +1923,30 @@ button[data-original-title="Help"]{ display: none; }
         // console.log('recipe_id',recipe_id, medicine_id);
         // $('tr').remove("#recipe"+medicine_id);
 
-        // $.ajax({
-        //     url: "{{ route('doctor.recipe_eliminar') }}",
-        //     type: 'POST',
-        //     dataType:'json',
-        //     data: {
-        //     _token: "{{ csrf_token() }}",
-        //     medicine_id:medicine_id,
-        //     recipe_id:recipe_id,
-        //     }
-        // })
-        //     .done(function(data) {
-        //         if(data[0] == 202){                  //si no trae valores
-        //         Swal.fire({
-        //             title: data.recipe,
-        //             text: 'Click en OK para continuar',
-        //             type: 'success',
-        //         });
-        //     }
+        $.ajax({
+            url: "{{ route('doctor.treatment_detalles') }}",
+            type: 'POST',
+            dataType:'json',
+            data: {
+            _token: "{{ csrf_token() }}",
+                treatment_id:data,
+            }
+        })
+            .done(function(data) {
+                console.log('detalles',data)
+                if(data[0] == 202){                  //si no trae valores
+                Swal.fire({
+                    // title: data.treatment,
+                    text: 'Click en OK para continuar',
+                    type: 'success',
+                });
+            }
 
-        //     console.log('hola como esta',medicine_id);
-        // })
-        // .fail(function(data) {
-        //     console.log(data);
-        // })
+            // console.log('hola como esta',medicine_id);
+        })
+        .fail(function(data) {
+            console.log(data);
+        })
 
     })
 

@@ -174,6 +174,7 @@ Route::group(['middleware' => 'auth'], function (){
         //recipe
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
         Route::post('doctor/recipe/medicamentos/eliminar','DoctorController@recipeDelete')->name('doctor.recipe_eliminar');
+        Route::post('doctor/recipe/medicamentos/detalles','DoctorController@treatment_detalles')->name('doctor.treatment_detalles');
 
         //procedimientos
         Route::post('procedures_realizados', 'ProcedureController@procedures_realizados')->name('doctor.procedures_realizados');  // guardar los procedimientos realizados en la consulta

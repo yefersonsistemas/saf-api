@@ -103,10 +103,11 @@ class InController extends Controller
                 }
             }   
         }
-// dd($pacientes);
+
         // && $day[$j]->patient->inputoutput->first()->outside_office == null
 
         for($i=0; $i < count($pacientes); $i++){
+            // dd($pacientes);
          $active =null;
             for($j=0; $j < count($pacientes[$i]); $j++){
                 // dd($pacientes[$i][$j]->patient->inputoutput->first()->outside_office);

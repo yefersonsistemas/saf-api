@@ -933,7 +933,7 @@ $boton.addEventListener("click", function() {
             }
     }
 
-    </script>
+</script>
     <script>
         //========================buscador en tiempo real de enfermedades modal=======================
         $(document).ready(function(){
