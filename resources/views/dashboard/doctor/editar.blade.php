@@ -824,7 +824,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                         </a>
                                                                                                         <a style="cursor:pointer" id="{{$item->id}}" name="{{$itinerary->recipe->id}}" class="text-dark btn d-inline recipe_id">
                                                                                                             <i class="icon-trash"></i>
-                                                                                                        </a>                                                                                                   
+                                                                                                        </a>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             @endforeach
@@ -1079,8 +1079,8 @@ button[data-original-title="Help"]{ display: none; }
         <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"></button>
         <div id="cambiar">
             <a class="btn medio" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
-        </div>  
-      
+        </div>
+
         <div class="caption" id="caption">
 
         </div>
@@ -1616,7 +1616,7 @@ button[data-original-title="Help"]{ display: none; }
         $("#caption").removeClass("caption");
         $("#caption").addClass("caption_medio");
 
-       $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> 
+       $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
                           <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
 
        //aumentar
@@ -1625,7 +1625,7 @@ button[data-original-title="Help"]{ display: none; }
             $("#caption").removeClass("caption_medio");
             $("#caption").addClass("caption_grande");
 
-            $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> 
+            $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
                                <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
 
            $('#extra_grande').click(function(){
@@ -1638,11 +1638,11 @@ button[data-original-title="Help"]{ display: none; }
       });
 
       });
-   
+
     });
 
 
-   
+
 </script>
 
 
@@ -1863,23 +1863,23 @@ button[data-original-title="Help"]{ display: none; }
 
     function addRow(data) {
         console.log('recibo',data);
-        $('#addRow').append(`<tr class="gradeA" id="recipe${data.medicine.id}"> 
-                                <td>${data.medicine.name}</td> 
+        $('#addRow').append(`<tr class="gradeA" id="recipe${data.medicine.id}">
+                                <td>${data.medicine.name}</td>
                                 <td>${data.doses}</td>
-                                <td>${data.measure}</td> 
-                                <td>${data.duration}</td> 
-                                <td>${data.indications}</td> 
+                                <td>${data.measure}</td>
+                                <td>${data.duration}</td>
+                                <td>${data.indications}</td>
                                 <td class="text-center d-flex">
                                     <a  style="cursor:pointer" class="btn text-dark d-inline">
                                         <i class="icon-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a style="cursor:pointer" id="${data.medicine.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
                                         <i class="icon-trash"></i>
-                                    </a>                                                                                                   
-                                </td>                
+                                    </a>
+                                </td>
                                 </tr>`);
      }
-   
+
 
     $(document).on('click', '.recipe_id', function(event) {
         let recipe_id = this.name;
@@ -1897,7 +1897,7 @@ button[data-original-title="Help"]{ display: none; }
             recipe_id:recipe_id,
             }
         })
-            .done(function(data) { 
+            .done(function(data) {
                 if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
                     title: data.recipe,
@@ -1905,7 +1905,7 @@ button[data-original-title="Help"]{ display: none; }
                     type: 'success',
                 });
             }
-          
+
             console.log('hola como esta',medicine_id);
         })
         .fail(function(data) {
@@ -1933,7 +1933,7 @@ button[data-original-title="Help"]{ display: none; }
         //     recipe_id:recipe_id,
         //     }
         // })
-        //     .done(function(data) { 
+        //     .done(function(data) {
         //         if(data[0] == 202){                  //si no trae valores
         //         Swal.fire({
         //             title: data.recipe,
@@ -1941,7 +1941,7 @@ button[data-original-title="Help"]{ display: none; }
         //             type: 'success',
         //         });
         //     }
-          
+
         //     console.log('hola como esta',medicine_id);
         // })
         // .fail(function(data) {
