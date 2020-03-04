@@ -741,15 +741,16 @@ button[data-original-title="Help"]{ display: none; }
                                                         <div class="col-lg-12 mx-auto">
                                                             <div class="card">
                                                                 <div class="card-body">
-                                                                    <h3 class="card-title">Agregar Medicamento</h3>
+                                                                    <h3 class="card-title" id="cambiar_agregar">Agregar Medicamento</h3>
+                                                                    <h3 class="card-title" id="cambiar_editar">Editar Medicamento</h3>
                                                                     <div class="row">
                                                                         <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Medicamento</label>
                                                                                 <select id="medicamento" class="form-control custom-select" name="medicamento">
-                                                                                    <option value="0">Seleccione</option>
+                                                                                    <option checked value="0">Seleccione</option>
                                                                                     @foreach ($medicines as $medicine)
-                                                                                        <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                                                                        <option value="{{ $medicine->name }}">{{ $medicine->name }}</option>
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
@@ -764,7 +765,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Medida</label>
                                                                                 <select name="medida" id="medida" class="form-control custom-select">
-                                                                                    <option value="0">Seleccione</option>
+                                                                                    <option checked value="1">Seleccione</option>
                                                                                     <option value="CC">CC</option>
                                                                                     <option value="G">G</option>
                                                                                     <option value="ML">ML</option>
@@ -785,10 +786,12 @@ button[data-original-title="Help"]{ display: none; }
                                                                         <textarea id="indicacion" rows="5" class="form-control" name="indicaciones" placeholder="Tomar 1 diaria" value=""></textarea>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-footer text-right">
+                                                                <div class="card-footer text-right" id="cambiar_agregar">
                                                                     <a class="btn btn-azuloscuro mb-15 text-white" id="add">
                                                                         <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
-                                                                    </a>
+                                                                    </a>     
+                                                                    <a class="btn btn-azuloscuro mb-15 text-white" id="guardar_cambio">guardar cambio</a>   
+                                                                    <input type="hidden" id="id_editar" value="">                                                            
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -810,7 +813,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="addRow">
-                                                                                        @if($itinerary->recipe != '')
+                                                                                        @if($itinerary->recipe != null)
                                                                                             @foreach ($itinerary->recipe->treatment as $item)
                                                                                                 <tr id="recipe{{ $item->id }}">
                                                                                                     <td>{{$item->medicine->name}}</td>
@@ -1748,6 +1751,14 @@ button[data-original-title="Help"]{ display: none; }
 </script>
 
 <script>
+
+$( document ).ready(function() {
+    $('#guardar_cambio').hide();
+    $('#cambiar_editar').hide();
+
+});
+
+
     var form = $('#wizard_vertical').show();
     //Vertical form basic
     var procedures=0;
@@ -1810,8 +1821,8 @@ button[data-original-title="Help"]{ display: none; }
         employe         = $("input[id='employe']").val();
         reservacion     = $("input[id='reservacion']").val();
 
-          //con val obtengo  y assigno
-        $('#indicacion').val(''); //aqui dice que se limpie o que asigne vacio cuando se cliquea el boton de agregar
+        //con val obtengo  y assigno
+        $('#indicacion').val('');
         $('#medicamento').val('');
         $('#dosis').val('');
         $('#medida').val('');
@@ -1918,10 +1929,6 @@ button[data-original-title="Help"]{ display: none; }
         console.log('para editar');
         let data = this.name;
         console.log(data);
-        // let recipe_id = this.name;
-        // let medicine_id = this.id;
-        // console.log('recipe_id',recipe_id, medicine_id);
-        // $('tr').remove("#recipe"+medicine_id);
 
         $.ajax({
             url: "{{ route('doctor.treatment_detalles') }}",
@@ -1934,21 +1941,106 @@ button[data-original-title="Help"]{ display: none; }
         })
             .done(function(data) { 
                 console.log('detalles',data)
-                if(data[0] == 202){                  //si no trae valores
-                Swal.fire({
-                    // title: data.treatment,
-                    text: 'Click en OK para continuar',
-                    type: 'success',
-                });
-            }
-          
-            // console.log('hola como esta',medicine_id);
+                mostrarTratamiento(data.treatment);
         })
         .fail(function(data) {
             console.log(data);
         })
 
     })
+
+    function mostrarTratamiento(data) {
+
+        console.log('nombre',data.medicine_id);
+        $('#indicacion').val(data.indications);
+        $('#medicamento').val(data.medicine.name);
+        $('#dosis').val(data.doses);
+        $('#medida').val(data.measure);
+        $('#duracion').val(data.duration);
+
+        $('#add').hide();
+        $('#cambiar_agregar').hide();
+        $('#guardar_cambio').show();
+        $('#cambiar_editar').show();
+
+        $('#id_editar').val(data.id);
+
+        $("#medicamento").focus();
+
+    }
+
+     //========================guardar medicamento editado===================
+    $(document).on('click', '#guardar_cambio', function(event) {
+        console.log('para guardar cmabio');
+        let data = $('#id_editar').val();
+
+        medicina        = $("select[name='medicamento']").val();
+        dosis           = $("input[name='dosis']").val();
+        medida          = $("select[name='medida']").val();
+        duracion        = $("input[name='duracion']").val();
+        indicaciones    = $("textarea[name='indicaciones']").val();
+
+        $.ajax({
+                url: "{{ route('doctor.recipe_update') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    medicina : medicina,
+                    dosis: dosis,
+                    medida : medida,
+                    duracion: duracion,
+                    indicaciones: indicaciones,
+                    tratamiento: data,
+                }
+            })
+            .done(function(data) {
+                console.log("hola ken", data);
+                if(data[0] == 202){
+                  
+                Swal.fire({
+                    title: 'Excelente!',
+                    text: 'Medicamento actualizado',
+                    type: 'success',
+                })
+
+                datosActualizados(data.treatment);
+            }
+            })
+            .fail(function(data) {
+                console.log(data);
+            })
+
+    });
+
+    function datosActualizados(data){
+        $('#indicacion').val('');
+        $('#medicamento').val('');
+        $('#dosis').val('');
+        $('#medida').val('');
+        $('#duracion').val('');
+        
+        $('#recipe'+data.id).html( ` 
+                                <td>${data.medicine.name}</td> 
+                                <td>${data.doses}</td>
+                                <td>${data.measure}</td> 
+                                <td>${data.duration}</td> 
+                                <td>${data.indications}</td> 
+                                <td class="text-center d-flex">
+                                    <a  style="cursor:pointer" id="editar_medicine" name="${data.id}" class="btn text-dark d-inline">
+                                        <i class="icon-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a style="cursor:pointer" id="${data.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
+                                        <i class="icon-trash"></i>
+                                    </a>                                                                                                   
+                                </td>   `);
+
+        $('#add').show();
+        $('#cambiar_agregar').show();
+        $('#guardar_cambio').hide();
+        $('#cambiar_editar').hide();
+        $('#id_editar').val('');
+
+    }
 
     //======================Referencia medica=========================
 

@@ -584,7 +584,7 @@ class DoctorController extends Controller
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $employe->id)->first();
 
         $itinerary = Itinerary::with('recipe.treatment.medicine', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
-
+// dd($itinerary->recipe->treatment);
         $speciality = Speciality::all();
         $medicines = Medicine::all();
         $enfermedades = Disease::all();
@@ -944,9 +944,10 @@ class DoctorController extends Controller
                 $crear_recipe = Recipe::where('id', $itinerary->recipe_id)->first();
             }
 
+            $medicine = Medicine::where('name', $request->medicina)->first();
             // $paciente = Person::find($paciente);
             $treatment = Treatment::create([
-                'medicine_id'   =>  $request->medicina,
+                'medicine_id'   =>  $medicine->id,
                 'doses'         =>  $request->dosis,
                 'duration'      =>  $request->duracion,
                 'measure'       =>  $request->medida,
@@ -1202,8 +1203,29 @@ class DoctorController extends Controller
 
     public function treatment_detalles(Request $request){
   
-        $treatment = Treatment::with('medicine')->where('id',$request->treatment_id);
+        $treatment = Treatment::with('medicine')->where('id',$request->treatment_id)->first();
+// dd($treatment);
+        return response()->json([
+            'treatment' => $treatment,202
+        ]);
+    }
 
+    public function treatment_update(Request $request){
+  
+        // dd($request);
+        $medicine = Medicine::where('name', $request->medicina)->first();
+
+        $treatment = Treatment::find($request->tratamiento);
+        $treatment->medicine_id = $medicine->id;
+        $treatment->doses = $request->dosis;
+        $treatment->measure = $request->medida;
+        $treatment->duration = $request->duracion;
+        $treatment->indications = $request->indicaciones;
+        $treatment->save();
+
+        $treatment = Treatment::with('medicine')->where('id', $treatment->id)->first();
+
+// dd($treatment);
         return response()->json([
             'treatment' => $treatment,202
         ]);

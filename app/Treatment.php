@@ -19,7 +19,7 @@ class Treatment extends Model
 
     public function medicine()
     {
-        return $this->belongsTo('App\Medicine');
+        return $this->belongsTo('App\Medicine','medicine_id');
     }
 
     public function recipeT()
