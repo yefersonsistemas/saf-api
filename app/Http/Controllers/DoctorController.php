@@ -1162,21 +1162,43 @@ class DoctorController extends Controller
         }
     }
 
-    //=================Lista de las Cirugias Asociadad al Doctor====================
+    //=================Lista de las Cirugias Asociada al Doctor====================
     public function surgeries_list(){
+
         $id = Auth::id();
-        // dd($id);
         $person = User::find($id);
-            // dd($person);
-        $employe = Employe::with('person','patient.person.image','surgery' )->where('person_id',$person->person_id)->first();
-        // dd($employes);
-
+        $employe = Employe::with('person','patient.person.image','surgery', 'schedule' )->where('person_id',$person->person_id)->first();
+        // dd($employe);
         $all = Surgery::with('patient.person.image','typesurgeries','area')->where('employe_id', $employe->id)->get();
-        // dd($all);
 
-        $reservations = Reservation::where('surgery', true)->where('person_id', $employe->id)->get();
-        // dd( $reservations);
-        return view('dashboard.doctor.lista_cirugias', compact('all'));
+        //cirugias del dia
+        $surgeryT=Surgery::with('patient.person.image','typesurgeries','area')->where('employe_id', $employe->id)->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+
+        $reservations = Reservation::with('person', 'patient.image')->where('surgery', true)->where('person_id', $employe->person_id)->get();
+        // dd($reservations->first()->person->employe->areaassigment);
+        //procedimientos ambulatorios del dia
+        $ambulatorias = Reservation::where('surgery', true)->where('person_id',$employe->person_id )->whereDate('date', '=', Carbon::now()->format('Y-m-d'))->get();
+      
+        //============INICIO CONTADORES===========================
+        //estas se usaran en caso de que se quiera en un rango semanal
+        // $dia1 = Carbon::MONDAY;
+        // $dia2 = Carbon::FRIDAY;
+      
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $surgery1 = Surgery::where('employe_id', $employe->id)->whereMonth('created_at', '=', $mes)->get();
+        $surgery2 = Surgery::where('employe_id', $employe->id)->whereYear('created_at', '=', $año)->get(); //todas del mismo año
+        // cirugias semanal
+        $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
+
+        $ambulatorio1 = $reservations = Reservation::where('surgery', true)->where('person_id', $employe->person_id)->whereMonth('created_at', '=', $mes)->get();
+        $ambulatorio2 = $reservations = Reservation::where('surgery', true)->where('person_id', $employe->person_id)->whereYear('created_at', '=', $año)->get();
+        //procedimientos ambulatoriossemanales
+        $procedimiento = $ambulatorio1->intersect($ambulatorio2)->count();
+        //==============FIN CONTAODRES========================
+        
+
+        return view('dashboard.doctor.lista_cirugias', compact('all', 'surgeryT', 'mensual', 'ambulatorias', 'procedimiento', 'reservations'));
     }
 
 

@@ -35,25 +35,35 @@
 
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body py-2">
-                        <h6>Reservaciones confirmadas</h6>
-                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h3>
+                    <div class="card-body ">
+                        <h6>Cirugias del mes </h6>
+                        <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter"> {{ $mensual }} </span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Cirugias de hoy</h6>
+                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter"> {{ $surgeryT->count() }} </span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>P. Ambulatorios (Mes)</h6>
+                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter"> {{ $procedimiento }} </span></h3>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
                     <div class="card-body">
-                        <h6>Pacientes por atender</h6>
-                        <h3 class="pt-3"><i class="fa fa-calendar"></i> <span class="counter">750</span></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 ">
-                <div class="card">
-                    <div class="card-body">
-                        <h6>Pacientes atendidos</h6>
-                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter">{{ $atendidos }}</span></h3>
+                        <h6>P. Ambulatorios de hoy</h6>
+                        <h3 class="pt-3"><i class="fa fa-users"></i> <span class="counter"> {{ $ambulatorias->count() }} </span></h3>
                     </div>
                 </div>
             </div>
@@ -110,7 +120,7 @@
                                             <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
                                         @endforeach
 
-                                        {{-- <td>{{$surgeries->typesurgeries->name}}</td> --}}
+                                        <td>{{$surgeries->typesurgeries->name}}</td>
                                         <td>{{$surgeries->area->name}}</td>
                                     </tr>
                                 @endforeach
@@ -144,24 +154,26 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @foreach ($all as $surgeries)
+                                @foreach ($reservations as $reservation)
                                 <tr style="height:40px;">
-                                    @foreach ($surgeries->patient as $patient)
-                                    <td style="text-align: center; font-size:10px; height:40px;">
-                                        @if (!empty($patient->person->image->path))
-                                            <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
+                                    {{-- @foreach ($reservation->patient as $patient) --}}
+                                        <td style="text-align: center; font-size:10px; height:40px;">
+                                            @if (!empty($reservation->patient->image->path))
+                                                <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                             @else
-                                            <img src="" alt="" width="100%" height="100%">
+                                                <img src="" alt="" width="100%" height="100%">
                                             @endif
                                         </td>
-                                        @endforeach
-                                        <td>{{$surgeries->date}}</td>
-                                        @foreach ($surgeries->patient as $patient)
-                                            <td>{{$patient->person->name}} {{$patient->person->lastname}}</td>
-                                        @endforeach
+                                    {{-- @endforeach --}}
+                                        <td>{{$reservation->date}}</td>
+                                        <td>{{$reservation->patient->name}} {{$reservation->patient->lastname}}</td>
+                                        <td>{{$reservation->person->name}} {{$reservation->person->lastname}}</td>
 
-                                        {{-- <td>{{$surgeries->typesurgeries->name}}</td> --}}
-                                        <td>{{$surgeries->area->name}}</td>
+                                        @if ($reservation->person->employe->areaassigment != null)
+                                        <td>{{$reservation->person->employe->areaassigment->area->name}}</td>
+                                        @endif
+
+                                        <td>{{$reservation->description}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
