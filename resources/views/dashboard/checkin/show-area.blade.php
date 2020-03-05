@@ -23,6 +23,18 @@
        font-size: 14px;
         /* color: #fff; */
     }
+
+        
+    .btn-azuloscuro {
+        color: #fff;
+        background: #00506b;
+    }
+
+    .btn-azuloscuro:hover {
+        color: #fff;
+        background-color: #00ba88;
+        border-color: #009e74;
+    }
 </style>
 
 <div class="section-body">

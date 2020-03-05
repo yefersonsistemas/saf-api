@@ -163,7 +163,7 @@ button[data-original-title="Help"]{ display: none; }
         <div class="container-fluid">
             <div class="row clearfix">
                 {{-- Contadores --}}
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                <div class="col-lg-3 col-md-6 col-sm-12  ">
                     <div class="card">
                         <div class="card-body py-2">
                             <h6>Total De Citas Agendadas</h6>
@@ -203,7 +203,7 @@ button[data-original-title="Help"]{ display: none; }
                 {{-- --------Step-----------}}
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="card">
+                        <div class="card p-4">
                                 <!--HEADER-->
                                 <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
                                 <div class="container">
@@ -1081,10 +1081,10 @@ button[data-original-title="Help"]{ display: none; }
     {{-- </div> --}}
 
 
-    <div id="myModall" class="modal modall">
-        <button type="button" class=" close cerrar" data-dismiss="modal" aria-label="Close"></button>
+    <div id="myModall"  data-backdrop="static" class="modal modall">
         <div class="container"> 
-        <div class="row">   
+        <div class="row"> 
+        <button type="button" class=" close atras" data-dismiss="modal" aria-label="Close"></button>
         <div class="col-6 align-right"  id="cambiar">
             <a class="btn medio  " style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a>
         </div>  
@@ -1095,6 +1095,8 @@ button[data-original-title="Help"]{ display: none; }
         <div class="caption" id="caption">
         </div>
     </div>
+    </div>
+    }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1652,12 +1654,8 @@ button[data-original-title="Help"]{ display: none; }
 
     //   });
 
-    //   });
-   
+    //   }); 
     });
-
-
-   
 </script>
 
 <script>
@@ -1665,10 +1663,8 @@ button[data-original-title="Help"]{ display: none; }
         console.log('zoon_max_atras');
         $("#caption").removeClass("caption_extra_grande");
         $("#caption").addClass("caption");
-
-       $('#cambiar').html(`<a class="btn extra_grande" id="grande" style="color:#fff; font-size:20px;"><i class="   fe fe-plus"></i></a> ` );
+        $('#cambiar').html(`<a class="btn extra_grande" id="grande" style="color:#fff; font-size:20px;"><i class="   fe fe-plus"></i></a> ` );
                         //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
-
         //aumentar
         $('#grande').click(function(){
                 console.log('zoon_max');
@@ -1689,68 +1685,55 @@ button[data-original-title="Help"]{ display: none; }
 
     //   });
 
-      });
-   
     });
-
-
-   
+});
+  
 </script>
-
-
-
-
-
-
-
-
-
-
 <script>
     //========================buscador en tiempo real de enfermedades=======================
     $(document).ready(function(){
-      $("#buscar_enfermedad").on("keyup", function() {
+    $("#buscar_enfermedad").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#modal_enfermedad tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-      });
     });
+});
 </script>
 
 <script>
     //========================buscador en tiempo real de alergia=======================
     $(document).ready(function(){
-      $("#buscar_alergia").on("keyup", function() {
+    $("#buscar_alergia").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#modal_alergias tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-      });
+    });
     });
 </script>
 
 <script>
     //========================buscador en tiempo real procedure realizados=======================
     $(document).ready(function(){
-      $("#buscar_procedureR").on("keyup", function() {
+    $("#buscar_procedureR").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#modal_procedureR tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-      });
+    });
     });
 </script>
 
 <script>
     //========================buscador en tiempo real examens=======================
     $(document).ready(function(){
-      $("#buscar_examen").on("keyup", function() {
+    $("#buscar_examen").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#modal_examen tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-      });
+    });
     });
 </script>
 
@@ -1855,6 +1838,9 @@ button[data-original-title="Help"]{ display: none; }
 
             concatenar = '/Storage/';
             url = concatenar+modalImg;
+
+
+            
 
         $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
         $('#myModall').modal('show');

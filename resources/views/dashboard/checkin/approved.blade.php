@@ -108,7 +108,8 @@
                                 @if ($reservation->status == 'Aprobada')
                                     <tr style="height:40px;">
                                         <td style="text-align: center; font-size:10px; height:40px;">
-                                            @if (!  ($reservation->patient->image->path))
+                                            @if (  ($reservation->patient->image->path))
+                                        
                                                 <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                             @else
                                                 <img src="" alt="" width="100%" height="100%">
