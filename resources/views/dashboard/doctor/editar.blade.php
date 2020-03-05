@@ -565,6 +565,8 @@ button[data-original-title="Help"]{ display: none; }
                                                 @if ($file->first() != null)
                                                     @foreach ($file as $item)
 
+                                                    
+
                                                         <div class="col-3 card mr-2 p-0">
                                                             @foreach ( $cite->person->reservationPatient as $cites )
                                                                 <div class="card-header bg-azuloscuro m-0 py-2">
