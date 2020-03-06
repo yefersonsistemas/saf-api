@@ -174,10 +174,10 @@ $(document).ready(function() {
         $('.doctor').removeClass('d-block');
         $('.enfermeria').removeClass('d-block');
         $('.inout').removeClass('d-block');
-        $('.farmacia').removeClass('d-block');
+        $('.farma').removeClass('d-block');
         $('.enfermeria').addClass('d-none');
         $('.inout').addClass('d-none');
-        $('.farmacia').addClass('d-none');
+        $('.farma').addClass('d-none');
     });
     $('#dir').on('click', function(){
         $('.checkIn').addClass('d-none');
@@ -191,8 +191,8 @@ $(document).ready(function() {
         $('.enfermeria').addClass('d-none');
         $('.inout').removeClass('d-block');
         $('.inout').addClass('d-none');
-        $('.farmacia').addClass('d-none');
-        $('.farmacia').removeClass('d-block');
+        $('.farma').addClass('d-none');
+        $('.farma').removeClass('d-block');
     })
     $('#doc').on('click', function(){
         $('.checkIn').addClass('d-none');
@@ -206,8 +206,8 @@ $(document).ready(function() {
         $('.enfermeria').addClass('d-none');
         $('.inout').removeClass('d-block');
         $('.inout').addClass('d-none');
-        $('.farmacia').addClass('d-none');
-        $('.farmacia').removeClass('d-block');;
+        $('.farma').addClass('d-none');
+        $('.farma').removeClass('d-block');;
     })
     $('#out').on('click', function(){
         $('.checkIn').addClass('d-none');
@@ -221,8 +221,8 @@ $(document).ready(function() {
         $('.enfermeria').addClass('d-none');
         $('.inout').removeClass('d-block');
         $('.inout').addClass('d-none');
-        $('.farmacia').addClass('d-none');
-        $('.farmacia').removeClass('d-block');
+        $('.farma').addClass('d-none');
+        $('.farma').removeClass('d-block');
     })
 
     $('#en').on('click', function(){
@@ -234,11 +234,11 @@ $(document).ready(function() {
         $('.doctor').removeClass('d-block');
         $('.doctor').addClass('d-none');
         $('.enfermeria').removeClass('d-none');
-        $('.enfermeria').addClass('d-blok');
+        $('.enfermeria').removeClass('d-blok');
         $('.inout').removeClass('d-block');
         $('.inout').addClass('d-none');
-        $('.farmacia').addClass('d-none');
-        $('.farmacia').removeClass('d-block');
+        $('.farma').addClass('d-none');
+        $('.farma').removeClass('d-block');
     })
     $('#io').on('click', function(){
         $('.checkIn').addClass('d-none');
@@ -252,23 +252,23 @@ $(document).ready(function() {
         $('.enfermeria').addClass('d-none');
         $('.inout').removeClass('d-none');
         $('.inout').removeClass('d-blok');
-        $('.farmacia').addClass('d-none');
-        $('.farmacia').removeClass('d-block');
+        $('.farma').addClass('d-none');
+        $('.farma').removeClass('d-block');
     })
     $('#far').on('click', function(){
         $('.checkIn').addClass('d-none');
         $('.checkIn').removeClass('d-block');
         $('.director').addClass('d-none');
-        $('.checkOut').removeClass('d-blok');
         $('.checkOut').addClass('d-none');
+        $('.checkOut').removeClass('d-block');
         $('.doctor').removeClass('d-block');
         $('.doctor').addClass('d-none');
-        $('.enfermeria').removeClass('d-blok');
         $('.enfermeria').addClass('d-none');
+        $('.enfermeria').removeClass('d-blok');
+        $('.inout').removeClass('d-block');
         $('.inout').addClass('d-none');
-        $('.inout').removeClass('d-blok');
-        $('.farmacia').removeClass('d-none');
-        $('.farmacia').removeClass('d-block');
+        $('.farma').removeClass('d-none');
+        $('.farma').removeClass('d-block');
     })
 
 

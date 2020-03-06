@@ -174,7 +174,6 @@
 
 
 
-
                 <!-- Se agregó el @yield('iorol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('in-out')
                 <div class="">
@@ -191,6 +190,7 @@
                     </li>
                 <li class="@yield('agendar')"><a href="{{ route('in-out.agendar_cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugias</span></a></li>
                 <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>
+                </div>
                 @endrole
 
 
@@ -201,13 +201,14 @@
                 @role('farmaceuta')
                 <div class="">
                     @role('director')
-                    <div class="farmacia animated fadeIn d-none @yield('farmarol')">
+                    <div class=" animated fadeIn d-none farma @yield('farmarol')">
                     @endrole
-                <li class="g_heading">farmaceuta</li>
-                <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;Lista de insumos</a></li>
-                <li><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
-                <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registro de insumos</a></li>
-                <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
+                    <li class="g_heading">farmaceuta</li>
+                    <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;Lista de insumos</a></li>
+                    <li><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
+                    <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registro de insumos</a></li>
+                    <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
+                </div>
                 @endrole
 
             </ul>
