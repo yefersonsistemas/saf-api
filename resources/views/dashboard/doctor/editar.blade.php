@@ -1091,7 +1091,7 @@ button[data-original-title="Help"]{ display: none; }
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content row" style="width: 150%;">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Enfermedades</h5>
@@ -1102,11 +1102,14 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="enfermedad">
                     <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                {{-- <div class="row">
-                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_enfermedad" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar enfermedad..">
-                                </div> --}}
-                                <table class="table table-borderless scrollableTable">
+                            <div class="row d-flex justify-content-center mb-4">
+                                {{-- <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                <input id="buscar_enfermedad" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar enfermedad..">
+                            </div>
+                            <div class="custom-controls-stacked" style="border-color:#00506b; height:360px; overflow-y: scroll;">
+                               
+                                {{-- <table class="table table-borderless scrollableTable"> --}}
+                                <table class="table table-borderless" >
                                     <thead>
                                         <tr>
                                             <th class="my-0 py-0">
@@ -1187,11 +1190,12 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="form_alergias">
                     <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                {{-- <div class="row">
-                                    <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_alergia" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar alergia..">
-                                </div> --}}
-                                <table class="table table-borderless scrollableTable">
+                             <div class="row d-flex justify-content-center mb-4">
+                                    {{-- <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                    <input id="buscar_alergia" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar alergia..">
+                                </div>
+                            <div class="custom-controls-stacked" style="border-color:#00506b; height:360px; overflow-y: scroll;">                               
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
                                             <th class="my-0 py-0">
@@ -1299,20 +1303,22 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="proceduresC-office">
                     <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                {{-- <div class="row">
-                                    <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureR" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedimiento..">
-                                </div> --}}
-                                <table class="table table-borderless scrollableTable">
+                             <div class="row d-flex justify-content-center mb-4">
+                                    {{-- <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                    <input id="buscar_procedureR" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar procedimiento..">
+                                </div>
+                            <div class="custom-controls-stacked"  style="border-color:#00506b; height:360px; overflow-y: scroll;">
+                               
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th class="my-0 py-0">
+                                            <th class="my-0 py-0 ">
                                                 <div class="card-header my-0 py-0">
                                                     <h6>Nombre</h6>
                                                 </div>
                                             </th>
-                                            <th class="my-0 py-0">
-                                                <div class="card-header my-0 py-0">
+                                            <th class="my-0 py-0 d-flex justify-content-end">
+                                                <div class="card-header my-0 py-0 ">
                                                     <h6>Precio</h6>
                                                 </div>
                                             </th>
@@ -1323,12 +1329,12 @@ button[data-original-title="Help"]{ display: none; }
                                             @foreach ($diff_PR as $proces)
                                                 <tr id="quitar_procedureR{{$proces->id}}">
                                                     <td>
-                                                        <label class="custom-control custom-checkbox col-9">
+                                                        <label class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="procedures-office" value="{{ $proces->id }}">
                                                             <span class="custom-control-label">{{ $proces->name }} </span>
                                                         </label>
                                                     </td>
-                                                    <td class="text-end d-flex justify-content-end">
+                                                    <td class="text-end d-flex justify-content-end mr-4">
                                                         {{ $proces->price }}
                                                     </td>
                                                 </tr>
@@ -1361,11 +1367,13 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="exam">
                     <div class="modal-body" style="max-height: 450px;">
                         <div class="form-group">
-                            <div class="custom-controls-stacked">
-                                {{-- <div class="row">
-                                    <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_examen" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar examen..">
-                                </div> --}}
-                                <table class="table table-borderless scrollableTable">
+                              <div class="row d-flex justify-content-center mb-4">
+                                    {{-- <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                    <input id="buscar_examen" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar examen..">
+                                </div>
+                            <div class="custom-controls-stacked"  style="border-color:#00506b; height:360px; overflow-y: scroll;">
+                                {{-- style="border-color:#00506b; height:360px; overflow-y: scroll;" --}}
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
                                             <th class="my-0 py-0">
@@ -1404,8 +1412,8 @@ button[data-original-title="Help"]{ display: none; }
 
      {{-- modal de los posible cirugia --}}
     <div class="modal fade" id="surgerys" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content row" style="width: 150%;">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content row">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Cirugias</h5>
                     <button type="button" class="btn btn-azuloscuro"data-dismiss="modal" aria-label="Close">
@@ -1413,7 +1421,7 @@ button[data-original-title="Help"]{ display: none; }
                     </button>
                 </div>
                 <form action="" id="posible-surgerys">
-                    <div class="modal-body ml-4 pb-0 pt-2 plan" style="height: 450px;">
+                    <div class="modal-body ml-4 pb-0 pt-2 plan" style="height: 500px; ">
                         <div class="plan-steps">
                             <!-- Nav tabs -->
                             <ul style="list-style: none !important" class="nav nav-pills row" id="pills-tab" role="tablist">
@@ -1427,12 +1435,18 @@ button[data-original-title="Help"]{ display: none; }
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="hospitalariaTab">
-                                    <div class="form-group">
+                                    <div class="row d-flex justify-content-center mb-4">
+                                        {{-- <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                        <input id="buscar_cirugiaH" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar cirugia..">
+                                    </div>
+                                    <div class="form-group"  style="border-color:#00506b; height:330px; overflow-y: scroll;">
+                                            <div class="row d-flex justify-content-center mb-4">
+                                                {{-- <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                                {{-- <input id="buscar_cirugiaH" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar cirugia.."> --}}
+                                            </div>
                                         <div class="custom-controls-stacked">
-                                            {{-- <div class="row">
-                                                <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaH" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
-                                            </div> --}}
-                                            <table class="table table-borderless scrollableTable">
+                                          
+                                            <table class="table table-borderless" >
                                                 <thead>
                                                     <tr>
                                                         <th class="my-0 py-0">
@@ -1440,7 +1454,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <h6>Nombre</h6>
                                                             </div>
                                                         </th>
-                                                        <th class="my-0 py-0">
+                                                        <th class="my-0 py-0 d-flex justify-content-end">
                                                             <div class="card-header my-0 py-0">
                                                                 <h6>Precio</h6>
                                                             </div>
@@ -1458,7 +1472,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <span class="custom-control-label">{{ $surgery->name }}</span>
                                                                         </label>
                                                                     </td>
-                                                                    <td class="text-end d-flex justify-content-end">
+                                                                    <td class="text-end d-flex justify-content-end mr-4">
                                                                         {{ $surgery->cost }}
                                                                     </td>
                                                                 </tr>
@@ -1471,13 +1485,19 @@ button[data-original-title="Help"]{ display: none; }
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="ambulatoriaTab">
-                                    <div class="form-group">
+                                    <div class="row d-flex justify-content-center mb-4">
+                                        {{-- <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                        <input id="buscar_cirugiaA" type="text" class="form-control p-2 ml-2 mr-3 col-10" placeholder="Buscar cirugia..">
+                                    </div>
+                                    <div class="form-group" style="border-color:#00506b; height:330px; overflow-y: scroll;">
+                                         <div class="row d-flex justify-content-center mb-4">
+                                                {{-- <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                                {{-- <input id="buscar_cirugiaA" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar cirugia.."> --}}
+                                            </div>
 
                                         <div class="custom-controls-stacked">
-                                            {{-- <div class="row">
-                                                <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_cirugiaA" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar cirugia..">
-                                            </div> --}}
-                                            <table class="table table-borderless scrollableTable">
+                                           
+                                            <table class="table table-borderless">
                                                 <thead>
                                                     <tr>
                                                         <th class="my-0 py-0">
@@ -1485,7 +1505,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <h6>Nombre</h6>
                                                             </div>
                                                         </th>
-                                                        <th class="my-0 py-0">
+                                                        <th class="my-0 py-0 d-flex justify-content-end">
                                                             <div class="card-header my-0 py-0">
                                                                 <h6>Precio</h6>
                                                             </div>
@@ -1493,7 +1513,6 @@ button[data-original-title="Help"]{ display: none; }
                                                     </tr>
                                                 </thead>
                                                 <tbody id="modal_cirugiaP_ambulatoria" class="mt-4">
-
                                                     @if($diff_C != null)
                                                         @foreach ($diff_C as $surgery)
                                                             @if ($surgery->classification->name == 'ambulatoria')
@@ -1504,7 +1523,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                             <span class="custom-control-label">{{ $surgery->name }}</span>
                                                                         </label>
                                                                     </td>
-                                                                    <td class="text-end d-flex justify-content-end">
+                                                                    <td class="text-end d-flex justify-content-end mr-4">
                                                                         {{ $surgery->cost }}
                                                                     </td>
                                                                 </tr>
@@ -1518,11 +1537,12 @@ button[data-original-title="Help"]{ display: none; }
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
-                            <div class="modal-footer p-2">
-                                <a  class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
-                                <a type="submit" class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarC">Guardar</a>
-                            </div>
+                    <div class="modal-footer p-2">
+                        <a  class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
+                        <a type="submit" class="btn btn-azuloscuro text-white" data-dismiss="modal" id="guardarC">Guardar</a>
+                    </div>
                         </div>
                     </div>
                 </form>
@@ -1532,7 +1552,7 @@ button[data-original-title="Help"]{ display: none; }
 
     {{-- modal de candidatos a posibles procedimientos --}}
     <div class="modal fade" id="proces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
             <div class="modal-content row">
                 <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
                     <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Procedimientos</h5>
@@ -1543,11 +1563,13 @@ button[data-original-title="Help"]{ display: none; }
                 <form action="" id="posible-procedures">
                 <div class="modal-body" style="max-height: 450px;">
                     <div class="form-group">
-                        <div class="custom-controls-stacked">
-                            {{-- <div class="row">
-                                <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_procedureP" type="text" class="form-control p-1 pl-3 mr-2 col-9" placeholder="Buscar procedure..">
-                            </div> --}}
-                            <table class="table table-borderless scrollableTable">
+                         <div class="row d-flex justify-content-center mb-4">
+                                {{-- <label for="" class="col-2 mx-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
+                                <input id="buscar_procedureP" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-9" placeholder="Buscar procedure..">
+                            </div>
+                        <div class="custom-controls-stacked"   style="border-color:#00506b; height:360px; overflow-y: scroll;">
+                           
+                            <table class="table table-borderless">
                                 <thead>
                                     <tr>
                                         <th class="my-0 py-0">
@@ -1555,7 +1577,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 <h6>Nombre</h6>
                                             </div>
                                         </th>
-                                        <th class="my-0 py-0">
+                                        <th class="my-0 py-0 d-flex justify-content-end">
                                             <div class="card-header my-0 py-0">
                                                 <h6>Precio</h6>
                                             </div>
@@ -1572,7 +1594,7 @@ button[data-original-title="Help"]{ display: none; }
                                                         <span class="custom-control-label">{{ $proces->name }}</span>
                                                     </label>
                                                 </td>
-                                                <td class="text-end d-flex justify-content-end">
+                                                <td class="text-end d-flex justify-content-end mr-4">
                                                     {{ $proces->price }}
                                                 </td>
                                             </tr>
@@ -2918,6 +2940,7 @@ $( document ).ready(function() {
 
    //============== captar datos de las posibles cirugias =============(listo)
    $("#guardarC").click(function() {
+       console.log('hola');
         var reservacion = $("#reservacion").val();
         var surgery = $("#posible-surgerys").serialize();          //asignando el valor que se ingresa en el campo
 
