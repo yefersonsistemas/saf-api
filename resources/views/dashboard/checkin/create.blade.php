@@ -19,7 +19,7 @@
                 {{-- <div class="card"> --}}
                     <div class="card-body">
                         <form id="wizard_horizontal" method="POST" action="{{ route('checkin.assigment_area') }}" class="card assigmt pr-4 pl-4 mt-20">
-                            @csrf 
+                            @csrf
                             <h2>Seleccionar consultorio</h2>
                             <section>
                                 <div class="card-body">
@@ -148,6 +148,24 @@
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
+
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
     <script>
         function stopDefAction(evt) {

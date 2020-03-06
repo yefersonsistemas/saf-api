@@ -56,7 +56,7 @@
                                             <td >{{ $employe->person->dni }}</td>
                                             <td>{{ $employe->person->name }}</td>
                                             <td>{{ $employe->person->lastname }}</td>
-                                            
+
                                             <td class="d-flex justify-content-center">     <!--Especialidad-->
                                                 <a class="btn btn-info" style="color:#fff" data-toggle="modal" data-target="#{{ $employe->person->type_dni }}{{ $employe->person->dni }}"><i class="fa fa-eye"></i></a>
                                             </td>
@@ -75,42 +75,42 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar asistencia de: {{ $employe->person->name }} {{ $employe->person->lastname }}" data-id="{{ $employe->id }}"><i class="fa fa-close"></i></button>
                                                 @endif
 
-                                                @if(!empty($employe->areaassigment))  
-                                                <p class="mt-2">  
+                                                @if(!empty($employe->areaassigment))
+                                                <p class="mt-2">
                                                     <i class="fe fe-check" style="font-size:25px; font-weight:bold; color: #00ad88"></i>
                                                 </p>
                                                 @endif
-                                                
+
                                             </td>
 
                                             <!--Nombre del consultorio-->
                                             <td class="text-center">
-                                            @if(!empty($employe->areaassigment)) 
-                                            <p class="mt-2">   
+                                            @if(!empty($employe->areaassigment))
+                                            <p class="mt-2">
                                                 {{ $employe->areaassigment->area->name }}
                                             </p>
                                             @endif
 
-                                            @if(empty($employe->areaassigment))    
+                                            @if(empty($employe->areaassigment))
                                             <p class="mt-2"> ---------------</p>
                                             @endif
-                                                
+
                                             </td>
-        
+
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                        </div>  
+                        </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
-    
+
 
         <!-- Modal para ver especialidades -->
-        @foreach ($em as $employe) 
+        @foreach ($em as $employe)
             <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->dni }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -121,7 +121,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            @foreach ($employe->speciality as $item)  
+                            @foreach ($employe->speciality as $item)
                             {{ $item->name }} <br>
                             @endforeach
                         </div>
@@ -134,7 +134,7 @@
         @endforeach
 
         <!-- Modal para ver horario-->
-        @foreach ($em as $employe) 
+        @foreach ($em as $employe)
             <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -179,7 +179,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>    
+                            </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -190,7 +190,7 @@
         @endforeach
 
     <!--Modal de asistencia-->
-        
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -223,7 +223,24 @@
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
-  
+
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+{{-- <script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script> --}}
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
       <script>
         $('#exampleModal').on('show.bs.modal', function (event) {

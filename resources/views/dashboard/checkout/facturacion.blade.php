@@ -19,7 +19,7 @@
 
 @section('content')
     <form action="{{ route('checkout.guardar_factura') }}" method="POST">
-        @csrf 
+        @csrf
         <div class="section-body py-3">
             <div class="container-fluid">
                 <div class="row clearfix">
@@ -51,7 +51,7 @@
         <div class="section-body">
             <div class="container">
                 <div class="tab-content">
-                
+
                     <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                         <div class="row clearfix">
                             <div class="col-lg-10  col-md-10 col-sm-10 ml-5">
@@ -61,7 +61,7 @@
                                         <div class="col-lg-4 col-md-5 col-sm-12"><h2>Facturación</h2></div>
                                         <div class="col-lg-8 col-md-7 col-sm-12 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
                                             <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0"> {{ $fecha }}</span><br>
-                                        </div>                             
+                                        </div>
                                     </div>
 
                                     <div class="card-body">
@@ -69,7 +69,7 @@
                                             <!--Paciente-->
                                             <div class="col-lg-6 col-md-12 col-sm-12">
                                                 <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>
-                                                                        
+
                                                 <!-----------------------Campos ocultoss---------------------->
                                                 <input id="procedure_id" type="hidden" name="procedure_id" value="" >
                                                 <input id="patient_id" type="hidden" name="patient_id" value="" >
@@ -88,7 +88,7 @@
                                                 <div class="row ml-3">
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span style="font-weight:bold;">Nombres/Apellidos:</span>
-                                                    </div> 
+                                                    </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span id="name"></span><span id="lastname"></span>
                                                     </div>
@@ -118,7 +118,7 @@
                                                 <div class="row ml-3">
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span style="font-weight:bold; ">Nombres/Apellidos:</span>
-                                                    </div> 
+                                                    </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-6">
                                                         <span id="nameD"></span><span id="lastnameD"></span>
                                                     </div>
@@ -134,7 +134,7 @@
                                                 </div>
                                             </div>
                                         </div><br><br>
-                                        
+
                                         <div class="table-responsive push mt-3">
                                             <table class="table table-bordered table-hover" >
                                                 <tbody style="border-bottom: 1px solid #000">
@@ -146,14 +146,14 @@
                                                 <tbody style="border-bottom: 1px solid #000" id="procedure">
                                                 </tbody>
                                                 <tbody id="columna">
-                                                    
+
                                                 <!--para mostrar cirugia-->
-                                                </tbody> 
+                                                </tbody>
                                                 <tbody style="border-bottom: 1px solid #000" id="cirugia_html">
                                                 </tbody>
-                                                    
+
                                                 <tbody id="cirugia">
-                                                </tbody>                                             
+                                                </tbody>
                                                 <tr>
                                                     <td colspan="5" class="font600 text-right">Subtotal</td>
                                                     <td class="text-right" id="subtotal">0,00</td>
@@ -176,7 +176,7 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
     <form>
@@ -256,6 +256,23 @@
     <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+{{-- <script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script> --}}
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
     <script>
     $('#select').multiselect({
@@ -285,37 +302,37 @@
         function financial(x) {
             return Number.parseFloat(x).toFixed(2);
         }
-            
+
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
-            var dni = $("#dni").val();   
-            
-            ajax(dni);      
+            var dni = $("#dni").val();
+
+            ajax(dni);
         }); //fin de la funcion clikea
 
 
         //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
         function ajax(dni) {
-                $.ajax({ 
+                $.ajax({
                     url: "{{ route('checkout.patient') }}",   //definiendo ruta
                     type: "POST",                             //definiendo metodo
                     data: {
-                        _token: "{{ csrf_token() }}",        
+                        _token: "{{ csrf_token() }}",
                         dni: dni                               //valor que se envia
                     }
                 })
-                .done(function(data) {               
+                .done(function(data) {
                     console.log('paciente -> encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
-                    if(data[0] == 202){   
-                        console.log('si')             
+                    if(data[0] == 202){
+                        console.log('si')
                         Swal.fire({
                             title: 'Error!',
                             text: data.encontrado,
                             type: 'error',
                         });
                     }
-                    if (data[0] == 201) {                    
+                    if (data[0] == 201) {
                         Swal.fire({
                             title: 'Excelente!',
                             text:  'Paciente encontrado',
@@ -324,7 +341,7 @@
                         disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
                     }
 
-                    if (data[0] == 300) {        
+                    if (data[0] == 300) {
                         Swal.fire({
                         title: 'Factura ya fue emitida',
                         text: "Click OK para cerrar!!",
@@ -335,9 +352,9 @@
                         })
                         .then(function(){
                             window.location.href = '{{ route('checkout.index') }}'
-                        })   
-                    }        
-                      
+                        })
+                    }
+
                 })
                 .fail(function(data) {
                     console.log(data);
@@ -350,10 +367,10 @@
             console.log('hola');
 
             data_paciente = data.encontrado[0].person; //uasarla mas adelante
-            
+
             // estas variables se usaran mas adelante para mostrar la factura generada
             id_patient = data.encontrado[0].person.id;
-            id_employe = data.encontrado[0].employe.person.id; 
+            id_employe = data.encontrado[0].employe.person.id;
 
 
             //------------- consulta ---------------------
@@ -405,29 +422,29 @@
                 costo_cirugia = data.encontrado[0].surgery_r.cost; //costo de la cirugia
             }
 
-            
+
             cu = parseFloat(costo_consulta);
             ci = parseFloat(costo_cirugia);
             p = parseFloat(costo_procedimientos);
-            
+
             costo_total = cu + ci + p;
             total = costo_total;
 
             $('#total').val(costo_total);
-            
 
-            // asignando valores a los campos con id en html 
+
+            // asignando valores a los campos con id en html
             $('#patient_id').val(id_patient);
             $('#employe_id').val(id_employe);
             $('#procedure_id').val(procedures_id);
 
             $('#costo_total').text(financial(costo_total));
             $('#subtotal').text(financial(costo_total));
-            $('#dnii').text(data.encontrado[0].person.dni); 
+            $('#dnii').text(data.encontrado[0].person.dni);
             $('#name').text(data.encontrado[0].person.name);
             $('#lastname').text(data.encontrado[0].person.lastname);
             $('#phone').text(data.encontrado[0].person.phone);
-            $('#dniiD').text(data.encontrado[0].employe.person.dni); 
+            $('#dniiD').text(data.encontrado[0].employe.person.dni);
             $('#nameD').text(data.encontrado[0].employe.person.name);
             $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
             $('#phoneD').text(data.encontrado[0].employe.person.phone);
@@ -436,12 +453,12 @@
             $('#cantidad').text(data.person.dni);
 
         } // fin de la funcion que muestra datos en el html
-    
+
 
 
         //================================== para agregar procedimientos adicionales==========================
         $("#select").change(function(){
-            var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
+            var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura
             console.log('estos son ',procedure_id);
             console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
 
@@ -455,7 +472,7 @@
 
                 costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
                 procedures_id = procedures_id +','+ (data.procedure.id); // guardarndo ids
-            
+
                 console.log('ids',procedures_id);
                 console.log(costo_total)
                 $("#columna").append(procedure_select);
@@ -469,5 +486,5 @@
         }); //fin del documento
     </script>
 
-    
+
 @endsection
