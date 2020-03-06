@@ -26,7 +26,7 @@
         </div>
     </div>
 
-<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+
 <script src={{ asset("assets\bundles\lib.vendor.bundle.js") }}></script>
 <script src={{ asset("assets\bundles\counterup.bundle.js") }}></script>
 <script src={{ asset("assets\bundles\apexcharts.bundle.js") }}></script>
@@ -34,6 +34,7 @@
 <script src={{ asset("vendor\sweetalert\sweetalert.all.js") }}></script>
 <script src={{ asset("assets\js\core.js") }}></script>
 <script src={{ asset("assets\js\page\index.js") }}></script>
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
 
 <script>
     $('.datepicker-reception').datepicker({
