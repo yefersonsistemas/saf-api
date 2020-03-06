@@ -8,23 +8,23 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Citas de pacientes</div>
-                
+
                 <div class="card-body">
-                    
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
     @endsection --}}
-    
+
     @extends('dashboard.layouts.app')
-    
+
     @section('citas de pacientes','active')
     @section('citas','active')
     @section('outrol','d-block')
     @section('dire','d-none')
-    
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
@@ -42,7 +42,7 @@
             {{-- Contadores --}}
             <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <div class="card">
-                    <div class="card-body">                                
+                    <div class="card-body">
                         <h6>Reservaciones confirmadas</h6>
                         <h3 class="pt-3"><i class="fa fa-address-book"></i> <span class="counter">{{ $citasConfirmadas }}</span></h3>
                     </div>
@@ -69,7 +69,7 @@
             {{-- <div class="col-lg-3 col-md-6 col-sm-12 ">
                 <label class="form-label">Buscar:</label>
                 <div class="input-group">
-                    
+
                     <input type="text" class="form-control" placeholder="Buscar Pacientes"
                     aria-label="Buscar Pacientes" name="patient" aria-describedby="Buscar Pacientes">
                     <div class="input-group-prepend">
@@ -79,9 +79,9 @@
                     </div>
                 </div>
             </div> --}}
-      
 
-          
+
+
             <!--lista de reservaciones confirmadas-->
             <div class="col-lg-12 col-md-12 mt-10 mb-2">
 
@@ -110,7 +110,7 @@
             <div class="tab-content container-fluid" id="pills-tabContent">
 
                 <div>
-                    
+
                 </div>
 
                 <!---------------------------Citas aprobadas------------------------------->
@@ -125,12 +125,12 @@
                                     No Hay Citas Confirmadas
                                 </div>
                             @else
-                                
+
                             @endif --}}
-                            <div class="card" style="border-radius:3px; border:2px solid #000">               
+                            <div class="card " style="border-radius:3px; border:2px solid #000">
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
                                     <div class="col-lg-8 col-md-8 b_aprobadas">
-                                        <div class="row">                                            
+                                        <div class="row">
                                             <!--Imagen del paciente-->
                                             <div class="col-3" style="max-height: 100px; ">
                                                 @if (!empty($item->patient->image->path))
@@ -140,16 +140,16 @@
                                                 @endif
                                             </div>
                                             <!--Nombre del paciente-->
-                                            <div class="col-7">                                            
+                                            <div class="col-7">
                                                 <h2 class=" mb-0 p-0">
                                                 <button class="btn botom" type="button" data-toggle="collapse" data-target="#aprobadas{{ $item->patient->type_dni }}{{ $item->patient->id }}" aria-expanded="true" aria-controls="{{ $item->patient->name }}">
-                                                        {{ $item->patient->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $item->patient->name }} {{ $item->patient->lastname }}  
+                                                        {{ $item->patient->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $item->patient->name }} {{ $item->patient->lastname }}
                                                 </button>
                                                 </h2>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" col-lg-4 col-md-4 ">
+                                    <div class=" col-lg-4 col-md-4">
                                         <div class="d-flex justify-content-end container text-center mt-2 pt-1" id="ID_element_0">
                                             @if($item->patient->inputoutput->isEmpty())
                                                 <button class="btn btn-secondary state state_0 mr-1" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -191,40 +191,40 @@
                                 </div>
 
                                 <!--informacion del paciente reservacion y demas-->
-                                <div id="aprobadas{{ $item->patient->type_dni }}{{ $item->patient->id }}" class="collapse row" style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample2">
+                                <div id="aprobadas{{ $item->patient->type_dni }}{{ $item->patient->id }}" class="collapse row " style="border-top:1px solid #EFF2F4" aria-labelledby="headingOne" data-parent="#accordionExample2">
                                     <div class="col-md-12 col-lg-9 col-sm-12">
                                         <div class="row card-body d-flex justify-content-lg-between">
-    
+
                                             <!--Medico tratente-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->person->name }} </span>  <span class="text-muted">{{ $item->person->lastname }}</span> <span class="text-muted"><i class="fe fe-phone"></i> {{ $item->person->phone }}</span></div>
                                                 </div>
-                                            </div>  
-    
+                                            </div>
+
                                             <!--Motivo de la cita-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->speciality->name }} </span></div>
                                                 </div>
-                                            </div> 
-    
+                                            </div>
+
                                             <!--Motivo de la cita-->
                                             <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de cita:</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $item->description }} </span></div>
                                                 </div>
-                                            </div> 
-            
+                                            </div>
+
                                         </div>
                                     </div>
-    
+
                                 </div>
                             </div>
-                            
+
                         @endforeach
 
                         @if($confirmadas->first() == [])
@@ -233,7 +233,7 @@
                                 <h6 class="">No hay reservaciones aprobadas</h6>
                                 </div>
                             </div>
-                        @endif  
+                        @endif
                         </div>
                 </div>
 
@@ -246,11 +246,11 @@
                         @foreach ($espera as $es)
                             @if(!empty($es->patient->inputoutput->first()->inside) && empty($es->patient->inputoutput->first()->inside_office) && empty($es->patient->inputoutput->first()->outside_office) && empty($es->patient->inputoutput->first()->outside))
                                 {{-- <div class="card " style="border-radius:3px; border:2px solid #000">   --}}
-                                    <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">              
+                                    <div class="card" style="border-radius:3px; border:2px solid  #FACC2E">
 
                                     <div class="row card-header pl-5 pr-5 heig" id="headingOne">
-                                        <div class="col-lg-8 col-md-8">
-                                            <div class="row" id="b_espera">
+                                        <div class="col-lg-8 col-md-8 b_espera">
+                                            <div class="row">
                                                 <!--Imagen del paciente-->
                                                 <div class="col-3" style="max-height: 100px; ">
                                                     @if (!empty($es->patient->image->path))
@@ -260,10 +260,10 @@
                                                     @endif
                                                 </div>
                                                 <!--Nombre del paciente-->
-                                                <div class="col-7">                                            
+                                                <div class="col-7">
                                                     <h2 class=" mb-0 p-0" >
                                                     <button class="btn botom" type="button" data-toggle="collapse" data-target="#espera{{ $es->patient->type_dni }}{{ $es->patient->id }}" aria-expanded="true" aria-controls="{{ $es->patient->name }}">
-                                                            {{ $es->patient->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $es->patient->name }} {{ $es->patient->lastname }}  
+                                                            {{ $es->patient->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $es->patient->name }} {{ $es->patient->lastname }}
                                                     </button>
                                                     </h2>
                                                 </div>
@@ -277,14 +277,14 @@
                                                     <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
+
                                                 @if(!empty($es->patient->inputoutput->first()->inside) && empty($es->patient->inputoutput->first()->inside_office) && empty($es->patient->inputoutput->first()->outside_office) && empty($es->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_1 mr-1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
+
                                                 @if(!empty($es->patient->inputoutput->first()->inside_office) && !empty($es->patient->inputoutput->first()->inside)  && empty($es->patient->inputoutput->first()->outside_office) && empty($es->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -298,14 +298,14 @@
                                                     <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
+
                                                 @if(!empty($es->patient->inputoutput->first()->inside_office) && !empty($es->patient->inputoutput->first()->inside) && !empty($es->patient->inputoutput->first()->outside_office) && !empty($es->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state  mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
+
                                             </div>
                                         </div>
                                     </div>
@@ -321,7 +321,7 @@
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $es->person->name }} </span>  <span class=" mb-2 text-muted">{{ $es->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $es->person->phone }}</span></div>
                                                     </div>
-                                                </div>  
+                                                </div>
 
                                                 <!--Especialidad-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
@@ -329,7 +329,7 @@
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Especialidad:</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $es->speciality->name }} </span> </div>
                                                     </div>
-                                                </div>  
+                                                </div>
 
                                                 <!--Motivo de la cita-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
@@ -337,14 +337,14 @@
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"> Motivo de cita:</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $es->description}} </span> </div>
                                                     </div>
-                                                </div>  
-                
+                                                </div>
+
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-                            @endif                           
+                            @endif
                         @endforeach
                         @if($dentro_instalacion == false)
                             <div class="card p-2">
@@ -352,7 +352,7 @@
                                 <h6 class="">No hay pacientes en sala de espera</h6>
                                 </div>
                             </div>
-                        @endif  
+                        @endif
                     </div>
                 </div>
 
@@ -364,9 +364,9 @@
                     <div  class="accordion" id="accordionExample4" id="espera" role="tabpanel" aria-labelledby="pills-dentro-tab">
                         @foreach ($espera as $dentro)
                             @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside)  && empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
-                            <div class="card" style="border-radius:3px; border:2px solid  #00ad88">             
+                            <div class="card" style="border-radius:3px; border:2px solid  #00ad88">
                                     <div class="row card-header pl-5 pr-5 heig" id="headingOne">
-                                        <div class="col-lg-8 col-md-8" id="b_dentro">
+                                        <div class="col-lg-8 col-md-8 b_dentro">
                                             <div class="row">
                                                 <!--Imagen del paciente-->
                                                 <div class="col-3" style="max-height: 100px; ">
@@ -377,10 +377,10 @@
                                                     @endif
                                                 </div>
                                                 <!--Nombre del paciente-->
-                                                <div class="col-7">                                            
+                                                <div class="col-7">
                                                     <h2 class=" mb-0 p-0" >
                                                     <button class="btn botom" type="button" data-toggle="collapse" data-target="#dentro{{ $dentro->patient->type_dni }}{{ $dentro->patient->id }}" aria-expanded="true" aria-controls="{{ $dentro->patient->name }}">
-                                                            {{ $dentro->patient->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $dentro->patient->name }} {{ $dentro->patient->lastname }}  
+                                                            {{ $dentro->patient->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $dentro->patient->name }} {{ $dentro->patient->lastname }}
                                                     </button>
                                                     </h2>
                                                 </div>
@@ -394,7 +394,7 @@
                                                     <button class="btn btn-secondary state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-secondary state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
+
                                                 @if(!empty($dentro->patient->inputoutput->first()->inside) && empty($dentro->patient->inputoutput->first()->inside_office) && empty($dentro->patient->inputoutput->first()->outside_office) && empty($dentro->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_1 mr-1" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
@@ -414,14 +414,14 @@
                                                     <button class="btn btn-success state state_2 mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-danger state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
+
                                                 @if(!empty($dentro->patient->inputoutput->first()->inside_office) && !empty($dentro->patient->inputoutput->first()->inside) && !empty($dentro->patient->inputoutput->first()->outside_office) && !empty($dentro->patient->inputoutput->first()->outside))
                                                     <button class="btn btn-success state state_0 mr-1" type="button" state="0" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state state_1 mr-1" type="button" state="1" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state  mr-1" type="button" state="2" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                     <button class="btn btn-success state state_3 mr-1" type="button" state="3" onclick="entradas($(this).attr('state'), 'ID_element_0')" disabled></button>
                                                 @endif
-    
+
                                             </div>
                                         </div>
                                     </div>
@@ -437,7 +437,7 @@
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $dentro->person->name }} </span>  <span class=" mb-2 text-muted">{{ $dentro->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $dentro->person->phone }}</span></div>
                                                     </div>
-                                                </div>  
+                                                </div>
 
                                                 <!--Especialidad-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
@@ -445,7 +445,7 @@
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start">Especialidad:</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $dentro->speciality->name }} </span> </div>
                                                     </div>
-                                                </div>  
+                                                </div>
 
                                                 <!--Motivo de cita-->
                                                 <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
@@ -453,15 +453,15 @@
                                                         <div class="col-md-4"><h5 class="card-title color_titulo text-start">Motivo de cita</h5></div>
                                                         <div class="col-md-8"><span class="text-muted">  {{ $dentro->description}} </span> </div>
                                                     </div>
-                                                </div>  
-                
+                                                </div>
+
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
                             @endif
-                        @endforeach   
+                        @endforeach
 
                         @if($dentro_office == false)
                             <div class="card p-2">
@@ -469,12 +469,12 @@
                                 <h6 class="">No hay pacientes dentro de consultorio</h6>
                                 </div>
                             </div>
-                        @endif                     
+                        @endif
 
                     </div>
-                   
+
                 </div>
-                
+
                 <!----------------------Fuera del consultorio----------------------->
                 <div class="tab-pane fade show active" id="fuera_office" role="tabpanel" aria-labelledby="pills-fuera_office-tab">
                     <div class="row mb-4 d-flex justify-content-end">
@@ -505,13 +505,13 @@
 
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
 
-                                    <div class="col-lg-8 col-md-8" id="b_fueraC">
+                                    <div class="col-lg-8 col-md-8 b_fueraC" >
                                         <div class="row">
                                             @if($itinerary->proximaCita == 'posible')
                                             <div class="col-1 mt-2" style="max-height: 100px;">
                                               <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#00ad88;"></span>
                                              </div>
-                                            @endif                                           
+                                            @endif
                                             <!--Imagen del paciente-->
                                             <div class="col-3" style="max-height: 100px; ">
                                                 @if (!empty($itinerary->person->image->path))
@@ -521,10 +521,10 @@
                                                 @endif
                                             </div>
                                             <!--Nombre del paciente-->
-                                            <div class="col-7">                                            
+                                            <div class="col-7">
                                                 <h2 class=" mb-0 p-0" >
                                                 <button class="btn botom" type="button" data-toggle="collapse" data-target="#fuera_office{{ $itinerary->person->type_dni }}{{ $itinerary->person->id }}" aria-expanded="true" aria-controls="{{ $itinerary->person->name }}">
-                                                        {{ $itinerary->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $itinerary->person->name }} {{ $itinerary->person->lastname }}  
+                                                        {{ $itinerary->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $itinerary->person->name }} {{ $itinerary->person->lastname }}
                                                 </button>
                                                 </h2>
                                             </div>
@@ -582,8 +582,8 @@
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $itinerary->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $itinerary->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $itinerary->employe->person->phone }}</span></div>
                                                 </div>
-                                            </div> 
-                                            
+                                            </div>
+
                                             <!--Especialidad-->
                                             {{-- <div class="col-md-12 col-sm-12 col-lg-12  mb-0 p-0" style="width: 18rem;">
                                                 <div class="card-body row mb-0 p-0 pt-3">
@@ -591,7 +591,7 @@
                                                     <div class="col-md-8"><span class="text-muted">  {{ $itinerary->speciality->name }} </span> </div>
                                                 </div>
                                             </div>  --}}
-                                                
+
                                             <!--Posibles cirugias-->
                                             <div class="card col-md-5 col-sm-12 col-lg-5 ml-2 h-25">
                                                 <div class="card-body">
@@ -604,7 +604,7 @@
                                                             <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$itinerary->typesurgery->id, 2]) }}">{{ $itinerary->typesurgery->name }}</a></span><br>
                                                             @endif
                                                             <span class="titulos">Descripcion: </span><span>{{ $itinerary->typesurgery->description }}</span><br>
-                                                            <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>                                               
+                                                            <span class="titulos">Duracion: </span><span>{{ $itinerary->typesurgery->duration }}</span> <br>
                                                             <span class="titulos">costo: </span><span>{{ $itinerary->typesurgery->cost }}</span><br>
                                                             @if ($itinerary->typesurgery->classification_surgery_id == 1)
                                                                 <span><a href="{{ route('checkout.programar_cirugia', $itinerary->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
@@ -621,7 +621,7 @@
                                                                     <h5 class="card-title color_titulo"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2 pt-2" style="animation: pulse 2s infinite">Cirugia Agendada</h5>
                                                                     <span class="titulos">Nombre:</span> <span>{{ $itinerary->typesurgery->name }}</span><br>
                                                                     <span class="titulos">Medico: </span><span>{{ $itinerary->employe->person->name }} {{ $itinerary->employe->person->lastname }}</span><br>
-                                                                    <span class="titulos">Fecha: </span><span>{{ $item->date }}</span>    
+                                                                    <span class="titulos">Fecha: </span><span>{{ $item->date }}</span>
                                                                 @endif
                                                             @endforeach
                                                         @endif
@@ -631,14 +631,14 @@
                                                                 <h5 class="card-title color_titulo"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2 pt-2" style="animation: pulse 2s infinite">Cirugia Agendada</h5>
                                                                     <span class="titulos">Nombre:</span> <span>{{ $itinerary->typesurgery->name }}</span><br>
                                                                     <span class="titulos">Medico: </span><span>{{ $itinerary->reservation->employe->person->name }} {{ $itinerary->reservation->employe->person->lastname }}</span><br>
-                                                                    <span class="titulos">Fecha: </span><span>{{ $item->date }}</span>  
+                                                                    <span class="titulos">Fecha: </span><span>{{ $item->date }}</span>
                                                                 @endif
                                                             @endforeach
                                                         @endif
                                                     @endif
-                                                </div>                                            
-                                            </div> 
-                                                
+                                                </div>
+                                            </div>
+
                                             <!--Posibles procedimientos-->
                                             <div class="card col-md-5 col-sm-12 col-lg-5 ml-2 h-25">
                                                 <div class="card-body">
@@ -652,9 +652,9 @@
                                                     @else
                                                         <span class="mb-2 text-muted">Sin procedimientos</span><br>
                                                     @endif
-                                                </div>                                                
-                                            </div> 
-            
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -664,73 +664,73 @@
                                             <div class="card-body">
                                                 <!--PROXIMA CITA-->
                                                 @if($itinerary->proximaCita == 'posible')
-                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
+                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                        <a href="{{ route('checkout.nueva_cita', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                         <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:#00ad88;"></span>Agendar cita
-                                                       </a>                                                    
+                                                       </a>
                                                    </div>
                                                 @endif
 
                                                 @if($itinerary->proximaCita == 'agendada')
-                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">      
+                                                   <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                         <span class="status-icon" style="  padding:5px; animation: pulse 2s infinite;background:red;"></span>Cita agendada
                                                    </div>
                                                 @endif
 
                                                 <!--EXAMEN-->
                                                 @if($itinerary->exam_id != null)
-                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">                                                   
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                         <a href="{{ route('checkout.imprimir_examen', $itinerary->exam_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                         <i class="fa fa-print"></i> Examen
-                                                        </a>                                                   
+                                                        </a>
                                                     </div>
                                                 @endif
 
                                                 <!--RECETARIO-->
                                                 @if($itinerary->recipe_id != null)
-                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">                                                    
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                         <a href="{{ route('checkout.imprimir_recipe', $itinerary->recipe_id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Recetario
-                                                        </a>                                                   
+                                                        </a>
                                                     </div>
                                                 @endif
 
                                                 <!--REFERENCIA-->
                                                 @if($itinerary->reference_id != null)
-                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">                                                    
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                         <a href="{{ route('checkout.imprimir_referencia', $itinerary->id) }}" class="btn btn-boo abarca" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Referencia
-                                                        </a>                                                    
+                                                        </a>
                                                     </div>
                                                 @endif
 
                                                 <!--REPOSO-->
                                                 @if($itinerary->repose_id != null)
-                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                         <a href="{{ route('checkout.imprimir_reposo', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Reposo
-                                                        </a>                                                   
+                                                        </a>
                                                     </div>
                                                 @endif
 
                                                 <!--INFORME-->
                                                 @if($itinerary->report_medico_id != null)
-                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                   
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                         <a href="{{ route('checkout.imprimir_informe', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button" target="_blank">
                                                             <i class="fa fa-print"> </i> Informe
-                                                        </a>                                                    
+                                                        </a>
                                                     </div>
                                                 @endif
 
                                                 <!--FACTURAR-->
                                                 @if($itinerary->procedureR_id != null)
-                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">                                                  
-                                                        @if($itinerary->billing == null)                                                    
+                                                    <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
+                                                        @if($itinerary->billing == null)
                                                             <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                                 <i class="fa fa-print"> </i> Facturar
                                                             </a>
                                                         @else
-                                                            @if($itinerary->billing->person_id == null) 
+                                                            @if($itinerary->billing->person_id == null)
                                                                 <a href="{{ route('checkout.facturacionLista', $itinerary->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                                     <i class="fa fa-print"> </i> Facturar
                                                                 </a>
@@ -739,10 +739,10 @@
                                                                     <i class="fa fa-print"> </i> Imprimir factura
                                                                 </a>
                                                             @endif
-                                                        @endif                                                    
+                                                        @endif
                                                     </div>
                                                 @endif
-                                            </div>                                                
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -756,7 +756,7 @@
                             <h6 class="">No hay pacientes fuera de consultorio</h6>
                             </div>
                         </div>
-                    @endif  
+                    @endif
                         </div>
                 </div>
 
@@ -768,8 +768,8 @@
                     </div>
                     <div  class="accordion" id="accordionExample5" id="fuera" role="tabpanel" aria-labelledby="pills-fuera-tab">
                         @foreach ($itineraryFuera as $fuera)
-                        @if(!empty($fuera->person->inputoutput->first()->inside_office) && !empty($fuera->person->inputoutput->first()->inside) && !empty($fuera->person->inputoutput->first()->outside_office) && !empty($fuera->person->inputoutput->first()->outside))    
-            
+                        @if(!empty($fuera->person->inputoutput->first()->inside_office) && !empty($fuera->person->inputoutput->first()->inside) && !empty($fuera->person->inputoutput->first()->outside_office) && !empty($fuera->person->inputoutput->first()->outside))
+
                             <div class="card " style="border-radius:3px; border:2px solid #ccc">
                                 <div class="row card-header pl-5 pr-5 heig" id="headingOne">
 
@@ -784,10 +784,10 @@
                                                 @endif
                                             </div>
                                             <!--Nombre del paciente-->
-                                            <div class="col-7">                                            
+                                            <div class="col-7">
                                                 <h2 class=" mb-0 p-0" >
                                                 <button class="btn botom" type="button" data-toggle="collapse" data-target="#fuera{{ $fuera->person->type_dni }}{{ $fuera->person->id }}" aria-expanded="true" aria-controls="{{ $fuera->person->name }}">
-                                                        {{ $fuera->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $fuera->person->name }} {{ $fuera->person->lastname }}  
+                                                        {{ $fuera->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $fuera->person->name }} {{ $fuera->person->lastname }}
                                                 </button>
                                                 </h2>
                                             </div>
@@ -845,8 +845,8 @@
                                                     <div class="col-md-4"><h5 class="card-title color_titulo text-start"><i class="icon-user"></i> Medico tratante</h5></div>
                                                     <div class="col-md-8"><span class="text-muted">  {{ $fuera->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $fuera->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $fuera->employe->person->phone }}</span></div>
                                                 </div>
-                                            </div>  
-                                                
+                                            </div>
+
                                             <!--Posibles cirugias-->
                                             <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                                 <div class="card-body">
@@ -858,14 +858,14 @@
                                                     <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$fuera->typesurgery->id, 2]) }}">{{ $fuera->typesurgery->name }}</a></span><br>
                                                     @endif
                                                         <span class="titulos">Descripcion: </span><span>{{ $fuera->typesurgery->description }}</span><br>
-                                                        <span class="titulos">Duracion: </span><span>{{ $fuera->typesurgery->duration }}</span> <br>                                               
-                                                        <span class="titulos">costo: </span><span>{{ $fuera->typesurgery->cost }}</span><br>                                                       
+                                                        <span class="titulos">Duracion: </span><span>{{ $fuera->typesurgery->duration }}</span> <br>
+                                                        <span class="titulos">costo: </span><span>{{ $fuera->typesurgery->cost }}</span><br>
                                                     @else
                                                         <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                     @endif
-                                                </div>                                            
-                                            </div> 
-                                                
+                                                </div>
+                                            </div>
+
                                             <!--Posibles procedimientos-->
                                             <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                                 <div class="card-body">
@@ -879,15 +879,15 @@
                                                     @else
                                                         <span class="mb-2 text-muted">Sin procedimientos</span><br>
                                                     @endif
-                                                </div>                                                
-                                            </div> 
-            
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        @endif 
+                        @endif
                         @endforeach
 
                         @if($fuera_instalacion == false)
@@ -896,7 +896,7 @@
                                 <h6 class="">No hay pacientes fuera de las instalaciones</h6>
                                 </div>
                             </div>
-                        @endif  
+                        @endif
                     </div>
                 </div>
 
@@ -939,10 +939,10 @@
                                                 @endif
                                             </div>
                                             <!--Nombre del paciente-->
-                                            <div class="col-7">                                            
+                                            <div class="col-7">
                                                 <h2 class=" mb-0 p-0" >
                                                 <button class="btn botom" type="button" data-toggle="collapse" data-target="#total{{ $todas->person->type_dni }}{{ $todas->person->id }}" aria-expanded="true" aria-controls="{{ $todas->person->name }}">
-                                                        {{ $todas->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $todas->person->name }} {{ $todas->person->lastname }}  
+                                                        {{ $todas->person->dni }} &nbsp; &nbsp;&nbsp;&nbsp;  {{ $todas->person->name }} {{ $todas->person->lastname }}
                                                 </button>
                                                 </h2>
                                             </div>
@@ -1001,7 +1001,7 @@
                                                     <div class="col-md-8"><span class="text-muted">  {{ $todas->employe->person->name }} </span>  <span class=" mb-2 text-muted">{{ $todas->employe->person->lastname }}</span> <span class=" mb-2 text-muted"><i class="fe fe-phone"></i> {{ $todas->employe->person->phone }}</span></div>
                                                 </div>
                                             </div>  --}}
-                                                
+
                                             <!--Posibles cirugias-->
                                             {{-- <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                                 <div class="card-body">
@@ -1013,15 +1013,15 @@
                                                     <span class="titulos">Nombre:</span> <span class="mb-2 text-muted"><a class="enlace_cirugia" href="{{ route('checkout.cirugias_detalles',[$todas->typesurgery->id, 2]) }}">{{ $todas->typesurgery->name }}</a></span><br>
                                                     @endif
                                                         <span class="titulos">Descripcion: </span><span>{{ $todas->typesurgery->description }}</span><br>
-                                                        <span class="titulos">Duracion: </span><span>{{ $todas->typesurgery->duration }}</span> <br>                                               
+                                                        <span class="titulos">Duracion: </span><span>{{ $todas->typesurgery->duration }}</span> <br>
                                                         <span class="titulos">costo: </span><span>{{ $todas->typesurgery->cost }}</span><br>
                                                         <span><a href="{{ route('checkout.programar_cirugia', $todas->id)}}" class="btn btn-boo abarca"><i class="fa fa-plus-square mr-1"></i>Agendar Cirugia</a></span>
                                                     @else
                                                         <span class="mb-2 text-muted">Sin cirugia</span><br>
                                                     @endif
-                                                </div>                                            
+                                                </div>
                                             </div>  --}}
-                                                
+
                                             <!--Posibles procedimientos-->
                                             {{-- <div class="card col-md-12 col-sm-12 col-lg-5 ml-2" style="width: 18rem;">
                                                 <div class="card-body">
@@ -1035,9 +1035,9 @@
                                                     @else
                                                         <span class="mb-2 text-muted">Sin procedimientos</span><br>
                                                     @endif
-                                                </div>                                                
-                                            </div> 
-            
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div> --}}
 
@@ -1062,7 +1062,7 @@
                                                         </a>
                                                     @endif
                                                 </div> --}}
- 
+
                                                 <!--REFERENCIA-->
                                                 {{-- <div class="col-lg-7 col-md-12 col-sm-12 d-flex justify-content-end mb-3 ml-3">
                                                     @if($todas->reference_id != null)
@@ -1093,12 +1093,12 @@
                                                 <!--FACTURAR-->
                                                 {{-- <div class="col-lg-7 col-md-12 col-sm-12 justify-content-end mb-3 ml-3">
                                                     @if($todas->procedureR_id != null)
-                                                        @if($todas->billing == null)                                                    
+                                                        @if($todas->billing == null)
                                                             <a href="{{ route('checkout.facturacionLista', $todas->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                                 <i class="fa fa-print"> </i> Facturar
                                                             </a>
                                                         @else
-                                                            @if($todas->billing->person_id == null) 
+                                                            @if($todas->billing->person_id == null)
                                                                 <a href="{{ route('checkout.facturacionLista', $todas->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                                     <i class="fa fa-print"> </i> Facturar
                                                                 </a>
@@ -1117,7 +1117,7 @@
                                                         <i class="fa fa-calendar-plus-o"></i> Cita
                                                     </a>
                                                 </div> --}}
-                                            {{-- </div>                                                
+                                            {{-- </div>
                                         </div> --}}
                                     {{-- </div> --}}
                                 {{-- </div>
@@ -1127,7 +1127,7 @@
                         {{-- @endforeach --}}
                         {{-- </div> --}}
                 {{-- </div> --}}
-                
+
 
             </div>
 
@@ -1142,68 +1142,123 @@
     <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
     <script>
-        //========================buscador en tiempo real de enfermedades=======================
+        //========================buscador en tiempo real de Citas Aprobadas=======================
         $(document).ready(function(){
-          $("#buscar_aprobadas").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            console.log(value);
-            $(".b_aprobadas div").filter(function() {
-              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-          });
+        $("#buscar_aprobadas").on("keyup", function() {
+
+            var unicode = event.charCode ? event.charCode : event.keyCode;
+                if (unicode == 27) { $(this).val(""); }
+                var searchKey = $(this).val().toLowerCase();
+                $('.b_aprobadas').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+                    var accordion = $('#accordion panel');
+
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().parent().show();
+                    } else {
+                        $(this).parent().parent().hide();
+                        $('.panel-collapse.in').collapse('hide');
+                    }
+                });
+
+        });
         });
     </script>
 
     <script>
-        //========================buscador en tiempo real de enfermedades=======================
+        //========================buscador en tiempo real de En Espera=======================
         $(document).ready(function(){
         $("#buscar_espera").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            console.log(value);
-            $("#b_espera div").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
+
+            var unicode = event.charCode ? event.charCode : event.keyCode;
+                if (unicode == 27) { $(this).val(""); }
+                var searchKey = $(this).val().toLowerCase();
+                $('.b_espera').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+                    var accordion = $('#accordion panel');
+
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().parent().show();
+                    } else {
+                        $(this).parent().parent().hide();
+                        $('.panel-collapse.in').collapse('hide');
+                    }
+                });
+
         });
         });
     </script>
 
     <script>
-        //========================buscador en tiempo real de enfermedades=======================
+        //========================buscador en tiempo real de Dentro del Consultorio=======================
         $(document).ready(function(){
         $("#buscar_dentro").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            console.log(value);
-            $("#b_dentro div").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
+
+            var unicode = event.charCode ? event.charCode : event.keyCode;
+                if (unicode == 27) { $(this).val(""); }
+                var searchKey = $(this).val().toLowerCase();
+                $('.b_dentro').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+                    var accordion = $('#accordion panel');
+
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().parent().show();
+                    } else {
+                        $(this).parent().parent().hide();
+                        $('.panel-collapse.in').collapse('hide');
+                    }
+                });
+
         });
         });
     </script>
 
     <script>
-        //========================buscador en tiempo real de enfermedades=======================
+        //========================buscador en tiempo real de Fuera del Consultorio=======================
         $(document).ready(function(){
         $("#buscar_fueraC").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            console.log(value);
-            $("#b_fueraC div").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
+
+            var unicode = event.charCode ? event.charCode : event.keyCode;
+                if (unicode == 27) { $(this).val(""); }
+                var searchKey = $(this).val().toLowerCase();
+                $('.b_fueraC').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+                    var accordion = $('#accordion panel');
+
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().parent().show();
+                    } else {
+                        $(this).parent().parent().hide();
+                        $('.panel-collapse.in').collapse('hide');
+                    }
+                });
+
         });
         });
     </script>
 
 <script>
-    //========================buscador en tiempo real de enfermedades=======================
+    //========================buscador en tiempo real de Fuera de las Instalaciones=======================
     $(document).ready(function(){
-    $("#buscar_fueraI").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        console.log(value);
-        $("#b_fueraI div").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $("#buscar_fueraI").on("keyup", function() {
+
+            var unicode = event.charCode ? event.charCode : event.keyCode;
+                if (unicode == 27) { $(this).val(""); }
+                var searchKey = $(this).val().toLowerCase();
+                $('.b_fueraI').each(function() {
+                    var cellText = $(this).text().toLowerCase();
+                    var accordion = $('#accordion panel');
+
+                    if (cellText.indexOf(searchKey) >= 0) {
+                        $(this).parent().parent().show();
+                    } else {
+                        $(this).parent().parent().hide();
+                        $('.panel-collapse.in').collapse('hide');
+                    }
+                });
+
         });
-    });
-    });
+        });
 </script>
 
     <script>

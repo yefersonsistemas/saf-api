@@ -99,8 +99,8 @@
 
                                             <td>
                                                 <ul style="list-style-type: none;" class="p-0 m-0 text-nowrap" >
-                                                    <li class="@yield('doctor')"><a href=" {{ route('director.reservations_doctor', $employe->person_id)  }} "><i class="fe fe-calendar"></i>&nbsp;&nbsp;<span>Citas de Pacientes</span></a></li>
-                                                    <li class="@yield('cirugia')"><a href="{{ route('director.surgeriesDoctor', $employe->person_id) }}"><i class="fa fa-list"></i>&nbsp;&nbsp;<span>Lista de Cirugías</span></a></li>
+                                                    <li class="@yield('doctor')"><a href=" {{ route('director.reservations_doctor', $employe->person_id)  }}"data-toggle="tooltip" data-placement="top" title="Citas de Pacientes"><i class="fe fe-calendar"></i></a></li>
+                                                    <li class="@yield('cirugia')"><a href="{{ route('director.surgeriesDoctor', $employe->person_id) }}" data-toggle="tooltip" data-placement="bottom" title="Lista de Cirugías"><i class="fa fa-list"></i></a></li>
                                                 </ul>
                                             </td>
 

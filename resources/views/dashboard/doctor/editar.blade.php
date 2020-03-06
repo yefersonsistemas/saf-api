@@ -199,7 +199,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                                 <!--HEADER-->
-                                <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
+                                <a id="btnBack" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
                                 <div class="container">
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">
@@ -827,7 +827,7 @@ button[data-original-title="Help"]{ display: none; }
                                                                                                         </a>
                                                                                                         <a style="cursor:pointer" id="{{$item->id}}" name="{{$itinerary->recipe->id}}" class="text-dark btn d-inline recipe_id">
                                                                                                             <i class="icon-trash"></i>
-                                                                                                        </a>                                                                                                   
+                                                                                                        </a>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             @endforeach
@@ -1082,8 +1082,8 @@ button[data-original-title="Help"]{ display: none; }
         <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"></button>
         <div id="cambiar">
             <a class="btn medio" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
-        </div>  
-      
+        </div>
+
         <div class="caption" id="caption">
 
         </div>
@@ -1384,7 +1384,7 @@ button[data-original-title="Help"]{ display: none; }
                                         </tr>
                                     </thead>
                                     <tbody id="modal_examen" class="mt-4">
-                                        @if($diff_E != null)        
+                                        @if($diff_E != null)
                                             @foreach ($diff_E as $exam)
                                                 <tr id="quitar_examen{{$exam->id}}">
                                                     <td>
@@ -1641,7 +1641,7 @@ button[data-original-title="Help"]{ display: none; }
         $("#caption").removeClass("caption");
         $("#caption").addClass("caption_medio");
 
-       $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> 
+       $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
                           <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
 
        //aumentar
@@ -1650,7 +1650,7 @@ button[data-original-title="Help"]{ display: none; }
             $("#caption").removeClass("caption_medio");
             $("#caption").addClass("caption_grande");
 
-            $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> 
+            $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
                                <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
 
            $('#extra_grande').click(function(){
@@ -1663,11 +1663,11 @@ button[data-original-title="Help"]{ display: none; }
       });
 
       });
-   
+
     });
 
 
-   
+
 </script>
 
 
@@ -1896,23 +1896,23 @@ $( document ).ready(function() {
 
     function addRow(data) {
         console.log('recibo',data);
-        $('#addRow').append(`<tr class="gradeA" id="recipe${data.id}"> 
-                                <td>${data.medicine.name}</td> 
+        $('#addRow').append(`<tr class="gradeA" id="recipe${data.id}">
+                                <td>${data.medicine.name}</td>
                                 <td>${data.doses}</td>
-                                <td>${data.measure}</td> 
-                                <td>${data.duration}</td> 
-                                <td>${data.indications}</td> 
+                                <td>${data.measure}</td>
+                                <td>${data.duration}</td>
+                                <td>${data.indications}</td>
                                 <td class="text-center d-flex">
                                     <a  style="cursor:pointer" id="editar_medicine" name="${data.id}" class="btn text-dark d-inline">
                                         <i class="icon-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a style="cursor:pointer" id="${data.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
                                         <i class="icon-trash"></i>
-                                    </a>                                                                                                   
-                                </td>                
+                                    </a>
+                                </td>
                                 </tr>`);
      }
-   
+
 
     $(document).on('click', '.recipe_id', function(event) {
         let recipe_id = this.name;
@@ -1930,7 +1930,7 @@ $( document ).ready(function() {
             recipe_id:recipe_id,
             }
         })
-            .done(function(data) { 
+            .done(function(data) {
                 if(data[0] == 202){                  //si no trae valores
                 Swal.fire({
                     title: data.recipe,
@@ -1938,7 +1938,7 @@ $( document ).ready(function() {
                     type: 'success',
                 });
             }
-          
+
             console.log('hola como esta',tratamiento_id);
         })
         .fail(function(data) {
@@ -1961,7 +1961,7 @@ $( document ).ready(function() {
                 treatment_id:data,
             }
         })
-            .done(function(data) { 
+            .done(function(data) {
                 console.log('detalles',data)
                 mostrarTratamiento(data.treatment);
         })
@@ -2608,7 +2608,7 @@ $( document ).ready(function() {
         var reservacion = $("#reservacion").val();
         var procesof = $("#proceduresC-office").serialize();          //asignando el valor que se ingresa en el campo
         var diagnostic = $("#diagnostic_id").val();
-        
+
 
         ajax_PO(procesof,reservacion,diagnostic); //enviando el valor a la funcion ajax(darle cualquier nombre)
     }); //fin de la funcion clikea
@@ -2827,7 +2827,7 @@ $( document ).ready(function() {
         })
         });
     });
- 
+
 
 
     //-------------------------------------    POSIBLE PROCEDIMIENTOS ------------------------------------
@@ -3016,7 +3016,7 @@ $( document ).ready(function() {
     } // fin de la funcion
 
     //======================== mostrando posibles cirugias ======================
-    function mostrarSurgery(data){  
+    function mostrarSurgery(data){
         for($i=0; $i < data.length; $i++){
             cirugias='<tr id="'+data[$i].id+'"><input type="hidden" value="'+data[$i].id+'" id="cirugia_posible"><input type="hidden" value="'+data[$i].name+'" id="cirugia_posible_name"><input type="hidden" value="'+data[$i].cost+'" id="cirugia_posible_costo"><input type="hidden" value="'+data[$i].classification.name+'" id="cirugia_posible_clasificacion"><td id="'+data[$i].id+'"><div class="col-6" >'+data[$i].name+'</div></td><td class="text-center"><a style="cursor:pointer" id="cirugiaP_id" name="'+data[$i].id+'" class="text-dark btn"><i class="icon-trash"></i></a></td></tr>'
             $("#cirugias").html(cirugias);
@@ -3100,6 +3100,28 @@ $( document ).ready(function() {
         }
 
     });
+
+    btnBack.onclick = function() {
+
+    console.log('ken');
+
+    swal.fire({
+    title: "¿Seguro que desea salir?",
+    text: "Su consulta sera anulada",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: "¡Si, anular la consulta!",
+    closeOnConfirm: false,
+    allowOutsideClick:false
+        })
+        .then(function(){
+                window.location.href = '{{ route('doctor.index') }}'
+            });
+    };
+
+
+
 </script>
 
 @endsection
