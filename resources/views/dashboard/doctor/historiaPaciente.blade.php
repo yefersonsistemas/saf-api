@@ -1373,6 +1373,24 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+var submitted = false;
+
+ $(document).ready(function() {
+   $("form").submit(function() {
+     submitted = true;
+   });
+
+   window.onbeforeunload = function () {
+     if (!submitted) {
+       return 'Do you really want to leave the page?';
+     }
+   }
+ });
+</script>
+{{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
 <script>
     //========================buscador en tiempo real de enfermedades=======================
     $(document).ready(function(){

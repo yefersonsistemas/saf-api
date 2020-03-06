@@ -529,7 +529,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div id="agregar_cirugia">
                                                             @if($cite->previous_surgery != null)
                                                             <div class="row" id="cirugia{{$cite->id}}">
-                                                                <div class="col-9">
+                                                                <div class="col-10">
                                                                     <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
                                                                 </div>
                                                                 <div class="text-center">
@@ -1277,7 +1277,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>
+                                <textarea id="form_cirugias" cols="51" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1634,11 +1634,23 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 <script>
-window.addEventListener("beforeunload", function(event) {
-  event.returnValue = "Write something clever here..";
-});
+var submitted = false;
+
+ $(document).ready(function() {
+   $("form").submit(function() {
+     submitted = true;
+   });
+
+   window.onbeforeunload = function () {
+     if (!submitted) {
+       return 'Do you really want to leave the page?';
+     }
+   }
+ });
 </script>
+{{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
 <script>
     $('.medio').click(function(){
