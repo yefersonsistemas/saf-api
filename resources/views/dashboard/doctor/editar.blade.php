@@ -199,7 +199,8 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                                 <!--HEADER-->
-                                <a id="btnBack" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
+                                {{-- <a id="btnBack" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a> --}}
+                                <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
                                 <div class="container">
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">
@@ -2138,13 +2139,14 @@ $( document ).ready(function() {
         var reference = $("#reference").val();
         var patient = $("#patient").val();
         var reservation = $("#reservacion_id").val();
+        // console.log('referencia', reservation)
 
-        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference);
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference,reservation);
         // console.log('espe',especialidad);
         // ajax(dni);
     });
 
-    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference,reservation) {
         console.log("hola hoy");
         $.ajax({
             url: "{{ route('doctor.reference_update') }}",   //definiendo ruta
@@ -2157,6 +2159,7 @@ $( document ).ready(function() {
                 doctorExterno:doctorExterno,
                 reference:reference,
                 patient:patient,
+                reservation_id:reservation,
             }
         })
         .done(function(data) {
@@ -3116,11 +3119,43 @@ $( document ).ready(function() {
     allowOutsideClick:false
         })
         .then(function(){
-                window.location.href = '{{ route('doctor.index') }}'
+                // window.location.href = '{{ route('doctor.anular_consulta') }}'
+                diagnostic_id = $('#diagnostic_id').val();
+                anular_consulta(diagnostic_id);
             });
     };
 
+    function anular_consulta(diagnostic_id){
+        console.log('id del diagnostico', diagnostic_id);
 
+        $.ajax({
+        url: "{{ route('doctor.anular_consulta') }}",   //definiendo ruta
+        type: "POST",
+        dataType:'json', //definiendo metodo
+        data: {
+            _token: "{{ csrf_token() }}",
+            id:diagnostic_id
+        }
+        })
+        .done(function(data) {
+            if(data.diagnostic == 202){
+           
+            //     Swal.fire({
+            //     title: 'Consulta Anulada',
+            //     text: 'Click en OK para continuar',
+            //     type: 'warning',
+            //     // timer: 30000
+            // });
+
+            window.location.href = '{{ route('doctor.redireccion') }}'
+            }
+     
+        console.log(data)         //recibe lo que retorna el metodo en la ruta definida
+        })
+            .fail(function(data) {
+            console.log(data);
+        })
+    }
 
 </script>
 
