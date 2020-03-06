@@ -23,16 +23,34 @@
        font-size: 14px;
         /* color: #fff; */
     }
+
+        
+    .btn-azuloscuro {
+        color: #fff;
+        background: #00506b;
+    }
+
+    .btn-azuloscuro:hover {
+        color: #fff;
+        background-color: #00ba88;
+        border-color: #009e74;
+    }
 </style>
 
 <div class="section-body">
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
+
                 <div class="card mt-4">
-                    <a  href="{{Route('checkin.day')}}" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-2 ml-2  "><i class="icon-action-undo mx-auto"></i></a>
+                   {{-- <a href="{{Route('checkin.day')}}" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-2 ml-2  "><i class="icon-action-undo mx-auto"></i></a> --}}
                     <div class="card-body">
-                        <div class="col-lg-12 col-md-12">
+                        <div class="p-2">     
+                            <a href="{{Route('checkin.day')}}" class="btn btn-lg btn-azuloscuro text-white position-absolute    "><i class="icon-action-undo mx-auto"></i></a>
+                              </div> 
+                             
+                        <div class=" col-lg-12 col-md-10 mt-4">
+                            
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                 <li class="nav-item col-md-3">
                                     <a class="nav-link btn-block  p-1 d-flex flex-row justify-content-center active btn btn-outline-azuloscuro m-auto" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Mañana</a>

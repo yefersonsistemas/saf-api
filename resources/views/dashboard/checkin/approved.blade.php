@@ -108,7 +108,8 @@
                                 @if ($reservation->status == 'Aprobada')
                                     <tr style="height:40px;">
                                         <td style="text-align: center; font-size:10px; height:40px;">
-                                            @if (!  ($reservation->patient->image->path))
+                                            @if (  ($reservation->patient->image->path))
+                                        
                                                 <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($reservation->patient->image->path) }}" alt="">
                                             @else
                                                 <img src="" alt="" width="100%" height="100%">
@@ -205,10 +206,10 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Paciente </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-content  row">
+            <div class="modal-header p-2" >
+                <h5 class="col-11 modal-title text-center"id="exampleModalLabel">Paciente </h5>
+                <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

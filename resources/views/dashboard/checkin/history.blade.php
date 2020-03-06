@@ -521,12 +521,12 @@
 
             @if($mostrar == 1)
                 <div>
-                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
-                    <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="width:150px;height:40px" > Guardar</button>
+                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="font-size: 15px; line-height: 27px; width:120px;height:40px">Salir</a>
+                    <button type="submit" class="btn btn-azuloscuro float-right mr-10" id="submit-all" style="font-size: 15px; width:120px;height:40px" > Guardar</button>
                 </div>
             @else
                 <div>
-                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style="width:150px;height:40px">Salir</a>
+                    <a href="javascript:history.back(-1);" class="btn btn-azuloscuro float-right mr-10" style=" font-size: px; font-size: 15px; width:80px;height:34px">Salir</a>
                 </div>
             @endif
         </form>
