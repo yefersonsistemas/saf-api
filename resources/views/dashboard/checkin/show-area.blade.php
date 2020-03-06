@@ -30,7 +30,7 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card mt-4">
-                    <a  href="{{Route('checkin.day')}}" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-2 ml-2  "><i class="icon-action-undo mx-auto"></i></a>
+                    {{-- <a  href="{{Route('checkin.day')}}" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-2 ml-2  "><i class="icon-action-undo mx-auto"></i></a> --}}
                     <div class="card-body">
                         <div class="col-lg-12 col-md-12">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
