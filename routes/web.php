@@ -298,10 +298,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
-
         //rutas para exportar e imprimir detalles por empleado/lista de empleados/lista de visitantes
         Route::get('visitors', 'DirectorController@visitantes')->name('visitantes');  //lista de visitantes
-
         Route::get('doctor/reservations/{id}', 'DirectorController@reservations_doctor')->name('director.reservations_doctor');
         Route::get('doctor/surgeries/list/{id}', 'DirectorController@surgeriesDoctor')->name('director.surgeriesDoctor');
     });
