@@ -81,7 +81,7 @@ $(document).ready(function() {
             });
         });
     }
-    // (Optional) Active an item if it has the class "is-active"	
+    // (Optional) Active an item if it has the class "is-active"
     $(".accordion2 > .accordion-item.is-active").children(".accordion-panel").slideDown();
 
     $(".accordion2 > .accordion-item").on('click', function() {
@@ -278,7 +278,7 @@ $(document).ready(function() {
 // Font Setting and icon
 $(document).ready(function() {
     "use strict";
-    // Font icon Setting 
+    // Font icon Setting
     $('.arrow_option input:radio').click(function() {
         var others = $("[name='" + this.name + "']").map(function() {
             return this.value
@@ -293,7 +293,7 @@ $(document).ready(function() {
         console.log(others)
         $('.metismenu li .collapse a').removeClass(others).addClass(this.value)
     });
-    // Font Setting 
+    // Font Setting
     $('.font_setting input:radio').click(function() {
         var others = $("[name='" + this.name + "']").map(function() {
             return this.value
