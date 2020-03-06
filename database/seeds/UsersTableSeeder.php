@@ -1039,7 +1039,7 @@ class UsersTableSeeder extends Seeder
 
             //             /**
             //              * Tratamiento para el paciente
-            //              * y su daignostico
+            //              * y su diagnostico
             //              */
             //             // $medicine = factory(App\Medicine::class)->create();
             //             // $treatment = factory(App\Treatment::class)->create([
@@ -1065,504 +1065,504 @@ class UsersTableSeeder extends Seeder
         /*
         * Creacion del 3er doctor
         */
-        $person2 = Person::create([
-            'type_dni' => 'N',
-            'dni' => '15729752',
-            'name' => 'VICTORIA',
-            'lastname' => 'CANELON',
-            'address' => 'Urbanizacion el Trigal calle 6 transversal 2',
-            'phone' => '0426 - 5656745',
-            'email' => 'dravictoria@sinusandface.com',
-            'branch_id' => '1',
-        ]);
+        // $person2 = Person::create([
+        //     'type_dni' => 'N',
+        //     'dni' => '15729752',
+        //     'name' => 'VICTORIA',
+        //     'lastname' => 'CANELON',
+        //     'address' => 'Urbanizacion el Trigal calle 6 transversal 2',
+        //     'phone' => '0426 - 5656745',
+        //     'email' => 'dravictoria@sinusandface.com',
+        //     'branch_id' => '1',
+        // ]);
 
-        /**
-         * Se registra el medico
-         * creado en la tabla empleado
-         */
-        $employe2 = factory(App\Employe::class)->create([
-            'person_id' => $person2->id,
-            'position_id' => $position->id
-        ]);
-        $this->to('employes', $employe2->id, 'App\Employe');
+        // /**
+        //  * Se registra el medico
+        //  * creado en la tabla empleado
+        //  */
+        // $employe2 = factory(App\Employe::class)->create([
+        //     'person_id' => $person2->id,
+        //     'position_id' => $position->id
+        // ]);
+        // $this->to('employes', $employe2->id, 'App\Employe');
 
-         /**
-         * clase de medico
-         *
-         */
+        //  /**
+        //  * clase de medico
+        //  *
+        //  */
 
-        $type = factory(App\TypeDoctor::class)->create([
-            'name' => 'Clase B',
-        ]);
+        // $type = factory(App\TypeDoctor::class)->create([
+        //     'name' => 'Clase B',
+        // ]);
 
-        $clase = factory(App\Doctor::class)->create([
-            'employe_id' => $employe2->id,
-            'type_doctor_id' => $type->id,
-            'price' => 50000,
-            'branch_id' => '1',
-        ]);
+        // $clase = factory(App\Doctor::class)->create([
+        //     'employe_id' => $employe2->id,
+        //     'type_doctor_id' => $type->id,
+        //     'price' => 50000,
+        //     'branch_id' => '1',
+        // ]);
 
-        $especialidad2 = factory(App\Speciality::class)->create([
-            'name' => 'Oftalmología',
-            'description' => 'Estudia las enfermedades de ojo y su tratamiento, incluyendo el globo ocular, su musculatura, el sistema lagrimal y los párpados.',
-            'service_id' => 2,
-            'branch_id' => '1',
-            ]);
+        // $especialidad2 = factory(App\Speciality::class)->create([
+        //     'name' => 'Oftalmología',
+        //     'description' => 'Estudia las enfermedades de ojo y su tratamiento, incluyendo el globo ocular, su musculatura, el sistema lagrimal y los párpados.',
+        //     'service_id' => 2,
+        //     'branch_id' => '1',
+        //     ]);
 
-        //relacion de especialidad con el medico
-        $especialidad2->employe()->attach($employe2->id);
+        // //relacion de especialidad con el medico
+        // $especialidad2->employe()->attach($employe2->id);
 
-        //procedimiento de consulta
-        $employe2->procedures()->attach($pro);
+        // //procedimiento de consulta
+        // $employe2->procedures()->attach($pro);
 
-        //creando procedimientos otros
-        $pro5= factory(Procedure::class)->create([
-            'name'    => 'Cateterismo o sondaje vía lagrimal.',
-            'description' => 'El sondaje de vías lagrimales es un procedimiento quirúrgico que se emplea para
-             tratar la obstrucción congénita del conducto lagrimal, una condición muy frecuente en niños recién
-             nacidos o con pocos meses de edad.',
-            'branch_id' => '1',
-             'price' => 20000,
-        ]);
-        $employe2->procedures()->attach($pro5);
+        // //creando procedimientos otros
+        // $pro5= factory(Procedure::class)->create([
+        //     'name'    => 'Cateterismo o sondaje vía lagrimal.',
+        //     'description' => 'El sondaje de vías lagrimales es un procedimiento quirúrgico que se emplea para
+        //      tratar la obstrucción congénita del conducto lagrimal, una condición muy frecuente en niños recién
+        //      nacidos o con pocos meses de edad.',
+        //     'branch_id' => '1',
+        //      'price' => 20000,
+        // ]);
+        // $employe2->procedures()->attach($pro5);
 
-          //relacion de la cirugia con el procedimiento
-          $pro5->speciality()->attach($especialidad2);
-          $cirugia->procedure()->attach($pro5);
-          $employe->procedures()->attach($pro5);
+        //   //relacion de la cirugia con el procedimiento
+        //   $pro5->speciality()->attach($especialidad2);
+        //   $cirugia->procedure()->attach($pro5);
+        //   $employe->procedures()->attach($pro5);
 
-        $pro1= factory(Procedure::class)->create([
-            'name'    => 'Chalazión y otros tumores benignos.',
-            'description' => 'Un chalazión es un quiste que resulta de las secreciones de aceite atrapado en una
-             de las muchas glándulas en los párpados superiores o inferiores. ',
-            'branch_id' => '1',
-            'price' => 20000,
-        ]);
+        // $pro1= factory(Procedure::class)->create([
+        //     'name'    => 'Chalazión y otros tumores benignos.',
+        //     'description' => 'Un chalazión es un quiste que resulta de las secreciones de aceite atrapado en una
+        //      de las muchas glándulas en los párpados superiores o inferiores. ',
+        //     'branch_id' => '1',
+        //     'price' => 20000,
+        // ]);
 
-        $employe2->procedures()->attach($pro1);
+        // $employe2->procedures()->attach($pro1);
 
-          //relacion de la cirugia con el procedimiento
-          $pro1->speciality()->attach($especialidad2);
-          $cirugia->procedure()->attach($pro1);
-          $employe->procedures()->attach($pro1);
-
-
-
-        $pro2= factory(Procedure::class)->create([
-            'name'    => 'Curva de tensión ocular',
-            'description' => 'La curva de tensión ocular, es un examen o método oftalmológico que nos permite comprender
-            el mecanismo fisiopatológico del daño producido en la mayor parte de los glacuomas y avala el concepto de la
-             etiopatogenia de la enfermedad',
-            'branch_id' => '1',
-             'price' => 15000,
-        ]);
-
-        $employe2->procedures()->attach($pro2);
-
-         //relacion de la cirugia con el procedimiento
-          $pro2->speciality()->attach($especialidad2);
-          $cirugia->procedure()->attach($pro2);
-          $employe->procedures()->attach($pro2);
+        //   //relacion de la cirugia con el procedimiento
+        //   $pro1->speciality()->attach($especialidad2);
+        //   $cirugia->procedure()->attach($pro1);
+        //   $employe->procedures()->attach($pro1);
 
 
 
+        // $pro2= factory(Procedure::class)->create([
+        //     'name'    => 'Curva de tensión ocular',
+        //     'description' => 'La curva de tensión ocular, es un examen o método oftalmológico que nos permite comprender
+        //     el mecanismo fisiopatológico del daño producido en la mayor parte de los glacuomas y avala el concepto de la
+        //      etiopatogenia de la enfermedad',
+        //     'branch_id' => '1',
+        //      'price' => 15000,
+        // ]);
+
+        // $employe2->procedures()->attach($pro2);
+
+        //  //relacion de la cirugia con el procedimiento
+        //   $pro2->speciality()->attach($especialidad2);
+        //   $cirugia->procedure()->attach($pro2);
+        //   $employe->procedures()->attach($pro2);
 
 
-        $pro3= factory(Procedure::class)->create([
-            'name'    => 'Exploración vitreorretinal',
-            'description' => 'es una prueba rutinaria que permite obtener información de las estructuras más importantes
-             de la parte posterior del globo ocular, así como realizar el diagnóstico y seguimiento de diversas patologías
-             oftalmológicas',
-            'branch_id' => '1',
-             'price' => 17000,
-        ]);
-
-        $employe2->procedures()->attach($pro3);
-
-            //relacion de la cirugia con el procedimiento
-            $pro3->speciality()->attach($especialidad2);
-            $cirugia->procedure()->attach($pro3);
-            $employe->procedures()->attach($pro3);
 
 
 
-        $pro4= factory(Procedure::class)->create([
-            'name'    => 'Microscopia especular',
-            'description' => 'es un procedimiento rápido e indoloro. El microscopio de luz reflejada
-            brilla en la córnea y captura imágenes que se reflejan en la interfaz óptica entre el endotelio y el humor acuoso.',
-           'branch_id' => '1',
-            'price' => 30000,
-        ]);
+        // $pro3= factory(Procedure::class)->create([
+        //     'name'    => 'Exploración vitreorretinal',
+        //     'description' => 'es una prueba rutinaria que permite obtener información de las estructuras más importantes
+        //      de la parte posterior del globo ocular, así como realizar el diagnóstico y seguimiento de diversas patologías
+        //      oftalmológicas',
+        //     'branch_id' => '1',
+        //      'price' => 17000,
+        // ]);
 
-        $employe2->procedures()->attach($pro4);
+        // $employe2->procedures()->attach($pro3);
 
-            //relacion de la cirugia con el procedimiento
-            $pro4->speciality()->attach($especialidad2);
-            $cirugia->procedure()->attach($pro4);
-            $employe->procedures()->attach($pro4);
-
-
-            /**
-             * se crea el usuario
-             * del empleado
-             */
-            factory(User::class)->create([
-                'email'     => $person2->email,
-                'person_id' => $person2->id,
-            ])->givePermissionTo('ver lista de pacientes')
-                ->givePermissionTo('crear historia de paciente')
-                ->givePermissionTo('crear diagnostico')
-                ->givePermissionTo('elegir examenes a realizar')
-                ->givePermissionTo('elegir procedimientos a realizar')
-                ->givePermissionTo('crear recipe')
-                ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
-
-            /**
-             * Se crea el horario del medico
-             */
-            // $schedule = factory(Schedule::class, rand(1,3))->create([
-            //     'employe_id' => $employe2->id
-            // ]);
-
-            factory(Schedule::class)->create([
-                'day' => 'friday',
-                'turn' => 'tarde',
-                'employe_id' => $employe2->id
-            ]);
-
-            factory(Schedule::class)->create([
-                'day' => 'wednesday',
-                'turn' => 'mañana',
-                'employe_id' => $employe2->id
-            ]);
-
-            factory(Schedule::class)->create([
-                'day' => 'thursday',
-                'turn' => 'mañana',
-                'employe_id' => $employe2->id
-            ]);
-
-            /*
-            * Asignacion de consultorio
-            */
-
-            factory(Area::class)->create([
-                'name'          => 'consultorio 6',
-                'type_area_id' =>  $typearea->id,
-            ]);
-
-            $area2 = factory(Area::class)->create([
-                'name' => 'Consultorio 7',
-                'status' => 'ocupado',
-                'type_area_id' =>  $typearea->id
-            ]);
-
-            $asignada = factory(AreaAssigment::class)->create([
-                'employe_id' =>  $employe2->id,
-                'area_id' =>  $area2->id
-            ]);
+        //     //relacion de la cirugia con el procedimiento
+        //     $pro3->speciality()->attach($especialidad2);
+        //     $cirugia->procedure()->attach($pro3);
+        //     $employe->procedures()->attach($pro3);
 
 
-            /**
-             * Personas que seran los pacientes
-             */
-            $person = Person::create([
-                'type_dni' => 'N',
-                'dni' => '15729753',
-                'name' => 'DIANA',
-                'lastname' => 'ALVAREZ',
-                'address' => 'El Paraiso',
-                'phone' => '04125656745',
-                'email' => '    dianaalvarez@gmail.com',
-                'branch_id' => '1',
-            ]);
 
-                $this->to('person', $person->id, 'App\Person');
-                /**
-                 * Registro de la historia medica
-                 * con su fotografia
-                 */
-                $patient = factory(App\Patient::class)->create([
-                    'person_id' => $person->id,
-                    'employe_id' => $employe2->id
-                ]);
+        // $pro4= factory(Procedure::class)->create([
+        //     'name'    => 'Microscopia especular',
+        //     'description' => 'es un procedimiento rápido e indoloro. El microscopio de luz reflejada
+        //     brilla en la córnea y captura imágenes que se reflejan en la interfaz óptica entre el endotelio y el humor acuoso.',
+        //    'branch_id' => '1',
+        //     'price' => 30000,
+        // ]);
 
-                // dd($patient);
+        // $employe2->procedures()->attach($pro4);
+
+        //     //relacion de la cirugia con el procedimiento
+        //     $pro4->speciality()->attach($especialidad2);
+        //     $cirugia->procedure()->attach($pro4);
+        //     $employe->procedures()->attach($pro4);
+
+
+        //     /**
+        //      * se crea el usuario
+        //      * del empleado
+        //      */
+        //     factory(User::class)->create([
+        //         'email'     => $person2->email,
+        //         'person_id' => $person2->id,
+        //     ])->givePermissionTo('ver lista de pacientes')
+        //         ->givePermissionTo('crear historia de paciente')
+        //         ->givePermissionTo('crear diagnostico')
+        //         ->givePermissionTo('elegir examenes a realizar')
+        //         ->givePermissionTo('elegir procedimientos a realizar')
+        //         ->givePermissionTo('crear recipe')
+        //         ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
+
+        //     /**
+        //      * Se crea el horario del medico
+        //      */
+        //     // $schedule = factory(Schedule::class, rand(1,3))->create([
+        //     //     'employe_id' => $employe2->id
+        //     // ]);
+
+        //     factory(Schedule::class)->create([
+        //         'day' => 'friday',
+        //         'turn' => 'tarde',
+        //         'employe_id' => $employe2->id
+        //     ]);
+
+        //     factory(Schedule::class)->create([
+        //         'day' => 'wednesday',
+        //         'turn' => 'mañana',
+        //         'employe_id' => $employe2->id
+        //     ]);
+
+        //     factory(Schedule::class)->create([
+        //         'day' => 'thursday',
+        //         'turn' => 'mañana',
+        //         'employe_id' => $employe2->id
+        //     ]);
+
+        //     /*
+        //     * Asignacion de consultorio
+        //     */
+
+        //     factory(Area::class)->create([
+        //         'name'          => 'consultorio 6',
+        //         'type_area_id' =>  $typearea->id,
+        //     ]);
+
+        //     $area2 = factory(Area::class)->create([
+        //         'name' => 'Consultorio 7',
+        //         'status' => 'ocupado',
+        //         'type_area_id' =>  $typearea->id
+        //     ]);
+
+        //     $asignada = factory(AreaAssigment::class)->create([
+        //         'employe_id' =>  $employe2->id,
+        //         'area_id' =>  $area2->id
+        //     ]);
+
+
+        //     /**
+        //      * Personas que seran los pacientes
+        //      */
+        //     $person = Person::create([
+        //         'type_dni' => 'N',
+        //         'dni' => '15729753',
+        //         'name' => 'DIANA',
+        //         'lastname' => 'ALVAREZ',
+        //         'address' => 'El Paraiso',
+        //         'phone' => '04125656745',
+        //         'email' => '    dianaalvarez@gmail.com',
+        //         'branch_id' => '1',
+        //     ]);
+
+        //         $this->to('person', $person->id, 'App\Person');
+        //         /**
+        //          * Registro de la historia medica
+        //          * con su fotografia
+        //          */
+        //         $patient = factory(App\Patient::class)->create([
+        //             'person_id' => $person->id,
+        //             'employe_id' => $employe2->id
+        //         ]);
+
+        //         // dd($patient);
 
                 /**
                  * Enfermedades del paciente
                  */
-                for ($i=0; $i < rand(1,5) ; $i++) {
-                    $disease = Disease::inRandomOrder()->first();
-                    $disease->patient()->attach($patient->id);
-                }
+    //             for ($i=0; $i < rand(1,5) ; $i++) {
+    //                 $disease = Disease::inRandomOrder()->first();
+    //                 $disease->patient()->attach($patient->id);
+    //             }
 
-                /**
-                 * Registro de la reservacion
-                 */
-                $reservation= factory(App\Reservation::class)->create([
-                    'patient_id'     => $person->id,
-                    'person_id'      => $person2->id,
-                    'schedule_id'    => $employe2->schedule->first()->id,
-                    'specialitie_id' => $employe2->speciality->first()->id,
-                ]);
+    //             /**
+    //              * Registro de la reservacion
+    //              */
+    //             $reservation= factory(App\Reservation::class)->create([
+    //                 'patient_id'     => $person->id,
+    //                 'person_id'      => $person2->id,
+    //                 'schedule_id'    => $employe2->schedule->first()->id,
+    //                 'specialitie_id' => $employe2->speciality->first()->id,
+    //             ]);
 
-    //============================================================================================================
-        /*
-        * Creacion del 4to doctor
-        */
-        $person3 = Person::create([
-            'type_dni' => 'N',
-            'dni' => '15729754',
-            'name' => 'MIGUEL',
-            'lastname' => 'BRICEÑO',
-            'address' => 'Avenida el Placer',
-            'phone' => '0414 - 5656745',
-            'email' => 'drmiguelb@sinusandface.com',
-            'branch_id' => '1',
-        ]);
+    // //============================================================================================================
+    //     /*
+    //     * Creacion del 4to doctor
+    //     */
+    //     $person3 = Person::create([
+    //         'type_dni' => 'N',
+    //         'dni' => '15729754',
+    //         'name' => 'MIGUEL',
+    //         'lastname' => 'BRICEÑO',
+    //         'address' => 'Avenida el Placer',
+    //         'phone' => '0414 - 5656745',
+    //         'email' => 'drmiguelb@sinusandface.com',
+    //         'branch_id' => '1',
+    //     ]);
 
-        /**
-         * Se registra el medico
-         * creado en la tabla empleado
-         */
-        $employe3 = factory(App\Employe::class)->create([
-            'person_id' => $person3->id,
-            'position_id' => $position->id
-        ]);
-        $this->to('employes', $employe3->id, 'App\Employe');
+    //     /**
+    //      * Se registra el medico
+    //      * creado en la tabla empleado
+    //      */
+    //     $employe3 = factory(App\Employe::class)->create([
+    //         'person_id' => $person3->id,
+    //         'position_id' => $position->id
+    //     ]);
+    //     $this->to('employes', $employe3->id, 'App\Employe');
 
-         /**
-         * clase de medico
-         *
-         */
+    //      /**
+    //      * clase de medico
+    //      *
+    //      */
 
-        $type = factory(App\TypeDoctor::class)->create([
-            'name' => 'Clase A',
-        ]);
+    //     $type = factory(App\TypeDoctor::class)->create([
+    //         'name' => 'Clase A',
+    //     ]);
 
-        $clase = factory(App\Doctor::class)->create([
-            'employe_id' => $employe3->id,
-            'type_doctor_id' => $type->id,
-            'price' => 100000,
-            'branch_id' => '1',
-        ]);
+    //     $clase = factory(App\Doctor::class)->create([
+    //         'employe_id' => $employe3->id,
+    //         'type_doctor_id' => $type->id,
+    //         'price' => 100000,
+    //         'branch_id' => '1',
+    //     ]);
 
-        $especialidad3 = factory(App\Speciality::class)->create([
-            'name' => 'Ginecología',
-            'description' => 'Estudia el sistema reproductor femenino.',
-            'service_id' => 2,
-            'branch_id' => '1',
-            ]);
+    //     $especialidad3 = factory(App\Speciality::class)->create([
+    //         'name' => 'Ginecología',
+    //         'description' => 'Estudia el sistema reproductor femenino.',
+    //         'service_id' => 2,
+    //         'branch_id' => '1',
+    //         ]);
 
-        //relacion de especialidad con el medico
-        $especialidad3->employe()->attach($employe3->id);
+    //     //relacion de especialidad con el medico
+    //     $especialidad3->employe()->attach($employe3->id);
 
-        //procedimiento de consulta
-        $employe3->procedures()->attach($pro);
+    //     //procedimiento de consulta
+    //     $employe3->procedures()->attach($pro);
 
-        //creando procedimientos otros
-        $pro5= factory(Procedure::class)->create([
-            'name'    => 'Citología de Cuello uterino.',
-            'description' => 'La citología cervical es
-             una prueba diagnóstica en la que se examinan
-             células del cuello uterino.',
-            'branch_id' => '1',
-            'price' => 20000,
-        ]);
+    //     //creando procedimientos otros
+    //     $pro5= factory(Procedure::class)->create([
+    //         'name'    => 'Citología de Cuello uterino.',
+    //         'description' => 'La citología cervical es
+    //          una prueba diagnóstica en la que se examinan
+    //          células del cuello uterino.',
+    //         'branch_id' => '1',
+    //         'price' => 20000,
+    //     ]);
 
-        $employe3->procedures()->attach($pro5);
+    //     $employe3->procedures()->attach($pro5);
 
-        //relacion de la cirugia con el procedimiento
-        $pro5->speciality()->attach($especialidad3);
-        $cirugia->procedure()->attach($pro5);
-        $employe->procedures()->attach($pro5);
-
-
-        $pro1= factory(Procedure::class)->create([
-            'name'    => 'Colposcopias.',
-            'description' => 'Una colposcopía es una manera de
-             lograr una vista aumentada del cuello uterino.',
-             'branch_id' => '1',
-             'price' => 20000,
-        ]);
-
-        $employe3->procedures()->attach($pro1);
-
-        //relacion de la cirugia con el procedimiento
-        $pro1->speciality()->attach($especialidad3);
-        $cirugia->procedure()->attach($pro1);
-        $employe->procedures()->attach($pro1);
+    //     //relacion de la cirugia con el procedimiento
+    //     $pro5->speciality()->attach($especialidad3);
+    //     $cirugia->procedure()->attach($pro5);
+    //     $employe->procedures()->attach($pro5);
 
 
+    //     $pro1= factory(Procedure::class)->create([
+    //         'name'    => 'Colposcopias.',
+    //         'description' => 'Una colposcopía es una manera de
+    //          lograr una vista aumentada del cuello uterino.',
+    //          'branch_id' => '1',
+    //          'price' => 20000,
+    //     ]);
 
+    //     $employe3->procedures()->attach($pro1);
 
-        $pro2= factory(Procedure::class)->create([
-            'name'    => 'Biopsias de cérvix y área genital (vulva clítoris, entre otros)',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
-            para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
-            'branch_id' => '1',
-             'price' => 15000,
-        ]);
-
-        $employe3->procedures()->attach($pro2);
-
-       //relacion de la cirugia con el procedimiento
-        $pro2->speciality()->attach($especialidad3);
-        $cirugia->procedure()->attach($pro2);
-        $employe->procedures()->attach($pro2);
-
-        $pro3= factory(Procedure::class)->create([
-            'name'    => 'Vaporización',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
-             para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
-            'branch_id' => '1',
-             'price' => 17000,
-        ]);
-
-        $employe2->procedures()->attach($pro3);
-
-            //relacion de la cirugia con el procedimiento
-            $pro3->speciality()->attach($especialidad3);
-            $cirugia->procedure()->attach($pro3);
-            $employe->procedures()->attach($pro3);
-
-        $pro4= factory(Procedure::class)->create([
-            'name'    => 'Retiro e inserción de DIU',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
-             para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
-            'branch_id' => '1',
-             'price' => 30000,
-        ]);
-
-        $employe3->procedures()->attach($pro4);
-
-          //relacion de la cirugia con el procedimiento
-          $pro4->speciality()->attach($especialidad3);
-          $cirugia->procedure()->attach($pro4);
-          $employe->procedures()->attach($pro4);
+    //     //relacion de la cirugia con el procedimiento
+    //     $pro1->speciality()->attach($especialidad3);
+    //     $cirugia->procedure()->attach($pro1);
+    //     $employe->procedures()->attach($pro1);
 
 
 
-        $pro6= factory(Procedure::class)->create([
-            'name'    => 'Resección de pólipo endometrial',
-            'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
-            para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
-           'branch_id' => '1',
-             'price' => 40000,
-        ]);
 
-        $employe3->procedures()->attach($pro6);
+    //     $pro2= factory(Procedure::class)->create([
+    //         'name'    => 'Biopsias de cérvix y área genital (vulva clítoris, entre otros)',
+    //         'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
+    //         para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+    //         'branch_id' => '1',
+    //          'price' => 15000,
+    //     ]);
 
-        //relacion de la cirugia con el procedimiento
-        $pro6->speciality()->attach($especialidad3);
-        $cirugia->procedure()->attach($pro6);
-        $employe->procedures()->attach($pro6);
+    //     $employe3->procedures()->attach($pro2);
 
+    //    //relacion de la cirugia con el procedimiento
+    //     $pro2->speciality()->attach($especialidad3);
+    //     $cirugia->procedure()->attach($pro2);
+    //     $employe->procedures()->attach($pro2);
 
-            /**
-             * se crea el usuario
-             * del empleado
-             */
-            factory(User::class)->create([
-                'email'     => $person3->email,
-                'person_id' => $person3->id,
-            ])->givePermissionTo('ver lista de pacientes')
-                ->givePermissionTo('crear historia de paciente')
-                ->givePermissionTo('crear diagnostico')
-                ->givePermissionTo('elegir examenes a realizar')
-                ->givePermissionTo('elegir procedimientos a realizar')
-                ->givePermissionTo('crear recipe')
-                ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
+    //     $pro3= factory(Procedure::class)->create([
+    //         'name'    => 'Vaporización',
+    //         'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
+    //          para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+    //         'branch_id' => '1',
+    //          'price' => 17000,
+    //     ]);
 
-            /**
-             * Se crea el horario del medico
-             */
-            // $schedule = factory(Schedule::class, rand(1,3))->create([
-            //     'employe_id' => $employe3->id
-            // ]);
+    //     $employe2->procedures()->attach($pro3);
 
-            factory(Schedule::class)->create([
-                'day' => 'friday',
-                'turn' => 'tarde',
-                'employe_id' => $employe3->id
-            ]);
+    //         //relacion de la cirugia con el procedimiento
+    //         $pro3->speciality()->attach($especialidad3);
+    //         $cirugia->procedure()->attach($pro3);
+    //         $employe->procedures()->attach($pro3);
 
-            factory(Schedule::class)->create([
-                'day' => 'wednesday',
-                'turn' => 'tarde',
-                'employe_id' => $employe3->id
-            ]);
+    //     $pro4= factory(Procedure::class)->create([
+    //         'name'    => 'Retiro e inserción de DIU',
+    //         'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
+    //          para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+    //         'branch_id' => '1',
+    //          'price' => 30000,
+    //     ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'thursday',
-                'turn' => 'tarde',
-                'employe_id' => $employe3->id
-            ]);
+    //     $employe3->procedures()->attach($pro4);
+
+    //       //relacion de la cirugia con el procedimiento
+    //       $pro4->speciality()->attach($especialidad3);
+    //       $cirugia->procedure()->attach($pro4);
+    //       $employe->procedures()->attach($pro4);
 
 
-            /*
-            * Asignacion de consultorio
-            */
-            factory(Area::class)->create([
-                'name'          => 'consultorio 8',
-                'type_area_id' =>  $typearea->id,
-            ]);
 
-            $area3 = factory(Area::class)->create([
-                'name' => 'Consultorio 9',
-                'status' => 'ocupado',
-                'type_area_id' =>  $typearea->id
-            ]);
+    //     $pro6= factory(Procedure::class)->create([
+    //         'name'    => 'Resección de pólipo endometrial',
+    //         'description' => 'es un procedimiento para extraer tejidos del cuello del útero y analizarlos
+    //         para determinar si hay condiciones anormales o precancerosas, o cáncer de cuello de útero',
+    //        'branch_id' => '1',
+    //          'price' => 40000,
+    //     ]);
 
-            $asignada = factory(AreaAssigment::class)->create([
-                'employe_id' =>  $employe3->id,
-                'area_id' =>  $area3->id
-            ]);
+    //     $employe3->procedures()->attach($pro6);
 
-            /**
-             * Personas que seran los pacientes
-             */
-            $person = Person::create([
-                'type_dni' => 'N',
-                'dni' => '15729754',
-                'name' => 'ELENA',
-                'lastname' => 'PUERTA',
-                'address' => 'Las Mercedes diagonal a la Panaderia San Benito',
-                'phone' => '04125656746',
-                'email' => 'elenapuerta@gmail.com',
-                'branch_id' => '1',
-            ]);
+    //     //relacion de la cirugia con el procedimiento
+    //     $pro6->speciality()->attach($especialidad3);
+    //     $cirugia->procedure()->attach($pro6);
+    //     $employe->procedures()->attach($pro6);
 
-                $this->to('person', $person->id, 'App\Person');
-                /**
-                 * Registro de la historia medica
-                 * con su fotografia
-                 */
-                $patient = factory(App\Patient::class)->create([
-                    'person_id' => $person->id,
-                    'employe_id' => $employe3->id
-                ]);
 
-                // dd($patient);
+    //         /**
+    //          * se crea el usuario
+    //          * del empleado
+    //          */
+    //         factory(User::class)->create([
+    //             'email'     => $person3->email,
+    //             'person_id' => $person3->id,
+    //         ])->givePermissionTo('ver lista de pacientes')
+    //             ->givePermissionTo('crear historia de paciente')
+    //             ->givePermissionTo('crear diagnostico')
+    //             ->givePermissionTo('elegir examenes a realizar')
+    //             ->givePermissionTo('elegir procedimientos a realizar')
+    //             ->givePermissionTo('crear recipe')
+    //             ->givePermissionTo('ver historial de pacientes atendidos')->assignRole('doctor');
 
-                /**
-                 * Enfermedades del paciente
-                 */
-                for ($i=0; $i < rand(1,5) ; $i++) {
-                    $disease = Disease::inRandomOrder()->first();
-                    $disease->patient()->attach($patient->id);
-                }
+    //         /**
+    //          * Se crea el horario del medico
+    //          */
+    //         // $schedule = factory(Schedule::class, rand(1,3))->create([
+    //         //     'employe_id' => $employe3->id
+    //         // ]);
 
-                /**
-                 * Registro de la reservacion
-                 */
-                $reservation= factory(App\Reservation::class)->create([
-                    'patient_id'     => $person->id,
-                    'person_id'      => $person3->id,
-                    'schedule_id'    => $employe3->schedule->first()->id,
-                    'specialitie_id' => $employe3->speciality->first()->id,
-                ]);
+    //         factory(Schedule::class)->create([
+    //             'day' => 'friday',
+    //             'turn' => 'tarde',
+    //             'employe_id' => $employe3->id
+    //         ]);
+
+    //         factory(Schedule::class)->create([
+    //             'day' => 'wednesday',
+    //             'turn' => 'tarde',
+    //             'employe_id' => $employe3->id
+    //         ]);
+
+    //         factory(Schedule::class)->create([
+    //             'day' => 'thursday',
+    //             'turn' => 'tarde',
+    //             'employe_id' => $employe3->id
+    //         ]);
+
+
+    //         /*
+    //         * Asignacion de consultorio
+    //         */
+    //         factory(Area::class)->create([
+    //             'name'          => 'consultorio 8',
+    //             'type_area_id' =>  $typearea->id,
+    //         ]);
+
+    //         $area3 = factory(Area::class)->create([
+    //             'name' => 'Consultorio 9',
+    //             'status' => 'ocupado',
+    //             'type_area_id' =>  $typearea->id
+    //         ]);
+
+    //         $asignada = factory(AreaAssigment::class)->create([
+    //             'employe_id' =>  $employe3->id,
+    //             'area_id' =>  $area3->id
+    //         ]);
+
+    //         /**
+    //          * Personas que seran los pacientes
+    //          */
+    //         $person = Person::create([
+    //             'type_dni' => 'N',
+    //             'dni' => '15729754',
+    //             'name' => 'ELENA',
+    //             'lastname' => 'PUERTA',
+    //             'address' => 'Las Mercedes diagonal a la Panaderia San Benito',
+    //             'phone' => '04125656746',
+    //             'email' => 'elenapuerta@gmail.com',
+    //             'branch_id' => '1',
+    //         ]);
+
+    //             $this->to('person', $person->id, 'App\Person');
+    //             /**
+    //              * Registro de la historia medica
+    //              * con su fotografia
+    //              */
+    //             $patient = factory(App\Patient::class)->create([
+    //                 'person_id' => $person->id,
+    //                 'employe_id' => $employe3->id
+    //             ]);
+
+    //             // dd($patient);
+
+    //             /**
+    //              * Enfermedades del paciente
+    //              */
+    //             for ($i=0; $i < rand(1,5) ; $i++) {
+    //                 $disease = Disease::inRandomOrder()->first();
+    //                 $disease->patient()->attach($patient->id);
+    //             }
+
+    //             /**
+    //              * Registro de la reservacion
+    //              */
+    //             $reservation= factory(App\Reservation::class)->create([
+    //                 'patient_id'     => $person->id,
+    //                 'person_id'      => $person3->id,
+    //                 'schedule_id'    => $employe3->schedule->first()->id,
+    //                 'specialitie_id' => $employe3->speciality->first()->id,
+    //             ]);
 
                 //=============================================================================================================
                 /*
