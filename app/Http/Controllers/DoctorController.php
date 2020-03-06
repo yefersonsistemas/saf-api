@@ -156,6 +156,8 @@ class DoctorController extends Controller
                 'status'            => false,
                 'branch_id'         =>  1,
             ]);
+
+            // dd($diagnostic);
          }
 
         $reservation = Reservation::with('patient.historyPatient.disease', 'patient.historyPatient.allergy', 'patient.historyPatient.surgery')
@@ -306,10 +308,19 @@ class DoctorController extends Controller
                 $diff_C[] = TypeSurgery::with('classification')->find($item->id);
             }
 
-            // dd($itinerary->recipe);
+
+            // dd($diagnostic->status);
         return view('dashboard.doctor.editar', compact('speciality','r_patient','procedures', 'exams', 'reservation','cite','procesm','diff_PR', 'diff_E', 'diff_P', 'itinerary','medicines','diff_C','surgery','diff','diff2','diff_doctor','enfermedad','alergia','file', 'todas', 'reserva2', 'today', 'yasevieron'));
 
    }
+
+//    public function revisar(){
+//        $id= Auth::id();
+
+//     $d= Diagnostic::where('status', false)->get();
+
+//     dd($d);
+// }
 
 
 //     public function show($id)
@@ -1177,6 +1188,14 @@ class DoctorController extends Controller
         // dd( $reservations);
         return view('dashboard.doctor.lista_cirugias', compact('all'));
     }
+
+    public function diagnosticDelete(){
+
+
+            $diagnostic= Diagnostic::where('status', false)->get();
+            $diagnostic->delete();
+            // dd($d);
+        }
 
 
     public function recipeDelete(Request $request){

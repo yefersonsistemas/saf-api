@@ -199,7 +199,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                                 <!--HEADER-->
-                                <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
+                                <a id="btnBack" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
                                 <div class="container">
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">
@@ -2985,6 +2985,28 @@ button[data-original-title="Help"]{ display: none; }
         }
 
     });
+
+    btnBack.onclick = function() {
+
+    console.log('ken');
+
+    swal.fire({
+    title: "¿Seguro que desea salir?",
+    text: "Su consulta sera anulada",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: "¡Si, anular la consulta!",
+    closeOnConfirm: false,
+    allowOutsideClick:false
+        })
+        .then(function(){
+                window.location.href = '{{ route('doctor.index') }}'
+            });
+    };
+
+
+
 </script>
 
 @endsection
