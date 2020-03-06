@@ -9,23 +9,40 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
-
+<link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\multi-select\css\multi-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandAn.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/dropzone/css/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
 @endsection
 
 @section('content')
     <div class="section-body py-3">
-        <div class="container-fluid">
-            <div class=" p-2">
-                <div class="col-lg-12">
+        <div class="container-fluid">            
+            <div class=" p-4">     
                     <form class="card" method="POST" action="{{ route('reservations.update', $reservation) }}" autocomplete="off">
                         @csrf
                         @method('PUT')
-                        <div class="card-body">
+                        <div class="card-body">    
                             {{-- <h3 class="card-title"><b>Cita de {{ $reservation->patient->name }}</b></h3> --}}
-                            <div style="margin-bottom:12px">
+                            {{-- <div style="margin-bottom:12px">
                                 <a class="btn btn-verdePastel" id="EditPatient" href="#">Editar datos paciente <i class="fa fa-vcard"></i></a>
-                            </div>
+                            </div> --}}
                             <div class="row">
+
+
+
+                                <div class=" icon btn-scroll">
+                                    <a class="   ml-20 icon-primary fa fa-pencil  " href="#" id="EditPatient" title="Editar Historial"></a>
+                                    <div class=" container-description">
+                                    <a class="  icon-description" href="#">Editar Historial</a>
+                                    </div>
+                                </div>
+
+
+                                
                                 <div class="col-sm-6 col-md-1">
                                     <div class="form-group">
                                         <label class="form-label">Tipo DNI</label>

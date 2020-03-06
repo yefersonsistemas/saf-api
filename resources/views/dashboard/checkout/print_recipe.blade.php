@@ -222,10 +222,10 @@ float: right;
           </thead>
 
           <tbody>
-            @foreach ($recipe->medicine as $item)
+            @foreach ($recipe->treatment as $item)
               <tr>
-                  <td class="medicamento" style="text-align:left">{{ $item->name}} ({{ $item->treatment->measure }}) </td>
-                  <td class="indicacion2" style="text-align:left">{{ $item->name }}  ({{ $item->treatment->measure }}) tomar {{ $item->treatment->doses }} por  {{ $item->treatment->duration }}  {{ $item->treatment->indications }}</td>
+                  <td class="medicamento" style="text-align:left">{{ $item->medicine->name}} ({{ $item->measure }}) </td>
+                  <td class="indicacion2" style="text-align:left">{{ $item->medicine->name }}  ({{ $item->measure }}) tomar {{ $item->doses }} por  {{ $item->duration }}  {{ $item->indications }}</td>
               </tr>
             @endforeach  
           </tbody>

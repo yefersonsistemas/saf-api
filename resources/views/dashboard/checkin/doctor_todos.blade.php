@@ -82,10 +82,10 @@
     @foreach ($e as $employe)
         <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->dni }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="text-align:center">
-                        <h5 class="modal-title" id="exampleModalLabel">Especialidad</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-content  row">
+                    <div class="modal-header p-2" >
+                        <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Especialidad</h5>
+                        <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -106,10 +106,10 @@
     @foreach ($e as $employe)
     <div class="modal fade" id="{{ $employe->person->type_dni }}{{ $employe->person->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="text-align:center">
-                    <h5 class="modal-title" id="exampleModalLabel">Horario del Doctor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-content  row">
+                <div class="modal-header p-2" >
+                    <h5 class="col-11 modal-title text-center" id="exampleModalLabel" >Horario del Doctor</h5>
+                    <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

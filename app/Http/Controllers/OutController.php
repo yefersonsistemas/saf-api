@@ -552,7 +552,7 @@ class OutController extends Controller
     //============================ imprimir recipe ============================ (listo)
     public function imprimir_recipe(Request $request, $id)
     {
-        $recipe = Recipe::with('patient','employe.person', 'medicine.treatment')->where('id', $id)->first();
+        $recipe = Recipe::with('patient','employe.person', 'treatment.medicine')->where('id', $id)->first();
 
         $paciente = Patient::where('person_id',$recipe->patient->id)->first();
         $fecha = Carbon::now()->format('Y-d-m');
