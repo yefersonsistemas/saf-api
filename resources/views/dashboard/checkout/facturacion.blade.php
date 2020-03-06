@@ -257,7 +257,7 @@
     <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 
 {{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
-<script>
+{{-- <script>
     var submitted = false;
 
      $(document).ready(function() {
@@ -271,7 +271,7 @@
          }
        }
      });
-    </script>
+    </script> --}}
     {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
     <script>
