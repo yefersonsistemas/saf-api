@@ -1086,7 +1086,6 @@ button[data-original-title="Help"]{ display: none; }
     {{-- </div> --}}
 
 
-<<<<<<< HEAD
     <div id="myModall"  data-backdrop="static" class="modal modall">
         <div class="container"> 
         <div class="row"> 
@@ -1098,14 +1097,6 @@ button[data-original-title="Help"]{ display: none; }
             <a class="btn atras  " style="color:#fff; font-size:20px;"><i class=" fe fe-minus"></i></a>
         </div>       
         </div>      
-=======
-    <div id="myModall" class="modal modall">
-        <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"></button>
-        <div id="cambiar">
-            <a class="btn medio" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
-        </div>
-
->>>>>>> 73f97d8b19f6d5820f516fb4e0b240ccbc3f3402
         <div class="caption" id="caption">
         </div>
     </div>
@@ -1666,28 +1657,13 @@ button[data-original-title="Help"]{ display: none; }
 
         $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="  fe fe-plus"></i></a>');
 
-<<<<<<< HEAD
-
     //    $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
                         //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
-=======
-       $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
-                          <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
->>>>>>> 73f97d8b19f6d5820f516fb4e0b240ccbc3f3402
 
-       //aumentar
-    //    $('#grande').click(function(){
-    //         console.log('grande');
-    //         $("#caption").removeClass("caption_medio");
     //         $("#caption").addClass("caption_grande");
 
-<<<<<<< HEAD
     //         $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
                             //    <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
-=======
-            $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>
-                               <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
->>>>>>> 73f97d8b19f6d5820f516fb4e0b240ccbc3f3402
 
         //    $('#extra_grande').click(function(){
         //         console.log('extra grande');
@@ -1929,7 +1905,7 @@ $( document ).ready(function() {
     // }
 
     function ajaxRecipe(medicina, dosis, medida, duracion, indicaciones, reservacion){
-           $.ajax({
+        $.ajax({
                 url: "{{ route('recipe.store') }}",
                 type: "POST",
                 data: {
@@ -1981,11 +1957,7 @@ $( document ).ready(function() {
                                     </a>
                                 </td>
                                 </tr>`);
-<<<<<<< HEAD
     }
-=======
-     }
->>>>>>> 73f97d8b19f6d5820f516fb4e0b240ccbc3f3402
 
 
     $(document).on('click', '.recipe_id', function(event) {

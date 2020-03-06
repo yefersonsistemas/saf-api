@@ -437,10 +437,10 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Paciente </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-content  row">
+            <div class="modal-header p-2" >
+                <h5 class="col-11 modal-title text-center" id="exampleModalLabel">Paciente </h5>
+                <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
