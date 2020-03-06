@@ -1634,6 +1634,11 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
+<script>
+window.addEventListener("beforeunload", function(event) {
+  event.returnValue = "Write something clever here..";
+});
+</script>
 
 <script>
     $('.medio').click(function(){
@@ -3123,5 +3128,4 @@ $( document ).ready(function() {
 
 
 </script>
-
 @endsection
