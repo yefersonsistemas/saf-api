@@ -41,13 +41,13 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('search/reception/patient','CitaController@search_patient')->name('search.patient');
 
     //enfermedad
-    Route::post('doctor/eliminar/enfermedad', 'DiseasesController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar'); 
-    Route::post('doctor/enfermedad', 'DiseasesController@agregar_enfermedad')->name('doctor.agregar_enfermedad'); 
+    Route::post('doctor/eliminar/enfermedad', 'DiseasesController@enfermedad_eliminar')->name('doctor.enfermedad_eliminar');
+    Route::post('doctor/enfermedad', 'DiseasesController@agregar_enfermedad')->name('doctor.agregar_enfermedad');
     Route::POST('patient/diseases/create', 'DiseasesController@diseases_create')->name('checkin.diseases_create');
 
     //alergias
-    Route::post('doctor/eliminar/alergia', 'AllergyController@alergia_eliminar')->name('doctor.alergia_eliminar');  
-    Route::post('doctor/alergias', 'AllergyController@agregar_alergias')->name('doctor.agregar_alergias');  
+    Route::post('doctor/eliminar/alergia', 'AllergyController@alergia_eliminar')->name('doctor.alergia_eliminar');
+    Route::post('doctor/alergias', 'AllergyController@agregar_alergias')->name('doctor.agregar_alergias');
     Route::POST('patient/allergies/create', 'InController@allergies_create')->name('checkin.allergies_create');
 
     //medicamentos
@@ -160,17 +160,21 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:doctor, director']], function () {
         Route::resource('doctor', 'DoctorController');
         Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
+        Route::post('/doctor/consulta/anular', 'DoctorController@anular_consulta')->name('doctor.anular_consulta');
+        Route::get('/doctor/consulta/redireccion', 'DoctorController@redireccion')->name('doctor.redireccion');
 
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
         Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
+        Route::post('doctor/recipe/medicamentos/eliminar','DoctorController@recipeDelete')->name('doctor.recipe_eliminar');
+
 
         //referencia
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
         Route::post('doctor/Referencia','DoctorController@referenceStore')->name('reference.store');
         Route::post('doctor/referenceUpdate', 'DoctorController@reference_update')->name('doctor.reference_update');  // actualizar referecnia
-      
+
         //recipe
         Route::post('doctor/recipe/medicamentos','DoctorController@recipeStore')->name('recipe.store');
         Route::post('doctor/recipe/medicamentos/eliminar','DoctorController@recipeDelete')->name('doctor.recipe_eliminar');
@@ -195,8 +199,8 @@ Route::group(['middleware' => 'auth'], function (){
        //cirugias
         Route::post('doctor/surgeryUpdate', 'TypeSurgerysController@surgerysP_update')->name('doctor.surgery_actualizar');  // actualizar posible cirugia
         Route::post('doctor/cirugias', 'TypeSurgerysController@agregar_cirugias')->name('doctor.agregar_cirugias');  // agregar cirugia
-        Route::post('doctor/eliminar/cirugia', 'TypeSurgerysController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar cirugia        
-        Route::post('surgerysP', 'TypeSurgerysController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias     
+        Route::post('doctor/eliminar/cirugia', 'TypeSurgerysController@cirugiaP_eliminar2')->name('doctor.cirugiaP_eliminar2');  // eliminar cirugia
+        Route::post('surgerysP', 'TypeSurgerysController@surgerysP')->name('doctor.surgerysP');   // guardar las posibles cirugias
         Route::get('doctor/surgeries/list','DoctorController@surgeries_list')->name('doctor.lista_cirugias');
 
     });
