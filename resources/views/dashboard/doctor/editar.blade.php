@@ -199,8 +199,8 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                                 <!--HEADER-->
-                                {{-- <a id="btnBack" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a> --}}
-                                <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
+                                <a id="btnBack" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
+                                {{-- <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a> --}}
                                 <div class="container">
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">

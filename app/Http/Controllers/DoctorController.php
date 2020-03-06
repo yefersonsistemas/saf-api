@@ -1288,13 +1288,10 @@ class DoctorController extends Controller
 
         $diagnostic = Diagnostic::with('procedures','exam')->where('id',$request->id)->first();
 
-        $itinerary = Itinerary::with('person.patient.inputoutput')->where('reservation_id', $diagnostic->reservation_id)->first();
+        $itinerary = Itinerary::with('person.inputoutput')->where('reservation_id', $diagnostic->reservation_id)->first();
 
-        // dd($itinerary->person->patient->inputoutput->inside_office);
-
-        $itinerary->person->inputoutput->inside=null;
-        $itinerary->save();
-      
+        $io = InputOutput::find($itinerary->person->inputoutput->first()->id);
+        $io->delete();    
 
         if($itinerary->procedureR_id != null){ //eliminar procedimientos realizados en consulta de itinerary y tabla pivote
             $itinerary->procedureR_id = null;
@@ -1350,54 +1347,6 @@ class DoctorController extends Controller
         $itinerary->save();
 
         $diagnostic->delete();
-
-    //     $employe = Employe::find($itinerary->employe_id);
-    //     $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('patient.inputoutput')->where('person_id',$employe->person_id)->get();
-    //    dd($day);
-
-    //     $dia = strtolower(Carbon::now()->locale('en')->dayName); 
-       
-        //buscando pacientes que atenderan los medicos que atenderan citas hoy
-//         $pacientes = array();
-//         for($i=0; $i < count($medicos); $i++){
-         
-//             for($j=0; $j < count($day); $j++){
-// // dd($day[$j]->patient->inputoutput->first());
-//                 if($day[$j]->person_id ==  $medicos[$i]->person_id){
-//                     $pacientes[$i][] = $day[$j]; 
-//                 }
-//             }   
-//         }
-
-        // && $day[$j]->patient->inputoutput->first()->outside_office == null
-
-        // for($i=0; $i < count($pacientes); $i++){
-        //     // dd($pacientes);
-        //  $active =null;
-        //     for($j=0; $j < count($pacientes[$i]); $j++){
-        //         // dd($pacientes[$i][$j]->patient->inputoutput->first()->outside_office);
-        //         if(!empty($pacientes[$i][$j]->patient->inputoutput->first())){
-        //         if($pacientes[$i][$j]->patient->inputoutput->first()->outside_office == null){
-
-        //             if( $active  == null){
-        //                $active = $pacientes[$i][$j];
-        //             }else{
-        //                 if($active->patient->inputoutput->first()->created_at->format('H:i:s')  >  $pacientes[$i][$j]->patient->inputoutput->first()->created_at->format('H:i:s')){
-        //                    $active = $pacientes[$i][$j];
-        //              } 
-                     
-        //             } 
-        //         }
-        //     }
-        //     }   
-
-        //     if($active != null){
-        //         $inputoutput = Inputoutput::find($active->patient->inputoutput->first()->id);
-        //         $inputoutput->activo =true;
-        //         $inputoutput->save();
-        //     }
-          
-        // }
 
         return response()->json([
             'diagnostic' => 202
