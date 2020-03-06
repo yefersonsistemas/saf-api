@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-<div class="row clearfix" style="margin: 15px">                    
+<div class="row clearfix" style="margin: 15px">
     <div class="col-lg-12">
         <form class="card" method="POST" action="{{ route('patients.store', $reservation) }}">
             @csrf
@@ -79,7 +79,7 @@
                             <input type="email" name="email2" class="form-control" placeholder="Correo Electrónico">
                         </div>
                     </div>
-                  
+
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Teléfono</label>
@@ -201,5 +201,23 @@
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
 <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
 @endsection

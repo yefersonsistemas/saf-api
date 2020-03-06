@@ -223,6 +223,24 @@
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 {{--<script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
 <script>
     function stopDefAction(evt) {
         evt.preventDefault();
@@ -351,7 +369,7 @@
         console.log('hola')
         $("input[name='employe']").click(function() {
             var employe = $(this).val();
- 
+
             console.log('empleado_id',employe);
             $.ajax({
                     url: "{{ route('search.schedule') }}",

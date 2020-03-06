@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -131,7 +131,7 @@
                                         <th>{{ Carbon::parse($reservation->date)->format('d-m-Y') }}</th>
                                         <td>{{ $reservation->person->name }} {{ $reservation->person->lastname }}</td>
                                         <td>{{ $reservation->speciality->name }}</td>
-                                        
+
                                         <td style="display: inline-block">
                                             <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                             <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
@@ -239,6 +239,32 @@
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
+
+
+
+
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
+
+
+
+    
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal

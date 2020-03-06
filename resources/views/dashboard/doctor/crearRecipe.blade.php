@@ -109,7 +109,7 @@
                         <div class="card-footer text-right">
                             <button class="btn btn-azuloscuro mb-15" id="add" type="button">
                                 <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
-                            </button>                            
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -169,6 +169,24 @@
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+var submitted = false;
+
+ $(document).ready(function() {
+   $("form").submit(function() {
+     submitted = true;
+   });
+
+   window.onbeforeunload = function () {
+     if (!submitted) {
+       return 'Do you really want to leave the page?';
+     }
+   }
+ });
+</script>
+{{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
 <script>
     $('#multiselect4-filter').multiselect({
         enableFiltering: true,
@@ -203,9 +221,9 @@
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    medicina : medicina, 
-                    dosis: dosis, 
-                    medida : medida, 
+                    medicina : medicina,
+                    dosis: dosis,
+                    medida : medida,
                     duracion: duracion,
                     indicaciones: indicaciones,
                 }

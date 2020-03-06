@@ -123,8 +123,8 @@
                                     </div>
                                     <div>
                                         <div class="inline-datepicker" data-provide="datepicker" id="datepicker"></div>
-                                    </div>                  
-                                </div>              
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -152,6 +152,23 @@
 {{--
 <script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
 <script>
     function stopDefAction(evt) {
@@ -219,7 +236,7 @@
         $('#picker').val(
             $('.inline-datepicker').datepicker('getFormattedDate')
         );
-    });    
+    });
 </script>
 
 @endsection
