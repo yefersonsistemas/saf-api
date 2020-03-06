@@ -789,9 +789,9 @@ button[data-original-title="Help"]{ display: none; }
                                                                 <div class="card-footer text-right" id="cambiar_agregar">
                                                                     <a class="btn btn-azuloscuro mb-15 text-white" id="add">
                                                                         <i class="fe fe-plus-circle" aria-hidden="true"></i> Agregar
-                                                                    </a>     
-                                                                    <a class="btn btn-azuloscuro mb-15 text-white" id="guardar_cambio">guardar cambio</a>   
-                                                                    <input type="hidden" id="id_editar" value="">                                                            
+                                                                    </a>
+                                                                    <a class="btn btn-azuloscuro mb-15 text-white" id="guardar_cambio">guardar cambio</a>
+                                                                    <input type="hidden" id="id_editar" value="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1107,7 +1107,7 @@ button[data-original-title="Help"]{ display: none; }
                                 <input id="buscar_enfermedad" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar enfermedad..">
                             </div>
                             <div class="custom-controls-stacked" style="border-color:#00506b; height:360px; overflow-y: scroll;">
-                               
+
                                 {{-- <table class="table table-borderless scrollableTable"> --}}
                                 <table class="table table-borderless" >
                                     <thead>
@@ -1194,7 +1194,7 @@ button[data-original-title="Help"]{ display: none; }
                                     {{-- <label for="" class="col-2 mr-2 ml-2 text-center mt-2" style="font-weight:bold">Buscar:</label> --}}
                                     <input id="buscar_alergia" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar alergia..">
                                 </div>
-                            <div class="custom-controls-stacked" style="border-color:#00506b; height:360px; overflow-y: scroll;">                               
+                            <div class="custom-controls-stacked" style="border-color:#00506b; height:360px; overflow-y: scroll;">
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
@@ -1308,7 +1308,7 @@ button[data-original-title="Help"]{ display: none; }
                                     <input id="buscar_procedureR" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar procedimiento..">
                                 </div>
                             <div class="custom-controls-stacked"  style="border-color:#00506b; height:360px; overflow-y: scroll;">
-                               
+
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
@@ -1445,7 +1445,7 @@ button[data-original-title="Help"]{ display: none; }
                                                 {{-- <input id="buscar_cirugiaH" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-10" placeholder="Buscar cirugia.."> --}}
                                             </div>
                                         <div class="custom-controls-stacked">
-                                          
+
                                             <table class="table table-borderless" >
                                                 <thead>
                                                     <tr>
@@ -1496,7 +1496,7 @@ button[data-original-title="Help"]{ display: none; }
                                             </div>
 
                                         <div class="custom-controls-stacked">
-                                           
+
                                             <table class="table table-borderless">
                                                 <thead>
                                                     <tr>
@@ -1537,7 +1537,7 @@ button[data-original-title="Help"]{ display: none; }
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="modal-footer p-2">
                         <a  class="btn btn-secondary btnCerrar text-white"  data-dismiss="modal" type="button" >Cerrar</a>
@@ -1568,7 +1568,7 @@ button[data-original-title="Help"]{ display: none; }
                                 <input id="buscar_procedureP" type="text" class="form-control p-2 pl-3 ml-2 mr-2 col-9" placeholder="Buscar procedure..">
                             </div>
                         <div class="custom-controls-stacked"   style="border-color:#00506b; height:360px; overflow-y: scroll;">
-                           
+
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
@@ -2018,7 +2018,7 @@ $( document ).ready(function() {
             .done(function(data) {
                 console.log("hola ken", data);
                 if(data[0] == 202){
-                  
+
                 Swal.fire({
                     title: 'Excelente!',
                     text: 'Medicamento actualizado',
@@ -2040,20 +2040,20 @@ $( document ).ready(function() {
         $('#dosis').val('');
         $('#medida').val('');
         $('#duracion').val('');
-        
-        $('#recipe'+data.id).html( ` 
-                                <td>${data.medicine.name}</td> 
+
+        $('#recipe'+data.id).html( `
+                                <td>${data.medicine.name}</td>
                                 <td>${data.doses}</td>
-                                <td>${data.measure}</td> 
-                                <td>${data.duration}</td> 
-                                <td>${data.indications}</td> 
+                                <td>${data.measure}</td>
+                                <td>${data.duration}</td>
+                                <td>${data.indications}</td>
                                 <td class="text-center d-flex">
                                     <a  style="cursor:pointer" id="editar_medicine" name="${data.id}" class="btn text-dark d-inline">
                                         <i class="icon-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a style="cursor:pointer" id="${data.id}" name="${data.recipe_id}" class="text-dark btn d-inline recipe_id">
                                         <i class="icon-trash"></i>
-                                    </a>                                                                                                   
+                                    </a>
                                 </td>   `);
 
         $('#add').show();

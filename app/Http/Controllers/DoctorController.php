@@ -1252,7 +1252,7 @@ class DoctorController extends Controller
     }
 
     public function treatment_update(Request $request){
-  
+
         // dd($request);
         $medicine = Medicine::where('name', $request->medicina)->first();
 
