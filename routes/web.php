@@ -160,6 +160,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => ['role:doctor, director']], function () {
         Route::resource('doctor', 'DoctorController');
         Route::get('/doctor', 'DoctorController@index')->name('doctor.index');
+        Route::post('/doctor/consulta/anular', 'DoctorController@anular_consulta')->name('doctor.anular_consulta');
+        Route::get('/doctor/consulta/redireccion', 'DoctorController@redireccion')->name('doctor.redireccion');
 
         Route::get('doctor/diagnostico/{patient}','DoctorController@crearDiagnostico')->name('doctor.crearDiagnostico');
         Route::post('doctor/diagnostico/{patient}','DoctorController@storeDiagnostic')->name('diagnostic.store');

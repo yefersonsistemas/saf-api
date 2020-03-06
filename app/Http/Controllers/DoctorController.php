@@ -172,7 +172,7 @@ class DoctorController extends Controller
 
         $r_patient = Diagnostic::with('repose', 'reportMedico','exam','procedures')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->where('patient_id', $b_patient->id)->where('employe_id', $employe->id)->first();
 // dd($r_patient);
-        $itinerary = Itinerary::with('recipe.treatment.medicine', 'typesurgery','reference.speciality','reference.employe.person')->where('patient_id', $reservation->patient_id)->first();
+        $itinerary = Itinerary::with('recipe.treatment.medicine', 'typesurgery','reference.speciality','reference.employe.person')->where('reservation_id', $history->id)->first();
 // dd($itinerary->recipe);
         $speciality = Speciality::all();
         $medicines = Medicine::all();
@@ -1006,8 +1006,9 @@ class DoctorController extends Controller
                         'doctor'        =>  $request->doctorExterno,
                     ]);
 
-                    $itinerary = Itinerary::where('patient_id', $person->id)->first();
-                    if (!is_null($itinerary)) {
+                    $itinerary = Itinerary::where('reservation_id', $request->reservation_id)->first();
+                    // dd($itinerary);
+                    if (!empty($itinerary)) {
                         $itinerary->reference_id = $reference->id;
                         $itinerary->save();
                     }
@@ -1061,6 +1062,14 @@ class DoctorController extends Controller
                                 'doctor'        =>  $request->doctorExterno,
                                 'branch'        =>  1,
                             ]);
+
+                            $itinerary = Itinerary::where('reservation_id', $request->reservation_id)->first();
+                            // dd($itinerary);
+                            if (!empty($itinerary)) {
+                                $itinerary->reference_id = $referencia->id;
+                                $itinerary->save();
+                            }
+
                             return response()->json([
                                 'reference' => 'Referencia actualizada correctamente',201, $referencia,
                             ]);
@@ -1271,6 +1280,85 @@ class DoctorController extends Controller
             'treatment' => $treatment,202
         ]);
     }
+
+
+
+    //========================anular consulta======================
+    public function anular_consulta(Request $request){
+
+        $diagnostic = Diagnostic::with('procedures','exam')->where('id',$request->id)->first();
+
+        $itinerary = Itinerary::with('person.inputoutput')->where('reservation_id', $diagnostic->reservation_id)->first();
+
+        $io = InputOutput::find($itinerary->person->inputoutput->first()->id);
+        $io->delete();    
+
+        if($itinerary->procedureR_id != null){ //eliminar procedimientos realizados en consulta de itinerary y tabla pivote
+            $itinerary->procedureR_id = null;
+            $itinerary->save();
+         
+            foreach($diagnostic->procedures as $item){
+                $item->diagnostic()->detach($diagnostic);
+            }
+        }
+
+        if($itinerary->exam_id != null){   //eliminar examenes de itinerary y tabla pivote
+            $itinerary->exam_id = null;
+            $itinerary->save();
+         
+            foreach($diagnostic->exam as $item){
+                $item->diagnostic()->detach($diagnostic);
+            }
+        }
+    
+        if($itinerary->recipe_id != null){ //eliminar recipe de itinerary y tabla pivote
+            $recipe = Recipe::with('treatment')->where('id',$itinerary->recipe_id)->first();
+         
+            foreach($recipe->treatment as $item){
+                $item->recipe()->detach($recipe);
+            }
+            $recipe->delete();
+            $itinerary->recipe_id= null;
+            $itinerary->save();
+        }
+
+        if($itinerary->reference_id != null){ //eliminar referencia
+            $reference = Reference::find($itinerary->reference_id);
+            $reference->delete();
+            $itinerary->reference_id=null;
+            $itinerary->save();
+        }
+
+        if($itinerary->report_medico_id != null){ //eliminar reporte medico 
+            $reporte = ReportMedico::find($itinerary->report_medico_id);
+            $reporte->delete();
+            $itinerary->report_medico_id=null;
+            $itinerary->save();
+        }
+
+        if($itinerary->repose_id != null){ //eliminar reposo de itinerary
+            $repose = Reposo::find($itinerary->repose_id);
+            $repose->delete();
+            $itinerary->repose_id=null;
+            $itinerary->save();
+        }
+
+        $itinerary->status='dentro';
+        $itinerary->save();
+
+        $diagnostic->delete();
+
+        return response()->json([
+            'diagnostic' => 202
+        ]);
+     }
+
+     public function redireccion(){
+
+        Alert::success('Consulta anulado correctamente!');
+        return redirect()->route('doctor.index');
+
+     }
 
 
 }

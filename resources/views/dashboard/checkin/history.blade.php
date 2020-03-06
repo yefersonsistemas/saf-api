@@ -301,7 +301,7 @@
             @if($mostrar == 1)
                 <div class="card p-5">
                     <label class="form-label">Exámenes</label>
-                    <div class="dropzone row d-flex p-0" id="my-dropzone" style="border-color:#00506b; height:360px; overflow-y: scroll;" >                        
+                    <div class="dropzone row d-flex p-0" id="my-dropzone" style="border-color:#00506b; height:360px; overflow-y: scroll;" >
                     </div>
                 </div>
 
@@ -832,9 +832,27 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
 {{-- <script>
 $boton.addEventListener("click", function() {
-    
+
     // Codificarlo como JSON
     //Pausar reproducción
     $video.pause();
@@ -843,7 +861,7 @@ $boton.addEventListener("click", function() {
         $canvas.width = $video.videoWidth;
         $canvas.height = $video.videoHeight;
         contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
-        
+
         let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
         let datafoto=encodeURIComponent(foto);
             var data1 = {
@@ -876,7 +894,7 @@ $boton.addEventListener("click", function() {
             $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
             $('#imagePreview').hide(),
             $('#imagePreview').fadeIn(650)
-        );        
+        );
         });
 </script> --}}
 

@@ -206,6 +206,7 @@ button[data-original-title="Help"]{ display: none; }
                         <div class="card p-4">
                                 <!--HEADER-->
                                 <a id="btnBack" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>
+                                {{-- <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a> --}}
                                 <div class="container">
                                     <div class="row my-3 d-flex flex-row align-items-center">
                                         <div class="col-4 ml-4">
@@ -535,7 +536,7 @@ button[data-original-title="Help"]{ display: none; }
                                                     <div id="agregar_cirugia">
                                                             @if($cite->previous_surgery != null)
                                                             <div class="row" id="cirugia{{$cite->id}}">
-                                                                <div class="col-9">
+                                                                <div class="col-10">
                                                                     <a class="list-group-item list-group-item-action row" >{{ $cite->previous_surgery }}</a>
                                                                 </div>
                                                                 <div class="text-center">
@@ -1291,7 +1292,7 @@ button[data-original-title="Help"]{ display: none; }
                     <div class="modal-body" style="max-height: 415px;">
                         <div class="form-group">
                             <div class="custom-controls-stacked">
-                                <textarea id="form_cirugias" cols="63" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>
+                                <textarea id="form_cirugias" cols="51" rows="5" style="max-height: 400px; height:100%;">{{ $cite->previous_surgery }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1648,6 +1649,23 @@ button[data-original-title="Help"]{ display: none; }
 <!-- <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script> -->
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+var submitted = false;
+
+ $(document).ready(function() {
+   $("form").submit(function() {
+     submitted = true;
+   });
+
+   window.onbeforeunload = function () {
+     if (!submitted) {
+       return 'Do you really want to leave the page?';
+     }
+   }
+ });
+</script>
+{{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
 <script>
     $('.medio').click(function(){
@@ -2184,13 +2202,14 @@ $( document ).ready(function() {
         var reference = $("#reference").val();
         var patient = $("#patient").val();
         var reservation = $("#reservacion_id").val();
+        // console.log('referencia', reservation)
 
-        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference);
+        ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference,reservation);
         // console.log('espe',especialidad);
         // ajax(dni);
     });
 
-    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference) {
+    function ajaxReferencia(speciality, reason, doctor, doctorExterno, patient, reference,reservation) {
         console.log("hola hoy");
         $.ajax({
             url: "{{ route('doctor.reference_update') }}",   //definiendo ruta
@@ -2203,6 +2222,7 @@ $( document ).ready(function() {
                 doctorExterno:doctorExterno,
                 reference:reference,
                 patient:patient,
+                reservation_id:reservation,
             }
         })
         .done(function(data) {
@@ -3162,12 +3182,43 @@ $( document ).ready(function() {
     allowOutsideClick:false
         })
         .then(function(){
-                window.location.href = '{{ route('doctor.index') }}'
+                // window.location.href = '{{ route('doctor.anular_consulta') }}'
+                diagnostic_id = $('#diagnostic_id').val();
+                anular_consulta(diagnostic_id);
             });
     };
 
+    function anular_consulta(diagnostic_id){
+        console.log('id del diagnostico', diagnostic_id);
 
+        $.ajax({
+        url: "{{ route('doctor.anular_consulta') }}",   //definiendo ruta
+        type: "POST",
+        dataType:'json', //definiendo metodo
+        data: {
+            _token: "{{ csrf_token() }}",
+            id:diagnostic_id
+        }
+        })
+        .done(function(data) {
+            if(data.diagnostic == 202){
+           
+            //     Swal.fire({
+            //     title: 'Consulta Anulada',
+            //     text: 'Click en OK para continuar',
+            //     type: 'warning',
+            //     // timer: 30000
+            // });
+
+            window.location.href = '{{ route('doctor.redireccion') }}'
+            }
+     
+        console.log(data)         //recibe lo que retorna el metodo en la ruta definida
+        })
+            .fail(function(data) {
+            console.log(data);
+        })
+    }
 
 </script>
-
 @endsection

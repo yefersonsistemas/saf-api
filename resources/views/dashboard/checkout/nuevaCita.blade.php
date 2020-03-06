@@ -17,7 +17,7 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <form id="wizard_horizontal" method="POST" action="" class="card pl-4 pr-4 m-0">
-                        @csrf          
+                        @csrf
                         <h2>Motivo De La Consulta</h2>
                         <section class="container">
                             <div class="col-md-9 m-auto ">
@@ -30,9 +30,9 @@
                             <input type="hidden" id="itinerary" value="{{$itinerary->id}}">
                             <input type="hidden" id="newPerson" value="{{$itinerary->person->id}}">
                             <input type="hidden" id="doctor" value="{{$itinerary->employe_id}}">
-                            <input type="hidden" id="speciality" value="{{$reservation->speciality->id}}"> 
+                            <input type="hidden" id="speciality" value="{{$reservation->speciality->id}}">
                         </section>
-                      
+
 
                         <h2>Elegir Fecha</h2>
                         <section class="py-1 align-items-center">
@@ -50,8 +50,8 @@
                                         </div>
                                         <div id="div">
                                             <div class="inline-datepicker" data-provide="datepicker"></div>
-                                        </div>                  
-                                    </div>              
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -76,20 +76,20 @@
         var employe = $('#employe_id').val();
 
         console.log('empleado', employe);
-        schedule(employe); 
+        schedule(employe);
     });
 
     function stopDefAction(evt) {
         evt.preventDefault();
     }
-    
+
     var form = $('#wizard_horizontal').show();
-   
+
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
-        // enableAllSteps: false,        
+        // enableAllSteps: false,
         labels: {
             cancel: "Cancelar",
             current: "Paso actual:",
@@ -99,7 +99,7 @@
             previous: "Anterior",
             loading: "Cargando ..."},
 
-            
+
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
@@ -135,7 +135,7 @@
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
 
-   
+
 
     function schedule(employe) {
             $.ajax({
@@ -149,9 +149,9 @@
                 .done(function(data) {
                     $('#doctor').val(data.employe.id);
 
-                    $('#picker').val("");   
+                    $('#picker').val("");
                     $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
-                
+
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
@@ -166,9 +166,9 @@
                         $('#picker').val(
                             $('.inline-datepicker').datepicker('getFormattedDate')
                         );
-                 });                             
+                 });
 
-                 
+
                 })
                 .fail(function(data) {
                     console.log(data);
@@ -177,7 +177,7 @@
 
     function crear() {
         var date = $('#picker').val();
-        var motivo = $('#motivo').val();           
+        var motivo = $('#motivo').val();
         var person = $('#newPerson').val();
         var doctor = $('#doctor').val();
         var speciality = $('#speciality').val();
@@ -198,7 +198,7 @@
                     date: date,     //fecha seleccionada
                     motivo: motivo, //motivo que se introduce
                     person: person,  //id del paciente person
-                    doctor: doctor, //id del employe                    
+                    doctor: doctor, //id del employe
                     speciality: speciality,
                     itinerary:itinerary,
                 }

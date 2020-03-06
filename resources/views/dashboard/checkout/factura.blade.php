@@ -36,7 +36,7 @@
                                             <div class="col-lg-4 col-md-4 col-sm-12"><h2>Factura</h2> </div>
                                             <div class="col-lg-8 col-md-8 col-sm-12 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
                                                 <span class="h6 h66 pt-0 pr-10">Fecha:</span><span class="text col-lg-4 col-md-7 col-sm-12" style="margin-bottom:50px"><i class="fa fa-calendar pl-20"></i> {{ $fecha }}</span><br>
-                                            </div>                             
+                                            </div>
                                         </div>
                                         <div class="card-body mt-0 " style="top:-50px">
                                         <!--Paciente-->
@@ -79,12 +79,12 @@
                                             <div class="row">
                                                 <div class="col-12 mt-2 d-flex justify-content-center">
                                                     <div class="col-6 d-flex justify-content-end" >
-                                                        <a class="btn btn-boo d-block cursor" style="color:#fff" id="paciente" name="paciente"> 
+                                                        <a class="btn btn-boo d-block cursor" style="color:#fff" id="paciente" name="paciente">
                                                             <i class="fa fa-user mr-2"></i> Paciente
                                                         </a>
                                                     </div>
                                                     <div class="col-6 d-flex justify-content-start">
-                                                        <a  class="btn btn-boo d-block cursor" style="color:#fff" data-toggle="modal" data-target="#otro"> 
+                                                        <a  class="btn btn-boo d-block cursor" style="color:#fff" data-toggle="modal" data-target="#otro">
                                                             <i class="fa fa-user-plus"></i> Otro cliente
                                                         </a>
                                                     </div>
@@ -186,7 +186,7 @@
                                                             @endif
                                                         @endforeach
 
-                                                    </tbody> 
+                                                    </tbody>
                                                     @endif
                                                     @if($itinerary->surgeryR != null)
                                                     <tbody>
@@ -196,11 +196,11 @@
                                                             </td>
                                                             <td class="text-right" style="width: 1%">{{ number_format($itinerary->surgeryR->cost, 2) }}</td>
                                                         </tr>
-                                                    </tbody> 
+                                                    </tbody>
                                                     @endif
                                                     <tr>
                                                         <td colspan="5" class="font600 text-right">Subtotal</td>
-                                                        <td class="text-right" id="subtotal">{{ number_format($total,2) }}</td> 
+                                                        <td class="text-right" id="subtotal">{{ number_format($total,2) }}</td>
                                                     </tr>
                                                     <tr class="bg-boo text-light">
                                                         <td colspan="5" class="font700 text-right ">Total a cancelar</td>
@@ -217,14 +217,14 @@
                                                     <a href="{{route('checkout.index')}}" class="btn btn-boo pr-5 pl-5 mr-3">Salir</a>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
-                    </div>                
+                    </div>
                 </div>
             </div>
         </div>
@@ -319,6 +319,25 @@
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\multi-select\js\jquery.multi-select.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+
+    {{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
     <script>
         $('#multiselect1, #multiselect2, #single-selection, #single-selection2, #multiselect5, #multiselect6').multiselect({
         maxHeight: 300
@@ -333,6 +352,8 @@
 //             }
 //      });
 //  });
+
+
 
 
     $(document).ready(function(){
@@ -424,19 +445,19 @@
             var lastname = $("#lastnameC").val();
             var phone = $("#phoneC").val();
 
-            $('#dni_c').text(dni); 
+            $('#dni_c').text(dni);
             $('#name_c').text(name);
             $('#lastname_c').text(lastname);
             $('#phone_c').text(phone)
-            
-            $("input[type=submit]").removeAttr("disabled");  
-         
+
+            $("input[type=submit]").removeAttr("disabled");
+
         });
 
     }
 
-    
- 
+
+
 
         // ==================== ejecuta cuando se clikea el boton de registrar otro =====================
         $("#registrar").click(function() {
@@ -458,7 +479,7 @@
 
         if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 ){
             if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 || name == '' || lastname == '' || address == ''){
-                
+
                 Swal.fire({
                 title: 'Datos incompletos',
                 text: "Click OK para continuar!!",
@@ -513,7 +534,7 @@
             })
             .done(function(data) {                        //recibe lo que retorna el metodo en la ruta definida
                 console.log('esto',data);
-                if (data[0] == 201) {                       
+                if (data[0] == 201) {
                     Swal.fire({
                         title: 'Excelente!',
                         text:  'Registro satisfactorio',
@@ -529,8 +550,8 @@
         //================================== para porder mostrar en el documento html ==========================
         function factura_cliente(data) {
             console.log('ken',data);
-            $("input[type=submit]").removeAttr("disabled"); 
-            $('#dni_c').text(data.cliente.dni); 
+            $("input[type=submit]").removeAttr("disabled");
+            $('#dni_c').text(data.cliente.dni);
             $('#name_c').text(data.cliente.name);
             $('#lastname_c').text(data.cliente.lastname);
             $('#phone_c').text(data.cliente.phone)
@@ -540,24 +561,24 @@
         // ==================== ejecuta el que va a cancelar es el paciente =====================
         $("#paciente").click(function() {
             console.log('hola')
-            $("input[type=submit]").removeAttr("disabled"); 
-            var dni = $("#dni").text(); 
-            var name = $("#name").text(); 
-            var phone = $("#phone").text(); 
+            $("input[type=submit]").removeAttr("disabled");
+            var dni = $("#dni").text();
+            var name = $("#name").text();
+            var phone = $("#phone").text();
             console.log(dni, name, phone)
             var person_id = $('#paciente_id').val();
             console.log('hola',person_id)
             $('#person_id').val(person_id);
             $('#dni_c').text(dni);
             $('#name_c').text(name);
-            $('#phone_c').text(phone); 
-            $('#person_id').val(id); 
+            $('#phone_c').text(phone);
+            $('#person_id').val(id);
 
             // $('#deshabilitado').removeAttr("disabled");
 
             // $( "input:radio" ).on("click",function(){
-           
-  
+
+
 //   });
             // }
         }); //fin de la funcion clikea
@@ -566,7 +587,7 @@
 // abrir un PDF en una pestaña nueva
 $("#deshabilitado").click(function() {
 // window.open('http://ejemplo.com/archivo.pdf', '_blank');
- 
+
 // redirigir la pestaña actual a otra URL
 window.location.href = '/citas/deldia';
 });
