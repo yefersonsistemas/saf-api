@@ -158,8 +158,8 @@
     </section>
     <h2>Elegir Medico</h2>
     <section class="py-1">
-        <div class="row justify-content-between" id="medicos">         
-        </div>     
+        <div class="row justify-content-between" id="medicos">
+        </div>
         <input type="hidden" name="doctor" id="doctor">
     </section>
     <h2>Motivo De La Consulta</h2>
@@ -188,8 +188,8 @@
                     </div>
                     <div id="div">
                         <div class="inline-datepicker" data-provide="datepicker"></div>
-                    </div>                  
-                </div>              
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -233,6 +233,25 @@
 <script src="{{ asset('js/brandAn.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 {{--<script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
+
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+var submitted = false;
+
+ $(document).ready(function() {
+   $("form").submit(function() {
+     submitted = true;
+   });
+
+   window.onbeforeunload = function () {
+     if (!submitted) {
+       return 'Do you really want to leave the page?';
+     }
+   }
+ });
+</script>
+{{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
 <script>
     $boton.addEventListener("click", function() {
         // Codificarlo como JSON
@@ -291,14 +310,14 @@
     function stopDefAction(evt) {
         evt.preventDefault();
     }
-    
+
     var form = $('#wizard_horizontal').show();
-    
+
     form.steps({
         headerTag: 'h2',
         bodyTag: 'section',
         transitionEffect: 'slideLeft',
-        // enableAllSteps: false,        
+        // enableAllSteps: false,
         labels: {
             cancel: "Cancelar",
             current: "Paso actual:",
@@ -308,7 +327,7 @@
             previous: "Anterior",
             loading: "Cargando ..."},
 
-            
+
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
             search();
@@ -529,9 +548,9 @@
                         allowOutsideClick:false,
                     });
                     $('#doctor').val(data.employe.id);
-                    $('#picker').val("");   
+                    $('#picker').val("");
                     $('#div').html(`<div class="inline-datepicker" data-provide="datepicker"></div>`);
-                
+
                     $('.inline-datepicker').datepicker({
                         todayHighlight: true,
                         language: 'es',
@@ -545,9 +564,9 @@
                         $('#picker').val(
                             $('.inline-datepicker').datepicker('getFormattedDate')
                         );
-                 });                             
+                 });
 
-                 
+
                 })
                 .fail(function(data) {
                     console.log(data);
@@ -612,10 +631,10 @@
 
 <script type="text/javascript"> function num(e) {
     tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla==8) 
+    if (tecla==8)
     return true;
-    else 
-    if (tecla==0||tecla==9)  
+    else
+    if (tecla==0||tecla==9)
     return true;
     patron =/[0-9\s]/;// -> solo numeros
     te = String.fromCharCode(tecla);

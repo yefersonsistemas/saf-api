@@ -25,13 +25,13 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
             <form id="wizard_horizontal" method="POST" action="{{route('surgery.hospitalaria_store')}}" class="card pl-4 pr-4">
                     @csrf
-                    <h2>Buscar Paciente</h2>            
-                    <section class="py-1"> 
+                    <h2>Buscar Paciente</h2>
+                    <section class="py-1">
                         <div class="row clearfix">
                             <div class="col-lg-12">
-                                <div class="card">                                     
+                                <div class="card">
 
-                                <div class="card-body py-0 ">                                  
+                                <div class="card-body py-0 ">
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
@@ -62,25 +62,25 @@
                                     </div>
                                 </div>
                             </div>
-                                    <div class="card-body  p-1 "> 
+                                    <div class="card-body  p-1 ">
                                                     {{-- aqui llamamos la imagen --}}
-                                        <div class="row ml-5 ">                                          
-                                        <div class="row justify-content-between">                                                                                             
+                                        <div class="row ml-5 ">
+                                        <div class="row justify-content-between">
                                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                                 <label class="imagecheck m-0">
-                                                    <div class="card assigment">                              
+                                                    <div class="card assigment">
                                                         <figure class="imagecheck-figure border-0 text-center">
                                                             <div class="" style="height:180px; width:150px" id="photo">
-                                                                <img src="" alt=""  class="img-thumbnail" style=" width:100%; height:100%; background:#000">                        
-                                                            </div>       
-                                                        </figure>                            
+                                                                <img src="" alt=""  class="img-thumbnail" style=" width:100%; height:100%; background:#000">
+                                                            </div>
+                                                        </figure>
                                                     </div>
                                                 </label>
-                                            </div>                                            
+                                            </div>
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
-                                                    <input type="text" id="name" name="name" disabled 
+                                                    <input type="text" id="name" name="name" disabled
                                                     class="form-control" placeholder="Nombre" value="" required="">
                                                 </div>
                                             </div>
@@ -108,7 +108,7 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Teléfono</label>
-                                                    <input type="number" disabled id="phone" 
+                                                    <input type="number" disabled id="phone"
                                                     name="phone" class="form-control number" placeholder="Teléfono" value="" required="">
                                                 </div>
                                             </div>
@@ -120,12 +120,12 @@
                         </div>
                     </section>
                     <h2>Elegir Cirugia</h2>
-                    <section> 
+                    <section>
                         <div class="row justify-content-between">
-                            @foreach ($surgeries as $surgery)                           
+                            @foreach ($surgeries as $surgery)
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                 <label class="imagecheck m-0">
-                                    <div class="card assigment">
+                                    <div class="card assigment py-2">
                                         <input type="radio" name="type_surgery_id" value="{{ $surgery->id }}" id="type_surgery_id" class="imagecheck-input">
                                         @if (!empty($surgery->image->path))
                                         <figure class="imagecheck-figure border-0 text-center" style="max-height: 100px; width:170px; ">
@@ -221,8 +221,8 @@
                                     </div>
                                     <div>
                                         <div class="inline-datepicker" data-provide="datepicker" id="datepicker"></div>
-                                    </div>                  
-                                </div>              
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{-- <div class="col-lg-12 col-md-12">
@@ -287,6 +287,24 @@
 {{-- <script src="{{ asset('assets\js\page\calendar.js') }}"></script> --}}
 {{--
 <script src="{{ asset('js\dashboard\createCite.js') }}"></script> --}}
+
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
 <script>
         function stopDefAction(evt) {
@@ -509,6 +527,6 @@ var form = $('#wizard_horizontal').show();
             $('.inline-datepicker').datepicker('getFormattedDate')
         );
     });
-        
+
 </script>
 @endsection

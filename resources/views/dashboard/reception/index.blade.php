@@ -24,7 +24,7 @@
             {{-- Contadores --}}
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card">
-                        <div class="card-body py-2">                                
+                        <div class="card-body py-2">
                             <h6>Total De Citas Agendadas</h6>
                             <h4 class="pt-2"><i class="fa fa-address-book"></i> <span class="counter">2,250</span></h4>
                             {{-- <h5>$1,25,451.23</h5> --}}
@@ -124,7 +124,7 @@
                                         <tr>
                                             <td class="img-recep">
                                                 {{-- <img class="rounded circle" width="150px" height="auto"  src="{{ ($reservation->patient->image != null) ? Storage::url($reservation->patient->image->path) : '' }}" alt=""> --}}
-                                                
+
                                             </td>
                                             <td>{{ $reservation->patient->dni }}</td>
                                             <td>{{ $reservation->patient->name }}</td>
@@ -167,7 +167,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="col-lg-12">
@@ -214,7 +214,7 @@
                                             <td style="display: inline-block">
                                                 <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -228,7 +228,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div class="col-lg-12">
@@ -282,8 +282,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div>   
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-reprogram" role="tabpanel" aria-labelledby="pills-reprogram-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -345,7 +345,7 @@
                                             <td style="display: inline-block">
                                                 <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -359,8 +359,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div>  
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-suspendidas" role="tabpanel" aria-labelledby="pills-suspendidas-tab">
                     <div class="col-lg-12">
                         <div class="table-responsive mb-4">
@@ -406,7 +406,7 @@
                                             <td style="display: inline-block">
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
                                                 <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>    
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -420,7 +420,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-pendientes" role="tabpanel" aria-labelledby="pills-pendientes-tab">
                     <div class="col-lg-12">
@@ -468,7 +468,7 @@
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button>
                                                 <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>  
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                             </td>
                                             <td>
                                                 @if ($reservation->patient->historyPatient == null)
@@ -482,8 +482,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
-                </div>             
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -532,6 +532,25 @@
     <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
     <script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
+
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
@@ -567,6 +586,6 @@
             $('#reservation_id').val(id);
             $('#type').val(type);
         }
-     
+
     </script>
 @endsection

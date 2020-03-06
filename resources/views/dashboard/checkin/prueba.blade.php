@@ -18,7 +18,7 @@
     @endsection
 
     @section('title','Historia Medica')
-    
+
 @section('content')
 {{-- <div class="container mt-25">
         <div class="card p-4">
@@ -39,13 +39,13 @@
                         <label class="m-0 form-label">Médico tratante:</label>
                         <input type="text" disabled class="form-control" placeholder="Nombre del  doctor" value="{{ $rs->person->name }} {{ $rs->person->lastname }}">
                     </div>
-                    
+
                     <div class="col-4">
                         <label class="m-0 form-label">Razón:</label>
                         <input type="text" disabled class="form-control" placeholder="Motivo de la reservación" value="{{ $rs->description }}">
                     </div>
                 </div>
-            </div>    
+            </div>
             <div class="card p-4">
                 @if($mostrar == 1)
                     <div style="margin-bottom:12px">
@@ -58,21 +58,21 @@
                     <div class="col-3 ml-2 mb-4">
                         {{-- <div class="avatar-upload">
                             @if ($rs->patient->image == null)
-                                <div class="avatar-preview avatar-edit">                                   
+                                <div class="avatar-preview avatar-edit">
                                     <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                                 </div>
                             @endif
-                          
+
                             @if ($rs->patient->image != null)
-                                <div class="avatar-preview avatar-edit">                                
+                                <div class="avatar-preview avatar-edit">
                                     <div id="imagePreview" style="background-image: url();">
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscuro position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                                 </div>
                             @endif
-                    
+
                         </div> --}}
                     </div>
                     <!-- Modal -->
@@ -117,12 +117,12 @@
                                     <input type="text" disabled class="form-control" placeholder="Documento de Identidad" id="dni" value=" {{ $rs->patient->dni }}" name="dni">
                                 </div>
                             </div>
-                        
+
                             <div class="col-4">
                                 <label class="m-0 form-label">Nombre:</label>
                                 <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->name }}">
                             </div>
-                            
+
                             <div class="col-4">
                                 <label class="m-0 form-label">Apellido:</label>
                                 <input type="text" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ $rs->patient->lastname }}">
@@ -131,7 +131,7 @@
                     </div>
                 </div>
             </div>
-        
+
             {{-- <form action="{{ route('save.history') }}" method='POST' class="card p-4">
                 @csrf --}}
                 {{-- @method('PUT') --}}
@@ -157,7 +157,7 @@
                                     <input type="text" id="place" name="place" disabled class="form-control" placeholder="Lugar de Nacimiento" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->place : '' }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="form-label">Edad</label>
@@ -169,7 +169,7 @@
                                     @endif
                                 </div>
                             </div>
-                            
+
                             <div class="col-2">
                                 {{-- <div class="form-group">
                                     <label class="form-label">Peso (Lbs)</label>
@@ -187,14 +187,14 @@
                                     <input type="text" disabled id="weight" name="weight" class="form-control" placeholder="Peso" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->weight : '' }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-8">
                                 <div class="form-group">
                                     <label class="form-label">Direccion</label>
                                     <input type="text" disabled name="address" id="address" class="form-control" placeholder="Direccion" value="{{ $rs->patient->address }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="form-label">Genero <span class=""><i class="fa fa-venus-mars"></i></span></label>
@@ -205,12 +205,12 @@
                                                 @if ($rs->patient->historyPatient->gender == 'Masculino')
                                                     checked
                                                     @endif
-                                            @endif 
+                                            @endif
                                             name="gender" class="form-check-input" value="Masculino">
                                             <label class="form-check-label" for="genero1"><span><i class="fa fa-female"></i></span></label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline p-0 ml-1">
-                                            <input disabled type="radio" id="genero2" 
+                                            <input disabled type="radio" id="genero2"
                                             @if ($rs->patient->historyPatient != null)
                                                 @if ($rs->patient->historyPatient->gender == 'Femenino')
                                                     checked
@@ -241,7 +241,7 @@
                                     <input type="text" disabled id="another_phone" name="another_phone" class="form-control" placeholder="Teléfono adicional" value="{{ ($rs->patient->historyPatient != null) ? $rs->patient->historyPatient->another_phone : '' }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-4">
                                 <div class="form-group">
                                     <label class="form-label">Email adicional</label>
@@ -264,7 +264,7 @@
                     </div>
                 </div>
             </div>
-            
+
             @if($mostrar == 1)
                 <div class="card p-4">
                     <label class="form-label">Exámenes</label>
@@ -296,7 +296,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-6 col-md-3" id="framework_form2">
                             <label class="form-label">Medicamentos</label>
                             <div class="form-group multiselect_div">
@@ -328,7 +328,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-6 col-md-3">
                             <div class="form-group col-12">
                                 <label class="form-label">Cirugias previas</label>
@@ -338,7 +338,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card p-4 row d-flex d-row justify-content-between">
                     <div class="card p-4">
                         <h5 class="text-center">Citas anteriores</h5>
@@ -348,12 +348,12 @@
                                     <label class="m-0 form-label">Doctor:</label>
                                     <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->employe->person->name }} {{ $reservation->employe->person->lastname }}">
                                 </div>
-                                
+
                                 <div>
                                     <label class="m-0 form-label">Especialidad:</label>
                                     <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->speciality->name }}">
                                 </div>
-                                
+
                                 <div>
                                     <label class="m-0 form-label">Fecha de la reservacion:</label>
                                     <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->date }}">
@@ -363,7 +363,7 @@
                                     <label class="m-0 form-label">Razon de la cita:</label>
                                     <input type="text" class="form-control border-0 bg-white" placeholder="Lugar de Nacimiento" value=" {{ $reservation->description }}">
                                 </div>
-                            </div> 
+                            </div>
                         @empty
                             <div>
                                 <label class="m-0 form-label">No posee Citas Anteriores</label>
@@ -372,7 +372,7 @@
                     </div>
                 </div>
             @endif
-            
+
             @if($mostrar == 1)
                 <div>
                     <button type="submit" class="btn btn-primary" id="submit-all"> Guardar</button>
@@ -400,7 +400,7 @@
                     <div class="fallback">
                         <input name="file" type="file" multiple id="files" />
                     </div>
-                </div>                    
+                </div>
                         <button type="submit" class="btn btn-azuloscuro">Submit</button>
                     </form>
                 </div>
@@ -419,9 +419,27 @@
 <script src="{{ asset('assets/plugins/dropzone/js/dropzone.js') }}"></script>
 <script src="{{ asset('js/brandAn.js') }}"></script>
 
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+
 <script>
 $boton.addEventListener("click", function() {
-    
+
     // Codificarlo como JSON
     //Pausar reproducción
     $video.pause();
@@ -430,7 +448,7 @@ $boton.addEventListener("click", function() {
         $canvas.width = $video.videoWidth;
         $canvas.height = $video.videoHeight;
         contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
-        
+
         let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
         let datafoto=encodeURIComponent(foto);
             var data1 = {
@@ -440,7 +458,7 @@ $boton.addEventListener("click", function() {
                 "pic":datafoto
                 };
 
-            
+
         const datos=JSON.stringify(data1)
         $estado.innerHTML = "Enviando foto. Por favor, espera...";
         fetch("{{ route('checkin.avatar') }}", {
@@ -460,12 +478,12 @@ $boton.addEventListener("click", function() {
             })
         //Reanudar reproducción
         $video.play();
-  
+
         $('.avatar-preview').load(
             $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
              $('#imagePreview').hide(),
              $('#imagePreview').fadeIn(650)
-         );        
+         );
         });
 </script>
 
@@ -490,7 +508,7 @@ Dropzone.options.myDropzone = {
             file.previewElement.classList.add("dz-success");
         }
         file.previewElement.classList.add("dz-complete");
-        
+
     }
 }
 //  Dropzone.options.myDropzone = {
@@ -533,7 +551,7 @@ Dropzone.options.myDropzone = {
 //                     // Agregue el botón al elemento de vista previa del archivo.
 //                     file.previewElement.appendChild(removeButton);
 //                 });
-                
+
 //             }
 //         };
 </script>
@@ -583,8 +601,8 @@ Dropzone.options.myDropzone = {
     <script>
         // para el select de las enfermedades
         $("#disease").change(function(){
-            var disease_id = $(this).val();     // Capta el id de la enfermedad 
-            console.log('enfermedad', disease_id); 
+            var disease_id = $(this).val();     // Capta el id de la enfermedad
+            console.log('enfermedad', disease_id);
             //console.log(disease_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
         });
     </script>
@@ -592,7 +610,7 @@ Dropzone.options.myDropzone = {
     <script>
         // para el select de las alergias
         $("allergy").change(function(){
-            var allergy_id = $(this).val();     // Capta el id de la alergia 
+            var allergy_id = $(this).val();     // Capta el id de la alergia
             console.log('alergia', allergy_id);
             console.log(allergy_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
         });
@@ -601,7 +619,7 @@ Dropzone.options.myDropzone = {
     <script>
         // para el select de las medicamentos
         $("#medicine").change(function(){
-            var medicine_id = $(this).val(); // Capta el id del medicamento 
+            var medicine_id = $(this).val(); // Capta el id del medicamento
             console.log('medicamento', medicine_id);
             console.log(medicine_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
         });

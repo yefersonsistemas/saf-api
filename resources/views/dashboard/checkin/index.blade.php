@@ -163,7 +163,7 @@
                                                         <a href="{{ route('checkin.history', [$reservation->id,0]) }}">Generar</a>
                                                     @else
                                                         @if($reservation->patient->inputoutput != '')
-                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>                                                          
+                                                            <a href="{{ route('checkin.history', [$reservation->id, 0] ) }}">Ver Historia</a>
                                                         @else
                                                             <a href="{{ route('checkin.history', [$reservation->id, 1] ) }}">Ver Historia</a>
                                                         @endif
@@ -370,7 +370,7 @@
                                                         <span class="badge badge-azuloscuro">{{ $reservation->status }}</span>
                                                     @endif
                                                 </td>
-    
+
                                                 <td style="display: inline-block ">
                                                     @if ($reservation->status == 'Pendiente')
                                                       @if(Carbon::now()->format('Y-m-d') == ($reservation->date ))
@@ -385,18 +385,18 @@
                                                         @if(($reservation->date > Carbon::now()->addDay(2)->format('Y-m-d')))
                                                         <button type="button" href="" disabled class="btn btn-success">A</button>
                                                         @endif
-    
+
                                                         <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                         <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                     @endif
-    
+
                                                     @if ($reservation->status == 'Aprobada')
                                                         <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                         <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                     @endif
-    
+
                                                     @if ($reservation->status == 'Cancelada')
                                                         <button type="button" class="btn btn-success" disabled>A</button>
                                                         <button type="button" class="btn btn-warning" disabled>R</button>
@@ -411,7 +411,7 @@
                                                     @if ($reservation->status == 'Suspendida')
                                                         {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Aprobar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Aprobada">A</button> --}}
                                                         {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button> --}}
-    
+
                                                         <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
                                                             <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                             <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
@@ -574,7 +574,7 @@
                                                 @endif
 
                                                 @if ($reservation->status == 'Aprobada')
-                                                    
+
                                                     <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
@@ -586,7 +586,7 @@
                                                     <button type="button" class="btn btn-danger" disabled>C</button>
                                                 @endif
                                                 @if ($reservation->status == 'Reprogramada')
-                                                   
+
                                                     <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif
@@ -693,12 +693,12 @@
                                                     <button type="button" class="btn btn-danger" disabled>C</button>
                                                 @endif
                                                 @if ($reservation->status == 'Reprogramada')
-                                                   
+
                                                     <button type="button" class="btn btn-repro" data-toggle="modal" data-target="#exampleModal" data-whatever="Suspender cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Suspendida">S</button>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="Cancelar cita de: {{ $reservation->patient->name }} {{ $reservation->patient->lastname }}" data-id="{{ $reservation->id }}" data-type="Cancelada">C</button>
                                                 @endif --}}
                                                 @if ($reservation->status == 'Suspendida')
-                                                
+
                                                     <form method="POST" action="{{ route('delete.cite', $reservation->id) }}">
                                                         <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-warning">R</a>
                                                         <button class="btn btn-danger"><i class="fa fa-eraser"></i></button>
@@ -758,6 +758,24 @@
 <script src="{{ asset('assets\bundles\dataTables.bundle.js') }}"></script>
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
+
+{{-- SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
+<script>
+    var submitted = false;
+
+     $(document).ready(function() {
+       $("form").submit(function() {
+         submitted = true;
+       });
+
+       window.onbeforeunload = function () {
+         if (!submitted) {
+           return 'Do you really want to leave the page?';
+         }
+       }
+     });
+    </script>
+    {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
