@@ -43,7 +43,7 @@
 
                     @role('farmaceuta')
                     {{-- <a  class="nav-link icon" id="far" style="font-size:10PX" title="Farmaceuta"><i class="fe fe-thermometer"></i></a> --}}
-                    <a  class="nav-link icon" id="far" style="font-size:10PX" title="Farmaceuta"><i class="fe fe-thermometer"></i></a>
+                    <a  class="nav-link icon" id="far" style="font-size:10PX" title="Farmaceuta"><i class="fa fa-eyedropper"></i></a>
                     @endrole
 
 
