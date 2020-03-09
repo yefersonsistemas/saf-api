@@ -118,8 +118,7 @@
                                 <label class="imagecheck m-0">
                                     <div class="card assigment p-2">
                                         {{-- aqui --}}
-                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" name="hola" class="imagecheck-input">  
-                                        {{-- <input type="hidden" value="{{ $surgeries->cost }}" id="name_surgery{{ $surgeries->id }}" name="hola" class="imagecheck-input">   --}}
+                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" name="name_surgery" class="imagecheck-input">  
                                         {{-- aqui --}}                               
                                         <input type="radio" name="type_surgery_id" value="{{ $surgeries->id }}" id="type_surgery_id" class="imagecheck-input">
                                          @if (!empty($surgeries->image->path))                                     
@@ -271,7 +270,7 @@
                                                 <tr>
                                                     {{-- id = "name_surgery{{ $surgeries->id }}" --}}
                                                     {{-- id="hola" --}}
-                                                    <td >NOMBRE</td>  
+                                                    <td ><span name="name_surgery"></span></td>  
                                                     <td >PRECIO </td>                                                    
                                                     {{-- <td > ESTRO SE IBA A USAR SI EL PACIENTE TENIA QUE PAGAR UN ADELANTE DE LA FACTURA AL AGENDARLA
                                                         <div class="form-check form-check">
@@ -448,6 +447,8 @@ var form = $('#wizard_horizontal').show();
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
+        //mostrar en resumen
+        $('#name_surgery').text(data.surgery.name);
          
         var concatenar = "Storage\\";
         console.log(concatenar+data.patient.person.image.path);
