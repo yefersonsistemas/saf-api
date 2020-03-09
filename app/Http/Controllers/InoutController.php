@@ -45,25 +45,25 @@ class InoutController extends Controller
         $area = Area::with('image')->where('type_area_id', $tipo->id)->get();
         return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery','area'));
     }
-        
 
 
 
-    
+
+
     public function facturacion()
     {
 
         return view('dashboard.vergel.in-out.facturacion');
-    
+
     }
 
     public function factura()
     {
 
         return view('dashboard.vergel.in-out.factura');
-    
+
     }
-   
+
     public function imprimir_factura()
     {
     return view('dashboard.vergel.in-out.imprimir_factura');
@@ -83,11 +83,11 @@ class InoutController extends Controller
         // dd($request);
         $person = Person::with('image')->where('type_dni', $request->type_dni)->where('dni', $request->dni)->first();
         // dd($person);
-        
+
         if (!is_null($person)) {
             $patient = Patient::with('person.image')->where('person_id', $person->id)->first();
             // dd($patient);
-        
+
             if (!is_null($patient)) {
                 // $patient = Patient::with('person')->where('person_id', $person->id)->first();
                 return response()->json([
@@ -105,56 +105,56 @@ class InoutController extends Controller
         }
     }
 
-    //============================ buscanco paciente desde la tabla citugia ============================ 
+    //============================ buscanco paciente desde la tabla citugia ============================
 
     public function search_patients_cirugia (Request $request){  // asi se llama adelante inout.search_patients
 
         if(!empty($request->dni)){
 
         $person = Person::where('dni', $request->dni)->first();
-        // dd($person); 
+        // dd($person);
 
         if(!empty($person)){
 
-            $patient = Patient::with('person')->where('person_id', $person->id)->first();
- 
-            // dd($patient);     
-            
-            if(!empty($patient)){
+            $surgery = Surgery::where('patient_id', $person->id)->first();
+
+            // dd($patient);
+
+            if(!empty($surgery)){
 
                 if(!empty($surgery->billing_id)){
 
                     $billing = Billing::find($surgery->billing_id);
 
-                    dd($$billing->person_id );
-                                                                            
+                    // dd($billing->person_id );
+
                     if(!empty($billing->person_id)){
 
-                                                                            
+
                     return response()->json([
                         'pago' => 'Pago', 300
                     ]);
-                   
+
                     }else{
                         $all = collect([]); //definiendo una coleccion|
                         $encontrado = Surgery::with('patient.person', 'employe.person','typesurgery')->where('patient_id', $person->id)->get(); // esta es una coleccion
                         //dd($encontrado);
                         $type_surgeries = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
-    
-                        if($procedures[0] != ''){ 
+
+                        if($procedures[0] != ''){
                             foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
                             $procedures[] = $proce->procedureR_id;
                             }
-    
+
                             for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
                                 $procedureS[] = Procedure::find($procedures[$i]);
                             }
-                            
+
                             $all->push($procedureS);  // colocando los procedimientos en colas ordenados
                         }else{
                             $procedureS = null;
                         }
-    
+
                         if (!is_null($encontrado)) {
                             return response()->json([
                                 'encontrado' => $encontrado,201,
@@ -165,16 +165,16 @@ class InoutController extends Controller
                                 'encontrado' => 'persona no encontrado', 202
                             ]);
                         }
-    
+
                     }
-                    
+
                 }else{
                     $all = collect([]); //definiendo una coleccion|
-                    $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
+                    $encontrado = Surgery::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
                     // dd($encontrado);
                     $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
 
-                    if($procedures[0] != ''){ 
+                    if($procedures[0] != ''){
                         foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
                         $procedures[] = $proce->procedureR_id;
                         }
@@ -182,7 +182,7 @@ class InoutController extends Controller
                         for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
                             $procedureS[] = Procedure::find($procedures[$i]);
                         }
-                        
+
                         $all->push($procedureS);  // colocando los procedimientos en colas ordenados
                     }else{
                         $procedureS = null;
@@ -207,7 +207,7 @@ class InoutController extends Controller
                 ]);
 
             }
-          
+
                 }else{
                     return response()->json([
                         'encontrado' => 'paciente no  registrado',202
@@ -227,7 +227,7 @@ class InoutController extends Controller
 
 
 //---------------------------fin del metodo buscar para facturacion de cirugia----------------------------------------
- 
+
     /**
      * Show the form for creating a new resource.
      *
