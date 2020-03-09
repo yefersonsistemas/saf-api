@@ -67,8 +67,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('prueba/guardar', 'InController@prueba_guardar')->name('prueba.guardar');
         Route::post('delete', 'InController@prueba_eliminar')->name('prueba.eliminar');
 
-
-
         Route::get('cite/day', 'InController@day')->name('checkin.day');
         Route::get('record/cite', 'InController@record')->name('checkin.record');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
@@ -168,7 +166,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
         Route::post('doctor/recipe/medicamentos/eliminar','DoctorController@recipeDelete')->name('doctor.recipe_eliminar');
-
 
         //referencia
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
