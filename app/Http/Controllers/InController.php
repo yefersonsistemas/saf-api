@@ -275,7 +275,7 @@ class InController extends Controller
             $image = $request->file('file');
 
             $image = $request->file('file');
-            $path = $image->store('public/Person');
+            $path = $image->store('public/exams');
             $path = str_replace('public/', '', $path);
             $image = new File;
             $image->path = $path;
@@ -284,7 +284,6 @@ class InController extends Controller
             $image->branch_id = 1;
             $image->save();
    
-            // dd($image);
             return response()->json(["status" => "success", "data" => $image]);
         }
        
