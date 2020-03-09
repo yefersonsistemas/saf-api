@@ -452,6 +452,18 @@ class UsersTableSeeder extends Seeder
             'employe_id' => $employe->id
         ]);
 
+        factory(Schedule::class)->create([
+            'day' => 'monday',
+            'turn' => 'mañana',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'tuesday',
+            'turn' => 'mañana',
+            'employe_id' => $employe->id
+        ]);
+
 
         /*
         * Area a que pertenece
@@ -873,6 +885,19 @@ class UsersTableSeeder extends Seeder
                 'employe_id' => $employe1->id
             ]);
 
+            factory(Schedule::class)->create([
+                'day' => 'monday',
+                'turn' => 'mañana',
+                'employe_id' => $employe1->id
+            ]);
+    
+            factory(Schedule::class)->create([
+                'day' => 'tuesday',
+                'turn' => 'mañana',
+                'employe_id' => $employe1->id
+            ]);
+
+            
             factory(Area::class)->create([
                 'name'          => 'consultorio 3',
                 'type_area_id' =>  $typearea->id,

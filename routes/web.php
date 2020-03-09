@@ -67,8 +67,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('prueba/guardar', 'InController@prueba_guardar')->name('prueba.guardar');
         Route::post('delete', 'InController@prueba_eliminar')->name('prueba.eliminar');
 
-
-
         Route::get('cite/day', 'InController@day')->name('checkin.day');
         Route::get('record/cite', 'InController@record')->name('checkin.record');
         Route::get('cite/approved', 'InController@approved')->name('checkin.approved');
@@ -168,7 +166,6 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('doctor/edit/{id}','DoctorController@edit')->name('doctor.editar');
         Route::put('doctor/update/{id}','DoctorController@update')->name('doctor.update'); //actualizar historia
         Route::post('doctor/recipe/medicamentos/eliminar','DoctorController@recipeDelete')->name('doctor.recipe_eliminar');
-
 
         //referencia
         Route::get('doctor/Referencia/{patient}','DoctorController@crearReferencia')->name('doctor.crearReferencia');
@@ -298,10 +295,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('consulta/{id}', 'DirectorController@destroy_consulta')->name('consulta.delete');
         Route::delete('pago/{id}', 'TypePaymentsController@destroy')->name('pago.delete');
         Route::delete('clasificacion/{id}', 'TypeSurgerysController@destroy_cirugia')->name('clasificacion.delete');
-
         //rutas para exportar e imprimir detalles por empleado/lista de empleados/lista de visitantes
         Route::get('visitors', 'DirectorController@visitantes')->name('visitantes');  //lista de visitantes
-
         Route::get('doctor/reservations/{id}', 'DirectorController@reservations_doctor')->name('director.reservations_doctor');
         Route::get('doctor/surgeries/list/{id}', 'DirectorController@surgeriesDoctor')->name('director.surgeriesDoctor');
     });
