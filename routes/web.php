@@ -325,7 +325,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
         Route::get('create/lista/surgeries/{id}/{surgery}', 'NurseController@create')->name('create.lista_cirugias');
-        Route::POST('store/lista/surgeries', 'NurseController@store')->name('store.lista_cirugias');
+        Route::POST('store/lista/surgeries/{surgery}', 'NurseController@store')->name('guardar.informe');
         // Route::get('editar/lista/surgeries/{id}', 'NurseController@edit')->name('edit.lista_cirugias');
         // Route::put('editar/lista/surgeries/update/{id}', 'NurseController@update')->name('update.lista_cirugias');
 

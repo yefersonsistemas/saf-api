@@ -10,6 +10,9 @@ use App\Reservation;
 use App\Surgery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\FileAnestesiologo;
+use App\FileDoctor;
+use App\FileInternista;
 
 class NurseController extends Controller
 {
@@ -33,11 +36,14 @@ class NurseController extends Controller
      */
     public function create($id, $surgery)
     {
-        // dd($id);
-        $person = Person::where('id', $id)->first();
-        // $cirugia = Surgery::with();
+        // dd($id, $surgery);
 
-        return view('dashboard.vergel.enfermeria.create-informe-cirugia', compact('person'));
+        $patient = Patient::with('person')->find($id);
+        // dd($patient);
+        $surgery = Surgery::where('patient_id',  $patient->id)->find($surgery);
+        // dd($surgery);
+
+        return view('dashboard.vergel.enfermeria.create-informe-cirugia', compact('patient', 'surgery'));
     }
 
     /**
@@ -46,47 +52,29 @@ class NurseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $surgery)
     {
-        // dd($request);
-        // $patient = Patient::with('surgery')->where('person_id', $request->patient_id)->first();
-        // dd($patient->surgery);
-        $person = Person::where('id', $request->person_id)->first();
-        // dd($person);
+        // dd($request, $surgery);
+        $surgery = Surgery::find($surgery);
+        dd($surgery);
 
-
-
-        if ($request->file != null) {
-            // dd($request->file);
-
-            foreach($request->file as $file){
-                $image = $request->file('file');
-                $path = $file->store('public/exams');
-                $path = str_replace('public/', '', $path);
-                $image = new File();
-                $image->path = $path;
-                // $image->path = 'exam'.'\\'.$image;
-                $image->fileable_type = "App\Person";
-                $image->fileable_id = $person->id;
-                $image->branch_id = 1;
-                $image->save();
-
-                dd($image);
-
-                // if($image != null){
-                //     foreach( $patient->surgery as $surgery)
-                //         $informe = Informesurgery::create([
-                //             'file_id' => $image->id,
-                //             'surgery_id' => $surgery->id,
-                //             'branch_id' => 1,
-        
-                //         ]);
-                //     }
-                    
-                //     dd($informe );
-                // }
-            }
+        if($request->file('file')){
+            $surgery = Surgery::find($surgery);
+            
+            $image = $request->file('file');
+            $path = $image->store('public/Internista');
+            $path = str_replace('public/', '', $path);
+            $image = new FileInternista;
+            $image->path = $path;
+            $image->fileable_type = "App\Surgery";
+            $image->fileable_id = $surgery->id;
+            $image->branch_id = 1;
+            $image->save();
+   
+            // dd($image);
+            return response()->json(["status" => "success", "data" => $image]);
         }
+     
 
         return redirect()->route('lista_cirugias')->withSuccess('Informe guardado correctamente');
     }

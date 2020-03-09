@@ -269,10 +269,9 @@ class InController extends Controller
 
     public function guardar(Request $request, $id)  //REVISAR
      {
-        //  dd($request);
+         dd($request);
         if($request->file('file')){
             $reservation = Reservation::find($id);
-            $image = $request->file('file');
 
             $image = $request->file('file');
             $path = $image->store('public/Person');
