@@ -117,7 +117,6 @@ class InoutController extends Controller
         if(!empty($person)){
 
             $patient = Patient::with('person')->where('person_id', $person->id)->first();
- 
             // dd($patient);     
             
             if(!empty($patient)){
@@ -133,8 +132,7 @@ class InoutController extends Controller
                                                                             
                     return response()->json([
                         'pago' => 'Pago', 300
-                    ]);
-                   
+                    ]);                  
                     }else{
                         $all = collect([]); //definiendo una coleccion|
                         $encontrado = Surgery::with('patient.person', 'employe.person','typesurgery')->where('patient_id', $person->id)->get(); // esta es una coleccion
@@ -205,9 +203,7 @@ class InoutController extends Controller
                 return response()->json([
                     'encontrado' => 'paciente no encontrado', 202
                 ]);
-
             }
-          
                 }else{
                     return response()->json([
                         'encontrado' => 'paciente no  registrado',202
