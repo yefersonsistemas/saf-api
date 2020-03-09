@@ -78,9 +78,9 @@ class InController extends Controller
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person.inputoutput', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
         // dd($day);
         $employe = Employe::with('schedule')->get();
-            
+
         $medicos = array();
-        $dia = strtolower(Carbon::now()->locale('en')->dayName); 
+        $dia = strtolower(Carbon::now()->locale('en')->dayName);
         // dd($dia);
 
         //buscando medicos que atenderan citas hoy
@@ -91,17 +91,17 @@ class InController extends Controller
                 }
             }
         }
-    
+
         //buscando pacientes que atenderan los medicos que atenderan citas hoy
         $pacientes = array();
         for($i=0; $i < count($medicos); $i++){
-         
+
             for($j=0; $j < count($day); $j++){
 // dd($day[$j]->patient->inputoutput->first());
                 if($day[$j]->person_id ==  $medicos[$i]->person_id){
-                    $pacientes[$i][] = $day[$j]; 
+                    $pacientes[$i][] = $day[$j];
                 }
-            }   
+            }
         }
 
         // && $day[$j]->patient->inputoutput->first()->outside_office == null
@@ -119,19 +119,19 @@ class InController extends Controller
                     }else{
                         if($active->patient->inputoutput->first()->created_at->format('H:i:s')  >  $pacientes[$i][$j]->patient->inputoutput->first()->created_at->format('H:i:s')){
                            $active = $pacientes[$i][$j];
-                     } 
-                     
-                    } 
+                     }
+
+                    }
                 }
             }
-            }   
+            }
 
             if($active != null){
                 $inputoutput = Inputoutput::find($active->patient->inputoutput->first()->id);
                 $inputoutput->activo =true;
                 $inputoutput->save();
             }
-          
+
         }
 
         // dd($active);
@@ -214,7 +214,7 @@ class InController extends Controller
 
         //     }
         //limpia los campos  al cumplir la hora y al refrescar la pagina
-        
+
         $areas = Area::with('image')->where('type_area_id',$type->id)->get();
         // dd($areas);
         $dia = strtolower(Carbon::now()->locale('en')->dayName);  //da el nombre del dia en ingles
@@ -241,12 +241,12 @@ class InController extends Controller
      */
     public function search_history($id, $id2){
         $mostrar = $id2;
-  
+
         $rs = Reservation::with('patient.historyPatient.medicine','patient.historyPatient.disease','patient.historyPatient.allergy','patient.image')->where('id', $id)
                         ->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->first();
-   
+
         $cites = Reservation::with('patient.historyPatient','patient', 'speciality.employe.person')->whereNotIn('id', [$rs->id])->where('patient_id', $rs->patient_id)->get();
- 
+
         $disease = Disease::all();
         $enfermedades = Disease::all();
         $medicine = Medicine::get();
@@ -266,7 +266,6 @@ class InController extends Controller
      *
      */
 
-
     public function guardar(Request $request, $id)  //REVISAR
      {
         //  dd($request);
@@ -283,10 +282,10 @@ class InController extends Controller
             $image->fileable_id = $reservation->patient_id;
             $image->branch_id = 1;
             $image->save();
-   
+
             return response()->json(["status" => "success", "data" => $image]);
         }
-       
+
         $person = Person::where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
@@ -365,13 +364,13 @@ class InController extends Controller
             //         'address'=> $data['address'],
             //     ]);
             // }
-            
+
             if($request->address != null) {
 
                 $patients->address = $request->address;
                 $patients->save();
             }
-            
+
 
             // dd($patient);
             if($request->foto != null){
@@ -504,7 +503,7 @@ class InController extends Controller
             $io->inside_office = 'dentro';
             $io->save();
             // dd($io);
- 
+
         }else{
             Alert::error('no lo hizo');
             return redirect()->back();
@@ -823,15 +822,15 @@ class InController extends Controller
 
     // Aqui se realiza la relacion entre paciente y enfermeda, tambien se busca al paciente correspondiente a la historia
     $patient = Patient::with('disease')->where('person_id',$request->id)->first();
-    
+
     // Aqui se realiza el recorrido las enfermedades del paciente que estan en la DB.
     if($patient->disease->first() != null)
-    for ($i=0; $i < count($patient->disease); $i++) { 
+    for ($i=0; $i < count($patient->disease); $i++) {
         $patientd[] = $patient->disease[$i]->id;
     }
 
     // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
-    for ($i=0; $i < count($request->data); $i++) { 
+    for ($i=0; $i < count($request->data); $i++) {
         $disease = Disease::find($request->data[$i]);
         $disease->patient()->sync($patient);
     }
@@ -842,7 +841,7 @@ class InController extends Controller
         $diff = $request->data;
     }
 
-    for ($i=0; $i < count($diff); $i++) { 
+    for ($i=0; $i < count($diff); $i++) {
         $diseases[] = Disease::find($diff);
     }
 
@@ -857,12 +856,12 @@ class InController extends Controller
         $patient = Patient::with('allergy')->where('person_id', $request->id)->first();
         // Aqui se realiza el recorrido las enfermedades del paciente que estan en la DB.
         if($patient->allergy->first() != null) {
-            for ($i=0; $i < count($patient->allergy); $i++) { 
+            for ($i=0; $i < count($patient->allergy); $i++) {
                 $patienta[] = $patient->allergy[$i]->id;
             }
         }
         // Aqui se realiza el recorrido las enfermedades que se agregan al editar la historia.
-        for ($i=0; $i < count($request->data); $i++) { 
+        for ($i=0; $i < count($request->data); $i++) {
             $allergy = Allergy::find($request->data[$i]);
             $allergy->patient()->sync($patient);
         }
@@ -884,7 +883,7 @@ class InController extends Controller
     }
 
     public function medicines(Request $request){ //Metodo para agregar medicina al paciente en el multiselect de editar historia
-  
+
         $returndata2 = array();
         $strArray = explode('&', $request->data);
 
@@ -901,8 +900,8 @@ class InController extends Controller
 
         $reservation = Reservation::find($request->id);
         $patient = Patient::with('medicine')->where('person_id', $reservation->patient->id)->first();
-      
-        for ($i=0; $i < count($returndata2); $i++) {             
+
+        for ($i=0; $i < count($returndata2); $i++) {
             $medicine[] = Medicine::find($returndata2[$i]);
             $medicine[$i]->patient()->sync($patient);
         }
@@ -920,18 +919,18 @@ class InController extends Controller
             ]);
     }
 
- 
+
 
     public function allergies_create(Request $request){ //Metodo para crear alergia si no existe en el multiselect de editar historia
         //buscar paciente
         $patient = Patient::where('person_id', $request->id)->first();
-        
+
         $data = $request->validate([
             'name' => 'required',
             ]);
-            
+
         // dd($data);
-            
+
         $allergy = Allergy::create([
             'name' => $data['name'],
             'branch_id' => 1
@@ -941,23 +940,23 @@ class InController extends Controller
 
         $allergy->patient()->attach($patient);
         // dd($allergy);
-        // Enviar el registro de enfermedad 
+        // Enviar el registro de enfermedad
         return response()->json([
             'data' => 'Alergia Agregada',$allergy,201
             ]);
     }
 
     public function medicines_create(Request $request){ //Metodo para crear medicina si no existe en el multiselect de editar historia
-    
+
         //buscar paciente
         $patient = Patient::where('person_id', $request->id)->first();
-        
+
         $data = $request->validate([
             'name' => 'required',
             ]);
-            
+
         // dd($data);
-            
+
         $medicine = Medicine::create([
             'name' => $data['name'],
             'branch_id' => 1
@@ -967,7 +966,7 @@ class InController extends Controller
 
         $medicine->patient()->attach($patient);
         // dd($medicine);
-        // Enviar el registro de enfermedad 
+        // Enviar el registro de enfermedad
         return response()->json([
             'data' => 'Medicamento Agregado',$medicine,201
             ]);

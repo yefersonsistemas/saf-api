@@ -116,9 +116,10 @@
                             @foreach ($surgery as $surgeries)                           
                             <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center">
                                 <label class="imagecheck m-0">
-                                    <div class="card assigment">
+                                    <div class="card assigment p-2">
                                         {{-- aqui --}}
                                         <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" name="hola" class="imagecheck-input">  
+                                        {{-- <input type="hidden" value="{{ $surgeries->cost }}" id="name_surgery{{ $surgeries->id }}" name="hola" class="imagecheck-input">   --}}
                                         {{-- aqui --}}                               
                                         <input type="radio" name="type_surgery_id" value="{{ $surgeries->id }}" id="type_surgery_id" class="imagecheck-input">
                                          @if (!empty($surgeries->image->path))                                     
@@ -161,7 +162,7 @@
                                                 </figure>                              
                                                 <div class="card-body text-center pt-4" style="height:70px; width:170px">
                                                      <h6 class="font-weight-bold" style="font-size:15px">{{ $area->name }}</h6>
-                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="color:#fff">Desocupado</span></h6>
+                                                    <h6 class="card-subtitle mt-1"><span class="badge badge-light text-white bg-verdePastel pl-3 pr-3 pb-2" style="">Desocupado</span></h6>
                                                 </div>
                                             </div>
                                         </label>
@@ -263,15 +264,16 @@
                                                     <tr>
                                                     <th scope="col">Cirugia</th>
                                                     <th scope="col">Precio</th>
-                                                    <th scope="col">Pago</th>
-                                
+                                                    {{-- <th scope="col">Pago</th> --}}                              
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td >NOMBRE </td>
+                                                    {{-- id = "name_surgery{{ $surgeries->id }}" --}}
+                                                    {{-- id="hola" --}}
+                                                    <td >NOMBRE</td>  
                                                     <td >PRECIO </td>                                                    
-                                                    <td >
+                                                    {{-- <td > ESTRO SE IBA A USAR SI EL PACIENTE TENIA QUE PAGAR UN ADELANTE DE LA FACTURA AL AGENDARLA
                                                         <div class="form-check form-check">
                                                             <input class= "form-check-input"  style="font-size:15px"   class="custom-control-input" type="radio" id="parcial" name="status"  value="PARCIAL">
                                                             <label class="form-check-label" for="inlineRadio1">PARCIAL</label>
@@ -280,7 +282,7 @@
                                                             <input class="form-check-input"  style="font-size:15px"  class="custom-control-input"  type="radio" id="total" name="status"   value="TOTAL">
                                                             <label class="form-check-label" for="inlineRadio2">TOTAL</label>
                                                         </div>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>                                         
                                                 </tbody>
                                             </table>
@@ -290,16 +292,14 @@
                             </div>
                         </div>
                     </div>
-                        <div class="row mt-4">
+                        {{-- <div class="row mt-4">   ESTRO SE IBA A USAR SI EL PACIENTE TENIA QUE PAGAR UN ADELANTE DE LA FACTURA AL AGENDARLA
                                 <div class="col-10 text-right mt-1 ">
                                     <p style="color:#000; font-weight:bold;"><i style="font-size:16px"></i>MONTO A CANCELAR</p>   
                                 </div>  
                                 <div class="col-2">
                                     <input type="text" id="monto" name="monto" class="form-control"  placeholder="Formato 1000000.00" onKeyPress="return soloNumeros(event)" value="" required>
-                                   
-                            
                                 </div>                                            
-                        </div>                  
+                        </div>                   --}}
                     </section>
                 </form>
             </div>
@@ -473,13 +473,14 @@ var form = $('#wizard_horizontal').show();
 
          
             var surgery = $(this).val();
-            console.log("lee aqui para verificar cirugia",surgery);
+            console.log("lee aqui para verificar ID de la cirugia",surgery);
+            $('#patient_id').text();
 
             //aqui
             var name = $('#name_surgery'+surgery).val();
              //aqui
 
-            console.log("lee aqui para verificar nombre",name);
+            console.log("lee aqui para verificar nombre de la cirugia",name);
 
 
 
@@ -551,7 +552,7 @@ var form = $('#wizard_horizontal').show();
     function doctor() {
         $("input[name='employe_id']").click(function() {
             var doctor = $(this).val();
-            console.log('hola');
+            console.log('evento click en doctor funcionando!');
             console.log(doctor);
 
             Swal.fire({

@@ -205,9 +205,7 @@ class InoutController extends Controller
                 return response()->json([
                     'encontrado' => 'paciente no encontrado', 202
                 ]);
-
             }
-
                 }else{
                     return response()->json([
                         'encontrado' => 'paciente no  registrado',202
