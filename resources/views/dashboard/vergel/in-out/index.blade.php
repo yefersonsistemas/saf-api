@@ -121,7 +121,6 @@
                                         <th>Doctor</th>
                                          <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
-                                        <th>Status de pago</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -132,7 +131,6 @@
                                         <th>Doctor</th>
                                          <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
-                                        <th>Status de pago</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </tfoot>
@@ -158,7 +156,6 @@
                                             <td class="">{{ $surgeries->employe->person->name }} {{$surgeries->employe->person->lastname }}</td> 
                                             <td class="">{{ $surgeries->typesurgeries->name }} </td> 
                                             <td> {{ $surgeries->date }}  </td>
-                                            <td class="text-center">{{ $surgeries->status }} </td>
                                             {{-- <td> 
                                             @if ($surgeries->status == 'Aprobada') 
                                                     <span class="badge badge-success">{{ $surgeries->status }}</span> 
