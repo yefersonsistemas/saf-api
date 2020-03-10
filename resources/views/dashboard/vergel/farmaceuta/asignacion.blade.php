@@ -84,14 +84,14 @@
                                     @foreach ($informe as $item)
                                         <tr>
                                             <td style="text-align: center; font-size:10px; height:40px;">
-                                                @if (!empty($item->surgery->patient->first()->person->image->path))
+                                                {{-- @if (!empty($item->surgery->patient->first()->person->image->path))
                                                 <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($item->surgery->patient->first()->person->image->path) }}" alt="">
                                                 @else
                                                     <img src="" alt="" width="100%" height="100%">
-                                                @endif
+                                                @endif --}}
                                             </td>
-                                            <td>{{$item->surgery->patient[0]->person->name}}</td>
-                                            <td>{{$item->surgery->patient[0]->person->lastname}}</td>
+                                                <td>{{$item->surgery->patient->first()->person->name}}</td>
+                                                <td>{{$item->surgery->patient->first()->person->lastname}}</td>
                                             <td>{{$item->surgery->typesurgeries->name}}</td>
                                             <td>{{$item->fecha_ingreso}}</td>
                                             <td>{{$item->fecha_culminar}}</td>

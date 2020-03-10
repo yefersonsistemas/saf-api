@@ -24,10 +24,12 @@ use App\ClassificationSurgery;
 use App\TypeEquipment;
 use App\Sschedule;
 use App\TypeArea;
+use App\Medicine_pharmacy;
+use App\Lot_pharmacy;
+use Carbon\Carbon;
+use App\Stock_pharmacy;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-
-
 
 class UsersTableSeeder extends Seeder
 {
@@ -53,6 +55,10 @@ class UsersTableSeeder extends Seeder
         ClassificationSurgery::truncate();
         TypeEquipment::truncate();
         AreaAssigment::truncate();
+        Medicine_pharmacy::truncate();
+        Lot_pharmacy::truncate();
+        Medicine::truncate();
+        Stock_pharmacy::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
         $this->deleteDirectory(storage_path('/app/public/patient'));
         $this->deleteDirectory(storage_path('/app/public/typearea'));
@@ -70,6 +76,121 @@ class UsersTableSeeder extends Seeder
         /**
          * Persona que sera el medico
          */
+        //===================primera medicina / medicine_pharmacy / lot_pharmacy y stock_pharmacy===============
+        $medicine = Medicine::create([
+            'name'    => 'Ibuprofeno',
+            'branch_id'  => 1,
+        ]);    
+
+        $medicine_pharmacy= Medicine_pharmacy::create([
+            'medicine_id' => $medicine->id,
+            'marca' => 'atron',
+            'laboratory' => 'BIOLOGICOS FARMACEUTICOS ',
+            'presentation' => 'tableta',
+            'measure' => '50 mg',
+            'quantity_Unit' => 30,
+            'branch_id' => 1,
+        ]);
+
+        //creando lote
+        $lot_pharmacy= Lot_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy->id,
+            'number_lot' => 123,
+            'date' => Carbon::now()->format('Y-d-m'),
+            'quantity_total' => 100,
+            'date_vence' => '2020-08-20',
+            'branch_id' => 1,
+        ]);
+
+        //creando lote
+        $lot_pharmacy2= Lot_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy->id,
+            'number_lot' => 124,
+            'date' => Carbon::now()->format('Y-d-m'),
+            'quantity_total' => 150,
+            'date_vence' => '2021-12-20',
+            'branch_id' => 1,
+        ]);
+
+         //stock
+        $stock_pharmacy= Stock_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy->id,
+            'total' => $lot_pharmacy->quantity_total +  $lot_pharmacy2->quantity_total,
+            'branch_id' => 1,
+        ]);
+        
+
+        //===================segunda medicina / medicine_pharmacy / lot_pharmacy y stock_pharmacy===============
+        $medicine2 = Medicine::create([
+            'name'    => 'Acetaminofen',
+            'branch_id'  => 1,
+        ]);
+
+        //creando registro en la tabla medicine_pharmacy
+        $medicine_pharmacy2 =  Medicine_pharmacy::create([
+            'medicine_id' => $medicine2->id,
+            'marca' => 'atamel',
+            'laboratory' => 'BIOLOGICOS FARMACEUTICOS ',
+            'presentation' => 'tableta',
+            'measure' => '100 mg',
+            'quantity_Unit' => '50',
+            'branch_id' => 1,
+        ]);
+
+        //creando lote
+        $lot_pharmacy3= Lot_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy2->id,
+            'number_lot' => 124,
+            'date' => Carbon::now()->format('Y-d-m'),
+            'quantity_total' => 200,
+            'date_vence' => '2021-12-20',
+            'branch_id' => 1,
+        ]);
+    
+            //stock
+        $stock_pharmacy2= Stock_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy2->id,
+            'total' => $lot_pharmacy2->quantity_total,
+            'branch_id' => 1,
+        ]);
+
+
+        //===================tercera medicina / medicine_pharmacy / lot_pharmacy y stock_pharmacy===============
+        $medicine3 = Medicine::create([
+            'name'    => 'Diclofenac',
+            'branch_id'  => 1,
+        ]);
+
+        // creando registro en la tabla medicine_pharmacy
+        $medicine_pharmacy3 = Medicine_pharmacy::create([
+            'medicine_id' => $medicine3->id,
+            'marca' => 'diclofenaco',
+            'laboratory' => 'BIOLOGICOS FARMACEUTICOS ',
+            'presentation' => 'tableta',
+            'measure' => '500 mg',
+            'quantity_Unit' => '60',
+            'branch_id' => 1,
+        ]);
+
+            //creando lote
+            $lot_pharmacy4= Lot_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy3->id,
+            'number_lot' => 124,
+            'date' => Carbon::now()->format('Y-d-m'),
+            'quantity_total' => 300,
+            'date_vence' => '2021-12-20',
+            'branch_id' => 1,
+        ]);
+    
+            //stock
+        $stock_pharmacy3= Stock_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy3->id,
+            'total' => $lot_pharmacy3->quantity_total,
+            'branch_id' => 1,
+        ]);
+
+        // dd($medicine_pharmacy);
+
         $person = Person::create([
             'type_dni' => 'N',
             'dni' => '12345679',
@@ -2195,9 +2316,39 @@ class UsersTableSeeder extends Seeder
 
             ])->assignRole('enfermeria');
 
+    
 
     }
+
+
+    
+ 
+
 }
+        
+
+    //  //creando registro en la tabla medicine_pharmacy
+    //  $medicine_pharmacy = factory(App\Medicine_pharmacy::class)->create([
+    //     'medicine_id' => 2,
+    //     'marca' => 'atamel',
+    //     'laboratory' => 'BIOLOGICOS FARMACEUTICOS ',
+    //     'presentation' => 'tableta',
+    //     'measure' => '100 mg',
+    //     'quantity_total' => '50',
+    //     'branch_id' => 1,
+    // ]);
+
+
+    //  //creando registro en la tabla medicine_pharmacy
+    //  $medicine_pharmacy = factory(App\Medicine_pharmacy::class)->create([
+    //     'medicine_id' => 3,
+    //     'marca' => 'atamel',
+    //     'laboratory' => 'BIOLOGICOS FARMACEUTICOS ',
+    //     'presentation' => 'tableta',
+    //     'measure' => '100 mg',
+    //     'quantity_total' => '50',
+    //     'branch_id' => 1,
+    // ]);
 
 
  // $person = Person::create([

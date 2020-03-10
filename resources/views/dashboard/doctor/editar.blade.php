@@ -1102,7 +1102,7 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
     </div>
-    }
+
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
