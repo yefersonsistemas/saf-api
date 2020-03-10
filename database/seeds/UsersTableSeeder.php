@@ -129,7 +129,7 @@ class UsersTableSeeder extends Seeder
             'description' => 'Es un procedimiento para abrir
                             los pasajes de la nariz y los senos paranasales. Se realiza para tratar infecciones de los
                             senos a largo plazo (crónicas).',
-            'day_hospitalization' => '1 dia',
+            'day_hospitalization' => '1',
             'classification_surgery_id' => $clasificacion->id,
             'branch_id' => '1',
         ]);
@@ -391,7 +391,7 @@ class UsersTableSeeder extends Seeder
                 'cost' => 25000.00,
                 'description' => 'Se realiza para remodelar las estructuras de la cabeza y el cuello, por lo general la nariz,
                 las orejas, el mentón, los pómulos y el cuello',
-                'day_hospitalization' => 'ambulatoria',
+                'day_hospitalization' => null,
                 'classification_surgery_id' => $clasificacion->id,
                 'branch_id' => '1',
             ]);

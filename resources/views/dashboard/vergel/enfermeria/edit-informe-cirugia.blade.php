@@ -76,14 +76,14 @@
                             </div>
                         </div> --}}
 
-                        <div class=" p-5">
-                            <label class="form-label">Agregar Informe</label>
-                            <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
-                                <div class="fallback">
-                                    <input name="file" type="file" multiple />
-                                </div>
+                    <div class=" p-5">
+                        <label class="form-label">Agregar Informe</label>
+                        <div class="dropzone" id="my-dropzone" style="border-color:#00506b">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
                             </div>
                         </div>
+                    </div>
                           
                          
                     </section> 

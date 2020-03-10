@@ -10,6 +10,10 @@ use App\Reservation;
 use App\Surgery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\FileAnestesiologo;
+use App\FileDoctor;
+use App\FileInternista;
+use App\Typesurgery;
 
 class NurseController extends Controller
 {
@@ -33,11 +37,21 @@ class NurseController extends Controller
      */
     public function create($id, $surgery)
     {
-        // dd($id);
-        $person = Person::where('id', $id)->first();
-        // $cirugia = Surgery::with();
+        // dd($id, $surgery);
 
-        return view('dashboard.vergel.enfermeria.create-informe-cirugia', compact('person'));
+        $patient = Patient::with('person')->find($id);
+        // dd($patient);
+        $surgery = Surgery::where('patient_id',  $patient->id)->find($surgery);
+        // dd($surgery);
+
+        $internista = FileInternista::where('fileable_id', $surgery->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
+        // dd($internista);
+
+        $anestesiologo = FileAnestesiologo::where('fileable_id', $surgery->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
+        // dd($anestesiologo->first());
+        $cirujano = FileDoctor::where('fileable_id', $surgery->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
+
+        return view('dashboard.vergel.enfermeria.create-informe-cirugia', compact('patient', 'surgery', 'internista', 'anestesiologo', 'cirujano'));
     }
 
     /**
@@ -46,49 +60,120 @@ class NurseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $surgery, $id)
     {
-        // dd($request);
-        // $patient = Patient::with('surgery')->where('person_id', $request->patient_id)->first();
-        // dd($patient->surgery);
-        $person = Person::where('id', $request->person_id)->first();
-        // dd($person);
+        // dd($id);
+        $surgery = Surgery::with('typesurgeries')->find($surgery);
+            // dd($surgery);
 
-
-
-        if ($request->file != null) {
-            // dd($request->file);
-
-            foreach($request->file as $file){
+        if($id == 1){
+            
+            if($request->file('file')){
+                
                 $image = $request->file('file');
-                $path = $file->store('public/exams');
+                $path = $image->store('public/Internista');
                 $path = str_replace('public/', '', $path);
-                $image = new File();
+                $image = new FileInternista;
                 $image->path = $path;
-                // $image->path = 'exam'.'\\'.$image;
-                $image->fileable_type = "App\Person";
-                $image->fileable_id = $person->id;
+                $image->fileable_type = "App\Surgery";
+                $image->fileable_id = $surgery->id;
                 $image->branch_id = 1;
                 $image->save();
-
-                dd($image);
-
-                // if($image != null){
-                //     foreach( $patient->surgery as $surgery)
-                //         $informe = Informesurgery::create([
-                //             'file_id' => $image->id,
-                //             'surgery_id' => $surgery->id,
-                //             'branch_id' => 1,
-        
-                //         ]);
-                //     }
-                    
-                //     dd($informe );
-                // }
+       
+                // dd($image);
+                return response()->json(["status" => "success", "data" => $image]);
             }
         }
 
+        
+        if($id == 2){
+            
+            if($request->file('file')){
+                
+                $image = $request->file('file');
+                $path = $image->store('public/Anestesiologo');
+                $path = str_replace('public/', '', $path);
+                $image = new FileAnestesiologo();
+                $image->path = $path;
+                $image->fileable_type = "App\Surgery";
+                $image->fileable_id = $surgery->id;
+                $image->branch_id = 1;
+                $image->save();
+       
+                // dd($image);
+                return response()->json(["status" => "success", "data" => $image]);
+            }
+        }
+
+        
+        if($id == 3){
+            
+            if($request->file('file')){
+                
+                $image = $request->file('file');
+                $path = $image->store('public/Cirujano');
+                $path = str_replace('public/', '', $path);
+                $image = new FileDoctor();
+                $image->path = $path;
+                $image->fileable_type = "App\Surgery";
+                $image->fileable_id = $surgery->id;
+                $image->branch_id = 1;
+                $image->save();
+       
+                // dd($image);
+                return response()->json(["status" => "success", "data" => $image]);
+            }
+        }
+
+        $cirugia1 = Informesurgery::where('surgery_id', $surgery->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->first();
+        // dd($surgery->id);
+
+        if($cirugia1 == null){
+            $cirugia = Informesurgery::create([
+                'surgery_id' =>  $surgery->id,
+                'status' => true,
+                'fecha_ingreso' => Carbon::now(),
+                'fecha_culminar' => Carbon::now()->addDays($surgery->typesurgeries->day_hospitalization),
+                'branch_id' => 1
+            ]);
+        }
+            
+        
+        
+    //  dd( $cirugia);
+
         return redirect()->route('lista_cirugias')->withSuccess('Informe guardado correctamente');
+    }
+
+    //=============================Eliminar dropzone=========================
+    public function eliminarD(Request $request)
+    {
+        $datos=json_decode($request->filename);
+        $id= $datos->data->id;
+        $image = FileDoctor::find($id);
+        $image->delete();
+        return $image;
+    }
+
+    //=============================Eliminar dropzone=========================
+    public function eliminarI(Request $request)
+    {
+        // dd($request);
+        $datos=json_decode($request->filename);
+        $id= $datos->data->id;
+        $image = FileInternista::find($id);
+        $image->delete();
+        return $image;
+    }
+
+    //=============================Eliminar dropzone=========================
+    public function eliminarA(Request $request)
+    {
+        $datos=json_decode($request->filename);
+        $id= $datos->data->id;
+        $image = FileAnestesiologo::find($id);
+        $image->delete();
+        return $image;
     }
 
     /**

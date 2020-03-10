@@ -1102,7 +1102,7 @@ button[data-original-title="Help"]{ display: none; }
         </div>
     </div>
     </div>
-    }
+    
 
     <!-- Modal para mostar enfermedades-->
     <div class="modal fade" id="enfermedades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1673,29 +1673,10 @@ var submitted = false;
         $("#caption").removeClass("caption");
         $("#caption").addClass("caption_extra_grande");
 
-        $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="  fe fe-plus"></i></a>');
+        $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="  fe fe-plus"></i></a>')
 
-    //    $('#cambiar').html(`<a class="btn" id="grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
-                        //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
-
-    //         $("#caption").addClass("caption_grande");
-
-    //         $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a> `);
-                            //    <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
-
-        //    $('#extra_grande').click(function(){
-        //         console.log('extra grande');
-        //         $("#caption").removeClass("caption_grande");
-        //         $("#caption").addClass("caption_extra_grande");
-
-        //         $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>');
-                
-                
-
-    //   });
-
-    //   }); 
-    });
+    }); 
+    
 </script>
 
 <script>
@@ -1704,31 +1685,19 @@ var submitted = false;
         $("#caption").removeClass("caption_extra_grande");
         $("#caption").addClass("caption");
         $('#cambiar').html(`<a class="btn extra_grande" id="grande" style="color:#fff; font-size:20px;"><i class="   fe fe-plus"></i></a> ` );
-                        //   <a class="btn" id="grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>` );
         //aumentar
         $('#grande').click(function(){
-                console.log('zoon_max');
-                $("#caption").removeClass("caption_medio");
-                $("#caption").addClass("caption_extra_grande");
+            console.log('zoon_max');
+            $("#caption").removeClass("caption_medio");
+            $("#caption").addClass("caption_extra_grande");
 
-                $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a> `);
-                                // <a class="btn" id="extra_grande_menor" style="color:#fff; font-size:20px;"><i class="fe fe-minus"></i></a>`);
+            $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a> `);
 
-            // $('#extra_grande').click(function(){
-            //         console.log('zoon_1.2');
-            //         $("#caption").removeClass("caption_grande");
-            //         $("#caption").addClass("caption_extra_grande");
-
-            //         $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="fe fe-plus"></i></a>');
-                
-                
-
-    //   });
-
+        });
     });
-});
   
 </script>
+
 <script>
     //========================buscador en tiempo real de enfermedades=======================
     $(document).ready(function(){
