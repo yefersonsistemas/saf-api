@@ -9,7 +9,7 @@ class Informesurgery extends Model
     protected $table = 'informe_surgery';
 
     protected $fillable = [ 
-        'file_id', 'surgery_id', 'branch_id'
+        'surgery_id', 'branch_id', 'status', 'fecha_ingreso', 'fecha_culminar'
     ];
 
     public function surgery()
