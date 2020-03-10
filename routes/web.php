@@ -312,7 +312,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/inout/patients','InoutController@search_patients_inout')->name('search.inout.patients');
         Route::post('surgery/inout/store','SurgerysController@inout_hospitalaria_store')->name('inout.hospitalaria_store');
         Route::post('inout/search/doctor','SurgerysController@search_doctor_inout')->name('inout.search_doctor'); // agenda las cirugias otro dia de la candidatura
-        Route::post('inout/search/patient','InoutController@search_patients_cirugia')->name('inout.search_patients');    // buscar paciente en la tabla cirugias
+        Route::post('inout/search/patients','InoutController@search_patients_cirugia')->name('inout.search_patients');    // buscar paciente en la tabla cirugias
 
 
 

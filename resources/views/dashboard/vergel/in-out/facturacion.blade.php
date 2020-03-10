@@ -301,7 +301,7 @@
                     }
                 })
                 .done(function(data) {
-                   // console.log('paciente -> -> -> encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+                    console.log('paciente -> -> -> encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
                     if(data[0] == 202){
                         console.log('si')

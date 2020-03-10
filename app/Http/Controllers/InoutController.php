@@ -106,125 +106,83 @@ class InoutController extends Controller
     }
 
     //============================ buscanco paciente desde la tabla citugia ============================
-
     public function search_patients_cirugia (Request $request){  // asi se llama adelante inout.search_patients
 
         if(!empty($request->dni)){
 
-        $person = Person::where('dni', $request->dni)->first();
-        // dd($person);
+            $person = Person::where('dni', $request->dni)->first();
+            $patient = Patient::where('person_id', $person->id)->first();
+                // dd($patient);
 
-        if(!empty($person)){
+            if(!empty($patient)){
 
-            $surgery = Surgery::where('patient_id', $person->id)->first();
+                $surgery = Surgery::where('patient_id', $patient->id)->first();
 
-            // dd($patient);
+                // dd($surgery);
 
-            if(!empty($surgery)){
+                if(!empty($surgery)){
 
-                if(!empty($surgery->billing_id)){
+                    if(!empty($surgery->patient_id)){
 
-                    $billing = Billing::find($surgery->billing_id);
+                        // $patient = Patient::find($surgery->patient_id);
+                            // dd($patient);
 
-                    // dd($billing->person_id );
+                        if(!empty($patient)){
 
-                    if(!empty($billing->person_id)){
+                            $all = collect([]); //definiendo una coleccion|
+                            $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
 
-
-                    return response()->json([
-                        'pago' => 'Pago', 300
-                    ]);
-
+                            if (!is_null($encontrado)) {
+                                return response()->json([
+                                    'encontrado' => $encontrado,201,
+                                    // 'procedureS'  => $procedureS,
+                                ]);
+                            }else{
+                                return response()->json([
+                                    'encontrado' => 'persona no encontrado', 202
+                                ]);
+                            }
+                        }
                     }else{
                         $all = collect([]); //definiendo una coleccion|
-                        $encontrado = Surgery::with('patient.person', 'employe.person','typesurgery')->where('patient_id', $person->id)->get(); // esta es una coleccion
-                        //dd($encontrado);
-                        $type_surgeries = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
-
-                        if($procedures[0] != ''){
-                            foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
-                            $procedures[] = $proce->procedureR_id;
-                            }
-
-                            for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
-                                $procedureS[] = Procedure::find($procedures[$i]);
-                            }
-
-                            $all->push($procedureS);  // colocando los procedimientos en colas ordenados
-                        }else{
-                            $procedureS = null;
-                        }
+                        $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
+                        // dd($encontrado);
 
                         if (!is_null($encontrado)) {
                             return response()->json([
                                 'encontrado' => $encontrado,201,
-                                'procedureS'  => $procedureS,
                             ]);
                         }else{
                             return response()->json([
                                 'encontrado' => 'persona no encontrado', 202
                             ]);
                         }
-
                     }
-
-                }else{
-                    $all = collect([]); //definiendo una coleccion|
-                    $encontrado = Surgery::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
-                    // dd($encontrado);
-                    $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
-
-                    if($procedures[0] != ''){
-                        foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
-                        $procedures[] = $proce->procedureR_id;
-                        }
-
-                        for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
-                            $procedureS[] = Procedure::find($procedures[$i]);
-                        }
-
-                        $all->push($procedureS);  // colocando los procedimientos en colas ordenados
-                    }else{
-                        $procedureS = null;
-                    }
-
-                    if (!is_null($encontrado)) {
-                        return response()->json([
-                            'encontrado' => $encontrado,201,
-                            'procedureS'  => $procedureS,
-                        ]);
-                    }else{
-                        return response()->json([
-                            'encontrado' => 'persona no encontrado', 202
-                        ]);
-                    }
-
-                }
-
-            }else{
-                return response()->json([
-                    'encontrado' => 'paciente no encontrado', 202
-                ]);
-            }
                 }else{
                     return response()->json([
-                        'encontrado' => 'paciente no  registrado',202
+                        'encontrado' => 'paciente no encontrado', 202
                     ]);
+                }
+                    }else{
+                        return response()->json([
+                            'encontrado' => 'paciente no registrado',202
+                        ]);
 
-                    }
+                        }
 
-            // cuando viene vacio el imput de cedula
+                // cuando viene vacio el imput de cedula
 
-        }
-        // else{
-        //     return response()->json([
-        //         'encontrado' => 'Debe ingresar un valor de busqueda',202
-        //     ]);
-        // }
+            }
+            // else{
+            //     return response()->json([
+            //         'encontrado' => 'Debe ingresar un valor de busqueda',202
+            //     ]);
+            // }
     }
 
 
 //---------------------------fin del metodo buscar para facturacion de cirugia----------------------------------------
+
 
     /**
      * Show the form for creating a new resource.
@@ -233,7 +191,30 @@ class InoutController extends Controller
      */
     public function create()
     {
-        //
+        $surgery = Surgery::with('patient.person','employe.person','employe.doctor', 'typesurgeries')->where('patient_id', $patient->id)->first();
+        // dd($surgery);
+        $fecha = Carbon::now()->format('Y-m-d');
+// dd($fecha);
+
+        //----- para el precio de la corigia----
+        $total_S=0;
+        if(!empty($surgery->typesurgeries)){
+            $total_S = $surgery->typesurgeries->cost;
+        }else{
+            $total_S = null;
+            // dd($total_S);
+        }
+
+        //---------precio de la consulta--------
+        $total_C=0;
+        if($si == true){
+            $total_C = $itinerary->employe->doctor->price;
+        }
+
+        $total = $total_P + $total_S + $total_C;
+
+
+        return view('dashboard.checkout.facturacionf', compact('procedimientos','fecha','itinerary','procedureS','total'));
     }
 
     /**
