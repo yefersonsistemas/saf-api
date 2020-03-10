@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
     $this->call(RecipeTableSeeder::class);
     $this->call(ItineraryTableSeeder::class);
     $this->call(AllergyTableSeeder::class);
-    $this->call(FileTableSeeder::class);
+    // $this->call(FileTableSeeder::class);
     $this->call(FileInternistaTableSeeder::class);
     $this->call(FileAnestesiologoTableSeeder::class);
     $this->call(FileDoctorTableSeeder::class);
