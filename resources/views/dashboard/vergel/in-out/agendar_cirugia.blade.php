@@ -1,3 +1,6 @@
+ 
+ 
+ 
 @extends('dashboard.layouts.app')
 @section('cites','active')
 @section('agendar','active')
@@ -118,7 +121,7 @@
                                 <label class="imagecheck m-0">
                                     <div class="card assigment p-2">
                                         {{-- aqui --}}
-                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" name="name_surgery" class="imagecheck-input">  
+                                        <input type="hidden" value="{{ $surgeries->name }}" id="name_surgery{{ $surgeries->id }}" name="name_surg" class="imagecheck-input">  
                                         {{-- aqui --}}                               
                                         <input type="radio" name="type_surgery_id" value="{{ $surgeries->id }}" id="type_surgery_id" class="imagecheck-input">
                                          @if (!empty($surgeries->image->path))                                     
@@ -210,95 +213,7 @@
                                 </div>              
                             </div>
                         </div>
-                    </section>
-
-                    <h2>Pago</h2>
-                    <section ml-4>
-                    <div class="card p-2 mt-2">
-                        <div class="ml-4 container">
-
-                            <div class="row  ">
-                            
-                                
-                                <div class="col-4">
-                                    <p class="row h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>    
-                                    <div class="row ">
-                                        <span id="name_pay"></span> <br> &nbsp <span id="lastname_pay"></span>   
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="row">
-                                        <div class="col-md-8  ">
-                                            <p class=" row h6" style="color:#000; font-weight:bold;"><i class="fa fa-user-md mr-2" style="font-size:16px"></i>DOCTOR</p>
-                                            <div class="row" id="medic"></div>                                            
-                                        </div>                                                                                                    
-                                    </div>                                          
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="row">
-                                        <div class="col-md-8  ">
-                                            <p class=" row h6" style="color:#000; font-weight:bold;"><i class="fa fa-calendar mr-2" style="font-size:16px"></i>FECHA</p>
-                                            <div class="row ">
-                                                <span id="name"></span>   
-                                            </div>
-                                        </div>                                  
-                                    </div>                                          
-                                </div>
-
-                            </div>
-
-                        </div> 
-                    </div>      
-                    
-                    <div class="col-lg-12">
-                        <div class="card mt-4">                                     
-                            <div class="card-body py-0">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col">                            
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                    <th scope="col">Cirugia</th>
-                                                    <th scope="col">Precio</th>
-                                                    {{-- <th scope="col">Pago</th> --}}                              
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    {{-- id = "name_surgery{{ $surgeries->id }}" --}}
-                                                    {{-- id="hola" --}}
-                                                    <td ><span name="name_surgery"></span></td>  
-                                                    <td >PRECIO </td>                                                    
-                                                    {{-- <td > ESTRO SE IBA A USAR SI EL PACIENTE TENIA QUE PAGAR UN ADELANTE DE LA FACTURA AL AGENDARLA
-                                                        <div class="form-check form-check">
-                                                            <input class= "form-check-input"  style="font-size:15px"   class="custom-control-input" type="radio" id="parcial" name="status"  value="PARCIAL">
-                                                            <label class="form-check-label" for="inlineRadio1">PARCIAL</label>
-                                                        </div>
-                                                        <div class="form-check form-check">
-                                                            <input class="form-check-input"  style="font-size:15px"  class="custom-control-input"  type="radio" id="total" name="status"   value="TOTAL">
-                                                            <label class="form-check-label" for="inlineRadio2">TOTAL</label>
-                                                        </div>
-                                                    </td> --}}
-                                                </tr>                                         
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                        {{-- <div class="row mt-4">   ESTRO SE IBA A USAR SI EL PACIENTE TENIA QUE PAGAR UN ADELANTE DE LA FACTURA AL AGENDARLA
-                                <div class="col-10 text-right mt-1 ">
-                                    <p style="color:#000; font-weight:bold;"><i style="font-size:16px"></i>MONTO A CANCELAR</p>   
-                                </div>  
-                                <div class="col-2">
-                                    <input type="text" id="monto" name="monto" class="form-control"  placeholder="Formato 1000000.00" onKeyPress="return soloNumeros(event)" value="" required>
-                                </div>                                            
-                        </div>                   --}}
+                    </section>   
                     </section>
                 </form>
             </div>
@@ -371,12 +286,7 @@ var form = $('#wizard_horizontal').show();
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
 
-
-
-
 //-------------------------funcion buscar paciente--------------------------- 
-
-
 
     function search() {
         $("#search").click(function() {
@@ -476,6 +386,7 @@ var form = $('#wizard_horizontal').show();
             var surgery = $(this).val();
             console.log("lee aqui para verificar ID de la cirugia",surgery);
             $('#patient_id').text();
+            
 
             //aqui
             var name = $('#name_surgery'+surgery).val();
@@ -604,3 +515,4 @@ var form = $('#wizard_horizontal').show();
 
 
 @endsection
+

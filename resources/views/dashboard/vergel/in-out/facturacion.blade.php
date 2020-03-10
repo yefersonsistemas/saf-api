@@ -86,7 +86,9 @@
                                                     <span style="font-weight:bold;">Nombres/Apellidos:</span>
                                                 </div> 
                                                 <div class="col-md-6 col-lg-6 col-sm-6">
-                                                    <span id="name"></span><span id="lastname"></span>
+                                                    <span id="name"></span>
+                                                    <span></span>
+                                                    <span id="lastname"></span>
                                                 </div>
                                             </div>
                                             <div class="row ml-3">
@@ -116,7 +118,9 @@
                                                     <span style="font-weight:bold; ">Nombres/Apellidos:</span>
                                                 </div> 
                                                 <div class="col-md-6 col-lg-6 col-sm-6">
-                                                    <span id="nameD"></span><span id="lastnameD"></span>
+                                                    <span id="nameD"></span>
+                                                    <span></span>
+                                                    <span id="lastnameD"></span>
                                                 </div>
 
                                             </div>
@@ -267,16 +271,11 @@
 
         var id_patient;
         var id_employe;
-        var costo_total=0;
-        var costo_procedimientos=0;
+        var costo_total=0;     
         var costo_cirugia=0;
-        var costo_consulta=0;
         var procedures_id=0;
         var data_paciente;
-        var costo =0;
-        var total =0;
-        var precio=0;
-        var process =0;
+     
 
         function financial(x) {
             return Number.parseFloat(x).toFixed(2);
@@ -332,8 +331,7 @@
                         .then(function(){
                             window.location.href = '{{ route('checkout.index') }}'
                         })   
-                    }        
-                      
+                    }                             
                 })
                 .fail(function(data) {
                     console.log(data);
@@ -343,114 +341,51 @@
 
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
-            console.log('hola');
+            // console.log('hola kenwherly', data.encontrado[0].patient[0].person);  enciende para verificar que trae la data
 
-            data_paciente = data.encontrado[0].person; //uasarla mas adelante
-            
-            // estas variables se usaran mas adelante para mostrar la factura generada
-            id_patient = data.encontrado[0].person.id;
-            id_employe = data.encontrado[0].employe.person.id; 
-
-             // --------------------Procedures -------------
-             if(data.procedureS != null){
-                console.log('procedures', data.procedureS)
-                $("#procedure").append(procedure);
-
-                for(var i = 0; i < data.procedureS.length; i++){  // para listar los procedimientos
-                    if(data.procedureS[i].name != 'Consulta médica'){
-                        costo = financial(data.procedureS[i].price);
-                        costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
-                        procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
-                        console.log('proceduressss',procedures_id)
-                        procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
-                        $("#columna").append(procedure_select);
-                    }
-
-                    if(data.procedureS[i].name == 'Consulta médica'){
-                        costo = financial(data.encontrado[0].employe.doctor.price);
-                        costo_procedimientos += Number(costo);     // suma el precio de cada procedimiento
-                        procedures_id = procedures_id +','+ (data.procedureS[i].id); // guardarndo ids
-                        console.log('proceduressss',procedures_id)
-                        procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedureS[i].name+'<td class="text-right">'+costo+'</td></tr>';
-                        $("#columna").append(procedure_select);
-                    }
-                }
-            }
+            data_paciente =  data.encontrado[0].patient[0].person; 
+            // console.log('lee aqui para data completa de paciente',data_paciente);       
+            id_patient =  data.encontrado[0].patient[0].person.id;
+            // console.log('lee aqui para verificar id de paciente',id_patient);       
+            id_employe = data.encontrado[0].employe.id;
+            // console.log('lee aqui para verificar id de empleado',id_employe);       
 
             //-------------------cirugia -----------------
-            if(data.encontrado[0].surgery_r != null){
-                console.log('cooo ken')
-                console.log('cirugia',data.encontrado[0].surgery_r.name)
-                nombre_cirugia= data.encontrado[0].surgery_r.name;
-                costo_cirugia= financial(data.encontrado[0].surgery_r.cost);
-
+            if(data.encontrado[0].typesurgeries != null){
+                // console.log('la cirugia viene llena')
+                // console.log('cirugia',data.encontrado[0].typesurgeries.name)
+                nombre_cirugia= data.encontrado[0].typesurgeries.name;
+                // console.log('El nombre de la cirugia es',nombre_cirugia);
+                costo_cirugia= financial(data.encontrado[0].typesurgeries.cost);
+                // console.log('El costo de la cirugia es',costo_cirugia);
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
-                costo_cirugia = data.encontrado[0].surgery_r.cost; //costo de la cirugia
+                costo_cirugia = data.encontrado[0].typesurgeries.cost; //costo de la cirugia
             }
-
             
-            cu = parseFloat(costo_consulta);
-            ci = parseFloat(costo_cirugia);
-            p = parseFloat(costo_procedimientos);
-            
-            costo_total = cu + ci + p;
+            ci = parseFloat(costo_cirugia);            
+            costo_total = ci ;
             total = costo_total;
 
             $('#total').val(costo_total);
-            
-
-            // asignando valores a los campos con id en html 
             $('#patient_id').val(id_patient);
             $('#employe_id').val(id_employe);
-            $('#procedure_id').val(procedures_id);
 
             $('#costo_total').text(financial(costo_total));
             $('#subtotal').text(financial(costo_total));
-            $('#dnii').text(data.encontrado[0].person.dni); 
-            $('#name').text(data.encontrado[0].person.name);
-            $('#lastname').text(data.encontrado[0].person.lastname);
-            $('#phone').text(data.encontrado[0].person.phone);
+            //datos del paciente
+            $('#dnii').text(data.encontrado[0].patient[0].person.dni); 
+            $('#name').text(data.encontrado[0].patient[0].person.name);
+            $('#lastname').text(data.encontrado[0].patient[0].person.lastname);
+            $('#phone').text(data.encontrado[0].patient[0].person.phone);
+            //datos del empleado
             $('#dniiD').text(data.encontrado[0].employe.person.dni); 
             $('#nameD').text(data.encontrado[0].employe.person.name);
             $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
             $('#phoneD').text(data.encontrado[0].employe.person.phone);
 
-            $('#procedimiento').text(data.person.name);
-            $('#cantidad').text(data.person.dni);
-
-        } // fin de la funcion que muestra datos en el html
-    
-
-
-        //================================== para agregar procedimientos adicionales==========================
-        $("#select").change(function(){
-            var procedure_id = $(this).val(); // valor que se enviara al metodo de crear factura 
-            console.log('estos son ',procedure_id);
-            console.log(procedure_id.length); // el length en este caso permite agarrar el ultimo valor del arreglo
-
-            //ruta para buscar los datos segun procedimiento seleccionado
-            $.get('procedimiento/'+procedure_id[procedure_id.length-1], function(data){
-              //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-            console.log('datos',data.procedure.name);
-
-                procedure_select='<tr><td colspan="5" class="pl-4">'+data.procedure.name+'</td>'+'<td class="text-right">'+data.procedure.price+'</td></tr>';
-                console.log('procedimiento seleccionado',procedure_select);
-
-                costo_total += Number(data.procedure.price);     // suma el precio de cada procedimiento
-                procedures_id = procedures_id +','+ (data.procedure.id); // guardarndo ids
-            
-                console.log('ids',procedures_id);
-                console.log(costo_total)
-                $("#columna").append(procedure_select);
-                $('#costo_total').text(costo_total);
-                $('#subtotal').text(costo_total);
-                total = costo_total;
-                $('#total').val(costo_total);
-            });
-          }); // fin de la funcion para agregar procedimientos
-
-        }); //fin del documento
+        }  
+        }); 
     </script>
 
     
