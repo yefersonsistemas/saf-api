@@ -158,31 +158,25 @@ class InoutController extends Controller
                             'encontrado' => 'paciente no registrado',202
                         ]);
                         }
-            }   
-
-
-
-
-            
-            
+            }           
     }
-//---------------------------fin del metodo buscar para facturacion de cirugia----------------------------------------
+
+    public function createFactura($id){
+      
+        
+
+     }
+     public function guardarFactura(Request $request){
+    
+
+
+     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
-  
-
-
-
-
-
-
-
-
-
-     
+     */ 
         /**
      * Store a newly created resource in storage.
      *
