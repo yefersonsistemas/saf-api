@@ -83,7 +83,8 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-label">Fecha de Vencimiento</label>
-                                        <input type="text" placeholder="Fecha de Vencimiento" class="form-control" name="date_vence" value="{{ old('date_vence') }}" required>
+                                        {{-- <input type="text" placeholder="Fecha de Vencimiento" class="form-control" name="date_vence" value="{{ old('date_vence') }}" required> --}}
+                                        <input id="fechas" placeholder="Fecha de Vencimiento" name="date_vence" data-provide="datepicker" value="{{ old('date_vence') }}" required autocomplete="off" data-date-autoclose="true" class="form-control datepicker" >
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +120,7 @@
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
-
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
 
 <script>
 function disableBtn() {

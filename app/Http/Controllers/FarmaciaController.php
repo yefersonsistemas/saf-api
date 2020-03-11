@@ -108,7 +108,16 @@ class FarmaciaController extends Controller
                 'date'  => $fecha,            
                 'number_lot'  => $request->number_lot,
                 'quantity_total'  => $request->total,
-                'date_vence' => $request->date_vence,
+                'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
+                'branch_id' => 1,
+            ]);
+
+            $lot_pharmacy_actualizar = Actualizar_lot_pharmacy::create([
+                'medicine_pharmacy_id' => $medicine_pharmacy->id,
+                'date'  => $fecha,            
+                'number_lot'  => $request->number_lot,
+                'quantity_total'  => $request->total,
+                'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
                 'branch_id' => 1,
             ]);
     
@@ -158,7 +167,7 @@ class FarmaciaController extends Controller
             'date'  => $fecha,            
             'number_lot'  => $request->number_lot,
             'quantity_total'  => $request->total,
-            'date_vence' => $request->date_vence,
+            'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
             'branch_id' => 1,
         ]);
 
@@ -167,7 +176,7 @@ class FarmaciaController extends Controller
             'date'  => $fecha,            
             'number_lot'  => $request->number_lot,
             'quantity_total'  => $request->total,
-            'date_vence' => $request->date_vence,
+            'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
             'branch_id' => 1,
         ]);
 
@@ -273,5 +282,11 @@ class FarmaciaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function historial()
+    {
+        $lot_pharmacy = Actualizar_lot_pharmacy::with('medicine_pharmacy.medicine')->get();
+        return view('dashboard.vergel.farmaceuta.historial',compact('lot_pharmacy'));
     }
 }
