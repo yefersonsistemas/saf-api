@@ -106,7 +106,7 @@ class SurgerysController extends Controller
     public function buscar_doctor(Request $request)
     {
         $employe = Employe::with('image','person.user', 'speciality', 'schedule', 'areaassigment', 'surgery')->where('id', $request->id)->first();
-        dd($employe);
+        // dd($employe);
         if (!is_null($employe)) {
         
             return response()->json([
