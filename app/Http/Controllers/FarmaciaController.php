@@ -7,6 +7,7 @@ use App\Medicine_pharmacy;
 use App\Stock_pharmacy;
 use App\AsignacionMedicine;
 use App\Lot_pharmacy;
+use App\Actualizar_lot_pharmacy;
 use App\Medicine;
 use App\Informesurgery;
 use App\Surgery;
@@ -153,6 +154,15 @@ class FarmaciaController extends Controller
         $fecha = Carbon::now()->format('Y-m-d');
 
         $lot_pharmacy = Lot_pharmacy::create([
+            'medicine_pharmacy_id' => $id,
+            'date'  => $fecha,            
+            'number_lot'  => $request->number_lot,
+            'quantity_total'  => $request->total,
+            'date_vence' => $request->date_vence,
+            'branch_id' => 1,
+        ]);
+
+        $lot_pharmacy_actualizar = Actualizar_lot_pharmacy::create([
             'medicine_pharmacy_id' => $id,
             'date'  => $fecha,            
             'number_lot'  => $request->number_lot,
