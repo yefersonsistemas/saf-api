@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function (){
     //cirugias
     Route::post('doctor/eliminar/cirugia_previas', 'TypeSurgerysController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
 
+    Route::POST('registro', 'OutController@create_cliente')->name('checkout.person'); //se utiliza en checkout y en inout
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
     });
@@ -122,7 +124,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/patient','OutController@search_patients')->name('checkout.patient');    // buscar paciente
         Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
-        Route::POST('registro', 'OutController@create_cliente')->name('checkout.person');
+       
                  // mostrar factura
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
 

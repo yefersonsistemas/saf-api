@@ -346,16 +346,35 @@
         function mostrar_persona(data) {
 
         $('#agregar_agregar').html(`<a class="btn btn-secondary text-white" data-dismiss="modal">Cerrar</a>
-                                    <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="registrar">Agregar</a>`);
+                                    <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="agregarCliente">Agregar</a>`);
 
         $('#nameC').val(data.name);
         $('#lastnameC').val(data.lastname);
         $('#emailC').val(data.email);
         $('#direccionC').val(data.address);
         $('#phoneC').val(data.phone);
-       
+        $('#person_id').val(data.id); //este es el id de la persona que va a pagar. 
+
+        //agregar los datos de la person qeu va a cancelar
+        $("#agregarCliente").click(function() {
+
+            var dni = $("#buscar_dni").val();
+            var name =  $("#nameC").val();
+            var lastname = $("#lastnameC").val();
+            var phone = $("#phoneC").val();         
+
+            $('#dni_c').text(dni);
+            $('#name_c').text(name);
+            $('#lastname_c').text(lastname);
+            $('#phone_c').text(phone)
+
+            $("input[type=submit]").removeAttr("disabled");
+
+    });
+
     }
 
+    
         // ==================== ejecuta cuando se clikea el boton de registrar otro =====================
     $("#registrar").click(function() {
         var tipo_dni = $("#type_dni").val();
