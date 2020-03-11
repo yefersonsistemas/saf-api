@@ -29,7 +29,26 @@ class InoutController extends Controller
     {
      $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
 
-       return view('dashboard.vergel.in-out.index',compact('day'));
+     $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+     $atendidos = collect([]);
+ 
+     foreach ($hoy as $key) {
+         if (!empty($key->file_doctor->first())){
+            $atendidos->push($key);
+         }
+     }
+ 
+     // dd($atendidos);
+ 
+     $mes = Carbon::now()->format('m');
+     $año = Carbon::now()->format('Y');
+     $surgery1 = Surgery::whereMonth('created_at', '=', $mes)->get();
+     $surgery2 = Surgery::whereYear('created_at', '=', $año)->get(); //todas del mismo año
+     // dd( $surgery2);
+     // cirugias semanal
+     $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
+ 
+     return view('dashboard.vergel.in-out.index',compact('day', 'hoy', 'mensual', 'surgery2', 'atendidos'));
     }
 
 
