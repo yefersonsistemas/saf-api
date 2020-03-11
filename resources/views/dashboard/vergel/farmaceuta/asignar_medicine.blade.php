@@ -102,7 +102,7 @@
         }
     
         /* The Close Button */
-        .close1 {
+        .close{
           position: absolute;
           top: 15px;
           right: 35px;
@@ -112,8 +112,8 @@
           transition: 0.3s;
         }
     
-        .close1:hover,
-        .close1:focus {
+        .close:hover,
+        .close:focus {
           color: #bbb;
           text-decoration: none;
           cursor: pointer;
@@ -124,7 +124,33 @@
          #caption {
             width: 100%;
           }
-        }
+
+          }
+           body *::-webkit-scrollbar-thumb {
+          background: #00ba88;
+          border-radius: 10px;
+          
+          
+          }
+           body *:hover::-webkit-scrollbar-thumb {
+              background: #00ba88
+              
+              
+              
+          } 
+          body *::-webkit-scrollbar {
+              width: 0px;
+              height: 8px;
+              transition: .3s background
+              
+          }
+              
+            body *::-webkit-scrollbar-track {
+              background: #D1CDCD;
+              border-radius: 10px;
+          }
+          
+        
     </style>
 @endsection
 
@@ -134,14 +160,14 @@
 @section('content')
     <div class="section-body py-0 card-body">
         <div class="container row d-flex justify-content-between" style="height:650px;">
-             <div class="col-7" style="height: 100%" >
+             <div class="  col-7" style="height: 100%" >
                 <span class="col-7 card-header px-4">
                     <span class="row pl-4">
-                    <span class="col-3 text-start">NOMBRE</span>
-                    <span class="col-3">PRESENTACIÓN</span>
-                    <span class="col-2">MEDIDA</span>
-                    <span class="col-2">UNIDAD</span>
-                    <span class="col-2">STOCK</span>
+                    <span class="col-3 text-start"><b>NOMBRE</b></span>
+                    <span class="col-3"><b>PRESENTACION</b></span>
+                    <span class="col-2"><b>MEDIDA</b></span>
+                    <span class="col-2"><b>UNIDAD</b></span>
+                    <span class="col-2"><b>STOCK</b></span>
                     </span>
                 </span>
                 <div class="table-responsive p-2 pt-0" style="height:100%;overflow-y: scroll;">
@@ -149,8 +175,7 @@
                     <div id="accordion" style="">
 
                         @foreach ($stock as $item )
-                        <div class="p-0 row card"  style="border:1px solid #000">
-                           
+                        <div class="p-0 row card"  style="border:1px solid #00ad88  ">                        
                           <div class="card-header col-12 px-2" id="headingOne">
                             <h5 class="mb-0 row ">
                             <a class="btn col-12" data-toggle="collapse" data-target="#id{{$item->id}}{{$item->medicine_pharmacy->medicine->name}}" aria-expanded="false" aria-controls="">
@@ -168,8 +193,8 @@
                             <div class="card-body">
                                 
                             <table class="table" cellspacing="0" id="addrowExample">
-                                <thead>
-                                    <tr>
+                                <thead >
+                                    <tr >
                                         <th>Fecha de vencimiento</th>
                                         <th>Numero de lote</th>                                        
                                         <th class="text-center">Stock</th>
@@ -183,9 +208,10 @@
                                             <td>{{ $item2->number_lot }}</td>
                                             <td>{{ $item2->quantity_total }}</td>                                           
                                             <td class="text-center">
-                                                <input type="button" style="cursor:pointer" value="asignar" id="modal_asignar" name="{{$item2->id}}" class="text-dark btn"  data-toggle="modal" 
-                                            >
-                                            {{-- <i class="fe fe-arrow-right"></i> --}}
+                                                <input type="button" style="cursor:pointer" value="asignar" id="modal_asignar" name="{{$item2->id}}" class=" btn btn-verdePastel text-white"  data-toggle="modal">
+                                                {{-- <span class="input-group-addon">
+                                                  <i class="fa fa-arrow-right"></i>
+                                              </span> --}}
                                             </td>
                                         </tr>
                                     @endforeach   
@@ -226,33 +252,31 @@
                         @endif
                     </div>
                 </div>
-
                 <div class="row">
-                    <div class="mt-0 card-header text-center">
-                      <h5>Insumos Asignados</h5>
-                    </div>
                     <div class="row" style="height:400px; overflow: scroll;" >
-                      <table class="table table-hover table-vcenter table-striped" cellspacing="0" id="addrowExample">
-                          <thead>
+                      <table class="table table-hover  table-striped" cellspacing="0" id="addrowExample">
+                        <div>
+                          <h5 class=" card-header ml-6 mt-2">Insumos asignados</h5>
+                        </div>
+                          <thead >                        
                               <tr>
-                                  <th>Nombre</th>
-                                  <th>presentatión</th>
-                                  <th>Asignada</th>
+                                  <td><b>NOMBRE</b></td>
+                                  <td><b>PRESENTACIÓN</b></td>
+                                  <td><b>ASIGNADA</b></td>                          
                               </tr>
                           </thead>
                           <tbody> 
                               @foreach ($asignados as $item )
                                   <tr>
                                       <td>{{ $item->lot_pharmacy->medicine_pharmacy->medicine->name }} ({{ $item->lot_pharmacy->medicine_pharmacy->measure }})</td>
-                                      <td>{{ $item->lot_pharmacy->medicine_pharmacy->presentation }}</td>
-                                      <td>{{ $item->cantidad }}</td>
+                                      <td class="text-center">{{ $item->lot_pharmacy->medicine_pharmacy->presentation }}</td>
+                                      <td class="text-center">{{ $item->cantidad }}</td>
                                   </tr>
                               @endforeach   
                           </tbody>
                       </table>
                     </div>
-                </div>
-                               
+                </div>                              
             </div>
         </div>  
     </div>
@@ -260,7 +284,7 @@
     <div id="myModall"  data-backdrop="static" class="modal modall">
         <div class="container"> 
         <div class="row"> 
-        <button type="button" class=" close1 atras" data-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="close  atras" data-dismiss="modal" aria-label="Close"></button>
         <div class="col-6 align-right"  id="cambiar">
             <a class="btn medio  " style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a>
         </div>  
@@ -280,12 +304,12 @@
       <div class="modal fade" id="asignar_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered " role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Cantidad para asignar</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+              <div class="modal-header p-2" style="background-color: #00506b; color: #fff;">
+                <h5 class="col-11 modal-title text-center" id="exampleModalLongTitle">Cantidad para asignar</h5>
+                <button type="button" class="btn btn-azuloscuro" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>         
             <form action="{{route('farmaceuta.asignandoM')}}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="modal-body">
