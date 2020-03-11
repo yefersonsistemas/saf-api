@@ -334,8 +334,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/index', 'InoutController@index')->name('in-out.index');
         Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');
         Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');
-        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');
-        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
+        Route::post('inout/factura','InoutController@factura')->name('in-out.factura');
+        Route::post('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
         Route::get('inout/day','InoutController@day')->name('in-out.day');
        // Route::get('inout/facturacion', 'InoutController@createFactura')->name('in-out.facturacion');            
        // Route::post('inout/factura/generar', 'InoutController@guardarFactura')->name('in-out.guardarFactura');   

@@ -18,10 +18,9 @@
 @section('title','Proceso de facturación')
 
 @section('content')
-<form action="{{ route('checkout.guardar_factura') }}" method="POST">
-{{-- <form action="{{ route('checkout.guardar_factura') }}" method="POST"> --}}
-
+<form action="{{ route('in-out.factura') }}" method="POST">
     @csrf 
+    <!---busqueda de paciente co cirugia a pagar-->
     <div class="section-body py-3">
         <div class="container-fluid">
             <div class="row clearfix">
@@ -40,7 +39,9 @@
                 </div>
             </div>
         </div>
-    </div>     
+    </div>    
+    
+    
     <div class="section-body">
         <div class="container">
             <div class="tab-content">
@@ -53,10 +54,7 @@
                                 <div class="card-body row my-8  pl-4">
                                     <div class="col-lg-4 col-md-5 col-sm-12"><h2>Facturación</h2></div>
                                     <div class="col-lg-8 col-md-7 col-sm-12 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
-
-                                        {{-- <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0"> {{ $fecha }}</span><br> --}}
-                                        <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0">   </span><br>
-
+                                       <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0">   </span><br>
                                     </div>                             
                                 </div>
 
@@ -67,10 +65,10 @@
                                             <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>
                                                                     
                                             <!-----------------------Campos ocultoss---------------------->
-                                            <input id="procedure_id" type="hidden" name="procedure_id" value="" >
-                                            <input id="patient_id" type="hidden" name="patient_id" value="" >
-                                            <input id="employe_id" type="hidden" name="employe_id" value="" >
-                                            <input id="total" type="hidden" name="total_cancelar" value="" >
+                                            <input id="surgery_id" type="hidden" name="surgery_id" value="" > <!--guardar id de la cirugia-->
+                                            <input id="patient_id" type="hidden" name="patient_id" value="" > <!--guardar id del paciente-->
+                                            <input id="employe_id" type="hidden" name="employe_id" value="" >  <!--guardar id del employe-->
+                                            <input id="total" type="hidden" name="total_cancelar" value="" >   <!--guardar id del total a cancelar-->
                                             <!-------------------- fin de Campos ocultoss------------------>
 
                                             <div class="row ml-3">
@@ -135,17 +133,13 @@
                                         </div>
                                     </div><br><br>
                                     
+                                    <!--Mostrar datos de la cirugia a pagar--->
                                     <div class="table-responsive push mt-3">
                                         <table class="table table-bordered table-hover" >
                                             <tbody style="border-bottom: 1px solid #000">
                                                 <td style="font-weight:bold" colspan="5" class="text-left pl-4 tett" >DESCRIPCION</td>
                                                 <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                             </tbody>
-
-                                            <!--para mostrar procedimientos-->
-                                            <tbody style="border-bottom: 1px solid #000" id="procedure">
-                                            </tbody>
-                                            <tbody id="columna">
                                                 
                                             <!--para mostrar cirugia-->
                                             </tbody> 
@@ -167,7 +161,7 @@
                                         <div class="card-header d-flex justify-content-end col-13">
                                             <div class="card-options">
                                                 <button type="submit" class="btn btn-boo" style="margin-right: -16px;"><i class="si si-printer"></i>Generar factura</button>
-                                                <a href="{{ route('in-out.factura') }}" style="color:#000"></i>Generar factura</button>                                        
+                                                {{-- <a href="{{ route('in-out.factura') }}" style="color:#000"></i>Generar factura</button>                                         --}}
                                             </div>
                                         </div>
                                     </div>
@@ -177,73 +171,6 @@
                     </div>
                 </div>
             </div>                
-        </div>
-    </div>
-
-     <!--Modal para registrar otro cliente-->
-     <div class="modal fade" id="otro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registrar cliente</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body pr-5 pl-5 pt-4">
-                    <form>
-                        <div class="form-group">
-                            <div class="input-group ">
-                                <div class="input-group-prepend">
-                                </div>
-                                <div class="input-group-prepend">
-                                    <select id="tipo_dniC"  name="type_dni" type="text" placeholder="Nombre" class="form-control" value="">
-                                        <option value="V">V</option>
-                                        <option value="E">E</option>
-                                        <option value="J">J</option>
-                                    </select>
-                                </div>
-                                <input id="dniC" value="" type="text" class="form-control mr-2" maxlength="8" placeholder="Documento de Identidad" formControlName="dni" name="dni">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="nameC"  name="name" type="text" placeholder="Nombre" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="lastnameC" name="lastname" type="text" placeholder="Apellido" class="form-control input-block" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="phoneC" name="phone" type="text" placeholder="Telefono" class="form-control input-block" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <input id="emailC" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="email" name="email" type="email" placeholder="email" class="form-control input-block" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col">
-                                <textarea id="direccionC" name="address" type="text" placeholder="direccion" class="form-control input-block" value=""></textarea>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-                    <a class="btn btn-primary" id="registrar">Registrar</a>
-                </div>
-            </div>
         </div>
     </div>
 <form>
@@ -343,21 +270,17 @@
         function disabled(data) {
             // console.log('hola kenwherly', data.encontrado[0].patient[0].person);  enciende para verificar que trae la data
 
-            data_paciente =  data.encontrado[0].patient[0].person; 
-            // console.log('lee aqui para data completa de paciente',data_paciente);       
-            id_patient =  data.encontrado[0].patient[0].person.id;
-            // console.log('lee aqui para verificar id de paciente',id_patient);       
-            id_employe = data.encontrado[0].employe.id;
-            // console.log('lee aqui para verificar id de empleado',id_employe);       
+            data_paciente =  data.encontrado[0].patient[0].person;      // console.log('lee aqui para data completa de paciente',data_paciente);   
+            id_patient =  data.encontrado[0].patient[0].person.id;      // console.log('lee aqui para verificar id de paciente',id_patient);     
+            id_employe = data.encontrado[0].employe.id;                 // console.log('lee aqui para verificar id de empleado',id_employe);  
+            id_surgery = data.encontrado[0].id; 
 
             //-------------------cirugia -----------------
             if(data.encontrado[0].typesurgeries != null){
-                // console.log('la cirugia viene llena')
-                // console.log('cirugia',data.encontrado[0].typesurgeries.name)
+
                 nombre_cirugia= data.encontrado[0].typesurgeries.name;
-                // console.log('El nombre de la cirugia es',nombre_cirugia);
                 costo_cirugia= financial(data.encontrado[0].typesurgeries.cost);
-                // console.log('El costo de la cirugia es',costo_cirugia);
+
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].typesurgeries.cost; //costo de la cirugia
@@ -370,6 +293,7 @@
             $('#total').val(costo_total);
             $('#patient_id').val(id_patient);
             $('#employe_id').val(id_employe);
+            $('#surgery_id').val(id_surgery);
 
             $('#costo_total').text(financial(costo_total));
             $('#subtotal').text(financial(costo_total));

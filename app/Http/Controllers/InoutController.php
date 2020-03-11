@@ -14,9 +14,12 @@ use App\Surgery;
 use App\TypeArea;
 use App\Typesurgery;
 use Carbon\Carbon;
+use App\TypeCurrency;
+use App\TypePayment;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Function_;
+use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
 
 class InoutController extends Controller
 {
@@ -46,10 +49,7 @@ class InoutController extends Controller
         return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery','area'));
     }
 
-
-
-
-
+    //buscar paciente que tenga cirugia por cancelar
     public function facturacion()
     {
 
@@ -57,16 +57,63 @@ class InoutController extends Controller
 
     }
 
-    public function factura()
+    public function factura(Request $request)
     {
+        // dd($request);
+        $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $request->surgery_id)->first();
+// dd($surgery->patient->first()->person->dni);
+        $crear_factura = Billing::create([
+            'patient_id'  => $request->patient_id,
+            'employe_id'     => $request->employe_id,
+            'branch_id' => 1,
+        ]);
 
-        return view('dashboard.vergel.in-out.factura');
+        $surgery->billing_id = $crear_factura->id;
+        $surgery->save();
+
+        $total = $request->total_cancelar;
+        // dd($total);
+        $fecha = Carbon::now()->format('Y-m-d');
+        $tipo_moneda = TypeCurrency::all();
+        $tipo_pago = TypePayment::all();
+
+        return view('dashboard.vergel.in-out.factura', compact('surgery', 'total', 'fecha', 'tipo_moneda', 'tipo_pago'));
 
     }
 
-    public function imprimir_factura()
+    public function imprimir_factura(Request $request)
     {
-    return view('dashboard.vergel.in-out.imprimir_factura');
+       if($request->person_id != null){
+            if($request->factura != null){
+
+                $billing = billing::find($request->factura);
+                $billing->person_id = $request->person_id;
+                $billing->type_payment_id = $request->tipo_pago;
+                $billing->type_currency = $request->tipo_moneda;
+                $billing->save();
+
+                $fecha = Carbon::now()->format('Y-m-d');
+
+                $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'typepayment' , 'typecurrency')->where('id',$billing->id)->first();
+                $total_cancelar = $request->total;
+                $cirugia = Surgery::with('typesurgeries')->where('billing_id', $billing->id )->first();
+                $num_factura = str_pad($billing->id, 5, '0', STR_PAD_LEFT);
+
+                $pdf = PDF::loadView('dashboard.vergel.in-out.print_factura', compact('todos','total_cancelar','fecha', 'num_factura', 'cirugia'));
+
+                return $pdf->stream('factura.pdf');
+            }else{
+                Alert::error('No puede procesar la factura');
+                return redirect()->back();
+            }
+        }else{
+            Alert::error('No puede procesar la factura');
+            return redirect()->back();
+        }
+
+
+        // dd($request);
+    // return view('dashboard.vergel.in-out.imprimir_factura');
 
     }
     public function day(){
