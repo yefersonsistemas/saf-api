@@ -90,7 +90,7 @@
                                 <th>Cirugia</th>
                                 <th>Quirofano</th>
                                 <th>Fecha</th>
-                                <th>Status</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -101,7 +101,7 @@
                                 <th>Cirugia</th>
                                 <th>Quirofano</th>
                                 <th>Fecha</th>
-                                <th>Status</th>
+                                <th>Accion</th>
                             </tr>
                         </tfoot>
                         <tbody>  
@@ -119,14 +119,16 @@
                                 @endforeach
                                 <td> {{ $surgeries->employe->person->name }} {{ $surgeries->employe->person->lastname }}</td>
                                 <td> {{ $surgeries->typesurgeries->name }} </td>
-                                <td> {{ $surgeries->area->name }}  </td>
-                                <td> {{ $surgeries->date }}  </td>
-                                @if ($surgeries->file_doctor->first() == null)
-                                    <td class="badge badge-danger p-1 mt-3">En espera</td>
+
+                                @if ($surgeries->file_doctor->last() != null)
+                                <td>Hospitalizado</td>
                                 @else
-                                    <td class="badge badge-success p-1 mt-3">Realizada</td>
+                                <td> {{ $surgeries->area->name }}  </td>
                                 @endif
-                            </tr>
+                                
+                                <td> {{ $surgeries->date }}  </td>
+                                <td class="justify-content-center text-center"><a href="" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Facturar"><i class="fe fe-printer"></i></a></td>
+                             </tr>
                             @endforeach
                         </tbody>
                     </table>
