@@ -358,5 +358,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('farmaceuta/asignar/medicine', 'FarmaciaController@create_asignacion')->name('farmaceuta.asignacion');
         Route::get('farmaceuta/asignar/medicine/paciente/{id}', 'FarmaciaController@asignacion_medicine')->name('farmaceuta.asignar_medicine');
         Route::post('farmaceuta/asignando', 'FarmaciaController@asignando')->name('farmaceuta.asignandoM');
+        Route::get('farmaceuta/lotes/historial', 'FarmaciaController@historial')->name('farmaceuta.historial');
+       
+
     });
 });

@@ -369,6 +369,7 @@ class CitaController extends Controller
             }
 
             if ($request->fecha != null) {
+                // dd($request->fecha);
                 $dia = strtolower(Carbon::create($request->fecha)->locale('en')->dayName);    
                 $schedule = Schedule::where('employe_id', $request->person_id)->where('day', $dia)->first(); 
                 // dd($schedule);
