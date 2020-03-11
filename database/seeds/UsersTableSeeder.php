@@ -182,7 +182,7 @@ class UsersTableSeeder extends Seeder
             //stock
         $stock_pharmacy2= Stock_pharmacy::create([
             'medicine_pharmacy_id' => $medicine_pharmacy2->id,
-            'total' => $lot_pharmacy2->quantity_total,
+            'total' => $lot_pharmacy3->quantity_total,
             'branch_id' => 1,
         ]);
 
@@ -227,7 +227,7 @@ class UsersTableSeeder extends Seeder
             //stock
         $stock_pharmacy3= Stock_pharmacy::create([
             'medicine_pharmacy_id' => $medicine_pharmacy3->id,
-            'total' => $lot_pharmacy3->quantity_total,
+            'total' => $lot_pharmacy4->quantity_total,
             'branch_id' => 1,
         ]);
 
