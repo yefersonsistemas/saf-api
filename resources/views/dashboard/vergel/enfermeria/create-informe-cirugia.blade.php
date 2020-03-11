@@ -159,12 +159,12 @@
 
                 @if ($internista->first() != null)
                    <div class="row  d-flex justify-content-center">
-                        <div class="card mt-3 col-11" style="height:120px; overflow-x: scroll; background: #a1a1a1;">
+                        <div class="card mt-3 col-11" style="height:130px; overflow-x: scroll; background: #D5D8DC;">
                             <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                                 @foreach ($internista as $item)
-                                    <div class="col-2 p-0 m-0 my-1 mt-1"  id="carta{{ $item->id }}">
+                                    <div class="col-2 p-0 m-2 my-1 mt-1"  id="carta{{ $item->id }}">
                                        <div class="card" >
-                                           <a id="galeria" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                           <a id="galeria" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
                                            <input type="hidden" value="1" id="internista_id">
                                            <img src="{{ Storage::url($item->path) }}" alt="" class="col-12" id="myImg" name="{{ $item->path }}" style="width:100%; height:100%; border-radius:10px;" >
                                         </div>
@@ -193,14 +193,14 @@
 
                     @if ($anestesiologo->first() != null)
                     <div class="row  d-flex justify-content-center">
-                        <div class="card mt-3 col-11" style="height:100px; overflow-x: scroll; background: #a1a1a1;">
+                        <div class="card mt-3 col-11" style="height:130px; overflow-x: scroll; background: #D5D8DC;">
                             <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                             @foreach ($anestesiologo as $item)
-                                    <div class="col-2 p-0 m-0 my-1 mt-1" id="carta1{{ $item->id }}">
+                                    <div class="col-2 p-0 m-2 my-1 mt-1" id="carta1{{ $item->id }}">
                                         <div class="card">
-                                            <a id="galeria1" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                            <a id="galeria1" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
                                             <input type="hidden" value="2" id="anestesiologo_id">
-                                        <img src="{{ Storage::url($item->path) }}" alt="" id="myImg1" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;" >
+                                            <img src="{{ Storage::url($item->path) }}" alt="" id="myImg1" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;" >
                                         </div>
                                     </div>
                                 @endforeach
@@ -224,14 +224,14 @@
                 <section class="py-1">
                    @if ($cirujano->first() != null)
                    <div class="row  d-flex justify-content-center">
-                    <div class="card mt-3 col-11" style="height:100px; overflow-x: scroll; background: #a1a1a1;">
+                    <div class="card mt-3 col-11" style="height:130px; overflow-x: scroll; background: #D5D8DC;">
                         <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                         @foreach ($cirujano as $item)
-                            <div class="col-2 p-0 m-0 my-1 mt-1" id="carta2{{ $item->id }}">
+                            <div class="col-2 p-0 m-2 my-1 mt-1" id="carta2{{ $item->id }}">
                                 <div class="card">
-                                    <a id="galeria2" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                    <a id="galeria2" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
                                     <input type="hidden" value="3" id="cirujano_id">
-                                <img src="{{ Storage::url($item->path) }}" alt="" id="myImg2" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;">
+                                    <img src="{{ Storage::url($item->path) }}" alt="" id="myImg2" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;">
                                 </div>
                             </div>
                         @endforeach
