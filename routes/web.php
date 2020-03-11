@@ -324,6 +324,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('cirujano/delete', 'NurseController@eliminarD')->name('eliminarD');
         Route::post('internista/delete', 'NurseController@eliminarI')->name('eliminarI');
         Route::post('anestesiologo/delete', 'NurseController@eliminarA')->name('eliminarA');
+        Route::post('galeria/delete', 'NurseController@eliminarG')->name('galeria.delete');
 
     });
 

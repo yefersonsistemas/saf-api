@@ -159,15 +159,20 @@
 
                 @if ($internista->first() != null)
                    <div class="row  d-flex justify-content-center">
-                        <div class="card mt-3 col-11" style="height:100px; overflow-x: scroll; background: #a1a1a1;">
+                        <div class="card mt-3 col-11" style="height:120px; overflow-x: scroll; background: #a1a1a1;">
                             <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
-                            @foreach ($internista as $item)
-                                    <div class="col-2 p-0 m-0 my-1 mt-1">
-                                        <img src="{{ Storage::url($item->path) }}" alt="" class="col-12" id="myImg" name="{{ $item->path }}" style="width:100%; height:100%; border-radius:10px;" >
+                                @foreach ($internista as $item)
+                                    <div class="col-2 p-0 m-0 my-1 mt-1"  id="carta{{ $item->id }}">
+                                       <div class="card" >
+                                           <a id="galeria" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                           <input type="hidden" value="1" id="internista_id">
+                                           <img src="{{ Storage::url($item->path) }}" alt="" class="col-12" id="myImg" name="{{ $item->path }}" style="width:100%; height:100%; border-radius:10px;" >
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
+                            
                    </div>
 
                     <div class=" p-3">
@@ -191,8 +196,12 @@
                         <div class="card mt-3 col-11" style="height:100px; overflow-x: scroll; background: #a1a1a1;">
                             <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                             @foreach ($anestesiologo as $item)
-                                    <div class="col-2 p-0 m-0 my-1 mt-1">
+                                    <div class="col-2 p-0 m-0 my-1 mt-1" id="carta1{{ $item->id }}">
+                                        <div class="card">
+                                            <a id="galeria1" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                            <input type="hidden" value="2" id="anestesiologo_id">
                                         <img src="{{ Storage::url($item->path) }}" alt="" id="myImg1" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;" >
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
@@ -218,8 +227,12 @@
                     <div class="card mt-3 col-11" style="height:100px; overflow-x: scroll; background: #a1a1a1;">
                         <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                         @foreach ($cirujano as $item)
-                            <div class="col-2 p-0 m-0 my-1 mt-1">
+                            <div class="col-2 p-0 m-0 my-1 mt-1" id="carta2{{ $item->id }}">
+                                <div class="card">
+                                    <a id="galeria2" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                    <input type="hidden" value="3" id="cirujano_id">
                                 <img src="{{ Storage::url($item->path) }}" alt="" id="myImg2" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;">
+                                </div>
                             </div>
                         @endforeach
                         </div>
@@ -307,6 +320,103 @@
         $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('');
     }
 
+    $('a[id="galeria"]').on('click', function(){
+        var img = this.name;
+        let tipo = $('#internista_id').val();
+        console.log('aca', img, tipo);
+        $('div').remove("#carta"+img);
+        
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("galeria.delete") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        filename: img,
+                        tipo:tipo,
+                        },
+                    success: function (data){                 //si no trae valores
+                    console.log('ysbelia', data);
+
+
+                        Swal.fire({
+                            title: 'Archivo eliminado correctamente',
+                            text: 'Click en OK para continuar',
+                            type: 'success',
+                        });
+
+                        // console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
+    })
+
+    $('a[id="galeria1"]').on('click', function(){
+        var img = this.name;
+        let tipo = $('#anestesiologo_id').val();
+        console.log('aca', img, tipo);
+
+        $('div').remove("#carta1"+img);
+        
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("galeria.delete") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        filename: img,
+                        tipo:tipo,
+                        },
+                    success: function (data){                 //si no trae valores
+                    console.log('ysbelia', data);
+
+
+                        Swal.fire({
+                            title: 'Archivo eliminado correctamente',
+                            text: 'Click en OK para continuar',
+                            type: 'success',
+                        });
+
+                        // console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
+    })
+
+    $('a[id="galeria2"]').on('click', function(){
+        var img = this.name;
+        let tipo = $('#cirujano_id').val();
+        console.log('aca', img, tipo);
+
+        $('div').remove("#carta2"+img);
+        
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("galeria.delete") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        filename: img,
+                        tipo:tipo,
+                        },
+                    success: function (data){                 //si no trae valores
+                    console.log('ysbelia', data);
+
+
+                        Swal.fire({
+                            title: 'Archivo eliminado correctamente',
+                            text: 'Click en OK para continuar',
+                            type: 'success',
+                        });
+
+                        // console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }});
+    })
+
+
+
     $('img[id="myImg"]').on('click',function(){
             var modalImg = this.name;
             console.log(modalImg);
@@ -345,8 +455,6 @@
         $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
         $('#myModall').modal('show');
     });
-
-    
 
 </script>
 

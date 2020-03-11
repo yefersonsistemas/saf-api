@@ -42,7 +42,7 @@ class NurseController extends Controller
         $patient = Patient::with('person')->find($id);
         // dd($patient);
         $surgery = Surgery::with('file_internista')->where('patient_id',  $patient->id)->find($surgery);
-        dd($surgery->file_internista);
+        // dd($surgery->file_internista);
 
         $internista = FileInternista::where('fileable_id', $surgery->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
         // dd($internista);
@@ -175,6 +175,30 @@ class NurseController extends Controller
         $image->delete();
         return $image;
     }
+
+     //=============================Eliminar dropzone=========================
+     public function eliminarG(Request $request)
+     {
+        //  dd($request);
+
+        if($request->tipo == 1){
+            $image = FileInternista::find($request->filename);
+            $image->delete();
+           return $image;
+        }
+
+        if($request->tipo == 2){
+            $image = FileAnestesiologo::find($request->filename);
+            $image->delete();
+           return $image;
+        }
+
+        if($request->tipo == 3){
+            $image = FileDoctor::find($request->filename);
+            $image->delete();
+           return $image;
+        }
+     }
 
     /**
      * Display the specified resource.
