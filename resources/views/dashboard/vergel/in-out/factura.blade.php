@@ -174,7 +174,7 @@
                                                 <input id="deshabilidato" disabled class="btn btn-boo pr-5 pl-5 mr-3" type="submit" value="Imprimir" />
                                             </div>
                                             <div class="col-6 d-flex justify-content-start">
-                                                <a href="{{route('checkout.index')}}" class="btn btn-boo pr-5 pl-5 mr-3">Salir</a>
+                                                <a href="{{route('in-out.index')}}" class="btn btn-boo pr-5 pl-5 mr-3">Salir</a>
                                             </div>
                                         </div>       
 

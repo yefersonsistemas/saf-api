@@ -59,17 +59,20 @@ class InoutController extends Controller
 
     public function factura(Request $request)
     {
-        // dd($request);
         $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $request->surgery_id)->first();
-// dd($surgery->patient->first()->person->dni);
+
+    //si la factura no se ha generado
+    if($surgery->billing_id == null){
+
         $crear_factura = Billing::create([
-            'patient_id'  => $request->patient_id,
+            'patient_id'  =>$surgery->patient_id,
             'employe_id'     => $request->employe_id,
             'branch_id' => 1,
         ]);
 
         $surgery->billing_id = $crear_factura->id;
         $surgery->save();
+    }
 
         $total = $request->total_cancelar;
         // dd($total);
