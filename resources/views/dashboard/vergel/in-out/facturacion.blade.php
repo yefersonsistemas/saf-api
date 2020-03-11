@@ -54,7 +54,7 @@
                                 <div class="card-body row my-8  pl-4">
                                     <div class="col-lg-4 col-md-5 col-sm-12"><h2>Facturación</h2></div>
                                     <div class="col-lg-8 col-md-7 col-sm-12 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
-                                       <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;<span class="text pt-0">   </span><br>
+                                       <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;{{ $fecha }}<span class="text pt-0">   </span><br>
                                     </div>                             
                                 </div>
 
@@ -253,10 +253,10 @@
                         type: 'info',
                         allowOutsideClick:false,
                         confirmButtonColor: '#3085d6',
-                        confirmButtonText: '<a href="{{ route('checkout.index') }}" style="color:#fff">OK</a>'
+                        confirmButtonText: '<a href="{{ route('in-out.index') }}" style="color:#fff">OK</a>'
                         })
                         .then(function(){
-                            window.location.href = '{{ route('checkout.index') }}'
+                            window.location.href = '{{ route('in-out.index') }}'
                         })   
                     }                             
                 })

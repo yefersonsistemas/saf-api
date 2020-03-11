@@ -282,6 +282,7 @@
 
         // INICIO DE BUSCAR PACIENTE A FACTURAR
         $("#buscar").click(function() {
+            console.log('para buscar');
             var type_dni = $("#type_dni").val();
             var dni = $("#buscar_dni").val();
             if(type_dni == '' || dni ==  '' || dni.length < 7){
@@ -308,7 +309,7 @@
                 }
             })
             .done(function(data) {
-                console.log('recibido',data);
+
                 if (data[0] == 202) {
                     Swal.fire({
                         title: 'Persona no encontrada.!',

@@ -36,7 +36,6 @@ class InoutController extends Controller
     }
 
 
-
     public function agendar_cirugia()
     {
         $clasificacion = ClassificationSurgery::where('name', 'hospitalaria')->first();
@@ -52,38 +51,37 @@ class InoutController extends Controller
     //buscar paciente que tenga cirugia por cancelar
     public function facturacion()
     {
-
-        return view('dashboard.vergel.in-out.facturacion');
+        $fecha = Carbon::now()->format('Y-m-d');
+        return view('dashboard.vergel.in-out.facturacion', compact('fecha'));
 
     }
 
+    //==============finiquitar el proceso de facturacion============
     public function factura(Request $request)
     {
         $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $request->surgery_id)->first();
 
-    //si la factura no se ha generado
-    if($surgery->billing_id == null){
+        if($surgery->billing_id == null){ //si la factura no se ha generado
 
-        $crear_factura = Billing::create([
-            'patient_id'  =>$surgery->patient_id,
-            'employe_id'     => $request->employe_id,
-            'branch_id' => 1,
-        ]);
+            $crear_factura = Billing::create([
+                'patient_id'  =>$surgery->patient_id,
+                'employe_id'     => $request->employe_id,
+                'branch_id' => 1,
+            ]);
 
-        $surgery->billing_id = $crear_factura->id;
-        $surgery->save();
-    }
+            $surgery->billing_id = $crear_factura->id;
+            $surgery->save();
+        }
 
         $total = $request->total_cancelar;
-        // dd($total);
         $fecha = Carbon::now()->format('Y-m-d');
         $tipo_moneda = TypeCurrency::all();
         $tipo_pago = TypePayment::all();
 
         return view('dashboard.vergel.in-out.factura', compact('surgery', 'total', 'fecha', 'tipo_moneda', 'tipo_pago'));
-
     }
 
+    //====================imprimir factura=====================
     public function imprimir_factura(Request $request)
     {
        if($request->person_id != null){
@@ -113,17 +111,13 @@ class InoutController extends Controller
             Alert::error('No puede procesar la factura');
             return redirect()->back();
         }
-
-
-        // dd($request);
-    // return view('dashboard.vergel.in-out.imprimir_factura');
-
     }
-    public function day(){
 
-    $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
-    // dd($day);
-    return view('dashboard.vergel.in-out.day',compact('day'));
+    //===================cirugias del dia==================
+    public function day()
+    {
+        $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+        return view('dashboard.vergel.in-out.day',compact('day'));
     }
 
     //-----------------------buscar paciente para inout desde person-----------------------------
@@ -158,16 +152,20 @@ class InoutController extends Controller
     //============================ buscanco paciente desde la tabla citugia ============================
     public function search_patients_cirugia (Request $request){  // asi se llama adelante inout.search_patients
 
+        // dd($request);
         if(!empty($request->dni)){
-            // dd($request);
+        
             $person = Person::where('dni', $request->dni)->first();
             $patient = Patient::where('person_id', $person->id)->first();
-                // dd($patient);
+            
             if(!empty($patient)){
-                $surgery = Surgery::where('patient_id', $patient->id)->first();
+                $fecha = Carbon::now()->format('Y-m-d');
+                $surgery = Surgery::where('patient_id', $patient->id)->where('date', $fecha)->first(); //cirugia del dia
                 // dd($surgery);
                 if(!empty($surgery)){
-                    if(!empty($surgery->patient_id)){
+                  
+                    if($surgery->billing_id == null){
+                      if(!empty($surgery->patient_id)){
                         // $patient = Patient::find($surgery->patient_id);
                             //  dd($patient);
                         if(!empty($patient)){
@@ -184,7 +182,7 @@ class InoutController extends Controller
                                 ]);
                             }
                         }
-                    }else{
+                     }else{
                         $all = collect([]); //definiendo una coleccion|
                         $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
                         // dd($encontrado);
@@ -197,7 +195,14 @@ class InoutController extends Controller
                                 'encontrado' => 'persona no encontrado', 202
                             ]);
                         }
-                    }
+                     }
+                     
+                    }else{
+                        // dd($surgery);
+                        return response()->json([
+                            'encontrado' => 'Paciente ya facturado', 300
+                        ]);
+                }
                 }else{
                     return response()->json([
                         'encontrado' => 'paciente no encontrado', 202
@@ -211,18 +216,7 @@ class InoutController extends Controller
             }           
     }
 
-    public function createFactura($id){
-      
-        
-
-     }
-     public function guardarFactura(Request $request){
-    
-
-
-     }
-
-    /**
+     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
