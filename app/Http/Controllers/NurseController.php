@@ -24,7 +24,7 @@ class NurseController extends Controller
      */
     public function index()
     {
-        $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image', 'employe.person','typesurgeries','area')->get();
+        $surgeries = Surgery::whereDate('date', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image', 'employe.person','typesurgeries','area')->get();
         // dd( $surgeries);
 
         return  view('dashboard.vergel.enfermeria.lista_cirugias', compact('surgeries'));
@@ -41,8 +41,8 @@ class NurseController extends Controller
 
         $patient = Patient::with('person')->find($id);
         // dd($patient);
-        $surgery = Surgery::where('patient_id',  $patient->id)->find($surgery);
-        // dd($surgery);
+        $surgery = Surgery::with('file_internista')->where('patient_id',  $patient->id)->find($surgery);
+        // dd($surgery->file_internista);
 
         $internista = FileInternista::where('fileable_id', $surgery->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
         // dd($internista);

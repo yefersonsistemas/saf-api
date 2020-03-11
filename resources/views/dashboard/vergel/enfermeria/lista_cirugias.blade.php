@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 @endsection
 
 @section('title','Lista de Cirugias')
@@ -80,9 +81,16 @@
                                     <td>{{$surgeries->typesurgeries->name}}</td>
                                     {{-- @endforeach --}}
                                     <td>{{$surgeries->area->name}}</td>
+
+                                    @if ($surgeries->file_internista->first() == null)
                                     <td class="d-flex justify-content-center" style="display: inline-block ">
                                         <a href="{{route('create.lista_cirugias', [$patient->id, $surgeries->id ] )}}" class="btn btn-azuloscuro"  data-toggle="tooltip" data-placement="bottom" title="Subir informe Pre-operatorio"><i class="fa fa-arrow-circle-o-up" style="font-size:18px"></i></a>
                                     </td>
+                                    @elseif ($surgeries->file_internista != null)
+                                    <td class="d-flex justify-content-center" style="display: inline-block ">
+                                        <a href="{{route('create.lista_cirugias', [$patient->id, $surgeries->id ] )}}" class="btn btn-verdePastel"  data-toggle="tooltip" data-placement="bottom" title="Subir informes faltantes"><i class="fa fa-arrow-circle-o-up" style="font-size:18px"></i></a>
+                                    </td>
+                                    @endif
                                 </tr>
                             @endforeach 
                         </tbody>

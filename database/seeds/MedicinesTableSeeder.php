@@ -13,7 +13,7 @@ class MedicinesTableSeeder extends Seeder
      */
     public function run()
     {
-        Medicine::truncate();
+        // Medicine::truncate();
     //    factory(Medicine::class)->create()->each(function ($medicine) { 
     //         $patients = Patient::with('diagnostic')->get();  
                        
@@ -24,17 +24,17 @@ class MedicinesTableSeeder extends Seeder
     //         $medicine->patient()->attach($patients->random()->id);
     //     });  
 
-        factory(Medicine::class)->create([
-            'name'    => 'Ibuprofeno',
-        ]);
+        // factory(Medicine::class)->create([
+        //     'name'    => 'Ibuprofeno',
+        // ]);
 
-        factory(Medicine::class)->create([
-            'name'    => 'Acetaminofen',
-        ]);
+        // factory(Medicine::class)->create([
+        //     'name'    => 'Acetaminofen',
+        // ]);
 
-        factory(Medicine::class)->create([
-            'name'    => 'Diclofenac',
-        ]);
+        // factory(Medicine::class)->create([
+        //     'name'    => 'Diclofenac',
+        // ]);
         
         factory(Medicine::class)->create([
             'name'    => 'Amoxicilina',
