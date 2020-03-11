@@ -12,6 +12,11 @@ class Surgery extends Model
         'date', 'employe_id', 'patient_id', 'area_id', 'type_surgery_id', 'branch_id',  'billing_id', 'payment', 'status'    
     ];
 
+    public function asignacion_medicine() 
+    {
+        return $this->belongsTo('App\AsignacionMedicine');
+    }
+
     public function medicine_pharmacy() 
     {
         return $this->belongsToMany('App\Medicine_pharmacy','surgery_medicine_pharmacy')
@@ -60,6 +65,7 @@ class Surgery extends Model
         ->withPivot('procedure_id','id');
     }
 
+    
     public function patient()
     {
         return $this->belongsToMany('App\Patient','patient_surgery')

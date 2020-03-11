@@ -1,9 +1,9 @@
 <?php
 
+use App\FileInternista;
 use Illuminate\Database\Seeder;
-use App\Billing;
 
-class BillingsTableSeeder extends Seeder
+class FileInternistaTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,6 @@ class BillingsTableSeeder extends Seeder
      */
     public function run()
     {
-        Billing::truncate();
-        // factory(Billing::class, 20)->create();
+        FileInternista::truncate();
     }
 }

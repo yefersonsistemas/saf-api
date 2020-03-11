@@ -259,8 +259,7 @@ table tfoot tr td:first-child {
 
       <div id="invoice">
         <h1>Factura N°</h1>
-        <h2 class="nfactura">     </h2>
-        {{-- <h2 class="nfactura">{{ $num_factura }}</h2> --}}
+        <h2 class="nfactura">{{ $num_factura }}</h2>
       </div>
     </header>
 
@@ -270,32 +269,26 @@ table tfoot tr td:first-child {
       <div id="details" class="clearfix">
         <div id="client">
           <div class="name"> 
-            <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">          </span>
-            {{-- <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">{{ $todos->person->name }} {{ $todos->person->lastname }}.</span> --}}
+            <span style="font-weight:bold">Cliente:</span><span class="text" style="margin-left:48px;text-transform:uppercase">{{ $todos->person->name }} {{ $todos->person->lastname }}.</span>
           </div>
           <div class="dni">
-            <span style="font-weight:bold">RNC/Cédula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">        </span> <span class="text">     </span>
-            {{-- <span style="font-weight:bold">RNC/Cédula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}.</span> --}}
+            <span style="font-weight:bold">RNC/Cédula:</span><span class="text" style="margin-left:18px;text-transform:uppercase">{{ $todos->person->type_dni }}</span> <span class="text">{{ $todos->person->dni }}.</span>
           </div>
           <div class="phone">
-            <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">          </span>
-            {{-- <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">{{ $todos->person->phone }}.</span> --}}
+            <span style="font-weight:bold">Teléfono:</span><span class="text" style="margin-left:40px;text-transform:uppercase">{{ $todos->person->phone }}.</span>
           </div>
           <div class="address">
-            <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px;text-transform:uppercase">         </span>
-            {{-- <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px;text-transform:uppercase">{{ $todos->person->address }}.</span> --}}
+            <span style="font-weight:bold">Dirección:</span><span class="text" style="margin-left:35px;text-transform:uppercase">{{ $todos->person->address }}.</span>
           </div>
         </div>
         <div id="doctor">
             <div class="date">
-              Factura Emitida en la Fecha          <br> 
-              {{-- Factura Emitida en la Fecha  {{ $fecha }}<br>  --}}
+              Factura Emitida en la Fecha  {{ $fecha }}<br> 
               En Santo Domnido, Republica Dominicana.<br>
             </div>
         </div> <br><br><br>
         <div class="row">
-              <span style="font-weight:bold; font-size:13px; color:#000; margin-left:5px">Forma de Pago:</span> &nbsp;<span style="color:#000">                </span>
-              {{-- <span style="font-weight:bold; font-size:13px; color:#000; margin-left:5px">Forma de Pago:</span> &nbsp;<span style="color:#000">{{ $todos->typepayment->name }}. </span> --}}
+              <span style="font-weight:bold; font-size:13px; color:#000; margin-left:5px">Forma de Pago:</span> &nbsp;<span style="color:#000">{{ $todos->typepayment->name }}. </span>
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
@@ -308,70 +301,30 @@ table tfoot tr td:first-child {
           </tr>
         </thead>
         <tbody>
-          {{-- @if($todos->procedure->first() != null) --}}
-              {{-- @foreach ($todos->procedure as $item) --}}
-                {{-- @if($item->name == 'Consulta médica') --}}
-                  <tr class="proces">
-                      <td class="desc" style="text-align:left; padding-left:10px">
-                          <span colspan="1"></span>      al Paciente 
-                          {{-- <span colspan="1"></span>{{ $item->name }} al Paciente  --}}
-                          <span colspan="1">      </span> <br>
-                          {{-- {{ $todos->patient->name }} {{ $todos->patient->lastname }}</span> <br> --}}
-                          por el Doctor/a 
-                          {{-- por el Doctor/a {{ $todos->employe->person->name }} {{ $todos->employe->person->lastname }}. --}}
-                      </td>
-                  
-                      <td class="total" style=" padding-right:10px; text-align:right;">        </td>
-                      {{-- <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($todos->employe->doctor->price,2) }}</td> --}}
-                  </tr>
-                {{-- @endif --}}
-              {{-- @endforeach --}}
-
-              {{-- @foreach ($todos->procedure as $item) --}}
-                {{-- @if($item->name != 'Consulta médica') --}}
-                  <tr class="proces">
-                      <td class="desc" style="text-align:left; padding-left:10px">
-                          <span colspan="1"></span> 
-                          {{-- <span colspan="1"></span>{{ $item->name }} --}}
-                      </td>
-                  
-                      <td class="total" style=" padding-right:10px; text-align:right;">       </td>
-                      {{-- <td class="total" style=" padding-right:10px; text-align:right;">{{ number_format($item->price,2) }}</td> --}}
-                  </tr>
-                {{-- @endif --}}
-              {{-- @endforeach --}}
-              {{-- @endif --}}
-          
-          {{-- @if($cirugia->surgeryR != null) --}}
-              <tr>
-                <td class="desc" style="text-align:left;padding-left:10px">
-                    Cirugía 
-                    {{-- Cirugía {{ $cirugia->surgeryR->name }} --}}
-                  </td>
-                  <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">        </td>    
-                  {{-- <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">{{ number_format($cirugia->surgeryR->cost,2) }}</td>     --}}
-              </tr>
-              {{-- @endif --}}
-            
+            <tr>
+              <td class="desc" style="text-align:left;padding-left:10px">
+                  Cirugía {{ $cirugia->typesurgeries->name }}
+                </td>
+                <td class="total" style="border-bottom:#000000 solid 1px; padding-right:10px; text-align:right; ">{{ number_format($total_cancelar,2) }}</td>    
+            </tr>
         </tbody>      
         <tfoot>
         <tr>
-          <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold;">Sub-Total           </td>
-          {{-- <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td> --}}
-          <td style="text-align:right; padding-right:10px; border-top:#000000 solid 1px;">             </td>
-          {{-- <td style="text-align:right; padding-right:10px; border-top:#000000 solid 1px;">{{ number_format($total_cancelar,2) }}</td> --}}
+          <td colspan="1" style="border-top:#000000 solid 1px;  font-weight:bold;">Sub-Total&nbsp;{{ $todos->typecurrency->name }}</td>
+          <td style="text-align:right; padding-right:10px; border-top:#000000 solid 1px;">{{ number_format($total_cancelar,2) }}</td>
         </tr>        
         <tr>
-            <td colspan="1" style="padding-top:-5px; font-weight:bold">Total    </td>
-            {{-- <td colspan="1" style="padding-top:-5px; font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td> --}}
-            <td style="text-align:right;padding-top:-5px; padding-right:10px">           </td>
-            {{-- <td style="text-align:right;padding-top:-5px; padding-right:10px">{{ number_format($total_cancelar,2) }}</td> --}}
+            <td colspan="1" style="padding-top:-5px; font-weight:bold">Total&nbsp;{{ $todos->typecurrency->name }}</td>
+            <td style="text-align:right;padding-top:-5px; padding-right:10px">{{ number_format($total_cancelar,2) }}</td>
         </tr>
       </tfoot>
     </table>
   </main>
 </body>
 </html>
+
+
+
 
 
 

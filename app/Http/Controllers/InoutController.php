@@ -14,10 +14,13 @@ use App\Surgery;
 use App\TypeArea;
 use App\Typesurgery;
 use Carbon\Carbon;
+use App\TypeCurrency;
+use App\TypePayment;
 use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Function_;
-
+use Barryvdh\DomPDF\Facade as PDF; //alias para el componnete de pdf
+use RealRashid\SweetAlert\Facades\Alert;
 class InoutController extends Controller
 {
     /**
@@ -29,9 +32,27 @@ class InoutController extends Controller
     {
      $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
 
-       return view('dashboard.vergel.in-out.index',compact('day'));
-    }
+     $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+     $atendidos = collect([]);
 
+     foreach ($hoy as $key) {
+         if (!empty($key->file_doctor->first())){
+            $atendidos->push($key);
+         }
+     }
+
+     // dd($atendidos);
+
+     $mes = Carbon::now()->format('m');
+     $año = Carbon::now()->format('Y');
+     $surgery1 = Surgery::whereMonth('created_at', '=', $mes)->get();
+     $surgery2 = Surgery::whereYear('created_at', '=', $año)->get(); //todas del mismo año
+     // dd( $surgery2);
+     // cirugias semanal
+     $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
+
+     return view('dashboard.vergel.in-out.index',compact('day', 'hoy', 'mensual', 'surgery2', 'atendidos'));
+    }
 
 
     public function agendar_cirugia()
@@ -46,34 +67,97 @@ class InoutController extends Controller
         return view('dashboard.vergel.in-out.agendar_cirugia', compact('surgery','area'));
     }
 
-
-
-
-
+    //buscar paciente que tenga cirugia por cancelar
     public function facturacion()
     {
-
-        return view('dashboard.vergel.in-out.facturacion');
+        $fecha = Carbon::now()->format('Y-m-d');
+        return view('dashboard.vergel.in-out.facturacion', compact('fecha'));
 
     }
 
-    public function factura()
+    //==============finiquitar el proceso de facturacion============
+    public function factura(Request $request)
     {
+        $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $request->surgery_id)->first();
 
-        return view('dashboard.vergel.in-out.factura');
+        if($surgery->billing_id == null){ //si la factura no se ha generado
 
+            $crear_factura = Billing::create([
+                'patient_id'  =>$surgery->patient_id,
+                'employe_id'     => $request->employe_id,
+                'branch_id' => 1,
+            ]);
+
+            $surgery->billing_id = $crear_factura->id;
+            $surgery->save();
+        }
+
+        $total = $request->total_cancelar;
+        $fecha = Carbon::now()->format('Y-m-d');
+        $tipo_moneda = TypeCurrency::all();
+        $tipo_pago = TypePayment::all();
+
+        return view('dashboard.vergel.in-out.factura', compact('surgery', 'total', 'fecha', 'tipo_moneda', 'tipo_pago'));
     }
 
-    public function imprimir_factura()
+    //====================imprimir factura=====================
+    public function imprimir_factura(Request $request)
     {
-    return view('dashboard.vergel.in-out.imprimir_factura');
+       if($request->person_id != null){
+            if($request->factura != null){
 
+                $billing = billing::find($request->factura);
+                $billing->person_id = $request->person_id;
+                $billing->type_payment_id = $request->tipo_pago;
+                $billing->type_currency = $request->tipo_moneda;
+                $billing->save();
+
+                $fecha = Carbon::now()->format('Y-m-d');
+
+                $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'typepayment' , 'typecurrency')->where('id',$billing->id)->first();
+                $total_cancelar = $request->total;
+                $cirugia = Surgery::with('typesurgeries')->where('billing_id', $billing->id )->first();
+                $num_factura = str_pad($billing->id, 5, '0', STR_PAD_LEFT);
+
+                $pdf = PDF::loadView('dashboard.vergel.in-out.print_factura', compact('todos','total_cancelar','fecha', 'num_factura', 'cirugia'));
+
+                return $pdf->stream('factura.pdf');
+            }else{
+                Alert::error('No puede procesar la factura');
+                return redirect()->back();
+            }
+        }else{
+            Alert::error('No puede procesar la factura');
+            return redirect()->back();
+        }
     }
-    public function day(){
 
-    $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
-    // dd($day);
-    return view('dashboard.vergel.in-out.day',compact('day'));
+
+    //===================cirugias del dia==================
+    public function day()
+    {
+        // $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+        // dd($day);
+        $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+        $atendidos = collect([]);
+
+        foreach ($hoy as $key) {
+            if (!empty($key->file_doctor->first())){
+               $atendidos->push($key);
+            }
+        }
+
+        // dd($atendidos);
+
+        $mes = Carbon::now()->format('m');
+        $año = Carbon::now()->format('Y');
+        $surgery1 = Surgery::whereMonth('created_at', '=', $mes)->get();
+        $surgery2 = Surgery::whereYear('created_at', '=', $año)->get(); //todas del mismo año
+        // dd( $surgery2);
+        // cirugias semanal
+        $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
+
+        return view('dashboard.vergel.in-out.day',compact('hoy', 'mensual', 'surgery2', 'atendidos'));
     }
 
     //-----------------------buscar paciente para inout desde person-----------------------------
@@ -108,34 +192,29 @@ class InoutController extends Controller
     //============================ buscanco paciente desde la tabla citugia ============================
     public function search_patients_cirugia (Request $request){  // asi se llama adelante inout.search_patients
 
+        // dd($request);
         if(!empty($request->dni)){
 
             $person = Person::where('dni', $request->dni)->first();
             $patient = Patient::where('person_id', $person->id)->first();
-                // dd($patient);
 
             if(!empty($patient)){
-
-                $surgery = Surgery::where('patient_id', $patient->id)->first();
-
+                $fecha = Carbon::now()->format('Y-m-d');
+                $surgery = Surgery::where('patient_id', $patient->id)->where('date', $fecha)->first(); //cirugia del dia
                 // dd($surgery);
-
                 if(!empty($surgery)){
 
-                    if(!empty($surgery->patient_id)){
-
+                    if($surgery->billing_id == null){
+                      if(!empty($surgery->patient_id)){
                         // $patient = Patient::find($surgery->patient_id);
-                            // dd($patient);
-
+                            //  dd($patient);
                         if(!empty($patient)){
-
                             $all = collect([]); //definiendo una coleccion|
                             $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
-
+                                //  dd($encontrado);
                             if (!is_null($encontrado)) {
                                 return response()->json([
                                     'encontrado' => $encontrado,201,
-                                    // 'procedureS'  => $procedureS,
                                 ]);
                             }else{
                                 return response()->json([
@@ -143,11 +222,10 @@ class InoutController extends Controller
                                 ]);
                             }
                         }
-                    }else{
+                     }else{
                         $all = collect([]); //definiendo una coleccion|
                         $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
                         // dd($encontrado);
-
                         if (!is_null($encontrado)) {
                             return response()->json([
                                 'encontrado' => $encontrado,201,
@@ -157,7 +235,14 @@ class InoutController extends Controller
                                 'encontrado' => 'persona no encontrado', 202
                             ]);
                         }
-                    }
+                     }
+
+                    }else{
+                        // dd($surgery);
+                        return response()->json([
+                            'encontrado' => 'Paciente ya facturado', 300
+                        ]);
+                }
                 }else{
                     return response()->json([
                         'encontrado' => 'paciente no encontrado', 202
@@ -167,57 +252,16 @@ class InoutController extends Controller
                         return response()->json([
                             'encontrado' => 'paciente no registrado',202
                         ]);
-
                         }
-
-                // cuando viene vacio el imput de cedula
-
             }
-            // else{
-            //     return response()->json([
-            //         'encontrado' => 'Debe ingresar un valor de busqueda',202
-            //     ]);
-            // }
     }
 
-
-//---------------------------fin del metodo buscar para facturacion de cirugia----------------------------------------
-
-
-    /**
+     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $surgery = Surgery::with('patient.person','employe.person','employe.doctor', 'typesurgeries')->where('patient_id', $patient->id)->first();
-        // dd($surgery);
-        $fecha = Carbon::now()->format('Y-m-d');
-// dd($fecha);
-
-        //----- para el precio de la corigia----
-        $total_S=0;
-        if(!empty($surgery->typesurgeries)){
-            $total_S = $surgery->typesurgeries->cost;
-        }else{
-            $total_S = null;
-            // dd($total_S);
-        }
-
-        //---------precio de la consulta--------
-        $total_C=0;
-        if($si == true){
-            $total_C = $itinerary->employe->doctor->price;
-        }
-
-        $total = $total_P + $total_S + $total_C;
-
-
-        return view('dashboard.checkout.facturacionf', compact('procedimientos','fecha','itinerary','procedureS','total'));
-    }
-
-    /**
+        /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

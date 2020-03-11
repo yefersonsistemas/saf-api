@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function (){
     //cirugias
     Route::post('doctor/eliminar/cirugia_previas', 'TypeSurgerysController@cirugia_borrar')->name('doctor.cirugia_borrar');  // eliminar examen
 
+    Route::POST('registro', 'OutController@create_cliente')->name('checkout.person'); //se utiliza en checkout y en inout
+
     Route::group(['middleware' => ['role:recepcion']], function () {
         Route::get('citas', 'CitaController@index')->name('citas.index');
     });
@@ -122,7 +124,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('search/patient','OutController@search_patients')->name('checkout.patient');    // buscar paciente
         Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
         Route::get('procedimiento/{registro}', 'OutController@search_procedure')->name('checkout.search_procedure');  // buscar procedimiento
-        Route::POST('registro', 'OutController@create_cliente')->name('checkout.person');
+       
                  // mostrar factura
         Route::get('generar/examen/{patient}','OutController@crearExamen')->name('checkout.crear_examen');
 
@@ -326,9 +328,11 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
         Route::get('create/lista/surgeries/{id}/{surgery}', 'NurseController@create')->name('create.lista_cirugias');
-        Route::POST('store/lista/surgeries', 'NurseController@store')->name('store.lista_cirugias');
-        // Route::get('editar/lista/surgeries/{id}', 'NurseController@edit')->name('edit.lista_cirugias');
-        // Route::put('editar/lista/surgeries/update/{id}', 'NurseController@update')->name('update.lista_cirugias');
+        Route::POST('store/lista/surgeries/{surgery}/{id}', 'NurseController@store')->name('guardar.informe');
+        Route::post('cirujano/delete', 'NurseController@eliminarD')->name('eliminarD');
+        Route::post('internista/delete', 'NurseController@eliminarI')->name('eliminarI');
+        Route::post('anestesiologo/delete', 'NurseController@eliminarA')->name('eliminarA');
+        Route::post('galeria/delete', 'NurseController@eliminarG')->name('galeria.delete');
 
     });
 
@@ -339,9 +343,12 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/index', 'InoutController@index')->name('in-out.index');
         Route::get('inout/agendar_cirugia','InoutController@agendar_cirugia')->name('in-out.agendar_cirugia');
         Route::get('inout/facturacion','InoutController@facturacion')->name('in-out.facturacion');
-        Route::get('inout/factura','InoutController@factura')->name('in-out.factura');
-        Route::get('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
+        Route::post('inout/factura','InoutController@factura')->name('in-out.factura');
+        Route::post('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
         Route::get('inout/day','InoutController@day')->name('in-out.day');
+       // Route::get('inout/facturacion', 'InoutController@createFactura')->name('in-out.facturacion');            
+       // Route::post('inout/factura/generar', 'InoutController@guardarFactura')->name('in-out.guardarFactura');   
+
 
     });
 
@@ -359,5 +366,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::POST('farmaceuta/guardar/medicine', 'FarmaciaController@store_medicine')->name('farmaceuta.guardar_medicine');
         Route::get('farmaceuta/asignar/medicine', 'FarmaciaController@create_asignacion')->name('farmaceuta.asignacion');
         Route::get('farmaceuta/asignar/medicine/paciente/{id}', 'FarmaciaController@asignacion_medicine')->name('farmaceuta.asignar_medicine');
+        Route::post('farmaceuta/asignando', 'FarmaciaController@asignando')->name('farmaceuta.asignandoM');
+        Route::get('farmaceuta/lotes/historial', 'FarmaciaController@historial')->name('farmaceuta.historial');
+       
+
     });
 });

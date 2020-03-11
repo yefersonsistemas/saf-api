@@ -388,6 +388,7 @@ var form = $('#wizard_horizontal').show();
             $('#patient_id').text();
 
 
+
             //aqui
             var name = $('#name_surgery'+surgery).val();
              //aqui
@@ -491,7 +492,7 @@ var form = $('#wizard_horizontal').show();
     }
 
 </script>
-<script>
+ <script>
     $(".inline-datepicker").datepicker({
         todayHighlight: true,
         language: 'es',
@@ -515,3 +516,4 @@ var form = $('#wizard_horizontal').show();
 
 
 @endsection
+

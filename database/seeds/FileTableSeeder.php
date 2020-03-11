@@ -1,9 +1,9 @@
 <?php
 
+use App\File;
 use Illuminate\Database\Seeder;
-use App\Billing;
 
-class BillingsTableSeeder extends Seeder
+class FileTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,6 @@ class BillingsTableSeeder extends Seeder
      */
     public function run()
     {
-        Billing::truncate();
-        // factory(Billing::class, 20)->create();
+        File::truncate();
     }
 }
