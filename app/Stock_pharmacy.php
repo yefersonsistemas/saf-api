@@ -16,4 +16,9 @@ class Stock_pharmacy extends Model
     {
          return $this->belongsTo('App\Medicine_pharmacy','medicine_pharmacy_id');
     }
+
+    public function lot_pharmacy()
+    {
+         return $this->belongsTo('App\Lot_pharmacy');
+    }
 }

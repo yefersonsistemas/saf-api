@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Medicine_pharmacy;
 use App\Stock_pharmacy;
+use App\AsignacionMedicine;
 use App\Lot_pharmacy;
+use App\Actualizar_lot_pharmacy;
 use App\Medicine;
 use App\Informesurgery;
 use App\Surgery;
@@ -106,7 +108,16 @@ class FarmaciaController extends Controller
                 'date'  => $fecha,            
                 'number_lot'  => $request->number_lot,
                 'quantity_total'  => $request->total,
-                'date_vence' => $request->date_vence,
+                'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
+                'branch_id' => 1,
+            ]);
+
+            $lot_pharmacy_actualizar = Actualizar_lot_pharmacy::create([
+                'medicine_pharmacy_id' => $medicine_pharmacy->id,
+                'date'  => $fecha,            
+                'number_lot'  => $request->number_lot,
+                'quantity_total'  => $request->total,
+                'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
                 'branch_id' => 1,
             ]);
     
@@ -156,7 +167,16 @@ class FarmaciaController extends Controller
             'date'  => $fecha,            
             'number_lot'  => $request->number_lot,
             'quantity_total'  => $request->total,
-            'date_vence' => $request->date_vence,
+            'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
+            'branch_id' => 1,
+        ]);
+
+        $lot_pharmacy_actualizar = Actualizar_lot_pharmacy::create([
+            'medicine_pharmacy_id' => $id,
+            'date'  => $fecha,            
+            'number_lot'  => $request->number_lot,
+            'quantity_total'  => $request->total,
+            'date_vence' => Carbon::create($request->date_vence)->format('Y-m-d'),
             'branch_id' => 1,
         ]);
 
@@ -190,22 +210,56 @@ class FarmaciaController extends Controller
      //===========================asignacion====================
      public function create_asignacion()
      {
-        //  $surgery = Surgery::with('patient')->get();
-        //  dd($surgery);
         $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image','surgery.employe.person','surgery.typesurgeries')->where('status', true)->get();
-        // dd($informe->first()->surgery->file_doctor);
          return view('dashboard.vergel.farmaceuta.asignacion',compact('informe'));
     }
 
      //===========================asignacion====================
      public function asignacion_medicine($id)
      {
-        $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image')->where('id',$id)->first();
-        // dd($informe->surgery->file_doctor->first()->path);
-        $stock = Stock_pharmacy::with('medicine_pharmacy.medicine')->get();
-        // dd($stock);
-        return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('stock','informe'));
+        $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image')->where('id',$id)->first();   
+        $archivos = count($informe->surgery->file_doctor);
+        $asignados = AsignacionMedicine::with('lot_pharmacy.medicine_pharmacy.medicine')->where('surgery_id', $informe->surgery->id)->get();
+        $stock = Stock_pharmacy::with('medicine_pharmacy.medicine', 'medicine_pharmacy.lot_pharmacy2')->get();
+        $lot_pharmacy = Lot_pharmacy::with('medicine_pharmacy.medicine')->get();
+
+        return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('lot_pharmacy','informe','stock', 'asignados', 'archivos'));
     }
+
+      //===========================asignacion====================
+      public function asignando(Request $request)
+      {
+        $surgery = Surgery::find($request->surgery_id);
+
+        $lot_pharmacy = Lot_pharmacy::with('medicine_pharmacy.medicine')->where('id', $request->lot_id)->first();
+
+        $asignacion = 0;
+        if($request->cantidad != null){
+            if($request->cantidad <= $lot_pharmacy->quantity_total){
+                $asignacion = $lot_pharmacy->quantity_total - $request->cantidad;
+            }          
+            $lot_pharmacy->quantity_total = $asignacion; //actualizando el stock de lot_pharmacy
+            $lot_pharmacy->save();
+
+            $stock = Stock_pharmacy::where('medicine_pharmacy_id', $lot_pharmacy->medicine_pharmacy_id)->first(); //actualizando el stock
+            $total = $stock->total - $request->cantidad;
+            $stock->total = $total;
+            $stock->save();
+
+            $asignacion_medicine = AsignacionMedicine::create([ //Guardando la asignacion de medicamento
+                'lot_pharmacy_id' => $lot_pharmacy->id,
+                'surgery_id' => $surgery->id,
+                'cantidad'  => $request->cantidad,   
+                'branch_id' => 1,
+            ]);
+
+            Alert::success('Medicamento asignado correctamente');
+            return redirect()->back();
+        }else{            
+            Alert::success('Ingrese la cantidad que desea asignar');
+            return redirect()->back();
+        }
+     }
  
     /**
      * Update the specified resource in storage.
@@ -228,5 +282,11 @@ class FarmaciaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function historial()
+    {
+        $lot_pharmacy = Actualizar_lot_pharmacy::with('medicine_pharmacy.medicine')->get();
+        return view('dashboard.vergel.farmaceuta.historial',compact('lot_pharmacy'));
     }
 }

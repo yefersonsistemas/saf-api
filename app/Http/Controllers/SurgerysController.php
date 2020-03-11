@@ -406,15 +406,14 @@ class SurgerysController extends Controller
         $e = $request->employe_id;
         $a = $request->area_id;
         $d = Carbon::create($request->date)->format('Y-m-d');
-        $status = $request->status;
-        $payment = $request->monto;
+        // $status = $request->status;
+        // $payment = $request->monto;
         
 
-        if($p != null ) //&& $ts != null && $e != null &&  $a != null && $d !=null && $payment  && $status !=null)
+        if($p != null && $ts != null && $e != null &&  $a != null && $d !=null )
         {
             // dd($p);
-            if($status == 'TOTAL' )
-            {
+            
                // dd($status);
             $surgery = Surgery::create([		
                 'patient_id' => $p->id,
@@ -422,28 +421,9 @@ class SurgerysController extends Controller
                 'employe_id' => $e,
                 'area_id' => $a,
                 'date'=> $d,
-                'branch_id' => 1,
-                'status'=> $status,
-                'payment' => $payment,               
+                'branch_id' => 1,                         
                 ]);
-                //  dd($surgery);
-            }else {
-                if($status == 'PARCIAL')
-                //   dd($total);
                 
-                {
-                    $surgery = Surgery::create([		
-                        'patient_id' => $p->id,
-                        'type_surgery_id' => $ts,
-                        'employe_id' => $e,
-                        'area_id' => $a,
-                        'date'=> $d,
-                        'branch_id' => 1,
-                        'status'=> $status,
-                        'payment' => $payment,
-                        ]);
-                    }
-                }
                 // dd($surgery);
                 //Actualiza el status del quirofano a ocupado
                 $a = Area::find($request->area_id);

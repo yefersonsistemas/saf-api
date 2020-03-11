@@ -13,6 +13,6 @@ class BillingsTableSeeder extends Seeder
     public function run()
     {
         Billing::truncate();
-        factory(Billing::class, 20)->create();
+        // factory(Billing::class, 20)->create();
     }
 }

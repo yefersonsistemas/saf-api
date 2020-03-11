@@ -208,6 +208,7 @@
                     <li><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
                     <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registro de insumos</a></li>
                     <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
+                    <li><a href="{{ route('farmaceuta.historial') }}"><i class="fa fa-plus-circle"></i>Historial de lotes</a></li>
                 </div>
                 @endrole
 

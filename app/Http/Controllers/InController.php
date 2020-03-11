@@ -266,7 +266,6 @@ class InController extends Controller
      *
      */
 
-
     public function guardar(Request $request, $id)  //REVISAR
      {
         //  dd($request);

@@ -23,4 +23,25 @@ class Medicine_pharmacy extends Model
         ->withPivot('surgery_id','id');
     }
 
+    public function lot_pharmacy()
+    {
+         return $this->belongsTo('App\Lot_pharmacy');
+    }
+
+
+    public function lot_pharmacy2()
+    {
+         return $this->hasMany('App\Lot_pharmacy');
+    }
+
+    public function actualizar_lot_pharmacy()
+    {
+         return $this->belongsTo('App\Actualizar_lot_pharmacy');
+    }
+
+    public function actualizar_lot_pharmacy2()
+    {
+         return $this->hasMany('App\Actualizar_lot_pharmacy');
+    }
+
 }
