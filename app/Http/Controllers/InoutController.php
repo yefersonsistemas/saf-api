@@ -136,7 +136,7 @@ class InoutController extends Controller
     //===================cirugias del dia==================
     public function day()
     {
-        $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+        // $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
         // dd($day);
         $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
         $atendidos = collect([]);
@@ -157,7 +157,7 @@ class InoutController extends Controller
         // cirugias semanal
         $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
     
-        return view('dashboard.vergel.in-out.day',compact('day', 'hoy', 'mensual', 'surgery2', 'atendidos'));
+        return view('dashboard.vergel.in-out.day',compact('hoy', 'mensual', 'surgery2', 'atendidos'));
     }
 
     //-----------------------buscar paciente para inout desde person-----------------------------

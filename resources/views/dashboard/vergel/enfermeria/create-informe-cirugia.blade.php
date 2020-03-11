@@ -153,6 +153,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12" >
                 <form id="wizard_horizontal" action="{{ route('guardar.informe', [$surgery, 0] ) }}" method='POST' enctype="multipart/form-data" lass="card pl-4 pr-4">
                 @csrf
+                <input type="hidden" value=" {{ $surgery->area->id }} " name="area_id">
                 <h2>Informe del Internista</h2>
                 {{-- <input type="hidden" name="patient_id" id="patient_id" value="{{$patient->id}}"> --}}
                 <section class="py-1" >
@@ -310,6 +311,7 @@
            
         },
         onFinished: function(event, currentIndex) {
+            area();
             var form = $(this);
             form.submit();
         }
@@ -416,7 +418,6 @@
     })
 
 
-
     $('img[id="myImg"]').on('click',function(){
             var modalImg = this.name;
             console.log(modalImg);
@@ -455,6 +456,30 @@
         $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
         $('#myModall').modal('show');
     });
+
+    
+    function area() {
+        $("#search").click(function() {
+            var type_dni = $("#type_dni").val();
+            var dni = $("#dni").val();
+
+            console.log(type_dni)
+            console.log(dni)
+
+            if(type_dni == '' || dni ==  '' || dni.length < 7){
+                Swal.fire({
+                    title: 'Datos incompletos.!',
+                    type:'info',
+                    // text: 'Por favor introduzca el documento de identidad completo.',
+                    text: 'Click en OK para continuar',
+                    allowOutsideClick:false,
+                });
+            }else{
+
+            ajax(type_dni, dni);
+            }
+        });
+    }
 
 </script>
 

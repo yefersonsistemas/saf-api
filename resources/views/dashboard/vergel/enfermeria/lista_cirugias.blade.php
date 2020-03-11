@@ -80,9 +80,13 @@
                                     {{-- @foreach ($surgeries as $surgery) --}}
                                     <td>{{$surgeries->typesurgeries->name}}</td>
                                     {{-- @endforeach --}}
+                                    @if($surgeries->file_doctor->first() == null)
                                     <td>{{$surgeries->area->name}}</td>
+                                    @else
+                                    <td>Hospitalizado</td>
+                                    @endif
 
-                                    @if ($surgeries->file_internista->first() == null)
+                                    @if ($surgeries->file_internista->last() == null)
                                     <td class="d-flex justify-content-center" style="display: inline-block ">
                                         <a href="{{route('create.lista_cirugias', [$patient->id, $surgeries->id ] )}}" class="btn btn-azuloscuro"  data-toggle="tooltip" data-placement="bottom" title="Subir informe Pre-operatorio"><i class="fa fa-arrow-circle-o-up" style="font-size:18px"></i></a>
                                     </td>

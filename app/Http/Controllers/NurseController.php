@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
 use App\File;
 use App\Informesurgery;
 use App\Patient;
@@ -41,8 +42,8 @@ class NurseController extends Controller
 
         $patient = Patient::with('person')->find($id);
         // dd($patient);
-        $surgery = Surgery::with('file_internista')->where('patient_id',  $patient->id)->find($surgery);
-        // dd($surgery->file_internista);
+        $surgery = Surgery::with('file_internista', 'area.typearea')->where('patient_id',  $patient->id)->find($surgery);
+        // dd($surgery);
 
         $internista = FileInternista::where('fileable_id', $surgery->id)->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
         // dd($internista);
@@ -62,7 +63,7 @@ class NurseController extends Controller
      */
     public function store(Request $request, $surgery, $id)
     {
-        // dd($id);
+        // dd($request);
         $surgery = Surgery::with('typesurgeries')->find($surgery);
             // dd($surgery);
 
@@ -138,8 +139,13 @@ class NurseController extends Controller
             ]);
         }
             
-        
-        
+        if($surgery->file_doctor->last() != null){
+            $area = Area::find($request->area_id);
+            
+            $area->status = null;
+            $area->save();
+        }
+
     //  dd( $cirugia);
 
         return redirect()->route('lista_cirugias')->withSuccess('Informe guardado correctamente');
