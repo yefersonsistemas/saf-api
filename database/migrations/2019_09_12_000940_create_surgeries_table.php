@@ -24,8 +24,8 @@ class CreateSurgeriesTable extends Migration
             $table->unsignedBigInteger('branch_id');
             //campos nuevos del modulo de quirofano
             $table->unsignedBigInteger('billing_id')->nullable();
-            $table->double('payment')->nullable();
-            $table->string('status')->nullable();
+            // $table->double('payment')->nullable();
+            // $table->string('status')->nullable();
 
             $table->timestamps();
          
