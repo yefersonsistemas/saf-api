@@ -196,7 +196,7 @@ class OutController extends Controller
                 if(!empty($itinerary->billing_id)){
 
                     $billing = Billing::find($itinerary->billing_id);
-
+                    
                                                                             // dd($billing->person_id);
                     if(!empty($billing->person_id)){
 
@@ -207,10 +207,10 @@ class OutController extends Controller
                     //   return redirect()->route('checkout.index');
                     }else{
                         $all = collect([]); //definiendo una coleccion|
+                        
                         $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
-                                               // dd($encontrado);
+                        
                         $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
-    
                         if($procedures[0] != ''){ 
                             foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
                             $procedures[] = $proce->procedureR_id;
@@ -241,9 +241,9 @@ class OutController extends Controller
                 }else{
                     $all = collect([]); //definiendo una coleccion|
                     $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
-                    // dd($encontrado);
+                                                                                     // dd($encontrado);
                     $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
-
+               //     dd($procedures);
                     if($procedures[0] != ''){ 
                         foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
                         $procedures[] = $proce->procedureR_id;
@@ -309,6 +309,7 @@ class OutController extends Controller
         $procedures = explode(',', $itinerary->procedureR_id); //decodificando los procedimientos en $encontrado
 
         $procedimientos = Procedure::all();
+        // dd($procedimientos);
         $fecha = Carbon::now()->format('Y-m-d');
 
         //-------para el precio de los procedimientos------

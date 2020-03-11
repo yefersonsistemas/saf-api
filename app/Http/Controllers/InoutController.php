@@ -109,29 +109,21 @@ class InoutController extends Controller
     public function search_patients_cirugia (Request $request){  // asi se llama adelante inout.search_patients
 
         if(!empty($request->dni)){
-
+            // dd($request);
             $person = Person::where('dni', $request->dni)->first();
             $patient = Patient::where('person_id', $person->id)->first();
                 // dd($patient);
-
             if(!empty($patient)){
-
                 $surgery = Surgery::where('patient_id', $patient->id)->first();
-
                 // dd($surgery);
-
                 if(!empty($surgery)){
-
                     if(!empty($surgery->patient_id)){
-
                         // $patient = Patient::find($surgery->patient_id);
                             //  dd($patient);
-
                         if(!empty($patient)){
-
                             $all = collect([]); //definiendo una coleccion|
                             $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
-                                // dd($encontrado);
+                                //  dd($encontrado);
                             if (!is_null($encontrado)) {
                                 return response()->json([
                                     'encontrado' => $encontrado,201,
@@ -166,7 +158,13 @@ class InoutController extends Controller
                             'encontrado' => 'paciente no registrado',202
                         ]);
                         }
-            }      
+            }   
+
+
+
+
+            
+            
     }
 //---------------------------fin del metodo buscar para facturacion de cirugia----------------------------------------
     /**
