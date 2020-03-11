@@ -28,6 +28,7 @@ use App\Medicine_pharmacy;
 use App\Lot_pharmacy;
 use Carbon\Carbon;
 use App\Stock_pharmacy;
+use App\Actualizar_lot_pharmacy;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -57,6 +58,7 @@ class UsersTableSeeder extends Seeder
         AreaAssigment::truncate();
         Medicine_pharmacy::truncate();
         Lot_pharmacy::truncate();
+        Actualizar_lot_pharmacy::truncate();
         Medicine::truncate();
         Stock_pharmacy::truncate();
         $this->deleteDirectory(storage_path('/app/public/employes'));
@@ -112,6 +114,26 @@ class UsersTableSeeder extends Seeder
             'branch_id' => 1,
         ]);
 
+            //creando lote para el actualizar
+            $A_lot_pharmacy= Actualizar_lot_pharmacy::create([
+                'medicine_pharmacy_id' => $medicine_pharmacy->id,
+                'number_lot' => 123,
+                'date' => Carbon::now()->format('Y-d-m'),
+                'quantity_total' => 100,
+                'date_vence' => '2020-08-20',
+                'branch_id' => 1,
+            ]);
+    
+            //creando lote para el actualizar
+            $A_lot_pharmacy2= Actualizar_lot_pharmacy::create([
+                'medicine_pharmacy_id' => $medicine_pharmacy->id,
+                'number_lot' => 124,
+                'date' => Carbon::now()->format('Y-d-m'),
+                'quantity_total' => 150,
+                'date_vence' => '2021-12-20',
+                'branch_id' => 1,
+            ]);
+
          //stock
         $stock_pharmacy= Stock_pharmacy::create([
             'medicine_pharmacy_id' => $medicine_pharmacy->id,
@@ -147,6 +169,16 @@ class UsersTableSeeder extends Seeder
             'branch_id' => 1,
         ]);
     
+           //creando lote para el actualizar
+           $A_lot_pharmacy3= Actualizar_lot_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy2->id,
+            'number_lot' => 124,
+            'date' => Carbon::now()->format('Y-d-m'),
+            'quantity_total' => 200,
+            'date_vence' => '2021-12-20',
+            'branch_id' => 1,
+        ]);
+
             //stock
         $stock_pharmacy2= Stock_pharmacy::create([
             'medicine_pharmacy_id' => $medicine_pharmacy2->id,
@@ -182,6 +214,16 @@ class UsersTableSeeder extends Seeder
             'branch_id' => 1,
         ]);
     
+        
+           //creando lote para el actualizar
+           $A_lot_pharmacy4= Actualizar_lot_pharmacy::create([
+            'medicine_pharmacy_id' => $medicine_pharmacy3->id,
+            'number_lot' => 124,
+            'date' => Carbon::now()->format('Y-d-m'),
+            'quantity_total' => 300,
+            'date_vence' => '2021-12-20',
+            'branch_id' => 1,
+        ]);
             //stock
         $stock_pharmacy3= Stock_pharmacy::create([
             'medicine_pharmacy_id' => $medicine_pharmacy3->id,
@@ -250,7 +292,7 @@ class UsersTableSeeder extends Seeder
             'description' => 'Es un procedimiento para abrir
                             los pasajes de la nariz y los senos paranasales. Se realiza para tratar infecciones de los
                             senos a largo plazo (crónicas).',
-            'day_hospitalization' => '1 dia',
+            'day_hospitalization' => '1',
             'classification_surgery_id' => $clasificacion->id,
             'branch_id' => '1',
         ]);
@@ -512,7 +554,7 @@ class UsersTableSeeder extends Seeder
                 'cost' => 25000.00,
                 'description' => 'Se realiza para remodelar las estructuras de la cabeza y el cuello, por lo general la nariz,
                 las orejas, el mentón, los pómulos y el cuello',
-                'day_hospitalization' => 'ambulatoria',
+                'day_hospitalization' => null,
                 'classification_surgery_id' => $clasificacion->id,
                 'branch_id' => '1',
             ]);

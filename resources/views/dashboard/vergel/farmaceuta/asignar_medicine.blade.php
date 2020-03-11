@@ -129,12 +129,12 @@
 @endsection
 
 
-@section('title','Medicamentos')
+@section('title','Asignación de Insumos')
 
 @section('content')
     <div class="section-body py-0 card-body">
         <div class="container row d-flex justify-content-between" style="height:650px;">
-             <div class="col-7" >
+             <div class="col-7" style="height: 100%" >
                 <span class="col-7 card-header px-4">
                     <span class="row pl-4">
                     <span class="col-3 text-start">NOMBRE</span>
@@ -201,46 +201,58 @@
             </div>
   
 
-            <div class="col-5 card p-1">
-                <div class="row ">
-                    <table class="table table-hover table-vcenter table-striped" cellspacing="0" id="addrowExample">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>presentatión</th>
-                                <th>Medida</th>
-                                <th>Cant.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($stock as $item )
-                                <tr>
-                                    <td>{{ $item->medicine_pharmacy->medicine->name }}</td>
-                                    <td>{{ $item->medicine_pharmacy->presentation }}</td>
-                                    <td>{{ $item->medicine_pharmacy->measure }} </td>
-                                    <td>{{ $item->medicine_pharmacy->quantity_Unit }}</td>
-                                </tr>
-                            @endforeach   
-                        </tbody>
-                    </table>
-                </div>
-               
+            <div class="col-5 card p-1 mt-4" style="height:100%">
 
-             {{-- <div class="mt-0 card-header text-center">
-                <h5>Requisición</h5>
-                </div>
-                <div class="row d-flex d-row justify-content-column rawp" style="height:550px; overflow: scroll;">
-                    @if ($informe->surgery->file_doctor->first() != null)
-                    <div class="col-12 mr-2 p-0">
-                        @foreach ($informe->surgery->file_doctor as $item)
-                            <div class="m-0 mb-4 p-0" style="height:200px;">
-                                <img src="{{ Storage::url($item->path) }}" alt="Snow" id="myImg" name="{{ $item->path }}" class="img-thumbnail m-0" style="width:100%; height:100%">; 
-                            </div>
-                        @endforeach  
+                <div class="row d-flex justify-content-start" style="height:200px">
+                    <div class="mt-0 mb-0 card-header col-12 text-center">
+                      <div class="row d-flex justify-content-start ">
+                        <div class="col-8 d-flex justify-content-start">
+                          <h5 >Requisición</h5>
+                        </div>
+                      <div class="col-4 d-flex justify-content-end">
+                        <span >{{ $archivos }} Archivo</span>
+                      </div>                   
+                      </div>                
                     </div>
-                    @endif
-                </div> --}}
-                
+                    <div class="col-12" style="height:100px; overflow-x: scroll;">
+                        @if ($informe->surgery->file_doctor->first() != null)
+                        <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%;" >
+                            @foreach ($informe->surgery->file_doctor as $item)
+                                <div class="col-3 m-0 mb-4 p-0">
+                                    <img src="{{ Storage::url($item->path) }}" class="col-12" alt="Snow" id="myImg" name="{{ $item->path }}" class="img-thumbnail m-0" style="width:100%; height:100%">
+                                </div>
+                            @endforeach  
+                        </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mt-0 card-header text-center">
+                      <h5>Insumos Asignados</h5>
+                    </div>
+                    <div class="row" style="height:400px; overflow: scroll;" >
+                      <table class="table table-hover table-vcenter table-striped" cellspacing="0" id="addrowExample">
+                          <thead>
+                              <tr>
+                                  <th>Nombre</th>
+                                  <th>presentatión</th>
+                                  <th>Asignada</th>
+                              </tr>
+                          </thead>
+                          <tbody> 
+                              @foreach ($asignados as $item )
+                                  <tr>
+                                      <td>{{ $item->lot_pharmacy->medicine_pharmacy->medicine->name }} ({{ $item->lot_pharmacy->medicine_pharmacy->measure }})</td>
+                                      <td>{{ $item->lot_pharmacy->medicine_pharmacy->presentation }}</td>
+                                      <td>{{ $item->cantidad }}</td>
+                                  </tr>
+                              @endforeach   
+                          </tbody>
+                      </table>
+                    </div>
+                </div>
+                               
             </div>
         </div>  
     </div>

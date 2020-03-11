@@ -191,31 +191,30 @@ class FarmaciaController extends Controller
      //===========================asignacion====================
      public function create_asignacion()
      {
-        //  $surgery = Surgery::with('patient')->get();
-        //  dd($surgery);
         $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image','surgery.employe.person','surgery.typesurgeries')->where('status', true)->get();
-        // dd($informe->first()->surgery->patient); 
          return view('dashboard.vergel.farmaceuta.asignacion',compact('informe'));
     }
 
      //===========================asignacion====================
      public function asignacion_medicine($id)
      {
-        $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image')->where('id',$id)->first();
-        // dd($informe->surgery->file_doctor->first()->path);
+        $informe = Informesurgery::with('surgery.file_doctor','surgery.patient.person.image')->where('id',$id)->first();   
+        $archivos = count($informe->surgery->file_doctor);
+        $asignados = AsignacionMedicine::with('lot_pharmacy.medicine_pharmacy.medicine')->where('surgery_id', $informe->surgery->id)->get();
         $stock = Stock_pharmacy::with('medicine_pharmacy.medicine', 'medicine_pharmacy.lot_pharmacy2')->get();
         $lot_pharmacy = Lot_pharmacy::with('medicine_pharmacy.medicine')->get();
-        // dd($stock->medicine_pharmacy);
-        return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('lot_pharmacy','informe','stock'));
+
+        return view('dashboard.vergel.farmaceuta.asignar_medicine',compact('lot_pharmacy','informe','stock', 'asignados', 'archivos'));
     }
 
       //===========================asignacion====================
       public function asignando(Request $request)
       {
-        //   dd($request);
         $surgery = Surgery::find($request->surgery_id);
+
         $lot_pharmacy = Lot_pharmacy::with('medicine_pharmacy.medicine')->where('id', $request->lot_id)->first();
 
+        $asignacion = 0;
         if($request->cantidad != null){
             if($request->cantidad <= $lot_pharmacy->quantity_total){
                 $asignacion = $lot_pharmacy->quantity_total - $request->cantidad;
@@ -228,7 +227,6 @@ class FarmaciaController extends Controller
             $stock->total = $total;
             $stock->save();
 
-            
             $asignacion_medicine = AsignacionMedicine::create([ //Guardando la asignacion de medicamento
                 'lot_pharmacy_id' => $lot_pharmacy->id,
                 'surgery_id' => $surgery->id,
@@ -238,9 +236,7 @@ class FarmaciaController extends Controller
 
             Alert::success('Medicamento asignado correctamente');
             return redirect()->back();
-
-        }else{
-            
+        }else{            
             Alert::success('Ingrese la cantidad que desea asignar');
             return redirect()->back();
         }

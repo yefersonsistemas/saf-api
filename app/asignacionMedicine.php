@@ -10,7 +10,7 @@ class asignacionMedicine extends Model
     protected $table = 'asignacion_medicine';
 
     protected $fillable = [
-        'cantidad', 'lot_pharmacy_id', 'branch_id'
+        'cantidad', 'lot_pharmacy_id', 'branch_id','surgery_id'
     ];
 
     public function lot_pharmacy()
@@ -25,7 +25,7 @@ class asignacionMedicine extends Model
  
     public function surgery() 
     {
-        return $this->belongsTo('App\Surgery');
+        return $this->belongsTo('App\Surgery', 'surgery_id');
     }
 
 }

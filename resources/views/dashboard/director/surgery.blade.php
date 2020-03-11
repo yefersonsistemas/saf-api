@@ -64,7 +64,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group"> 
                                     <label class="form-label">Cantidad de días</label>
-                                    <input type="text" disabled id="day_hospitalization" class="form-control" onkeypress="return num(event)" placeholder="Días" name="day_hospitalization" value="{{ old('day_hospitalization') }}" required>
+                                    <input type="text" disabled id="day_hospitalization" class="form-control" onkeypress="return num(event)" placeholder="ejemplo: 3" name="day_hospitalization" value="{{ old('day_hospitalization') }}" required>
                                 </div>
                             </div>  
                         </div>  
