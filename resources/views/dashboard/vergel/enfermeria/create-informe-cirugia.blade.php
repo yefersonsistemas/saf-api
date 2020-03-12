@@ -13,14 +13,14 @@
 
     <style>
         /* body {font-family: Arial, Helvetica, sans-serif;} */
-    
+
         #myImg {
           border-radius: 5px;
           cursor: pointer;
           transition: 0.3s;
           opacity: 0.6;
         }
-    
+
         #myImg:hover {opacity: 1;}
 
         #myImg1 {
@@ -29,7 +29,7 @@
           transition: 0.3s;
           opacity: 0.6;
         }
-    
+
         #myImg1:hover {opacity: 1;}
 
         #myImg2 {
@@ -38,11 +38,11 @@
           transition: 0.3s;
           opacity: 0.6;
         }
-    
+
         #myImg2:hover {opacity: 1;}
-    
+
         /* The Modal (background) */
-    
+
         .modall{
           display: none;
           position: fixed; /* Stay in place */
@@ -56,10 +56,10 @@
           overflow: auto; /* Enable scroll if needed */
           background-color: rgb(0,0,0);
           background-color: rgba(0,0,0,0.8);
-    
+
         }
-    
-    
+
+
         /* Modal Content (image) */
         .modal-content {
           margin: auto;
@@ -67,7 +67,7 @@
           width: 85%;
           max-width: 1500px;
         }
-    
+
         /* Caption of Modal Image */
         .caption {
           margin: auto;
@@ -83,10 +83,10 @@
         {
             -webkit-box-shadow: 1px 1px 3px #878585; /* Sombra normal */
             border-radius: 2px
-            
+
         }
-    
-    
+
+
         .caption_extra_grande {
           margin: auto;
           display: block;
@@ -97,11 +97,11 @@
           padding: 5px 0;
           height: 180px;
         }
-    
+
         img{
             opacity: 1;
         }
-    
+
         /* Add Animation */
         .caption {
           -webkit-animation-name: zoom;
@@ -109,17 +109,17 @@
           animation-name: zoom;
           animation-duration: 0.6s;
         }
-    
+
         @-webkit-keyframes zoom {
           from {-webkit-transform:scale(0)}
           to {-webkit-transform:scale(1)}
         }
-    
+
         @keyframes zoom {
           from {transform:scale(0)}
           to {transform:scale(1)}
         }
-    
+
         /* The Close Button */
         .close {
           position: absolute;
@@ -130,20 +130,37 @@
           font-weight: bold;
           transition: 0.3s;
         }
-    
+
         .close:hover,
         .close:focus {
           color: #bbb;
           text-decoration: none;
           cursor: pointer;
         }
-    
+
         /* 100% Image Width on Smaller Screens */
         @media only screen and (max-width: 700px){
          #caption {
             width: 100%;
           }
         }
+
+        body *::-webkit-scrollbar-thumb {
+          background: #00ba88;
+          border-radius: 10px;
+          }
+           body *:hover::-webkit-scrollbar-thumb {
+              background: #00ba88
+          }
+        body *::-webkit-scrollbar {
+              width: 0px;
+              height: 8px;
+              transition: .3s background
+          }
+        body *::-webkit-scrollbar-track {
+              background: #D1CDCD;
+              border-radius: 10px;
+          }
     </style>
 @endsection @section('content')
 
@@ -160,34 +177,34 @@
 
                 @if ($internista->first() != null)
                    <div class="row  d-flex justify-content-center">
-                        <div class="card mt-3 col-11" style="height:130px; overflow-x: scroll; background: #D5D8DC;">
+                        <div class="card mt-3 col-11" style="height:140px; overflow-x: scroll; background: #D5D8DC;">
                             <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                                 @foreach ($internista as $item)
                                     <div class="col-2 p-0 m-2 my-1 mt-1"  id="carta{{ $item->id }}">
-                                       <div class="card" >
+                                       <div class="card" style="position:relative; width:110px; height:110px;">
                                            <a id="galeria" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
                                            <input type="hidden" value="1" id="internista_id">
-                                           <img src="{{ Storage::url($item->path) }}" alt="" class="col-12" id="myImg" name="{{ $item->path }}" style="width:100%; height:100%; border-radius:10px;" >
+                                           <img src="{{ Storage::url($item->path) }}" alt="" class="col-12" id="myImg" name="{{ $item->path }}" style="width:100%; height:100%; border-radius:10px; position:absolute;" >
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-                            
+
                    </div>
 
                     <div class=" p-3">
                         <div class="dropzone row d-flex p-0" id="my-dropzone" style="border-color:#00506b; height:230; overflow-y: scroll;" ></div>
                     </div>
                     @endif
-                    
+
                     @if ($internista->first() == null)
                         <div class=" p-5">
                             <label class="form-label">Agregar Informe</label>
                             <div class="dropzone row d-flex p-0" id="my-dropzone" style="border-color:#00506b; height:250px; overflow-y: scroll;" ></div>
                         </div>
                     @endif
-                </section> 
+                </section>
 
                 <h2>Informe del Anestesiologo</h2>
                 <section class="py-1">
@@ -198,17 +215,17 @@
                             <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                             @foreach ($anestesiologo as $item)
                                     <div class="col-2 p-0 m-2 my-1 mt-1" id="carta1{{ $item->id }}">
-                                        <div class="card">
+                                        <div class="card" style="position:relative; width:110px; height:110px;">
                                             <a id="galeria1" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
                                             <input type="hidden" value="2" id="anestesiologo_id">
-                                            <img src="{{ Storage::url($item->path) }}" alt="" id="myImg1" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;" >
+                                            <img src="{{ Storage::url($item->path) }}" alt="" id="myImg1" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px; position:absolute;" >
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                        </div>
-    
+
                         <div class=" p-3">
                             <div class="dropzone row d-flex p-0" id="my-dropzone1" style="border-color:#00506b; height:230; overflow-y: scroll;" ></div>
                         </div>
@@ -219,7 +236,7 @@
                                 <div class="dropzone row d-flex p-0" id="my-dropzone1" style="border-color:#00506b; height:250px; overflow-y: scroll;" ></div>
                             </div>
                         @endif
-                </section> 
+                </section>
 
                 <h2>Informe del Cirujano</h2>
                 <section class="py-1">
@@ -229,10 +246,10 @@
                         <div class="row flex-row flex-nowrap justify-content-between p-0" style="height:100%; ">
                         @foreach ($cirujano as $item)
                             <div class="col-2 p-0 m-2 my-1 mt-1" id="carta2{{ $item->id }}">
-                                <div class="card">
+                                <div class="card" style="position:relative; width:110px; height:110px;">
                                     <a id="galeria2" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
                                     <input type="hidden" value="3" id="cirujano_id">
-                                    <img src="{{ Storage::url($item->path) }}" alt="" id="myImg2" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px;">
+                                    <img src="{{ Storage::url($item->path) }}" alt="" id="myImg2" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px; position:absolute;">
                                 </div>
                             </div>
                         @endforeach
@@ -250,7 +267,7 @@
                         <div class="dropzone row d-flex p-0" id="my-dropzone2" style="border-color:#00506b; height:250px; overflow-y: scroll;" ></div>
                     </div>
                     @endif
-                </section> 
+                </section>
                 </form>
             </div>
         </div>
@@ -258,16 +275,16 @@
 </div>
 
 <div id="myModall"  data-backdrop="static" class="modal modall">
-    <div class="container"> 
-    <div class="row"> 
+    <div class="container">
+    <div class="row">
     <button type="button" class=" close atras" data-dismiss="modal" aria-label="Close"></button>
     <div class="col-6 align-right"  id="cambiar">
         <a class="btn medio  " style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a>
-    </div>  
+    </div>
     <div class="col-6 " id="restaurar">
         <a class="btn atras  " style="color:#fff; font-size:20px;"><i class=" fe fe-minus"></i></a>
-    </div>       
-    </div>      
+    </div>
+    </div>
     <div class="caption" id="caption">
     </div>
 </div>
@@ -303,12 +320,12 @@
             loading: "Cargando ..."},
         onInit: function(event, currentIndex) {
             setButtonWavesEffect(event);
-            
+
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
 
-           
+
         },
         onFinished: function(event, currentIndex) {
             area();
@@ -327,7 +344,7 @@
         let tipo = $('#internista_id').val();
         console.log('aca', img, tipo);
         $('div').remove("#carta"+img);
-        
+
                 $.ajax({
                     type: 'POST',
                     url: '{{ route("galeria.delete") }}',
@@ -359,7 +376,7 @@
         console.log('aca', img, tipo);
 
         $('div').remove("#carta1"+img);
-        
+
                 $.ajax({
                     type: 'POST',
                     url: '{{ route("galeria.delete") }}',
@@ -391,7 +408,7 @@
         console.log('aca', img, tipo);
 
         $('div').remove("#carta2"+img);
-        
+
                 $.ajax({
                     type: 'POST',
                     url: '{{ route("galeria.delete") }}',
@@ -457,7 +474,7 @@
         $('#myModall').modal('show');
     });
 
-    
+
     function area() {
         $("#search").click(function() {
             var type_dni = $("#type_dni").val();
@@ -491,8 +508,8 @@
 
         $('#cambiar').html('<a class="btn" style="color:#fff; font-size:20px;"><i class="  fe fe-plus"></i></a>')
 
-    }); 
-    
+    });
+
 </script>
 
 <script>
@@ -510,7 +527,7 @@
             $('#cambiar').html(`<a class="btn" id="extra_grande" style="color:#fff; font-size:20px;"><i class=" sombra fe fe-plus"></i></a> `);
         });
     });
-  
+
 </script>
 
 <script>
@@ -565,7 +582,7 @@
             {
             return false;
             }
-            
+
     }
 
 </script>
