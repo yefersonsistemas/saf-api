@@ -91,7 +91,7 @@
                                 <th>Cirugia</th>
                                 <th>Quirofano</th>
                                 <th>Fecha</th>
-                                <th>Accion</th>
+                                <th>Factura</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -103,7 +103,7 @@
                                 <th>Cirugia</th>
                                 <th>Quirofano</th>
                                 <th>Fecha</th>
-                                <th>Accion</th>
+                                <th>Factura</th>
                             </tr>
                         </tfoot>
                         <tbody>  
@@ -133,16 +133,16 @@
                                 <td class="justify-content-center text-center">
                                     @if($surgeries->billing == null)
                                         <a href="{{ route('in-out.facturacionLista', $surgeries->id) }}" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Facturar">
-                                            <i class="fe fe-printer"></i>
+                                            <i class="fe fe-printer"> </i> Generar
                                         </a>
                                     @else
                                         @if($surgeries->billing->person_id == null)
                                             <a href="{{ route('checkout.facturacionLista', $surgeries->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                <i class="fa fa-print"> </i> Facturar
+                                                <i class="fa fa-print"> </i> Generar
                                             </a>
                                         @else
                                             <a target="_blank" href="{{ route('in-out.imprimir_factura2', $surgeries->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                <i class="fa fa-print"> </i> Imprimir factura
+                                                <i class="fa fa-print"> </i> Imprimir
                                             </a>
                                         @endif
                                     @endif

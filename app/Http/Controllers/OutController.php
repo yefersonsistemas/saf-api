@@ -45,7 +45,7 @@ class OutController extends Controller
     {
         $procedures_id = array();
         $itinerary = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery.classification', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
-     
+
         $itineraryFuera = Itinerary::with('person.inputoutput', 'employe.person', 'procedure','employe.doctor','typesurgery', 'exam','recipe','reservation','billing')->get(); // esta es una coleccion
         foreach ($itinerary as $iti) {
             if ($iti->procedure_id != null) {
@@ -61,7 +61,7 @@ class OutController extends Controller
 
         $confirmadas = Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
         $espera =  Reservation::with('person', 'patient.image', 'patient.inputoutput','patient.historyPatient', 'speciality')->whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->whereNotNull('approved')->get();
- 
+
         $dentro_instalacion = false;
         foreach ($espera as $item) {
             if (!empty($item->patient->inputoutput)) {
@@ -79,10 +79,10 @@ class OutController extends Controller
                 }
             }
         }
-  
+
         $fuera_office = false;
         foreach ($itinerary as $item) {
-            if (!empty($item->person->inputoutput)) {  
+            if (!empty($item->person->inputoutput)) {
                 if (!empty($item->person->inputoutput->first()->outside_office)  && empty($item->person->inputoutput->first()->outside) ) {
                     $fuera_office = true;
                 }
@@ -96,7 +96,7 @@ class OutController extends Controller
                     $fuera_instalacion = true;
                 }
             }
-        }        
+        }
 
         $reservation = Reservation::get();
         $surgery = Surgery::get();
@@ -189,14 +189,14 @@ class OutController extends Controller
 
         if(!empty($person)){
 
-            $itinerary = Itinerary::where('patient_id', $person->id)->first(); 
-                                                                            // dd($itinerary);          
+            $itinerary = Itinerary::where('patient_id', $person->id)->first();
+                                                                            // dd($itinerary);
             if(!empty($itinerary)){
 
                 if(!empty($itinerary->billing_id)){
 
                     $billing = Billing::find($itinerary->billing_id);
-                    
+
                                                                             // dd($billing->person_id);
                     if(!empty($billing->person_id)){
 
@@ -207,24 +207,24 @@ class OutController extends Controller
                     //   return redirect()->route('checkout.index');
                     }else{
                         $all = collect([]); //definiendo una coleccion|
-                        
+
                         $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
-                        
+
                         $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
-                        if($procedures[0] != ''){ 
+                        if($procedures[0] != ''){
                             foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
                             $procedures[] = $proce->procedureR_id;
                             }
-    
+
                             for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
                                 $procedureS[] = Procedure::find($procedures[$i]);
                             }
-                            
+
                             $all->push($procedureS);  // colocando los procedimientos en colas ordenados
                         }else{
                             $procedureS = null;
                         }
-    
+
                         if (!is_null($encontrado)) {
                             return response()->json([
                                 'encontrado' => $encontrado,201,
@@ -235,16 +235,16 @@ class OutController extends Controller
                                 'encontrado' => 'persona no encontrado', 202
                             ]);
                         }
-    
+
                     }
-                    
+
                 }else{
                     $all = collect([]); //definiendo una coleccion|
                     $encontrado = Itinerary::with('person', 'employe.person', 'procedure','employe.doctor','surgeryR')->where('patient_id', $person->id)->get(); // esta es una coleccion
                                                                                      // dd($encontrado);
                     $procedures = explode(',', $encontrado->last()->procedureR_id); //decodificando los procedimientos en $encontrado
                //     dd($procedures);
-                    if($procedures[0] != ''){ 
+                    if($procedures[0] != ''){
                         foreach ($encontrado as $proce) {  //recorriendo el arreglo de procedimientos
                         $procedures[] = $proce->procedureR_id;
                         }
@@ -252,7 +252,7 @@ class OutController extends Controller
                         for ($i=0; $i < count($procedures)-1 ; $i++) {          //buscando datos de cada procedimiento
                             $procedureS[] = Procedure::find($procedures[$i]);
                         }
-                        
+
                         $all->push($procedureS);  // colocando los procedimientos en colas ordenados
                     }else{
                         $procedureS = null;
@@ -277,7 +277,7 @@ class OutController extends Controller
                 ]);
 
             }
-          
+
                 }else{
                     return response()->json([
                         'encontrado' => 'paciente no  registrado',202
@@ -771,7 +771,7 @@ class OutController extends Controller
     $surgeries = Surgery::whereDate('date', '>=', Carbon::now()->format('Y-m-d'))->orderBy('date', 'asc')->with('patient.person.image','employe.person','typesurgeries','area')->get();
 // dd($surgeries);
     $ambulatorias = Reservation::with('patient', 'person')->where('surgery', true)->get(); // 'employe.areaassigment.area'
-    
+
     // dd($ambulatorias);
     // $approved =
 
@@ -785,7 +785,7 @@ class OutController extends Controller
 
     //===================agendar nueva cita desde checkout==================
     public function nueva_cita($id){
-        $itinerary = Itinerary::with('person','employe')->where('id',$id)->first();   
+        $itinerary = Itinerary::with('person','employe')->where('id',$id)->first();
         $reservation = Reservation::with('speciality')->where('id',$itinerary->reservation_id)->first();
         return  view('dashboard.checkout.nuevaCita',compact('itinerary','reservation'));
     }
@@ -797,8 +797,8 @@ class OutController extends Controller
         // dd($itinerary);
         $itinerary->proximaCita = 'agendada';
         $itinerary->save();
-        
-        
+
+
         $dia = strtolower(Carbon::create($request->date)->locale('en')->dayName);
 
         $schedule = Schedule::where('employe_id',$request->doctor)->where('day', $dia)->first();
@@ -822,6 +822,6 @@ class OutController extends Controller
 
     }
 
-  
+
 
 }

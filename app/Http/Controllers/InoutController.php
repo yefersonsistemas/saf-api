@@ -36,15 +36,14 @@ class InoutController extends Controller
 
      $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor', 'billing')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
      $atendidos = collect([]);
-   
      foreach ($hoy as $key) {
          if (!empty($key->file_doctor->first())){
             $atendidos->push($key);
          }
      }
- 
+
      // dd($atendidos);
- 
+
      $mes = Carbon::now()->format('m');
      $año = Carbon::now()->format('Y');
      $surgery1 = Surgery::whereMonth('created_at', '=', $mes)->get();
@@ -52,7 +51,7 @@ class InoutController extends Controller
      // dd( $surgery2);
      // cirugias semanal
      $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
- 
+
      return view('dashboard.vergel.in-out.index',compact('day', 'hoy', 'mensual', 'surgery2', 'atendidos'));
     }
 
@@ -70,7 +69,7 @@ class InoutController extends Controller
                 $atendidos->push($key);
              }
          }
-          
+
          $mes = Carbon::now()->format('m');
          $año = Carbon::now()->format('Y');
          $surgery1 = Surgery::whereMonth('created_at', '=', $mes)->get();
@@ -78,7 +77,7 @@ class InoutController extends Controller
          // dd( $surgery2);
          // cirugias semanal
          $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
-     
+
          return view('dashboard.vergel.in-out.day',compact('hoy', 'mensual', 'surgery2', 'atendidos'));
      }
 
@@ -170,7 +169,7 @@ class InoutController extends Controller
         }
     }
 
- 
+
     //============================ imprimir factura desde lista de cirugias ============================
     public function imprimir_factura2($id)
     {
@@ -220,16 +219,16 @@ class InoutController extends Controller
 
         // dd($request);
         if(!empty($request->dni)){
-        
+
             $person = Person::where('dni', $request->dni)->first();
             $patient = Patient::where('person_id', $person->id)->first();
-            
+
             if(!empty($patient)){
                 $fecha = Carbon::now()->format('Y-m-d');
                 $surgery = Surgery::where('patient_id', $patient->id)->where('date', $fecha)->first(); //cirugia del dia
                 // dd($surgery);
                 if(!empty($surgery)){
-                  
+
                     if($surgery->billing_id == null){
                       if(!empty($surgery->patient_id)){
                         // $patient = Patient::find($surgery->patient_id);
@@ -262,7 +261,7 @@ class InoutController extends Controller
                             ]);
                         }
                      }
-                     
+
                     }else{
                         // dd($surgery);
                         return response()->json([
@@ -279,14 +278,14 @@ class InoutController extends Controller
                             'encontrado' => 'paciente no registrado',202
                         ]);
                         }
-            }           
+            }
     }
 
      /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */ 
+     */
         /**
      * Store a newly created resource in storage.
      *

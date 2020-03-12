@@ -19,7 +19,7 @@
 
 @section('content')
 <form action="{{ route('in-out.factura') }}" method="POST">
-    @csrf 
+    @csrf
     <!---busqueda de paciente co cirugia a pagar-->
     <div class="section-body py-3">
         <div class="container-fluid">
@@ -39,23 +39,23 @@
                 </div>
             </div>
         </div>
-    </div>    
-    
-    
+    </div>
+
+
     <div class="section-body">
         <div class="container">
             <div class="tab-content">
-            
+
                 <div class="tab-pane fade active show" id="Invoice-detail" role="tabpanel">
                     <div class="row clearfix">
                         <div class="col-lg-10  col-md-10 col-sm-10 ml-5">
-                            
+
                             <div class="card">
                                 <div class="card-body row my-8  pl-4">
                                     <div class="col-lg-4 col-md-5 col-sm-12"><h2>Facturación</h2></div>
                                     <div class="col-lg-8 col-md-7 col-sm-12 d-flex justify-content-end pr-3 pt-10" style="color:#000" >
                                        <span class="h6 h66 pt- pr-10">Fecha:</span><i class="fa fa-calendar pt-1"></i>&nbsp;{{ $fecha }}<span class="text pt-0">   </span><br>
-                                    </div>                             
+                                    </div>
                                 </div>
 
                                 <div class="card-body">
@@ -63,7 +63,7 @@
                                         <!--Paciente-->
                                         <div class="col-lg-6 col-md-12 col-sm-12">
                                             <p class="h6" style="color:#000; font-weight:bold;"><i class="fa fa-user mr-2" style="font-size:16px;"></i> PACIENTE</p>
-                                                                    
+
                                             <!-----------------------Campos ocultoss---------------------->
                                             <input id="surgery_id" type="hidden" name="surgery_id" value="" > <!--guardar id de la cirugia-->
                                             <input id="patient_id" type="hidden" name="patient_id" value="" > <!--guardar id del paciente-->
@@ -82,7 +82,7 @@
                                             <div class="row ml-3">
                                                 <div class="col-md-6 col-lg-6 col-sm-6">
                                                     <span style="font-weight:bold;">Nombres/Apellidos:</span>
-                                                </div> 
+                                                </div>
                                                 <div class="col-md-6 col-lg-6 col-sm-6">
                                                     <span id="name"></span>
                                                     <span></span>
@@ -114,7 +114,7 @@
                                             <div class="row ml-3">
                                                 <div class="col-md-6 col-lg-6 col-sm-6">
                                                     <span style="font-weight:bold; ">Nombres/Apellidos:</span>
-                                                </div> 
+                                                </div>
                                                 <div class="col-md-6 col-lg-6 col-sm-6">
                                                     <span id="nameD"></span>
                                                     <span></span>
@@ -132,7 +132,7 @@
                                             </div>
                                         </div>
                                     </div><br><br>
-                                    
+
                                     <!--Mostrar datos de la cirugia a pagar--->
                                     <div class="table-responsive push mt-3">
                                         <table class="table table-bordered table-hover" >
@@ -140,14 +140,13 @@
                                                 <td style="font-weight:bold" colspan="5" class="text-left pl-4 tett" >DESCRIPCION</td>
                                                 <td class="text-right factura" style="width: 4%; font-weight:bold">COSTO</td>
                                             </tbody>
-                                                
                                             <!--para mostrar cirugia-->
-                                            </tbody> 
+                                            </tbody>
                                             <tbody style="border-bottom: 1px solid #000" id="cirugia_html">
                                             </tbody>
-                                                
+
                                             <tbody id="cirugia">
-                                            </tbody>                                             
+                                            </tbody>
                                             <tr>
                                                 <td colspan="5" class="font600 text-right">Subtotal</td>
                                                 <td class="text-right" id="subtotal">0,00</td>
@@ -166,11 +165,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>                
+            </div>
         </div>
     </div>
 <form>
@@ -198,46 +197,46 @@
 
         var id_patient;
         var id_employe;
-        var costo_total=0;     
+        var costo_total=0;
         var costo_cirugia=0;
         var procedures_id=0;
         var data_paciente;
-     
+
 
         function financial(x) {
             return Number.parseFloat(x).toFixed(2);
         }
-            
+
         // ==================== ejecuta cuando se clikea el boton de buscar =====================
         $(".search").click(function() {
-            var dni = $("#dni").val();   
-            
-            ajax(dni);      
+            var dni = $("#dni").val();
+
+            ajax(dni);
         }); //fin de la funcion clikea
 
 
         //=================== funcion que busca al paciente/doctor/procedimientos con el dni ================
         function ajax(dni) {
-                $.ajax({ 
+                $.ajax({
                     url: "{{ route('inout.search_patients') }}",   //definiendo ruta
                     type: "POST",                             //definiendo metodo
                     data: {
-                        _token: "{{ csrf_token() }}",        
+                        _token: "{{ csrf_token() }}",
                         dni: dni                               //valor que se envia
                     }
                 })
-                .done(function(data) {               
-                   // console.log('paciente -> -> -> encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
+                .done(function(data) {
+                    console.log('paciente -> -> -> encontrado',data)         //recibe lo que retorna el metodo en la ruta definida
 
-                    if(data[0] == 202){   
-                        console.log('si')             
+                    if(data[0] == 202){
+                        console.log('si')
                         Swal.fire({
                             title: 'Error!',
                             text: data.encontrado,
                             type: 'error',
                         });
                     }
-                    if (data[0] == 201) {                    
+                    if (data[0] == 201) {
                         Swal.fire({
                             title: 'Excelente!',
                             text:  'Paciente encontrado',
@@ -246,7 +245,7 @@
                         disabled(data);          // llamada de la funcion que asigna los valores obtenidos a input mediante el id definido en el mismo
                     }
 
-                    if (data[0] == 300) {        
+                    if (data[0] == 300) {
                         Swal.fire({
                         title: 'Factura ya fue emitida',
                         text: "Click OK para cerrar!!",
@@ -257,8 +256,8 @@
                         })
                         .then(function(){
                             window.location.href = '{{ route('in-out.index') }}'
-                        })   
-                    }                             
+                        })
+                    }
                 })
                 .fail(function(data) {
                     console.log(data);
@@ -270,10 +269,10 @@
         function disabled(data) {
             // console.log('hola kenwherly', data.encontrado[0].patient[0].person);  enciende para verificar que trae la data
 
-            data_paciente =  data.encontrado[0].patient[0].person;      // console.log('lee aqui para data completa de paciente',data_paciente);   
-            id_patient =  data.encontrado[0].patient[0].person.id;      // console.log('lee aqui para verificar id de paciente',id_patient);     
-            id_employe = data.encontrado[0].employe.id;                 // console.log('lee aqui para verificar id de empleado',id_employe);  
-            id_surgery = data.encontrado[0].id; 
+            data_paciente =  data.encontrado[0].patient[0].person;      // console.log('lee aqui para data completa de paciente',data_paciente);
+            id_patient =  data.encontrado[0].patient[0].person.id;      // console.log('lee aqui para verificar id de paciente',id_patient);
+            id_employe = data.encontrado[0].employe.id;                 // console.log('lee aqui para verificar id de empleado',id_employe);
+            id_surgery = data.encontrado[0].id;
 
             //-------------------cirugia -----------------
             if(data.encontrado[0].typesurgeries != null){
@@ -285,8 +284,8 @@
                 $("#cirugia").append(cirugia);
                 costo_cirugia = data.encontrado[0].typesurgeries.cost; //costo de la cirugia
             }
-            
-            ci = parseFloat(costo_cirugia);            
+
+            ci = parseFloat(costo_cirugia);
             costo_total = ci ;
             total = costo_total;
 
@@ -298,19 +297,19 @@
             $('#costo_total').text(financial(costo_total));
             $('#subtotal').text(financial(costo_total));
             //datos del paciente
-            $('#dnii').text(data.encontrado[0].patient[0].person.dni); 
+            $('#dnii').text(data.encontrado[0].patient[0].person.dni);
             $('#name').text(data.encontrado[0].patient[0].person.name);
             $('#lastname').text(data.encontrado[0].patient[0].person.lastname);
             $('#phone').text(data.encontrado[0].patient[0].person.phone);
             //datos del empleado
-            $('#dniiD').text(data.encontrado[0].employe.person.dni); 
+            $('#dniiD').text(data.encontrado[0].employe.person.dni);
             $('#nameD').text(data.encontrado[0].employe.person.name);
             $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
             $('#phoneD').text(data.encontrado[0].employe.person.phone);
 
-        }  
-        }); 
+        }
+        });
     </script>
 
-    
+
 @endsection

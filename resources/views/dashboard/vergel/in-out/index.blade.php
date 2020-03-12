@@ -1,4 +1,6 @@
-     @extends('dashboard.layouts.app')
+
+
+@extends('dashboard.layouts.app')
 
 @section('cites','active')
 @section('all','active')
@@ -120,7 +122,7 @@
                                     </tr>
                                 </tfoot>
                                <tbody>
-                              
+
                                         @foreach ($day as $surgeries)
                                             <tr style="height:40px;">
 
@@ -130,9 +132,9 @@
                                                     <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
                                                 @else
                                                     <img src="" alt=""  width="100%" height="100%">
-                                                @endif     
+                                                @endif
                                             </td>
-                                            @endforeach   
+                                            @endforeach
 
                                             @foreach ( $surgeries->patient as $patient ) 
                                             <td>{{ $patient->person->type_dni }} - {{$patient->person->dni }}</td>
@@ -148,8 +150,8 @@
                                             <td class="badge badge-azuloscuro py-1 mt-3">Atendido</td>
                                             @endif
                                         </tr>
-                                    @endforeach                                  
-                                </tbody> 
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -162,4 +164,4 @@
 <script src="{{ asset('assets\js\table\datatable.js') }}"></script>
 <script src="{{ asset('assets\plugins\jquery-steps\jquery.steps.js') }}"></script>
 
-@endsection 
+@endsection
