@@ -32,7 +32,7 @@ class InoutController extends Controller
     public function index()
     {
      $day = Surgery::with('patient.person.image','typesurgeries','area','employe', 'informe')->get();
-     dd($day->informe->first());
+    //  dd($day);
 
      $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor', 'billing')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
      $atendidos = collect([]);

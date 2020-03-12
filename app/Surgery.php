@@ -84,9 +84,10 @@ class Surgery extends Model
 
     public function informe()
     {
-        return $this->belongsTo('App\Informesurgery');
-    
+        return $this->hasMany('App\Informesurgery');
     }
+
+
     public function billing()
     {
         return $this->belongsTo('App\billing','billing_id');
