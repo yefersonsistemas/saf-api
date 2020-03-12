@@ -162,7 +162,7 @@
         <div class="container row d-flex justify-content-between" style="height:650px;">
                 <div class="col-7" style="height: 100%" >
                     <div class="row d-flex justify-content-end mt-4">
-                        <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_insumo" type="text" class="form-control p-1 pl-3 mr-2 col-3" placeholder="Buscar ..">
+                        <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_insumo" type="text" class="form-control p-1 pl-3 mr-2 col-4" placeholder="Buscar ..">
                     </div>
                 <span class="col-7 card-header px-4">
                     <span class="row pl-4">
@@ -257,7 +257,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="row" style="height:400px; overflow: scroll;" >
+                    <div class="row" style="max-height:400px; overflow: scroll;" >
                       <table class="table table-hover  table-striped" cellspacing="0" id="addrowExample">
                         <div>
                           <h5 class=" card-header ml-6 mt-2">Insumos asignados</h5>
