@@ -71,12 +71,13 @@
                                                     <div class="card assigment">                              
                                                         <figure class="imagecheck-figure border-0 text-center">
                                                             <div class="" style="height:180px; width:150px" id="photo">
-                                                                <img src="" alt=""  class="img-thumbnail"  style=" width:100%; height:100%; background:#000">                        
-                                                            </div>       
+                                                                <img src="" alt=""  class="img-thumbnail" style=" width:100%; height:100%; background:#000">
+                                                            </div>                                                           
                                                         </figure>                            
                                                     </div>
                                                 </label>
-                                            </div>                                                                            
+                                            </div>                  
+                                            
                                             <div class="col-lg-4 col-md-6 centrado">
                                                 <div class="form-group">
                                                     <label class="form-label">Nombre</label>
@@ -349,6 +350,7 @@ var form = $('#wizard_horizontal').show();
     }
 
     function disabled(data) {
+        console.log('hola');
         $('#name').val(data.patient.person.name);
         $('#name_pay').text(data.patient.person.name);       
         $('#lastname').val(data.patient.person.lastname);
@@ -357,12 +359,12 @@ var form = $('#wizard_horizontal').show();
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
-        //mostrar en resumen
-        $('#name_surgery').text(data.surgery.name);
-         
+
         var concatenar = "Storage\\";
+        console.log('RUTA',data.patient.person.image.path)
         console.log(concatenar+data.patient.person.image.path);
         $("#photo").html('<img src="'+concatenar+data.patient.person.image.path+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000">');
+        
 
         $(".dropify-wrapper").addClass('disabled');
         $('#name').attr('disabled', true);
@@ -372,7 +374,6 @@ var form = $('#wizard_horizontal').show();
         $('#phone').attr('disabled', true);
         $('#submit').attr('disabled', true);
     }
-
 
 
 //----------------------------cirugias registradas------------------------------------
