@@ -50,7 +50,7 @@
             </div>
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div><a href="{{route('visitors.pdf')}}" class="btn btn-info text-white float-right mb-2 mt--10 col-2"  data-toggle="tooltip" data-placement="left" title="Imprimir lista de invitados">IMPRIMIR LISTA</a>
+                        <div><a href="{{route('visitors.pdf')}}" target="_blank" class="btn btn-info text-white float-right mb-2 mt--10 col-2"  data-toggle="tooltip" data-placement="left" title="Imprimir lista de invitados">IMPRIMIR LISTA</a>
                         </div>
                         <div class="table-responsive mb-4">
                         <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -84,7 +84,7 @@
                                             <td>{{$item->lastname}}</td>
                                             <td>{{$item->address}}</td>
                                             <td>{{$item->phone}}</td>
-                                            <td class="justify-content-center text-center"><a href="{{route('visitor.pdf', $item->id)}}" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Imprimir"><i class="fe fe-printer"></i></a></td>
+                                            <td class="justify-content-center text-center"><a href="{{route('visitor.pdf', $item->id)}}" target="_blank" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Imprimir"><i class="fe fe-printer"></i></a></td>
                                             {{-- <td><a href="{{ route('', $item->id) }}" class="btn btn-info text-white"><i class="fa fa-arrow-circle-o-down"></i></a></td> --}}
                                             {{-- {{route('visitantes.print',$item->id)}} --}}
                                         </tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Area;
 use App\Billing;
 use App\ClassificationSurgery;
+use App\Informesurgery;
 use App\Itinerary;
 use App\Patient;
 use App\Person;
@@ -30,7 +31,8 @@ class InoutController extends Controller
      */
     public function index()
     {
-     $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+     $day = Surgery::with('patient.person.image','typesurgeries','area','employe', 'informe')->get();
+    //  dd($day);
 
      $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor', 'billing')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
      $atendidos = collect([]);
@@ -114,11 +116,12 @@ class InoutController extends Controller
     {
         $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $request->surgery_id)->first();
 
-        if($surgery->billing_id == null){ //si la factura no se ha generado
+        if($surgery->billing_id == null){ //si la factura no se ha rgenerado
 
             $crear_factura = Billing::create([
                 'patient_id'  =>$surgery->patient_id,
                 'employe_id'     => $request->employe_id,
+                'payment'   =>  $request->total_cancelar,
                 'branch_id' => 1,
             ]);
 

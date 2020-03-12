@@ -16,4 +16,10 @@ class Informesurgery extends Model
     {
         return $this->belongsTo('App\Surgery','surgery_id');
     }
+
+    // public function informe()
+    // {
+    //     return $this->belongsTo('App\Informesurgery');
+    // }
+
 }

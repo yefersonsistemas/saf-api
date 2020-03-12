@@ -18,7 +18,7 @@
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="col-lg-12">
-                    <div><a href="{{route('employes.pdf')}}" class="btn btn-info text-white float-right mb-2 mt--10 col-2"  data-toggle="tooltip" data-placement="left" title="Imprimir lista de empleados">IMPRIMIR LISTA</a>
+                    <div><a href="{{route('employes.pdf')}}" target="_blank" class="btn btn-info text-white float-right mb-2 mt--10 col-2"  data-toggle="tooltip" data-placement="left" title="Imprimir lista de empleados">IMPRIMIR LISTA</a>
                     </div>
                     <div class="table-responsive mb-4">
 
@@ -82,7 +82,7 @@
                                             </form>
                                             @endif
                                         </td>
-                                    <td class="justify-content-center text-center"><a href="{{route('employe.pdf', $employe->id)}}" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Imprimir"><i class="fe fe-printer"></i></a></td>
+                                    <td class="justify-content-center text-center"><a href="{{route('employe.pdf', $employe->id)}}" target="_blank" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Imprimir"><i class="fe fe-printer"></i></a></td>
                                         {{-- <td>
                                             @if ( $employe->position->name == 'doctor')
                                                 @foreach ($employe->speciality as $speciality)

@@ -102,28 +102,32 @@
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
+                                        <th>Doc. Identidad</th>
                                         <th>Paciente</th>
                                         <th>Doctor</th>
                                          <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Foto</th>
+                                        <th>Doc. Identidad</th>
                                         <th>Paciente</th>
                                         <th>Doctor</th>
                                          <th>Cirugia</th>
                                         <th class="fecha">Fecha</th>
+                                        <th>Status</th>
                                     </tr>
                                 </tfoot>
                                <tbody>
 
                                         @foreach ($day as $surgeries)
-                                                <tr style="height:40px;">
+                                            <tr style="height:40px;">
 
-                                                @foreach ($surgeries->patient as $patient)
-                                                <td style="text-align: center; font-size:10px; height:40px;">
+                                            @foreach ($surgeries->patient as $patient)
+                                            <td style="text-align: center; font-size:10px; height:40px;">                                               
                                                 @if (!empty($patient->person->image->path))
                                                     <img class="rounded circle" width="100%" height="100%" src="{{ Storage::url($patient->person->image->path) }}" alt="">
                                                 @else
@@ -132,13 +136,23 @@
                                             </td>
                                             @endforeach
 
-
-                                        @foreach ( $surgeries->patient as $patient )
-                                            <td>{{ $patient->person->name }} {{$patient->person->lastname }}</td>
-                                        @endforeach
-                                            <td class="">{{ $surgeries->employe->person->name }} {{$surgeries->employe->person->lastname }}</td>
-                                            <td class="">{{ $surgeries->typesurgeries->name }} </td>
+                                            @foreach ( $surgeries->patient as $patient ) 
+                                            <td>{{ $patient->person->type_dni }} - {{$patient->person->dni }}</td>
+                                            <td>{{ $patient->person->name }} {{$patient->person->lastname }}</td> 
+                                            @endforeach
+                                            <td class="">{{ $surgeries->employe->person->name }} {{$surgeries->employe->person->lastname }}</td> 
+                                            <td class="">{{ $surgeries->typesurgeries->name }} </td> 
                                             <td> {{ $surgeries->date }}  </td>
+
+                                            @if(!empty($surgeries->informe->first()))
+                                                @if($surgeries->informe->first()->fecha_culminar > Carbon::now())
+                                                    <td class="badge badge-success py-1 mt-3">Hospitalizado</td>
+                                                @else
+                                                    <td class="badge badge-azuloscuro py-1 mt-3">Atendido</td>
+                                                @endif
+                                            @else
+                                                <td class="badge badge-warning py-1 mt-3">En espera</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

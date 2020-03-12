@@ -20,6 +20,7 @@ class CreateBillingsTable extends Migration
             $table->unsignedBigInteger('employe_id');
             $table->unsignedBigInteger('type_payment_id')->nullable();
             $table->string('type_currency')->nullable();
+            $table->double('payment')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 
