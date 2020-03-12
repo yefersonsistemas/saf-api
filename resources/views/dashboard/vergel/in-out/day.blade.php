@@ -85,6 +85,7 @@
                         <thead>
                             <tr>
                                 <th>Foto</th>
+                                <th>Doc. Identidad</th>
                                 <th>Paciente</th>
                                 <th>Doctor</th>
                                 <th>Cirugia</th>
@@ -96,6 +97,7 @@
                         <tfoot>
                             <tr>
                                 <th>Foto</th>
+                                <th>Doc. Identidad</th>
                                 <th>Paciente</th>
                                 <th>Doctor</th>
                                 <th>Cirugia</th>
@@ -115,6 +117,7 @@
                                     </td> 
                                 @endforeach
                                 @foreach ( $surgeries->patient as $patient )
+                                    <td > {{ $patient->person->type_dni }} - {{ $surgeries->employe->person->dni }} </td> 
                                     <td > {{ $patient->person->name }} {{ $surgeries->employe->person->lastname }} </td> 
                                 @endforeach
                                 <td> {{ $surgeries->employe->person->name }} {{ $surgeries->employe->person->lastname }}</td>

@@ -144,7 +144,11 @@ class NurseController extends Controller
             
             $area->status = null;
             $area->save();
+
+            $surgery->status = 'Hospitalizado';
+            $surgery->save();
         }
+
 
     //  dd( $cirugia);
 

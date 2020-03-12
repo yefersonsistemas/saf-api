@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Area;
 use App\Billing;
 use App\ClassificationSurgery;
+use App\Informesurgery;
 use App\Itinerary;
 use App\Patient;
 use App\Person;
@@ -30,7 +31,8 @@ class InoutController extends Controller
      */
     public function index()
     {
-     $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+     $day = Surgery::with('patient.person.image','typesurgeries','area','employe', 'informe')->get();
+     dd($day->informe->first());
 
      $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
      $atendidos = collect([]);
