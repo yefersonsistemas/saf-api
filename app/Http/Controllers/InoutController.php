@@ -32,9 +32,9 @@ class InoutController extends Controller
     {
      $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
 
-     $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+     $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor', 'billing')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
      $atendidos = collect([]);
- 
+   
      foreach ($hoy as $key) {
          if (!empty($key->file_doctor->first())){
             $atendidos->push($key);
@@ -53,6 +53,32 @@ class InoutController extends Controller
  
      return view('dashboard.vergel.in-out.index',compact('day', 'hoy', 'mensual', 'surgery2', 'atendidos'));
     }
+
+
+     //===================cirugias del dia==================
+     public function day()
+     {
+         // $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
+         // dd($day);
+         $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor','billing')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
+         $atendidos = collect([]);
+         // dd($hoy->first()->billing->person_id);
+         foreach ($hoy as $key) {
+             if (!empty($key->file_doctor->first())){
+                $atendidos->push($key);
+             }
+         }
+          
+         $mes = Carbon::now()->format('m');
+         $año = Carbon::now()->format('Y');
+         $surgery1 = Surgery::whereMonth('created_at', '=', $mes)->get();
+         $surgery2 = Surgery::whereYear('created_at', '=', $año)->get(); //todas del mismo año
+         // dd( $surgery2);
+         // cirugias semanal
+         $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
+     
+         return view('dashboard.vergel.in-out.day',compact('hoy', 'mensual', 'surgery2', 'atendidos'));
+     }
 
 
     public function agendar_cirugia()
@@ -74,6 +100,15 @@ class InoutController extends Controller
         return view('dashboard.vergel.in-out.facturacion', compact('fecha'));
 
     }
+
+
+    public function createF($id){
+
+            $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $id)->first(); // esta es una coleccion
+            $fecha = Carbon::now()->format('Y-m-d');
+// dd($surgery);
+       return view('dashboard.vergel.in-out.facturacionf', compact('fecha','surgery'));
+   }
 
     //==============finiquitar el proceso de facturacion============
     public function factura(Request $request)
@@ -99,6 +134,7 @@ class InoutController extends Controller
 
         return view('dashboard.vergel.in-out.factura', compact('surgery', 'total', 'fecha', 'tipo_moneda', 'tipo_pago'));
     }
+
 
     //====================imprimir factura=====================
     public function imprimir_factura(Request $request)
@@ -133,34 +169,22 @@ class InoutController extends Controller
     }
 
  
-    //===================cirugias del dia==================
-    public function day()
+    //============================ imprimir factura desde lista de cirugias ============================
+    public function imprimir_factura2($id)
     {
-        // $day = Surgery::with('patient.person.image','typesurgeries','area','employe')->get();
-        // dd($day);
-        $hoy = Surgery::with('patient.person.image','typesurgeries','area','employe', 'file_doctor')->whereDate('date', Carbon::now()->format('Y-m-d'))->get();
-        $atendidos = collect([]);
-    
-        foreach ($hoy as $key) {
-            if (!empty($key->file_doctor->first())){
-               $atendidos->push($key);
-            }
-        }
-    
-        // dd($atendidos);
-    
-        $mes = Carbon::now()->format('m');
-        $año = Carbon::now()->format('Y');
-        $surgery1 = Surgery::whereMonth('created_at', '=', $mes)->get();
-        $surgery2 = Surgery::whereYear('created_at', '=', $año)->get(); //todas del mismo año
-        // dd( $surgery2);
-        // cirugias semanal
-        $mensual = $surgery1->intersect($surgery2)->count();  //arroja todas del mes y mismo año
-    
-        return view('dashboard.vergel.in-out.day',compact('hoy', 'mensual', 'surgery2', 'atendidos'));
+        $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $id)->first();
+        $fecha = Carbon::now()->format('Y-m-d');
+
+        $todos = Billing::with('person','employe.person','employe.doctor', 'patient', 'typepayment' , 'typecurrency')->where('id',$surgery->billing_id)->first();
+        $total_cancelar = $surgery->typesurgeries->cost;
+        $cirugia = Surgery::with('typesurgeries')->where('billing_id', $todos->id )->first();
+        $num_factura = str_pad($todos->id, 5, '0', STR_PAD_LEFT);
+        $pdf = PDF::loadView('dashboard.vergel.in-out.print_factura', compact('todos','total_cancelar','fecha', 'num_factura', 'cirugia'));
+        return $pdf->stream('factura.pdf');
     }
 
-    //-----------------------buscar paciente para inout desde person-----------------------------
+
+    //-----------------------buscar paciente para inout desde person----------------------------- no se esta usando
 
     public function search_patients_inout(Request $request){
 
