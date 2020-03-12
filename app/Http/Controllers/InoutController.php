@@ -116,11 +116,12 @@ class InoutController extends Controller
     {
         $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $request->surgery_id)->first();
 
-        if($surgery->billing_id == null){ //si la factura no se ha generado
+        if($surgery->billing_id == null){ //si la factura no se ha rgenerado
 
             $crear_factura = Billing::create([
                 'patient_id'  =>$surgery->patient_id,
                 'employe_id'     => $request->employe_id,
+                'payment'   =>  $request->total_cancelar,
                 'branch_id' => 1,
             ]);
 

@@ -118,8 +118,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('cirugias', 'OutController@index_cirugias')->name('checkout.index_cirugias');   // mostrar cirugias
         Route::get('procedimientos', 'OutController@index_procedimientos')->name('checkout.index_procedimientos');   // mostrar cirugias
         Route::get('cirugias/detalles/{id}/{cirugia}', 'OutController@cirugias_detalles')->name('checkout.cirugias_detalles');  // detalles de cirugias
-        Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');           // para generar factura
-        Route::get('facturacion/paciente/{id}', 'OutController@createF')->name('checkout.facturacionLista');           // para generar factura
+        Route::get('facturacion', 'OutController@create')->name('checkout.facturacion');           // para generar factura 
+        Route::get('facturacion/paciente/{id}', 'OutController@createFacturacion')->name('checkout.facturacionLista');           // para generar factura
 
         Route::post('search/patient','OutController@search_patients')->name('checkout.patient');    // buscar paciente
         Route::post('factura/generar', 'OutController@guardar_factura')->name('checkout.guardar_factura');  // guardando datos del P/D/P
@@ -346,8 +346,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('inout/factura','InoutController@factura')->name('in-out.factura');
         Route::post('inout/imprimir', 'InoutController@imprimir_factura')->name('in-out.imprimir_factura');
         Route::get('inout/day','InoutController@day')->name('in-out.day');
-        Route::get('facturacion/paciente/{id}', 'InoutController@createF')->name('in-out.facturacionLista');
-        Route::get('imprimir/itinerary/{id}', 'InoutController@imprimir_factura2')->name('in-out.imprimir_factura2');  
+        Route::get('inout/facturacion/paciente/{id}', 'InoutController@createF')->name('in-out.facturacionLista');
+        Route::get('inout/imprimir/itinerary/{id}', 'InoutController@imprimir_factura2')->name('in-out.imprimir_factura2');  
        // Route::get('inout/facturacion', 'InoutController@createFactura')->name('in-out.facturacion');            
        // Route::post('inout/factura/generar', 'InoutController@guardarFactura')->name('in-out.guardarFactura');   
 

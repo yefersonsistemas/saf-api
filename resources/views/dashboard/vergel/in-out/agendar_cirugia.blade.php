@@ -26,7 +26,7 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                  <form id="wizard_horizontal" method="POST" action="{{route('inout.hospitalaria_store')}}" class="card pl-4 pr-4">
+                <form id="wizard_horizontal" method="POST" action="{{route('inout.hospitalaria_store')}}" class="card pl-4 pr-4">
                     @csrf
                     <h2>Buscar Paciente</h2>
                     <section class="py-1">
@@ -114,6 +114,7 @@
                             </div>
                         </div>
                     </section>
+
                     <h2>Elegir Cirugia</h2>
                     <section>
                         <div class="row justify-content-between">
@@ -143,7 +144,6 @@
                             @endforeach
                         </div>
                     </section>
-
 
                     <h2>Elegir Medico</h2>
                     <section>
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                     </section>
-                    </section>
+                    {{-- </section> --}}
                 </form>
             </div>
         </div>
@@ -359,11 +359,8 @@ var form = $('#wizard_horizontal').show();
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
-<<<<<<< HEAD
         //mostrar en resumen
         $('#name_surgery').text(data.surgery.name);
-=======
->>>>>>> cebd3f2ff0de82bda9245eff0f792fe70152569e
 
         var concatenar = "Storage\\";
         console.log('RUTA',data.patient.person.image.path)

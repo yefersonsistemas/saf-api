@@ -303,7 +303,7 @@ class OutController extends Controller
     }
 
      //============== buscando procedimiento y mostrando en la vista para generar factura============== (listo)
-     public function createF($id){
+     public function createFacturacion($id){
          $itinerary = Itinerary::with('person','employe.person','employe.doctor', 'surgeryR')->where('id', $id)->first();
 
         $procedures = explode(',', $itinerary->procedureR_id); //decodificando los procedimientos en $encontrado
@@ -395,6 +395,7 @@ class OutController extends Controller
                 $crear_factura = Billing::create([
                     'patient_id'  => $itinerary->patient_id,
                     'employe_id'     => $itinerary->employe_id,
+                    'payment'     => $total, //cambio a ultima hora
                     'branch_id' => 1,
                 ]);
 
