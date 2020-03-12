@@ -144,10 +144,14 @@
                                             <td class="">{{ $surgeries->typesurgeries->name }} </td> 
                                             <td> {{ $surgeries->date }}  </td>
 
-                                            @if($surgeries->informe->first()->fecha_culminar > Carbon::now())
-                                            <td class="badge badge-success py-1 mt-3">Hospitalizado</td>
+                                            @if(!empty($surgeries->informe->first()))
+                                                @if($surgeries->informe->first()->fecha_culminar > Carbon::now())
+                                                    <td class="badge badge-success py-1 mt-3">Hospitalizado</td>
+                                                @else
+                                                    <td class="badge badge-azuloscuro py-1 mt-3">Atendido</td>
+                                                @endif
                                             @else
-                                            <td class="badge badge-azuloscuro py-1 mt-3">Atendido</td>
+                                                <td class="badge badge-warning py-1 mt-3">En espera</td>
                                             @endif
                                         </tr>
                                     @endforeach
