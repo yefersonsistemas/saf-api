@@ -117,8 +117,8 @@
                                     </td> 
                                 @endforeach
                                 @foreach ( $surgeries->patient as $patient )
-                                    <td > {{ $patient->person->type_dni }} - {{ $surgeries->employe->person->dni }} </td> 
-                                    <td > {{ $patient->person->name }} {{ $surgeries->employe->person->lastname }} </td> 
+                                    <td > {{ $patient->person->type_dni }} - {{ $patient->person->dni }} </td> 
+                                    <td > {{ $patient->person->name }} {{ $patient->person->lastname }} </td> 
                                 @endforeach
                                 <td> {{ $surgeries->employe->person->name }} {{ $surgeries->employe->person->lastname }}</td>
                                 <td> {{ $surgeries->typesurgeries->name }} </td>
