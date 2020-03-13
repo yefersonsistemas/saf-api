@@ -182,7 +182,7 @@
                                 @foreach ($internista as $item)
                                     <div class="col-2 p-0 m-2 my-1 mt-1"  id="carta{{ $item->id }}">
                                        <div class="card" style="position:relative; width:110px; height:110px;">
-                                           <a id="galeria" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
+                                           <a id="galeria" name="{{ $item->id }}" title="Eliminar"  style="z-index: 1;"><i class="fa fa-times"></i></a>
                                            <input type="hidden" value="1" id="internista_id">
                                            <img src="{{ Storage::url($item->path) }}" alt="" class="col-12" id="myImg" name="{{ $item->path }}" style="width:100%; height:100%; border-radius:10px; position:absolute;" >
                                         </div>
@@ -216,7 +216,7 @@
                             @foreach ($anestesiologo as $item)
                                     <div class="col-2 p-0 m-2 my-1 mt-1" id="carta1{{ $item->id }}">
                                         <div class="card" style="position:relative; width:110px; height:110px;">
-                                            <a id="galeria1" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
+                                            <a id="galeria1" name="{{ $item->id }}" title="Eliminar" style="z-index: 1;"><i class="fa fa-times"></i></a>
                                             <input type="hidden" value="2" id="anestesiologo_id">
                                             <img src="{{ Storage::url($item->path) }}" alt="" id="myImg1" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px; position:absolute;" >
                                         </div>
@@ -247,7 +247,7 @@
                         @foreach ($cirujano as $item)
                             <div class="col-2 p-0 m-2 my-1 mt-1" id="carta2{{ $item->id }}">
                                 <div class="card" style="position:relative; width:110px; height:110px;">
-                                    <a id="galeria2" name="{{ $item->id }}" title="Eliminar"><i class="fa fa-times"></i></a>
+                                    <a id="galeria2" name="{{ $item->id }}" title="Eliminar" style="z-index: 1;"><i class="fa fa-times"></i></a>
                                     <input type="hidden" value="3" id="cirujano_id">
                                     <img src="{{ Storage::url($item->path) }}" alt="" id="myImg2" name="{{ $item->path }}" class="col-12" style="width:100%; height:100%; border-radius:10px; position:absolute;">
                                 </div>

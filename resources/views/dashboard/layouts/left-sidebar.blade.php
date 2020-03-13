@@ -204,11 +204,11 @@
                     <div class=" animated fadeIn d-none farma @yield('farmarol')">
                     @endrole
                     <li class="g_heading">farmaceuta</li>
-                    <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;Lista de insumos</a></li>
-                    <li><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
-                    <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registro de insumos</a></li>
-                    <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
-                    <li><a href="{{ route('farmaceuta.historial') }}"><i class="fa fa-plus-circle"></i>Historial de lotes</a></li>
+                    <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-list"></i>&nbsp;Lista de insumos</a></li>
+                    <li><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-user-plus"></i>&nbsp;Asignación de insumos</a></li>
+                    <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-archive"></i>&nbsp;Registro de insumos</a></li>
+                    <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-list-alt"></i>&nbsp;Lista de insumos por lote</a></li>
+                    <li><a href="{{ route('farmaceuta.historial') }}"><i class="fa fa-clock-o"></i>&nbsp;Historial de lotes</a></li>
                 </div>
                 @endrole
 
