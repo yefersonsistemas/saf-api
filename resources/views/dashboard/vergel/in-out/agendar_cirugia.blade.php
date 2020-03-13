@@ -243,6 +243,7 @@
         function stopDefAction(evt) {
         evt.preventDefault();
     }
+    
 var form = $('#wizard_horizontal').show();
     form.steps({
         headerTag: 'h2',

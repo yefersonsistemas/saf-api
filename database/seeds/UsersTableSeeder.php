@@ -22,7 +22,6 @@ use App\Doctor;
 use App\Typesurgery;
 use App\ClassificationSurgery;
 use App\TypeEquipment;
-use App\Sschedule;
 use App\TypeArea;
 use App\Medicine_pharmacy;
 use App\Lot_pharmacy;

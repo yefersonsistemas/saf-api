@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class actualizar_lot_pharmacy extends Model
+class Actualizar_lot_pharmacy extends Model
 {
     protected $table = 'actualizar_lot_pharmacy';
 
