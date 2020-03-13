@@ -95,7 +95,7 @@ class InoutController extends Controller
     }
 
     //buscar paciente que tenga cirugia por cancelar
-    public function facturacion()
+    public function facturacion()  //factura desde el menu lateral
     {
         $fecha = Carbon::now()->format('Y-m-d');
         return view('dashboard.vergel.in-out.facturacion', compact('fecha'));
@@ -103,7 +103,7 @@ class InoutController extends Controller
     }
 
 
-    public function createF($id){
+    public function createF($id){  //factura desde la lista de pacientes
 
             $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $id)->first(); // esta es una coleccion
             $fecha = Carbon::now()->format('Y-m-d');
@@ -116,7 +116,7 @@ class InoutController extends Controller
     {
         $surgery = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('id', $request->surgery_id)->first();
 
-        if($surgery->billing_id == null){ //si la factura no se ha rgenerado
+        if($surgery->billing_id == null){ //si la factura no se ha generado
 
             $crear_factura = Billing::create([
                 'patient_id'  =>$surgery->patient_id,
