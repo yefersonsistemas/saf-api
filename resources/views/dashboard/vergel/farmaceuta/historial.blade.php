@@ -68,7 +68,7 @@
                                         <th>Laboratorio</th>
                                         <th>Presentación</th>
                                         {{-- <th>Medida</th> --}}
-                                        <th>und</th>
+                                        {{-- <th>und</th> --}}
                                         <th>Cant/in.</th>                                        
                                         <th>Venc.</th>
                                     </tr>
@@ -82,7 +82,7 @@
                                         <th>Laboratorio</th>
                                         <th>Presentación</th>
                                         {{-- <th>Medida</th> --}}
-                                        <th>und</th>
+                                        {{-- <th>und</th> --}}
                                         <th>Cant/in.</th>                                        
                                         <th>Venc.</th>
                                     </tr>
@@ -96,7 +96,7 @@
                                             <td>{{$item->medicine_pharmacy->marca}}</td>
                                             <td>{{$item->medicine_pharmacy->laboratory}}</td>
                                             <td>{{$item->medicine_pharmacy->presentation}}</td>
-                                            <td>{{$item->medicine_pharmacy->quantity_Unit}}</td>
+                                            {{-- <td>{{$item->medicine_pharmacy->quantity_Unit}}</td> --}}
                                             <td>{{$item->quantity_total}}</td>                                            
                                             <td>{{$item->date_vence}}</td>
                                             {{-- <td><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-info text-white">Agregar</a></td> --}}

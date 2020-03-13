@@ -97,7 +97,7 @@ class FarmaciaController extends Controller
                 'laboratory'  => $request->laboratory,
                 'presentation'  => $request->presentation,
                 'measure'  => $request->measure,
-                'quantity_Unit'  => $request->quantify_Unit,
+                // 'quantity_Unit'  => $request->quantify_Unit,
                 'branch_id' => 1,
             ]);
             
