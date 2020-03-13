@@ -305,7 +305,7 @@
 
     function ajax(type_dni, dni) {
         $.ajax({
-                url: "{{ route('search.patients') }}",
+                url: "{{ route('busqueda.patients') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -314,7 +314,7 @@
                 }
             })
             .done(function(data) {
-                console.log(' paciente localizado', data);
+                // console.log(' paciente localizado', data);
 
                 if (data[0] == 202) {
                     Swal.fire({
@@ -341,18 +341,20 @@
     }
 
     function disabled(data) {
+        // console.log('esta', data);
+        url = '/storage/'+data.patient.person.image.path;
         $('#name').val(data.patient.person.name);
         $('#lastname').val(data.patient.person.lastname);
         $('#email').val(data.patient.person.email);
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
-        var concatenar = "Storage\\";
+        // var concatenar = "Storage\\";
 
         // error al implementar la transfromacion arroja un GET no identificado
 
-         console.log(concatenar+data.patient.person.image.path);
-        // $("#photo").html('<img src="Storage\\'+data.patient.person.image.path+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000;">');
+         console.log('aqui', url);
+        $("#photo").html('<img src="'+url+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000;">');
 
         $("#photo").attr('disabled', true);
         $(".dropify-wrapper").addClass('disabled');

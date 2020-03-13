@@ -417,6 +417,7 @@ var submitted = false;
                         allowOutsideClick:false,
                     })
                     disabled(data);
+                 
                 }
             })
             .fail(function(data) {
@@ -425,19 +426,23 @@ var submitted = false;
     }
 
     function disabled(data) {
+        url = '/storage/'+data.person.image.path;
+        console.log(data.person.image.path);
         $('#name').val(data.person.name);
         $('#lastname').val(data.person.lastname);
         $('#email').val(data.person.email);
         $('#address').val(data.person.address);
         $('#phone').val(data.person.phone);
         $('#newPerson').val(data.person.id);
-        $('.avatar-preview').load(
-            $('#person-id').val(data.person.id),
-            $('#imagen-id').val(data.person.image.id),
-            $('#imagePreview').css('background-image', `url(/storage/${data.person.image.path})`),
-                $('#imagePreview').hide(),
-                $('#imagePreview').fadeIn(650)
-        );
+        // $('.avatar-preview').load(
+        //     $('#person-id').val(data.person.id),
+        //     $('#imagen-id').val(data.person.image.id),
+            $('#imagePreview').html('<img src="'+url+'" alt=""  style="width:100%">');
+
+                // $('#imagePreview').css('background-image', `url(/Storage/${data.person.image.path})` ),
+                // $('#imagePreview').hide(),
+                // $('#imagePreview').fadeIn(650)
+        // );
 
         $("#photo").attr('disabled', true);
         $(".dropify-wrapper").addClass('disabled');

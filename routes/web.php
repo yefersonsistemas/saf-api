@@ -142,7 +142,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('programar/{id}','SurgerysController@create')->name('checkout.programar_cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
         Route::get('programar_cirugia','SurgerysController@create_surgery')->name('checkout.programar-cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
-        Route::post('search/checkout/patients','SurgerysController@search_patients_out')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
+        Route::post('busqueda/de/patients','SurgerysController@search_patients_out')->name('busqueda.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias el mismo dia de la candidatura
         Route::post('surgery/other_day/store','SurgerysController@hospitalaria_store')->name('surgery.hospitalaria_store'); // agenda las cirugias otro dia de la candidatura
