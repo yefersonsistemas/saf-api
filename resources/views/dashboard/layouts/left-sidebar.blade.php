@@ -189,7 +189,7 @@
                           </ul>
                     </li>
                 <li class="@yield('agendar')"><a href="{{ route('in-out.agendar_cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugias</span></a></li>
-                <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>
+                {{-- <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li> --}}
                 </div>
                 @endrole
 

@@ -267,22 +267,22 @@
 
         //================================== para porder mostrar en el documento html ==========================
         function disabled(data) {
-            // console.log('hola kenwherly', data.encontrado[0].patient[0].person);  enciende para verificar que trae la data
+            console.log('hola kenwherly', data.encontrado.patient);  //enciende para verificar que trae la data
 
-            data_paciente =  data.encontrado[0].patient[0].person;      // console.log('lee aqui para data completa de paciente',data_paciente);
-            id_patient =  data.encontrado[0].patient[0].person.id;      // console.log('lee aqui para verificar id de paciente',id_patient);
-            id_employe = data.encontrado[0].employe.id;                 // console.log('lee aqui para verificar id de empleado',id_employe);
-            id_surgery = data.encontrado[0].id;
+            data_paciente =  data.encontrado.patient[0].person;      // console.log('lee aqui para data completa de paciente',data_paciente);
+            id_patient =  data.encontrado.patient[0].person.id;      // console.log('lee aqui para verificar id de paciente',id_patient);
+            id_employe = data.encontrado.employe.id;                 // console.log('lee aqui para verificar id de empleado',id_employe);
+            id_surgery = data.encontrado.id;
 
             //-------------------cirugia -----------------
-            if(data.encontrado[0].typesurgeries != null){
+            if(data.encontrado.typesurgeries != null){
 
-                nombre_cirugia= data.encontrado[0].typesurgeries.name;
-                costo_cirugia= financial(data.encontrado[0].typesurgeries.cost);
+                nombre_cirugia= data.encontrado.typesurgeries.name;
+                costo_cirugia= financial(data.encontrado.typesurgeries.cost);
 
                 cirugia='<tr><td colspan="5" class="pl-4">'+'Cirugía '+nombre_cirugia+'</td>'+'<td class="text-right">'+costo_cirugia+'</td></tr>';
                 $("#cirugia").append(cirugia);
-                costo_cirugia = data.encontrado[0].typesurgeries.cost; //costo de la cirugia
+                costo_cirugia = data.encontrado.typesurgeries.cost; //costo de la cirugia
             }
 
             ci = parseFloat(costo_cirugia);
@@ -297,15 +297,15 @@
             $('#costo_total').text(financial(costo_total));
             $('#subtotal').text(financial(costo_total));
             //datos del paciente
-            $('#dnii').text(data.encontrado[0].patient[0].person.dni);
-            $('#name').text(data.encontrado[0].patient[0].person.name);
-            $('#lastname').text(data.encontrado[0].patient[0].person.lastname);
-            $('#phone').text(data.encontrado[0].patient[0].person.phone);
+            $('#dnii').text(data.encontrado.patient[0].person.dni);
+            $('#name').text(data.encontrado.patient[0].person.name);
+            $('#lastname').text(data.encontrado.patient[0].person.lastname);
+            $('#phone').text(data.encontrado.patient[0].person.phone);
             //datos del empleado
-            $('#dniiD').text(data.encontrado[0].employe.person.dni);
-            $('#nameD').text(data.encontrado[0].employe.person.name);
-            $('#lastnameD').text(data.encontrado[0].employe.person.lastname);
-            $('#phoneD').text(data.encontrado[0].employe.person.phone);
+            $('#dniiD').text(data.encontrado.employe.person.dni);
+            $('#nameD').text(data.encontrado.employe.person.name);
+            $('#lastnameD').text(data.encontrado.employe.person.lastname);
+            $('#phoneD').text(data.encontrado.employe.person.phone);
 
         }
         });

@@ -310,7 +310,6 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
 
-
     Route::group(['middleware' => ['role:enfermeria']], function(){
 
         Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
@@ -320,9 +319,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('internista/delete', 'NurseController@eliminarI')->name('eliminarI');
         Route::post('anestesiologo/delete', 'NurseController@eliminarA')->name('eliminarA');
         Route::post('galeria/delete', 'NurseController@eliminarG')->name('galeria.delete');
-
     });
-
 
 
     Route::group(['middleware' => ['role:in-out']], function(){
@@ -337,11 +334,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/imprimir/itinerary/{id}', 'InoutController@imprimir_factura2')->name('in-out.imprimir_factura2');  //si 
         Route::post('search/inout/patients','InoutController@search_patients_inout')->name('search.inout.patients'); //si
         Route::post('surgery/inout/store','SurgerysController@inout_hospitalaria_store')->name('inout.hospitalaria_store'); //si
-      
-
-
+        Route::post('inout/search/doctor','SurgerysController@search_doctor_inout')->name('inout.search_doctor'); 
+        Route::post('inout/search/patients','InoutController@search_patients_cirugia')->name('inout.search_patients'); 
     });
-
 
 
     Route::group(['middleware' => ['role:farmaceuta']], function(){
@@ -357,8 +352,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('farmaceuta/asignar/medicine', 'FarmaciaController@create_asignacion')->name('farmaceuta.asignacion');
         Route::get('farmaceuta/asignar/medicine/paciente/{id}', 'FarmaciaController@asignacion_medicine')->name('farmaceuta.asignar_medicine');
         Route::post('farmaceuta/asignando', 'FarmaciaController@asignando')->name('farmaceuta.asignandoM');
-        Route::get('farmaceuta/lotes/historial', 'FarmaciaController@historial')->name('farmaceuta.historial');
-       
+        Route::get('farmaceuta/lotes/historial', 'FarmaciaController@historial')->name('farmaceuta.historial');    
 
     });
 });
