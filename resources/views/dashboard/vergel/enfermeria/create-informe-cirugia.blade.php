@@ -190,7 +190,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                    </div>
 
                     <div class=" p-3">
@@ -439,10 +438,10 @@
             var modalImg = this.name;
             console.log(modalImg);
 
-            console.log('aqui va la imagen seleccionada', modalImg);
-
-            concatenar = '/Storage/';
-            url = concatenar+modalImg;
+            console.log('esta', modalImg);
+            url = '/storage/'+modalImg;
+            // concatenar = '/Storage/';
+            // url = concatenar+modalImg;
 
         $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
         $('#myModall').modal('show');
