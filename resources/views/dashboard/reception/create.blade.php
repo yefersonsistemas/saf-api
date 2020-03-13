@@ -425,6 +425,7 @@ var submitted = false;
     }
 
     function disabled(data) {
+            //  console.log('imagen qq',data.person.image.path )
         $('#name').val(data.person.name);
         $('#lastname').val(data.person.lastname);
         $('#email').val(data.person.email);
