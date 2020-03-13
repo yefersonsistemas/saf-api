@@ -1853,7 +1853,7 @@ $( document ).ready(function() {
 
             console.log('aqui va la imagen seleccionada', modalImg);
 
-            concatenar = '/Storage/';
+            concatenar = '/storage/';
             url = concatenar+modalImg;
 
 

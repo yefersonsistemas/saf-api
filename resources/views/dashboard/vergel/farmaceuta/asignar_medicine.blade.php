@@ -374,7 +374,7 @@ $('img[id="myImg"]').on('click',function(){
 
        console.log('aqui va la imagen seleccionada', modalImg);
 
-       concatenar = '/Storage/';
+       concatenar = '/storage/';
        url = concatenar+modalImg;
 
    $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
