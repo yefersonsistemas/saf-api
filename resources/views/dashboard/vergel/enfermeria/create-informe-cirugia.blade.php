@@ -451,9 +451,9 @@
             var modalImg = this.name;
             console.log(modalImg);
 
-            console.log('aqui va la imagen seleccionada', modalImg);
+            console.log('esta', modalImg);
 
-            concatenar = '/Storage/';
+            concatenar = '/storage/';
             url = concatenar+modalImg;
 
         $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
@@ -464,9 +464,9 @@
             var modalImg = this.name;
             console.log(modalImg);
 
-            console.log('aqui va la imagen seleccionada', modalImg);
+            console.log('esta', modalImg);
 
-            concatenar = '/Storage/';
+            concatenar = '/storage/';
             url = concatenar+modalImg;
 
         $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');
