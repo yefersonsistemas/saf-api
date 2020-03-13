@@ -411,16 +411,21 @@ var form = $('#wizard_horizontal').show();
     }
 
     function disabled(data) {
+        url = '/storage/'+data.patient.person.image.path;
         $('#name').val(data.patient.person.name);
         $('#lastname').val(data.patient.person.lastname);
         $('#email').val(data.patient.person.email);
         $('#address').val(data.patient.person.address);
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
-        var concatenar = "Storage\\";
-        console.log('RUTA',data.patient.person.image.path)
-        console.log(concatenar+data.patient.person.image.path);
-        $("#photo").html('<img src="'+concatenar+data.patient.person.image.path+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000">');
+        // var concatenar = "Storage\\";
+        // console.log('RUTA',data.patient.person.image.path)
+        // console.log(concatenar+data.patient.person.image.path);
+        // $("#photo").html('<img src="'+concatenar+data.patient.person.image.path+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000">');
+
+        console.log('aqui', url);
+        $("#photo").html('<img src="'+url+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000;">');
+
 
         // $("#photo").attr('disabled', true);
         $(".dropify-wrapper").addClass('disabled');
