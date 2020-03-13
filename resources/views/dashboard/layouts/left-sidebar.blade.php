@@ -206,21 +206,13 @@
                     <li class="@yield('farma')">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span>Insumos</span></a>
                         <ul>
-                            <li class="@yield('stock')"><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;Stock</a></li>
-                            <li class="@yield('stock1')"><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>&nbsp;Stock por lotes</a></li>
-                            <li class="@yield('stock2')"><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-eye"></i>&nbsp;Asignación</a></li>
-                            <li class="@yield('stock3')"><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registrar</a></li>                           
-                            <li class="@yield('stock4')"><a href="{{ route('farmaceuta.historial') }}"><i class="fa fa-plus-circle">&nbsp;</i>Historial de lotes</a></li>
+                            <li class="@yield('stock')"><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-list"></i>&nbsp;Stock</a></li>
+                            <li class="@yield('stock1')"><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-list-alt"></i>&nbsp;Stock por lotes</a></li>
+                            <li class="@yield('stock2')"><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-user-plus"></i>&nbsp;Asignación</a></li>
+                            <li class="@yield('stock3')"><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-archive"></i>&nbsp;Registrar</a></li>                           
+                            <li class="@yield('stock4')"><a href="{{ route('farmaceuta.historial') }}"><i class="fa fa-clock-o">&nbsp;</i>Historial de lotes</a></li>
                         </ul>
                     </li>
-
-{{-- 
-                    <li class="g_heading">farmaceuta</li>
-                    <li ><a href="{{ route('farmaceuta.index') }}"><i class="fa fa-users"></i>&nbsp;Insumos</a></li>
-                    <li><a href="{{ route('farmaceuta.asignacion') }}"><i class="fa fa-eye"></i>&nbsp;Asignación de insumos</a></li>
-                    <li><a href="{{ route('farmaceuta.create') }}"><i class="fa fa-plus-circle"></i>&nbsp;Registro de insumos</a></li>
-                    <li><a href="{{ route('farmaceuta.lista_lote') }}"><i class="fa fa-plus-circle"></i>Lista de insumos por lote</a></li>
-                    <li><a href="{{ route('farmaceuta.historial') }}"><i class="fa fa-plus-circle"></i>Historial de lotes</a></li> --}}
                 </div>
                 @endrole
 

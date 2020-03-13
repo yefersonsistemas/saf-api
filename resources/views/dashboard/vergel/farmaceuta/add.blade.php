@@ -36,9 +36,9 @@
                                         <input type="text" class="form-control" placeholder="Marca" name="marca" disabled value="{{ $medicine_pharmacy->marca }}" required>
                                     </div>
                                 </div>
-                    
+
                                 <div class="col-lg-4">
-                                    <div class="form-group"> 
+                                    <div class="form-group">
                                         <label class="form-label">Laboratorio</label>
                                         <input type="text" class="form-control" placeholder="Laboratorio" disabled name="laboratory" value="{{ $medicine_pharmacy->laboratory }}" required>
                                     </div>
@@ -50,15 +50,15 @@
                                         <input type="text" name="presentation" id="presentacion" class="form-control" disabled placeholder="presentacion" value="{{ $medicine_pharmacy->presentation }}" required>
                                     </div>
                                 </div>
-            
-                                    
+
+
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-label">Medida</label>
                                         <input type="text" class="form-control" placeholder="Medida" name="measure" disabled value="{{ $medicine_pharmacy->measure }}" required>
                                     </div>
-                                </div>                                        
-                                    
+                                </div>
+
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-label">Cantidad por Unidad</label>
@@ -101,10 +101,10 @@
                         </ul>
                     </div>
                 @endif
-        
-                    <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">    
+
+                    <div class="btn-group-toggle mb-2 mt-3 d-flex justify-content-end" style="text-align:center">
                         {{-- <button type="reset" style="background:#a1a1a1" class="btn mr-2 pr-4 pl-4 text-white">Limpiar</button>  --}}
-                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white btn-azuloscuro">Guardar</button>                      
+                        <button type="submit" class="btn mr-2 pr-4 pl-4 text-white btn-azuloscuro"><i class="fa fa-plus"></i>&nbsp;Guardar</button>
                     </div>
                 </div>
             </div>
@@ -136,4 +136,3 @@ function enableBtn() {
 @endsection
 
 
-    

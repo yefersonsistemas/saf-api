@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedcolumns.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\plugins\datatable\fixedeader\dataTables.fixedheader.bootstrap4.min.css') }}">
-    
+
 @endsection
 
 
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-12 mt-10">
                 <div class="table-responsive mb-4">
                     <table class="table table-hover js-basic-example dataTable table_custom spacing5">
@@ -106,19 +106,19 @@
                                 <th>Factura</th>
                             </tr>
                         </tfoot>
-                        <tbody>  
+                        <tbody>
                             @foreach ($hoy as $surgeries)
                             <tr style="height:40px;">
                                 @foreach ( $surgeries->patient as $patient )
                                     <td style="text-align: center; font-size:10px; height:40px;">
-                                        @if(!empty($patient->person->image->path)) 
-                                         <img class="roundedcircle"width="100%"height="100%" src="{{ Storage::url($patient->person->image->path)}}" alt="">                                          
-                                         @endif  
-                                    </td> 
+                                        @if(!empty($patient->person->image->path))
+                                         <img class="roundedcircle"width="100%"height="100%" src="{{ Storage::url($patient->person->image->path)}}" alt="">
+                                         @endif
+                                    </td>
                                 @endforeach
                                 @foreach ( $surgeries->patient as $patient )
-                                    <td > {{ $patient->person->type_dni }} - {{ $patient->person->dni }} </td> 
-                                    <td > {{ $patient->person->name }} {{ $patient->person->lastname }} </td> 
+                                    <td > {{ $patient->person->type_dni }} - {{ $patient->person->dni }} </td>
+                                    <td > {{ $patient->person->name }} {{ $patient->person->lastname }} </td>
                                 @endforeach
                                 <td> {{ $surgeries->employe->person->name }} {{ $surgeries->employe->person->lastname }}</td>
                                 <td> {{ $surgeries->typesurgeries->name }} </td>
@@ -128,17 +128,17 @@
                                 @else
                                 <td> {{ $surgeries->area->name }}  </td>
                                 @endif
-                                
+
                                 <td> {{ $surgeries->date }}  </td>
                                 <td class="justify-content-center text-center">
                                     @if($surgeries->billing == null)
                                         <a href="{{ route('in-out.facturacionLista', $surgeries->id) }}" class="btn btn-info text-white"  data-toggle="tooltip" data-placement="left" title="Facturar">
-                                            <i class="fe fe-printer"> </i> Generar
+                                            <i class="fe fe-check"> </i> Generar
                                         </a>
                                     @else
                                         @if($surgeries->billing->person_id == null)
                                             <a href="{{ route('checkout.facturacionLista', $surgeries->id) }}" class="btn btn-boo abarca text-start" type="button">
-                                                <i class="fa fa-print"> </i> Generar
+                                                <i class="fa fa-check"> </i> Generar
                                             </a>
                                         @else
                                             <a target="_blank" href="{{ route('in-out.imprimir_factura2', $surgeries->id) }}" class="btn btn-boo abarca text-start" type="button">

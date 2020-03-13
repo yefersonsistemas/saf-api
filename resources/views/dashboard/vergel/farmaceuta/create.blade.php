@@ -81,7 +81,8 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Cantidad a Ingresar</label>
-                                            <input type="text" placeholder="Stock" class="form-control" name="total" value="{{ old('total') }}" required>
+                                            <input type="number" name="total" value="{{ old('total') }}" required>
+                                            {{-- <input type="text" placeholder="Stock" class="form-control" name="total" value="{{ old('total') }}" required> --}}
                                         </div>
                                     </div>
 

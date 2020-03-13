@@ -159,7 +159,7 @@
 
                                         <div class="card-header d-flex justify-content-end col-13">
                                             <div class="card-options">
-                                                <button type="submit" class="btn btn-boo" style="margin-right: -16px;"><i class="si si-printer"></i>Generar factura</button>
+                                                <button type="submit" class="btn btn-boo" style="margin-right: -16px;"><i class="si si-check"></i>Generar factura</button>
                                                 {{-- <a href="{{ route('in-out.factura') }}" style="color:#000"></i>Generar factura</button>                                         --}}
                                             </div>
                                         </div>

@@ -99,18 +99,18 @@
                                             @if(!empty($item->surgery->file_doctor->first()))
                                             <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white">Asignar</a></td>
                                             @else
-                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white">Agregar</a></td>
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white"><i class="fa fa-plus"></i>&nbsp;Agregar</a></td>
                                             @endif
                                         </tr>
-                                    @endforeach                                  
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-        </div>  
+        </div>
 
 @endsection
 
