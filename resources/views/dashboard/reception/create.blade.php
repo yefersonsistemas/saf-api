@@ -54,6 +54,7 @@
                                         <div class="row">
                                             <div class="col-4 d-flex justify-content-center">
                                                 <input type="hidden" name="file" id="foto">
+                                                
                                                 <div class="avatar-upload">
                                                     <div class="avatar-preview avatar-edit">
                                                         <div id="imagePreview" style="background-image: url();">

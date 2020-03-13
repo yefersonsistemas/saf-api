@@ -142,7 +142,7 @@ Route::group(['middleware' => 'auth'], function (){
 
         Route::get('programar/{id}','SurgerysController@create')->name('checkout.programar_cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
         Route::get('programar_cirugia','SurgerysController@create_surgery')->name('checkout.programar-cirugia');  // para enviar a la vista programar cirugia el mismo dia de la candidatura
-        Route::post('busqueda/de/patients','SurgerysController@search_patients_out')->name('busqueda.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
+        Route::post('/search/checkout/patients','SurgerysController@search_patients_out')->name('search.patients'); //busca los pacientes que agendan dias despues de ser candidato a cirugia
         Route::post('surgery/search/doctor','SurgerysController@search_doctor')->name('search.doctor'); // busca los doctores asociados a una cirugia
         Route::post('surgery/store','SurgerysController@store')->name('surgerys.store'); // agenda las cirugias el mismo dia de la candidatura
         Route::post('surgery/other_day/store','SurgerysController@hospitalaria_store')->name('surgery.hospitalaria_store'); // agenda las cirugias otro dia de la candidatura
@@ -310,7 +310,6 @@ Route::group(['middleware' => 'auth'], function (){
     });
 
 
-
     Route::group(['middleware' => ['role:enfermeria']], function(){
 
         Route::get('lista/surgeries', 'NurseController@index')->name('lista_cirugias');
@@ -320,9 +319,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('internista/delete', 'NurseController@eliminarI')->name('eliminarI');
         Route::post('anestesiologo/delete', 'NurseController@eliminarA')->name('eliminarA');
         Route::post('galeria/delete', 'NurseController@eliminarG')->name('galeria.delete');
-
     });
-
 
 
     Route::group(['middleware' => ['role:in-out']], function(){
@@ -337,11 +334,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('inout/imprimir/itinerary/{id}', 'InoutController@imprimir_factura2')->name('in-out.imprimir_factura2');  //si 
         Route::post('search/inout/patients','InoutController@search_patients_inout')->name('search.inout.patients'); //si
         Route::post('surgery/inout/store','SurgerysController@inout_hospitalaria_store')->name('inout.hospitalaria_store'); //si
-      
-
-
+        Route::post('inout/search/doctor','SurgerysController@search_doctor_inout')->name('inout.search_doctor'); 
+        Route::post('inout/search/patients','InoutController@search_patients_cirugia')->name('inout.search_patients'); 
     });
-
 
 
     Route::group(['middleware' => ['role:farmaceuta']], function(){
@@ -357,8 +352,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('farmaceuta/asignar/medicine', 'FarmaciaController@create_asignacion')->name('farmaceuta.asignacion');
         Route::get('farmaceuta/asignar/medicine/paciente/{id}', 'FarmaciaController@asignacion_medicine')->name('farmaceuta.asignar_medicine');
         Route::post('farmaceuta/asignando', 'FarmaciaController@asignando')->name('farmaceuta.asignandoM');
-        Route::get('farmaceuta/lotes/historial', 'FarmaciaController@historial')->name('farmaceuta.historial');
-       
+        Route::get('farmaceuta/lotes/historial', 'FarmaciaController@historial')->name('farmaceuta.historial');    
 
     });
 });

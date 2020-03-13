@@ -222,64 +222,48 @@ class InoutController extends Controller
         if(!empty($request->dni)){
 
             $person = Person::where('dni', $request->dni)->first();
-            $patient = Patient::where('person_id', $person->id)->first();
+            $patient = Patient::where('person_id', $person->id)->first(); //busco paciente
 
-            if(!empty($patient)){
-                $fecha = Carbon::now()->format('Y-m-d');
-                $surgery = Surgery::where('patient_id', $patient->id)->where('date', $fecha)->first(); //cirugia del dia
-                // dd($surgery);
-                if(!empty($surgery)){
+            //las siguientes lineas solo se ejecutan si la variable no esta vacia
+            if(!empty($patient)){  
+                $fecha = Carbon::now()->format('Y-m-d'); //fecha del dia
+                // $surgery = Surgery::where('patient_id', $patient->id)->where('date', $fecha)->first(); //cirugia del dia
 
-                    if($surgery->billing_id == null){
-                      if(!empty($surgery->patient_id)){
-                        // $patient = Patient::find($surgery->patient_id);
-                            //  dd($patient);
-                        if(!empty($patient)){
-                            $all = collect([]); //definiendo una coleccion|
-                            $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
-                                //  dd($encontrado);
-                            if (!is_null($encontrado)) {
-                                return response()->json([
-                                    'encontrado' => $encontrado,201,
-                                ]);
-                            }else{
-                                return response()->json([
-                                    'encontrado' => 'persona no encontrado', 202
-                                ]);
-                            }
-                        }
-                     }else{
-                        $all = collect([]); //definiendo una coleccion|
-                        $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
-                        // dd($encontrado);
-                        if (!is_null($encontrado)) {
+                $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->where('date', $fecha)->first(); // esta es una coleccion
+
+                if(!empty($encontrado)){
+                 
+                    if($encontrado->billing_id == null){
+                        // $encontrado = Surgery::with('patient.person', 'employe.person','typesurgeries')->where('patient_id', $patient->id)->get(); // esta es una coleccion
+              
+                        return response()->json([
+                            'encontrado' => $encontrado,201,
+                        ]);                       
+
+                    }else{
+                     
+                        if(!empty($encontrado->billing->person_id)){
+                            return response()->json([
+                                'encontrado' => 'Paciente ya facturado', 300
+                            ]);
+                        }else{
+                            // dd($encontrado);
                             return response()->json([
                                 'encontrado' => $encontrado,201,
                             ]);
-                        }else{
-                            return response()->json([
-                                'encontrado' => 'persona no encontrado', 202
-                            ]);
                         }
-                     }
-
-                    }else{
-                        // dd($surgery);
-                        return response()->json([
-                            'encontrado' => 'Paciente ya facturado', 300
-                        ]);
                 }
                 }else{
                     return response()->json([
                         'encontrado' => 'paciente no encontrado', 202
                     ]);
                 }
-                    }else{
-                        return response()->json([
-                            'encontrado' => 'paciente no registrado',202
-                        ]);
-                        }
+            }else{
+                return response()->json([
+                    'encontrado' => 'paciente no registrado',202
+                ]);
             }
+        }
     }
 
      /**

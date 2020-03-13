@@ -305,7 +305,7 @@
 
     function ajax(type_dni, dni) {
         $.ajax({
-                url: "{{ route('busqueda.patients') }}",
+                url: "{{ route('search.patients') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
