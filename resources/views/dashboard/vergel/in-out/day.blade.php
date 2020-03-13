@@ -137,7 +137,7 @@
                                         </a>
                                     @else
                                         @if($surgeries->billing->person_id == null)
-                                            <a href="{{ route('checkout.facturacionLista', $surgeries->id) }}" class="btn btn-boo abarca text-start" type="button">
+                                            <a href="{{ route('in-out.facturacionLista', $surgeries->id) }}" class="btn btn-boo abarca text-start" type="button">
                                                 <i class="fa fa-check"> </i> Generar
                                             </a>
                                         @else
