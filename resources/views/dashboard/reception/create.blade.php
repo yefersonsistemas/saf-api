@@ -457,10 +457,12 @@ var submitted = false;
         $('#address').val(data.person.address);
         $('#phone').val(data.person.phone);
         $('#newPerson').val(data.person.id);
+        $("#photo").html('<img src="'+url+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000;">');
+
         // $('.avatar-preview').load(
         //     $('#person-id').val(data.person.id),
         //     $('#imagen-id').val(data.person.image.id),
-            $('#imagePreview').html('<img src="'+url+'" alt=""  style="width:100%">');
+            // $('#imagePreview').html('<img src="'+url+'" alt=""  style="width:100%">');
 
                 // $('#imagePreview').css('background-image', `url(/Storage/${data.person.image.path})` ),
                 // $('#imagePreview').hide(),
