@@ -334,7 +334,7 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-azuloscuro text-white">Asignar</button>
+                  <button type="submit" class="btn btn-azuloscuro text-white"><i class="fa fa-pencil"></i>&nbsp;Asignar</button>
               </div>
           </form>
           </div>
