@@ -96,7 +96,7 @@
                                             <td>{{$item->fecha_ingreso}}</td>
                                             <td>{{$item->fecha_culminar}}</td>
                                             @if(!empty($item->surgery->file_doctor->first()))
-                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white">Asignar</a></td>
+                                            <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white"><i class="fa fa-pencil"></i>&nbsp;Asignar</a></td>
                                             @else
                                             <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.asignar_medicine',$item->id)}}" class="btn btn-verdePastel text-white"><i class="fa fa-plus"></i>&nbsp;Agregar</a></td>
                                             @endif

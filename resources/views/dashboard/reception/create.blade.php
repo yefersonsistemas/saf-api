@@ -442,12 +442,15 @@ var submitted = false;
     }
 
     function disabled(data) {
-        url = '/storage/'+data.person.image.path;
-        console.log(data.person.image.path);
+        // PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
         $('#square').removeClass('d-none');
         $('#square').addClass('d-flex');
         $('#circle').removeClass('d-flex');
         $('#circle').addClass('d-none');
+        // FIN PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
+
+        url = '/storage/'+data.person.image.path;
+        console.log(data.person.image.path);
         $('#name').val(data.person.name);
         $('#lastname').val(data.person.lastname);
         $('#email').val(data.person.email);
@@ -477,11 +480,13 @@ var submitted = false;
     }
 
     function enabled() {
-        
+        // PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
         $('#square').removeClass('d-flex');
         $('#square').addClass('d-none');
         $('#circle').removeClass('d-node');
         $('#circle').addClass('d-flex');
+        // FIN PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
+
         $("#photo").val('');
         $('#name').val('');
         $('#lastname').val('');
