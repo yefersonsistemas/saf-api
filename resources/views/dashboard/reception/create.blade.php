@@ -52,7 +52,20 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-4 d-flex justify-content-center">
+
+                                            <div class="col-4 d-flex justify-content-center" id="square">
+                                                <label class="imagecheck m-0">
+                                                    <div class="card assigment">
+                                                        <figure class="imagecheck-figure border-0 text-center">
+                                                            <div class="" style="height:180px; width:150px" id="photo">
+                                                                <img src="" alt=""  class="img-thumbnail"  style=" width:100%; height:100%; background:#000">
+                                                            </div>
+                                                        </figure>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                            <div class="col-4 d-none justify-content-center" id="circle">
                                                 <input type="hidden" name="file" id="foto">
                                                 
                                                 <div class="avatar-upload">
@@ -249,6 +262,8 @@ var submitted = false;
        return 'Do you really want to leave the page?';
      }
    }
+
+
  });
 </script>
 {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
@@ -429,6 +444,10 @@ var submitted = false;
     function disabled(data) {
         url = '/storage/'+data.person.image.path;
         console.log(data.person.image.path);
+        $('#square').removeClass('d-none');
+        $('#square').addClass('d-flex');
+        $('#circle').removeClass('d-flex');
+        $('#circle').addClass('d-none');
         $('#name').val(data.person.name);
         $('#lastname').val(data.person.lastname);
         $('#email').val(data.person.email);
@@ -458,6 +477,11 @@ var submitted = false;
     }
 
     function enabled() {
+        
+        $('#square').removeClass('d-flex');
+        $('#square').addClass('d-none');
+        $('#circle').removeClass('d-node');
+        $('#circle').addClass('d-flex');
         $("#photo").val('');
         $('#name').val('');
         $('#lastname').val('');
