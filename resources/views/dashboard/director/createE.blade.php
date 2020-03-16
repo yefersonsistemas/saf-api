@@ -5,6 +5,8 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets\plugins\dropify\css\dropify.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\plugins\bootstrap-datepicker\css\bootstrap-datepicker3.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets\css\brandMaster.css') }}">
 
 @endsection
 
@@ -225,6 +227,9 @@
 <script src="{{ asset('assets\plugins\bootstrap-multiselect\bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('assets\plugins\dropify\js\dropify.min.js') }}"></script>
 <script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
+<script src="{{ asset('assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('js/brandAn.js') }}"></script>
+<script src="{{ asset('assets\js\form\form-advanced.js') }}"></script>
 
 <script>
 onload = function(){
@@ -277,6 +282,60 @@ function contar(obj){
         document.getElementById("charNum").innerHTML = '<p style="color:green">Número de carácteres válidos.</p>';
     }
 }
+</script>
+
+<script>
+    $boton.addEventListener("click", function() {
+        // Codificarlo como JSON
+        //Pausar reproducción
+        $video.pause();
+            //Obtener contexto del canvas y dibujar sobre él
+            let contexto = $canvas.getContext("2d");
+            $canvas.width = $video.videoWidth;
+            $canvas.height = $video.videoHeight;
+            contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+
+            let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+            let datafoto=encodeURIComponent(foto);
+                var data1 = {
+                    "tokenmodalfoto": $('#tokenfoto').val(),
+                    "pic":datafoto
+                    };
+            const datos=JSON.stringify(data1);
+            $estado.innerHTML = "Enviando foto. Por favor, espera...";
+            fetch("{{ route('cita.foto') }}", {
+                method: "POST",
+                body: datos,
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded",
+                    'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+                },
+            }).then(resultado => {
+                            // A los datos los decodificamos como texto plano
+                            return resultado.text()
+                        })
+                        .then(nombreDeLaFoto => {
+                            console.log(nombreDeLaFoto);
+                            // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                            console.log("La foto fue enviada correctamente");
+                            // let timerInterval
+                            Swal.fire({
+                                    type: 'success',
+                                    title: 'La foto fue guardada con Exíto',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                $estado.innerHTML = '';
+                                $('.avatar-preview').load(
+                                    $('#imagePreview').css('background-image', `url(/storage/${nombreDeLaFoto})`),
+                                    $('#foto').val(nombreDeLaFoto),
+                                    $('#imagePreview').hide(),
+                                    $('#imagePreview').fadeIn(650),
+                                    );
+                        })
+            //Reanudar reproducción
+            // $video.play();
+            });
 </script>
 
 @endsection
