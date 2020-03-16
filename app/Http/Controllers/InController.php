@@ -88,14 +88,13 @@ class InController extends Controller
         foreach($employe as $item){
             foreach($item->schedule as $em){
                 if($em->day == $dia){
-                    if(!empty($item->assistance->first()))
-                    $medicos[] = $item;
+                    if(!empty($item->assistance->first())){
+                        $medicos[] = $item;
+                    }
                 }
             }
         }
-
         // dd($medicos);
-
 
         //buscando pacientes que atenderan los medicos que atenderan citas hoy
         $pacientes = array();

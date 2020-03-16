@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use View;
 use Carbon\Carbon;
 use App\Reservation;
+use App\Stock_pharmacy;
+use App\AsignacionMedicine;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -61,12 +63,38 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
+
+        //contadores de farmaceuta
+            //total de insumos
+            $stock = Stock_pharmacy::all();
+            $total = 0;
+            foreach($stock as $item){
+                $total = $total + $item->total;
+            }
+
+            //total de insumos asignados
+            $stock_asignados = AsignacionMedicine::all();
+            $total_asignados = 0;
+            // dd($stock_asignados);
+            if(!empty($stock_asignados->first())){
+                foreach($stock_asignados as $item){
+                    $total_asignados = $total_asignados + $item->cantidad;
+                }
+            }
+
+            // dd($total_asignados);
+
+
         View::share('citasDelDia', $day->count());
         View::share('atendidos', $atendidos->count());
         View::share('citasDelMes', count($all));
         View::share('citasAnual', count($reserva2));
         View::share('citasConfirmadas', count($approved));
         View::share('porAtender', count($poratender));
+
+        //farmaceuta
+        View::share('totalInsumos', $total);
+        View::share('totalAsignados', $total_asignados);
 
     }
 
