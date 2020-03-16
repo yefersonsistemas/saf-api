@@ -73,7 +73,6 @@
 
                                                 @foreach ($area->areaassigment->employe->schedule as $item)
                                                      @if($item->turn == 'mañana' && $item->day == $dia)
-
                                                     
                                                         <div class="col-lg-2  m-xl-2 m-lg-3 col-md-4 col-sm-6 col-12 mx-sm-0 mx-md-0 d-flex justify-content-center" style="">
                                                             <label class="imagecheck m-0">
@@ -92,6 +91,7 @@
                                                                 </div>
                                                             </label>
                                                         </div>
+                                                        
                                                     @endif
                                                 @endforeach 
                                                 @endif
