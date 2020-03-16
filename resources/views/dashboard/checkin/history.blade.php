@@ -52,7 +52,7 @@
                             <div class="avatar-preview avatar-edit">
                                 <div id="imagePreview" style="background-image: url({{ Storage::url($rs->patient->image->path)}});">
                                 </div>
-                                <button  disabled="true" type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscamara position-absolute btn-camara"><i class="fa fa-camera"></i></button>
+                                <button  type="button" data-toggle="modal" data-target="#photoModal" class="btn btn-azuloscamara position-absolute btn-camara"><i class="fa fa-camera"></i></button>
                             </div>
                         @else
                         <div class="avatar-preview avatar-edit">
@@ -66,27 +66,28 @@
                     <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
                     <input type="hidden" value="{{ $rs->id }}" id="reservacion_id"><!--reservation-->
                     <!-- Modal -->
-                    {{-- <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <h1>Selecciona un dispositivo</h1>
-                                    <div>
-                                        <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
-                                        <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
-                                        <input type="hidden" name="patient" id="patient-id" value="{{$rs->patient->id}}">
-                                        <input type="hidden" name="image" id="imagen-id" value="{{$rs->patient->image->id}}">
-                                        <p id="estado"></p>
-                                    </div>
-                                    <video muted="muted" id="video" class="col-12"></video>
-                                    <canvas id="canvas" style="display: none;" name="foto"></canvas>
-                                    <div class="col-12 text-center">
-                                        <button type="button" class="btn btn-azuloscuro text-white" id="boton">Tomar foto</button>
-                                    </div>
+                    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h1>Selecciona un dispositivo</h1>
+                                <div>
+                                    <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                                    <input type="hidden" name="tokenmodalfoto" id="tokenfoto" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="patient" id="person-id" value="">
+                                    <input type="hidden" name="image" id="imagen-id" value="">
+                                    <p id="estado"></p>
+                                </div>
+                                <video muted="muted" id="video" class="col-12"></video>
+                                <canvas id="canvas" style="display: none;" name="foto"></canvas>
+                                <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-azuloscuro text-white" id="boton" data-dismiss="modal">Tomar foto</button>
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
+                </div>
 
                     <div class="col-8 mt-90">
                         <div class="row mt--10">
@@ -850,53 +851,59 @@
     </script>
     {{--FIN SCRIPT PARA MENSAJE CON BOTON HACIA ATRAS DEL NAVEGADOR --}}
 
-{{-- <script>
-$boton.addEventListener("click", function() {
+<script>
+    $boton.addEventListener("click", function() {
+        // Codificarlo como JSON
+        //Pausar reproducción
+        $video.pause();
+            //Obtener contexto del canvas y dibujar sobre él
+            let contexto = $canvas.getContext("2d");
+            $canvas.width = $video.videoWidth;
+            $canvas.height = $video.videoHeight;
+            contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
-    // Codificarlo como JSON
-    //Pausar reproducción
-    $video.pause();
-        //Obtener contexto del canvas y dibujar sobre él
-        let contexto = $canvas.getContext("2d");
-        $canvas.width = $video.videoWidth;
-        $canvas.height = $video.videoHeight;
-        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
-
-        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-        let datafoto=encodeURIComponent(foto);
-            var data1 = {
-                "tokenmodalfoto": $('#tokenfoto').val(),
-                "idpatient":$('#patient-id').val(),
-                "idimage":$('#imagen-id').val(),
-                "pic":datafoto
-                };
-        const datos=JSON.stringify(data1)
-        $estado.innerHTML = "Enviando foto. Por favor, espera...";
-        fetch("{{ route('checkin.avatar') }}", {
-            method: "POST",
-            body: datos,
-            headers: {
-                "Content-type": "application/x-www-form-urlencoded",
-                'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
-            },
-        }).then(function(response) {
-            // console.log(response.json());
-                return response.json();
-            }).then(nombreDeLaFoto => {
-                // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                console.log("La foto fue enviada correctamente");
-                $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-            })
-        //Reanudar reproducción
-        $video.play();
-
-        $('.avatar-preview').load(
-            $('#imagePreview').css('background-image', 'url({{ Storage::url($rs->patient->image->path) }})'),
-            $('#imagePreview').hide(),
-            $('#imagePreview').fadeIn(650)
-        );
-        });
-</script> --}}
+            let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+            let datafoto=encodeURIComponent(foto);
+                var data1 = {
+                    "tokenmodalfoto": $('#tokenfoto').val(),
+                    "pic":datafoto
+                    };
+            const datos=JSON.stringify(data1);
+            $estado.innerHTML = "Enviando foto. Por favor, espera...";
+            fetch("{{ route('cita.foto') }}", {
+                method: "POST",
+                body: datos,
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded",
+                    'X-CSRF-TOKEN': data1.tokenmodalfoto,// <--- aquí el token
+                },
+            }).then(resultado => {
+                            // A los datos los decodificamos como texto plano
+                            return resultado.text()
+                        })
+                        .then(nombreDeLaFoto => {
+                            console.log(nombreDeLaFoto);
+                            // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+                            console.log("La foto fue enviada correctamente");
+                            // let timerInterval
+                            Swal.fire({
+                                    type: 'success',
+                                    title: 'La foto fue guardada con Exíto',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                $estado.innerHTML = '';
+                                $('.avatar-preview').load(
+                                    $('#imagePreview').css('background-image', `url(/storage/${nombreDeLaFoto})`),
+                                    $('#imagen-id').val(nombreDeLaFoto),
+                                    $('#imagePreview').hide(),
+                                    $('#imagePreview').fadeIn(650),
+                                    );
+                        })
+            //Reanudar reproducción
+            // $video.play();
+            });
+</script>
 
 <script>
     Dropzone.options.myDropzone = {

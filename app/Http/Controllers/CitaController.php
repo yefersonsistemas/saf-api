@@ -114,6 +114,8 @@ class CitaController extends Controller
     //================guardar reservacion================
     public function store(CreateReservationRequest $request)
     {
+        // dd($request);
+
         if ($request->person == 'nuevo') { // por si no existe en la tabla person
             $person = Person::create([
                 'type_dni'  => $request->type_dni,
@@ -137,6 +139,8 @@ class CitaController extends Controller
             $image->branch_id = 1;
             $image->save();
         }
+
+        // dd($image);
 
         
         $b_patient = Patient::where('person_id', $request->person)->first();

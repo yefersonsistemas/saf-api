@@ -294,7 +294,7 @@ class InController extends Controller
             return response()->json(["status" => "success", "data" => $image]);
         }
 
-        $person = Person::where('dni', $request->dni)->first();
+        $person = Person::with('image')->where('dni', $request->dni)->first();
         $reservation = Reservation::find($id);
         if (!is_null($person)) {
 
@@ -362,53 +362,29 @@ class InController extends Controller
 
             $patients = Person::find($patient->person_id);
 
-            // $data = $request->validate([
-            //     'address' => 'nullable'
-            // ]);
-
-            // if($person->historyPatient != null) {
-
-            //     $patients->update([
-            //         'address'=> $data['address'],
-            //     ]);
-            // }
-
             if($request->address != null) {
 
                 $patients->address = $request->address;
                 $patients->save();
             }
-
-
-            // dd($patient);
-            if($request->foto != null){
-                $image = $request->file('foto');
-                $path = $image->store('public/Person');
-                $path = str_replace('public/', '', $path);
+            
+        if ($request->image != null) { //guardar imagen
+            if ( $person->image == null) {
                 $image = new Image;
-                $image->path = $path;
-                $image->fileable_type = "App\Person";
-                $image->fileable_id = $patient->id;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Person";
+                $image->imageable_id =$person->id;
                 $image->branch_id = 1;
                 $image->save();
-            }
+            }else{
+                // dd($employe->image->path);
+                Storage::disk('public')->delete($person->image->path); //permite eliminar la foto en storage
 
-            if ($request->file != null) {
-                $photo = $request->file;
-
-                foreach($photo as $file){
-                    $image = $request->file('file');
-                    // $path = $image->store('public/exams');
-                    // $path = str_replace('public/', '', $path);
-                    $image = new File;
-                    // $image->path = $path;
-                    $image->path = 'exam'.'\\'.$image;
-                    $image->fileable_type = "App\Person";
-                    $image->fileable_id = $person->id;
-                    $image->branch_id = 1;
-                    $image->save();
-                }
+                $person->image->path = $request->image;
+                $person->image->save();
             }
+        }
+
 
             if (!is_null($patient)) {
                 if (!empty($request->disease)) {
@@ -825,6 +801,7 @@ class InController extends Controller
             // exit($nombreImagenGuardada);
         exit($path);
     }
+
 
     public function diseases(Request $request){ //Metodo para agregar enfermedades al paciente en el multiselect de editar historia
 
