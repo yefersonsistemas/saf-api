@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('stock','active')
+{{-- @section('stock','active') --}}
 @section('farma','active')
 @section('farmarol','d-block')
 @section('dire','d-none')
@@ -160,7 +160,11 @@
 
 @section('content')
     <div class="section-body py-0 card-body">
-        <div class="container row d-flex justify-content-between" style="height:650px;">
+      <button id="btnBack" class="btn btn-azuloscuro ml-4 mt-3 mb-0" style="cursor:pointer"><i class="icon-action-undo mx-auto"></i>&nbsp;Salir</button>
+
+        <div class="container row d-flex justify-content-between" style="height:630px;">          
+          {{-- <a href="javascript:history.back(-1);" class="btn btn-lg btn-azuloscuro text-white position-absolute mt-3 ml-3  "><i class="icon-action-undo mx-auto"></i></a>  --}}
+
                 <div class="col-7" style="height: 100%" >
                     <div class="row d-flex justify-content-end mt-4">
                         <label for="" class="col-2 mx-2 d-flex justify-content-end mt-2" style="font-weight:bold">Buscar:</label><input id="buscar_insumo" type="text" class="form-control p-1 pl-3 mr-2 col-4" placeholder="Buscar ..">
@@ -365,9 +369,16 @@
 
     });
     });
+
 </script>
 
 <script>
+
+  btnBack.onclick = function() {
+      window.location.href = '{{ route('farmaceuta.asignacion') }}'   
+    };
+
+
 //===========================mostrar imagen en modal=================================
 $('img[id="myImg"]').on('click',function(){
        var modalImg = this.name;
