@@ -29,6 +29,7 @@ use App\Patient;
 use App\Reservation;
 use App\Surgery;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 use Barryvdh\DomPDF\Facade as PDF; //alias para el componente de pdf
@@ -43,8 +44,8 @@ class DirectorController extends Controller
      */
     public function index()
     {
-
-            //   dd($doctores[0]['nombre']);
+        // $c = count(Auth::user()->getRoleNames()) > 1;
+        // dd($c);
         $employes = Employe::with('person', 'position', 'speciality')->get();
 
         return view('dashboard.director.index', compact('employes', 'doctores'));
