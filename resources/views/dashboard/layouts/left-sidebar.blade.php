@@ -195,8 +195,6 @@
 
 
 
-
-
                 <!-- Se agregó el @yield('farmarol') para lograr el funcionamiento del left-sidebar y nav-bar-->
                 @role('farmaceuta')
                 <div class="">

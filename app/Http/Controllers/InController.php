@@ -40,7 +40,6 @@ class InController extends Controller
      *
      */
 
-
     //=============================Eliminar dropzone=========================
     public function prueba_eliminar(Request $request)
     {
@@ -77,7 +76,9 @@ class InController extends Controller
     {
         $day = Reservation::whereDate('date', '=', Carbon::now()->format('Y-m-d'))->with('person.inputoutput', 'patient.image', 'patient.historyPatient', 'patient.inputoutput','speciality', 'itinerary')->get();
         // dd($day);
-        $employe = Employe::with('schedule')->get();
+        $employe = Employe::with('schedule', 'assistance')->get();
+
+        // dd($employe);
 
         $medicos = array();
         $dia = strtolower(Carbon::now()->locale('en')->dayName);
@@ -87,10 +88,14 @@ class InController extends Controller
         foreach($employe as $item){
             foreach($item->schedule as $em){
                 if($em->day == $dia){
+                    if(!empty($item->assistance->first()))
                     $medicos[] = $item;
                 }
             }
         }
+
+        // dd($medicos);
+
 
         //buscando pacientes que atenderan los medicos que atenderan citas hoy
         $pacientes = array();
@@ -199,7 +204,7 @@ class InController extends Controller
     }
 
     /*
-    * muestra los consultorios
+    * muestra los consultorios en la vista de asistencia del medico
     */
     public function consultorio()
     {
@@ -215,7 +220,7 @@ class InController extends Controller
         //     }
         //limpia los campos  al cumplir la hora y al refrescar la pagina
 
-        $areas = Area::with('image')->where('type_area_id',$type->id)->get();
+        $areas = Area::with('image')->where('type_area_id',$type->id)->get(); //busca rodas las areas de tipo consultorio
         // dd($areas);
         $dia = strtolower(Carbon::now()->locale('en')->dayName);  //da el nombre del dia en ingles
         // dd($dia);
@@ -225,8 +230,13 @@ class InController extends Controller
 
     public function change($id)
     {
-        $area = Area::find($id);
+        $area = Area::with('areaassigment')->where('id', $id)->first();
         // dd($area);
+        $asistencia = Assistance::create([
+            'employe_id' =>  $area->areaassigment->employe_id,
+            'status' => true,
+            'branch_id' => 1,
+        ]);
 
         $area->status = 'ocupado';
         $area->update();
