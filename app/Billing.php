@@ -62,4 +62,9 @@ class Billing extends Model //facturacion
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function surgery()
+    {
+        return $this->hasOne('App\Billing');
+    }
 }
