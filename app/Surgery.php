@@ -90,7 +90,7 @@ class Surgery extends Model
 
     public function billing()
     {
-        return $this->belongsTo('App\billing','billing_id');
+        return $this->belongsTo('App\Billing','billing_id');
     }
     // public function procedure() //relacion  con la tabla m:m 
     // {

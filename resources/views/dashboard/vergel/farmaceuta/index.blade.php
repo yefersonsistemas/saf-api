@@ -66,7 +66,7 @@
                                         <th>Laboratorio</th>
                                         <th>Presentación</th>
                                         <th>Medida</th>
-                                        <th>Cantidad</th>
+                                        {{-- <th>Cantidad</th> --}}
                                         <th>Stock</th>
                                         <th class="text-center">Lote</th>
                                     </tr>
@@ -78,7 +78,7 @@
                                         <th>Laboratorio</th>
                                         <th>Presentación</th>
                                         <th>Medida</th>
-                                        <th>Cantidad</th>
+                                        {{-- <th>Cantidad</th> --}}
                                         <th>Stock</th>
                                         <th class="text-center">Lote</th>
                                     </tr>
@@ -91,7 +91,7 @@
                                             <td>{{$item->medicine_pharmacy->laboratory}}</td>
                                             <td>{{$item->medicine_pharmacy->presentation}}</td>
                                             <td>{{$item->medicine_pharmacy->measure}}</td>
-                                            <td>{{$item->medicine_pharmacy->quantity_Unit}}</td>
+                                            {{-- <td>{{$item->medicine_pharmacy->quantity_Unit}}</td> --}}
                                             <td>{{$item->total}}</td>
                                             <td class="d-flex justify-content-center"><a href="{{route('farmaceuta.add',$item->medicine_pharmacy->id)}}" class="btn btn-verdePastel text-white"><i class="fa fa-plus-circle"></i>&nbsp;Agregar</a></td>
                                         </tr>

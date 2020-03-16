@@ -167,10 +167,10 @@
                     </div>
                 <span class="col-7 card-header px-4">
                     <span class="row pl-4">
-                    <span class="col-3 text-start"><b>NOMBRE</b></span>
-                    <span class="col-3"><b>PRESENTACION</b></span>
+                    <span class="col-4 text-start"><b>NOMBRE</b></span>
+                    <span class="col-4 text-start"><b>PRESENTACION</b></span>
                     <span class="col-2"><b>MEDIDA</b></span>
-                    <span class="col-2"><b>UNIDAD</b></span>
+                    {{-- <span class="col-2"><b>UNIDAD</b></span> --}}
                     <span class="col-2"><b>STOCK</b></span>
                     </span>
                 </span>
@@ -185,10 +185,10 @@
                             <h5 class="mb-0 row b_insumos">
                             <a class="btn col-12" data-toggle="collapse" data-target="#id{{$item->id}}{{$item->medicine_pharmacy->medicine->name}}" aria-expanded="false" aria-controls="">
                                   <span class="row">
-                                    <span class="col-3 text-start">{{ $item->medicine_pharmacy->medicine->name }}</span>
-                                    <span class="col-3">{{ $item->medicine_pharmacy->presentation }}</span>
+                                    <span class="col-4 text-start">{{ $item->medicine_pharmacy->medicine->name }}</span>
+                                    <span class="col-4 text-start">{{ $item->medicine_pharmacy->presentation }}</span>
                                     <span class="col-2">{{ $item->medicine_pharmacy->measure }} </span>
-                                    <span class="col-2">{{ $item->medicine_pharmacy->quantity_Unit }}</span>
+                                    {{-- <span class="col-2">{{ $item->medicine_pharmacy->quantity_Unit }}</span> --}}
                                     <span class="col-2">{{$item->total}}</td>  </span>
                                   </span>
                                 </a>
@@ -374,7 +374,7 @@ $('img[id="myImg"]').on('click',function(){
 
        console.log('aqui va la imagen seleccionada', modalImg);
 
-       concatenar = '/Storage/';
+       concatenar = '/storage/';
        url = concatenar+modalImg;
 
    $('#caption').html('<img src="'+url+'" alt="Snow" class=" ml-3 img-thumbnail modal-content" style="  display: block; width: 80%; max-width: 1500px; ">');

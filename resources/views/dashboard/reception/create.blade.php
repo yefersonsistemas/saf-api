@@ -67,6 +67,7 @@
 
                                             <div class="col-4 d-none justify-content-center" id="circle">
                                                 <input type="hidden" name="file" id="foto">
+                                                
                                                 <div class="avatar-upload">
                                                     <div class="avatar-preview avatar-edit">
                                                         <div id="imagePreview" style="background-image: url();">
@@ -432,6 +433,7 @@ var submitted = false;
                         allowOutsideClick:false,
                     })
                     disabled(data);
+                 
                 }
             })
             .fail(function(data) {
@@ -440,23 +442,30 @@ var submitted = false;
     }
 
     function disabled(data) {
+        // PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
         $('#square').removeClass('d-none');
         $('#square').addClass('d-flex');
         $('#circle').removeClass('d-flex');
         $('#circle').addClass('d-none');
+        // FIN PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
+
+        url = '/storage/'+data.person.image.path;
+        console.log(data.person.image.path);
         $('#name').val(data.person.name);
         $('#lastname').val(data.person.lastname);
         $('#email').val(data.person.email);
         $('#address').val(data.person.address);
         $('#phone').val(data.person.phone);
         $('#newPerson').val(data.person.id);
-        $('.avatar-preview').load(
-            $('#person-id').val(data.person.id),
-            $('#imagen-id').val(data.person.image.id),
-            $('#imagePreview').css('background-image', `url(/storage/${data.person.image.path})`),
-                $('#imagePreview').hide(),
-                $('#imagePreview').fadeIn(650)
-        );
+        // $('.avatar-preview').load(
+        //     $('#person-id').val(data.person.id),
+        //     $('#imagen-id').val(data.person.image.id),
+            $('#imagePreview').html('<img src="'+url+'" alt=""  style="width:100%">');
+
+                // $('#imagePreview').css('background-image', `url(/Storage/${data.person.image.path})` ),
+                // $('#imagePreview').hide(),
+                // $('#imagePreview').fadeIn(650)
+        // );
 
         $("#photo").attr('disabled', true);
         $(".dropify-wrapper").addClass('disabled');
@@ -471,11 +480,13 @@ var submitted = false;
     }
 
     function enabled() {
-        
+        // PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
         $('#square').removeClass('d-flex');
         $('#square').addClass('d-none');
         $('#circle').removeClass('d-node');
         $('#circle').addClass('d-flex');
+        // FIN PARA CAMBIOS EN CANVA DE FOTO DE PERFIL DEL PACIENTE
+
         $("#photo").val('');
         $('#name').val('');
         $('#lastname').val('');

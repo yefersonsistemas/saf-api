@@ -54,7 +54,7 @@
                                                     </div>
                                                     <input type="text" class="form-control mr-2" id="dni" maxlength="9" placeholder="Cédula">
                                                     <input type="hidden" name="patient_id" id="patient_id" >
-                                                    <button type="button" id="search" class="btn btn-azuloscuro text-white "><i class="fa fa-search"></i></button>
+                                                    <a type="button" id="search" class="btn btn-azuloscuro text-white "><i class="fa fa-search"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -243,6 +243,7 @@
         function stopDefAction(evt) {
         evt.preventDefault();
     }
+    
 var form = $('#wizard_horizontal').show();
     form.steps({
         headerTag: 'h2',
@@ -351,6 +352,7 @@ var form = $('#wizard_horizontal').show();
 
     function disabled(data) {
         console.log('hola');
+        url = '/storage/'+data.patient.person.image.path;
         $('#name').val(data.patient.person.name);
         $('#name_pay').text(data.patient.person.name);
         $('#lastname').val(data.patient.person.lastname);
@@ -360,13 +362,10 @@ var form = $('#wizard_horizontal').show();
         $('#phone').val(data.patient.person.phone);
         $('#patient_id').val(data.patient.id);
         //mostrar en resumen
-        $('#name_surgery').text(data.surgery.name);
+        // $('#name_surgery').text(data.surgery.name);
 
-        var concatenar = "Storage\\";
-        console.log('RUTA',data.patient.person.image.path)
-        console.log(concatenar+data.patient.person.image.path);
-        $("#photo").html('<img src="'+concatenar+data.patient.person.image.path+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000">');
-
+        console.log('aqui', url);
+        $("#photo").html('<img src="'+url+'" alt="" class="img-thumbnail" style=" width:100%; height:100%; background:#000;">');
 
         $(".dropify-wrapper").addClass('disabled');
         $('#name').attr('disabled', true);

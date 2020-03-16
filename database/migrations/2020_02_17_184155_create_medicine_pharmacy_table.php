@@ -20,7 +20,7 @@ class CreateMedicinePharmacyTable extends Migration
             $table->string('laboratory');
             $table->string('presentation');
             $table->string('measure');
-            $table->string('quantity_Unit');
+            $table->string('quantity_Unit')->nullable();
             $table->unsignedBigInteger('branch_id');
             $table->timestamps();
 

@@ -9,7 +9,8 @@
     <div class="container mt--20">
 
         @if(count(Auth::user()->getRoleNames()) > 1)
-        <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[11]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
+        {{-- <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[11]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5> --}}
+        <h5 class="brand-name">Director<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
         @else
         <h5 class="brand-name">{{ ucfirst(Auth::user()->getRoleNames()[0]) }}<a href="#" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
         @endif
@@ -48,7 +49,7 @@
                         <div class="checkIn animated fadeIn d-none  @yield('inrol')" >
                         @endrole
                         <li class="g_heading">Check-IN</li>
-                        <li class="@yield('cites')">
+                        <li class="">
                             <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-users"></i>&nbsp;&nbsp;<span>Pacientes</span></a>
                             <ul>
                                 <li class="@yield('day')"><a href="{{ route('checkin.day') }}"><i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp;Citas Del Dia</a></li>
@@ -133,7 +134,7 @@
                     </li>
                     <li><a href="{{ route('all.register') }}"><i class="fa fa-eye"></i>&nbsp;&nbsp;Lista de Registros</a></li>
 
-                    <li class="@yield('cites')">
+                    <li class="">
                         <a href="javascript:void(0)" class="has-arrow arrow-c"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<span>Registrar</span></a>
                         <ul>
                             <li><a href="{{ route('position.create') }}"><i class="fa fa-black-tie"></i>&nbsp;&nbsp;Cargo</a></li>
@@ -189,11 +190,9 @@
                           </ul>
                     </li>
                 <li class="@yield('agendar')"><a href="{{ route('in-out.agendar_cirugia') }}"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>Agendar Cirugias</span></a></li>
-                <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li>
+                {{-- <li class="@yield('facturacion')"><a href="{{ route('in-out.facturacion') }}"><i class="fa fa-money"></i>&nbsp;&nbsp;<span>Facturacion</span></a></li> --}}
                 </div>
                 @endrole
-
-
 
 
 
