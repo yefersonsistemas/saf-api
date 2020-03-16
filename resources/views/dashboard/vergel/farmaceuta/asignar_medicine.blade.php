@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('stock','active')
+{{-- @section('stock','active') --}}
 @section('farma','active')
 @section('farmarol','d-block')
 @section('dire','d-none')
