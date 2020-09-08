@@ -28,6 +28,7 @@ use App\ClassificationSurgery;
 use App\Patient;
 use App\Reservation;
 use App\Surgery;
+use App\Schedule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -48,7 +49,7 @@ class DirectorController extends Controller
         // dd($c);
         $employes = Employe::with('person', 'position', 'speciality')->get();
 
-        return view('dashboard.director.index', compact('employes', 'doctores'));
+        return view('dashboard.director.index', compact('employes'));
     }
 
     /**
@@ -89,7 +90,7 @@ class DirectorController extends Controller
         $employe = Employe::with('person', 'position', 'doctor')->get();
         $fecha = Carbon::now()->format('Y-m-d');
 
-                $pdf = PDF::loadView('dashboard.director.printEmpleados', compact('employe','person','position','doctor','fecha'));
+                $pdf = PDF::loadView('dashboard.director.printEmpleados', compact('employe','fecha'));
 
                 return $pdf->stream('listaempleados.pdf');
     }
@@ -118,9 +119,9 @@ class DirectorController extends Controller
             $diff_E = $speciality->diff($employe->speciality);
             $diff_P = $procedure->diff($employe->procedures);
 
-            $pdf = PDF::loadView('dashboard.director.printEmpleado', compact('buscar_C','id','employe','person','position','doctor','fecha','diff_E','diff_C','precio'));
+            $pdf = PDF::loadView('dashboard.director.printEmpleado', compact('buscar_C','employe','position','fecha','diff_E','diff_C','precio'));
         }else{
-            $pdf = PDF::loadView('dashboard.director.printEmpleado', compact('id','employe','person','position','fecha'));
+            $pdf = PDF::loadView('dashboard.director.printEmpleado', compact('employe','position','fecha'));
         }
 
                 return $pdf->stream('empleado.pdf');
@@ -216,7 +217,10 @@ class DirectorController extends Controller
         $area = Area::with('areaassigment.employe')->where('type_area_id', $type->id)->get();
         // dd($area);
 
-        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases', 'permissions', 'area'));
+        $schedule = Schedule::with('employe.person')->get();
+        // dd($schedule);
+
+        return view('dashboard.director.created', compact('position', 'speciality', 'procedure', 'clases', 'permissions', 'area', 'schedule'));
     }
 
     /**
