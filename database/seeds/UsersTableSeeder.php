@@ -608,9 +608,22 @@ class UsersTableSeeder extends Seeder
             'employe_id' => $employe->id
         ]);
 
+        
+        factory(Schedule::class)->create([
+            'day' => 'wednesday',
+            'turn' => 'mañana',
+            'employe_id' => $employe->id
+        ]);
+
         factory(Schedule::class)->create([
             'day' => 'thursday',
             'turn' => 'mañana',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'thursday',
+            'turn' => 'tarde',
             'employe_id' => $employe->id
         ]);
 
@@ -623,6 +636,12 @@ class UsersTableSeeder extends Seeder
         factory(Schedule::class)->create([
             'day' => 'tuesday',
             'turn' => 'mañana',
+            'employe_id' => $employe->id
+        ]);
+
+          factory(Schedule::class)->create([
+            'day' => 'tuesday',
+            'turn' => 'tarde',
             'employe_id' => $employe->id
         ]);
 
@@ -1042,8 +1061,20 @@ class UsersTableSeeder extends Seeder
             ]);
 
             factory(Schedule::class)->create([
+                'day' => 'wednesday',
+                'turn' => 'tarde',
+                'employe_id' => $employe1->id
+            ]);
+
+            factory(Schedule::class)->create([
                 'day' => 'thursday',
                 'turn' => 'mañana',
+                'employe_id' => $employe1->id
+            ]);
+
+            factory(Schedule::class)->create([
+                'day' => 'thursday',
+                'turn' => 'tarde',
                 'employe_id' => $employe1->id
             ]);
 
@@ -1056,6 +1087,12 @@ class UsersTableSeeder extends Seeder
             factory(Schedule::class)->create([
                 'day' => 'tuesday',
                 'turn' => 'mañana',
+                'employe_id' => $employe1->id
+            ]);
+
+            factory(Schedule::class)->create([
+                'day' => 'tuesday',
+                'turn' => 'tarde',
                 'employe_id' => $employe1->id
             ]);
 

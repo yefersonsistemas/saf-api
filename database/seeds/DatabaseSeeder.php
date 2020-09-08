@@ -69,6 +69,8 @@ class DatabaseSeeder extends Seeder
     $this->call(FileInternistaTableSeeder::class);
     $this->call(FileAnestesiologoTableSeeder::class);
     $this->call(FileDoctorTableSeeder::class);
+    $this->call(InputOutputTableSeeder::class);
+    
     Schema::enableForeignKeyConstraints();
 
     }

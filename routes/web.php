@@ -93,7 +93,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('guardar_foto', 'InController@guardar_foto')->name('checkin.avatar');
         Route::get('mostrar', 'InController@consultorio')->name('checkin.consultorio');  //muestra los consultorios
         Route::get('change/{id}', 'InController@change')->name('checkin.cambiar');
-
+        
         // Recepcion
         Route::get('cite/create','CitaController@create')->name('reservations.create');
         Route::get('cite/edit/{cite}','CitaController@edit')->name('reservation.edit');
