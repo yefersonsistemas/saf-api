@@ -431,6 +431,59 @@
         $('#direccionC').removeAttr('disabled');
         $('#phoneC').removeAttr('disabled');
 
+
+        $('#agregar_agregar').html(`<a class="btn btn-secondary text-white" data-dismiss="modal">Cerrar</a>
+                                    <a class="btn btn-azuloscuro text-white" data-dismiss="modal" id="registrar">Registrar</a>`);
+                                    
+
+        $("#registrar").click(function() {
+
+            console.log('kenwherly')
+            var tipo_dni = $("#type_dni").val();
+            var dni = $("#buscar_dni").val();
+            var name =  $("#nameC").val();
+            var lastname = $("#lastnameC").val();
+            var phone = $("#phoneC").val();
+            var email = $("#emailC").val();
+            var address = $("#direccionC").val();
+
+            console.log(name)
+            if(phone == ''){ phone = null; }
+            if(email == ''){ email=null;   }
+
+            console.log('cedule',dni.length);
+
+            if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 ){
+                if(tipo_dni == '' || dni == '' || dni.length < 7 || dni.length > 9 || name == '' || lastname == '' || address == ''){
+
+                    Swal.fire({
+                    title: 'Datos incompletos',
+                    text: "Click OK para continuar!!",
+                    type: 'error',
+                    allowOutsideClick:false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '<a href="#otro" style="color:#fff" data-toggle="modal">OK</a>'
+                    }).then((result) => {
+                        if (result.value) {
+                        }
+                    })
+                }else{
+                    Swal.fire({
+                    title: 'Documento de identidad incompleto',
+                    text: "Click OK para continuar!!",
+                    type: 'error',
+                    allowOutsideClick:false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '<a href="#otro" style="color:#fff" data-toggle="modal">OK</a>'
+                    }).then((result) => {
+                        if (result.value) {
+                        }
+                    })
+                }
+            }else{
+                registrar_cliente(tipo_dni, dni, name, lastname, phone, email, address);
+            }
+        });
         }
 
         function mostrar_persona(data) {
@@ -462,9 +515,6 @@
         });
 
     }
-
-
-
 
         // ==================== ejecuta cuando se clikea el boton de registrar otro =====================
         $("#registrar").click(function() {
