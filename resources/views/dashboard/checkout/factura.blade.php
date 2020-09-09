@@ -419,11 +419,18 @@
 
         //===========desabilitando inputs en el modal de registrar otro cliente=========
         function enabled(){
+        $('#nameC').val(' ');
+        $('#lastnameC').val(' ');
+        $('#emailC').val(' ');
+        $('#direccionC').val(' ');
+        $('#phoneC').val(' ');
+
         $('#nameC').removeAttr('disabled');
         $('#lastnameC').removeAttr('disabled');
         $('#emailC').removeAttr('disabled');
         $('#direccionC').removeAttr('disabled');
         $('#phoneC').removeAttr('disabled');
+
         }
 
         function mostrar_persona(data) {
