@@ -596,9 +596,15 @@ class UsersTableSeeder extends Seeder
         //     'employe_id' => $employe->id
         // ]);
 
-        factory(Schedule::class)->create([
+           factory(Schedule::class)->create([
             'day' => 'friday',
             'turn' => 'tarde',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'friday',
+            'turn' => 'mañana',
             'employe_id' => $employe->id
         ]);
 
@@ -642,6 +648,36 @@ class UsersTableSeeder extends Seeder
           factory(Schedule::class)->create([
             'day' => 'tuesday',
             'turn' => 'tarde',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'monday',
+            'turn' => 'tarde',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'sunday',
+            'turn' => 'tarde',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'sunday',
+            'turn' => 'mañana',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'saturday',
+            'turn' => 'tarde',
+            'employe_id' => $employe->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'saturday',
+            'turn' => 'mañana',
             'employe_id' => $employe->id
         ]);
 
@@ -1048,53 +1084,90 @@ class UsersTableSeeder extends Seeder
             //     'employe_id' => $employe1->id
             // ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'friday',
-                'turn' => 'tarde',
-                'employe_id' => $employe1->id
-            ]);
+          factory(Schedule::class)->create([
+            'day' => 'friday',
+            'turn' => 'tarde',
+            'employe_id' => $employe1->id
+        ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'wednesday',
-                'turn' => 'mañana',
-                'employe_id' => $employe1->id
-            ]);
+        factory(Schedule::class)->create([
+            'day' => 'friday',
+            'turn' => 'mañana',
+            'employe_id' => $employe1->id
+        ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'wednesday',
-                'turn' => 'tarde',
-                'employe_id' => $employe1->id
-            ]);
+        factory(Schedule::class)->create([
+            'day' => 'wednesday',
+            'turn' => 'tarde',
+            'employe_id' => $employe1->id
+        ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'thursday',
-                'turn' => 'mañana',
-                'employe_id' => $employe1->id
-            ]);
+        
+        factory(Schedule::class)->create([
+            'day' => 'wednesday',
+            'turn' => 'mañana',
+            'employe_id' => $employe1->id
+        ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'thursday',
-                'turn' => 'tarde',
-                'employe_id' => $employe1->id
-            ]);
+        factory(Schedule::class)->create([
+            'day' => 'thursday',
+            'turn' => 'mañana',
+            'employe_id' => $employe1->id
+        ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'monday',
-                'turn' => 'mañana',
-                'employe_id' => $employe1->id
-            ]);
-    
-            factory(Schedule::class)->create([
-                'day' => 'tuesday',
-                'turn' => 'mañana',
-                'employe_id' => $employe1->id
-            ]);
+        factory(Schedule::class)->create([
+            'day' => 'thursday',
+            'turn' => 'tarde',
+            'employe_id' => $employe1->id
+        ]);
 
-            factory(Schedule::class)->create([
-                'day' => 'tuesday',
-                'turn' => 'tarde',
-                'employe_id' => $employe1->id
-            ]);
+        factory(Schedule::class)->create([
+            'day' => 'monday',
+            'turn' => 'mañana',
+            'employe_id' => $employe1->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'tuesday',
+            'turn' => 'mañana',
+            'employe_id' => $employe1->id
+        ]);
+
+          factory(Schedule::class)->create([
+            'day' => 'tuesday',
+            'turn' => 'tarde',
+            'employe_id' => $employe1->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'monday',
+            'turn' => 'tarde',
+            'employe_id' => $employe1->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'sunday',
+            'turn' => 'tarde',
+            'employe_id' => $employe1->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'sunday',
+            'turn' => 'mañana',
+            'employe_id' => $employe1->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'saturday',
+            'turn' => 'tarde',
+            'employe_id' => $employe1->id
+        ]);
+
+        factory(Schedule::class)->create([
+            'day' => 'saturday',
+            'turn' => 'mañana',
+            'employe_id' => $employe1->id
+        ]);
 
             
             factory(Area::class)->create([
